@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SMS_Portal.Controllers.PostLogin.Home
+namespace SMSPortal.Controllers.PostLogin
 {
-    public class HomeController : Controller
+    public class AccountsController : Controller
     {
         //
-        // GET: /Home/
+        // GET: /Accounts/
 
         public ActionResult Index()
         {
