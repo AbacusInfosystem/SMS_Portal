@@ -4,9 +4,9 @@ using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
-using SMS_Portal.Models;
+using SMSPortal.Models;
 
-namespace SMS_Portal.Filters
+namespace SMSPortal.Filters
 {
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
 	public sealed class InitializeSimpleMembershipAttribute:ActionFilterAttribute

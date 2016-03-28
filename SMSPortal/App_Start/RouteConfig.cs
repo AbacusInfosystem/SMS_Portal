@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SMS_Portal
+namespace SMSPortal
 {
 	public class RouteConfig
 	{
@@ -18,10 +18,11 @@ namespace SMS_Portal
 				url :"{controller}/{action}/{id}",
 				defaults :new
 				{
-					controller = "Home",
+					controller = "Accounts",
 					action = "Index",
 					id = UrlParameter.Optional
-				}
+				},
+                namespaces: new string[] { "SMSPortal.Controllers" }
 			);
 		}
 	}
