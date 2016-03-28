@@ -1,0 +1,147 @@
+﻿@{
+        if(!Request.Url.AbsolutePath.Trim().Equals("/Home/Logout",StringComparison.CurrentCultureIgnoreCase))
+        {
+            Response.AddHeader("Cache-Control", "no-cache; private; no-store; must-revalidate; max-stale=0; post-check=0; pre-check=0; max-age=0");
+            Response.AddHeader("Pragma", "no-cache");
+        }
+        Response.Cache.SetAllowResponseInBrowserHistory(false);
+
+        //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        //Response.Cache.SetNoStore();
+
+        Response.Cache.SetExpires(DateTime.Now.AddSeconds(5));
+        Response.Cache.SetExpires(DateTime.UtcNow.AddSeconds(5));
+        Response.Cache.SetNoServerCaching();
+        Response.Cache.SetValidUntilExpires(true);
+        Response.Cache.SetMaxAge(TimeSpan.FromSeconds(5));
+        Response.Cache.SetProxyMaxAge(TimeSpan.Zero);
+        //Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+        }
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width" />
+
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/AdminLTE/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/Content/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="/Content/css/ionicons.min.css" rel="stylesheet" />
+
+    <link href="/Content/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <link href="/Content/AdminLTE/bootstrap/js/bootstrap.js" rel="stylesheet" />
+
+    <!-- Theme style -->
+    <link href="~/Content/AdminLTE/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="~/Content/AdminLTE/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- iCheck -->
+    <link href="~/Content/AdminLTE/plugins/iCheck/skins/square/green.css" rel="stylesheet" />
+
+    <!-- Date Picker -->
+    <link href="~/Content/AdminLTE/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery 2.1.3 -->
+    <script src="/Content/AdminLTE/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/Scripts/jquery-ui-1.11.2.min.js"></script>
+
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+    	$.widget.bridge('uibutton', $.ui.button);
+    </script>
+
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="/Content/AdminLTE/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+   
+    <!-- datepicker -->
+    <script src="/Content/AdminLTE/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="/Content/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+
+    <!-- AdminLTE App -->
+    <script src="/Content/AdminLTE/dist/js/app.min.js" type="text/javascript"></script>
+
+    <!-- iCheck -->
+    <script src="/Content/AdminLTE/plugins/iCheck/icheck.js"></script>
+
+    <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" media="all" />
+
+
+    <script src="/Scripts/generic.message.js"></script>
+
+    <script src="/Scripts/jquery-migrate-1.0.0.js"></script>
+
+    <script src="/Scripts/ulblock.js"></script>
+
+    <script src="/Scripts/generic.dragdrop.js"></script>
+</head>
+
+<body class="skin-blue">
+
+    <div class="wrapper">
+
+        @{Html.RenderPartial("_Header");}
+
+        @{Html.RenderPartial("_Sidebar");}
+       
+        @RenderBody()
+
+        @{Html.RenderPartial("_Footer");}
+
+    </div>
+
+
+
+
+    <div class="modal fade" id="div_Parent_Modal_Fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header" id="div_Parent_Modal_Header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">&nbsp;</h4>
+                </div>
+                <div class="modal-body" id="div_Parent_Modal_Body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="div_Child_Modal_Fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header" id="div_Child_Modal_Header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">&nbsp;</h4>
+                </div>
+                <div class="modal-body" id="div_Child_Modal_Body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

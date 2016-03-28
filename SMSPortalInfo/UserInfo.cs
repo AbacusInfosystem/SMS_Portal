@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SMSPortalInfo
+{
+	public class UsersInfo
+	{
+		public int UserId
+		{
+			get;
+			set;
+		}
+
+		public string FirstName
+		{
+			get;
+			set;
+		}
+
+		public string LastName
+		{
+			get;
+			set;
+		}
+
+		public string UserName
+		{
+			get;
+			set;
+		}
+
+		public string Password
+		{
+			get;
+			set;
+		}
+
+		public DateTime LastLoginDate
+		{
+			get;
+			set;
+		}
+
+		public DateTime CreatedOn
+		{
+			get;
+			set;
+		}
+
+		public int CreatedBy
+		{
+			get;
+			set;
+		}
+
+		public DateTime UpdatedOn
+		{
+			get;
+			set;
+		}
+
+		public int UpdatedBy
+		{
+			get;
+			set;
+		}
+
+	}
+}

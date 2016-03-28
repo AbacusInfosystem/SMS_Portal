@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSPortalInfo", "SMSPortalInfo\SMSPortalInfo.csproj", "{AE299B99-3BDE-41BC-AF81-2E2741626A11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSPortalRepo", "SMSPortalRepo\SMSPortalRepo.csproj", "{FCD376ED-773D-460F-B4C3-5360A832558D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AE299B99-3BDE-41BC-AF81-2E2741626A11} = {AE299B99-3BDE-41BC-AF81-2E2741626A11}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSPortalManager", "SMSPortalManager\SMSPortalManager.csproj", "{B27E4146-25A4-44CD-8422-52A4433EFEF0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3DAF3E14-120C-4CF1-8553-E62717579B6A} = {3DAF3E14-120C-4CF1-8553-E62717579B6A}
+		{AE299B99-3BDE-41BC-AF81-2E2741626A11} = {AE299B99-3BDE-41BC-AF81-2E2741626A11}
+		{FCD376ED-773D-460F-B4C3-5360A832558D} = {FCD376ED-773D-460F-B4C3-5360A832558D}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSPortal", "SMSPortal\SMSPortal.csproj", "{0ED4D5E6-0F00-42F6-856E-FDB659D86FC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSPortalHelper", "SMSPortalHelper\SMSPortalHelper.csproj", "{3DAF3E14-120C-4CF1-8553-E62717579B6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE299B99-3BDE-41BC-AF81-2E2741626A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE299B99-3BDE-41BC-AF81-2E2741626A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE299B99-3BDE-41BC-AF81-2E2741626A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE299B99-3BDE-41BC-AF81-2E2741626A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCD376ED-773D-460F-B4C3-5360A832558D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCD376ED-773D-460F-B4C3-5360A832558D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCD376ED-773D-460F-B4C3-5360A832558D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCD376ED-773D-460F-B4C3-5360A832558D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B27E4146-25A4-44CD-8422-52A4433EFEF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B27E4146-25A4-44CD-8422-52A4433EFEF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B27E4146-25A4-44CD-8422-52A4433EFEF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B27E4146-25A4-44CD-8422-52A4433EFEF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED4D5E6-0F00-42F6-856E-FDB659D86FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED4D5E6-0F00-42F6-856E-FDB659D86FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED4D5E6-0F00-42F6-856E-FDB659D86FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED4D5E6-0F00-42F6-856E-FDB659D86FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DAF3E14-120C-4CF1-8553-E62717579B6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DAF3E14-120C-4CF1-8553-E62717579B6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DAF3E14-120C-4CF1-8553-E62717579B6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DAF3E14-120C-4CF1-8553-E62717579B6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
