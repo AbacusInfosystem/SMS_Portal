@@ -21,7 +21,7 @@ namespace SMSPortal.Common
 
                 //This would search for view in
                 //Views/PostLogin/Home/<calling controllers name>/<view name>.cshtml
-               "~/Views/PostLogin/Home/{1}/{0}.cshtml", 
+               //"~/Views/PostLogin/Home/{1}/{0}.cshtml", 
 
                 //This would search for view in
                 //Views/PostLogin/Masters/<calling controllers name>/<view name>.cshtml
