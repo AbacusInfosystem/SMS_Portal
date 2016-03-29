@@ -18,7 +18,7 @@ namespace SMSPortal
 				url :"{controller}/{action}/{id}",
 				defaults :new
 				{
-					controller = "Accounts",
+					controller = "Login",
 					action = "Index",
 					id = UrlParameter.Optional
 				},

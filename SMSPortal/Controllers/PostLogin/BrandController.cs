@@ -6,14 +6,19 @@ using System.Web.Mvc;
 
 namespace SMSPortal.Controllers.PostLogin
 {
-    public class AccountsController : Controller
+    public class BrandController : Controller
     {
         //
-        // GET: /Accounts/
+        // GET: /Brand/
+
+        public ActionResult Search()
+        {
+            return View("Search");
+        }
 
         public ActionResult Index()
         {
-            return View("Login");
+            return View("Index");
         }
 
     }
