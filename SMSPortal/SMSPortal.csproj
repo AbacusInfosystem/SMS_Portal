@@ -192,7 +192,9 @@
     <Compile Include="Common\MessageStore.cs" />
     <Compile Include="Common\SessionExpiredAttribute.cs" />
     <Compile Include="Controllers\PostLogin\AccountsController.cs" />
+    <Compile Include="Controllers\PostLogin\BrandController.cs" />
     <Compile Include="Controllers\PostLogin\HomeController.cs" />
+    <Compile Include="Controllers\PreLogin\LoginController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -752,6 +754,7 @@
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\ionicons.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\images\Login.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -949,12 +952,13 @@
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\PostLogin\Accounts\Index.cshtml" />
     <Content Include="Views\PostLogin\Home\Index.cshtml" />
+    <Content Include="Views\PreLogin\Login\Index.cshtml" />
+    <Content Include="Views\PreLogin\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\PostLogin\Brand\Search.cshtml" />
+    <Content Include="Views\PostLogin\Brand\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\images\" />
-    <Folder Include="Controllers\PreLogin\" />
-    <Folder Include="Views\PreLogin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
