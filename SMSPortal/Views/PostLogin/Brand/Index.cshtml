@@ -1,4 +1,16 @@
-﻿
+﻿<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('input:not(.non-iCheck input:checkbox)').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
+
+    });
+</script>
+
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -29,14 +41,16 @@
                         <div class="box-body">
 
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Brand Name</label>
                                         <input type="text" class="form-control input-sm" name="" id="txtBrand_Name" placeholder="Enter brand name" value="" maxlength="20">
                                     </div>
-                                </div>
+                                </div>                          
+                            </div>
 
-                                <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Brand Category</label>
                                         <select id="drpBrand_Category" class="form-control" name="">
@@ -44,7 +58,15 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="chkStatus" checked="checked" />
+                                        &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                    </label>
+                                </div>                                
                             </div>
 
                             <div class="box-footer">

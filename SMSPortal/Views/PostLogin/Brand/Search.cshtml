@@ -1,4 +1,15 @@
-﻿
+﻿<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.iradio-list').iCheck({
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
+
+    });
+</script>
+
 <form id="frmBrand" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -28,10 +39,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="color: #333">Brand : </label>
-                                        <select id="drpBrand_Name" class="form-control" name="Filter.Brand_Id">
-                                            <option value="">-Select Brand Name-</option>
-                                        </select>
+                                        <label style="color: #333">Brand Name</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtBrand_Name" placeholder="Enter brand name" value="" maxlength="20">
                                     </div>
                                 </div>
 
@@ -39,15 +48,16 @@
 
                             <div class="box-footer">
                                 <div class="row">
+                                    <div class="col-md-12">
 
-                                    <div class="btn-group pull-left">
-                                        <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Brand")">Create </a>
-                                        <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
-                                    </div>
+                                        <div class="btn-group pull-left">
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Brand")">Create </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                        </div>
 
-                                    <div class="btn-group pull-right">
-                                        <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                        <button type="button" id="btnDelete" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#DeleteRecord">Delete </button>
+                                        <div class="btn-group pull-right">
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>                                            
+                                        </div>
                                     </div>
                                 </div>
 
@@ -64,9 +74,16 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-striped" id="tblBrandMaster">
                                 <tr id="subhead">
+                                    <th></th>
                                     <th>Brand Name</th>
                                     <th>Brand Category</th>
                                     <th>Status</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_BrandId" class="iradio-list" /></td>
+                                    <td>BMW</td>
+                                    <td>Elite</td>
+                                    <td>Active</td>
                                 </tr>
                             </table>
                         </div>
