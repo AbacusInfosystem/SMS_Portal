@@ -1,5 +1,96 @@
-﻿@{
-    ViewBag.Title = "Index";
-}
+﻿<script src="~/Scripts/Module/Brand/brand_evnents.js"></script>
+<script type="text/javascript">
 
-<h2>Index</h2>
+    $(document).ready(function () {
+
+        $('input:not(.non-iCheck input:checkbox)').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
+
+    });
+    $(document).ready(function () {
+
+        $("#datepicker").datepicker({
+            changeMonth: true,//this option for allowing user to select month
+            changeYear: true //this option for allowing user to select from year range
+        });
+    });
+
+
+
+</script>
+
+<div class="content-wrapper">
+    @*@{Html.RenderPartial("_ServerMessage");}*@
+    <section class="content-header">
+        <h1>
+            Invoice Master
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+
+            <li class="active">Admin</li>
+
+            <li class="active">Invoice</li>
+
+        </ol>
+    </section>
+
+    <form id="frmInvoiceMaster">
+
+        <section class="content">
+            <div class="box box-primary">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box-header with-border">
+                            <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
+                            <h3 class="box-title">Invoice</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Invoice No</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtInvoice_No" placeholder="Enter invoice no" value="" maxlength="20">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Order</label>
+                                        <select id="drpOrder" class="form-control" name="">
+                                            <option value="">-Select Order-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Invoice Date</label></br>
+                                        <input type="text" class="form-control input-sm" placeholder="Enter invoice Date" id="datepicker" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="btn-group">
+                                    <button type="button" id="btnSave" class="btn btn-success btn-sm">Save</button>
+                                    <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>
