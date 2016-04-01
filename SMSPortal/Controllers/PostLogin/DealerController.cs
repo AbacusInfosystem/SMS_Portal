@@ -10,7 +10,7 @@ namespace SMSPortal.Controllers.PostLogin
     {
         //
         // GET: /Dealer/
-        public ActionResult Search()
+        public ActionResult Search() 
         {
             return View("Search");
         }
