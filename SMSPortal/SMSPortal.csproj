@@ -193,7 +193,11 @@
     <Compile Include="Common\SessionExpiredAttribute.cs" />
     <Compile Include="Controllers\PostLogin\AccountsController.cs" />
     <Compile Include="Controllers\PostLogin\BrandController.cs" />
+    <Compile Include="Controllers\PostLogin\DealerController.cs" />
     <Compile Include="Controllers\PostLogin\HomeController.cs" />
+    <Compile Include="Controllers\PostLogin\InvoiceController.cs" />
+    <Compile Include="Controllers\PostLogin\ProductController.cs" />
+    <Compile Include="Controllers\PostLogin\VendorController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -956,6 +960,14 @@
     <Content Include="Views\PreLogin\Login\ForgotPassword.cshtml" />
     <Content Include="Views\PostLogin\Brand\Search.cshtml" />
     <Content Include="Views\PostLogin\Brand\Index.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\Search.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\Index.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\Search.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\Index.cshtml" />
+    <Content Include="Views\PostLogin\Product\Index.cshtml" />
+    <Content Include="Views\PostLogin\Product\Search.cshtml" />
+    <Content Include="Views\PostLogin\Invoice\Search.cshtml" />
+    <Content Include="Views\PostLogin\Invoice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
