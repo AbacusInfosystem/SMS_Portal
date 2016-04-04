@@ -6,27 +6,17 @@ using System.Web.Mvc;
 
 namespace SMSPortal.Controllers.PostLogin
 {
-    public class VendorController : Controller
+    public class UserController : Controller
     {
         //
-        // GET: /Vendor/
+        // GET: /User/
         public ActionResult Search()
         {
             return View("Search");
         }
-
         public ActionResult Index()
         {
             return View("Index");
-        }
-        public ActionResult AddProductMapping()
-        {
-            return View("AddProductMapping");
-        }
-
-        public PartialViewResult Add_Bank_Details()
-        {
-            return PartialView("_AddBankDetails");
         }
 
     }

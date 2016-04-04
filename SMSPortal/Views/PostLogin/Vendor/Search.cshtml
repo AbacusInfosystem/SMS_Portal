@@ -1,4 +1,7 @@
-﻿<script type="text/javascript">
+﻿<script src="~/Scripts/Module/Vendor/search_vendor_methods.js"></script>
+<script src="~/Scripts/Module/Vendor/search_vendor_evnents.js"></script>
+
+<script type="text/javascript">
 
     $(document).ready(function () {
 
@@ -57,7 +60,7 @@
 
                                         <div class="btn-group pull-right">
                                             <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddProductMapping", "Vendor")">Add Product Mapping</a>
+                                            <button type="button" id="btnAddBankDetails" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Bank Details </button>
                                         </div>
                                     </div>
                                 </div>

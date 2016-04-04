@@ -1,15 +1,5 @@
-﻿<script type="text/javascript">
+﻿<script src="~/Scripts/Module/Dealer/Dealer_evnents.js"></script>
 
-    $(document).ready(function () {
-
-        $('input:not(.non-iCheck input:checkbox)').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
 
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
@@ -100,7 +90,7 @@
                                             <div class="form-group">
                                                 <label style="color: #333">Address</label>
 
-                                                <textarea class="form-control" placeholer="Address"></textarea>
+                                                <textarea class="form-control"></textarea>
                                             </div>
 
 
@@ -166,7 +156,7 @@
 
                         <div class="box-footer">
                             <div class="btn-group">
-                                <button type="button" id="btnSave" class="btn btn-success btn-sm">Save</button>
+                                <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
                                 <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
                             </div>
                         </div>

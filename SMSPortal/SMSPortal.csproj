@@ -197,6 +197,7 @@
     <Compile Include="Controllers\PostLogin\HomeController.cs" />
     <Compile Include="Controllers\PostLogin\InvoiceController.cs" />
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
+    <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -924,6 +925,11 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Module\Brand\brand_evnents.js" />
+    <Content Include="Scripts\Module\Dealer\Dealer_evnents.js" />
+    <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
+    <Content Include="Scripts\Module\Product\Product_evnents.js" />
+    <Content Include="Scripts\Module\User\User_evnents.js" />
+    <Content Include="Scripts\Module\Vendor\Vendor_evnents.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -969,6 +975,10 @@
     <Content Include="Views\PostLogin\Product\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Index.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\_AddBankDetails.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\AddProductMapping.cshtml" />
+    <Content Include="Views\PostLogin\User\Index.cshtml" />
+    <Content Include="Views\PostLogin\User\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

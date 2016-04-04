@@ -10,20 +10,20 @@
     });
 </script>
 
-<form id="frmDealer" enctype="multipart/form-data">
+<form id="frmUser" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @*@{Html.RenderPartial("_ServerMessage");}*@
         <section class="content-header">
             <h1>
-                Dealer Master
+                User Master
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Dealer</li>
+                <li class="active">User</li>
             </ol>
         </section>
 
@@ -33,14 +33,14 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Dealer</h3>
+                            <h3 class="box-title">User</h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="color: #333">Dealer Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtDealer_Name" placeholder="Enter Dealer name" value="" maxlength="20">
+                                        <label style="color: #333">User Name</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtUser_Name" placeholder="Enter user name" value="" maxlength="20">
                                     </div>
                                 </div>
 
@@ -51,12 +51,12 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Dealer")">Create </a>
-                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "user")">Create </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
                                         </div>
                                     </div>
                                 </div>
@@ -72,30 +72,19 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblDealerMaster">
+                            <table class="table table-striped" id="tblUserMaster">
                                 <tr id="subhead">
                                     <th></th>
-                                    <th>Dealer Name</th>
-                                    <th>Associated Brand</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Contact</th>
                                     <th>Status</th>
                                 </tr>
-                                
                                 <tr>
-                                    <td><input type="radio" id="rdo_DealoerId1" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_DealerId2" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_DealerId3" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>BMW</td>
+                                    <td><input type="radio" id="rdo_UserId" class="iradio-list" /></td>
+                                    <td>abc</td>
+                                    <td>eb</td>
+                                    <td>7070701111</td>
                                     <td>Active</td>
                                 </tr>
                             </table>
@@ -115,9 +104,4 @@
     </div>
     <!-- /.content-wrapper -->
 </form>
-
-
-
-
-
 
