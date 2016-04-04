@@ -1,0 +1,131 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $('input:not(.non-iCheck input:checkbox)').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
+
+<!-- Content Wrapper. Contains page content -->
+@*@{Html.RenderPartial("_ServerMessage");}*@
+
+<form id="frmProductMapping" enctype="multipart/form-data">
+    <!-- Main content -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="color: #333">Select Product</label>
+                            <select id="drpProduct" class="form-control" name="">
+                                <option value="">-Select Product-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="color: #333">Price</label>
+                            <input type="text" maxlength="20" value="" placeholder="Enter Price" id="txtPrice" name="" class="form-control input-sm">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="color: #333">Discount</label>
+                            <input type="text" maxlength="20" value="" placeholder="Enter Discount" id="txtDiscount" name="" class="form-control input-sm">
+                        </div>
+                    </div>
+                    
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="color: #333">Stock</label>
+                            <input type="text" maxlength="20" value="" placeholder="Enter Stock" id="txtStock" name="" class="form-control input-sm">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="color: #333">
+                                Active
+                            </label>
+                            <br />
+                            <input type="checkbox" name="chkStatus" checked="checked" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="btn-group">
+                    <button class="btn btn-success btn-sm" id="btnSave" type="button">Save</button>
+                    <button class="btn btn-warning btn-sm" id="btnReset" type="reset">Reset</button>
+                </div>
+                <div class="btn-group pull-right">
+                    <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+                    <button type="button" id="btnDelete" class="btn btn-warning btn-sm">Delete </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body table-responsive no-padding">
+
+                    <table class="table table-striped" id="tblProductMapping">
+                        <tr id="subhead">
+                            <th></th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Active</th>
+
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="rdo_VendorId2" class="iradio-list" /></td>
+                            <td>Kotak Mahindra</td>
+                            <td>2000</td>
+                            <td>Active</td>
+
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="rdo_VendorId2" class="iradio-list" /></td>
+                            <td>Kotak Mahindra</td>
+                            <td>2000</td>
+
+                            <td>Active</td>
+
+
+                        </tr>
+                        <tr>
+                            <td><input type="radio" id="rdo_VendorId2" class="iradio-list" /></td>
+                            <td>Kotak Mahindra</td>
+                            <td>2000</td>
+
+                            <td>Active</td>
+
+
+                        </tr>
+
+                    </table>
+
+                    @*<div class="box-footer clearfix">
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
+                            </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
