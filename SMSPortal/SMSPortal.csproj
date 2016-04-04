@@ -924,12 +924,12 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\Module\Brand\brand_evnents.js" />
-    <Content Include="Scripts\Module\Dealer\Dealer_evnents.js" />
+    <Content Include="Scripts\Module\Brand\brand_events.js" />
+    <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
-    <Content Include="Scripts\Module\Product\Product_evnents.js" />
-    <Content Include="Scripts\Module\User\User_evnents.js" />
-    <Content Include="Scripts\Module\Vendor\Vendor_evnents.js" />
+    <Content Include="Scripts\Module\Product\Product_events.js" />
+    <Content Include="Scripts\Module\User\User_events.js" />
+    <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
