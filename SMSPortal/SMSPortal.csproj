@@ -992,6 +992,7 @@
     <Content Include="Views\PostLogin\SalesOrder\Index.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\Search.cshtml" />
     <Content Include="Views\PostLogin\Vendor\_AddProductMapping.cshtml" />
+    <Content Include="Views\PostLogin\Brand\_Upload_Brand_Logo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
