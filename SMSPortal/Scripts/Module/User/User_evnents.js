@@ -2,11 +2,11 @@
 
     $(".fa-chevron-left").click(function () {
 
-        $("#frmBrandMaster").attr("action", "/Brand/Search/");
+        $("#frmUserMaster").attr("action", "/User/Search/");
 
-        $("#frmBrandMaster").attr("method", "POST");
+        $("#frmUserMaster").attr("method", "POST");
 
-        $("#frmBrandMaster").submit();
+        $("#frmUserMaster").submit();
 
     });
 

@@ -1,16 +1,5 @@
 ﻿<script src="~/Scripts/Module/Brand/brand_evnents.js"></script>
-<script type="text/javascript">
 
-    $(document).ready(function () {
-
-        $('input:not(.non-iCheck input:checkbox)').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
 
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
@@ -72,7 +61,7 @@
 
                             <div class="box-footer">
                                 <div class="btn-group">
-                                    <button type="button" id="btnSave" class="btn btn-success btn-sm">Save</button>                                    
+                                    <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>                                    
                                     <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
                                 </div>
                             </div>
