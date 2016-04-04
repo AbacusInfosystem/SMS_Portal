@@ -910,6 +910,7 @@
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\generic.popup.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -929,7 +930,9 @@
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Product\Product_evnents.js" />
     <Content Include="Scripts\Module\User\User_evnents.js" />
+    <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
     <Content Include="Scripts\Module\Vendor\Vendor_evnents.js" />
+    <Content Include="Scripts\Module\Vendor\search_vendor_evnents.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
