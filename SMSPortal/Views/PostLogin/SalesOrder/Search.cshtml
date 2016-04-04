@@ -1,0 +1,136 @@
+﻿<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.iradio-list').iCheck({
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%',
+            toggle:true// optional
+        });
+
+    });
+</script>
+
+<form id="frmDealer" enctype="multipart/form-data">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        @*@{Html.RenderPartial("_ServerMessage");}*@
+        <section class="content-header">
+            <h1>
+               Sales Orders
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">Sales Orders</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Sales Orders</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: #333">Order No</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtOrder_No" placeholder="Enter Order No" value="" maxlength="20">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="btn-group pull-left">
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Dealer")">Create </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                        </div>
+
+                                        <div class="btn-group pull-right">
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body table-responsive no-padding">
+                            
+                                <table class="table table-striped" id="tblBrandMaster">
+                                    <tr id="subhead">
+                                        <th></th>
+                                        <th>Order No</th>
+                                        <th>Dealer Name</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
+                                        <td>O123</td>
+                                        <td>Dealer 1</td>
+                                        <td>4000</td>
+                                        <td>04/01/2016</td>
+                                        <td>Active</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
+                                        <td>O123</td>
+                                        <td>Dealer 1</td>
+                                        <td>4000</td>
+                                        <td>04/01/2016</td>
+                                        <td>Active</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
+                                        <td>O123</td>
+                                        <td>Dealer 1</td>
+                                        <td>4000</td>
+                                        <td>04/01/2016</td>
+                                        <td>Active</td>
+                                    </tr>
+                                     
+                                </table>
+                           
+                            @*<div class="box-footer clearfix">
+                                    <div class="pagination pagination-sm no-margin pull-right">
+                                        <ul></ul>
+                                    </div>
+                                    <div id="divSearchGridOverlay" class="overlay">
+                                        <i class="fa fa-refresh fa-spin"></i>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+</form>
+
+
+
+
+
+
