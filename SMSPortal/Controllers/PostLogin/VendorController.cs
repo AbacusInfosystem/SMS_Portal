@@ -14,9 +14,15 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("Search");
         }
+
         public ActionResult Index()
         {
             return View("Index");
+        }
+
+        public PartialViewResult Add_Bank_Details()
+        {
+            return PartialView("_AddBankDetails");
         }
 
     }

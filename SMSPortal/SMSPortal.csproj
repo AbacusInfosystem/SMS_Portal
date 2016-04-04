@@ -924,6 +924,8 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Module\Brand\brand_evnents.js" />
+    <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_search_evnents.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -969,6 +971,7 @@
     <Content Include="Views\PostLogin\Product\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Index.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\_AddBankDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
