@@ -197,6 +197,7 @@
     <Compile Include="Controllers\PostLogin\HomeController.cs" />
     <Compile Include="Controllers\PostLogin\InvoiceController.cs" />
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
+    <Compile Include="Controllers\PostLogin\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
@@ -929,6 +930,7 @@
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
     <Content Include="Scripts\Module\User\User_events.js" />
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
     <Content Include="Web.config" />
@@ -980,6 +982,8 @@
     <Content Include="Views\PostLogin\Vendor\AddProductMapping.cshtml" />
     <Content Include="Views\PostLogin\User\Index.cshtml" />
     <Content Include="Views\PostLogin\User\Search.cshtml" />
+    <Content Include="Views\PostLogin\PurchaseOrder\Search.cshtml" />
+    <Content Include="Views\PostLogin\PurchaseOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
