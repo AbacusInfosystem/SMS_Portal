@@ -21,5 +21,10 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Index");
         }
 
+        public PartialViewResult Add_Brand_Logo()
+        {
+            return PartialView("_Upload_Brand_Logo");
+        }
+
     }
 }

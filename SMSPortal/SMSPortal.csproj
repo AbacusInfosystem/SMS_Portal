@@ -197,6 +197,7 @@
     <Compile Include="Controllers\PostLogin\HomeController.cs" />
     <Compile Include="Controllers\PostLogin\InvoiceController.cs" />
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
+    <Compile Include="Controllers\PostLogin\SalesOrder.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
@@ -926,6 +927,8 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Module\Brand\brand_events.js" />
+    <Content Include="Scripts\Module\Brand\search_brand_events.js" />
+    <Content Include="Scripts\Module\Brand\search_brand_methods.js" />
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
@@ -980,6 +983,9 @@
     <Content Include="Views\PostLogin\Vendor\AddProductMapping.cshtml" />
     <Content Include="Views\PostLogin\User\Index.cshtml" />
     <Content Include="Views\PostLogin\User\Search.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\Index.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\Search.cshtml" />
+    <Content Include="Views\PostLogin\Brand\_Upload_Brand_Logo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
