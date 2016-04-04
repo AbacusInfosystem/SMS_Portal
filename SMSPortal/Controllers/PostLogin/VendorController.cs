@@ -19,9 +19,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("Index");
         }
-        public ActionResult AddProductMapping()
+        public PartialViewResult Add_Product_Mapping()
         {
-            return View("AddProductMapping");
+            return PartialView("_AddProductMapping");
         }
 
         public PartialViewResult Add_Bank_Details()
