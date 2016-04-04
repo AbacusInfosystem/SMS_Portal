@@ -975,8 +975,6 @@
     <Content Include="Views\PostLogin\Product\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Index.cshtml" />
-    <Content Include="Views\PostLogin\User\Search.cshtml" />
-    <Content Include="Views\PostLogin\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
