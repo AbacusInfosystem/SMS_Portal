@@ -18,6 +18,11 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("Index");
         }
+        public ActionResult OrderDetails()
+        {
+            return View("Index");
+        }
+
 
     }
 }
