@@ -1,12 +1,12 @@
 ﻿$(function () {
 
     $(".fa-chevron-left").click(function () {
-        alert(test);
-        $("#frmSalesOrder").attr("action", "/SalesOrder/Search/");
+        
+        $("#frmOrderDetails").attr("action", "/SalesOrder/Search/");
 
-        $("#frmSalesOrder").attr("method", "POST");
+        $("#frmOrderDetails").attr("method", "POST");
 
-        $("#frmSalesOrder").submit();
+        $("#frmOrderDetails").submit();
 
     });
 });
