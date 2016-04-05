@@ -1,7 +1,4 @@
 ﻿
-<script src="~/Scripts/Module/Product/search_product_methods.js"></script>
-<script src="~/Scripts/Module/Product/search_product_events.js"></script>
-
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -14,20 +11,20 @@
     });
 </script>
 
-<form id="frmProduct" enctype="multipart/form-data">
+<form id="frmPayables" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @*@{Html.RenderPartial("_ServerMessage");}*@
         <section class="content-header">
             <h1>
-               Product master
+                Payable Master
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Product</li>
+                <li class="active">Payable</li>
             </ol>
         </section>
 
@@ -37,14 +34,14 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Product</h3>
+                            <h3 class="box-title">Payable</h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="color: #333">Product Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtProduct_Name" placeholder="Enter product name" value="" maxlength="20">
+                                        <label style="color: #333">Brand Name</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtBrand_Name" placeholder="Enter brand name" value="" maxlength="20">
                                     </div>
                                 </div>
 
@@ -55,14 +52,15 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Product")">Create </a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Payables")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
 
                                         <div class="btn-group pull-right">
                                             <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnUpload" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload </button>                                                                                     
+                                            <button type="button" id="btnUploadLogo" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload </button>
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -77,41 +75,35 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblProductMaster">
+                            <table class="table table-striped" id="tblBrandMaster">
                                 <tr id="subhead">
                                     <th></th>
-                                    <th>Product Name</th>
-                                    <th>Brand</th>
+                                    <th>Brand Name</th>
+                                    <th>Brand Category</th>
                                     <th>Status</th>
                                 </tr>
                                 <tr>
-                                    <td><input type="radio" id="rdo_ProductId1" class="iradio-list" /></td>
-                                    <td>Bag</td>
+                                    <td><input type="radio" id="rdo_BrandId1" class="iradio-list" /></td>
                                     <td>BMW</td>
+                                    <td>Elite</td>
                                     <td>Active</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="radio" id="rdo_ProductId2" class="iradio-list" /></td>
-                                    <td>Bag</td>
+                                    <td><input type="radio" id="rdo_BrandId2" class="iradio-list" /></td>
                                     <td>BMW</td>
+                                    <td>Elite</td>
                                     <td>Active</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="radio" id="rdo_ProductId3" class="iradio-list" /></td>
-                                    <td>Bag</td>
+                                    <td><input type="radio" id="rdo_BrandId3" class="iradio-list" /></td>
                                     <td>BMW</td>
+                                    <td>Elite</td>
                                     <td>Active</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="radio" id="rdo_ProductId4" class="iradio-list" /></td>
-                                    <td>Bag</td>
+                                    <td><input type="radio" id="rdo_BrandId4" class="iradio-list" /></td>
                                     <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_ProductId5" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
+                                    <td>Elite</td>
                                     <td>Active</td>
                                 </tr>
                             </table>

@@ -1,0 +1,62 @@
+﻿<script src="~/Scripts/Module/Product/product_image_events.js"></script>
+
+<form id="frmUploadProductImages" enctype="multipart/form-data">
+
+    <div id="dvImageAttachments">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="productImage" style="color: #333">Image File</label>
+                    <input type="file" id="productImage" name="" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="fileAddressProff" style="color: #333">Is Default</label>
+                    <br />
+                    <input type="checkbox" name="chkStatus" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <button type="button" id="btnAddImageAttachments" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <span class="input-group-btn">
+                    <button type="button" id="btnUpload" class="btn btn-success btn-sm">Upload File</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div id="dumpImageAttachment" style="display:none;">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="fileAddressProff" style="color: #333">Image File</label>
+                <input type="file" id="" name="File" />
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="fileAddressProff" style="color: #333">Is Default</label>
+                <br />
+                <input type="checkbox" name="chkStatus" />
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <button type="button" id="btnRemoveAddressAttachments" class="btn btn-danger btn-sm pull-right remove-image-attachment"><i class="fa fa-remove"></i></button>
+            </div>
+        </div>
+
+    </div>
+</form>
