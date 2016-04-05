@@ -1,8 +1,4 @@
-﻿
-<script src="~/Scripts/Module/Product/search_product_methods.js"></script>
-<script src="~/Scripts/Module/Product/search_product_events.js"></script>
-
-<script type="text/javascript">
+﻿<script type="text/javascript">
 
     $(document).ready(function () {
 
@@ -14,20 +10,20 @@
     });
 </script>
 
-<form id="frmProduct" enctype="multipart/form-data">
+<form id="frmPayables" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @*@{Html.RenderPartial("_ServerMessage");}*@
         <section class="content-header">
             <h1>
-               Product master
+                Payables Master
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Product</li>
+                <li class="active">Payables</li>
             </ol>
         </section>
 
@@ -37,16 +33,17 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Product</h3>
+                            <h3 class="box-title">Payables</h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="color: #333">Product Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtProduct_Name" placeholder="Enter product name" value="" maxlength="20">
+                                        <label style="color: #333">Invoice No</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtinvoice_No" placeholder="Enter invoice no" value="" maxlength="20">
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="box-footer">
@@ -54,13 +51,12 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Product")">Create </a>
-                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Payables")">Create </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnUpload" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload Product Images</button>                                                                                     
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -76,42 +72,31 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblProductMaster">
+                            <table class="table table-striped" id="tblPayablesMaster">
                                 <tr id="subhead">
                                     <th></th>
-                                    <th>Product Name</th>
-                                    <th>Brand</th>
+                                    <th>Invoice No</th>
+                                    <th>Amount</th>
                                     <th>Status</th>
                                 </tr>
+
                                 <tr>
-                                    <td><input type="radio" id="rdo_ProductId1" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
+                                    <td><input type="radio" id="rdo_PayablesId1" name="Receivables" class="iradio-list" /></td>
+                                    <td>001 </td>
+                                    <td>12,222</td>
+                                    <td>vv</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="radio" id="rdo_ProductId2" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
+                                    <td><input type="radio" id="rdo_PayablesId2" name="Receivables" class="iradio-list" /></td>
+                                    <td>002 </td>
+                                    <td>10,000</td>
+                                    <td>ss</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="radio" id="rdo_ProductId3" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_ProductId4" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_ProductId5" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
+                                    <td><input type="radio" id="rdo_PayablesId3" name="Receivables" class="iradio-list" /></td>
+                                    <td>003 </td>
+                                    <td>12000</td>
+                                    <td>dd</td>
                                 </tr>
                             </table>
                         </div>
@@ -130,4 +115,9 @@
     </div>
     <!-- /.content-wrapper -->
 </form>
+
+
+
+
+
 
