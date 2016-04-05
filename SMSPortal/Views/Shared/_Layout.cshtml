@@ -1,22 +1,22 @@
 ﻿@{
-        if(!Request.Url.AbsolutePath.Trim().Equals("/Home/Logout",StringComparison.CurrentCultureIgnoreCase))
-        {
-            Response.AddHeader("Cache-Control", "no-cache; private; no-store; must-revalidate; max-stale=0; post-check=0; pre-check=0; max-age=0");
-            Response.AddHeader("Pragma", "no-cache");
-        }
-        Response.Cache.SetAllowResponseInBrowserHistory(false);
+    if (!Request.Url.AbsolutePath.Trim().Equals("/Home/Logout", StringComparison.CurrentCultureIgnoreCase))
+    {
+        Response.AddHeader("Cache-Control", "no-cache; private; no-store; must-revalidate; max-stale=0; post-check=0; pre-check=0; max-age=0");
+        Response.AddHeader("Pragma", "no-cache");
+    }
+    Response.Cache.SetAllowResponseInBrowserHistory(false);
 
-        //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        //Response.Cache.SetNoStore();
+    //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    //Response.Cache.SetNoStore();
 
-        Response.Cache.SetExpires(DateTime.Now.AddSeconds(5));
-        Response.Cache.SetExpires(DateTime.UtcNow.AddSeconds(5));
-        Response.Cache.SetNoServerCaching();
-        Response.Cache.SetValidUntilExpires(true);
-        Response.Cache.SetMaxAge(TimeSpan.FromSeconds(5));
-        Response.Cache.SetProxyMaxAge(TimeSpan.Zero);
-        //Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
-        }
+    Response.Cache.SetExpires(DateTime.Now.AddSeconds(5));
+    Response.Cache.SetExpires(DateTime.UtcNow.AddSeconds(5));
+    Response.Cache.SetNoServerCaching();
+    Response.Cache.SetValidUntilExpires(true);
+    Response.Cache.SetMaxAge(TimeSpan.FromSeconds(5));
+    Response.Cache.SetProxyMaxAge(TimeSpan.Zero);
+    //Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+}
 
 
 <!DOCTYPE html>
@@ -50,6 +50,10 @@
     <!-- iCheck -->
     <link href="~/Content/AdminLTE/plugins/iCheck/skins/square/green.css" rel="stylesheet" />
 
+    <!-- Custom style classes -->
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+
+
     <!-- Date Picker -->
     <link href="~/Content/AdminLTE/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
 
@@ -67,12 +71,12 @@
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-    	$.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uibutton', $.ui.button);
     </script>
 
     <!-- Bootstrap 3.3.2 JS -->
     <script src="/Content/AdminLTE/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-   
+
     <!-- datepicker -->
     <script src="/Content/AdminLTE/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
 
@@ -104,7 +108,7 @@
         @{Html.RenderPartial("_Header");}
 
         @{Html.RenderPartial("_Sidebar");}
-       
+
         @RenderBody()
 
         @{Html.RenderPartial("_Footer");}
@@ -122,7 +126,7 @@
                     <h4 class="modal-title">&nbsp;</h4>
                 </div>
                 <div class="modal-body" id="div_Parent_Modal_Body">
-                    
+
                 </div>
             </div>
         </div>
