@@ -29,5 +29,10 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_AddBankDetails");
         }
 
+        public ActionResult Profile()
+        {
+            return View("Profile");
+        }
+
     }
 }

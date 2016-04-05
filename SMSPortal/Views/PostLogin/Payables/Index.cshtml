@@ -1,23 +1,32 @@
-﻿
-<script src="~/Scripts/Module/PurchaseOrder/PurchaseOrder_events.js"></script>
+﻿<script src="~/Scripts/Module/Payables/Payables_events.js"></script>
+<script type="text/javascript">
 
+    $(document).ready(function () {
+
+        $('.iradio-list').iCheck({
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
+
+    });
+</script>
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
         <h1>
-            Purchase Order Master
+            Payables Master
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
 
             <li class="active">Admin</li>
 
-            <li class="active">Purchase Order</li>
+            <li class="active">Payables</li>
 
         </ol>
     </section>
 
-    <form id="frmPurchaseOrderMaster">
+    <form id="frmPayablesMaster">
 
         <section class="content">
             <div class="box box-primary">
@@ -25,133 +34,114 @@
                     <div class="col-md-12">
                         <div class="box-header with-border">
                             <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            <h3 class="box-title">Purchase Order</h3>
+                            <h3 class="box-title">Payables </h3>
                         </div>
 
                         <div class="box-body">
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label style="color: #333">Purchase Order No</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtPurchaseOrder_Name" placeholder="Enter purchase order no" value="" maxlength="20">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Vendor</label>
-                                        <select id="drpVendor" class="form-control" name="">
-                                            <option value="">-Select Vendor-</option>
+                                        <label style="color: #333">Invoice No</label>
+                                        <select id="drpInvoiceNo" class="form-control" name="">
+                                            <option value="">-Select Invoice No-</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Purchase Order Items</h3>
+                                    <h3 class="box-title">Payables Items</h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label style="color: #333">Product</label>
-                                                <select id="drpProduct" class="form-control" name="">
-                                                    <option value="">-Select Product-</option>
+                                                <label style="color: #333">Amount</label>
+                                                <input type="text" class="form-control input-sm" name="" id="txtAmount" placeholder="Enter amount" value="" maxlength="20">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label style="color: #333">Transaction Type</label>
+                                                <select id="drpTransaction" class="form-control" name="">
+                                                    <option value="">-Select Transaction Type-</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label style="color: #333">Product Quantity</label>
-                                                <input type="text" class="form-control input-sm" name="" id="txtProductQuantity" placeholder="Enter product quantity" value="" maxlength="20">
+                                                <label style="color: #333">Status</label>
+                                                <select id="drpStatus" class="form-control" name="">
+                                                    <option value="">-Select Status-</option>
+                                                </select>
                                             </div>
                                         </div>
-                            
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label style="color: #333">Product Price</label>
-                                                    <input type="text" class="form-control input-sm" name="" id="txtProductPrice" placeholder="Enter product price" value="" maxlength="20">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label style="color: #333">Status</label>
-                                                    <select id="drpStatus" class="form-control" name="">
-                                                        <option value="">-Select Status-</option>
-                                                    </select>
-                                      
-                                        </div>
-                                        
-                                    </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <br />
                                                 <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
                                             </div>
                                         </div>
+                                    </div>
 
                                 </div><!-- /.box-body -->
-                                @*<div class="box-footer">
-                <div class="btn-group">
-                    <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
-
-                </div>
-            </div>*@
-
                             </div>
-                            
-                                <div class="box">
-                                    <div class="box-header">
-                                        <h3 class="box-title">Purchase Order Item Table</h3>
-                                    </div><!-- /.box-header -->
-                                    <div class="box-body">
-                                        <table class="table table-striped" id="tblPurchaseOrderMaster">
-                                            <tr id="subhead">
-                                                <th>Product</th>
-                                                <th>Product Price</th>
-                                                <th>Product Quantity</th>
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Payables Item Table</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body table-responsive">
+                                    <table id="PayablesTable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Invoice No</th>
+                                                <th>Amount</th>
+                                                <th>Transaction Type</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
 
                                             </tr>
+                                        </thead>
+                                        <tbody>
                                             <tr>
-                                                <td>Bag</td>
                                                 <td>100</td>
-                                                <td>02</td>
+                                                <td>
+                                                    1000000
+                                                </td>
+                                                <td>cc</td>
                                                 <td>cc</td>
                                                 <td>
                                                     <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
                                                     <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
                                                 </td>
-
                                             </tr>
                                             <tr>
-                                                <td>Bag</td>
                                                 <td>100</td>
-                                                <td>02</td>
+                                                <td>
+                                                    1000000
+                                                </td>
+                                                <td>cc</td>
                                                 <td>cc</td>
                                                 <td>
                                                     <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
                                                     <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
                                                 </td>
-
                                             </tr>
                                             <tr>
-                                                <td>Bag</td>
                                                 <td>100</td>
-                                                <td>02</td>
+                                                <td>1000</td>
+                                                <td>cc</td>
                                                 <td>cc</td>
                                                 <td>
                                                     <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
                                                     <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
                                                 </td>
-
                                             </tr>
+                                        </tbody>
 
-                                        </table>
-                                    </div><!-- /.box-body -->
-                                </div>
+                                    </table>
+                                </div><!-- /.box-body -->
+                            </div>
                             <div class="box-footer">
                                 <div class="btn-group">
                                     <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
