@@ -33,13 +33,20 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("SearchOrders");
         }
+
         public ActionResult OrderDetails()
         {
             return View("OrderDetails");
         }
+
         public ActionResult CreateInvoice()
         {
             return View("CreateInvoice");
+        }
+
+        public ActionResult Profile()
+        {
+            return View("Profile");
         }
     }
 }
