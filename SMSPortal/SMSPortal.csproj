@@ -945,6 +945,7 @@
     <Content Include="Scripts\Module\Product\search_product_methods.js" />
     <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\search_sales_order_evnents.js" />
     <Content Include="Scripts\Module\User\User_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_evnents.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
@@ -1019,6 +1020,9 @@
     </Content>
     <Content Include="Views\PostLogin\SalesOrder\OrderItems.cshtml" />
     <Content Include="Views\PostLogin\Invoice\CreateInvoice.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\SearchOrders.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\OrderDetails.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\CreateInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
