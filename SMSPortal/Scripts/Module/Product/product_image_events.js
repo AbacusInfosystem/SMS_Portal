@@ -16,6 +16,12 @@
     	});
 
     	$("#dvImageAttachments").append(div);
+
+    	$("#dvImageAttachments").find("[name='productimage']").last().iCheck({
+    	    checkboxClass: 'icheckbox_square-green',
+    	    radioClass: 'iradio_square-green',
+    	    increaseArea: '20%' // optional
+    	});
     });
 
     $(document).on("click", ".remove-image-attachment", function ()
@@ -65,7 +71,7 @@
 
 $(document).ready(function () {
 
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
+    $('#dvImageAttachments').find("[name='productimage']").iCheck({
         checkboxClass: 'icheckbox_square-green',
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional

@@ -204,6 +204,7 @@
     <Compile Include="Controllers\PostLogin\SalesOrder.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
+    <Compile Include="Controllers\PostLogin\VendorProfileController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -939,6 +940,7 @@
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
+    <Content Include="Scripts\Module\Payables\Payables_events.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
     <Content Include="Scripts\Module\Product\product_image_events.js" />
     <Content Include="Scripts\Module\Product\search_product_events.js" />
@@ -1008,21 +1010,23 @@
     <Content Include="Views\PostLogin\Product\_Product_Images.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
-    <Content Include="Views\PostLogin\Payables\Search.cshtml" />
-    <Content Include="Views\PostLogin\Payables\Index.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Search.cshtml" />
-    <Content Include="Views\PostLogin\Payables\Index.cshtml" />
-    <Content Include="Views\PostLogin\Payables\Search.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
-    <Content Include="Views\PostLogin\SalesOrder\OrderDetails.cshtml">
-      <SubType>Code</SubType>
-    </Content>
+    <Content Include="Views\PostLogin\Receivable\Index.cshtml" />
+    <Content Include="Views\PostLogin\Receivable\VendorSearch.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\VendorProfileDetails.cshtml" />
+    <Content Include="Views\PostLogin\Receivable\VendorIndex.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\OrderDetails.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\OrderItems.cshtml" />
+    <Content Include="Views\PostLogin\VendorProfile\Index.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\Profile.cshtml" />
+    <Content Include="Views\PostLogin\Payables\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\CreateInvoice.cshtml" />
     <Content Include="Views\PostLogin\Vendor\SearchOrders.cshtml" />
     <Content Include="Views\PostLogin\Vendor\OrderDetails.cshtml" />
     <Content Include="Views\PostLogin\Vendor\CreateInvoice.cshtml" />
+    <Content Include="Views\PostLogin\Payables\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

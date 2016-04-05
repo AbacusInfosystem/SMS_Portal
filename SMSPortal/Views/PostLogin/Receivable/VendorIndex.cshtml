@@ -1,4 +1,18 @@
-﻿<script src="~/Scripts/Module/Payables/Payables_events.js"></script>
+﻿<script>
+    $(function () {
+
+        $(".fa-chevron-left").click(function () {
+
+            $("#frmVendorReceivableMaster").attr("action", "/Receivable/VendorSearch/");
+
+            $("#frmVendorReceivableMaster").attr("method", "POST");
+
+            $("#frmVendorReceivableMaster").submit();
+
+        });
+
+    });
+</script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -14,19 +28,19 @@
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
         <h1>
-            Payables Master
+            Receivable Master
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
 
             <li class="active">Admin</li>
 
-            <li class="active">Payables</li>
+            <li class="active">Receivable</li>
 
         </ol>
     </section>
 
-    <form id="frmPayablesMaster">
+    <form id="frmVendorReceivableMaster">
 
         <section class="content">
             <div class="box box-primary">
@@ -34,10 +48,19 @@
                     <div class="col-md-12">
                         <div class="box-header with-border">
                             <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            <h3 class="box-title">Payables </h3>
+                            <h3 class="box-title">Receivable </h3>
                         </div>
 
                         <div class="box-body">
+
+
+
+
+
+
+
+
+
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -48,9 +71,12 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Payables Items</h3>
+                                    <h3 class="box-title">Receivable Items</h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
@@ -85,15 +111,33 @@
                                     </div>
 
                                 </div><!-- /.box-body -->
+                                @*<div class="box-footer">
+                                        <div class="btn-group">
+                                            <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
+
+                                        </div>
+                                    </div>*@
                             </div>
+
+
+
+                            @*<div>
+                                    <div class="form-group">
+                                        <label>
+                                            <input type="checkbox" name="chkStatus" checked="checked" />
+                                            &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                        </label>
+                                    </div>
+                                </div>*@
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Payables Item Table</h3>
+                                    <h3 class="box-title">Recievable item table</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive">
-                                    <table id="PayablesTable" class="table table-bordered table-striped">
+                                    <table id="ReceivableTable" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>Invoice No</th>
                                                 <th>Amount</th>
                                                 <th>Transaction Type</th>
@@ -104,6 +148,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td><input type="radio" id="rdo_ReceivableItemId1" class="iradio-list" /></td>
                                                 <td>100</td>
                                                 <td>
                                                     1000000
@@ -116,6 +161,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td><input type="radio" id="rdo_ReceivableItemId2" class="iradio-list" /></td>
                                                 <td>100</td>
                                                 <td>
                                                     1000000
@@ -128,6 +174,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td><input type="radio" id="rdo_ReceivableItemId3" class="iradio-list" /></td>
                                                 <td>100</td>
                                                 <td>1000</td>
                                                 <td>cc</td>
@@ -137,6 +184,15 @@
                                                     <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
                                                 </td>
                                             </tr>
+
+
+
+
+
+
+
+
+
                                         </tbody>
 
                                     </table>
