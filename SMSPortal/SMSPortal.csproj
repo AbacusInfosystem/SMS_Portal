@@ -1008,12 +1008,16 @@
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
     <Content Include="Views\PostLogin\Payables\Search.cshtml" />
-    <Content Include="Views\PostLogin\Payables\Index.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Search.cshtml" />
     <Content Include="Views\PostLogin\Payables\Index.cshtml" />
-    <Content Include="Views\PostLogin\Payables\Search.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
+    <Content Include="Views\PostLogin\Receivable\Index.cshtml" />
+    <Content Include="Views\PostLogin\Receivable\VendorSearch.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\VendorProfileDetails.cshtml" />
+    <Content Include="Views\PostLogin\Receivable\VendorIndex.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\OrderDetails.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\OrderItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
