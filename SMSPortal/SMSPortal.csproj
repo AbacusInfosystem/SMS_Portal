@@ -1007,9 +1007,7 @@
     <Content Include="Views\PostLogin\Product\_Product_Images.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
-    <Content Include="Views\PostLogin\Payables\Search.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Search.cshtml" />
-    <Content Include="Views\PostLogin\Payables\Index.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Index.cshtml" />
@@ -1021,6 +1019,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PostLogin\Payables\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
