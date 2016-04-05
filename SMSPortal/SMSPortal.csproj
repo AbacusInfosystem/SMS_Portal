@@ -953,6 +953,7 @@
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1015,8 +1016,6 @@
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Index.cshtml" />
-    <Content Include="Views\PostLogin\Receivable\VendorSearch.cshtml" />
-    <Content Include="Views\PostLogin\Receivable\VendorIndex.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\OrderDetails.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\OrderItems.cshtml" />
     <Content Include="Views\PostLogin\Vendor\Profile.cshtml" />
@@ -1027,6 +1026,9 @@
     <Content Include="Views\PostLogin\Vendor\CreateInvoice.cshtml" />
     <Content Include="Views\PostLogin\Payables\Index.cshtml" />
     <Content Include="Views\PostLogin\Vendor\ProfileDetails.cshtml" />
+    <Content Include="Views\PostLogin\VendorProfile\Index.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\VendorReceivable.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\VendorReceivables.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
