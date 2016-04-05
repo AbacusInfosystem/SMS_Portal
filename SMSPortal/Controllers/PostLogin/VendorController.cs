@@ -48,5 +48,15 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("Profile");
         }
+
+        public ActionResult VendorReceivables()
+        {
+            return View("VendorReceivables");
+        }
+
+        public ActionResult AddVendorReceivables()
+        {
+            return View("VendorReceivable");
+        }
     }
 }
