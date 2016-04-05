@@ -1009,7 +1009,7 @@
     <Content Include="Views\PostLogin\Receivable\Index.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Search.cshtml" />
     <Content Include="Views\PostLogin\PurchaseOrder\AddPurchaseOrderItem.cshtml" />
-    <Content Include="Views\PostLogin\Vendor\VendorProfileDetails.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
