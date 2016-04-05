@@ -26,5 +26,10 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_Product_Images");
         }
 
+        public PartialViewResult Get_Products()
+        {
+            return PartialView("_Partial");
+        }
+
     }
 }

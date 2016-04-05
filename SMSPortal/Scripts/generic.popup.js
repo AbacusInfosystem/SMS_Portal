@@ -9,8 +9,6 @@
         {
         	$(this).parents('.form-group').find('input[type=text]').val("");
 
-        	//$("#" + $("#hdnLookupHiddenId").val()).val("");
-
         	$(this).parents('.form-group').find('.lookup-hidden').val("");
 
         	$(this).parents('.form-group').find('.lookup-hidden').trigger("change");
@@ -21,7 +19,7 @@
 
     $(document).on("click", ".lookup-btn", function () {
 
-        Get_Look_Up(true, $(this), false);
+        Get_Product();
     });
 
     $(document).on("focusout", ".lookup-label", function (event) {
@@ -450,16 +448,15 @@ function Close_Pop_Up(cloneObj,elementObj) {
     $(elementObj).find(".modal-title").html("");
 }
 
-//function Close_Pop_Up(cloneObj) {
+function Get_Product()
+{
+    $("#div_Parent_Modal_Fade").find(".modal-body").load("/Product/Get_Products", {}, call_back);
+}
 
-//    if (cloneObj) {
+function call_back(data) {
 
-//        var obj = $("#" + $('#div_Parent_Modal_Fade').find(".modal-title").data("obj"));
+    $('#div_Parent_Modal_Fade').modal('show');
 
-//        $(obj).html($('#div_Parent_Modal_Fade').find(".modal-body").find("#" + $('#div_Parent_Modal_Fade').find(".modal-title").data("obj")).html());
-//    }
+    $("#div_Parent_Modal_Fade").find(".modal-title").text("Products");
 
-//    $('#div_Parent_Modal_Fade').find(".modal-body").html("");
-
-//    $('#div_Parent_Modal_Fade').find(".modal-title").html("");
-//}
+}
