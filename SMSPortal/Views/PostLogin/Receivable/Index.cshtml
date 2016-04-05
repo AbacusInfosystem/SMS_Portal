@@ -1,5 +1,15 @@
 ﻿<script src="~/Scripts/Module/Receivable/Receviable_events.js"></script>
+<script type="text/javascript">
 
+    $(document).ready(function () {
+
+        $('.iradio-list').iCheck({
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
+
+    });
+</script>
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -109,10 +119,11 @@
                                 <div class="box-header">
                                     <h3 class="box-title">Recievable item table</h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table id="ReceivableTable" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>Invoice No</th>
                                                 <th>Amount</th>
                                                 <th>Transaction Type</th>
@@ -123,6 +134,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td><input type="radio" id="rdo_ReceivableItemId1" class="iradio-list" /></td>
                                                 <td>100</td>
                                                 <td>
                                                     1000000
@@ -135,6 +147,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td><input type="radio" id="rdo_ReceivableItemId2" class="iradio-list" /></td>
                                                 <td>100</td>
                                                 <td>
                                                     1000000
@@ -147,6 +160,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td><input type="radio" id="rdo_ReceivableItemId3" class="iradio-list" /></td>
                                                 <td>100</td>
                                                 <td>1000</td>
                                                 <td>cc</td>
