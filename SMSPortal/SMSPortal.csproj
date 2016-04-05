@@ -1000,6 +1000,11 @@
     <Content Include="Views\PostLogin\SalesOrder\Index.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\Search.cshtml" />
     <Content Include="Views\PostLogin\Vendor\_AddProductMapping.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\OrderDetails.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\PostLogin\SalesOrder\OrderItems.cshtml" />
+    <Content Include="Views\PostLogin\Invoice\CreateInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
