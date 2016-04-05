@@ -12,7 +12,7 @@
     	div.innerHTML = document.getElementById("dumpImageAttachment").innerHTML;
 
     	$(div).find("input").each(function(){
-    		$(this).attr("name","vendor.Address.Address_Attachments["+len+"]." +$(this).prop("name"));
+    		$(this).attr("name","productimage");
     	});
 
     	$("#dvImageAttachments").append(div);
@@ -56,9 +56,19 @@
 
     		if ($("#hdnVendor_Type_Id").val() == 1)
     		{
-    			$("[name='product.Address.Imahe[0].File'").rules("add", { required: true });
+    			$("").rules("add", { required: true });
     		}
     	}
+    });
+
+});
+
+$(document).ready(function () {
+
+    $('input:not(.non-iCheck input:checkbox)').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%' // optional
     });
 
 });
