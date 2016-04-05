@@ -1022,6 +1022,9 @@
     <Content Include="Views\PostLogin\Vendor\Profile.cshtml" />
     <Content Include="Views\PostLogin\Payables\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\CreateInvoice.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\SearchOrders.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\OrderDetails.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\CreateInvoice.cshtml" />
     <Content Include="Views\PostLogin\Payables\Index.cshtml" />
     <Content Include="Views\PostLogin\Vendor\ProfileDetails.cshtml" />
   </ItemGroup>

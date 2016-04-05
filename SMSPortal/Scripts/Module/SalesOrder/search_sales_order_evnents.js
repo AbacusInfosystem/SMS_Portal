@@ -1,8 +1,7 @@
-﻿
-$(function () {
+﻿$(function () {
 
     $(".fa-chevron-left").click(function () {
-
+        alert(test);
         $("#frmSalesOrder").attr("action", "/SalesOrder/Search/");
 
         $("#frmSalesOrder").attr("method", "POST");
