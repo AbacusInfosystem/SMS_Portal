@@ -1,5 +1,4 @@
 ﻿
-
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -30,33 +29,29 @@
                         <div class="box-body">
 
 
-
+                            <div class="box-body">
 
 
                             <div class="row">
                                 <div class="col-md-4">
-
-
                                     <div class="row">
-                                        <div class="col-md-5">
+                                            <div class="col-md-8">
                                             <div class="form-group">
-                                                <label style="color: #333">Vendor Name</label>
+                                                    <label>Name :</label>
 
-                                                <label style="color: #ff6a00">prasad Borade</label>
+                                                    <label style="color: #333; font-size: 11px;">prasad Borade</label>
 
                                             </div>
                                         </div>
 
                                     </div>
-
                                     <div class="row">
-                                        <div class="col-md-5">
+                                            <div class="col-md-8">
                                             <div class="form-group">
-                                                <label style="color: #333">Address</label>
+                                                    <label style="color: #333">Address :</label>
 
-                                                <label style="color: #ff6a00">
-                                                    At-post:koshane,karjat
-                                                    raigad
+                                                    <label style="color: #333; font-size: 10px;">
+                                                        At-post:koshane karjat
                                                 </label>
 
                                             </div>
@@ -64,22 +59,22 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">
+                                            <div class="col-md-8">
                                             <div class="form-group">
-                                                <label style="color: #333">Email</label>
+                                                    <label style="color: #333">Email :</label>
 
-                                                <label style="color: #ff6a00">pborade1994@gmail.com</label>
+                                                    <label style="color: #333; font-size: 11px;">pborade1994@gmail.com</label>
 
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">
+                                            <div class="col-md-8">
                                             <div class="form-group">
-                                                <label style="color: #333">State</label>
+                                                    <label style="color: #333">State :</label>
 
-                                                <label style="color: #ff6a00">Maharashtra</label>
+                                                    <label style="color: #333; font-size: 11px;">Maharashtra</label>
 
                                             </div>
                                         </div>
@@ -91,11 +86,11 @@
 
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                            <div class="col-md-8">
                                             <div class="form-group">
-                                                <label style="color: #333">City</label>
+                                                    <label style="color: #333">City :</label>
 
-                                                <label style="color: #ff6a00">Karjat</label>
+                                                    <label style="color: #333; font-size: 11px;">Karjat</label>
 
                                             </div>
                                         </div>
@@ -103,33 +98,33 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                            <div class="col-md-8">
                                             <div class="form-group">
-                                                <label style="color: #333">Pincode</label>
+                                                    <label style="color: #333">Pincode :</label>
 
-                                                <label style="color: #ff6a00">410201</label>
+                                                    <label style="color: #333; font-size: 11px;">410201</label>
 
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">
+                                            <div class="col-md-8">
                                             <div class="form-group">
-                                                <label style="color: #333">Contact No1</label>
+                                                    <label style="color: #333">Contact No1 :</label>
 
-                                                <label style="color: #ff6a00">8655173012</label>
+                                                    <label style="color: #333; font-size: 11px;">8655173012</label>
 
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">
+                                            <div class="col-md-8">
                                             <div class="form-group">
-                                                <label style="color: #333">Contact No2</label>
+                                                    <label style="color: #333">Contact No2 :</label>
 
-                                                <label style="color: #ff6a00">8446895512</label>
+                                                    <label style="color: #333; font-size: 11px;">8446895512</label>
 
                                             </div>
                                         </div>
@@ -137,10 +132,27 @@
                                     </div>
                                     
                                 </div>
+                                </div>
                                 
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="btn-group pull-left">
+
+                                                @*<a class="btn btn-warning btn-sm" id="btnEdit1" role="button">Edit </a>*@
+                                                <button class="btn btn-warning btn-sm" onclick="location.href='@Url.Action("Index", "Vendor")';return false;">Edit</button>
                             </div>
 
+                                            @*<div class="btn-group pull-right">
+                                                    <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+
+                                                </div>*@
+                                        </div>
+                                    </div>
                             
+                                </div>
+                            </div>
 
 
 
@@ -160,13 +172,10 @@
                                     <table id="ReceivableTable" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                           
                                                 <th>bank Name</th>
                                                 <th>Account No</th>
                                                 <th>IFSC code</th>
                                                 <th>action</th>
-                                                
-
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -179,7 +188,7 @@
                                                 <td>kbd123</td>
                                                 
                                                 <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" data-toggle="modal" data-target="#div_Parent_Modal_Fade"></label>
                                          
                                                 </td>
                                             </tr>
@@ -192,7 +201,7 @@
                                                 <td>kbd123</td>
 
                                                 <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" data-toggle="modal" data-target="#div_Parent_Modal_Fade"></label>
 
                                                 </td>
                                             </tr>
@@ -205,8 +214,7 @@
                                                 <td>kbd123</td>
 
                                                 <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" data-toggle="modal" data-target="#div_Parent_Modal_Fade"></label>
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -1,15 +1,4 @@
-﻿<script src="~/Scripts/Module/Receivable/Receviable_events.js"></script>
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
+﻿
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -19,14 +8,14 @@
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
 
-            <li class="active">Admin</li>
+            <li class="active">Vendor</li>
 
-            <li class="active">Receivable</li>
+            <li class="active">profile</li>
 
         </ol>
     </section>
 
-    <form id="frmReceivableMaster">
+    <form id="frmVendorProfileMaster">
 
         <section class="content">
             <div class="box box-primary">
@@ -34,73 +23,139 @@
                     <div class="col-md-12">
                         <div class="box-header with-border">
                             <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            <h3 class="box-title">Receivable </h3>
+                            <h3 class="box-title">Vendor Profile </h3>
                         </div>
 
                         <div class="box-body">
 
 
+                            <div class="box-body">
 
 
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label>Name :</label>
+
+                                                    <label style="color: #333; font-size: 11px;">prasad Borade</label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Address :</label>
+
+                                                    <label style="color: #333; font-size: 10px;">
+                                                        At-post:koshane karjat
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Email :</label>
+
+                                                    <label style="color: #333; font-size: 11px;">pborade1994@gmail.com</label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label style="color: #333">State :</label>
+
+                                                    <label style="color: #333; font-size: 11px;">Maharashtra</label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
 
 
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label style="color: #333">City :</label>
 
+                                                    <label style="color: #333; font-size: 11px;">Karjat</label>
 
+                                                </div>
+                                            </div>
 
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Invoice No</label>
-                                        <select id="drpInvoiceNo" class="form-control" name="">
-                                            <option value="">-Select Invoice No-</option>
-                                        </select>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Pincode :</label>
+
+                                                    <label style="color: #333; font-size: 11px;">410201</label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Contact No1 :</label>
+
+                                                    <label style="color: #333; font-size: 11px;">8655173012</label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Contact No2 :</label>
+
+                                                    <label style="color: #333; font-size: 11px;">8446895512</label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                            <div class="box">
-                                <div class="box-header">
-                                    <h3 class="box-title">Receivable Items</h3>
-                                </div>
-                                <div class="box-body">
+
+                                <div class="box-footer">
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label style="color: #333">Amount</label>
-                                                <input type="text" class="form-control input-sm" name="" id="txtAmount" placeholder="Enter amount" value="" maxlength="20">
+                                        <div class="col-md-12">
+
+                                            <div class="btn-group pull-left">
+
+                                                @*<a class="btn btn-warning btn-sm" id="btnEdit1" role="button">Edit </a>*@
+                                                <button class="btn btn-warning btn-sm" onclick="location.href='@Url.Action("Index", "Vendor")';return false;">Edit</button>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label style="color: #333">Transaction Type</label>
-                                                <select id="drpTransaction" class="form-control" name="">
-                                                    <option value="">-Select Transaction Type-</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label style="color: #333">Status</label>
-                                                <select id="drpStatus" class="form-control" name="">
-                                                    <option value="">-Select Status-</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <br />
-                                                <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
-                                            </div>
+
+                                            @*<div class="btn-group pull-right">
+                                                    <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+
+                                                </div>*@
                                         </div>
                                     </div>
 
-                                </div><!-- /.box-body -->
-                                @*<div class="box-footer">
-                                        <div class="btn-group">
-                                            <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
-
-                                        </div>
-                                    </div>*@
+                                </div>
                             </div>
+
+
+
                             @*<div>
                                     <div class="form-group">
                                         <label>
@@ -111,79 +166,63 @@
                                 </div>*@
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Recievable item table</h3>
+                                    <h3 class="box-title">vendor Bank Details</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive">
                                     <table id="ReceivableTable" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th></th>
-                                                <th>Invoice No</th>
-                                                <th>Amount</th>
-                                                <th>Transaction Type</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-
+                                                <th>bank Name</th>
+                                                <th>Account No</th>
+                                                <th>IFSC code</th>
+                                                <th>action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input type="radio" id="rdo_ReceivableItemId1" class="iradio-list" /></td>
-                                                <td>100</td>
+
+                                                <td>Bank Of india</td>
                                                 <td>
-                                                    1000000
+                                                    1233555666
                                                 </td>
-                                                <td>cc</td>
-                                                <td>cc</td>
+                                                <td>kbd123</td>
+
                                                 <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="radio" id="rdo_ReceivableItemId2" class="iradio-list" /></td>
-                                                <td>100</td>
-                                                <td>
-                                                    1000000
-                                                </td>
-                                                <td>cc</td>
-                                                <td>cc</td>
-                                                <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" data-toggle="modal" data-target="#div_Parent_Modal_Fade"></label>
+
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><input type="radio" id="rdo_ReceivableItemId3" class="iradio-list" /></td>
-                                                <td>100</td>
-                                                <td>1000</td>
-                                                <td>cc</td>
-                                                <td>cc</td>
+
+                                                <td>Bank Of india</td>
                                                 <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
+                                                    1233555666
+                                                </td>
+                                                <td>kbd123</td>
+
+                                                <td>
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" data-toggle="modal" data-target="#div_Parent_Modal_Fade"></label>
+
                                                 </td>
                                             </tr>
+                                            <tr>
 
+                                                <td>Bank Of india</td>
+                                                <td>
+                                                    1233555666
+                                                </td>
+                                                <td>kbd123</td>
 
-
-
-
-
-
-
-
+                                                <td>
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" data-toggle="modal" data-target="#div_Parent_Modal_Fade"></label>
+                                                </td>
+                                            </tr>
                                         </tbody>
 
                                     </table>
                                 </div><!-- /.box-body -->
                             </div>
-                            <div class="box-footer">
-                                <div class="btn-group">
-                                    <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                    <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                </div>
-                            </div>
+
                         </div>
 
                     </div>
