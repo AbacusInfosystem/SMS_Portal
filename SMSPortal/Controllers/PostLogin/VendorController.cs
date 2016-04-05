@@ -31,7 +31,7 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Profile()
         {
-            return PartialView("Profile");
+            return View("Profile");
         }
 
     }
