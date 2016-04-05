@@ -1,5 +1,4 @@
-﻿
-<script type="text/javascript">
+﻿<script type="text/javascript">
 
     $(document).ready(function () {
 
@@ -18,13 +17,13 @@
         @*@{Html.RenderPartial("_ServerMessage");}*@
         <section class="content-header">
             <h1>
-                Payable Master
+                payables Master
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Payable</li>
+                <li class="active">payables</li>
             </ol>
         </section>
 
@@ -34,14 +33,14 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Payable</h3>
+                            <h3 class="box-title">payables</h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="color: #333">Brand Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtBrand_Name" placeholder="Enter brand name" value="" maxlength="20">
+                                        <label style="color: #333">Invoice No</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtinvoice_No" placeholder="Enter invoice no" value="" maxlength="20">
                                     </div>
                                 </div>
 
@@ -53,14 +52,12 @@
 
                                         <div class="btn-group pull-left">
                                             <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Payables")">Create </a>
-                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnUploadLogo" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload </button>
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -75,36 +72,31 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblBrandMaster">
+                            <table class="table table-striped" id="tblPayablesMaster">
                                 <tr id="subhead">
                                     <th></th>
-                                    <th>Brand Name</th>
-                                    <th>Brand Category</th>
+                                    <th>Invoice No</th>
+                                    <th>Amount</th>
                                     <th>Status</th>
                                 </tr>
+
                                 <tr>
-                                    <td><input type="radio" id="rdo_BrandId1" class="iradio-list" /></td>
-                                    <td>BMW</td>
-                                    <td>Elite</td>
-                                    <td>Active</td>
+                                    <td><input type="radio" id="rdo_PayablesId1" class="iradio-list" /></td>
+                                    <td>001 </td>
+                                    <td>12,222</td>
+                                    <td>vv</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="radio" id="rdo_BrandId2" class="iradio-list" /></td>
-                                    <td>BMW</td>
-                                    <td>Elite</td>
-                                    <td>Active</td>
+                                    <td><input type="radio" id="rdo_PayablesId2" class="iradio-list" /></td>
+                                    <td>002 </td>
+                                    <td>10,000</td>
+                                    <td>ss</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="radio" id="rdo_BrandId3" class="iradio-list" /></td>
-                                    <td>BMW</td>
-                                    <td>Elite</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId4" class="iradio-list" /></td>
-                                    <td>BMW</td>
-                                    <td>Elite</td>
-                                    <td>Active</td>
+                                    <td><input type="radio" id="rdo_PayablesId3" class="iradio-list" /></td>
+                                    <td>003 </td>
+                                    <td>12000</td>
+                                    <td>dd</td>
                                 </tr>
                             </table>
                         </div>
@@ -123,4 +115,9 @@
     </div>
     <!-- /.content-wrapper -->
 </form>
+
+
+
+
+
 
