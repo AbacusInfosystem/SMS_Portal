@@ -1008,10 +1008,6 @@
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Search.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\PostLogin\PurchaseOrder\AddPurchaseOrderItem.cshtml" />
-    <Content Include="Views\PostLogin\Vendor\Profile.cshtml" />
-=======
     <Content Include="Views\PostLogin\Enquiry\Index.cshtml" />
     <Content Include="Views\PostLogin\Enquiry\Search.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Index.cshtml" />
@@ -1020,7 +1016,7 @@
     <Content Include="Views\PostLogin\Receivable\VendorIndex.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\OrderDetails.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\OrderItems.cshtml" />
->>>>>>> origin/master
+    <Content Include="Views\PostLogin\Vendor\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
