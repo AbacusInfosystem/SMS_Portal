@@ -1,7 +1,4 @@
 ﻿
-<script src="~/Scripts/Module/Product/search_product_methods.js"></script>
-<script src="~/Scripts/Module/Product/search_product_events.js"></script>
-
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -14,20 +11,20 @@
     });
 </script>
 
-<form id="frmProduct" enctype="multipart/form-data">
+<form id="frmEnquiry" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @*@{Html.RenderPartial("_ServerMessage");}*@
         <section class="content-header">
             <h1>
-               Product master
+                Enquiry master
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Product</li>
+                <li class="active">Enquiry</li>
             </ol>
         </section>
 
@@ -37,14 +34,14 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Product</h3>
+                            <h3 class="box-title">Enquiry</h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="color: #333">Product Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtProduct_Name" placeholder="Enter product name" value="" maxlength="20">
+                                        <label style="color: #333">Enquiry No</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtEnquiry_No" placeholder="Enter enquiry no" value="" maxlength="20">
                                     </div>
                                 </div>
 
@@ -55,13 +52,12 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Product")">Create </a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Enquiry")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnUpload" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload </button>                                                                                     
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -80,38 +76,32 @@
                             <table class="table table-striped" id="tblProductMaster">
                                 <tr id="subhead">
                                     <th></th>
-                                    <th>Product Name</th>
-                                    <th>Brand</th>
+                                    <th>Enquiry No</th>
                                     <th>Status</th>
                                 </tr>
                                 <tr>
                                     <td><input type="radio" id="rdo_ProductId1" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
+                                    <td>A01</td>
                                     <td>Active</td>
                                 </tr>
                                 <tr>
                                     <td><input type="radio" id="rdo_ProductId2" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
+                                    <td>A02</td>
                                     <td>Active</td>
                                 </tr>
                                 <tr>
                                     <td><input type="radio" id="rdo_ProductId3" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
+                                    <td>A03</td>
                                     <td>Active</td>
                                 </tr>
                                 <tr>
                                     <td><input type="radio" id="rdo_ProductId4" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
+                                    <td>A04</td>
                                     <td>Active</td>
                                 </tr>
                                 <tr>
                                     <td><input type="radio" id="rdo_ProductId5" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
+                                    <td>A05</td>
                                     <td>Active</td>
                                 </tr>
                             </table>
@@ -131,4 +121,5 @@
     </div>
     <!-- /.content-wrapper -->
 </form>
+
 

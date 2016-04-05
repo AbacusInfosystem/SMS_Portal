@@ -194,8 +194,10 @@
     <Compile Include="Controllers\PostLogin\AccountsController.cs" />
     <Compile Include="Controllers\PostLogin\BrandController.cs" />
     <Compile Include="Controllers\PostLogin\DealerController.cs" />
+    <Compile Include="Controllers\PostLogin\EnquiryController.cs" />
     <Compile Include="Controllers\PostLogin\HomeController.cs" />
     <Compile Include="Controllers\PostLogin\InvoiceController.cs" />
+    <Compile Include="Controllers\PostLogin\PayablesController.cs" />
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
     <Compile Include="Controllers\PostLogin\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PostLogin\ReceivableController.cs" />
@@ -932,9 +934,12 @@
     <Content Include="Scripts\Module\Brand\search_brand_events.js" />
     <Content Include="Scripts\Module\Brand\search_brand_methods.js" />
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
+    <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
-    <Content Include="Scripts\Module\PurchaseOrder\AddPurchaseOrderItem_events.js" />
+    <Content Include="Scripts\Module\Product\product_image_events.js" />
+    <Content Include="Scripts\Module\Product\search_product_events.js" />
+    <Content Include="Scripts\Module\Product\search_product_methods.js" />
     <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\User\User_events.js" />
