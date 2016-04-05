@@ -37,9 +37,6 @@
                                         <input type="text" class="form-control input-sm" name="" id="txtPurchaseOrder_Name" placeholder="Enter purchase order no" value="" maxlength="20">
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Vendor</label>
@@ -49,10 +46,116 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
 
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Receivable Items</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label style="color: #333">Product</label>
+                                                <select id="drpProduct" class="form-control" name="">
+                                                    <option value="">-Select Product-</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label style="color: #333">Product Quantity</label>
+                                                <input type="text" class="form-control input-sm" name="" id="txtProductQuantity" placeholder="Enter product quantity" value="" maxlength="20">
+                                            </div>
+                                        </div>
+                            
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Product Price</label>
+                                                    <input type="text" class="form-control input-sm" name="" id="txtProductPrice" placeholder="Enter product price" value="" maxlength="20">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Status</label>
+                                                    <select id="drpStatus" class="form-control" name="">
+                                                        <option value="">-Select Status-</option>
+                                                    </select>
+                                      
+                                        </div>
+                                        
+                                    </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <br />
+                                                <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
+                                            </div>
+                                        </div>
+
+                                </div><!-- /.box-body -->
+                                @*<div class="box-footer">
+                <div class="btn-group">
+                    <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
+
+                </div>
+            </div>*@
+
+                            </div>
+                            
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">Recievable item table</h3>
+                                    </div><!-- /.box-header -->
+                                    <div class="box-body">
+                                        <table class="table table-striped" id="tblPurchaseOrderMaster">
+                                            <tr id="subhead">
+                                                <th></th>
+                                                <th>Product</th>
+                                                <th>Product Price</th>
+                                                <th>Product Quantity</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+
+                                            </tr>
+                                            <tr>
+                                                <td><input type="radio" id="rdo_PurchaseOrderitemId1" class="iradio-list" /></td>
+                                                <td>Bag</td>
+                                                <td>100</td>
+                                                <td>02</td>
+                                                <td>cc</td>
+                                                <td>
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
+                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><input type="radio" id="rdo_PurchaseOrderitemId2" class="iradio-list" /></td>
+                                                <td>Bag</td>
+                                                <td>100</td>
+                                                <td>02</td>
+                                                <td>cc</td>
+                                                <td>
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
+                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><input type="radio" id="rdo_PurchaseOrderitemId3" class="iradio-list" /></td>
+                                                <td>Bag</td>
+                                                <td>100</td>
+                                                <td>02</td>
+                                                <td>cc</td>
+                                                <td>
+                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
+                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+                                    </div><!-- /.box-body -->
+                                </div>
                             <div class="box-footer">
                                 <div class="btn-group">
                                     <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
