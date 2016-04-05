@@ -1,10 +1,11 @@
-﻿ <script type="text/javascript">
+﻿<script src="~/Scripts/Module/SalesOrder/search_sales_order_evnents.js"></script>
+<script type="text/javascript">
     $(document).ready(function () {
 
         $('.iradio-list').iCheck({
             radioClass: 'iradio_square-green',
             increaseArea: '20%',
-            toggle:true// optional
+            toggle: true// optional
         });
 
     });
@@ -51,16 +52,15 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Dealer")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
-
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnDetails" class="btn btn-warning btn-sm">Details</button>
 
+                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("OrderDetails", "SalesOrder")">Details </a>
+                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("CreateInvoice", "Invoice")">Create Invoice</a>
+                                            @*<button type="button" id="btnOrderDetails" class="btn btn-warning btn-sm ">Create Inovice</button>
+    <button type="button" id="btnGenerateInvoice" class="btn btn-warning btn-sm ">Create Inovice </button>*@
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -84,6 +84,7 @@
                                         <th>Amount</th>
                                         <th>Date</th>
                                         <th>Status</th>
+                                     
                                     </tr>
 
                                     <tr>
@@ -109,8 +110,10 @@
                                         <td>4000</td>
                                         <td>04/01/2016</td>
                                         <td>Active</td>
+                                    
                                     </tr>
                                      
+
                                 </table>
                            
                             @*<div class="box-footer clearfix">

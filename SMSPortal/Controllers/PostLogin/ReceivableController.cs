@@ -19,6 +19,13 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("Index");
         }
-
+        public ActionResult Vendorsearch()
+        {
+            return View("vendorSearch");
+        }
+        public ActionResult VendorIndex()
+        {
+            return View("VendorIndex");
+        }
     }
 }
