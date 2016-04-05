@@ -1,0 +1,26 @@
+﻿
+$(function () {
+
+    $(".fa-chevron-left").click(function () {
+
+        $("#frmSalesOrder").attr("action", "/SalesOrder/Search/");
+
+        $("#frmSalesOrder").attr("method", "POST");
+
+        $("#frmSalesOrder").submit();
+
+    });
+});
+
+$(document).ready(function () {
+
+    $('input:not(.non-iCheck input:checkbox)').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%' // optional
+    });
+
+});
+
+
+ 

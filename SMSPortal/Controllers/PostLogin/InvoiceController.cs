@@ -18,6 +18,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("Index");
         }
-
+        public ActionResult CreateInvoice()
+        {
+            return View("CreateInvoice");
+        }
     }
 }
