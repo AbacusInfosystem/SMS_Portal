@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace SMSPortal.Controllers.PostLogin
 {
-    public class PurchaseOrderController : Controller
+    public class ReceivableController : Controller
     {
         //
-        // GET: /PurchaseOrder/
+        // GET: /Receivable/
         public ActionResult Search()
         {
             return View("Search");
@@ -19,9 +19,6 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("Index");
         }
-        public ActionResult Add_Purchase_Order_Item()
-        {
-            return View("AddPurchaseOrderItem");
-        }
+
     }
 }

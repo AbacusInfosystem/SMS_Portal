@@ -200,6 +200,7 @@
     <Compile Include="Controllers\PostLogin\PayablesController.cs" />
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
     <Compile Include="Controllers\PostLogin\PurchaseOrderController.cs" />
+    <Compile Include="Controllers\PostLogin\ReceivableController.cs" />
     <Compile Include="Controllers\PostLogin\SalesOrder.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
@@ -940,6 +941,7 @@
     <Content Include="Scripts\Module\Product\search_product_events.js" />
     <Content Include="Scripts\Module\Product\search_product_methods.js" />
     <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
+    <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\User\User_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_evnents.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
