@@ -6,11 +6,10 @@ using System.Web.Mvc;
 
 namespace SMSPortal.Controllers.PostLogin
 {
-    public class ProductController : Controller
+    public class ReceivableController : Controller
     {
         //
-        // GET: /Product/
-
+        // GET: /Receivable/
         public ActionResult Search()
         {
             return View("Search");
@@ -19,11 +18,6 @@ namespace SMSPortal.Controllers.PostLogin
         public ActionResult Index()
         {
             return View("Index");
-        }
-
-        public PartialViewResult Upload_Product_Image()
-        {
-            return PartialView("_Product_Images");
         }
 
     }

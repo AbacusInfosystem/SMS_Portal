@@ -19,6 +19,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("Index");
         }
-
+        public ActionResult Add_Purchase_Order_Item()
+        {
+            return View("AddPurchaseOrderItem");
+        }
     }
 }
