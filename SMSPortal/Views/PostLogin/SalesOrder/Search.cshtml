@@ -1,10 +1,11 @@
-﻿<script type="text/javascript">
+﻿<script src="~/Scripts/Module/SalesOrder/search_sales_order_evnents.js"></script>
+<script type="text/javascript">
     $(document).ready(function () {
 
         $('.iradio-list').iCheck({
             radioClass: 'iradio_square-green',
             increaseArea: '20%',
-            toggle:true// optional
+            toggle: true// optional
         });
 
     });
@@ -17,7 +18,7 @@
         @*@{Html.RenderPartial("_ServerMessage");}*@
         <section class="content-header">
             <h1>
-               Sales Orders
+                Sales Orders
                 <small></small>
             </h1>
             <ol class="breadcrumb">
@@ -50,17 +51,16 @@
                                 <div class="row">
                                     <div class="col-md-12">
 
-                                        <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Dealer")">Create </a>
+                                        <div class="btn-group pull-left">                                            
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
-
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnDetails" class="btn btn-warning btn-sm">Details</button>
 
+                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("OrderDetails", "SalesOrder")">Details </a>
+                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("CreateInvoice", "Invoice")">Create Invoice</a>
+                                            @*<button type="button" id="btnOrderDetails" class="btn btn-warning btn-sm ">Create Inovice</button>
+    <button type="button" id="btnGenerateInvoice" class="btn btn-warning btn-sm ">Create Inovice </button>*@
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -75,44 +75,40 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            
-                                <table class="table table-striped" id="tblSalesOrder">
-                                    <tr id="subhead">
-                                        <th></th>
-                                        <th>Order No</th>
-                                        <th>Dealer Name</th>
-                                        <th>Amount</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                    </tr>
 
-                                    <tr>
-                                        <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
-                                        <td>O123</td>
-                                        <td>Dealer 1</td>
-                                        <td>4000</td>
-                                        <td>04/01/2016</td>
-                                        <td>Active</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
-                                        <td>O123</td>
-                                        <td>Dealer 1</td>
-                                        <td>4000</td>
-                                        <td>04/01/2016</td>
-                                        <td>Active</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
-                                        <td>O123</td>
-                                        <td>Dealer 1</td>
-                                        <td>4000</td>
-                                        <td>04/01/2016</td>
-                                        <td>Active</td>
-                                    </tr>
+                            <table class="table table-striped" id="tblSalesOrder">
+                                <tr id="subhead">
+                                    <th></th>
+                                    <th>Order No</th>
+                                    <th>Dealer Name</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
                                      
-                                </table>
-                           
+                                </tr>
+
+                                <tr>
+                                    <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
+                                    <td>O123</td>
+                                    <td>Dealer 1</td>
+                                    <td>4000</td>
+                                    <td>04/01/2016</td>
+                                    <td>Active</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
+                                    <td>O123</td>
+                                    <td>Dealer 1</td>
+                                    <td>4000</td>
+                                    <td>04/01/2016</td>
+                                    <td>Active</td>
+                                    
+                                </tr>
+                                 
+
+                            </table>
+
                             @*<div class="box-footer clearfix">
                                     <div class="pagination pagination-sm no-margin pull-right">
                                         <ul></ul>
@@ -124,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </section>
     </div>
     <!-- /.content-wrapper -->

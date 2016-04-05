@@ -1,0 +1,159 @@
+﻿<script src="~/Scripts/Module/SalesOrder/search_sales_order_evnents.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.iradio-list').iCheck({
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%',
+            toggle: true// optional
+        });
+
+    });
+</script>
+
+<form id="frmOrderItems" enctype="multipart/form-data">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        @*@{Html.RenderPartial("_ServerMessage");}*@
+        <section class="content-header">
+            <h1>
+                Order Items
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">Order Items</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Order Items</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Select Product</label>
+                                        <select id="drpProduct" class="form-control" name="">
+                                            <option value="">-Select Product-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Price</label>
+                                        <input type="text" maxlength="20" value="" placeholder="Enter Price" id="txtPrice" name="" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Discount</label>
+                                        <input type="text" maxlength="20" value="" placeholder="Enter Discount" id="txtDiscount" name="" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Shipping Charges</label>
+                                        <input type="text" maxlength="20" value="" placeholder="Enter Shipping Charges" id="txtShippingCharges" name="" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="btn-group pull-left">
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Dealer")">Create </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body table-responsive no-padding">
+
+                            <table class="table table-striped" id="tblOrderItems">
+                                <tr id="subhead">
+                                    <th></th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th >Price</th>
+                                    <th>Discount</th>
+                                    <th>Shipping Charges</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
+                                    <td>product item1</td>
+                                    <td>1</td>
+                                    <td >200</td>
+                                    <td>3</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
+                                    <td>product item1</td>
+                                    <td>1</td>
+                                    <td>200</td>
+                                    <td>3</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_BrandId1" class="iradio-list " /></td>
+                                    <td>product item1</td>
+                                    <td>1</td>
+                                    <td>200</td>
+                                    <td>3</td>
+                                    <td>20</td>
+                                </tr>
+
+
+                            </table>
+
+                            @*<div class="box-footer clearfix">
+                                    <div class="pagination pagination-sm no-margin pull-right">
+                                        <ul></ul>
+                                    </div>
+                                    <div id="divSearchGridOverlay" class="overlay">
+                                        <i class="fa fa-refresh fa-spin"></i>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+</form>
+
+
+
+
+
+
