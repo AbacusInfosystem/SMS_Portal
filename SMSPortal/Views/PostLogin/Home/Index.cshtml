@@ -1,10 +1,74 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Dashboard";
 }
 
+
+<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
- <section class="content">
+    @*@{Html.RenderPartial("_ServerMessage");}*@
 
-</section>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Dashboard
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            @* Sales Order *@
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-aqua">
+                    <a class="small-box-footer">Sales Order</a>
+                    <div class="inner" id="MktSegment">
+                        <h3>100</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-edit"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            @* Payable Amount *@
+            <div class="col-lg-3 col-xs-6">
+
+                <div class="small-box bg-green">
+                    <a class="small-box-footer">Payables</a>
+                    <div class="inner" id="MktSegment">
+                        <h3>10</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-edit"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+
+            </div>
+            @* Receivable Amount *@
+            <div class="col-lg-3 col-xs-6">
+
+                <div class="small-box bg-yellow-gradient">
+                    <a class="small-box-footer">Receivables</a>
+                    <div class="inner" id="CustomerDetails">
+                        <h3>50</h3>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-edit"></i>
+                    </div>
+                    <a href="/crm/search-Customer-Pending" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>       
+        </div>
+      
+    </section>
+    <!-- /.content -->
 </div>
+<script src="Content/AdminLTE/plugins/morris/morris.min.js" type="text/javascript"></script>
+<script src="Content/AdminLTE/dist/js/pages/dashboard.js" type="text/javascript"></script>
