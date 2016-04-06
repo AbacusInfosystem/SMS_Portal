@@ -1,0 +1,111 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.iradio-list').iCheck({
+            radioClass: 'iradio_square-green',
+            increaseArea: '20%' // optional
+        });
+
+    });
+</script>
+<form id="frmCategory" enctype="multipart/form-data">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        @*@{Html.RenderPartial("_ServerMessage");}*@
+        <section class="content-header">
+            <h1>
+                Category Master
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">Category</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Category</h3>
+                        </div>
+                        <div class="box-body">
+                        
+                                
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Category Name</label>
+                                        <input type="text" class="form-control input-sm" name="" id="txtCategory_Name" placeholder="Enter category name" value="" maxlength="20">
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="btn-group pull-left">
+                                            <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("Index", "Category")">Create </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-striped" id="tblCategoryMaster">
+                                <tr id="subhead">
+                                    <th></th>
+                                    <th>Category Name</th>                                
+                                    <th>Status</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_categoryId1" name="Brand" class="iradio-list" /></td>
+                                    <td>Electronics</td>                                 
+                                    <td>Active</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_categoryId2" name="Brand" class="iradio-list" /></td>
+                                    <td>Gift cards</td>
+                                    <td>Active</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_categoryId3" name="Brand" class="iradio-list" /></td>
+                                    <td>Mobiles & Computers</td>
+                                    <td>Active</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="rdo_categoryId4" name="Brand" class="iradio-list" /></td>
+                                    <td>Luggage & Bags</td>
+                                    <td>Active</td>
+                                </tr>
+                            </table>
+                        </div>
+                        @*<div class="box-footer clearfix">
+                                <div class="pagination pagination-sm no-margin pull-right">
+                                    <ul></ul>
+                                </div>
+                                <div id="divSearchGridOverlay" class="overlay">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+</form>
+
