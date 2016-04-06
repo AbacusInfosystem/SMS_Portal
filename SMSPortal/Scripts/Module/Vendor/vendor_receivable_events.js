@@ -2,11 +2,11 @@
 
     $(".fa-chevron-left").click(function () {
 
-        $("#frmvendorReceivable").attr("action", "/Vendor/VendorReceivables/");
+        $("#frmVendorReceivableMaster").attr("action", "/Vendor/VendorReceivables/");
 
-        $("#frmvendorReceivable").attr("method", "POST");
+        $("#frmVendorReceivableMaster").attr("method", "POST");
 
-        $("#frmvendorReceivable").submit();
+        $("#frmVendorReceivableMaster").submit();
 
     });
 
