@@ -1,4 +1,19 @@
-﻿ 
+﻿
+<script type="text/javascript">
+$(function () {
+
+    $(".fa-chevron-left").click(function () {
+
+        $("#frmVendorInvoice").attr("action", "/Vendor/SearchOrders/");
+
+        $("#frmVendorInvoice").attr("method", "POST");
+
+        $("#frmVendorInvoice").submit();
+
+    });
+
+});</script>
+    
 <form id="frmVendorInvoice">
     <div class="content-wrapper">
         @*@{Html.RenderPartial("_ServerMessage");}*@
