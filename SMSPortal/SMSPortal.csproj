@@ -202,6 +202,7 @@
     <Compile Include="Controllers\PostLogin\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PostLogin\ReceivableController.cs" />
     <Compile Include="Controllers\PostLogin\SalesOrder.cs" />
+    <Compile Include="Controllers\PostLogin\SubCategoryController.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
@@ -950,6 +951,8 @@
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
     <Content Include="Scripts\Module\SalesOrder\search_sales_order_evnents.js" />
+    <Content Include="Scripts\Module\SubCategory\search_subcategory_events.js" />
+    <Content Include="Scripts\Module\SubCategory\subcategory_events.js" />
     <Content Include="Scripts\Module\User\User_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_evnents.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
@@ -1033,6 +1036,8 @@
     <Content Include="Views\PostLogin\Vendor\VendorReceivable.cshtml" />
     <Content Include="Views\PostLogin\Vendor\VendorReceivables.cshtml" />
     <Content Include="Views\PostLogin\Product\_Partial.cshtml" />
+    <Content Include="Views\PostLogin\SubCategory\Search.cshtml" />
+    <Content Include="Views\PostLogin\SubCategory\AddEdit_SubCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
