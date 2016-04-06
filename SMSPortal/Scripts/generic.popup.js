@@ -9,8 +9,6 @@
         {
         	$(this).parents('.form-group').find('input[type=text]').val("");
 
-        	//$("#" + $("#hdnLookupHiddenId").val()).val("");
-
         	$(this).parents('.form-group').find('.lookup-hidden').val("");
 
         	$(this).parents('.form-group').find('.lookup-hidden').trigger("change");
@@ -21,7 +19,7 @@
 
     $(document).on("click", ".lookup-btn", function () {
 
-        Get_Look_Up(true, $(this), false);
+        Get_Product();
     });
 
     $(document).on("focusout", ".lookup-label", function (event) {
@@ -36,7 +34,6 @@
     });
 
     $('#div_Parent_Modal_Fade').on('hidden.bs.modal', function (e) {
-        alert(1)
         // true when we need to reset cloned html back to its main div.
         // false when we are not dealing with any cloning. Eg: Normal Look up.
         // Currently I have hardcoded it to true, but we need to set some hidden flag to know whether its a cloned popup or normal look up.
@@ -450,16 +447,15 @@ function Close_Pop_Up(cloneObj,elementObj) {
     $(elementObj).find(".modal-title").html("");
 }
 
-//function Close_Pop_Up(cloneObj) {
+function Get_Product()
+{
+    $("#div_Parent_Modal_Fade").find(".modal-body").load("/Product/Get_Products", {}, call_back);
+}
 
-//    if (cloneObj) {
+function call_back(data) {
 
-//        var obj = $("#" + $('#div_Parent_Modal_Fade').find(".modal-title").data("obj"));
+    $('#div_Parent_Modal_Fade').modal('show');
 
-//        $(obj).html($('#div_Parent_Modal_Fade').find(".modal-body").find("#" + $('#div_Parent_Modal_Fade').find(".modal-title").data("obj")).html());
-//    }
+    $("#div_Parent_Modal_Fade").find(".modal-title").text("Products");
 
-//    $('#div_Parent_Modal_Fade').find(".modal-body").html("");
-
-//    $('#div_Parent_Modal_Fade').find(".modal-title").html("");
-//}
+}

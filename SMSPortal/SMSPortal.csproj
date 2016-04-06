@@ -919,6 +919,7 @@
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\generic.lookup.js" />
     <Content Include="Scripts\generic.popup.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -1031,6 +1032,7 @@
     <Content Include="Views\PostLogin\VendorProfile\Index.cshtml" />
     <Content Include="Views\PostLogin\Vendor\VendorReceivable.cshtml" />
     <Content Include="Views\PostLogin\Vendor\VendorReceivables.cshtml" />
+    <Content Include="Views\PostLogin\Product\_Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

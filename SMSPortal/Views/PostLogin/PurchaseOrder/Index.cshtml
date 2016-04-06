@@ -1,6 +1,6 @@
 ﻿
 <script src="~/Scripts/Module/PurchaseOrder/PurchaseOrder_events.js"></script>
-
+<script src="~/Scripts/generic.popup.js"></script>
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -53,28 +53,42 @@
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        @*<div class="col-md-2">
                                             <div class="form-group">
                                                 <label style="color: #333">Product</label>
                                                 <select id="drpProduct" class="form-control" name="">
                                                     <option value="">-Select Product-</option>
                                                 </select>
                                             </div>
+                                        </div>*@
+                                        <div class="col-md-3">
+                                            <div class="form-group lookup-parent">
+                                                <label for="txtCountry" style="color: #333" class="lookup-title">Product</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control input-sm lookup-label" id="txtCountry" name="" maxlength="3" placeholder="Enter Product" value="" data-table="">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-info btn-flat lookup-btn" name="" type="button" id="btnAddress_Country"><span class="fa fa-server"></span></button>
+                                                    </span>
+                                                </div>
+                                                <input type="hidden" class="lookup-hidden" id="hdnCountry_Id" name="" value="">
+
+                                            </div>
                                         </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label style="color: #333">Product Price</label>
+                                                <input type="text" class="form-control input-sm" name="" id="txtProductPrice" placeholder="Enter product price" value="" maxlength="20">
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label style="color: #333">Product Quantity</label>
                                                 <input type="text" class="form-control input-sm" name="" id="txtProductQuantity" placeholder="Enter product quantity" value="" maxlength="20">
                                             </div>
-                                        </div>
-                            
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label style="color: #333">Product Price</label>
-                                                    <input type="text" class="form-control input-sm" name="" id="txtProductPrice" placeholder="Enter product price" value="" maxlength="20">
-                                                </div>
-                                            </div>
-                                            
+                                        </div>                            
+                                                                                     
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <br />
