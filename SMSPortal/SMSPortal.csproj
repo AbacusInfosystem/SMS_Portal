@@ -193,6 +193,7 @@
     <Compile Include="Common\SessionExpiredAttribute.cs" />
     <Compile Include="Controllers\PostLogin\AccountsController.cs" />
     <Compile Include="Controllers\PostLogin\BrandController.cs" />
+    <Compile Include="Controllers\PostLogin\CategoryController.cs" />
     <Compile Include="Controllers\PostLogin\DealerController.cs" />
     <Compile Include="Controllers\PostLogin\EnquiryController.cs" />
     <Compile Include="Controllers\PostLogin\HomeController.cs" />
@@ -939,6 +940,7 @@
     <Content Include="Scripts\Module\Brand\brand_events.js" />
     <Content Include="Scripts\Module\Brand\search_brand_events.js" />
     <Content Include="Scripts\Module\Brand\search_brand_methods.js" />
+    <Content Include="Scripts\Module\Category\Category_events.js" />
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
@@ -954,7 +956,7 @@
     <Content Include="Scripts\Module\SubCategory\search_subcategory_events.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_events.js" />
     <Content Include="Scripts\Module\User\User_events.js" />
-    <Content Include="Scripts\Module\Vendor\search_vendor_evnents.js" />
+    <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
@@ -1038,6 +1040,8 @@
     <Content Include="Views\PostLogin\Product\_Partial.cshtml" />
     <Content Include="Views\PostLogin\SubCategory\Search.cshtml" />
     <Content Include="Views\PostLogin\SubCategory\AddEdit_SubCategory.cshtml" />
+    <Content Include="Views\PostLogin\Category\Index.cshtml" />
+    <Content Include="Views\PostLogin\Category\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
