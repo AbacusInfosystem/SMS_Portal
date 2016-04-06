@@ -1034,7 +1034,6 @@
     <Content Include="Views\PostLogin\Vendor\CreateInvoice.cshtml" />
     <Content Include="Views\PostLogin\Payables\Index.cshtml" />
     <Content Include="Views\PostLogin\Vendor\ProfileDetails.cshtml" />
-    <Content Include="Views\PostLogin\VendorProfile\Index.cshtml" />
     <Content Include="Views\PostLogin\Vendor\VendorReceivable.cshtml" />
     <Content Include="Views\PostLogin\Vendor\VendorReceivables.cshtml" />
     <Content Include="Views\PostLogin\Product\_Partial.cshtml" />
