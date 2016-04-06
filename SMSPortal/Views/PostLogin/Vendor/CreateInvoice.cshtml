@@ -1,19 +1,18 @@
-﻿
+﻿ 
 <script type="text/javascript">
-$(function () {
+    $(function () {
+        $(".fa-chevron-left").click(function () {
 
-    $(".fa-chevron-left").click(function () {
+            $("#frmVendorInvoice").attr("action", "/Vendor/SearchOrders/");
 
-        $("#frmVendorInvoice").attr("action", "/Vendor/SearchOrders/");
+            $("#frmVendorInvoice").attr("method", "POST");
 
-        $("#frmVendorInvoice").attr("method", "POST");
+            $("#frmVendorInvoice").submit();
 
-        $("#frmVendorInvoice").submit();
+        });
 
     });
-
-});</script>
-    
+</script>
 <form id="frmVendorInvoice">
     <div class="content-wrapper">
         @*@{Html.RenderPartial("_ServerMessage");}*@
@@ -43,7 +42,7 @@ $(function () {
                                             <div class="col-xs-12">
                                                 <h2 class="page-header div-border-bottom">
                                                     <i class="fa fa-globe"></i> SMS
-                                                    <small class="pull-right">Date: 2/10/2014</small>
+                                            <small class="pull-right"><b>Date:</b> 2/10/2014</small>
                                                 </h2>
                                             </div><!-- /.col -->
                                         </div>
@@ -90,7 +89,7 @@ $(function () {
 
                                                         </tr>
                                                     </thead>
-                                                    <tbody >
+                                            <tbody>
                                                         <tr>
                                                             <td>1</td>
                                                             <td>Call of Duty</td>
@@ -139,19 +138,26 @@ $(function () {
                                             </div><!-- /.col -->
                                             <div class="col-xs-6">
                                                 <div class="table-responsive">
-                                                    <table class="table">
+                                            <table class="table table-striped">
                                                         <tbody>
-                                                            @*<tr>
-                                            <th style="width:50%">Subtotal:</th>
+                                                    <tr>
+                                                        <th style="width:50%">Total:</th>
                                             <td>$250.30</td>
                                         </tr>
                                         <tr>
-                                            <th>Tax (9.3%)</th>
+                                                        <th>VAT(%)</th>
+                                                        <td>$10.34</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Service Tax(%)</th>
+                                                        <td>$10.34</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Swatch Bharat Tax(%) </th>
                                             <td>$10.34</td>
-                                        </tr>*@
-
+                                                    </tr>
                                                             <tr>
-                                                                <th>Total:</th>
+                                                        <th>Grand Total:</th>
                                                                 <td>$265.24</td>
                                                             </tr>
                                                         </tbody>

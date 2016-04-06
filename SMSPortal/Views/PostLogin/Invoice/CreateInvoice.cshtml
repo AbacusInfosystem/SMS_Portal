@@ -1,5 +1,19 @@
 ﻿<script src="~/Scripts/Module/SalesOrder/Invoice_events.js"></script>
+ 
+<script type="text/javascript">
+    $(function () {
+        $(".create-invoice").click(function () {
 
+            $("#frmCreateInvoice").attr("action", "/SalesOrder/SearchOrders/");
+
+            $("#frmCreateInvoice").attr("method", "POST");
+
+            $("#frmCreateInvoice").submit();
+
+        });
+
+    });
+</script>
 <form id="frmCreateInvoice">
     <div class="content-wrapper">
         @*@{Html.RenderPartial("_ServerMessage");}*@
@@ -19,7 +33,7 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="box-header with-border">
-                                    <i style="margin-right: 5px; cursor: pointer;font-size:22px; " class="fa fa-chevron-left"></i>
+                            <i style="margin-right: 5px; cursor: pointer;font-size:22px; " class="fa fa-chevron-left create-invoice"></i>
                                     <h3 class="box-title">Orders</h3>
                                 </div>
                                 <div class="box-body">
@@ -29,7 +43,7 @@
                                             <div class="col-xs-12">
                                                 <h2 class="page-header div-border-bottom">
                                                     <i class="fa fa-globe"></i> SMS
-                                                    <small class="pull-right">Date: 2/10/2014</small>
+                                            <small class="pull-right"><b>Date:</b> 2/10/2014</small>
                                                 </h2>
                                             </div><!-- /.col -->
                                         </div>
@@ -45,7 +59,7 @@
                                                     Email: info@almasaeedstudio.com
                                                 </address>
                                             </div><!-- /.col -->
-                                            <div class="col-sm-4 invoice-col col-border-right"  >
+                                    <div class="col-sm-4 invoice-col col-border-right">
                                                 <b> To</b>
                                                 <address>
                                                     John Doe<br>
@@ -62,8 +76,7 @@
                                             </div><!-- /.col -->
                                         </div><!-- /.row -->
                                         
-                                            <h2 class="page-header div-border-bottom">                                                
-                                            </h2>
+                                <h2 class="page-header div-border-bottom"></h2>
                                          
                                         <!-- Table row -->
                                         <div class="row">
@@ -78,7 +91,7 @@
 
                                                         </tr>
                                                     </thead>
-                                                    <tbody >
+                                            <tbody>
                                                         <tr>
                                                             <td>1</td>
                                                             <td>Call of Duty</td>
@@ -128,19 +141,26 @@
                                             <div class="col-xs-6">
 
                                                 <div class="table-responsive">
-                                                    <table class="table">
+                                            <table class="table-striped">
                                                         <tbody>
-                                                            @*<tr>
-                                            <th style="width:50%">Subtotal:</th>
+                                                    <tr>
+                                                        <th style="width:50%">Total:</th>
                                             <td>$250.30</td>
                                         </tr>
                                         <tr>
-                                            <th>Tax (9.3%)</th>
+                                                        <th>VAT(%)</th>
+                                                        <td>$10.34</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Service Tax(%)</th>
+                                                        <td>$10.34</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Swatch Bharat Tax(%)</th>
                                             <td>$10.34</td>
-                                        </tr>*@
-
+                                                    </tr>
                                                             <tr>
-                                                                <th>Total:</th>
+                                                        <th>Grand Total:</th>
                                                                 <td>$265.24</td>
                                                             </tr>
                                                         </tbody>
