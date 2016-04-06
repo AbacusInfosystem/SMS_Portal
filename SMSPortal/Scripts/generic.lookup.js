@@ -31,85 +31,89 @@ $(document).ready(function () {
     $("#btnOK").click(function () {
 
 
-        if ($("#hdnId").val() != "") {
+        //if ($("#hdnId").val() != "") {
 
-            if ($("#hdnLookup").val() == "TPART") {
+        //    if ($("#hdnLookup").val() == "TPART") {
 
-                $("#hdnTPART_Name").val($("#hdnValue").val());
+        //        $("#hdnTPART_Name").val($("#hdnValue").val());
 
-            }
-
-
-            if ($("#hdnLookup").val() == "LFA1") {
-
-                $("#hdnLFA1_Name").val($("#hdnValue").val());
-            }
+        //    }
 
 
-            $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
+        //    if ($("#hdnLookup").val() == "LFA1") {
 
-            $("#" + $("#hdnLookupHiddenId").val()).val($("#hdnId").val());
-
-            $("#" + $("#hdnLookupLabelId").val()).val("");
-
-
-            var htmltext = "";
-
-            htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + $("#hdnValue").val() + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
-
-            $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').append(htmltext);
-
-            $("#" + $("#hdnLookupLabelId").val()).val($("#hdnId").val());
-
-            $("#" + $("#hdnLookupHiddenId").val()).trigger("change");
-
-            if ($("#hdnLookupLabelId").val() == "txtVendorId") {
-
-                $.ajax({
-
-                    url: '/vendor/get-initial-screen-data/',
-
-                    data: { LIFNR: $("#txtVendorId").val() },
-
-                    method: 'GET',
-
-                    async: false,
-
-                    success: function (data) {
-
-                        if (data != null) {
-
-                            if (data.vendor.Control_LIFNR != null) {
-
-                                $("#txtAccountGroup").val(data.vendor.Initial_KTOKK);
-
-                                $("#txtAccountGroup").parent().find(".lookup-btn-add").trigger("click");
-
-                                $("#txtDisplayNotes").text(data.vendor.DisplayNotes);
-
-                                if ($("#txtAccountGroup").val() != '' && $("#txtAccountGroup").val() != null) {
-                                    //$("#btnCreate").trigger("click");
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
+        //        $("#hdnLFA1_Name").val($("#hdnValue").val());
+        //    }
 
 
-        if ($('#div_Child_Modal_Fade').hasClass("in")) {
+        //    $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
 
-            $('#div_Child_Modal_Fade').find(".modal-body").empty();
+        //    $("#" + $("#hdnLookupHiddenId").val()).val($("#hdnId").val());
 
-            $('#div_Child_Modal_Fade').modal('toggle');
-        }
-        else
-        {
-            $('#div_Parent_Modal_Fade').find(".modal-body").empty();
+        //    $("#" + $("#hdnLookupLabelId").val()).val("");
 
-            $('#div_Parent_Modal_Fade').modal('toggle');
-        }
+
+        //    var htmltext = "";
+
+        //    htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + $("#hdnValue").val() + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+
+        //    $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').append(htmltext);
+
+        //    $("#" + $("#hdnLookupLabelId").val()).val($("#hdnId").val());
+
+        //    $("#" + $("#hdnLookupHiddenId").val()).trigger("change");
+
+        //    if ($("#hdnLookupLabelId").val() == "txtVendorId") {
+
+        //        $.ajax({
+
+        //            url: '/vendor/get-initial-screen-data/',
+
+        //            data: { LIFNR: $("#txtVendorId").val() },
+
+        //            method: 'GET',
+
+        //            async: false,
+
+        //            success: function (data) {
+
+        //                if (data != null) {
+
+        //                    if (data.vendor.Control_LIFNR != null) {
+
+        //                        $("#txtAccountGroup").val(data.vendor.Initial_KTOKK);
+
+        //                        $("#txtAccountGroup").parent().find(".lookup-btn-add").trigger("click");
+
+        //                        $("#txtDisplayNotes").text(data.vendor.DisplayNotes);
+
+        //                        if ($("#txtAccountGroup").val() != '' && $("#txtAccountGroup").val() != null) {
+        //                            //$("#btnCreate").trigger("click");
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        });
+        //    }
+        //}
+
+
+        //if ($('#div_Child_Modal_Fade').hasClass("in")) {
+
+        //    $('#div_Child_Modal_Fade').find(".modal-body").empty();
+
+        //    $('#div_Child_Modal_Fade').modal('toggle');
+        //}
+        //else
+        //{
+        //    $('#div_Parent_Modal_Fade').find(".modal-body").empty();
+
+        //    $('#div_Parent_Modal_Fade').modal('toggle');
+        //}
+
+        $('#div_Parent_Modal_Fade').find(".modal-body").empty();
+
+        $('#div_Parent_Modal_Fade').modal('toggle')
         
     });
 

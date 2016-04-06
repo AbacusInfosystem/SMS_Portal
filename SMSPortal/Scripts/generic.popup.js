@@ -34,7 +34,6 @@
     });
 
     $('#div_Parent_Modal_Fade').on('hidden.bs.modal', function (e) {
-        alert(1)
         // true when we need to reset cloned html back to its main div.
         // false when we are not dealing with any cloning. Eg: Normal Look up.
         // Currently I have hardcoded it to true, but we need to set some hidden flag to know whether its a cloned popup or normal look up.
