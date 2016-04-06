@@ -1,4 +1,18 @@
-﻿<form id="frmOrderDetails">
+﻿<script type="text/javascript">
+    $(function () {
+        $(".fa-chevron-left").click(function () {
+
+            $("#frmOrderDetails").attr("action", "/Vendor/SearchOrders/");
+
+            $("#frmOrderDetails").attr("method", "POST");
+
+            $("#frmOrderDetails").submit();
+
+        });
+
+    });
+</script>
+<form id="frmOrderDetails">
     <div class="content-wrapper">
         @*@{Html.RenderPartial("_ServerMessage");}*@
         <section class="content-header">
@@ -25,7 +39,7 @@
                                     <div class="col-xs-12">
                                         <h2 class="page-header div-border-bottom">
                                             <i class="fa fa-globe"></i> SMS
-                                            <small class="pull-right">Date: 2/10/2014</small>
+                                            <small class="pull-right"><b>Date:</b> 2/10/2014</small>
                                         </h2>
                                     </div><!-- /.col -->
                                 </div>
@@ -110,11 +124,27 @@
                                     </div><!-- /.col -->
                                     <div class="col-xs-6">
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table table-striped">
                                                 <tbody>
 
                                                     <tr>
-                                                        <th>Total:</th>
+                                                        <th style="width:50%">Total:</th>
+                                                        <td>$250.30</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>VAT(%)</th>
+                                                        <td>$10.34</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Service Tax(%)</th>
+                                                        <td>$10.34</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Swatch Bharat Tax(%)</th>
+                                                        <td>$10.34</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Grand Total:</th>
                                                         <td>$265.24</td>
                                                     </tr>
                                                 </tbody>
@@ -126,15 +156,15 @@
                                 <div class="row no-print">
                                     <div class="col-md-10">
                                         <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-
                                     </div>
+                                   
                                     <div class="col-md-2">
-                                        <div class="form-group">
+                                         
                                             <label style="color: #333">Order Status</label>
                                             <select name="" class="form-control" id="drpOrder_Status">
                                                 <option value="">-Order Status-</option>
                                             </select>
-                                        </div>
+                                         
                                     </div>
                                 </div>
                             </section>
