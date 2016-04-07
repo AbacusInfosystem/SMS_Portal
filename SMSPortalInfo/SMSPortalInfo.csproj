@@ -42,6 +42,7 @@
     <Compile Include="Common\AttachmentsInfo.cs" />
     <Compile Include="Common\EnumCollection.cs" />
     <Compile Include="Common\PaginationInfo.cs" />
+    <Compile Include="Common\SessionInfo.cs" />
     <Compile Include="Common\StoreProcedures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfo.cs" />

@@ -7,7 +7,9 @@ using SMSPortal.Models;
 using SMSPortal.Models.PreLogin;
 using SMSPortal.Common;
 using SMSPortalInfo;
+using SMSPortalInfo.Common;
 using SMSPortalManager;
+using SMSPortalHelper.Logging;
 namespace SMSPortal.Controllers.PreLogin
 {
     public class LoginController : Controller
@@ -15,17 +17,39 @@ namespace SMSPortal.Controllers.PreLogin
         //
         // GET: /Login/
 
-        public UserManager userManager;        
+        public UserManager userManager;
         public LoginController()
         {
             userManager = new UserManager();
-            
         }
-        public ActionResult Index()
+        public ActionResult Index(LoginViewModel loginViewModel)
         {
-            return View();
-        }
+            try
+            {
+                if (Session["SessionInfo"] != null)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                    if (TempData["FriendlyMessage"] != null)
+                    {
+                        loginViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
+                    }
 
+                    return View("Index", loginViewModel);
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.Error("Error at Home : " + ex.Message);
+                loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                return View("Index", loginViewModel);
+            }
+
+
+        }
         public ActionResult ForgotPassword()
         {
             return View("ForgotPassword");
@@ -35,35 +59,65 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-
-                loginViewModel.User = userManager.AuthenticateUser(loginViewModel.User.UserName, loginViewModel.User.Password);
-                if (loginViewModel.User.UserId != 0 && loginViewModel.User.Is_Active == true)
+                SessionInfo session = userManager.AuthenticateUser(loginViewModel.Session.UserName, loginViewModel.Session.Password);
+                if (session.UserId != 0 && session.Is_Active == true)
                 {
+                    if (session.UserName == loginViewModel.Session.UserName)
+                    {
+                        SetUsersSession(session);
+                    }
+                    if (Session["returnURL"] != null && !string.IsNullOrEmpty(Session["returnURL"].ToString()))
+                    {
+                        string returnURL = Session["returnURL"].ToString();
+
+                        Session.Remove("returnURL");
+
+                        Response.Redirect(returnURL);
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    if (loginViewModel.User.UserId != 0 && loginViewModel.User.Is_Active == false)
+                    if (session.UserId != 0 && session.Is_Active == false)
                     {
-                        TempData["Friendly_Message"] = MessageStore.Get("SYS06");
+                        TempData["FriendlyMessage"] = MessageStore.Get("SYS06");
                     }
                     else
                     {
-                        TempData["Friendly_Message"] = MessageStore.Get("SYS03");
+                        TempData["FriendlyMessage"] = MessageStore.Get("SYS03");
                     }
                     return RedirectToAction("Index", "Login");
                 }
             }
-            catch 
+            catch (Exception ex)
             {
+                Logger.Error("Authentication : " + ex.Message);
+                Logger.Error("Authentication : " + ex.StackTrace);
+                HttpContext.Session.Clear();
+
                 loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                return RedirectToAction("Index","Login", loginViewModel);
-                 
+                return RedirectToAction("Index", "Login", loginViewModel);
             }
+        }
 
-            
-
-
+        private void SetUsersSession(SessionInfo session)
+        {
+            try
+            {
+                if (HttpContext.Session["SessionInfo"] == null)
+                {
+                    HttpContext.Session.Add("SessionInfo", session);
+                }
+                else
+                {
+                    HttpContext.Session["SessionInfo"] = session;
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Clear();
+            }
         }
 
     }
