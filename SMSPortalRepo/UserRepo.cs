@@ -14,45 +14,28 @@ namespace SMSPortalRepo
 {
     
 	public class UsersRepo
-	{        
-        private string _sqlCon = string.Empty;
+	{
+        SQLHelper sqlHelper = null;
         public UsersRepo()
         {
-            _sqlCon = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-        }
-
+            sqlHelper = new SQLHelper();
+        }        
          public UserInfo AuthenticateUser(string userName, string password)
         {
             UserInfo retVal = new UserInfo();
-
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@User_Name", userName));
+            sqlParam.Add(new SqlParameter("@Password", password));
             try
             {
-                using (SqlConnection con = new SqlConnection(_sqlCon))
+                DataTable dt = sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Authenticate_User_sp.ToString(), CommandType.StoredProcedure);
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    con.Open();
-
-                    using (SqlCommand command = new SqlCommand(StoreProcedures.Authenticate_User_sp.ToString(), con))
+                    DataRow dr = dt.AsEnumerable().FirstOrDefault();
+                    if (dr != null)
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.Add(new SqlParameter("@User_Name", userName));
-
-                        command.Parameters.Add(new SqlParameter("@Password", password));
-
-                        SqlDataReader dataReader = command.ExecuteReader();
-
-                        if (dataReader.HasRows)
-                        {
-                            while (dataReader.Read())
-                            {
-
-                                retVal.UserId = Convert.ToInt32(dataReader["User_Id"]);
-
-                                retVal.Is_Active = Convert.ToBoolean(dataReader["Is_Active"]);
-                            }
-                        }
-
-                        dataReader.Close();
+                        retVal.UserId = Convert.ToInt32(dr["User_Id"]);
+                        retVal.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
                     }
                 }
             }
@@ -64,5 +47,7 @@ namespace SMSPortalRepo
             return retVal;
         }
 		
+
+
 	}
 }

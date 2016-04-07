@@ -14,7 +14,7 @@ namespace SMSPortalHelper
 
 		public SQLHelper()
         {
-            _sqlCon = ConfigurationManager.ConnectionStrings["SMSPortal"].ToString();
+            _sqlCon = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
         }
 
         public DataSet ExecuteDataSet(List<SqlParameter> sqlParams, string sqlQuery, CommandType cmdType)

@@ -15,6 +15,12 @@ namespace SMSPortal.Controllers.PreLogin
         //
         // GET: /Login/
 
+        public UserManager userManager;        
+        public LoginController()
+        {
+            userManager = new UserManager();
+            
+        }
         public ActionResult Index()
         {
             return View();
@@ -29,9 +35,9 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                UserManager userManager = new UserManager();
-                UserInfo user = userManager.AuthenticateUser(loginViewModel.User.UserName, loginViewModel.User.Password);
-                if (user.UserId != 0 && user.Is_Active == true)
+
+                loginViewModel.User = userManager.AuthenticateUser(loginViewModel.User.UserName, loginViewModel.User.Password);
+                if (loginViewModel.User.UserId != 0 && loginViewModel.User.Is_Active == true)
                 {
                     return RedirectToAction("Index", "Home");
                 }

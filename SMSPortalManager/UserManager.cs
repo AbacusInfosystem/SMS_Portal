@@ -13,11 +13,16 @@ namespace SMSPortalManager
 {
     public class UserManager
     {
-         public UserInfo AuthenticateUser(string userName, string password)
-        {
-            UsersRepo usersRepo = new UsersRepo();
+        public UsersRepo _usersRepo;
 
-            return usersRepo.AuthenticateUser(userName, password);
+        public UserManager()
+        {
+            _usersRepo = new UsersRepo();
+        }
+
+        public UserInfo AuthenticateUser(string userName, string password)
+        {
+            return _usersRepo.AuthenticateUser(userName, password);
         }
 
     }
