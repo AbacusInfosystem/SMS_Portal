@@ -59,10 +59,10 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                SessionInfo session = userManager.AuthenticateUser(loginViewModel.Session.UserName, loginViewModel.Session.Password);
-                if (session.UserId != 0 && session.Is_Active == true)
+                SessionInfo session = userManager.AuthenticateUser(loginViewModel.Session.User_Name, loginViewModel.Session.Password);
+                if (session.User_Id != 0 && session.Is_Active == true)
                 {
-                    if (session.UserName == loginViewModel.Session.UserName)
+                    if (session.User_Name == loginViewModel.Session.User_Name)
                     {
                         SetUsersSession(session);
                     }
@@ -79,7 +79,7 @@ namespace SMSPortal.Controllers.PreLogin
                 }
                 else
                 {
-                    if (session.UserId != 0 && session.Is_Active == false)
+                    if (session.User_Id != 0 && session.Is_Active == false)
                     {
                         TempData["FriendlyMessage"] = MessageStore.Get("SYS06");
                     }

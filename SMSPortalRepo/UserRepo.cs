@@ -34,11 +34,11 @@ namespace SMSPortalRepo
                     DataRow dr = dt.AsEnumerable().FirstOrDefault();
                     if (dr != null)
                     {
-                        user.UserId = Convert.ToInt32(dr["User_Id"]);
+                        user.User_Id = Convert.ToInt32(dr["User_Id"]);
                         user.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
-                        user.UserName = Convert.ToString(dr["User_Name"]);
-                        user.FirstName = Convert.ToString(dr["First_Name"]);
-                        user.LastName = Convert.ToString(dr["Last_Name"]);
+                        user.User_Name = Convert.ToString(dr["User_Name"]);
+                        user.First_Name = Convert.ToString(dr["First_Name"]);
+                        user.Last_Name = Convert.ToString(dr["Last_Name"]);
                     }
                 }
             }
