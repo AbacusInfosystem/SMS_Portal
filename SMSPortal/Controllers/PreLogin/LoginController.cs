@@ -30,29 +30,29 @@ namespace SMSPortal.Controllers.PreLogin
             try
             {
                 UserManager userManager = new UserManager();
-                UserInfo user = userManager.AuthenticateUser(loginViewModel.user.UserName, loginViewModel.user.Password);
+                UserInfo user = userManager.AuthenticateUser(loginViewModel.User.UserName, loginViewModel.User.Password);
                 if (user.UserId != 0 && user.Is_Active == true)
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    if (loginViewModel.user.UserId != 0 && loginViewModel.user.Is_Active == false)
+                    if (loginViewModel.User.UserId != 0 && loginViewModel.User.Is_Active == false)
                     {
-                        TempData["FriendlyMessage"] = MessageStore.Get("SYS06");
+                        TempData["Friendly_Message"] = MessageStore.Get("SYS06");
                     }
                     else
                     {
-                        TempData["FriendlyMessage"] = MessageStore.Get("SYS03");
+                        TempData["Friendly_Message"] = MessageStore.Get("SYS03");
                     }
                     return RedirectToAction("Index", "Login");
                 }
             }
-            catch(Exception ex)
+            catch 
             {
                 loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 return RedirectToAction("Index","Login", loginViewModel);
-                throw ex; 
+                 
             }
 
             

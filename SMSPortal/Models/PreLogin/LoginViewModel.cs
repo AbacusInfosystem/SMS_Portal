@@ -10,10 +10,10 @@ namespace SMSPortal.Models.PreLogin
     {
         public LoginViewModel()
         {
-            user = new UserInfo();
+            User = new UserInfo();
         }
 
-        public UserInfo user { get; set; }
+        public UserInfo User { get; set; }
         public List<FriendlyMessage> Friendly_Message { get;set;}
     }
 }

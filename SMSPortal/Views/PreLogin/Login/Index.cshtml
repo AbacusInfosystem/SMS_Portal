@@ -32,6 +32,7 @@
 </head>
 
 <body class="login-page">
+    @{Html.RenderPartial("_ServerMessage");}
     <div class="login-box">
 
         <div class="login-logo">
@@ -41,8 +42,8 @@
             @*<p class="login-box-msg">Sign in to start your session</p>*@
             <form id="frmLogin" action="@Url.Action("Authenticate", "Login")" method="post">
                 <div class="form-group">
-                    <div class="input-group" id="userid">
-                        <input type="text" name="Session.User_Name" id="txtUserName" class="form-control input-sm" placeholder="Username" />
+                    <div class="input-group" id="UserName">
+                        <input type="text" name="User.UserName" id="txtUserName" class="form-control input-sm" placeholder="Username" />
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
@@ -52,7 +53,7 @@
                 <div class="form-group">
                     <div class="input-group" id="Password">
                        
-                            <input type="password" name="Session.Password" id="txtPassword" class="form-control input-sm" placeholder="Password" />
+                        <input type="password" name="user.Password" id="txtPassword" class="form-control input-sm" placeholder="Password" />
                         <div class="input-group-addon">
                             <i class="fa fa-lock"></i>
                         </div>
@@ -89,22 +90,22 @@
                 errorClass: "login-error",
                 rules: {
 
-                    "Session.User_Name": { required: true },
+                    "User.UserName": { required: true },
 
-                    "Session.Password": { required: true },
+                    "User.Password": { required: true },
                 },
                 messages: {
 
-                    "Session.User_Name": { required: "User Name is required field." },
+                    "User.UserName": { required: "User Name is required field." },
 
-                    "Session.Password": { required: "Password is required field." },
+                    "User.Password": { required: "Password is required field." },
 
                 },
                 errorPlacement: function (error, element) {
-                    if (element.attr("name") == "Session.User_Name" ) {
-                        error.insertAfter("#userid");
+                    if (element.attr("name") == "User.UserName") {
+                        error.insertAfter("#UserName");
                     } 
-                    if (element.attr("name") == "Session.Password")
+                    if (element.attr("name") == "User.Password")
                         {
                         error.insertAfter("#Password");
                     }

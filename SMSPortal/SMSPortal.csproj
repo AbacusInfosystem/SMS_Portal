@@ -1039,6 +1039,7 @@
     <Content Include="Views\PostLogin\SubCategory\AddEdit_SubCategory.cshtml" />
     <Content Include="Views\PostLogin\Category\Index.cshtml" />
     <Content Include="Views\PostLogin\Category\Search.cshtml" />
+    <Content Include="Views\Shared\_ServerMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

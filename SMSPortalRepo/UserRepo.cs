@@ -46,7 +46,7 @@ namespace SMSPortalRepo
                             while (dataReader.Read())
                             {
 
-                                retVal.UserId = Convert.ToInt32(dataReader["UserId"]);
+                                retVal.UserId = Convert.ToInt32(dataReader["User_Id"]);
 
                                 retVal.Is_Active = Convert.ToBoolean(dataReader["Is_Active"]);
                             }
