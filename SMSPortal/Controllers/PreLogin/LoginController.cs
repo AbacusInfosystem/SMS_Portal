@@ -31,40 +31,40 @@ namespace SMSPortal.Controllers.PreLogin
             return View("ForgotPassword");
         }
 
-        public ActionResult Authenticate(LoginViewModel loginViewModel)
-        {
-            try
-            {
+        //public ActionResult Authenticate(LoginViewModel loginViewModel)
+        //{
+        //    try
+        //    {
 
-                loginViewModel.User = userManager.AuthenticateUser(loginViewModel.User.UserName, loginViewModel.User.Password);
-                if (loginViewModel.User.UserId != 0 && loginViewModel.User.Is_Active == true)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    if (loginViewModel.User.UserId != 0 && loginViewModel.User.Is_Active == false)
-                    {
-                        TempData["Friendly_Message"] = MessageStore.Get("SYS06");
-                    }
-                    else
-                    {
-                        TempData["Friendly_Message"] = MessageStore.Get("SYS03");
-                    }
-                    return RedirectToAction("Index", "Login");
-                }
-            }
-            catch 
-            {
-                loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                return RedirectToAction("Index","Login", loginViewModel);
+        //        loginViewModel.User = userManager.AuthenticateUser(loginViewModel.User.UserName, loginViewModel.User.Password);
+        //        if (loginViewModel.User.UserId != 0 && loginViewModel.User.Is_Active == true)
+        //        {
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        else
+        //        {
+        //            if (loginViewModel.User.UserId != 0 && loginViewModel.User.Is_Active == false)
+        //            {
+        //                TempData["Friendly_Message"] = MessageStore.Get("SYS06");
+        //            }
+        //            else
+        //            {
+        //                TempData["Friendly_Message"] = MessageStore.Get("SYS03");
+        //            }
+        //            return RedirectToAction("Index", "Login");
+        //        }
+        //    }
+        //    catch 
+        //    {
+        //        loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+        //        return RedirectToAction("Index","Login", loginViewModel);
                  
-            }
+        //    }
 
             
 
 
-        }
+        //}
 
     }
 }

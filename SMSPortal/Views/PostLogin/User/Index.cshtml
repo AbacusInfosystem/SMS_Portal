@@ -1,5 +1,5 @@
-﻿<script src="~/Scripts/Module/User/User_events.js"></script>
-
+﻿@using SMSPortal.Models.PostLogin.UserViewModel
+<script src="~/Scripts/Module/User/User_events.js"></script>
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -32,7 +32,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">User Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtUser_Name" placeholder="Enter user name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Users.User_Name" id="txtUser_Name" placeholder="Enter user name" value="@Model.Users.User_Name" maxlength=" 20">
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">First Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtFirst_Name" placeholder="Enter first name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Users.First_Name" id="txtFirst_Name" placeholder="Enter first name" value="@Model.Users.First_Name" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Last Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtLast_Name" placeholder="Enter last name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="@Model.Users.Last_Name" id="txtLast_Name" placeholder="Enter last name" value="@Model.Users.Last_Name" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Contact No 1</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtContactNo1" placeholder="Enter your contact" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Users.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Users.Contact_No_1" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Contact No 2</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtContactNo2" placeholder="Enter your alternative contact" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Users.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Users.Contact_No_2" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
 
                                         <label>
 
-                                            <input type="checkbox" name="chkStatus" checked="checked" />
+                                            <input type="checkbox" name="Users.Is_Active" checked="checked" value="@Model.Users.Is_Active" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; Active
                                         </label>
                                     </div>

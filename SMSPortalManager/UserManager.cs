@@ -24,6 +24,9 @@ namespace SMSPortalManager
         {
             return _usersRepo.AuthenticateUser(userName, password);
         }
-
+        public void Insert_Users(UserInfo users)
+        {
+            _usersRepo.Insert_Users(users);
+        }
     }
 }

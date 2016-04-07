@@ -34,7 +34,7 @@ namespace SMSPortalRepo
                     DataRow dr = dt.AsEnumerable().FirstOrDefault();
                     if (dr != null)
                     {
-                        retVal.UserId = Convert.ToInt32(dr["User_Id"]);
+                       // retVal.UserId = Convert.ToInt32(dr["User_Id"]);
                         retVal.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
                     }
                 }
@@ -46,8 +46,31 @@ namespace SMSPortalRepo
 
             return retVal;
         }
-		
 
+         public void Insert_Users(UserInfo users)
+         {
+             sqlHelper.ExecuteNonQuery(Set_Values_In_Users(users), StoreProcedures.Insert_Users_Sp.ToString(), CommandType.StoredProcedure);
+         }
+
+         private List<SqlParameter> Set_Values_In_Users(UserInfo users)
+         {
+             List<SqlParameter> sqlParams = new List<SqlParameter>();
+             sqlParams.Add(new SqlParameter("@User_Id", users.User_Id));
+             sqlParams.Add(new SqlParameter("@First_Name", users.First_Name));
+             sqlParams.Add(new SqlParameter("@Last_Name", users.Last_Name));
+             sqlParams.Add(new SqlParameter("@Contact_No_1", users.Contact_No_1));
+             sqlParams.Add(new SqlParameter("@Contact_No_2", users.Contact_No_2));
+             sqlParams.Add(new SqlParameter("@Gender", users.Gender));
+             sqlParams.Add(new SqlParameter("@User_Name", users.User_Name));
+             sqlParams.Add(new SqlParameter("@Password", users.Password));
+             sqlParams.Add(new SqlParameter("@Role_Id", users.Role_Id));
+             sqlParams.Add(new SqlParameter("@Is_Active", users.Is_Active));
+             sqlParams.Add(new SqlParameter("@Created_On", users.Created_On));
+             sqlParams.Add(new SqlParameter("@Created_By", users.Created_By));
+             sqlParams.Add(new SqlParameter("@Updated_On", users.Updated_On));
+             sqlParams.Add(new SqlParameter("@Updated_By", users.Updated_By));
+             return sqlParams;
+         }
 
 	}
 }

@@ -6,72 +6,36 @@ using System.Threading.Tasks;
 
 namespace SMSPortalInfo
 {
-	public class UserInfo
-	{
-		public int UserId
-		{
-			get;
-			set;
-		}
+	
+    public class UserInfo
+    {
+        public int User_Id { get; set; }
 
-		public string FirstName
-		{
-			get;
-			set;
-		}
+        public string First_Name { get; set; }
 
-		public string LastName
-		{
-			get;
-			set;
-		}
+        public string Last_Name { get; set; }
 
-		public string UserName
-		{
-			get;
-			set;
-		}
+        public string Contact_No_1 { get; set; }
 
-		public string Password
-		{
-			get;
-			set;
-		}
+        public string Contact_No_2 { get; set; }
 
-		public DateTime LastLoginDate
-		{
-			get;
-			set;
-		}
+        public int Gender { get; set; }
 
-		public DateTime CreatedOn
-		{
-			get;
-			set;
-		}
+        public string User_Name { get; set; }
 
-		public int CreatedBy
-		{
-			get;
-			set;
-		}
+        public string Password { get; set; }
 
-		public DateTime UpdatedOn
-		{
-			get;
-			set;
-		}
+        public int Role_Id { get; set; }
 
-		public int UpdatedBy
-		{
-			get;
-			set;
-		}
-        public bool Is_Active
-        {
-            get;
-            set;
-        }
-        
-	}
+        public bool Is_Active { get; set; }
+
+        public DateTime Created_On { get; set; }
+
+        public int Created_By { get; set; }
+
+        public DateTime Updated_On { get; set; }
+
+        public int Updated_By { get; set; }
+
+    }
 }

@@ -9,6 +9,11 @@ namespace SMSPortalInfo.Common
 	public enum StoreProcedures
 	{
         //Login
-        Authenticate_User_sp
+        Authenticate_User_sp,
+
+        // Users
+        Insert_Users_Sp,
+
+
 	}
 }
