@@ -43,9 +43,6 @@
     <Reference Include="SMSPortalHelper">
       <HintPath>..\Libraries\SMSPortalHelper.dll</HintPath>
     </Reference>
-    <Reference Include="SMSPortalManager">
-      <HintPath>..\Libraries\SMSPortalManager.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -212,6 +209,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\PreLogin\LoginViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -1052,6 +1050,10 @@
     <ProjectReference Include="..\SMSPortalInfo\SMSPortalInfo.csproj">
       <Project>{ae299b99-3bde-41bc-af81-2e2741626a11}</Project>
       <Name>SMSPortalInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMSPortalManager\SMSPortalManager.csproj">
+      <Project>{b27e4146-25a4-44cd-8422-52a4433efef0}</Project>
+      <Name>SMSPortalManager</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

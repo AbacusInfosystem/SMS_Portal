@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SMSPortalInfo
 {
-	public class UsersInfo
+	public class UserInfo
 	{
 		public int UserId
 		{
@@ -67,6 +67,11 @@ namespace SMSPortalInfo
 			get;
 			set;
 		}
-
+        public bool Is_Active
+        {
+            get;
+            set;
+        }
+        
 	}
 }
