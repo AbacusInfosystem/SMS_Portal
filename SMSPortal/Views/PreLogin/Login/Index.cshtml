@@ -1,5 +1,5 @@
 ﻿@model SMSPortal.Models.PreLogin.LoginViewModel
-
+@using SMSPortalInfo.Common;
 @{
     Layout = null;
 }
@@ -43,7 +43,7 @@
             <form id="frmLogin" action="@Url.Action("Authenticate", "Login")" method="post">
                 <div class="form-group">
                     <div class="input-group" id="UserName">
-                        <input type="text" name="User.UserName" id="txtUserName" class="form-control input-sm" placeholder="Username" />
+                        <input type="text" name="Session.UserName" id="txtUserName" class="form-control input-sm" placeholder="Username" />
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <div class="input-group" id="Password">
                        
-                        <input type="password" name="User.Password" id="txtPassword" class="form-control input-sm" placeholder="Password" />
+                        <input type="password" name="Session.Password" id="txtPassword" class="form-control input-sm" placeholder="Password" />
                         <div class="input-group-addon">
                             <i class="fa fa-lock"></i>
                         </div>
@@ -90,22 +90,22 @@
                 errorClass: "login-error",
                 rules: {
 
-                    "User.UserName": { required: true },
+                    "Session.UserName": { required: true },
 
-                    "User.Password": { required: true },
+                    "Session.Password": { required: true },
                 },
                 messages: {
 
-                    "User.UserName": { required: "User Name is required field." },
+                    "Session.UserName": { required: "User Name is required field." },
 
-                    "User.Password": { required: "Password is required field." },
+                    "Session.Password": { required: "Password is required field." },
 
                 },
                 errorPlacement: function (error, element) {
-                    if (element.attr("name") == "User.UserName") {
+                    if (element.attr("name") == "Session.UserName") {
                         error.insertAfter("#UserName");
                     } 
-                    if (element.attr("name") == "User.Password")
+                    if (element.attr("name") == "Session.Password")
                         {
                         error.insertAfter("#Password");
                     }

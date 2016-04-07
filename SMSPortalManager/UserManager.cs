@@ -8,7 +8,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SMSPortalInfo;
+using SMSPortalInfo.Common;
 namespace SMSPortalManager
 {
     public class UserManager
@@ -20,7 +21,7 @@ namespace SMSPortalManager
             _usersRepo = new UsersRepo();
         }
 
-        public UserInfo AuthenticateUser(string userName, string password)
+        public SessionInfo AuthenticateUser(string userName, string password)
         {
             return _usersRepo.AuthenticateUser(userName, password);
         }
