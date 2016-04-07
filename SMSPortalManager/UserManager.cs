@@ -11,8 +11,14 @@ using System.Threading.Tasks;
 
 namespace SMSPortalManager
 {
-	
+    public class UserManager
+    {
+         public UserInfo AuthenticateUser(string userName, string password)
+        {
+            UsersRepo usersRepo = new UsersRepo();
 
-		
-	
+            return usersRepo.AuthenticateUser(userName, password);
+        }
+
+    }
 }
