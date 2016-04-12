@@ -35,4 +35,9 @@
 	font-weight:bold;
 	font-size:1.4em;
 }
-/*-----------------End---------------*/
+/*-----------------validation error---------------*/
+.login-error {
+            font-size:12px;
+            color:red;
+            font-family:sans-serif; 
+        }

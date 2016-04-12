@@ -10,6 +10,7 @@ using SMSPortalInfo;
 using SMSPortalInfo.Common;
 using SMSPortalManager;
 using SMSPortalHelper.Logging;
+using System.Configuration;
 namespace SMSPortal.Controllers.PreLogin
 {
     public class LoginController : Controller
@@ -117,6 +118,67 @@ namespace SMSPortal.Controllers.PreLogin
             catch (Exception ex)
             {
                 HttpContext.Session.Clear();
+            }
+        }
+
+        public ActionResult Logout(string timeOut)
+        {
+            LoginViewModel loginViewModel = new LoginViewModel();
+            try
+            {
+                LogoutUser();
+                //if (timeOut == "Timeout")
+               // {
+                    TempData["FriendlyMessage"] = MessageStore.Get("SYS02");
+                //}
+            }
+            catch (Exception ex)
+            {
+                //Logger.Error("HomeController - Logout: " + ex.ToString());
+            }
+
+            return RedirectToAction("Index", "login");
+        }
+
+        private void LogoutUser()
+        {
+            Session["SessionInfo"] = null;
+
+            Session["ReturnURL"] = null;
+
+            ClearExcpetionData();
+
+            //FormsAuthentication.SignOut();
+
+            //Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddYears(-1);
+
+            Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
+
+            Response.Expires = -1500;
+
+            Response.CacheControl = "no-cache";
+
+            Response.AddHeader("Cache-Control", "no-cache");
+
+            Response.Cache.SetNoStore();
+
+            Response.AddHeader("Pragma", "no-cache");
+
+            //  Response.Redirect("/");
+        }
+
+        public void ClearExcpetionData()
+        {
+            try
+            {
+                string strFileName = Server.MapPath(ConfigurationManager.AppSettings["ErrorFilePath"].ToString());
+                List<string> lines = System.IO.File.ReadAllLines(strFileName).ToList();
+
+                System.IO.File.WriteAllLines(strFileName, lines.Take(1));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At ClearExcpetionData : " + ex);
             }
         }
 

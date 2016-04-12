@@ -70,7 +70,7 @@
     <script src="/Scripts/jquery-ui-1.11.2.min.js"></script>
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
+    <script>        
         $.widget.bridge('uibutton', $.ui.button);
     </script>
 
@@ -99,6 +99,7 @@
     <script src="/Scripts/ulblock.js"></script>
 
     <script src="/Scripts/generic.dragdrop.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
 </head>
 
 <body class="skin-blue">
@@ -114,10 +115,6 @@
         @{Html.RenderPartial("_Footer");}
 
     </div>
-
-
-
-
     <div class="modal fade" id="div_Parent_Modal_Fade" role="dialog" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">

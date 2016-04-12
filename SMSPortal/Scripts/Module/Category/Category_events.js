@@ -9,7 +9,33 @@
         $("#frmCategoryMaster").submit();
 
     });
+    
+    $(document).ready(function () {
 
+        $("#btnSave").click(function () {
+           
+            if ($("#hdf_CategoryId").val() != "" && $("#hdf_CategoryId").val() != null && $("#hdf_CategoryId").val() > 0)
+            {
+                
+                $('#frmCategoryMaster').attr("action", "/Category/Update_Category");
+            }
+            else
+            {
+               
+                //if (('#frmCategoryMaster').valid())
+                //{
+                    $('#frmCategoryMaster').attr("action", "/Category/Insert_Category");
+                //}
+            }
+
+            //$('#frmCategoryMaster').attr("action", "/Category/Insert_Category");
+            $('#frmCategoryMaster').attr("method", "POST");
+            $('#frmCategoryMaster').submit();
+
+        });
+    });
+
+   
 });
 $(document).ready(function () {
 
