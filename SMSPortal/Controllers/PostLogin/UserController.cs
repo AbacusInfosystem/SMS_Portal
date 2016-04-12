@@ -45,20 +45,20 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                uViewModel.users.Created_By = 1;
+                uViewModel.User.Created_By = 1;
 
-                uViewModel.users.Created_On = DateTime.Now;
+                uViewModel.User.Created_On = DateTime.Now;
 
-                uViewModel.users.Updated_By = 1;
+                uViewModel.User.Updated_By = 1;
 
-                uViewModel.users.Updated_On = DateTime.Now;
+                uViewModel.User.Updated_On = DateTime.Now;
 
                 //uViewModel.Role.Created_By = 1;
 
                 //uViewModel.Role.Created_Date = DateTime.Now;
 
-                //uViewModel.User.UserId = _userRepo.Insert(uViewModel.User);
-
+                _userMan.Insert_Users(uViewModel.User);
+                   // uViewModel.User.User_Id;
                 //_userRepo.Insert_User_Role(uViewModel.User.UserId, uViewModel.Selected_User_Role, uViewModel.Role);
 
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM002"));
