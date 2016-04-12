@@ -44,8 +44,13 @@ namespace SMSPortalRepo
             }
             sqlParams.Add(new SqlParameter("@Category_Name", category.Category_Name));
             sqlParams.Add(new SqlParameter("@IsActive", category.IsActive));
-            sqlParams.Add(new SqlParameter("@Created_On", category.Created_On));
-            sqlParams.Add(new SqlParameter("@Created_By", category.Created_By));
+
+            if (category.Category_Id == 0)
+            {
+                sqlParams.Add(new SqlParameter("@Created_On", category.Created_On));
+                sqlParams.Add(new SqlParameter("@Created_By", category.Created_By));
+            }
+
             sqlParams.Add(new SqlParameter("@Updated_On", category.Updated_On));
             sqlParams.Add(new SqlParameter("@Updated_By", category.Updated_By));
             return sqlParams;
@@ -61,10 +66,29 @@ namespace SMSPortalRepo
             }
             return categorys;
         }
+
+        public List<CategoryInfo> Get_Categorys_By_Name(string Category_Name,  ref PaginationInfo Pager)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(new SqlParameter("@Category_Name", Category_Name));
+
+            List<CategoryInfo> categorys = new List<CategoryInfo>();
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Category_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            {
+                categorys.Add(Get_Category_Values(dr));
+            }
+            return categorys;
+        }
+
         public CategoryInfo Get_Category_By_Id(int Category_Id)
         {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(new SqlParameter("@Category_Id", Category_Id));
+
             CategoryInfo category = new CategoryInfo();
-            DataTable dt = _sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Category_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Category_By_Id_Sp.ToString(), CommandType.StoredProcedure);
             List<DataRow> drList = new List<DataRow>();
             drList = dt.AsEnumerable().ToList();
             foreach (DataRow dr in drList)
@@ -79,7 +103,9 @@ namespace SMSPortalRepo
             CategoryInfo category = new CategoryInfo();
 
             category.Category_Id = Convert.ToInt32(dr["Category_Id"]);
-            category.Category_Name = Convert.ToString(dr["Category_Name"]);
+
+            if (!dr.IsNull("Category_Name"))
+            category.Category_Name = Convert.ToString(dr["Category_Name"]);            
             category.IsActive = Convert.ToBoolean(dr["IsActive"]);
             category.Created_On = Convert.ToDateTime(dr["Created_On"]);
             category.Created_By = Convert.ToInt32(dr["Created_By"]);

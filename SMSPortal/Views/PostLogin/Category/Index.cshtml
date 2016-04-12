@@ -30,7 +30,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Category Name</label>
-                                        <input type="text" class="form-control input-sm" id="txtCategory_Name" name="Category.Category_Name" placeholder="Enter category name" value="@Model.Category.Category_Name" maxlength="20">
+                                        <input type="text" class="form-control input-sm" id="txtCategory_Name" name="Category.Category_Name" placeholder="Enter category name" value="@Model.Category.Category_Name" >
                                     </div>
                                 </div>
                             </div>
@@ -39,11 +39,11 @@
                                     <label>
                                         @if (Model.Category.IsActive == false)
                                         {
-                                            <input type="checkbox" name="chkStatus" />
+                                            <input type="checkbox" name="chkStatus" class="chkActive" />
                                         }
                                         else
                                         {
-                                            <input type="checkbox" name="chkStatus" checked="checked" />
+                                            <input type="checkbox" name="chkStatus" checked="checked" class="chkActive" />
                                         }
 
                                         <input type="hidden" class="form-control input-sm" id="hdnIs_Active" name="Category.Is_Active" value="@Model.Category.IsActive.ToString()">
