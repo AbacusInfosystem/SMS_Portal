@@ -9,6 +9,15 @@
         $("#frmUserMaster").submit();
 
     });
+    $("#btnSave").click(function () {
+
+        $("#frmUserMaster").attr("action", "/User/Insert/");
+
+        $("#frmUserMaster").attr("method", "POST");
+
+        $("#frmUserMaster").submit();
+
+    });
 
 });
 $(document).ready(function () {

@@ -13,12 +13,12 @@ namespace SMSPortal.Models.PostLogin
         {
             Friendly_Message = new List<FriendlyMessage>();
             Pager = new PaginationInfo();
-            users = new UserInfo();
-            userss = new List<UserInfo>();
+            User = new UserInfo();
+            Users = new List<UserInfo>();
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
-        public UserInfo users { get; set; }
-        public List<UserInfo> userss { get; set; }
+        public UserInfo User { get; set; }
+        public List<UserInfo> Users { get; set; }
     }
 }
