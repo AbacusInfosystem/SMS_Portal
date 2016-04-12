@@ -119,5 +119,32 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Category_Id", category_id));
             _sqlHelper.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Category_By_Id_Sp.ToString(), CommandType.StoredProcedure);
         }
+
+
+        public bool Check_Existing_Category(string Category_Name)
+        {
+            bool check = false;
+
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Category_Name", Category_Name));
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Check_Existing_Category.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                //int count = dt.Rows.Count;
+
+                List<DataRow> drList = new List<DataRow>();
+
+                drList = dt.AsEnumerable().ToList();
+
+                foreach (DataRow dr in drList)
+                {
+                    check = Convert.ToBoolean(dr["Check_Category"]);
+                }
+            }
+
+            return check;
+        }
     }
 }

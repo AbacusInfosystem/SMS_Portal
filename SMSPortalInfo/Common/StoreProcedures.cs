@@ -18,6 +18,7 @@ namespace SMSPortalInfo.Common
         Get_Category_By_Name_Sp,
         Get_Category_By_Id_Sp,
         Delete_Category_By_Id_Sp,
+        Check_Existing_Category,
 
         // Users
         Insert_Users_Sp,
