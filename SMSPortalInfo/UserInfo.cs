@@ -29,6 +29,8 @@ namespace SMSPortalInfo
 
         public bool Is_Active { get; set; }
 
+        public string Status { get; set; }
+
         public DateTime Created_On { get; set; }
 
         public int Created_By { get; set; }

@@ -103,11 +103,33 @@ namespace SMSPortalRepo
              user.Password = Convert.ToString(dr["Password"]);
              //user.Role_Id = Convert.ToInt32(dr["Role_Id"]);
              user.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+             if (user.Is_Active==true)
+             {
+                 user.Status = "Active";
+             }
+             else
+             {
+                 user.Status = "InActive";
+             }
              user.Created_On = Convert.ToDateTime(dr["Created_On"]);
              user.Created_By = Convert.ToInt32(dr["Created_By"]);
              user.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
              user.Updated_By = Convert.ToInt32(dr["Updated_By"]);
              return user;
+         }
+         public List<UserInfo> Get_Users_By_User_Name(string User_Name, ref PaginationInfo Pager)
+         {
+             List<SqlParameter> parameters = new List<SqlParameter>();
+             parameters.Add(new SqlParameter("@User_Name", User_Name));
+
+             List<UserInfo> Users = new List<UserInfo>();
+
+             DataTable dt = sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Users_By_User_Name_Sp.ToString(), CommandType.StoredProcedure);
+             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+             {
+                 Users.Add(Get_Users_Values(dr));
+             }
+             return Users;
          }
          public UserInfo Get_User_By_Id(int User_Id)
          {

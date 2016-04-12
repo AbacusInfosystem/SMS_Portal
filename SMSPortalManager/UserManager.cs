@@ -41,6 +41,9 @@ namespace SMSPortalManager
         {
             return _usersRepo.Get_User_By_Id(User_Id);
         }
-   
+        public List<UserInfo> Get_Users_By_User_Name(string User_Name, ref PaginationInfo Pager)
+        {
+            return _usersRepo.Get_Users_By_User_Name(User_Name, ref Pager);
+        }
     }
 }
