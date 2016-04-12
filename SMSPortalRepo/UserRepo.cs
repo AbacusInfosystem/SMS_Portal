@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using SMSPortalHelper;
 using SMSPortalHelper.Logging;
+using SMSPortalRepo.Common;
 namespace SMSPortalRepo
 {
     
@@ -54,6 +55,11 @@ namespace SMSPortalRepo
              sqlHelper.ExecuteNonQuery(Set_Values_In_Users(users), StoreProcedures.Insert_Users_Sp.ToString(), CommandType.StoredProcedure);
          }
 
+         public void Update_User(UserInfo users)
+         {
+             sqlHelper.ExecuteNonQuery(Set_Values_In_Users(users), StoreProcedures.Update_Users_Sp.ToString(), CommandType.StoredProcedure);
+         }
+
          private List<SqlParameter> Set_Values_In_Users(UserInfo users)
          {
              List<SqlParameter> sqlParams = new List<SqlParameter>();
@@ -73,6 +79,47 @@ namespace SMSPortalRepo
              sqlParams.Add(new SqlParameter("@Updated_By", users.Updated_By));
              return sqlParams;
          }
+         public List<UserInfo> Get_Users(ref PaginationInfo Pager)
+         {
+             List<UserInfo> users = new List<UserInfo>();
+             DataTable dt = sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Users_Sp.ToString(), CommandType.StoredProcedure);
+             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+             {
+                 users.Add(Get_Users_Values(dr));
+             }
+             return users;
+         }
+         private UserInfo Get_Users_Values(DataRow dr)
+         {
+             UserInfo user = new UserInfo();
 
+             user.User_Id = Convert.ToInt32(dr["User_Id"]);
+             user.First_Name = Convert.ToString(dr["First_Name"]);
+             user.Last_Name = Convert.ToString(dr["Last_Name"]);
+             user.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
+             user.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
+             //user.Gender = Convert.ToInt32(dr["Gender"]);
+             user.User_Name = Convert.ToString(dr["User_Name"]);
+             user.Password = Convert.ToString(dr["Password"]);
+             //user.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+             user.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+             user.Created_On = Convert.ToDateTime(dr["Created_On"]);
+             user.Created_By = Convert.ToInt32(dr["Created_By"]);
+             user.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+             user.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+             return user;
+         }
+         public UserInfo Get_User_By_Id(int User_Id)
+         {
+             UserInfo user = new UserInfo();
+             DataTable dt = sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Users_Sp.ToString(), CommandType.StoredProcedure);
+             List<DataRow> drList = new List<DataRow>();
+             drList = dt.AsEnumerable().ToList();
+             foreach (DataRow dr in drList)
+             {
+                 user = Get_Users_Values(dr);
+             }
+             return user;
+         }
 	}
 }

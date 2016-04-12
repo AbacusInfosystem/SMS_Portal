@@ -10,8 +10,18 @@
 
     });
     $("#btnSave").click(function () {
+        if ($("#hdf_UserId").val() != "" && $("#hdf_UserId").val() != null && $("#hdf_UserId").val() > 0) {
 
-        $("#frmUserMaster").attr("action", "/User/Insert/");
+            $('#frmUserMaster').attr("action", "/User/Update_User");
+        }
+        else {
+
+            //if (('#frmUserMaster').valid())
+            //{
+            $('#frmUserMaster').attr("action", "/User/Insert/");
+            //}
+        }
+
 
         $("#frmUserMaster").attr("method", "POST");
 
@@ -30,10 +40,10 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
+//$(document).ready(function () {
 
-    $("#txtLastlogin_Date").datepicker({
-        changeMonth: true,//this option for allowing user to select month
-        changeYear: true //this option for allowing user to select from year range
-    });
-});
+//    $("#txtLastlogin_Date").datepicker({
+//        changeMonth: true,//this option for allowing user to select month
+//        changeYear: true //this option for allowing user to select from year range
+//    });
+//});

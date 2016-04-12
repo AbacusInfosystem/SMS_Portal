@@ -20,5 +20,7 @@ namespace SMSPortalInfo.Common
 
         // Users
         Insert_Users_Sp,
+        Get_Users_Sp,
+        Update_Users_Sp,
 	}
 }

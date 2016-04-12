@@ -29,5 +29,18 @@ namespace SMSPortalManager
         {
             _usersRepo.Insert_Users(users);
         }
+        public List<UserInfo> Get_Users(ref PaginationInfo Pager)
+        {
+            return _usersRepo.Get_Users(ref Pager);
+        }
+        public void Update_User(UserInfo users)
+        {
+            _usersRepo.Update_User(users);
+        }
+        public UserInfo Get_User_By_Id(int User_Id)
+        {
+            return _usersRepo.Get_User_By_Id(User_Id);
+        }
+   
     }
 }
