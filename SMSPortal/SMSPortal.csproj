@@ -209,6 +209,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\PostLogin\CategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PreLogin\LoginViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -939,6 +940,8 @@
     <Content Include="Scripts\Module\Brand\brand_events.js" />
     <Content Include="Scripts\Module\Brand\search_brand_events.js" />
     <Content Include="Scripts\Module\Brand\search_brand_methods.js" />
+    <Content Include="Scripts\Module\Category\category_validation.js" />
+    <Content Include="Scripts\Module\Category\search_category_events.js" />
     <Content Include="Scripts\Module\Category\Category_events.js" />
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />

@@ -1,4 +1,8 @@
-﻿<script src="~/Scripts/Module/Category/Category_events.js"></script>
+﻿@model SMSPortal.Models.PostLogin.CategoryViewModel
+
+<script src="~/Scripts/Module/Category/Category_events.js"></script>
+<script src="~/Scripts/Module/Category/category_validation.js"></script>
+
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -21,18 +25,28 @@
                             <h3 class="box-title">Category</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" class="form-control input-sm" name="Category.Category_Id" id="hdf_CategoryId" placeholder="Country Name" value="@Model.Category.Category_Id">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Category Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtCategory_Name" placeholder="Enter category name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" id="txtCategory_Name" name="Category.Category_Name" placeholder="Enter category name" value="@Model.Category.Category_Name" maxlength="20">
                                     </div>
                                 </div>
                             </div>
                             <div>
                                 <div class="form-group">
                                     <label>
-                                        <input type="checkbox" name="chkStatus" checked="checked" />
+                                        @if (Model.Category.IsActive == false)
+                                        {
+                                            <input type="checkbox" name="chkStatus" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" name="chkStatus" checked="checked" />
+                                        }
+
+                                        <input type="hidden" class="form-control input-sm" id="hdnIs_Active" name="Category.Is_Active" value="@Model.Category.IsActive.ToString()">
                                         &nbsp;&nbsp;&nbsp;&nbsp; Active
                                     </label>
                                 </div>

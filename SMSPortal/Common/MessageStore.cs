@@ -38,6 +38,18 @@ namespace SMSPortal.Common
 
 			#endregion
 
+            #region Category 
+
+            FriendlyMessage RO001 = new FriendlyMessage("CO001", MessageType.Success, "Category added successfully");
+            hash.Add("CO001", RO001);
+
+            FriendlyMessage RO002 = new FriendlyMessage("CO002", MessageType.Success, "Category updated successfully");
+            hash.Add("CO002", RO002);
+
+            FriendlyMessage RO003 = new FriendlyMessage("CO003", MessageType.Success, "Category deleted successfully");
+            hash.Add("CO003", RO003);
+
+            #endregion
 			
 		}
 
