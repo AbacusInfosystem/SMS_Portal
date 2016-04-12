@@ -15,6 +15,7 @@ namespace SMSPortalInfo.Common
         Insert_Category_Sp,
         Update_Category_Sp,
         Get_Category_Sp,
+        Get_Category_By_Name_Sp,
         Get_Category_By_Id_Sp,
         Delete_Category_By_Id_Sp,
 
@@ -26,5 +27,7 @@ namespace SMSPortalInfo.Common
         Get_Sub_Category_By_Id_Sp,
         Insert_Sub_Category_Sp,
         Update_Sub_Category_Sp,
+        Get_Users_Sp,
+        Update_Users_Sp,
 	}
 }

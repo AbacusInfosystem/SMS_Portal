@@ -9,6 +9,7 @@ using SMSPortal.Common;
 using SMSPortalHelper.Logging;
 using SMSPortalInfo.Common;
 using SMSPortalInfo;
+using SMSPortalHelper.PageHelper;
 namespace SMSPortal.Controllers.PostLogin
 {
     public class CategoryController : Controller
@@ -22,16 +23,12 @@ namespace SMSPortal.Controllers.PostLogin
 
         // GET: /Category/
         public ActionResult Search(CategoryViewModel categoryViewModel)
-        {
-            PaginationInfo Pager = new PaginationInfo();
+        {             
             try
-            {                
-                Pager.IsPagingRequired = false;
-                categoryViewModel.Categories = _categoryManager.Get_Categorys(ref Pager);
-
+            { 
                 if (TempData["categoryViewMessage"] != null)
                 {
-                    categoryViewModel.Friendly_Message=(List<FriendlyMessage>)TempData["categoryViewMessage"];
+                    categoryViewModel=(CategoryViewModel)TempData["categoryViewMessage"];
                 }
             }
             catch (Exception ex)
@@ -40,8 +37,36 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("UserController Search " + ex);
             }
             return View("Search",categoryViewModel);
+        }
 
+        public JsonResult Get_Categories(CategoryViewModel categoryViewModel)
+        {
+            PaginationInfo pager = new PaginationInfo();
+            try
+            {
+                pager = categoryViewModel.Pager;
+                if (categoryViewModel.Filter.Category_Name != null)
+                {
+                    categoryViewModel.Categories = _categoryManager.Get_Categorys_By_Name(categoryViewModel.Filter.Category_Name, ref pager);
+                }
+                else
+                {
+                    categoryViewModel.Categories = _categoryManager.Get_Categorys(ref pager);
+                }
 
+                categoryViewModel.Pager = pager;
+
+                categoryViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", categoryViewModel.Pager.TotalRecords, categoryViewModel.Pager.CurrentPage + 1, categoryViewModel.Pager.PageSize, 10, true);
+
+            }
+            catch (Exception ex)
+            {
+                categoryViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("UserController Get_Categories " + ex);
+
+            }
+
+            return Json(categoryViewModel);
         }
         public ActionResult Index(CategoryViewModel categoryViewModel)
         {
@@ -75,7 +100,7 @@ namespace SMSPortal.Controllers.PostLogin
                 categoryViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("CategoryController Insert " + ex);
             }
-            TempData["categoryViewMessage"] = categoryViewModel.Friendly_Message;
+            TempData["categoryViewMessage"] = categoryViewModel;
             return RedirectToAction("Search");
         }
 
@@ -97,6 +122,7 @@ namespace SMSPortal.Controllers.PostLogin
             TempData["categoryViewMessage"] = categoryViewModel;
             return RedirectToAction("Search");
         }
+
 
         public ActionResult Get_Category_By_Id(CategoryViewModel categoryViewModel)
         {

@@ -2,6 +2,8 @@
 using SMSPortal.Common;
 using SMSPortal.Models.PostLogin;
 using SMSPortalHelper.Logging;
+using SMSPortalInfo;
+using SMSPortalInfo.Common;
 using SMSPortalManager;
 using System;
 using System.Collections.Generic;
@@ -20,15 +22,32 @@ namespace SMSPortal.Controllers.PostLogin
         {
             _userMan = new UserManager();
         }
-        public ActionResult Search()
+        public ActionResult Search(UserViewModel uViewModel)
         {
-            return View("Search");
+            PaginationInfo Pager = new PaginationInfo();
+            try
+            {
+                Pager.IsPagingRequired = false;
+                uViewModel.Users = _userMan.Get_Users(ref Pager);
+
+                if (TempData["categoryViewMessage"] != null)
+                {
+                    uViewModel.Friendly_Message = (List<FriendlyMessage>)TempData["categoryViewMessage"];
+                }
+            }
+            catch (Exception ex)
+            {
+                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("UserController Search " + ex);
+            }
+            return View("Search", uViewModel);
         }
         public ActionResult Index(UserViewModel uViewModel)
         {
+            PaginationInfo Pager = new PaginationInfo();
             try
             {
-                //uViewModel.Roles = _userMan.Get_Roles();
+                Pager.IsPagingRequired = false;
                
             }
             catch (Exception ex)
@@ -45,11 +64,11 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                uViewModel.User.Created_By = 1;
+                uViewModel.User.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
 
                 uViewModel.User.Created_On = DateTime.Now;
 
-                uViewModel.User.Updated_By = 1;
+                uViewModel.User.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
 
                 uViewModel.User.Updated_On = DateTime.Now;
 
@@ -61,7 +80,7 @@ namespace SMSPortal.Controllers.PostLogin
                    // uViewModel.User.User_Id;
                 //_userRepo.Insert_User_Role(uViewModel.User.UserId, uViewModel.Selected_User_Role, uViewModel.Role);
 
-                uViewModel.Friendly_Message.Add(MessageStore.Get("UM002"));
+                uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
             }
             catch (Exception ex)
             {
@@ -71,6 +90,39 @@ namespace SMSPortal.Controllers.PostLogin
 
             TempData["uViewModel"] = uViewModel;
             return RedirectToAction("Search");
+        }
+        public ActionResult Update_User(UserViewModel uViewModel)
+        {
+            try
+            {
+                uViewModel.User.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                uViewModel.User.Updated_On = DateTime.Now;
+                _userMan.Update_User(uViewModel.User);
+                uViewModel.Friendly_Message.Add(MessageStore.Get("UM002"));
+            }
+            catch (Exception ex)
+            {
+                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("CategoryController Update " + ex);
+            }
+
+            TempData["userViewMessage"] = uViewModel;
+            return RedirectToAction("Search");
+        }
+        public ActionResult Get_User_By_Id(UserViewModel uViewModel)
+        {
+            try
+            {
+                uViewModel.User = _userMan.Get_User_By_Id(uViewModel.User.User_Id);
+
+            }
+            catch (Exception ex)
+            {
+                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("UserController Get_User_By_Id " + ex);
+            }
+
+            return View("Index", uViewModel);
         }
     }
 }

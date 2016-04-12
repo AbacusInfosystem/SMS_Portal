@@ -1,5 +1,6 @@
 ﻿@model SMSPortal.Models.PostLogin.UserViewModel
 <script src="~/Scripts/Module/User/User_events.js"></script>
+<script src="~/Scripts/Module/User/user_validation.js"></script>
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -28,6 +29,7 @@
                         </div>
 
                         <div class="box-body">
+                            <input type="hidden" class="form-control input-sm" name="User.User_Id" id="hdf_UserId" placeholder="" value="@Model.User.User_Id">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -104,8 +106,16 @@
                                     <div class="form-group">
 
                                         <label>
+                                            @if (Model.User.Is_Active == false)
+                                            {
+                                                <input type="checkbox" name="chkStatus" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="chkStatus" checked="checked" />
+                                            }
 
-                                            <input type="checkbox" name="Users.Is_Active" checked="checked" value="@Model.User.Is_Active" />
+                                            <input type="hidden" name="User.Is_Active" value="@Model.User.Is_Active.ToString()" id="hdnIs_Active" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; Active
                                         </label>
                                     </div>
