@@ -1,9 +1,14 @@
-﻿<script src="~/Scripts/Module/SubCategory/search_subcategory_events.js"></script>
-<form id="frmSubCategory" enctype="multipart/form-data">
+﻿@model SMSPortal.Models.PostLogin.SubCategoryViewModel
+@using SMSPortalInfo.Common
+<script src="~/Scripts/Module/SubCategory/search_subcategory_events.js"></script>
+<script src="~/Scripts/Module/SubCategory/serach_subcategory_methods.js"></script>
+
+<input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage">
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @*@{Html.RenderPartial("_ServerMessage");}*@
+        @{Html.RenderPartial("_ServerMessage");}
         <section class="content-header">
             <h1>
                 SubCategory
@@ -16,71 +21,61 @@
             </ol>
         </section>
         <!-- Main content -->
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">SubCategory</h3>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color: #333">SubCategory Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtSubCategory_Name" placeholder="Enter SubCategory" value="" maxlength="20">
-                                    </div>
-                                </div>
+        <form id="frmSubCategory">
+            <input type="hidden" id="hdnSubcategory_Id" name="SubCategory.Subcategory_Id" value="@Model.SubCategory.Subcategory_Id">
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">SubCategory</h3>
                             </div>
-                            <div class="box-footer">
+                            <div class="box-body">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("AddEdit_SubCategory", "SubCategory")">Create </a>
-                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label style="color: #333">SubCategory Name</label>                                           
+                                            <select id="drpSubCategoryName" class="form-control" name="Filter.Module_Id">
+                                                <option value="">-Select SubCategory Name-</option>
+                                                @foreach (var item in Model.Masters)
+                                                {
+                                                    <option value="@item.Subcategory_Id">@item.Subcategory_Name</option>
+                                                }
+                                            </select>
                                         </div>
-                                        <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>                                            
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-group pull-left">
+                                                <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("AddEdit_SubCategory", "SubCategory")">Create </a>
+                                                <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                            </div>
+                                            <div class="btn-group pull-right">
+                                                <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-solid">
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblSubCategory">
-                                <tr id="subhead">
-                                    <th></th>
-                                    <th>SubCategory Name</th>
-                                    <th>Category</th>
-                                    <th>Status</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId1" name="Brand" class="iradio-list" /></td>
-                                    <td>Windows Mobile</td>
-                                    <td>Mobile & Tablets</td>
-                                    <td>Active</td>
-                                </tr>   
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId1" name="Brand" class="iradio-list" /></td>
-                                    <td>Android Mobile</td>
-                                    <td>Mobile & Tablets</td>
-                                    <td>Active</td>
-                                </tr>  
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId1" name="Brand" class="iradio-list" /></td>
-                                    <td>Keyboard</td>
-                                    <td>Computer & Accessories</td>
-                                    <td>Active</td>
-                                </tr>                            
-                            </table>
-                        </div>
-                        @*<div class="box-footer clearfix">
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-striped" id="tblSubCategory">
+                                    <tr id="subhead">
+                                        <th></th>
+                                        <th>SubCategory Name</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                    </tr>                                   
+                                </table>
+                            </div>
+                            @*<div class="box-footer clearfix">
                                 <div class="pagination pagination-sm no-margin pull-right">
                                     <ul></ul>
                                 </div>
@@ -88,10 +83,10 @@
                                     <i class="fa fa-refresh fa-spin"></i>
                                 </div>
                             </div>*@
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </form>
     </div>
-    <!-- /.content-wrapper -->
-</form>
+<!-- /.content-wrapper -->
