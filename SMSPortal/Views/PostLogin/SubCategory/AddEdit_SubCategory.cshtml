@@ -1,4 +1,9 @@
-﻿<script src="~/Scripts/Module/SubCategory/subcategory_events.js"></script>
+﻿@model SMSPortal.Models.PostLogin.SubCategoryViewModel
+@using SMSPortalInfo.Common
+<script src="~/Scripts/Module/SubCategory/subcategory_events.js"></script>
+<script src="~/Scripts/Module/SubCategory/subcategory_validation.js"></script>
+<script src="~/Scripts/Module/SubCategory/subcategory_methods.js"></script>
+
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -12,6 +17,7 @@
         </ol>
     </section>
     <form id="frmSubCategory">
+        <input type="hidden" id="hdnSubcategory_Id" name="SubCategory.Subcategory_Id" value="@Model.SubCategory.Subcategory_Id">
         <section class="content">
             <div class="box box-primary">
                 <div class="row">
@@ -25,26 +31,50 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtSubCategory_Name" placeholder="Enter SubCategory" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="SubCategory.Subcategory_Name" id="txtSubCategory_Name" placeholder="Enter SubCategory" value="@Model.SubCategory.Subcategory_Name" maxlength="20">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label style="color: #333">Parent Category</label>
-                                        <select id="drpParent_Category" class="form-control" name="">
-                                            <option value="">-Select Parent Category-</option>
+                                        <label style="color: #333">Category</label>
+                                        <select id="drpCategory" class="form-control" name="SubCategory.Category_Id">
+                                            <option value="">-Select Category Name-</option>
+                                            @foreach (var item in Model.Categories)
+                                            {
+                                                if (Model.SubCategory.Category_Id == item.Category_Id)
+                                                {
+
+                                                    <option value="@item.Category_Id" selected="selected">@item.Category_Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Category_Id">@item.Category_Name</option>
+                                                }
+                                            }
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div>
                                 <div class="form-group">
-                                    <label>
-                                        <input type="checkbox" name="chkStatus" checked="checked" />
-                                        &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                    </label>
+                                    @if (Model.SubCategory.IsActive == false)
+                                    {
+                                        <label>
+                                            <input type="checkbox" class="chkstatus" name="chkStatus" />
+                                            &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label>
+                                            <input type="checkbox" class="chkstatus" name="chkStatus" checked="checked" />
+                                            &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                        </label>
+                                    }
+                                </div>
+                                <input type="hidden" id="hdnIsActive" name="SubCategory.IsActive" value="@Model.SubCategory.IsActive.ToString()" />
                                 </div>
                             </div>
                             <div class="box-footer">
@@ -55,8 +85,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>            
         </section>
     </form>
 </div>

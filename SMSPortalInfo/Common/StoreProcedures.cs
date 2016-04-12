@@ -22,5 +22,13 @@ namespace SMSPortalInfo.Common
 
         // Users
         Insert_Users_Sp,
+
+        //Sub Category
+        Get_Sub_Category_Sp,
+        Get_Sub_Category_By_Id_Sp,
+        Insert_Sub_Category_Sp,
+        Update_Sub_Category_Sp,
+        Get_Users_Sp,
+        Update_Users_Sp,
 	}
 }
