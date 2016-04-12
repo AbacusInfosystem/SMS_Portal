@@ -921,6 +921,7 @@
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\generic.ajax.js" />
     <Content Include="Scripts\generic.lookup.js" />
     <Content Include="Scripts\generic.popup.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -941,6 +942,7 @@
     <Content Include="Scripts\Module\Brand\search_brand_events.js" />
     <Content Include="Scripts\Module\Brand\search_brand_methods.js" />
     <Content Include="Scripts\Module\Category\category_validation.js" />
+    <Content Include="Scripts\Module\Category\search_category_methods.js" />
     <Content Include="Scripts\Module\Category\search_category_events.js" />
     <Content Include="Scripts\Module\Category\Category_events.js" />
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />

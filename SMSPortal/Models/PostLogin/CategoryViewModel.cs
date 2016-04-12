@@ -12,14 +12,18 @@ namespace SMSPortal.Models.PostLogin
     {
         public CategoryViewModel()
         {
-            Pager = new List<PaginationInfo>();
-            Friendly_Message = new List<FriendlyMessage>();
             Category = new CategoryInfo();
+            Categories = new List<CategoryInfo>();
+            Friendly_Message = new List<FriendlyMessage>();           
+            Pager = new PaginationInfo();
+            Pager.IsPagingRequired = true;
+            Pager.PageSize = 5;
+            Filter = new CategoryFilter();
         }
 
         public CategoryInfo Category { get; set; }
         public List<CategoryInfo> Categories { get; set; }
-        public List<PaginationInfo> Pager { get; set; }
+        public PaginationInfo Pager { get; set; }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public CategoryFilter Filter { get; set; }        
     }
@@ -28,10 +32,7 @@ namespace SMSPortal.Models.PostLogin
     {
         public string Category_Id { get; set; }
         public string Category_Name { get; set; }
+        public bool Is_Active { get; set; }
     }
 
-    public class CategoryEditMode
-    {
-        public int Category_Id { get; set; }
-    }
 }

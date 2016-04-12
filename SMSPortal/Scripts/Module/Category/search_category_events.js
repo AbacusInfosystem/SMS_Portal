@@ -1,21 +1,20 @@
 ﻿
-$(function () {
+$(document).ready(function ()
+{
+    Search_Categories();
 
-    $('[name="Category"]').on('ifChanged', function (event) {
-         
-        if ($(this).prop('checked')) {             
-            $("#hdnCategory_Id").val(this.id.replace("rdo_", ""));           
-            $("#btnEdit").show();
-        }
-    });
-
-    $("#btnEdit").click(function () {
-
+    $("#btnEdit").click(function ()
+    {
         $("#frmCategory").attr("action", "/Category/Get_Category_By_Id");
-        $("#frmCategory").attr("method", "POST");
-        $("#frmCategory").submit();
-        
+        $("#frmCategory").attr("method", "post");
+        $("#frmCategory").submit();        
     });
+
+    $("#btnSearch").click(function ()
+    {
+        Search_Categories();
+    });
+
 });
 
 $(document).ready(function () {

@@ -1,6 +1,8 @@
 ﻿@model SMSPortal.Models.PostLogin.CategoryViewModel
 @using SMSPortalInfo.Common;
+
 <script src="~/Scripts/Module/Category/search_category_events.js"></script>
+<script src="~/Scripts/Module/Category/search_category_methods.js"></script>
 <form id="frmCategory" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -26,12 +28,13 @@
                             <h3 class="box-title">Category</h3>
                         </div>
                         <div class="box-body">
-                            <input type="hidden" id="hdnCategory_Id" name="Category.Category_Id">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnCategory_Id" name="Category.Category_Id" value="@Model.Category.Category_Id">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Category Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtCategory_Name" placeholder="Enter category name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Filter.Category_Name" id="txtCategory_Name" placeholder="Enter category name" value="" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -57,36 +60,22 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblCategoryMaster">
+                            <table class="table table-striped" id="tblCategory">
                                 <tr id="subhead">
                                     <th></th>
                                     <th>Category Name</th>
                                     <th>Status</th>
                                 </tr>
-
-                                @if (Model.Categories != null && Model.Categories.Count > 0)
-                                {
-                                    foreach (var item in Model.Categories)
-                                    {
-                                        <tr id="subhead">
-                                            <td><input type="radio" id="rdo_@item.Category_Id" name="Category" class="iradio-list" /></td>
-                                            <td>@item.Category_Name</td>
-                                            <td>@item.IsActive</td>
-                                        </tr>
-                                    }
-                                }
-
-
                             </table>
                         </div>
-                        @*<div class="box-footer clearfix">
-                                <div class="pagination pagination-sm no-margin pull-right">
-                                    <ul></ul>
-                                </div>
-                                <div id="divSearchGridOverlay" class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
-                                </div>
-                            </div>*@
+                        <div class="box-footer clearfix">
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
+                            </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

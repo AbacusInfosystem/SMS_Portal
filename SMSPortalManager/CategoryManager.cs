@@ -33,6 +33,11 @@ namespace SMSPortalManager
             return _categoryRepo.Get_Categorys(ref Pager);
         }
 
+        public List<CategoryInfo> Get_Categorys_By_Name(string Category_Name, ref PaginationInfo Pager)
+        {
+            return _categoryRepo.Get_Categorys_By_Name(Category_Name, ref Pager);
+        }
+
         public CategoryInfo Get_Category_By_Id(int Category_Id)
         {
             return _categoryRepo.Get_Category_By_Id(Category_Id);
