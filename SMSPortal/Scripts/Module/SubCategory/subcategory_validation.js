@@ -11,10 +11,6 @@
             "SubCategory.Category_Id":
                {
                    required: true
-               },
-            "SubCategory.IsActive":
-               {
-                   required: true
                }
 
         },
@@ -27,11 +23,8 @@
             "SubCategory.Category_Id":
                {
                    required: "Category is required."
-               },
-            "SubCategory.IsActive":
-               {
-                   required: "Status is required."
                }
+
         },
     });
 });

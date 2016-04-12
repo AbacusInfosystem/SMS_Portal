@@ -29,6 +29,12 @@ namespace SMSPortal
             defaults: new { controller = "SubCategory", action = "Insert_Update_Subcategory", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+            name: "SubCategory-3",
+            url: "subcategory/edit-subcategories",
+            defaults: new { controller = "SubCategory", action = "Get_Subcategory_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #endregion

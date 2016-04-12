@@ -17,6 +17,7 @@
         </ol>
     </section>
     <form id="frmSubCategory">
+        <input type="hidden" id="hdnSubcategory_Id" name="SubCategory.Subcategory_Id" value="@Model.SubCategory.Subcategory_Id">
         <section class="content">
             <div class="box box-primary">
                 <div class="row">
@@ -61,14 +62,14 @@
                                     @if (Model.SubCategory.IsActive == false)
                                     {
                                         <label>
-                                            <input type="checkbox" name="chkStatus" />
+                                            <input type="checkbox" class="chkstatus" name="chkStatus" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; Active
                                         </label>
                                     }
                                     else
                                     {
                                         <label>
-                                            <input type="checkbox" name="chkStatus" checked="checked" />
+                                            <input type="checkbox" class="chkstatus" name="chkStatus" checked="checked" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; Active
                                         </label>
                                     }

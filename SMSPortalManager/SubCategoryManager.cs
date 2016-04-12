@@ -47,5 +47,10 @@ namespace SMSPortalManager
         {
             _subcategoryRepo.Update_Sub_Category(subcategory);
         }
+
+        public SubCategoryInfo Get_Subcategory_By_Id(int subcategory_Id)
+        {
+            return _subcategoryRepo.Get_Subcategory_By_Id(subcategory_Id);
+        }
     }
 }

@@ -89,11 +89,11 @@ namespace SMSPortalRepo
 
         public List<SubCategoryInfo> Get_Subcategory_By_Module_Id(int module_Id, ref PaginationInfo pager)
         {
-            List<SubCategoryInfo> roles = new List<SubCategoryInfo>();
+            List<SubCategoryInfo> subcategory = new List<SubCategoryInfo>();
 
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
-            sqlparam.Add(new SqlParameter("moduleId", module_Id));
+            sqlparam.Add(new SqlParameter("Sub_Category_Id", module_Id));
 
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Sub_Category_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
@@ -101,11 +101,39 @@ namespace SMSPortalRepo
             {
                 foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
                 {
-                    roles.Add(Get_SubCategory_Values(dr));
+                    subcategory.Add(Get_SubCategory_Values(dr));
                 }
             }
 
-            return roles;
+            return subcategory;
+        }
+
+        public SubCategoryInfo Get_Subcategory_By_Id(int subcategory_Id)
+        {
+            SubCategoryInfo subcategory = new SubCategoryInfo();
+
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("Sub_Category_Id", subcategory_Id));
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Sub_Category_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (!dr.IsNull("Sub_Category_Id"))
+                        subcategory.Subcategory_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
+                    if (!dr.IsNull("Sub_Category_Name"))
+                        subcategory.Subcategory_Name = Convert.ToString(dr["Sub_Category_Name"]);
+                    if (!dr.IsNull("Category_Id"))
+                        subcategory.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+                    if (!dr.IsNull("IsActive"))
+                        subcategory.IsActive = Convert.ToBoolean(dr["IsActive"]);
+                }
+            }
+
+            return subcategory;
         }
 
         private SubCategoryInfo Get_SubCategory_Values(DataRow dr)
@@ -115,7 +143,7 @@ namespace SMSPortalRepo
             subcategory.Subcategory_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
             subcategory.Subcategory_Name = Convert.ToString(dr["Sub_Category_Name"]);
             subcategory.Category_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
-            subcategory.Category_Name = Convert.ToString(dr["Sub_Category_Name"]);
+            subcategory.Category_Name = Convert.ToString(dr["Category_Name"]);
             subcategory.IsActive = Convert.ToBoolean(dr["IsActive"]);
             if (subcategory.IsActive==true)
             {
@@ -146,12 +174,22 @@ namespace SMSPortalRepo
         private List<SqlParameter> Set_Values_In_Sub_Category(SubCategoryInfo subcategory)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Sub_Category_Id", subcategory.Subcategory_Id));
+
+            if (subcategory.Subcategory_Id!=0)
+            {
+                sqlParams.Add(new SqlParameter("@Sub_Category_Id", subcategory.Subcategory_Id));
+            }
+            
             sqlParams.Add(new SqlParameter("@Category_Id", subcategory.Category_Id));
             sqlParams.Add(new SqlParameter("@Sub_Category_Name", subcategory.Subcategory_Name));
             sqlParams.Add(new SqlParameter("@IsActive", subcategory.IsActive));
-            sqlParams.Add(new SqlParameter("@Created_On", subcategory.Created_Date));
-            sqlParams.Add(new SqlParameter("@Created_By", subcategory.Created_By));
+
+            if (subcategory.Subcategory_Id == 0)
+            {
+                sqlParams.Add(new SqlParameter("@Created_On", subcategory.Created_Date));
+                sqlParams.Add(new SqlParameter("@Created_By", subcategory.Created_By));
+            }
+
             sqlParams.Add(new SqlParameter("@Updated_On", subcategory.Updated_Date));
             sqlParams.Add(new SqlParameter("@Updated_By", subcategory.Updated_By));
             return sqlParams;

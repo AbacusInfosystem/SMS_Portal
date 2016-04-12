@@ -5,7 +5,7 @@ function Search_Subcategory() {
         {
             Filter:
                 {
-                    Module_Id: $("#drpModuleName").val(),
+                    Module_Id: $("#drpSubCategoryName").val(),
 
                 },
 
@@ -110,12 +110,10 @@ function PageMore(Id) {
      
     $("#btnEdit").hide();
 
-    $("#btnDelete").hide();
-
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
     $(".selectAll").prop("checked", false);
 
-    Search_Role();
+    Search_Subcategory();
 
 }

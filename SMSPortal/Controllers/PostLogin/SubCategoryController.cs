@@ -77,7 +77,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("RoleController - Get_Roles" + ex.Message);
+                Logger.Error("SubCategoryController - Get_Roles" + ex.Message);
             }
 
             return Json(sViewModel);
@@ -99,25 +99,39 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory);
 
-                    sViewModel.Friendly_Message.Add(MessageStore.Get("CO001"));
+                    sViewModel.Friendly_Message.Add(MessageStore.Get("SBO001"));
                 }
                 else
                 {
                     _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory);
 
-                    sViewModel.Friendly_Message.Add(MessageStore.Get("CO001"));
+                    sViewModel.Friendly_Message.Add(MessageStore.Get("SBO002"));
                 }
             }
             catch (Exception ex)
             {
                 sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-                Logger.Error("Error At Role Insert  " + ex.Message);
+                Logger.Error("Error At SubCategory Insert  " + ex.Message);
             }
 
             TempData["sViewModel"] = sViewModel;
 
             return RedirectToAction("Search");
+        }
+
+        public ActionResult Get_Subcategory_By_Id(SubCategoryViewModel sViewModel)
+        {
+            try
+            {
+                sViewModel.SubCategory = _subcategoryManager.Get_Subcategory_By_Id(sViewModel.SubCategory.Subcategory_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("SubCategoryController - Get_Roles" + ex.Message);
+            }
+
+            return AddEdit_SubCategory(sViewModel);
         }
     }
 }
