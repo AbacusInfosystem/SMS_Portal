@@ -40,18 +40,18 @@
                                     @if (Model.Category.IsActive == false)
                                     {
                                         <label>
-                                            <input type="checkbox" name="chkStatus" />
+                                            <input type="checkbox"  class="chkstatus" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; Active
                                         </label>
                                     }
                                     else
                                     {
                                         <label>
-                                            <input type="checkbox" name="chkStatus" checked="checked" />
+                                            <input type="checkbox"  checked="checked" class="chkstatus" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; Active
                                         </label>
                                     }
-                                    <input type="hidden" class="form-control input-sm" id="hdnIs_Active" name="Category.Is_Active" value="@Model.Category.IsActive.ToString()">
+                                    <input type="hidden" id="hdnIs_Active" name="Category.IsActive" value="@Model.Category.IsActive.ToString()">
                                     
                                 </div>
                             </div>

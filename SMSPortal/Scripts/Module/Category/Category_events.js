@@ -6,30 +6,17 @@
         increaseArea: '20%' // optional
     });
 
-    $(".iCheck").on("ifChanged", function ()
-    {
-        if ($(this).parents().prop("class").indexOf("checked") != -1)
-        {
-            $(this).val(false);          
-        }
-        else
-        {
-            $(this).val(true);            
-        }
-    });
+    $(".chkstatus").on("ifChanged", function () {
 
-    $('[name="chkStatus"]').on('ifChanged', function (event)
-    {
-        if ($(this).prop('checked'))
-        {             
-            $("#hdnIs_Active").val(true);
-            
+        if ($(this).parents().prop("class").indexOf("checked") != -1)
+        {            
+            $("#hdnIs_Active").val(false);
         }
         else
         {
-            $("#hdnIs_Active").val(false);
-           
+            $("#hdnIs_Active").val(true);
         }
+
     });
 
     $(".fa-chevron-left").click(function () {
