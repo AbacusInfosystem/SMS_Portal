@@ -47,5 +47,10 @@ namespace SMSPortalManager
         {
             _categoryRepo.Delete_Category_By_Id(Category_Id);
         }
+
+        public bool Check_Existing_Category(string Category_Name)
+        {
+            return _categoryRepo.Check_Existing_Category(Category_Name);
+        }
     }
 }

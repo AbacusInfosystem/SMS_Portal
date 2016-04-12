@@ -1,6 +1,24 @@
 ﻿$(function () {
 
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        increaseArea: '20%', // optional
+    });
+
+    $(".chkstatus").on("ifChanged", function () {
+
+        if ($(this).parents().prop("class").indexOf("checked") != -1) {
+            $("#hdnIsActive").val(false);
+        }
+        else {
+            $("#hdnIsActive").val(true);
+        }
+
+    });
+
     $(".fa-chevron-left").click(function () {
+
+        $("form").validate().cancelSubmit = true;
 
         $("#frmSubCategory").attr("action", "/SubCategory/Search/");
 
@@ -10,13 +28,18 @@
 
     });
 
-});
-$(document).ready(function () {
+    $("#btnSave").click(function () {
 
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
+        if ($("#frmSubCategory").valid()) {
+
+            $("#frmSubCategory").attr("action", "/subcategory/insert-update-subcategories/");
+
+            $("#frmSubCategory").attr("method", "POST");
+
+            $("#frmSubCategory").submit();
+        }
+
     });
+
 
 });

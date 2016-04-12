@@ -210,6 +210,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\PostLogin\CategoryViewModel.cs" />
+    <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PreLogin\LoginViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -958,7 +959,10 @@
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
     <Content Include="Scripts\Module\SalesOrder\search_sales_order_evnents.js" />
     <Content Include="Scripts\Module\SubCategory\search_subcategory_events.js" />
+    <Content Include="Scripts\Module\SubCategory\serach_subcategory_methods.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_events.js" />
+    <Content Include="Scripts\Module\SubCategory\subcategory_methods.js" />
+    <Content Include="Scripts\Module\SubCategory\subcategory_validation.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
     <Content Include="Scripts\Module\User\User_events.js" />

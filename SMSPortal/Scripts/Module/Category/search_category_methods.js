@@ -95,3 +95,15 @@ function Bind_Category_Grid(data) {
         }
     });
 }
+
+function PageMore(Id) {
+
+    $("#btnEdit").hide();
+
+    $("#btnDelete").hide();
+
+    $('#hdfCurrentPage').val((parseInt(Id) - 1));
+
+    Search_Categories();
+
+}
