@@ -33,7 +33,6 @@ namespace SMSPortalInfo.Common
         Insert_Sub_Category_Sp,
         Update_Sub_Category_Sp,
         Get_Subcateory_Autocomplete_Sp,
-        Check_Existing_Sub_Category,
 
         //Brands
         Delete_Brand_By_Id_Sp,
@@ -43,6 +42,8 @@ namespace SMSPortalInfo.Common
         Update_Brand_Sp,
         Insert_Brand_Sp,
 
-        
+
+        //Roles
+        Get_Roles_Sp,
 	}
 }

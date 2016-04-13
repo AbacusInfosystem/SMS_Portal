@@ -45,5 +45,9 @@ namespace SMSPortalManager
         {
             return _usersRepo.Get_Users_By_User_Name(User_Name, ref Pager);
         }
+        public List<RolesInfo> Get_Roles()
+        {
+            return _usersRepo.Get_Roles();
+        }
     }
 }

@@ -96,6 +96,31 @@ namespace SMSPortalRepo
              }
              return users;
          }
+         public List<RolesInfo> Get_Roles()
+         {
+             List<RolesInfo> roleslist = new List<RolesInfo>();
+
+             List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+             DataTable dt = sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Roles_Sp.ToString(), CommandType.StoredProcedure);
+
+             if (dt != null && dt.Rows.Count > 0)
+             {
+                 foreach (DataRow dr in dt.Rows)
+                 {
+                     RolesInfo list = new RolesInfo();
+
+                     if (!dr.IsNull("Role_Id"))
+                         list.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+                     if (!dr.IsNull("Role_Name"))
+                         list.Role_Name = Convert.ToString(dr["Role_Name"]);
+
+                     roleslist.Add(list);
+                 }
+             }
+
+             return roleslist;
+         }
          private UserInfo Get_Users_Values(DataRow dr)
          {
              UserInfo user = new UserInfo();
@@ -110,7 +135,7 @@ namespace SMSPortalRepo
              //user.Gender = Convert.ToInt32(dr["Gender"]);
              user.User_Name = Convert.ToString(dr["User_Name"]);
              user.Password = Convert.ToString(dr["Password"]);
-             //user.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+             user.Role_Id = Convert.ToInt32(dr["Role_Id"]);
              user.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
              if (user.Is_Active == true)
              {
