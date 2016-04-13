@@ -35,6 +35,12 @@ namespace SMSPortal
             defaults: new { controller = "SubCategory", action = "Get_Subcategory_By_Id", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+            name: "SubCategory-4",
+            url: "subcategory/subcategory-autocomplete/{subcategory}",
+            defaults: new { controller = "SubCategory", action = "Get_Subcategory_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #endregion

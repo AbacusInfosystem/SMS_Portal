@@ -29,5 +29,6 @@ namespace SMSPortalInfo.Common
         Update_Sub_Category_Sp,
         Get_Users_Sp,
         Update_Users_Sp,
+        Get_Subcateory_Autocomplete_Sp,
 	}
 }

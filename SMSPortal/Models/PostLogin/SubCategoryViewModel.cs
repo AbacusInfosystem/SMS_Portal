@@ -45,5 +45,7 @@ namespace SMSPortal.Models.PostLogin
     public class SubCategory_Filter
     {
         public int Module_Id { get; set; }
+
+        public string Module_Name { get; set; }
     }
 }
