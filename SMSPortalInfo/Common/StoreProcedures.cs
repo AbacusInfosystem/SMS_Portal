@@ -32,8 +32,9 @@ namespace SMSPortalInfo.Common
         Get_Sub_Category_By_Id_Sp,
         Insert_Sub_Category_Sp,
         Update_Sub_Category_Sp,
-        Get_Users_Sp,
-        Update_Users_Sp,
         Get_Subcateory_Autocomplete_Sp,
+
+        //Roles
+        Get_Roles_Sp,
 	}
 }

@@ -19,10 +19,12 @@ namespace SMSPortal.Controllers.PreLogin
         // GET: /Login/
 
         public UserManager userManager;        
+
         public LoginController()
         {
             userManager = new UserManager();
         }
+        
         public ActionResult Index(LoginViewModel loginViewModel)
         {
             try
@@ -51,6 +53,7 @@ namespace SMSPortal.Controllers.PreLogin
 
 
         }
+        
         public ActionResult ForgotPassword()
         {
             return View("ForgotPassword");
@@ -61,6 +64,7 @@ namespace SMSPortal.Controllers.PreLogin
             try
             {
                 SessionInfo session = userManager.AuthenticateUser(loginViewModel.Session.User_Name, loginViewModel.Session.Password);
+                
                 if (session.User_Id != 0 && session.Is_Active == true)
                 {
                     if (session.User_Name == loginViewModel.Session.User_Name)

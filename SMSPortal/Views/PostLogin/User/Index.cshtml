@@ -62,8 +62,20 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Role</label>
-                                        <select id="drpRole" class="form-control" name="">
+                                        <select id="drpRole" class="form-control" name="User.Role_Id">
                                             <option value="">-Select Role-</option>
+                                            @foreach (var item in Model.Roles)
+                                            {
+                                                if (Model.User.Role_Id == item.Role_Id)
+                                                {
+
+                                                    <option value="@item.Role_Id" selected="selected">@item.Role_Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Role_Id">@item.Role_Name</option>
+                                                }
+                                            }
                                         </select>
                                     </div>
                                 </div>
