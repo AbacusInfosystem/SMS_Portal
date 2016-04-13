@@ -63,7 +63,10 @@ namespace SMSPortalRepo
          private List<SqlParameter> Set_Values_In_Users(UserInfo users)
          {
              List<SqlParameter> sqlParams = new List<SqlParameter>();
-             
+             if (users.User_Id != 0)
+             {
+                 sqlParams.Add(new SqlParameter("@User_Id", users.User_Id));
+             }            
              sqlParams.Add(new SqlParameter("@First_Name", users.First_Name));
              sqlParams.Add(new SqlParameter("@Last_Name", users.Last_Name));
              sqlParams.Add(new SqlParameter("@Contact_No_1", users.Contact_No_1));
@@ -73,8 +76,12 @@ namespace SMSPortalRepo
              sqlParams.Add(new SqlParameter("@Password", "jkj"));
              sqlParams.Add(new SqlParameter("@Role_Id", users.Role_Id));
              sqlParams.Add(new SqlParameter("@Is_Active", users.Is_Active));
-             sqlParams.Add(new SqlParameter("@Created_On", users.Created_On));
-             sqlParams.Add(new SqlParameter("@Created_By", users.Created_By));
+             if (users.User_Id == 0)
+             {
+                 sqlParams.Add(new SqlParameter("@Created_On", users.Created_On));
+                 sqlParams.Add(new SqlParameter("@Created_By", users.Created_By));
+             }
+            
              sqlParams.Add(new SqlParameter("@Updated_On", users.Updated_On));
              sqlParams.Add(new SqlParameter("@Updated_By", users.Updated_By));
              return sqlParams;
@@ -94,6 +101,8 @@ namespace SMSPortalRepo
              UserInfo user = new UserInfo();
 
              user.User_Id = Convert.ToInt32(dr["User_Id"]);
+
+             if (!dr.IsNull("User_Name"))
              user.First_Name = Convert.ToString(dr["First_Name"]);
              user.Last_Name = Convert.ToString(dr["Last_Name"]);
              user.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
@@ -103,7 +112,7 @@ namespace SMSPortalRepo
              user.Password = Convert.ToString(dr["Password"]);
              //user.Role_Id = Convert.ToInt32(dr["Role_Id"]);
              user.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
-             if (user.Is_Active==true)
+             if (user.Is_Active == true)
              {
                  user.Status = "Active";
              }
@@ -133,8 +142,11 @@ namespace SMSPortalRepo
          }
          public UserInfo Get_User_By_Id(int User_Id)
          {
+             List<SqlParameter> parameters = new List<SqlParameter>();
+             parameters.Add(new SqlParameter("@User_Id" , User_Id));
+
              UserInfo user = new UserInfo();
-             DataTable dt = sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Users_Sp.ToString(), CommandType.StoredProcedure);
+             DataTable dt = sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Users_By_Id_Sp.ToString(), CommandType.StoredProcedure);
              List<DataRow> drList = new List<DataRow>();
              drList = dt.AsEnumerable().ToList();
              foreach (DataRow dr in drList)

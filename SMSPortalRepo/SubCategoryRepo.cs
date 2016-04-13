@@ -173,7 +173,7 @@ namespace SMSPortalRepo
 
         private List<SqlParameter> Set_Values_In_Sub_Category(SubCategoryInfo subcategory)
         {
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
 
             if (subcategory.Subcategory_Id!=0)
             {

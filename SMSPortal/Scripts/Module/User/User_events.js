@@ -2,6 +2,8 @@
 
     $(".fa-chevron-left").click(function () {
 
+        $("#frmUserMaster").validate().cancelSubmit = true;
+
         $("#frmUserMaster").attr("action", "/User/Search/");
 
         $("#frmUserMaster").attr("method", "POST");
@@ -9,13 +11,13 @@
         $("#frmUserMaster").submit();
 
     });
-    $(".chkActive").on("ifChanged", function () {
+    $(".chkstatus").on("ifChanged", function () {
 
         if ($(this).parents().prop("class").indexOf("checked") != -1) {
-            $(this).val(false);
+            $("#hdnIs_Active").val(false);
         }
         else {
-            $(this).val(true);
+            $("#hdnIs_Active").val(true);
         }
 
     });

@@ -88,3 +88,14 @@ function Bind_User_Grid(data) {
         }
     });
 }
+function PageMore(Id) {
+
+    $("#btnEdit").hide();
+
+    $("#btnDelete").hide();
+
+    $('#hdfCurrentPage').val((parseInt(Id) - 1));
+
+    Search_Users();
+
+}
