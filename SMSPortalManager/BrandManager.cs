@@ -46,5 +46,10 @@ namespace SMSPortalManager
         {
             _brandRepo.Delete_Brand_By_Id(Brand_Id);
         }
+
+        public bool Check_Brand(string Brand_Name)
+        {
+            return _brandRepo.Check_Existing_Brand(Brand_Name);
+        }
     }
 }

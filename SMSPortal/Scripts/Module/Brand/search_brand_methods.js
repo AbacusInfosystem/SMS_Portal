@@ -47,7 +47,7 @@ function Bind_Brands_Grid(data)
 
             htmlText += "<td>";
 
-            htmlText +=  "" ;
+            htmlText += data.Brands[i].Brand_Category_Name == null ? "" : data.Brands[i].Brand_Category_Name;;
 
             htmlText += "</td>";
 
@@ -98,10 +98,11 @@ function Bind_Brands_Grid(data)
     $("#divSearchGridOverlay").hide();
 
     $('[name="r1"]').on('ifChanged', function (event) {
-        if ($(this).prop('checked')) {
+        if ($(this).prop('checked'))
+        {
             $("#hdnBrand_Id").val(this.id.replace("r1_", ""));
-
             $("#btnEdit").show();
+            $("#btnUploadLogo").show();            
             $("#btnDelete").show();
 
         }
@@ -112,11 +113,9 @@ function Bind_Brands_Grid(data)
 function PageMore(Id) {
 
     $("#btnEdit").hide();
-
-    $("#btnDelete").hide();
-
+    $("#btnUploadLogo").hide();
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
-    Search_Categories();
+    Search_Brands();
 
 }

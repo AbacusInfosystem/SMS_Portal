@@ -18,6 +18,17 @@ namespace SMSPortalInfo.Common
             Get_Gender_Types.Add(2, GenderType.Female.ToString().Replace('_', ' ').ToString());
 
             return Get_Gender_Types;
-        }      
+        }
+
+        public static Dictionary<int, string> Get_Brand_Categories()
+        {
+            Dictionary<int, string> Get_Brand_Category = new Dictionary<int, string>();
+
+            Get_Brand_Category.Add(1, BrandCategory.Elite.ToString());
+            Get_Brand_Category.Add(2, BrandCategory.Volumn_Based.ToString().Replace('_', ' ').ToString());
+            Get_Brand_Category.Add(3, BrandCategory.Beyond_Borders.ToString().Replace('_', ' ').ToString());
+
+            return Get_Brand_Category;
+        }
 	}
 }

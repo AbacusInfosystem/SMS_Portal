@@ -26,9 +26,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                if (TempData["BrandViewMessage"] != null)
+                if (TempData["bViewModel"] != null)
                 {
-                    bViewModel = (BrandViewModel)TempData["BrandViewMessage"];
+                    bViewModel = (BrandViewModel)TempData["bViewModel"];
                 }
             }
             catch (Exception ex)
@@ -84,6 +84,62 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(bViewModel);
         }
 
+        public ActionResult Insert_Update_Brand(BrandViewModel bViewModel)
+        {
+            try
+            {
+                bViewModel.Brand.Created_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Created_On = DateTime.Now;
+                bViewModel.Brand.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Updated_On = DateTime.Now;
 
+                if (bViewModel.Brand.Brand_Id == 0)
+                {
+                    _brandManager.Insert_Brand(bViewModel.Brand);
+                    bViewModel.Friendly_Message.Add(MessageStore.Get("BO001"));
+                }
+                else
+                {
+                    _brandManager.Update_Brand(bViewModel.Brand);
+                    bViewModel.Friendly_Message.Add(MessageStore.Get("BO002"));
+                }
+            }
+            catch (Exception ex)
+            {
+                bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Error At Brand Insert/Update  " + ex.Message);
+            }
+            TempData["bViewModel"] = bViewModel;
+            return RedirectToAction("Search");
+        }
+
+        public ActionResult Get_Brand_By_Id(BrandViewModel bViewModel)
+        {
+            try
+            {
+                bViewModel.Brand = _brandManager.Get_Brand_By_Id(bViewModel.Brand.Brand_Id);
+            }
+            catch (Exception ex)
+            {
+                bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Brand Get_Brand_By_Id " + ex);
+            }
+
+            return View("AddEdit_Brand", bViewModel);
+        }
+
+        public JsonResult Check_Existing_Brand(string Brand_Name)
+        {
+            bool check = false;
+            try
+            {
+                check = _brandManager.Check_Brand(Brand_Name);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Brand Controller - Check_Existing_Brand " + ex.ToString());
+            }
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
     }
 }
