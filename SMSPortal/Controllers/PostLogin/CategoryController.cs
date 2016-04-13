@@ -123,7 +123,21 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
+        public JsonResult Check_Existing_Category(string Category_Name)
+        {
+            bool check = false;
 
+            try
+            {
+                check = _categoryManager.Check_Existing_Category(Category_Name);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("User Controller - Check_Existing_User " + ex.ToString());
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Get_Category_By_Id(CategoryViewModel categoryViewModel)
         {
             try

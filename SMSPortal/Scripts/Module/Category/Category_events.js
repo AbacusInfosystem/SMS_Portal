@@ -1,26 +1,27 @@
-﻿$(function () {
-
-
+﻿$(function ()
+{
     $('input:not(.non-iCheck input:checkbox)').iCheck({
         checkboxClass: 'icheckbox_square-green',
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
 
-    $(".chkActive").on("ifChanged", function () {
+    $(".chkstatus").on("ifChanged", function () {
 
         if ($(this).parents().prop("class").indexOf("checked") != -1)
-        {          
-            $(this).val(false);
+        {            
+            $("#hdnIs_Active").val(false);
         }
-        else {
-            $(this).val(true);
+        else
+        {
+            $("#hdnIs_Active").val(true);
         }
 
     });
 
-
     $(".fa-chevron-left").click(function () {
+
+        $("#frmCategoryMaster").validate().cancelSubmit = true;
 
         $("#frmCategoryMaster").attr("action", "/Category/Search/");
 
@@ -45,4 +46,9 @@
 
 
     });
+
+   
+
+
+
 });

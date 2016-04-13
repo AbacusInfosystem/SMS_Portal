@@ -30,25 +30,29 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Category Name</label>
-                                        <input type="text" class="form-control input-sm" id="txtCategory_Name" name="Category.Category_Name" placeholder="Enter category name" value="@Model.Category.Category_Name" >
+                                        <input type="text" class="form-control input-sm" id="txtCategory_Name" name="Category.Category_Name" placeholder="Enter category name" value="@Model.Category.Category_Name">
+                                        <input type="hidden" id="hdnCategoryName"  value="@Model.Category.Category_Name">
                                     </div>
                                 </div>
                             </div>
                             <div>
                                 <div class="form-group">
-                                    <label>
-                                        @if (Model.Category.IsActive == false)
-                                        {
-                                            <input type="checkbox" name="chkStatus" class="chkActive" />
-                                        }
-                                        else
-                                        {
-                                            <input type="checkbox" name="chkStatus" checked="checked" class="chkActive" />
-                                        }
-
-                                        <input type="hidden" class="form-control input-sm" id="hdnIs_Active" name="Category.Is_Active" value="@Model.Category.IsActive.ToString()">
-                                        &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                    </label>
+                                    @if (Model.Category.IsActive == false)
+                                    {
+                                        <label>
+                                            <input type="checkbox"  class="chkstatus" />
+                                            &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label>
+                                            <input type="checkbox"  checked="checked" class="chkstatus" />
+                                            &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                        </label>
+                                    }
+                                    <input type="hidden" id="hdnIs_Active" name="Category.IsActive" value="@Model.Category.IsActive.ToString()">
+                                    
                                 </div>
                             </div>
                             <div class="box-footer">

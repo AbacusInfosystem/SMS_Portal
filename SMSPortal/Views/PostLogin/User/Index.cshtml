@@ -108,11 +108,11 @@
                                         <label>
                                             @if (Model.User.Is_Active == false)
                                             {
-                                                <input type="checkbox" name="chkStatus" />
+                                              <input type="checkbox" name="chkStatus" class="chkActive" />
                                             }
                                             else
                                             {
-                                                <input type="checkbox" name="chkStatus" checked="checked" />
+                                                <input type="checkbox" name="chkStatus" checked="checked" class="chkActive" />
                                             }
 
                                             <input type="hidden" name="User.Is_Active" value="@Model.User.Is_Active.ToString()" id="hdnIs_Active" />

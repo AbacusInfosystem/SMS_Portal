@@ -2,6 +2,7 @@
 using SMSPortal.Common;
 using SMSPortal.Models.PostLogin;
 using SMSPortalHelper.Logging;
+using SMSPortalHelper.PageHelper;
 using SMSPortalInfo;
 using SMSPortalInfo.Common;
 using SMSPortalManager;
@@ -24,15 +25,12 @@ namespace SMSPortal.Controllers.PostLogin
         }
         public ActionResult Search(UserViewModel uViewModel)
         {
-            PaginationInfo Pager = new PaginationInfo();
             try
             {
-                Pager.IsPagingRequired = false;
-                uViewModel.Users = _userMan.Get_Users(ref Pager);
 
-                if (TempData["categoryViewMessage"] != null)
+                if (TempData["userViewMessage"] != null)
                 {
-                    uViewModel.Friendly_Message = (List<FriendlyMessage>)TempData["categoryViewMessage"];
+                    uViewModel = (UserViewModel)TempData["userViewMessage"];
                 }
             }
             catch (Exception ex)
@@ -42,13 +40,42 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return View("Search", uViewModel);
         }
+        public JsonResult Get_Users(UserViewModel uViewModel)
+        {
+            PaginationInfo pager = new PaginationInfo();
+            try
+            {
+                pager = uViewModel.Pager;
+                if (uViewModel.Filter.User_Name != null)
+                {
+                    uViewModel.Users = _userMan.Get_Users_By_User_Name(uViewModel.Filter.User_Name, ref pager);
+                }
+                else
+                {
+                    uViewModel.Users = _userMan.Get_Users(ref pager);
+
+                }
+                uViewModel.Pager = pager;
+
+                uViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", uViewModel.Pager.TotalRecords, uViewModel.Pager.CurrentPage + 1, uViewModel.Pager.PageSize, 10, true);
+
+            }
+            catch (Exception ex)
+            {
+                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("UserController Get_Users " + ex);
+
+            }
+
+            return Json(uViewModel);
+        }
         public ActionResult Index(UserViewModel uViewModel)
         {
             PaginationInfo Pager = new PaginationInfo();
             try
             {
                 Pager.IsPagingRequired = false;
-               
+
             }
             catch (Exception ex)
             {
@@ -58,7 +85,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return View("Index", uViewModel);
-      
+
         }
         public ActionResult Insert(UserViewModel uViewModel)
         {
@@ -77,7 +104,7 @@ namespace SMSPortal.Controllers.PostLogin
                 //uViewModel.Role.Created_Date = DateTime.Now;
 
                 _userMan.Insert_Users(uViewModel.User);
-                   // uViewModel.User.User_Id;
+                // uViewModel.User.User_Id;
                 //_userRepo.Insert_User_Role(uViewModel.User.UserId, uViewModel.Selected_User_Role, uViewModel.Role);
 
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));

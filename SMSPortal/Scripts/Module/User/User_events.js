@@ -9,25 +9,50 @@
         $("#frmUserMaster").submit();
 
     });
-    $("#btnSave").click(function () {
-        if ($("#hdf_UserId").val() != "" && $("#hdf_UserId").val() != null && $("#hdf_UserId").val() > 0) {
+    $(".chkActive").on("ifChanged", function () {
 
-            $('#frmUserMaster').attr("action", "/User/Update_User");
+        if ($(this).parents().prop("class").indexOf("checked") != -1) {
+            $(this).val(false);
         }
         else {
+            $(this).val(true);
+        }
 
-            //if (('#frmUserMaster').valid())
-            //{
-            $('#frmUserMaster').attr("action", "/User/Insert/");
-            //}
+    });
+    $("#btnSave").click(function () {
+
+        if ($('#frmUserMaster').valid()) {
+            if ($("#hdf_UserId").val() == 0) {
+                $("#frmUserMaster").attr("action", "/User/Insert/");
+            }
+            else {
+                $("#frmUserMaster").attr("action", "/User/Update_User/");
+            }
+            $('#frmUserMaster').attr("method", "POST");
+            $('#frmUserMaster').submit();
         }
 
 
-        $("#frmUserMaster").attr("method", "POST");
-
-        $("#frmUserMaster").submit();
-
     });
+    //$("#btnSave").click(function () {
+    //    if ($("#hdf_UserId").val() != "" && $("#hdf_UserId").val() != null && $("#hdf_UserId").val() > 0) {
+
+    //        $('#frmUserMaster').attr("action", "/User/Update_User");
+    //    }
+    //    else {
+
+    //        //if (('#frmUserMaster').valid())
+    //        //{
+    //        $('#frmUserMaster').attr("action", "/User/Insert/");
+    //        //}
+    //    }
+
+
+    //    $("#frmUserMaster").attr("method", "POST");
+
+    //    $("#frmUserMaster").submit();
+
+    //});
 
 });
 $(document).ready(function () {
