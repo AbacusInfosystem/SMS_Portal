@@ -1,20 +1,13 @@
-﻿<script src="~/Scripts/Module/Brand/search_brand_events.js"></script>
+﻿@model SMSPortal.Models.PostLogin.BrandViewModel
+@using SMSPortal.Common;
+<script src="~/Scripts/Module/Brand/search_brand_events.js"></script>
 <script src="~/Scripts/Module/Brand/search_brand_methods.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
+ 
 <form id="frmBrand" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @*@{Html.RenderPartial("_ServerMessage");}*@
+        @*@{Html.RenderPartial("_ServerMessage");}*@ 
         <section class="content-header">
             <h1>
                 Brand Master
@@ -35,11 +28,13 @@
                             <h3 class="box-title">Brand</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnBrand_Id" name="Category.Category_Id" value="@Model.Brand.Brand_Id">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label style="color: #333">Brand Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtBrand_Name" placeholder="Enter brand name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Filter.Brand_Name" id="txtBrand_Name" placeholder="Enter brand name" value="" >
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +42,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("Index", "Brand")">Create </a>
+                                            <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("AddEdit_Brand", "Brand")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
                                         <div class="btn-group pull-right">
@@ -71,41 +66,17 @@
                                     <th>Brand Name</th>
                                     <th>Brand Category</th>
                                     <th>Status</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId1" name="Brand" class="iradio-list" /></td>
-                                    <td>BMW</td>
-                                    <td>Elite</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId2" name="Brand" class="iradio-list" /></td>
-                                    <td>BMW</td>
-                                    <td>Elite</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId3" name="Brand" class="iradio-list" /></td>
-                                    <td>BMW</td>
-                                    <td>Elite</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId4" name="Brand" class="iradio-list" /></td>
-                                    <td>BMW</td>
-                                    <td>Elite</td>
-                                    <td>Active</td>
-                                </tr>
+                                </tr>                                 
                             </table>
                         </div>
-                        @*<div class="box-footer clearfix">
+                        <div class="box-footer clearfix">
                                 <div class="pagination pagination-sm no-margin pull-right">
                                     <ul></ul>
                                 </div>
                                 <div id="divSearchGridOverlay" class="overlay">
                                     <i class="fa fa-refresh fa-spin"></i>
                                 </div>
-                            </div>*@
+                            </div>
                     </div>
                 </div>
             </div>

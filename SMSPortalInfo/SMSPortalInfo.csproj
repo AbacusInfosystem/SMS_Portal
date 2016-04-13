@@ -39,10 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrandInfo.cs" />
     <Compile Include="CategoryInfo.cs" />
     <Compile Include="Common\AttachmentsInfo.cs" />
     <Compile Include="Common\AutocompleteInfo.cs" />
     <Compile Include="Common\EnumCollection.cs" />
+    <Compile Include="Common\LookupInfo.cs" />
     <Compile Include="Common\PaginationInfo.cs" />
     <Compile Include="Common\SessionInfo.cs" />
     <Compile Include="Common\StoreProcedures.cs" />

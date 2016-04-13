@@ -215,5 +215,29 @@ namespace SMSPortalRepo
             }
             return autoList;
         }
+
+        public bool Check_Existing_SubCategory(string subcategory)
+        {
+            bool check = false;
+
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Subategory_Name", subcategory));
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Check_Existing_Sub_Category.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                List<DataRow> drList = new List<DataRow>();
+
+                drList = dt.AsEnumerable().ToList();
+
+                foreach (DataRow dr in drList)
+                {
+                    check = Convert.ToBoolean(dr["Check_SubCategory"]);
+                }
+            }
+
+            return check;
+        }
     }
 }
