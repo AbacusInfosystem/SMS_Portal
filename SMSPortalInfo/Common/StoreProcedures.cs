@@ -22,7 +22,10 @@ namespace SMSPortalInfo.Common
 
         // Users
         Insert_Users_Sp,
+        Get_Users_Sp,
         Get_Users_By_User_Name_Sp,
+        Update_Users_Sp,
+        Get_Users_By_Id_Sp,
 
         //Sub Category
         Get_Sub_Category_Sp,
