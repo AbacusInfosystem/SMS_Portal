@@ -1,4 +1,5 @@
 ﻿@model SMSPortal.Models.PostLogin.UserViewModel
+@using SMSPortalInfo.Common
 <script src="~/Scripts/Module/User/User_events.js"></script>
 <script src="~/Scripts/Module/User/user_validation.js"></script>
 <div class="content-wrapper">
@@ -73,9 +74,21 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Gender</label>
-                                        <select id="drpGender" class="form-control" name="">
-                                            <option value="">-Select Gender-</option>
+                                        <select id="drpGender" class="form-control input-sm" name="User.Gender">
+                                            <option value="">Select Gender</option>
+                                            @foreach (var item in LookupInfo.Get_Gender_Types())
+                                            {
+                                                if (Model.User.Gender == item.Key)
+                                                {
+                                                <option value="@item.Key" selected="selected">@item.Value</option>
+                                                }
+                                                else
+                                                {
+                                                <option value="@item.Key">@item.Value</option>
+                                                }
+                                            }
                                         </select>
+
                                     </div>
                                 </div>
                             </div>

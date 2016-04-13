@@ -18,4 +18,10 @@ namespace SMSPortalInfo.Common
 	{
 
 	}
+
+    public enum GenderType
+    {
+        Male = 1,
+        Female = 2,
+    }
 }
