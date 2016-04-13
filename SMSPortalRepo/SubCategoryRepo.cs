@@ -173,7 +173,7 @@ namespace SMSPortalRepo
 
         private List<SqlParameter> Set_Values_In_Sub_Category(SubCategoryInfo subcategory)
         {
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
+                List<SqlParameter> sqlParams = new List<SqlParameter>();
 
             if (subcategory.Subcategory_Id!=0)
             {
@@ -193,6 +193,51 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Updated_On", subcategory.Updated_Date));
             sqlParams.Add(new SqlParameter("@Updated_By", subcategory.Updated_By));
             return sqlParams;
+        }
+
+        public List<AutocompleteInfo> Get_Subcategory_Autocomplete(string subcategory)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", subcategory == null ? System.String.Empty : subcategory.Trim()));
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Subcateory_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                List<DataRow> drList = new List<DataRow>();
+                drList = dt.AsEnumerable().ToList();
+                foreach (DataRow dr in drList)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
+
+        public bool Check_Existing_SubCategory(string subcategory)
+        {
+            bool check = false;
+
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Subategory_Name", subcategory));
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Check_Existing_Sub_Category.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                List<DataRow> drList = new List<DataRow>();
+
+                drList = dt.AsEnumerable().ToList();
+
+                foreach (DataRow dr in drList)
+                {
+                    check = Convert.ToBoolean(dr["Check_SubCategory"]);
+                }
+            }
+
+            return check;
         }
     }
 }

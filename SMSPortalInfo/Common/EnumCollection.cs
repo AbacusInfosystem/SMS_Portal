@@ -26,4 +26,10 @@ namespace SMSPortalInfo.Common
         Beyond_Borders=3
     }
 
+
+    public enum GenderType
+    {
+        Male = 1,
+        Female = 2,
+    }
 }

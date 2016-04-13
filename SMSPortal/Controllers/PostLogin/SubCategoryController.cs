@@ -133,5 +133,28 @@ namespace SMSPortal.Controllers.PostLogin
 
             return AddEdit_SubCategory(sViewModel);
         }
+
+        public JsonResult Get_Subcategory_Autocomplete(string subcategory)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            autoList = _subcategoryManager.Get_Subcategory_Autocomplete(subcategory);
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Check_Existing_Sub_Category(string subcategory)
+        {
+            bool check = false;
+
+            try
+            {
+                check = _subcategoryManager.Check_Existing_Sub_Category(subcategory);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("SubCategoryController - Check_Existing_Sub_Category " + ex.ToString());
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
     }
 }

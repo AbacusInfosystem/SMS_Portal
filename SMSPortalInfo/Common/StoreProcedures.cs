@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SMSPortalInfo.Common
 {
-    public enum StoreProcedures
-    {
+	public enum StoreProcedures
+	{
         //Login
         Authenticate_User_sp,
 
@@ -22,6 +22,10 @@ namespace SMSPortalInfo.Common
 
         // Users
         Insert_Users_Sp,
+        Get_Users_Sp,
+        Get_Users_By_User_Name_Sp,
+        Update_Users_Sp,
+        Get_Users_By_Id_Sp,
 
         //Sub Category
         Get_Sub_Category_Sp,
@@ -40,5 +44,7 @@ namespace SMSPortalInfo.Common
         Update_Brand_Sp,
         Insert_Brand_Sp
 
-    }
+        Get_Subcateory_Autocomplete_Sp,
+        Check_Existing_Sub_Category,
+	}
 }

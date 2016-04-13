@@ -52,5 +52,15 @@ namespace SMSPortalManager
         {
             return _subcategoryRepo.Get_Subcategory_By_Id(subcategory_Id);
         }
+
+        public List<AutocompleteInfo> Get_Subcategory_Autocomplete(string subcategory)
+        {
+            return _subcategoryRepo.Get_Subcategory_Autocomplete(subcategory);
+        }
+
+        public bool Check_Existing_Sub_Category(string subcategory)
+        {
+            return _subcategoryRepo.Check_Existing_SubCategory(subcategory);
+        }
     }
 }
