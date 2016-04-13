@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrandInfo.cs" />
     <Compile Include="CategoryInfo.cs" />
     <Compile Include="Common\AttachmentsInfo.cs" />
     <Compile Include="Common\EnumCollection.cs" />

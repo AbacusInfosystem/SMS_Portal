@@ -30,7 +30,7 @@ namespace SMSPortal.Models.PostLogin
 
     public class CategoryFilter
     {
-        public string Category_Id { get; set; }
+        public int Category_Id { get; set; }
         public string Category_Name { get; set; }
         public bool Is_Active { get; set; }
     }
