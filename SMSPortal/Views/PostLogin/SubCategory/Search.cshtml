@@ -3,6 +3,7 @@
 <script src="~/Scripts/Module/SubCategory/search_subcategory_events.js"></script>
 <script src="~/Scripts/Module/SubCategory/serach_subcategory_methods.js"></script>
 
+
 <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage">
 
     <!-- Content Wrapper. Contains page content -->
@@ -32,7 +33,7 @@
                             </div>
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    @*<div class="col-md-4">
                                         <div class="form-group">
                                             <label style="color: #333">SubCategory Name</label>                                           
                                             <select id="drpSubCategoryName" class="form-control" name="Filter.Module_Id">
@@ -42,6 +43,19 @@
                                                     <option value="@item.Subcategory_Id">@item.Subcategory_Name</option>
                                                 }
                                             </select>
+                                        </div>
+                                    </div>*@
+                                    <div class="col-md-3">
+                                        <div class="form-group auto-complete">
+                                            <label for="Subcategory">SubCategory Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control input-sm" name="Filter.Module_Name" id="txtSubcategory" placeholder="Enter SubCategory Name" value="@Model.Filter.Module_Name">
+                                                <input type="hidden" id="hdnSubcategoryId" value="@Model.Filter.Module_Id" name="Filter.Module_Id" class="auto-complete-value" />
+                                                <input type="hidden" id="hdnSubcategoryName" value="@Model.Filter.Module_Name" name="Filter.Module_Name" class="auto-complete-label" />
+                                                <div class="input-group-addon">
+                                                    <a href="#" class="text-muted" role="button" data-toggle="modal" data-target="#IconModal"><i class="fa fa-search"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

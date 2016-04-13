@@ -133,5 +133,12 @@ namespace SMSPortal.Controllers.PostLogin
 
             return AddEdit_SubCategory(sViewModel);
         }
+
+        public JsonResult Get_Subcategory_Autocomplete(string subcategory)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            autoList = _subcategoryManager.Get_Subcategory_Autocomplete(subcategory);
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

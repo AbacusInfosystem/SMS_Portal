@@ -194,5 +194,26 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Updated_By", subcategory.Updated_By));
             return sqlParams;
         }
+
+        public List<AutocompleteInfo> Get_Subcategory_Autocomplete(string subcategory)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", subcategory == null ? System.String.Empty : subcategory.Trim()));
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Subcateory_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                List<DataRow> drList = new List<DataRow>();
+                drList = dt.AsEnumerable().ToList();
+                foreach (DataRow dr in drList)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
     }
 }

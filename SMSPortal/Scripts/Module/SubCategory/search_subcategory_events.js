@@ -1,5 +1,7 @@
 ﻿$(function () {
 
+    InitializeAutoComplete($('#txtSubcategory'));
+
     $('#hdfCurrentPage').val(0);
 
     Search_Subcategory();
