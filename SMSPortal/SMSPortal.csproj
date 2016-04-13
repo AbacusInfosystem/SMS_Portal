@@ -927,6 +927,7 @@
     <Content Include="Scripts\generic.autocomplete.js" />
     <Content Include="Scripts\generic.lookup.js" />
     <Content Include="Scripts\generic.popup.js" />
+    <Content Include="Scripts\IconSearchAutocomplet.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1057,6 +1058,8 @@
     <Content Include="Views\PostLogin\Category\Index.cshtml" />
     <Content Include="Views\PostLogin\Category\Search.cshtml" />
     <Content Include="Views\Shared\_ServerMessage.cshtml" />
+    <Content Include="Views\Shared\_AutocompletePopup.cshtml" />
+    <Content Include="Views\PostLogin\SubCategory\_SubCategoruPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

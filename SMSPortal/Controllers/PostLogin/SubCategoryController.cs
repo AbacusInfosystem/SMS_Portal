@@ -156,5 +156,10 @@ namespace SMSPortal.Controllers.PostLogin
 
             return Json(check, JsonRequestBehavior.AllowGet);
         }
+
+        public PartialViewResult Get_Subcategory_Popup()
+        {
+            return PartialView("_SubCategoruPopup");
+        }
     }
 }

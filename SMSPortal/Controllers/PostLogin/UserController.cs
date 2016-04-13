@@ -71,10 +71,10 @@ namespace SMSPortal.Controllers.PostLogin
         }
         public ActionResult Index(UserViewModel uViewModel)
         {
-            PaginationInfo Pager = new PaginationInfo();
+            
             try
             {
-                Pager.IsPagingRequired = false;
+                uViewModel.Roles = _userMan.Get_Roles();
 
             }
             catch (Exception ex)
@@ -98,10 +98,6 @@ namespace SMSPortal.Controllers.PostLogin
                 uViewModel.User.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
 
                 uViewModel.User.Updated_On = DateTime.Now;
-
-                //uViewModel.Role.Created_By = 1;
-
-                //uViewModel.Role.Created_Date = DateTime.Now;
 
                 _userMan.Insert_Users(uViewModel.User);
                 // uViewModel.User.User_Id;
@@ -141,6 +137,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 uViewModel.User = _userMan.Get_User_By_Id(uViewModel.User.User_Id);
+                uViewModel.Roles = _userMan.Get_Roles();
 
             }
             catch (Exception ex)

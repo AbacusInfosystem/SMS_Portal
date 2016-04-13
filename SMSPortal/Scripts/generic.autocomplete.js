@@ -26,7 +26,7 @@ var InitializeAutoComplete = function (elementObject) {
             });
         },
 
-        minLength: 2,
+        minLength: 1,
         focus: function (event, ui) {
             $(this).val(ui.item.label);
             return false;
