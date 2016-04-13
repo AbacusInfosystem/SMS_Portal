@@ -31,10 +31,9 @@ namespace SMSPortalInfo.Common
         Get_Sub_Category_Sp,
         Get_Sub_Category_By_Id_Sp,
         Insert_Sub_Category_Sp,
-        Update_Sub_Category_Sp,
-        Get_Users_Sp,
-        Update_Users_Sp,
-        Get_Users_By_User_Name_Sp,
+        Update_Sub_Category_Sp,          
+        Get_Subcateory_Autocomplete_Sp,
+        Check_Existing_Sub_Category,
 
         //Brands
         Delete_Brand_By_Id_Sp,
@@ -42,9 +41,12 @@ namespace SMSPortalInfo.Common
         Get_Brand_By_Id_Sp,
         Get_Brand_Sp,
         Update_Brand_Sp,
-        Insert_Brand_Sp
+        Insert_Brand_Sp,
+        Check_Existing_Brand,
 
-        Get_Subcateory_Autocomplete_Sp,
-        Check_Existing_Sub_Category,
+        //Roles
+        Get_Roles_Sp
+
+        
 	}
 }
