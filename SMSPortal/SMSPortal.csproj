@@ -211,6 +211,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\PostLogin\BrandViewModel.cs" />
     <Compile Include="Models\PostLogin\CategoryViewModel.cs" />
+    <Compile Include="Models\PostLogin\DealerViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PreLogin\LoginViewModel.cs" />
@@ -951,7 +952,10 @@
     <Content Include="Scripts\Module\Category\search_category_methods.js" />
     <Content Include="Scripts\Module\Category\search_category_events.js" />
     <Content Include="Scripts\Module\Category\Category_events.js" />
+    <Content Include="Scripts\Module\Dealer\dealer_validation.js" />
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
+    <Content Include="Scripts\Module\Dealer\search_dealer_events.js" />
+    <Content Include="Scripts\Module\Dealer\search_dealer_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
@@ -1016,7 +1020,7 @@
     <Content Include="Views\PostLogin\Brand\Search.cshtml" />
     <Content Include="Views\PostLogin\Brand\AddEdit_Brand.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Search.cshtml" />
-    <Content Include="Views\PostLogin\Dealer\Index.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\AddEdit_Dealer.cshtml" />
     <Content Include="Views\PostLogin\Vendor\Search.cshtml" />
     <Content Include="Views\PostLogin\Vendor\Index.cshtml" />
     <Content Include="Views\PostLogin\Product\Index.cshtml" />

@@ -89,6 +89,20 @@ namespace SMSPortal.Common
             hash.Add("SBO003", SBO003);
 
             #endregion
+
+
+            #region Dealers
+
+            FriendlyMessage DO001 = new FriendlyMessage("DO001", MessageType.Success, "Dealer added successfully");
+            hash.Add("DO001", DO001);
+
+            FriendlyMessage DO002 = new FriendlyMessage("DO002", MessageType.Success, "Dealer updated successfully");
+            hash.Add("DO002", DO002);
+
+            FriendlyMessage DO003 = new FriendlyMessage("DO003", MessageType.Success, "Dealer deleted successfully");
+            hash.Add("DO003", DO003);
+
+            #endregion
 			
 		}
 
