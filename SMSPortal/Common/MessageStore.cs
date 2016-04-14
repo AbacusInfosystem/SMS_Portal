@@ -66,8 +66,8 @@ namespace SMSPortal.Common
 
             #region User
 
-            FriendlyMessage SO001 = new FriendlyMessage("UM001", MessageType.Success, "User added successfully");
-            hash.Add("UM001", SO001);
+            FriendlyMessage UM001 = new FriendlyMessage("UM001", MessageType.Success, "User added successfully");
+            hash.Add("UM001", UM001);
 
             FriendlyMessage SO002 = new FriendlyMessage("UM002", MessageType.Success, "User updated successfully");
             hash.Add("UM002", SO002);

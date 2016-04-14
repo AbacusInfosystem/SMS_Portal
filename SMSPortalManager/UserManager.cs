@@ -49,5 +49,15 @@ namespace SMSPortalManager
         {
             return _usersRepo.Get_Roles();
         }
+        public List<Entity> Get_Entity_By_Role(int Role_Id)
+        {
+            return _usersRepo.Get_Entity_By_Role(Role_Id);
+        }
+
+        public bool Check_Existing_User(string User_Name)
+        {
+            return _usersRepo.Check_Existing_User(User_Name);
+        }
+     
     }
 }

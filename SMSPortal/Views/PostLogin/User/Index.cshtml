@@ -1,9 +1,10 @@
 ﻿@model SMSPortal.Models.PostLogin.UserViewModel
 @using SMSPortalInfo.Common
 <script src="~/Scripts/Module/User/User_events.js"></script>
+<script src="~/Scripts/Module/User/user_method.js"></script>
 <script src="~/Scripts/Module/User/user_validation.js"></script>
 <div class="content-wrapper">
-    @*@{Html.RenderPartial("_ServerMessage");}*@
+    @{Html.RenderPartial("_ServerMessage");}
     <section class="content-header">
         <h1>
             User Master
@@ -36,6 +37,7 @@
                                     <div class="form-group">
                                         <label style="color: #333">User Name</label>
                                         <input type="text" class="form-control input-sm" name="User.User_Name" id="txtUser_Name" placeholder="Enter user name" value="@Model.User.User_Name" maxlength=" 20">
+                                        <input type="hidden" id="hdnUserName" value="@Model.User.User_Name">
                                     </div>
                                 </div>
                             </div>
@@ -56,9 +58,9 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
+
+
+
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -81,6 +83,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Entity</label>
+                                        <select id="drpEntity" class="form-control" name="User.Entity_Id">
+                                            <option value="">-Select Entity-</option>
+                                            @*@foreach (var item in Model.Roles)
+                                                {
+                                                    if (Model.User.Role_Id == item.Role_Id)
+                                                    {
+
+                                                        <option value="@item.Role_Id" selected="selected">@item.Role_Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.Role_Id">@item.Role_Name</option>
+                                                    }
+                                                }*@
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-md-3">
@@ -92,11 +116,11 @@
                                             {
                                                 if (Model.User.Gender == item.Key)
                                                 {
-                                                <option value="@item.Key" selected="selected">@item.Value</option>
+                                                    <option value="@item.Key" selected="selected">@item.Value</option>
                                                 }
                                                 else
                                                 {
-                                                <option value="@item.Key">@item.Value</option>
+                                                    <option value="@item.Key">@item.Value</option>
                                                 }
                                             }
                                         </select>
@@ -104,9 +128,9 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
+
+
+
 
 
                             <div class="row">
@@ -125,7 +149,15 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Email</label>
+                                        <input type="text" class="form-control input-sm" name="User.Email_Id" id="txtEmail_Id" placeholder="Enter your email" value="@Model.User.Email_Id" maxlength="40">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -149,16 +181,6 @@
                                 </div>
 
                             </div>
-
-                            @*<div>
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="checkbox" name="chkStatus" checked="checked" />
-                                            &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                        </label>
-                                    </div>
-                                </div>*@
-
                             <div class="box-footer">
                                 <div class="btn-group">
                                     <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
