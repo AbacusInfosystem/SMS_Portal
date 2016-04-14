@@ -14,6 +14,8 @@ namespace SMSPortalInfo
 
         public int Brand_Category { get; set; }
 
+        public string Brand_Category_Name { get; set; }
+
         public string Brand_Logo { get; set; }
 
         public bool Is_Active { get; set; }

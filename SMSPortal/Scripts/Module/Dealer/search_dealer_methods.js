@@ -1,17 +1,11 @@
-﻿function call_back(data) {
-
-    $('#div_Parent_Modal_Fade').modal('show');
-    $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Brand Logo");
-
-}
-
-function Search_Brands()
+﻿
+function Search_Dealers()
 {
-    var brandViewModel =
+    var dealerViewModel =
         {
             Filter:
                 {
-                    Brand_Name: $('#txtBrand_Name').val(),
+                    Dealer_Name: $('#txtDealer_Name').val(),
                 },
             Pager:
                 {
@@ -21,39 +15,39 @@ function Search_Brands()
 
     $('#divSearchGridOverlay').show();
 
-    CallAjax("/Brand/Get_Brands/", "json", JSON.stringify(brandViewModel), "POST", "application/json", false, Bind_Brands_Grid, "", null);
+    CallAjax("/Dealer/Get_Dealers/", "json", JSON.stringify(dealerViewModel), "POST", "application/json", false, Bind_Dealers_Grid, "", null);
 }
 
-function Bind_Brands_Grid(data)
+function Bind_Dealers_Grid(data)
 {
     var htmlText = "";
-    if (data.Brands.length > 0)
+    if (data.Dealers.length > 0)
     {
-        for (i = 0; i < data.Brands.length; i++)
+        for (i = 0; i < data.Dealers.length; i++)
         {
             htmlText += "<tr>";
 
             htmlText += "<td>";
 
-            htmlText += "<input type='radio' name='r1' id='r1_" + data.Brands[i].Brand_Id + "' class='iradio-list'/>";
+            htmlText += "<input type='radio' name='r1' id='r1_" + data.Dealers[i].Dealer_Id + "' class='iradio-list'/>";
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Brands[i].Brand_Name == null ? "" : data.Brands[i].Brand_Name;
+            htmlText += data.Dealers[i].Dealer_Name == null ? "" : data.Dealers[i].Dealer_Name;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Brands[i].Brand_Category_Name == null ? "" : data.Brands[i].Brand_Category_Name;;
+            htmlText += data.Dealers[i].Brand_Name == null ? "" : data.Dealers[i].Brand_Name;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            if (data.Brands[i].Is_Active.toString() == 'true')
+            if (data.Dealers[i].Is_Active.toString() == 'true')
                 htmlText += 'Active';
             else
                 htmlText += 'InActive';
@@ -74,15 +68,15 @@ function Bind_Brands_Grid(data)
         htmlText += "</tr>";
     }
 
-    $('#tblBrandMaster').find("tr:gt(0)").remove();
-    $('#tblBrandMaster tr:first').after(htmlText);
+    $('#tblDealerMaster').find("tr:gt(0)").remove();
+    $('#tblDealerMaster tr:first').after(htmlText);
 
     $('.iradio-list').iCheck({
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
 
-    if (data.Brands.length > 0)
+    if (data.Dealers.length > 0)
     {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);
         if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "")
@@ -100,9 +94,8 @@ function Bind_Brands_Grid(data)
     $('[name="r1"]').on('ifChanged', function (event) {
         if ($(this).prop('checked'))
         {
-            $("#hdnBrand_Id").val(this.id.replace("r1_", ""));
-            $("#btnEdit").show();
-            $("#btnUploadLogo").show();            
+            $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
+            $("#btnEdit").show();                        
             $("#btnDelete").show();
 
         }
@@ -112,10 +105,9 @@ function Bind_Brands_Grid(data)
 
 function PageMore(Id) {
 
-    $("#btnEdit").hide();
-    $("#btnUploadLogo").hide();
+    $("#btnEdit").hide();    
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
-    Search_Brands();
+    Search_Dealers();
 
 }

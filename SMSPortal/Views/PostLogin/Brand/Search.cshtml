@@ -7,7 +7,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @*@{Html.RenderPartial("_ServerMessage");}*@ 
+        @{Html.RenderPartial("_ServerMessage");} 
         <section class="content-header">
             <h1>
                 Brand Master
@@ -29,7 +29,7 @@
                         </div>
                         <div class="box-body">
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
-                            <input type="hidden" id="hdnBrand_Id" name="Category.Category_Id" value="@Model.Brand.Brand_Id">
+                            <input type="hidden" id="hdnBrand_Id" name="Brand.Brand_Id" value="@Model.Brand.Brand_Id">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -46,8 +46,8 @@
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnUploadLogo" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload Brand Logo</button>
+                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit </button>
+                                            <button type="button" id="btnUploadLogo" style="display:none;" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload Brand Logo</button>
                                         </div>
                                     </div>
                                 </div>

@@ -159,7 +159,7 @@ namespace SMSPortal.Controllers.PostLogin
 
         public PartialViewResult Get_Subcategory_Popup()
         {
-            return PartialView("__SubCategoruPopup");
+            return PartialView("_SubCategoruPopup");
         }
     }
 }

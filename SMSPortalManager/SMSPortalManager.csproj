@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="BrandManager.cs" />
     <Compile Include="CategoryManager.cs" />
+    <Compile Include="DealerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateManager.cs" />
     <Compile Include="SubCategoryManager.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>

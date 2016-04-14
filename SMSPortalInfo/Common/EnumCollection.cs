@@ -21,7 +21,7 @@ namespace SMSPortalInfo.Common
 
     public enum BrandCategory
     {
-        Elite=1,
+        Elite=1,        
         Volumn_Based=2,
         Beyond_Borders=3
     }

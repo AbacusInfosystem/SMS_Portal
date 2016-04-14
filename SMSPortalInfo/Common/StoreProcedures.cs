@@ -44,8 +44,22 @@ namespace SMSPortalInfo.Common
         Get_Brand_Sp,
         Update_Brand_Sp,
         Insert_Brand_Sp,
+        Check_Existing_Brand,
 
         //Roles
         Get_Roles_Sp,
+
+        //Dealers
+
+        Get_Dealer_By_Id_Sp,
+        Get_Dealer_By_Name_Sp,
+        Get_Dealer_Sp,
+        Update_Dealer_Sp,
+        Insert_Dealer_Sp,
+        Check_Existing_Dealer,
+
+        //State
+        Get_State_Sp
+        
 	}
 }
