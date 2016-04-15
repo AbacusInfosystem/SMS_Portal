@@ -1,10 +1,20 @@
-﻿<form id="frmUploadBrandLogo" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-md-2"> </div>
+﻿@model SMSPortal.Models.PostLogin.BrandViewModel
+
+<form id="frmUploadBrandLogo" enctype="multipart/form-data">
+    <div class="row">        
+        <div class="col-md-2">
+            @if (Model.Brand.Brand_Logo != null)
+            {
+                <img width="100" height="100" id="BrandImg" src="~/UploadedFiles/@Model.Brand.Brand_Logo" />
+            }
+        </div>
         <div class="col-md-8" style="text-align:center ">
             <div class="form-group">
                 <div class="input-group pull-left">
-                    <input type="file" class="btn" name="Upload_Brand_Logo_File" id="uploadFile">
+                    <input type="file" class="btn" name="Upload_Logo" id="uploadFile">
+                    <input type="hidden" name="Brand.Brand_Id" id="hd_BrandId" value="@Model.Brand.Brand_Id">
+                    <input type="hidden" name="Brand.Brand_Logo" id="hd_BrandLogo" value="@Model.Brand.Brand_Logo">
+                    <span class="pull-left pad" >Brand Logo Upload(.jpeg/.png) <span style="color: red;">*</span> </span> 
                     <span class="input-group-btn">
                         <button type="button" id="btnUpload" class="btn btn-success btn-sm">Upload </button>
                     </span>
@@ -14,3 +24,23 @@
         <div class="col-md-2"> </div>
     </div>
 </form>
+<script>
+    $(function () {
+        $("#frmUploadBrandLogo").validate({
+            errorClass: 'login-error',
+            rules: {
+                "Upload_Logo": {
+                    required: true,
+                    extension: "jpeg|png|jpg|JPEG|PNG|JPG"
+                }
+            },
+            messages: {
+                "Upload_Logo": {
+                    required: "File is required.",
+                    extension: "Please upload jpeg/png/jpg file"
+                }
+            }
+        });
+
+    })
+</script>

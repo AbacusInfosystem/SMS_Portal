@@ -45,6 +45,7 @@ namespace SMSPortalInfo.Common
         Update_Brand_Sp,
         Insert_Brand_Sp,
         Check_Existing_Brand,
+        Update_Brand_Image,
 
         //Roles
         Get_Roles_Sp,

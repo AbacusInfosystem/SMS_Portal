@@ -62,6 +62,12 @@ namespace SMSPortal.Common
             FriendlyMessage BO003 = new FriendlyMessage("BO003", MessageType.Success, "Brand deleted successfully");
             hash.Add("BO003", BO003);
 
+            FriendlyMessage BO004 = new FriendlyMessage("BO004", MessageType.Success, "Brand logo uploaded successfully");
+            hash.Add("BO004", BO004);
+
+            FriendlyMessage BO005 = new FriendlyMessage("BO005", MessageType.Success, "Brand logo changed successfully");
+            hash.Add("BO005", BO005);
+
             #endregion
 
             #region User

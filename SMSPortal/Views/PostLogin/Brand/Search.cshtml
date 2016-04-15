@@ -2,6 +2,7 @@
 @using SMSPortal.Common;
 <script src="~/Scripts/Module/Brand/search_brand_events.js"></script>
 <script src="~/Scripts/Module/Brand/search_brand_methods.js"></script>
+<script src="~/Scripts/additional-methods.min.js"></script>
  
 <form id="frmBrand" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
@@ -30,6 +31,7 @@
                         <div class="box-body">
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnBrand_Id" name="Brand.Brand_Id" value="@Model.Brand.Brand_Id">
+                            <input type="hidden" id="hdnBrand_Logo" name="Brand.Brand_Logo" value="@Model.Brand.Brand_Logo">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
