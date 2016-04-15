@@ -51,6 +51,7 @@
     <Compile Include="StateManager.cs" />
     <Compile Include="SubCategoryManager.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="VendorManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SMSPortalInfo\SMSPortalInfo.csproj">

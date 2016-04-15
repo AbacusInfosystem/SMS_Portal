@@ -52,6 +52,7 @@
     <Compile Include="StateRepo.cs" />
     <Compile Include="SubCategoryRepo.cs" />
     <Compile Include="UserRepo.cs" />
+    <Compile Include="VendorRepo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

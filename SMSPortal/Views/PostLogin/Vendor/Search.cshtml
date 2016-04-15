@@ -1,16 +1,11 @@
-﻿<script src="~/Scripts/Module/Vendor/search_vendor_methods.js"></script>
+﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+@using SMSPortal.Common;
+<script src="~/Scripts/Module/Vendor/Vendor_events.js"></script>
+<script src="~/Scripts/Module/Vendor/search_vendor_methods.js"></script>
 <script src="~/Scripts/Module/Vendor/search_vendor_events.js"></script>
-
 <script type="text/javascript">
 
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
+   
 </script>
 
 <form id="frmVendor" enctype="multipart/form-data">
@@ -39,11 +34,13 @@
                             <h3 class="box-title">Vendor</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnvendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label style="color: #333">Vendor Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtVendor_Name" placeholder="Enter vendor name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Filter.Vendor_Name" id="txtVendor_Name" placeholder="Enter vendor name" value="" maxlength="20">
                                     </div>
                                 </div>
 
@@ -59,7 +56,7 @@
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
                                             @*<button type="button" id="btnAddBankDetails" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Bank Details </button>*@
                                             <button type="button" id="btnAddProductMapping" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Product Mapping</button>
                                         </div>
@@ -84,41 +81,18 @@
                                     <th>Address</th>
                                     <th>Status</th>
                                 </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_VendorId1" name="Vendor" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>Mumbai</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_VendorId2" name="Vendor" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>Mumbai</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_VendorId3" name="Vendor" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>Mumbai</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_VendorId4" name="Vendor" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>Mumbai</td>
-                                    <td>Active</td>
-                                </tr>
+                            
 
                             </table>
                         </div>
-                        @*<div class="box-footer clearfix">
+                        <div class="box-footer clearfix">
                                 <div class="pagination pagination-sm no-margin pull-right">
                                     <ul></ul>
                                 </div>
                                 <div id="divSearchGridOverlay" class="overlay">
                                     <i class="fa fa-refresh fa-spin"></i>
                                 </div>
-                            </div>*@
+                            </div>
                     </div>
                 </div>
             </div>

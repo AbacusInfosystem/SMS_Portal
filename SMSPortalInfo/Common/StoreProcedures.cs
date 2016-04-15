@@ -59,7 +59,14 @@ namespace SMSPortalInfo.Common
         Check_Existing_Dealer,
 
         //State
-        Get_State_Sp
+        Get_State_Sp,
+        
+        //Vendor
+        Insert_Vendor_Sp,
+        Get_Vendor_Sp,
+        Get_Vendor_By_Name_Sp,
+        Update_Vendor_Sp,
+        Get_Vendor_By_Id_Sp
         
 	}
 }
