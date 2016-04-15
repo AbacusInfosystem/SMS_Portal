@@ -36,6 +36,7 @@ namespace SMSPortalInfo.Common
         Update_Sub_Category_Sp,
         Get_Subcateory_Autocomplete_Sp,
         Check_Existing_Sub_Category,
+         Get_Sub_Category_By_Category_Sp,
 
         //Brands
         Delete_Brand_By_Id_Sp,
@@ -60,7 +61,15 @@ namespace SMSPortalInfo.Common
         Check_Existing_Dealer,
 
         //State
-        Get_State_Sp
+        Get_State_Sp,
+
+        //Product
+        Check_Existing_Product,
+        Get_Product_By_Name_Sp,
+        Get_Product_By_Id_Sp,
+        Get_Product_Sp,
+        Update_Product_Sp,
+        Insert_Product_Sp
         
 	}
 }

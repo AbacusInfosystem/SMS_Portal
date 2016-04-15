@@ -96,7 +96,6 @@ namespace SMSPortal.Common
 
             #endregion
 
-
             #region Dealers
 
             FriendlyMessage DO001 = new FriendlyMessage("DO001", MessageType.Success, "Dealer added successfully");
@@ -107,6 +106,19 @@ namespace SMSPortal.Common
 
             FriendlyMessage DO003 = new FriendlyMessage("DO003", MessageType.Success, "Dealer deleted successfully");
             hash.Add("DO003", DO003);
+
+            #endregion
+
+            #region Product
+
+            FriendlyMessage PO001 = new FriendlyMessage("PO001", MessageType.Success, "Product added successfully");
+            hash.Add("PO001", PO001);
+
+            FriendlyMessage PO002 = new FriendlyMessage("PO002", MessageType.Success, "Product updated successfully");
+            hash.Add("PO002", PO002);
+
+            FriendlyMessage PO003 = new FriendlyMessage("PO003", MessageType.Success, "Product deleted successfully");
+            hash.Add("PO003", PO003);
 
             #endregion
 			
