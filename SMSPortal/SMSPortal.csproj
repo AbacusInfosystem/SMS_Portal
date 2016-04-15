@@ -976,6 +976,7 @@
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
     <Content Include="Scripts\Module\User\User_events.js" />
+    <Content Include="Scripts\Module\User\user_method.js" />
     <Content Include="Scripts\Module\User\user_validation.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
