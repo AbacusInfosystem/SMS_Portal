@@ -37,5 +37,9 @@ namespace SMSPortalManager
         {
             return _vendorRepo.Get_Vendor_By_Name(Vendor_Name, ref Pager);
         }
+        public bool Check_Existing_Vendor(string Vendor_Name)
+        {
+            return _vendorRepo.Check_Existing_Vendor(Vendor_Name);
+        }
     }
 }

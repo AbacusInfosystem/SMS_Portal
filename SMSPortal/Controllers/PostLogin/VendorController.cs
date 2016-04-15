@@ -120,6 +120,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(vViewModel);
         }
+
         public ActionResult Get_Vendor_By_Id(VendorViewModel vViewModel)
         {
             try
@@ -133,6 +134,20 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return Index(vViewModel);
+        }
+
+        public JsonResult Check_Existing_Vendor(string Vendor_Name)
+        {
+            bool check = false;
+            try
+            {
+                check = _vendorManager.Check_Existing_Vendor(Vendor_Name);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Vendor Controller - Check_Existing_Vendor " + ex.ToString());
+            }
+            return Json(check, JsonRequestBehavior.AllowGet);
         }
 
         public PartialViewResult Add_Product_Mapping()

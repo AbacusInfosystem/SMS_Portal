@@ -67,7 +67,8 @@ namespace SMSPortalInfo.Common
         Get_Vendor_Sp,
         Get_Vendor_By_Name_Sp,
         Update_Vendor_Sp,
-        Get_Vendor_By_Id_Sp
+        Get_Vendor_By_Id_Sp,
+        Check_Existing_Vendor
         
 	}
 }

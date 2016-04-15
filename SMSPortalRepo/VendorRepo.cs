@@ -115,7 +115,26 @@ namespace SMSPortalRepo
             Vendor.Created_By = Convert.ToInt32(dr["Created_By"]);
             Vendor.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
             Vendor.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+         
             return Vendor;
+        }
+
+        public bool Check_Existing_Vendor(string Vendor_Name)
+        {
+            bool check = false;
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Vendor_Name", Vendor_Name));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Check_Existing_Vendor.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    check = Convert.ToBoolean(dr["Check_Vendor"]);
+                }
+            }
+            return check;
         }
     }
 }

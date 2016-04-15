@@ -98,7 +98,7 @@ function Bind_Vendors_Grid(data) {
 
     $('[name="r1"]').on('ifChanged', function (event) {
         if ($(this).prop('checked')) {
-            $("#hdnvendor_Id").val(this.id.replace("r1_", ""));
+            $("#hdnVendor_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnDelete").show();
 
