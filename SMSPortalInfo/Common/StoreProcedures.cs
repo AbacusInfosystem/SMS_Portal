@@ -69,7 +69,16 @@ namespace SMSPortalInfo.Common
         Get_Product_By_Id_Sp,
         Get_Product_Sp,
         Update_Product_Sp,
-        Insert_Product_Sp
+        Insert_Product_Sp,
+        Get_State_Sp,
+        
+        //Vendor
+        Insert_Vendor_Sp,
+        Get_Vendor_Sp,
+        Get_Vendor_By_Name_Sp,
+        Update_Vendor_Sp,
+        Get_Vendor_By_Id_Sp,
+        Check_Existing_Vendor
         
 	}
 }

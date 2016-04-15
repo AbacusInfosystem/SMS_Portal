@@ -82,6 +82,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 uViewModel.Roles = _userMan.Get_Roles();
+            
 
             }
             catch (Exception ex)
@@ -162,6 +163,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 uViewModel.User = _userMan.Get_User_By_Id(uViewModel.User.User_Id);
                 uViewModel.Roles = _userMan.Get_Roles();
+              
 
             }
             catch (Exception ex)
