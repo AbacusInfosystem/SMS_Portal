@@ -70,7 +70,7 @@ namespace SMSPortalInfo.Common
         Get_Product_Sp,
         Update_Product_Sp,
         Insert_Product_Sp,
-        Get_State_Sp,
+         
         
         //Vendor
         Insert_Vendor_Sp,
