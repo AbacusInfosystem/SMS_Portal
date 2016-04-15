@@ -6,6 +6,8 @@ using SMSPortalInfo.Common;
 using SMSPortalManager;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -54,9 +56,12 @@ namespace SMSPortal.Controllers.PostLogin
             return View("AddEdit_Brand",bViewModel);
         }
 
-        public PartialViewResult Add_Brand_Logo()
+        public PartialViewResult Add_Brand_Logo(string Id)
         {
-            return PartialView("_Upload_Brand_Logo");
+            BrandViewModel model = new BrandViewModel();
+             model.Brand = _brandManager.Get_Brand_By_Id(Convert.ToInt32(Id));
+
+            return PartialView("_Upload_Brand_Logo",model);
         }
 
         public JsonResult Get_Brands(BrandViewModel bViewModel)
@@ -140,6 +145,48 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Brand Controller - Check_Existing_Brand " + ex.ToString());
             }
             return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Brand_Logo_Upload(BrandViewModel bViewModel)
+        {
+            // Code to Upload Excel File 
+            var actualFileName = "";
+            var fileName = "";
+            var path = "";
+            //bool is_Error = false;    
+       
+            try
+            {
+                if (bViewModel.Upload_Logo.ContentLength > 0)
+                {
+                    actualFileName = Path.GetFileName(bViewModel.Upload_Logo.FileName);
+                    path = Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), actualFileName);
+
+                   // Logger.Debug("*************************** " + path.ToString());
+                    bViewModel.Upload_Logo.SaveAs(path);
+                    _brandManager.Update_Brand_FileName(bViewModel.Brand.Brand_Id, actualFileName);
+
+                    if (bViewModel.Brand.Brand_Logo != null)
+                    {
+                        System.IO.File.Delete(Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), bViewModel.Brand.Brand_Logo));
+                        bViewModel.Friendly_Message.Add(MessageStore.Get("BO005"));
+                    }
+                    else
+                    {
+                        bViewModel.Friendly_Message.Add(MessageStore.Get("BO004"));
+                    }
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.Delete(path);
+                bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Error uploading Brand Logo  " + ex.Message);
+            }
+            TempData["bViewModel"] = bViewModel;
+            return RedirectToAction("Search");
         }
     }
 }

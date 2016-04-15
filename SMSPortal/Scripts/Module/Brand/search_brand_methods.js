@@ -1,8 +1,17 @@
 ﻿function call_back(data) {
 
     $('#div_Parent_Modal_Fade').modal('show');
-    $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Brand Logo");
+    $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Brand Logo");     
+    $('#btnUpload').click(function (event)
+    {
+        if ($('#frmUploadBrandLogo').valid())
+        {
+            $('#frmUploadBrandLogo').attr("action", "/Brand/Brand_Logo_Upload/");
+            $('#frmUploadBrandLogo').attr("method", "post");
+            $('#frmUploadBrandLogo').submit();
+        }
 
+    })
 }
 
 function Search_Brands()

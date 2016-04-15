@@ -145,6 +145,16 @@ namespace SMSPortalRepo
             return check;
         }
 
+        public void Update_Brand_FileName(int Brand_Id,string File_Name)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Brand_Id", Brand_Id));
+            sqlParam.Add(new SqlParameter("@File_Name", File_Name));
+            _sqlRepo.ExecuteNonQuery(sqlParam, StoreProcedures.Update_Brand_Image.ToString(), CommandType.StoredProcedure);
+
+        }
+
+
         public void Delete_Brand_By_Id(int brand_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();

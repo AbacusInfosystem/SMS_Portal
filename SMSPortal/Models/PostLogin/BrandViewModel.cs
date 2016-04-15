@@ -27,6 +27,7 @@ namespace SMSPortal.Models.PostLogin
         public PaginationInfo Pager { get; set; }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public BrandFilter Filter { get; set; }
+        public HttpPostedFileBase Upload_Logo { get; set; }
     }
 
     public class BrandFilter
