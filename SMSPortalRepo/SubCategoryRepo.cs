@@ -87,6 +87,23 @@ namespace SMSPortalRepo
             return subcategories;
         }
 
+        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int Category_Id)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Category_Id", Category_Id));
+
+            List<SubCategoryInfo> subcategories = new List<SubCategoryInfo>();
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Get_Sub_Category_By_Category_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                subcategories.Add(Get_SubCategory_Values(dr));
+            }
+
+            return subcategories;
+        }
+
         public List<SubCategoryInfo> Get_Subcategory_By_Module_Id(int module_Id, ref PaginationInfo pager)
         {
             List<SubCategoryInfo> subcategory = new List<SubCategoryInfo>();

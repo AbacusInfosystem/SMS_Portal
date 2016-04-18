@@ -212,6 +212,7 @@
     <Compile Include="Models\PostLogin\BrandViewModel.cs" />
     <Compile Include="Models\PostLogin\CategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\DealerViewModel.cs" />
+    <Compile Include="Models\PostLogin\ProductViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PostLogin\VendorViewModel.cs" />
@@ -961,10 +962,12 @@
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
+    <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
     <Content Include="Scripts\Module\Product\product_image_events.js" />
     <Content Include="Scripts\Module\Product\search_product_events.js" />
     <Content Include="Scripts\Module\Product\search_product_methods.js" />
+    <Content Include="Scripts\Module\Product\Product_method.js" />
     <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
@@ -1028,7 +1031,7 @@
     <Content Include="Views\PostLogin\Dealer\AddEdit_Dealer.cshtml" />
     <Content Include="Views\PostLogin\Vendor\Search.cshtml" />
     <Content Include="Views\PostLogin\Vendor\Index.cshtml" />
-    <Content Include="Views\PostLogin\Product\Index.cshtml" />
+    <Content Include="Views\PostLogin\Product\AddEdit_Product.cshtml" />
     <Content Include="Views\PostLogin\Product\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Search.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Index.cshtml" />

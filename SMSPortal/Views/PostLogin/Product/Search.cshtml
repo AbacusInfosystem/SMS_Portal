@@ -1,24 +1,14 @@
-﻿
-<script src="~/Scripts/Module/Product/search_product_methods.js"></script>
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel
+@using SMSPortal.Common;
+
 <script src="~/Scripts/Module/Product/search_product_events.js"></script>
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
+<script src="~/Scripts/Module/Product/search_product_methods.js"></script>
 
 <form id="frmProduct" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @*@{Html.RenderPartial("_ServerMessage");}*@
+        @{Html.RenderPartial("_ServerMessage");}
         <section class="content-header">
             <h1>
                Product master
@@ -40,11 +30,13 @@
                             <h3 class="box-title">Product</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnProduct_Id" name="Product.Product_Id" value="@Model.Product.Product_Id">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label style="color: #333">Product Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtProduct_Name" placeholder="Enter product name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Filter.Product_Name" id="txtProduct_Name" placeholder="Enter product name" value="" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -54,13 +46,13 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Product")">Create </a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddEdit_Product", "Product")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnUpload" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload Product Images</button>                                                                                     
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm" style="display:none;">Edit </button>
+                                            <button type="button" id="btnUpload" class="btn btn-warning btn-sm" style="display:none;" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload Product Images</button>                                                                                     
                                         </div>
                                     </div>
                                 </div>
@@ -79,50 +71,20 @@
                             <table class="table table-striped" id="tblProductMaster">
                                 <tr id="subhead">
                                     <th></th>
-                                    <th>Product Name</th>
-                                    <th>Brand</th>
+                                    <th>Product Name</th>                                     
                                     <th>Status</th>
                                 </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_ProductId1" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_ProductId2" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_ProductId3" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_ProductId4" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_ProductId5" name="Product" class="iradio-list" /></td>
-                                    <td>Bag</td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
+                                
                             </table>
                         </div>
-                        @*<div class="box-footer clearfix">
+                        <div class="box-footer clearfix">
                                 <div class="pagination pagination-sm no-margin pull-right">
                                     <ul></ul>
                                 </div>
                                 <div id="divSearchGridOverlay" class="overlay">
                                     <i class="fa fa-refresh fa-spin"></i>
                                 </div>
-                            </div>*@
+                            </div>
                     </div>
                 </div>
             </div>
