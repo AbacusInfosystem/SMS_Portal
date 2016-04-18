@@ -1,22 +1,67 @@
 ﻿$(function () {
 
-    $(".fa-chevron-left").click(function () {
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        increaseArea: '20%', // optional
+    });
+
+    $(".chkstatus").on("ifChanged", function () {
+
+        if ($(this).parents().prop("class").indexOf("checked") != -1) {
+            $("#hdnIs_Active").val(false);
+            $("#hdnIs_Biddable").val(false);             
+        }
+        else {
+            $("#hdnIs_Active").val(true);
+            $("#hdnIs_Biddable").val(true);
+        }
+
+    });
+
+    $(".fa-chevron-left").click(function ()
+    {
+        $("#frmProductMaster").validate().cancelSubmit = true;
 
         $("#frmProductMaster").attr("action", "/Product/Search/");
-
         $("#frmProductMaster").attr("method", "POST");
-
         $("#frmProductMaster").submit();
 
     });
 
-});
-$(document).ready(function () {
+    $("#btnSave").click(function () {
+        if ($('#frmProductMaster').valid())
+        {
+            if ($("#hdf_ProductId").val() == 0) {
+                $("#frmProductMaster").attr("action", "/Product/Insert_Product/");
+            }
+            else {
+                $("#frmProductMaster").attr("action", "/Product/Update_Product/");
+            }
+            $('#frmProductMaster').attr("method", "POST");
+            $('#frmProductMaster').submit();
+        }
+    });
 
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
+
+    $("#drpProduct_Category").change(function () {
+
+        var Category_Id = $("#drpProduct_Category").val();
+     
+        $.ajax(
+        {
+            url: '/Product/Get_SubCategory_By_CategoryId',
+            data: { Category_Id: Category_Id },
+            method: 'GET',
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    Bind_SubCategories(data);
+                }
+            }
+        });
     });
 
 });
+
+});
+ 

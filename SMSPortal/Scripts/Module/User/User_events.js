@@ -64,8 +64,26 @@ $(document).ready(function () {
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
+    $("#drpRole").change(function () {
+
+        var Role_Id = $("#drpRole").val();
+     
+        $.ajax(
+        {
+            url: '/User/Get_Entity_By_Role',
+            data: { Role_Id: Role_Id },
+            method: 'GET',
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    Bind_Entity(data);
+                }
+            }
+        });
+    });
 
 });
+
 
 //$(document).ready(function () {
 

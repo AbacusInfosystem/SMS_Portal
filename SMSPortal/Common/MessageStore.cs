@@ -62,12 +62,18 @@ namespace SMSPortal.Common
             FriendlyMessage BO003 = new FriendlyMessage("BO003", MessageType.Success, "Brand deleted successfully");
             hash.Add("BO003", BO003);
 
+            FriendlyMessage BO004 = new FriendlyMessage("BO004", MessageType.Success, "Brand logo uploaded successfully");
+            hash.Add("BO004", BO004);
+
+            FriendlyMessage BO005 = new FriendlyMessage("BO005", MessageType.Success, "Brand logo changed successfully");
+            hash.Add("BO005", BO005);
+
             #endregion
 
             #region User
 
-            FriendlyMessage SO001 = new FriendlyMessage("UM001", MessageType.Success, "User added successfully");
-            hash.Add("UM001", SO001);
+            FriendlyMessage UM001 = new FriendlyMessage("UM001", MessageType.Success, "User added successfully");
+            hash.Add("UM001", UM001);
 
             FriendlyMessage SO002 = new FriendlyMessage("UM002", MessageType.Success, "User updated successfully");
             hash.Add("UM002", SO002);
@@ -87,6 +93,32 @@ namespace SMSPortal.Common
 
             FriendlyMessage SBO003 = new FriendlyMessage("SBO003", MessageType.Success, "Sub Category deleted successfully");
             hash.Add("SBO003", SBO003);
+
+            #endregion
+
+            #region Dealers
+
+            FriendlyMessage DO001 = new FriendlyMessage("DO001", MessageType.Success, "Dealer added successfully");
+            hash.Add("DO001", DO001);
+
+            FriendlyMessage DO002 = new FriendlyMessage("DO002", MessageType.Success, "Dealer updated successfully");
+            hash.Add("DO002", DO002);
+
+            FriendlyMessage DO003 = new FriendlyMessage("DO003", MessageType.Success, "Dealer deleted successfully");
+            hash.Add("DO003", DO003);
+
+            #endregion
+
+            #region Product
+
+            FriendlyMessage PO001 = new FriendlyMessage("PO001", MessageType.Success, "Product added successfully");
+            hash.Add("PO001", PO001);
+
+            FriendlyMessage PO002 = new FriendlyMessage("PO002", MessageType.Success, "Product updated successfully");
+            hash.Add("PO002", PO002);
+
+            FriendlyMessage PO003 = new FriendlyMessage("PO003", MessageType.Success, "Product deleted successfully");
+            hash.Add("PO003", PO003);
 
             #endregion
 			

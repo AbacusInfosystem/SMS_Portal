@@ -1,20 +1,14 @@
-﻿<script type="text/javascript">
+﻿@model SMSPortal.Models.PostLogin.DealerViewModel
+@using SMSPortal.Common;
 
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
+<script src="~/Scripts/Module/Dealer/search_dealer_events.js"></script>
+<script src="~/Scripts/Module/Dealer/search_dealer_methods.js"></script>
 
 <form id="frmDealer" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @*@{Html.RenderPartial("_ServerMessage");}*@
+        @{Html.RenderPartial("_ServerMessage");}
         <section class="content-header">
             <h1>
                 Dealer Master
@@ -36,11 +30,14 @@
                             <h3 class="box-title">Dealer</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnDealer_Id" name="Dealer.Dealer_Id" value="@Model.Dealer.Dealer_Id">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label style="color: #333">Dealer Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtDealer_Name" placeholder="Enter dealer name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Filter.Dealer_Name" id="txtDealer_Name" placeholder="Enter dealer name" value="" maxlength="20">
+
                                     </div>
                                 </div>
 
@@ -51,12 +48,12 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Dealer")">Create </a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddEdit_Dealer", "Dealer")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
+                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -79,35 +76,16 @@
                                     <th>Associated Brand</th>
                                     <th>Status</th>
                                 </tr>
-                                
-                                <tr>
-                                    <td><input type="radio" id="rdo_DealerId1" name="Dealer" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_DealerId2" name="Dealer" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_DealerId3" name="Dealer" class="iradio-list" /></td>
-                                    <td>xyz </td>
-                                    <td>BMW</td>
-                                    <td>Active</td>
-                                </tr>
                             </table>
                         </div>
-                        @*<div class="box-footer clearfix">
+                        <div class="box-footer clearfix">
                                 <div class="pagination pagination-sm no-margin pull-right">
                                     <ul></ul>
                                 </div>
                                 <div id="divSearchGridOverlay" class="overlay">
                                     <i class="fa fa-refresh fa-spin"></i>
                                 </div>
-                            </div>*@
+                            </div>
                     </div>
                 </div>
             </div>

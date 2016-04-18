@@ -23,6 +23,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             _userMan = new UserManager();
         }
+
         public ActionResult Search(UserViewModel uViewModel)
         {
             try
@@ -32,14 +33,19 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     uViewModel = (UserViewModel)TempData["userViewMessage"];
                 }
+
             }
             catch (Exception ex)
             {
+
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("UserController Search " + ex);
+
             }
+
             return View("Search", uViewModel);
         }
+
         public JsonResult Get_Users(UserViewModel uViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
@@ -69,12 +75,14 @@ namespace SMSPortal.Controllers.PostLogin
 
             return Json(uViewModel);
         }
+
         public ActionResult Index(UserViewModel uViewModel)
         {
-            
+
             try
             {
                 uViewModel.Roles = _userMan.Get_Roles();
+            
 
             }
             catch (Exception ex)
@@ -87,6 +95,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Index", uViewModel);
 
         }
+
         public ActionResult Insert(UserViewModel uViewModel)
         {
             try
@@ -100,8 +109,6 @@ namespace SMSPortal.Controllers.PostLogin
                 uViewModel.User.Updated_On = DateTime.Now;
 
                 _userMan.Insert_Users(uViewModel.User);
-                // uViewModel.User.User_Id;
-                //_userRepo.Insert_User_Role(uViewModel.User.UserId, uViewModel.Selected_User_Role, uViewModel.Role);
 
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
             }
@@ -111,9 +118,10 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("UserController Insert " + ex);
             }
 
-            TempData["uViewModel"] = uViewModel;
+            TempData["userViewMessage"] = uViewModel;
             return RedirectToAction("Search");
         }
+
         public ActionResult Update_User(UserViewModel uViewModel)
         {
             try
@@ -132,12 +140,30 @@ namespace SMSPortal.Controllers.PostLogin
             TempData["userViewMessage"] = uViewModel;
             return RedirectToAction("Search");
         }
+
+        public JsonResult Check_Existing_Category(string User_Name)
+        {
+            bool check = false;
+
+            try
+            {
+                check = _userMan.Check_Existing_User(User_Name);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("User Controller - Check_Existing_User " + ex.ToString());
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Get_User_By_Id(UserViewModel uViewModel)
         {
             try
             {
                 uViewModel.User = _userMan.Get_User_By_Id(uViewModel.User.User_Id);
                 uViewModel.Roles = _userMan.Get_Roles();
+              
 
             }
             catch (Exception ex)
@@ -147,6 +173,20 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return View("Index", uViewModel);
+        }
+
+        public JsonResult Get_Entity_By_Role(int Role_Id)
+        {
+            UserViewModel uViewModel = new UserViewModel();
+            try
+            {
+                uViewModel.User.Entities = _userMan.Get_Entity_By_Role(Role_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("UserController - Get_Entity_By_Role" + ex.ToString());
+            }
+            return Json(uViewModel.User.Entities, JsonRequestBehavior.AllowGet);
         }
     }
 }

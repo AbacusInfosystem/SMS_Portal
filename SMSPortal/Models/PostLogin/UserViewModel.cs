@@ -17,6 +17,7 @@ namespace SMSPortal.Models.PostLogin
             Users = new List<UserInfo>();
             Filter = new UserFilter();
             Roles = new List<RolesInfo>();
+            
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
@@ -24,6 +25,7 @@ namespace SMSPortal.Models.PostLogin
         public List<UserInfo> Users { get; set; }
         public UserFilter Filter { get; set; }
         public List<RolesInfo> Roles { get; set; }
+       
     }
     public class UserFilter
     {
@@ -31,4 +33,5 @@ namespace SMSPortal.Models.PostLogin
         public string User_Name { get; set; }
         public bool Is_Active { get; set; }
     }
+   
 }

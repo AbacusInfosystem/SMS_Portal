@@ -1,4 +1,9 @@
-﻿<script src="~/Scripts/Module/Brand/brand_events.js"></script>
+﻿@model SMSPortal.Models.PostLogin.BrandViewModel
+@using SMSPortalInfo.Common
+
+<script src="~/Scripts/Module/Brand/brand_events.js"></script>
+<script src="~/Scripts/Module/Brand/brand_validation.js"></script>
+
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
     <section class="content-header">
@@ -21,35 +26,62 @@
                             <h3 class="box-title">Brand</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" class="form-control input-sm" name="Brand.Brand_Id" id="hdf_BrandId" placeholder="Country Name" value="@Model.Brand.Brand_Id">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Brand Name</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtBrand_Name" placeholder="Enter brand name" value="" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Brand.Brand_Name" id="txtBrand_Name" placeholder="Enter brand name" value="@Model.Brand.Brand_Name" maxlength="20">
+                                        <input type="hidden" id="hdnBrandName" value="@Model.Brand.Brand_Name">
                                     </div>
-                                </div>                          
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Brand Category</label>
-                                        <select id="drpBrand_Category" class="form-control" name="">
+                                        <select id="drpBrand_Category" class="form-control" name="Brand.Brand_Category">
                                             <option value="">-Select Brand Category-</option>
+                                            @foreach (var item in LookupInfo.Get_Brand_Categories())
+                                            {
+                                                if (Model.Brand.Brand_Category == item.Key)
+                                                {
+                                                    <option value="@item.Key" selected="selected">@item.Value</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Key">@item.Value</option>
+                                                }
+                                            }
                                         </select>
+                                         
                                     </div>
                                 </div>
-                            </div>                      
+                            </div>
                             <div>
                                 <div class="form-group">
-                                    <label>
-                                        <input type="checkbox" name="chkStatus" checked="checked" />
-                                        &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                    </label>
-                                </div>                                
+                                    @if (Model.Brand.Is_Active == false)
+                                    {
+                                        <label>
+                                            <input type="checkbox" class="chkstatus" />
+                                            &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label>
+                                            <input type="checkbox" checked="checked" class="chkstatus" />
+                                            &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                        </label>
+                                    }
+                                    <input type="hidden" id="hdnIs_Active" name="Brand.Is_Active" value="@Model.Brand.Is_Active.ToString()">
+
+                                     
+                                </div>
                             </div>
                             <div class="box-footer">
                                 <div class="btn-group">
-                                    <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>                                    
+                                    <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
                                     <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
                                 </div>
                             </div>

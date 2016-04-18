@@ -38,6 +38,11 @@ namespace SMSPortalManager
             return _subcategoryRepo.Get_Subcategory_By_Module_Id(module_Id, ref pager);
         }
 
+        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int Category_Id)
+        {
+            return _subcategoryRepo.Get_SubCategories_By_CategoryId(Category_Id);
+        }
+        
         public void Insert_Sub_Category(SubCategoryInfo subcategory)
         {
             _subcategoryRepo.Insert_Sub_Category(subcategory);
