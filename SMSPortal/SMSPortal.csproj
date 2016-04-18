@@ -188,6 +188,7 @@
     <Compile Include="Common\FriendlyMessage.cs" />
     <Compile Include="Common\MessageStore.cs" />
     <Compile Include="Common\SessionExpiredAttribute.cs" />
+    <Compile Include="Controllers\AutocompleteLookupController.cs" />
     <Compile Include="Controllers\PostLogin\AccountsController.cs" />
     <Compile Include="Controllers\PostLogin\BrandController.cs" />
     <Compile Include="Controllers\PostLogin\CategoryController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\PostLogin\BrandViewModel.cs" />
     <Compile Include="Models\PostLogin\CategoryViewModel.cs" />
+    <Compile Include="Models\PostLogin\LookupViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PreLogin\LoginViewModel.cs" />
@@ -953,6 +955,8 @@
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
+    <Content Include="Scripts\Module\Partial Autocomplete\partial-page-event.js" />
+    <Content Include="Scripts\Module\Partial Autocomplete\partial-page-method.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
     <Content Include="Scripts\Module\Product\product_image_events.js" />
@@ -1059,6 +1063,7 @@
     <Content Include="Views\Shared\_ServerMessage.cshtml" />
     <Content Include="Views\Shared\_AutocompletePopup.cshtml" />
     <Content Include="Views\PostLogin\SubCategory\_SubCategoruPopup.cshtml" />
+    <Content Include="Views\Shared\_Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

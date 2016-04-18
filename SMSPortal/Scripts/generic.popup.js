@@ -22,6 +22,10 @@
         Get_Product();
     });
 
+    $(document).on("click", ".text-muted", function () {
+        Get_Autocomplete_Lookup($(this), false);
+    });
+
     $(document).on("focusout", ".lookup-label", function (event) {
 
         Get_Look_Up(false, $(this), false);
@@ -90,6 +94,45 @@ function Prerequisite_For_Popup() {
     }
 
     return model;
+}
+
+function Get_Autocomplete_Lookup(elementObj, modalExist) {
+
+    // THIS IS THE TEXTBOX ELEMENT ON WHICH LOOKUP IS FIRED
+    $("#hdnLookupLabelId").val(elementObj.parents(".auto-complete").find(".autocomplete-text").prop("id"));
+
+    // THIS IS THE HIDDEN CONTROL ON WHICH LOOKUP SELECTED VALUE IS TO BE STORED.
+    $("#hdnLookupHiddenId").val(elementObj.parents(".auto-complete").find(".auto-complete-value").prop("id"));
+
+    $("#hdnLookupHiddenValue").val(elementObj.parents(".auto-complete").find(".auto-complete-label").prop("id"));
+
+    // THIS IS THE SAP TABLE NAME WHICH IS USED IN FORMING A QUERY.
+    var tableName = $("#" + $("#hdnLookupLabelId").val()).data("table");
+
+    var column = $("#" + $("#hdnLookupLabelId").val()).data("col");
+
+    var headerNames = $("#" + $("#hdnLookupLabelId").val()).data("headernames");
+
+    var model = "div_Parent_Modal_Fade";
+
+    if (modalExist == false) {
+
+        page = 0;
+    }
+    else {
+
+        page = $("#hdfCurrentPage").val();
+    }
+
+    $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page },
+        function () {
+
+            $("#" + model).find(".modal-title").text($("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " List");
+
+            $('#div_Parent_Modal_Fade').modal('toggle');
+        }
+        );
+   
 }
 
 function Get_Look_Up(openModal, elementObj, modalExist) {

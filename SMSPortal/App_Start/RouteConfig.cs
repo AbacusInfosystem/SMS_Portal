@@ -46,6 +46,16 @@ namespace SMSPortal
             url: "subcategory/subcategory-exist-check/{subcategory}",
             defaults: new { controller = "SubCategory", action = "Check_Existing_Sub_Category", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+          
+            #endregion
+
+            #region Autocomplete
+
+            routes.MapRoute(
+            name: "Autocomplete-1",
+            url: "autocomplete/autocomplete-get-lookup-data",
+            defaults: new { controller = "AutocompleteLookup", action = "Load_Vendor_Modal_Data", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion
 

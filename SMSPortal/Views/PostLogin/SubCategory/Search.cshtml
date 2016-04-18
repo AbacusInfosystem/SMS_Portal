@@ -47,13 +47,13 @@
                                     </div>*@
                                     <div class="col-md-3">
                                         <div class="form-group auto-complete">
-                                            <label for="Subcategory">SubCategory Name</label>
+                                            <label for="Subcategory" class="lookup-title">SubCategory Name</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control input-sm" name="Filter.Module_Name" id="txtSubcategory" placeholder="Enter SubCategory Name" value="@Model.Filter.Module_Name">
+                                                <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Module_Name" id="txtSubcategory" placeholder="Enter SubCategory Name" value="@Model.Filter.Module_Name" data-table="Sub_Category" data-col="Sub_Category_Id,Sub_Category_Name" data-headernames="Subcategory">
                                                 <input type="hidden" id="hdnSubcategoryId" value="@Model.Filter.Module_Id" name="Filter.Module_Id" class="auto-complete-value" />
                                                 <input type="hidden" id="hdnSubcategoryName" value="@Model.Filter.Module_Name" name="Filter.Module_Name" class="auto-complete-label" />
                                                 <div class="input-group-addon">
-                                                    <a href="#" class="text-muted" id="hrefSubcategory" role="button" data-toggle="modal" data-target="#div_Parent_Modal_Fade"><i class="fa fa-search"></i></a>
+                                                    <a href="#" class="text-muted" id="hrefSubcategory" role="button"><i class="fa fa-search"></i></a>
                                                 </div>
                                             </div>
                                         </div>
