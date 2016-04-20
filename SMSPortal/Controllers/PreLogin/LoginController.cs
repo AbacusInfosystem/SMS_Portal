@@ -29,7 +29,7 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                if (Session["SessionInfo"] != null)
+                if (Request.Cookies["UserInfo"] != null)
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -63,13 +63,15 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                SessionInfo session = userManager.AuthenticateUser(loginViewModel.Session.User_Name, loginViewModel.Session.Password);
+                SessionInfo session = userManager.AuthenticateUser(loginViewModel.Session.User_Name, loginViewModel.Session.Password);               
                 
                 if (session.User_Id != 0 && session.Is_Active == true)
                 {
                     if (session.User_Name == loginViewModel.Session.User_Name)
                     {
                         SetUsersSession(session);
+
+                        SetUsersCookies(loginViewModel.Session.User_Name, loginViewModel.Session.Password);
                     }
                     if (Session["returnURL"] != null && !string.IsNullOrEmpty(Session["returnURL"].ToString()))
                     {
@@ -80,7 +82,7 @@ namespace SMSPortal.Controllers.PreLogin
                         Response.Redirect(returnURL);
                     }
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {
@@ -125,6 +127,28 @@ namespace SMSPortal.Controllers.PreLogin
             }
         }
 
+        private void SetUsersCookies(string userName,string password)
+        {
+            try
+            {
+                if (Request.Cookies["UserInfo"] == null)
+                {
+                    HttpCookie cookies = new HttpCookie("UserInfo");
+
+                    string cookie_Token = userManager.Set_User_Token_For_Cookies(userName, password);
+                    cookies.Values.Add("Token", cookie_Token);
+
+                    cookies.Expires = DateTime.Now.AddMinutes(2);
+
+                    Response.Cookies.Add(cookies);
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Request.Cookies.Clear();
+            }
+        }
+
         public ActionResult Logout(string timeOut)
         {
             LoginViewModel loginViewModel = new LoginViewModel();
@@ -154,7 +178,7 @@ namespace SMSPortal.Controllers.PreLogin
 
             //FormsAuthentication.SignOut();
 
-            //Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies["UserInfo"].Expires = DateTime.Now.AddYears(-1);
 
             Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
 

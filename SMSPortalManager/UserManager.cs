@@ -25,6 +25,10 @@ namespace SMSPortalManager
         {
             return _usersRepo.AuthenticateUser(userName, password);
         }
+        public string Set_User_Token_For_Cookies(string userName, string password)
+        {
+            return _usersRepo.Set_User_Token_For_Cookies(userName, password);
+        }
         public void Insert_Users(UserInfo users)
         {
             _usersRepo.Insert_Users(users);

@@ -20,10 +20,10 @@ namespace SMSPortalRepo
         public UsersRepo()
         {
             sqlHelper = new SQLHelper();
-        }        
-         public SessionInfo AuthenticateUser(string userName, string password)
+        }
+        public SessionInfo AuthenticateUser(string userName, string password)
         {
-            SessionInfo user = new SessionInfo(); 
+            SessionInfo user = new SessionInfo();
             List<SqlParameter> sqlParam = new List<SqlParameter>();
             sqlParam.Add(new SqlParameter("@User_Name", userName));
             sqlParam.Add(new SqlParameter("@Password", password));
@@ -48,6 +48,24 @@ namespace SMSPortalRepo
                 Logger.Error("UserRepo - AuthenticateLoginCredentials: " + ex.ToString());
             }
             return user;
+        }
+
+        public string Set_User_Token_For_Cookies(string userName, string password)
+        {
+            string user_Token = "Token" + DateTime.Now.ToString("yyMMddHHmmssff");            
+            try
+            {                
+                List<SqlParameter> sqlParam = new List<SqlParameter>();
+                sqlParam.Add(new SqlParameter("@user_Token", user_Token));
+                sqlParam.Add(new SqlParameter("@User_Name", userName));
+                sqlHelper.ExecuteNonQuery(sqlParam, StoreProcedures.Insert_Token_In_User_Table_Sp.ToString(), CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("UserRepo - Set_User_Token_For_Cookies: " + ex.ToString());
+            }
+
+            return user_Token;
         }
 
          public void Insert_Users(UserInfo users)
