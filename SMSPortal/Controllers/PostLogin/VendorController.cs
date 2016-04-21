@@ -175,9 +175,26 @@ namespace SMSPortal.Controllers.PostLogin
             return View("CreateInvoice");
         }
 
-        public ActionResult Profile()
+        public ActionResult Profile(VendorViewModel vViewModel)
         {
-            return View("Profile");
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (vViewModel.Cookies == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Vendor Profile " + ex);
+            }
+
+            return View("Profile", vViewModel);
         }
 
         public ActionResult VendorReceivables()

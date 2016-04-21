@@ -27,11 +27,11 @@
 
     <!-- Main content -->
     <section class="content">        
-      @if (Model.cookies.User_Name == "admin")
+      @if (Model.cookies.Role_Name == "Admin")
       {
           Html.RenderAction("Get_Admin_Widgets", "Dashboard");
       }
-      else if (Model.cookies.User_Name == "vendor")
+      else if (Model.cookies.Role_Name == "Vendor")
       {
           Html.RenderAction("Get_Vendor_Widgets", "Dashboard");
       }

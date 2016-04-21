@@ -72,6 +72,20 @@ namespace SMSPortalRepo
             return Vendor;
         }
 
+        public VendorInfo Get_Vendor_Profile_Data_By_User_Id(int Vendor_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+
+            VendorInfo Vendor = new VendorInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Profile_Data_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                Vendor = Get_Vendor_Values(dr);
+            }
+            return Vendor;
+        }
+
         public List<VendorInfo> Get_Vendors(ref PaginationInfo Pager)
         {
             List<VendorInfo> Vendors = new List<VendorInfo>();

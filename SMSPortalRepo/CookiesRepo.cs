@@ -35,6 +35,8 @@ namespace SMSPortalRepo
                     if (dr != null)
                     {
                         cookie.User_Id = Convert.ToInt32(dr["User_Id"]);
+                        cookie.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+                        cookie.Role_Name = Convert.ToString(dr["Role_Name"]);
                         cookie.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
                         cookie.User_Name = Convert.ToString(dr["User_Name"]);
                         cookie.First_Name = Convert.ToString(dr["First_Name"]);
@@ -44,7 +46,7 @@ namespace SMSPortalRepo
             }
             catch (Exception ex)
             {
-                Logger.Error("UserRepo - AuthenticateLoginCredentials: " + ex.ToString());
+                Logger.Error("CookiesRepo - Get_User_Data_By_User_Token: " + ex.ToString());
             }
             return cookie;
         }

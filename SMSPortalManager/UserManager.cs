@@ -21,7 +21,7 @@ namespace SMSPortalManager
             _usersRepo = new UsersRepo();
         }
 
-        public SessionInfo AuthenticateUser(string userName, string password)
+        public CookiesInfo AuthenticateUser(string userName, string password)
         {
             return _usersRepo.AuthenticateUser(userName, password);
         }

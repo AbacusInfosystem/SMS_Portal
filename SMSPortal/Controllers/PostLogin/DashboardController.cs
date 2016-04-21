@@ -19,32 +19,20 @@ namespace SMSPortal.Controllers.PostLogin
     {
         public DashboardManager _dashboardManager;        
 
-        public CookiesInfo cookiesInfo;
-
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
-
         public DashboardController()
         {
-            _dashboardManager = new DashboardManager();
-
-            CookiesManager _cookiesManager = new CookiesManager();
-
-            cookiesInfo = _cookiesManager.Get_Token_Data(token);            
+            _dashboardManager = new DashboardManager();           
         }
 
         public ActionResult Index(DashboardViewModel dViewModel)
         {
             try
             {
-                if(cookiesInfo!=null)
-                {
-                    dViewModel.cookies = cookiesInfo;
-                }
-                else
-                {
-                    dViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+                dViewModel.cookies = Utility.Get_Login_User("UserInfo","Token");
 
-                    return View("Index", dViewModel);
+                if (dViewModel.cookies==null)
+                {
+                    return RedirectToAction("Index", "Login");
                 }
             }
             catch (Exception ex)

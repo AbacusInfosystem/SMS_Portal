@@ -24,7 +24,7 @@ namespace SMSPortal.Controllers.PreLogin
         {
             userManager = new UserManager();
         }
-        
+
         public ActionResult Index(LoginViewModel loginViewModel)
         {
             try
@@ -39,17 +39,17 @@ namespace SMSPortal.Controllers.PreLogin
                     {
                         loginViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
                     }
-            
+
                     return View("Index", loginViewModel);
-        }
+                }
             }
-            catch(Exception ex)
-        {
+            catch (Exception ex)
+            {
                 Logger.Error("Error at Home : " + ex.Message);
                 loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
                 return View("Index", loginViewModel);
-        }
+            }
 
 
         }
@@ -63,30 +63,21 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                SessionInfo session = userManager.AuthenticateUser(loginViewModel.Session.User_Name, loginViewModel.Session.Password);               
-                
-                if (session.User_Id != 0 && session.Is_Active == true)
+
+                CookiesInfo cookies = userManager.AuthenticateUser(loginViewModel.Cookies.User_Name, loginViewModel.Cookies.Password);
+
+                if (cookies.User_Id != 0 && cookies.Is_Active == true)
                 {
-                    if (session.User_Name == loginViewModel.Session.User_Name)
+                    if (cookies.User_Name == loginViewModel.Cookies.User_Name)
                     {
-                        SetUsersSession(session);
-
-                        SetUsersCookies(loginViewModel.Session.User_Name, loginViewModel.Session.Password);
-                    }
-                    if (Session["returnURL"] != null && !string.IsNullOrEmpty(Session["returnURL"].ToString()))
-                    {
-                        string returnURL = Session["returnURL"].ToString();
-
-                        Session.Remove("returnURL");
-
-                        Response.Redirect(returnURL);
-                    }
+                        SetUsersCookies(loginViewModel.Cookies.User_Name, loginViewModel.Cookies.Password);
+                    }                    
 
                     return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {
-                    if (session.User_Id != 0 && session.Is_Active == false)
+                    if (cookies.User_Id != 0 && cookies.Is_Active == false)
                     {
                         TempData["FriendlyMessage"] = MessageStore.Get("SYS06");
                     }
@@ -100,35 +91,21 @@ namespace SMSPortal.Controllers.PreLogin
             catch (Exception ex)
             {
                 Logger.Error("Authentication : " + ex.Message);
+                
                 Logger.Error("Authentication : " + ex.StackTrace);
-                HttpContext.Session.Clear();
+
+                HttpContext.Request.Cookies.Clear();
 
                 loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                
                 return RedirectToAction("Index", "Login", loginViewModel);
             }
-        }
-                 
-        private void SetUsersSession(SessionInfo session)
-        {
-            try
-            {
-                if (HttpContext.Session["SessionInfo"] == null)
-                {
-                    HttpContext.Session.Add("SessionInfo", session);
-                }
-                else
-                {
-                    HttpContext.Session["SessionInfo"] = session;
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Session.Clear();
-            }
-        }
+        }               
 
         private void SetUsersCookies(string userName,string password)
         {
+            LoginViewModel loginViewModel = new LoginViewModel();
+
             try
             {
                 if (Request.Cookies["UserInfo"] == null)
@@ -136,6 +113,7 @@ namespace SMSPortal.Controllers.PreLogin
                     HttpCookie cookies = new HttpCookie("UserInfo");
 
                     string cookie_Token = userManager.Set_User_Token_For_Cookies(userName, password);
+                    
                     cookies.Values.Add("Token", cookie_Token);
 
                     cookies.Expires = DateTime.Now.AddMinutes(2);
@@ -146,15 +124,16 @@ namespace SMSPortal.Controllers.PreLogin
             catch (Exception ex)
             {
                 HttpContext.Request.Cookies.Clear();
+
+                Logger.Error("SetUsersCookies : " + ex.Message);
             }
         }
 
         public ActionResult Logout(string timeOut)
         {
-            LoginViewModel loginViewModel = new LoginViewModel();
             try
             {
-                LogoutUser();
+                LogoutUser();                
                 //if (timeOut == "Timeout")
                // {
                     TempData["FriendlyMessage"] = MessageStore.Get("SYS02");
@@ -162,7 +141,7 @@ namespace SMSPortal.Controllers.PreLogin
             }
             catch (Exception ex)
             {
-                //Logger.Error("HomeController - Logout: " + ex.ToString());
+                Logger.Error("LoginController - Logout: " + ex.ToString());
             }
 
             return RedirectToAction("Index", "login");
@@ -170,14 +149,6 @@ namespace SMSPortal.Controllers.PreLogin
 
         private void LogoutUser()
         {
-            Session["SessionInfo"] = null;
-
-            Session["ReturnURL"] = null;
-
-            ClearExcpetionData();
-
-            //FormsAuthentication.SignOut();
-
             Response.Cookies["UserInfo"].Expires = DateTime.Now.AddYears(-1);
 
             Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
@@ -191,23 +162,6 @@ namespace SMSPortal.Controllers.PreLogin
             Response.Cache.SetNoStore();
 
             Response.AddHeader("Pragma", "no-cache");
-
-            //  Response.Redirect("/");
-        }
-
-        public void ClearExcpetionData()
-        {
-            try
-            {
-                string strFileName = Server.MapPath(ConfigurationManager.AppSettings["ErrorFilePath"].ToString());
-                List<string> lines = System.IO.File.ReadAllLines(strFileName).ToList();
-
-                System.IO.File.WriteAllLines(strFileName, lines.Take(1));
-            }
-            catch (Exception ex)
-            {
-                Logger.Error("Error At ClearExcpetionData : " + ex);
-            }
         }
 
     }

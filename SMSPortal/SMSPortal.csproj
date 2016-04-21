@@ -188,6 +188,7 @@
     <Compile Include="Common\FriendlyMessage.cs" />
     <Compile Include="Common\MessageStore.cs" />
     <Compile Include="Common\SessionExpiredAttribute.cs" />
+    <Compile Include="Common\Utility.cs" />
     <Compile Include="Controllers\AutocompleteLookupController.cs" />
     <Compile Include="Controllers\PostLogin\AccountsController.cs" />
     <Compile Include="Controllers\PostLogin\BrandController.cs" />

@@ -21,9 +21,9 @@ namespace SMSPortalRepo
         {
             sqlHelper = new SQLHelper();
         }
-        public SessionInfo AuthenticateUser(string userName, string password)
+        public CookiesInfo AuthenticateUser(string userName, string password)
         {
-            SessionInfo user = new SessionInfo();
+            CookiesInfo user = new CookiesInfo();
             List<SqlParameter> sqlParam = new List<SqlParameter>();
             sqlParam.Add(new SqlParameter("@User_Name", userName));
             sqlParam.Add(new SqlParameter("@Password", password));
