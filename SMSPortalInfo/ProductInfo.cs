@@ -33,5 +33,7 @@ namespace SMSPortalInfo
         public DateTime Updated_On { get; set; }
 
         public int Updated_By { get; set; }
+
+        public string Product_Image { get; set; }
     }
 }

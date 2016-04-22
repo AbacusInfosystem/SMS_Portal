@@ -72,7 +72,7 @@
             "Vendor.Email":
                 {
                     required: "Email is required",
-                    email: "Invalide e-mail"
+                    email: "Invalid e-mail"
                 }
 
         },

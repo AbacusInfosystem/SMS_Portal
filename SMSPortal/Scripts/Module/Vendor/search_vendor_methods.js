@@ -1,17 +1,4 @@
-﻿function call_back(data) {
-
-    $('#div_Parent_Modal_Fade').modal('show');
-
-    $("#div_Parent_Modal_Fade").find(".modal-title").text("Vendor Bank Details");
-
-}
-function prod_map_call_back(data) {
-
-    $('#div_Parent_Modal_Fade').modal('show');
-
-    $("#div_Parent_Modal_Fade").find(".modal-title").text("Vendor Product Mapping");
-
-}
+﻿
 function Search_Vendors() {
     var vendorViewModel =
         {
@@ -100,6 +87,7 @@ function Bind_Vendors_Grid(data) {
         if ($(this).prop('checked')) {
             $("#hdnVendor_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
+            $("#btnAddProductMapping").show();
             $("#btnDelete").show();
 
         }
@@ -109,9 +97,8 @@ function Bind_Vendors_Grid(data) {
 
 function PageMore(Id) {
 
-    $("#btnEdit").hide();
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
-
+    
     Search_Vendors();
 
 }

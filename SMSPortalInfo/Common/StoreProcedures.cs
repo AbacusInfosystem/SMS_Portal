@@ -79,6 +79,9 @@ namespace SMSPortalInfo.Common
         Update_Vendor_Sp,
         Get_Vendor_By_Id_Sp,
         Check_Existing_Vendor,
+        Get_Productmapping,
+        Get_Brands_Sp
+        Check_Existing_Vendor,
         Get_Vendor_Profile_Data_Sp,
         Insert_Vendor_Bank_Details_Sp,
         Get_Vendor_Bank_Details_By_Id_Sp,
