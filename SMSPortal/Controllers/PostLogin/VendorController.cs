@@ -156,8 +156,7 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo pager = new PaginationInfo();
             try
             {
-                vViewModel.Brands = _vendorManager.Get_Brands(); 
-              
+                vViewModel.Brands = _vendorManager.Get_Brands();              
                 vViewModel.Pager = pager;
                 vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
             }
@@ -172,9 +171,9 @@ namespace SMSPortal.Controllers.PostLogin
             return View("AddProductMapping" , vViewModel);
         }
 
-   
 
-        public JsonResult Get_Product_By_Brand(int Brand_Id, int CurrentPage)
+
+        public JsonResult Get_Product_By_Brand(int Brand_Id, int CurrentPage, int Vendor_Id)
         {
 
             VendorViewModel vViewModel = new VendorViewModel();
@@ -185,6 +184,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                 pager.CurrentPage = CurrentPage;
                 vViewModel.Products = _vendorManager.Get_Productmapping(Brand_Id , ref pager);
+                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(Vendor_Id);                
                 vViewModel.Pager = pager;
                 vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
               
@@ -282,6 +282,28 @@ namespace SMSPortal.Controllers.PostLogin
         public ActionResult AddVendorReceivables()
         {
             return View("VendorReceivable");
+        }
+
+        public ActionResult Insert_Vendor_Product_Mapping_Details(VendorViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (vViewModel.Cookies == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                _vendorManager.Insert_Vendor_Product_Mapping_Details(vViewModel.Products, vViewModel.Cookies.User_Id, vViewModel.Vendor.Vendor_Id, vViewModel.Vendor.Brand_Id);
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Vendor Profile " + ex);
+            }
+
+            return View("Search", vViewModel);
         }
     }
 }

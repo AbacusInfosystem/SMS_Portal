@@ -19,12 +19,14 @@ $(function () {
         //    }
         var strStates = "";
         $('.checkresult:checked').each(function () {
-            alert (1);
-            strStates += $(this).val() + ",";        
+            $(this).val(true);        
         });
 
+        alert(strStates);
+
         $("#hdfProductState").val(strStates.trim(","));
-        $("#frmAddProductMapping").attr("action", "/Vendor/Insert_Product/");
+
+        $("#frmAddProductMapping").attr("action", "/Vendor/Insert_Vendor_Product_Mapping_Details/");
         $('#frmAddProductMapping').attr("method", "POST");
         $('#frmAddProductMapping').submit();
     });

@@ -66,6 +66,16 @@ namespace SMSPortalManager
         {
             return _vendorRepo.Get_Brands();
         }
+
+        public void Insert_Vendor_Product_Mapping_Details(List<ProductInfo> product_List, int user_Id, int vendor_Id,int brand_Id)
+        {
+            _vendorRepo.Insert_Vendor_Product_Mapping_Details(product_List, user_Id, vendor_Id, brand_Id);
+        }
+
+        public List<ProductInfo> Get_Mapped_Product_List(int vendor_Id)
+        {
+            return _vendorRepo.Get_Vendor_Mapped_Product_List(vendor_Id);
+        }
         
     }
 }

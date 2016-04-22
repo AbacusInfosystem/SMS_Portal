@@ -16,4 +16,14 @@
         Search_Vendors();
 
     });
+
+    $("#btnAddProductMapping").click(function () {
+
+        $("#frmVendor").attr("action", "/Vendor/Add_Product_Mapping/");
+
+        $("#frmVendor").attr("method", "post");
+
+        $("#frmVendor").submit();
+
+    });
 });

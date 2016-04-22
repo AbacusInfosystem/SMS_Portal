@@ -10,6 +10,8 @@ namespace SMSPortalInfo
     {
         public int Product_Id { get; set; }
 
+        public int Vendor_Id { get; set; }
+
         public string Product_Name { get; set; }
 
         public string Product_Description { get; set; }
@@ -35,5 +37,9 @@ namespace SMSPortalInfo
         public int Updated_By { get; set; }
 
         public string Product_Image { get; set; }
+
+        public bool Check { get; set; }
+
+        public string Product_Ids { get; set; }
     }
 }

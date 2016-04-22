@@ -251,7 +251,65 @@ namespace SMSPortalRepo
             return brandslist;
         }
 
-        
+        public void Insert_Vendor_Product_Mapping_Details(List<ProductInfo> product_List, int user_Id, int vendor_Id,int brand_Id)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
+            sqlparam.Add(new SqlParameter("@Brand_Id", vendor_Id));
+
+            _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Delete_Vendor_Product_Mapping_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (var item in product_List)
+            {
+                List<SqlParameter> sqlparamnew = new List<SqlParameter>();
+
+                sqlparamnew.Add(new SqlParameter("@Vendor_Id", vendor_Id));
+                sqlparamnew.Add(new SqlParameter("@Brand_Id", brand_Id));
+                sqlparamnew.Add(new SqlParameter("@Product_Id", Convert.ToInt32(item.Product_Id)));
+
+                sqlparamnew.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlparamnew.Add(new SqlParameter("@Created_By", user_Id));
+                sqlparamnew.Add(new SqlParameter("@Updated_On", DateTime.Now));
+                sqlparamnew.Add(new SqlParameter("@Updated_By", user_Id));
+
+                if(item.Check == true)
+                {
+                    _sqlRepo.ExecuteNonQuery(sqlparamnew, StoreProcedures.Insert_Vendor_Product_Mapping_Details.ToString(), CommandType.StoredProcedure);
+                }
+              
+            }
+        }
+
+        public List<ProductInfo> Get_Vendor_Mapped_Product_List(int vendor_Id)
+        {
+            List<ProductInfo> productlist = new List<ProductInfo>();
+
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));           
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Mapped_Products_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    ProductInfo list = new ProductInfo();
+
+                    if (!dr.IsNull("Product_Id"))
+                        list.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+                    if (!dr.IsNull("Vendor_Id"))
+                        list.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+
+                    list.Product_Ids = list.Product_Id + ",";
+
+                    productlist.Add(list);
+                }
+            }
+
+            return productlist;
+        }
 
     }
 }
