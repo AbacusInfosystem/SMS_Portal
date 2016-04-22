@@ -1,64 +1,53 @@
-﻿<script type="text/javascript">
-    $(document).ready(function () {
+﻿@model SMSPortal.Models.PostLogin.VendorViewModel
 
-        $('input:not(.non-iCheck input:checkbox)').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
+<script src="~/Scripts/Module/Vendor/vendor_bank_details_methods.js"></script>
+<script src="~/Scripts/Module/Vendor/vendor_bank_details_events.js"></script>
 
-
-    });
-</script>
-<form id="frmBankDetails" enctype="multipart/form-data">
-    <!-- Content Wrapper. Contains page content -->
-    @*@{Html.RenderPartial("_ServerMessage");}*@
-    <!-- Main content -->
-    <div class="row">
+    <form id="frmBankDetails">
+        <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id" />
+    <div id="dvBankDetailsData" class="row">
         <div class="col-md-12">
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="form-group">
-                            <label style="color: #333">Bank Name</label>
-                            <input type="text" maxlength="20" value="" placeholder="Enter Bank name" id="txtBank_Name" name="" class="form-control input-sm">
+                        <div id="dvBankName" class="form-group">
+                            <label style="color: #333">Bank Name<small class="required-label"></small></label>
+                            <input type="text" maxlength="20" value="" placeholder="Enter Bank name" id="txtBank_Name" name="" class="form-control input-sm custom-mandatory">
                         </div>
                     </div>
 
                     <div class="col-md-3">
-                        <div class="form-group">
-                            <label style="color: #333">Account No</label>
-                            <input type="text" maxlength="20" value="" placeholder="Enter Account No" id="txtAccount_No" name="" class="form-control input-sm">
+                        <div id="dvAccountNo" class="form-group">
+                            <label style="color: #333">Account No<small class="required-label"></small></label>
+                            <input type="text" maxlength="20" value="" placeholder="Enter Account No" id="txtAccount_No" name="" class="form-control input-sm custom-mandatory">
                         </div>
                     </div>
 
                     <div class="col-md-3">
-                        <div class="form-group">
-                            <label style="color: #333">IFSC Code</label>
-                            <input type="text" maxlength="20" value="" placeholder="Enter IFSC Code" id="txtIFSC_Code" name="" class="form-control input-sm">
+                        <div id="dvIfscCode" class="form-group">
+                            <label style="color: #333">IFSC Code<small class="required-label"></small></label>
+                            <input type="text" maxlength="20" value="" placeholder="Enter IFSC Code" id="txtIFSC_Code" name="" class="form-control input-sm custom-mandatory">
                         </div>
                     </div>
 
-                    <div class="col-md-3">
-                        <div class="form-group">                         
+                    <div class="col-md-2">
+                        <div class="form-group">
                             <label style="color: #333"> Active</label>
                             <br />
-                            <input type="checkbox" name="chkStatus" checked="checked" />
+                            <input type="checkbox" class="chkstatus" name="chkStatus" id="chkStatus" />
                         </div>
+                        <input type="hidden" id="hdnIsActive" value="">
                     </div>
+
+                    <div class="col-md-1">
+                        <br />
+                        <button type="button" id="btnAdd" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i></button>
+                    </div>
+
                 </div>
 
             </div>
-            <div class="box-footer">
-                <div class="btn-group pull-left">
-                    <button class="btn btn-success btn-sm" id="btnSave" type="button">Save</button>
-                    <button class="btn btn-warning btn-sm" id="btnReset" type="reset">Reset</button>
-                </div>
-                <div class="btn-group pull-right">
-                    <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
-                    <button type="button" id="btnDelete" class="btn btn-warning btn-sm">Delete </button>
-                </div>
-            </div>
+
         </div>
 
     </div>
@@ -67,51 +56,65 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body table-responsive no-padding">
-
+                    <input type="hidden" id="hdnIsEditBankDetails" value="false" />
+                    <input type="hidden" id="hdnRowIdspecific" value="0" />
                     <table class="table table-striped" id="tblBankDetails">
-                        <tr id="subhead">
-                            <th></th>
-                            <th>Bank Name</th>
-                            <th>Account No.</th>
-                            <th>IFSC Code</th>
-                            <th>Active</th>
-                        </tr>
-                        <tr>
-                            <td><input type="radio" id="rdo_VendorId2" name="BankDetails" class="iradio-list" /></td>
-                            <td>Kotak Mahindra</td>
-                            <td>235732095</td>
-                            <td>KKBBF845</td>
-                            <td>Active</td>
-                        </tr>
-                        <tr>
-                            <td><input type="radio" id="rdo_VendorId2" name="BankDetails" class="iradio-list" /></td>
-                            <td>Kotak Mahindra</td>
-                            <td>235732095</td>
-                            <td>KKBBF845</td>
-                            <td>Active</td>
-                        </tr>
-                        <tr>
-                            <td><input type="radio" id="rdo_VendorId2" name="BankDetails" class="iradio-list" /></td>
-                            <td>Kotak Mahindra</td>
-                            <td>235732095</td>
-                            <td>KKBBF845</td>
-                            <td>Active</td>
-                        </tr>
-
+                        <thead>
+                            <tr id="subhead">
+                                <th>Bank Name</th>
+                                <th>Account No.</th>
+                                <th>IFSC Code</th>
+                                <th>Active</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        @if (Model.Vendor.BankDetailsList != null && Model.Vendor.BankDetailsList.Count() > 0)
+                        {
+                            int i = 1;
+                            foreach (var itm in Model.Vendor.BankDetailsList)
+                            {
+                                <tr id="tr@(i)">
+                                    <td>
+                                        <span id="trBankName@(i)"> @itm.Bank_Name</span>                                        
+                                        <input type="hidden" id="hdnbank_Name@(i)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
+                                    </td>
+                                    <td>
+                                        <span id="trAccount_No@(i)"> @itm.Account_No</span>
+                                        <input type="hidden" id="hdnaccount_No@(i)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Account_No">
+                                    </td>
+                                    <td>
+                                        <span id="trIfsc_Code@(i)"> @itm.Ifsc_Code</span>
+                                        <input type="hidden" id="hdnifsc_Code@(i)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Ifsc_Code">
+                                    </td>
+                                    <td>
+                                        @if (itm.Status.ToString() == "True")
+                                        {
+                                            <span id="trStatus@(i)"> Active</span>
+                                        }        
+                                        else
+                                        {
+                                            <span id="trStatus@(i)"> InActive</span>
+                                        }
+                                        <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="@itm.Status.ToString()">
+                                    </td>
+                                    <td>
+                                        <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditBankDetailsData(@i)"><i class='fa fa-pencil'></i></button>                                        
+                                        <button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeleteBankDetailsData(@i)"><i class='fa fa-times'></i></button>
+                                    </td>
+                                </tr>
+                                i = i + 1;
+                            }
+                        }
                     </table>
-
-                    @*<div class="box-footer clearfix">
-                            <div class="pagination pagination-sm no-margin pull-right">
-                                <ul></ul>
-                            </div>
-                            <div id="divSearchGridOverlay" class="overlay">
-                                <i class="fa fa-refresh fa-spin"></i>
-                            </div>
-                        </div>*@
                 </div>
             </div>
         </div>
     </div>
-
-
-</form>
+    <div class="row">
+        <div class="box-footer">
+            <div class="btn-group pull-left">
+                <button class="btn btn-success btn-sm" id="btnSave" type="button">Save Bank Details</button>
+            </div>
+        </div>
+    </div>
+    </form>

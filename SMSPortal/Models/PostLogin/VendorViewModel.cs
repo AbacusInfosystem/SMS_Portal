@@ -22,6 +22,7 @@ namespace SMSPortal.Models.PostLogin
             Filter = new VendorFilter();
             States = new List<StateInfo>();
             Cookies = new CookiesInfo();
+            
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
@@ -30,6 +31,7 @@ namespace SMSPortal.Models.PostLogin
         public VendorFilter Filter { get; set; }
         public List<StateInfo> States { get; set; }
         public CookiesInfo Cookies { get; set; }
+        
     }
     public class VendorFilter
     {

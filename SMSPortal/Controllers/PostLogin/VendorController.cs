@@ -155,9 +155,21 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_AddProductMapping");
         }
 
-        public PartialViewResult Add_Bank_Details()
+        public PartialViewResult Add_Bank_Details(int vendor_Id)
         {
-            return PartialView("_AddBankDetails");
+            VendorViewModel vViewModel = new VendorViewModel();
+           
+            try
+            {
+                vViewModel.Vendor.Vendor_Id = vendor_Id;
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vendor_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Vendor Controller - Add_Bank_Details " + ex.ToString());
+            }
+
+            return PartialView("_AddBankDetails", vViewModel);
         }
 
         public ActionResult SearchOrders()
@@ -187,6 +199,29 @@ namespace SMSPortal.Controllers.PostLogin
                 }
 
                 vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
+                
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Vendor Profile " + ex);
+            }
+
+            return View("Profile", vViewModel);
+        }
+
+        public ActionResult Insert_Bank_Details(VendorViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (vViewModel.Cookies == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                _vendorManager.Insert_Vendor_Bank_Details(vViewModel.Vendor,vViewModel.Cookies.User_Id);
             }
             catch (Exception ex)
             {

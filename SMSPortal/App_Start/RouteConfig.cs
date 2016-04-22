@@ -65,6 +65,22 @@ namespace SMSPortal
 
             #endregion
 
+            #region Vendor
+
+            routes.MapRoute(
+            name: "Vendor-1",
+            url: "vendor/get-vendor-profile-details",
+            defaults: new { controller = "Vendor", action = "Get_Vendor_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Vendor-2",
+            url: "vendor/add-vendor-bank-details",
+            defaults: new { controller = "Vendor", action = "Insert_Bank_Details", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
             #endregion
 
             #region PreLogin

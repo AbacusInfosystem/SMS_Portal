@@ -72,10 +72,10 @@ namespace SMSPortalRepo
             return Vendor;
         }
 
-        public VendorInfo Get_Vendor_Profile_Data_By_User_Id(int Vendor_Id)
+        public VendorInfo Get_Vendor_Profile_Data_By_User_Id(int user_Id)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+            sqlParamList.Add(new SqlParameter("@User_Id", user_Id));
 
             VendorInfo Vendor = new VendorInfo();
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Profile_Data_Sp.ToString(), CommandType.StoredProcedure);
@@ -149,6 +149,58 @@ namespace SMSPortalRepo
                 }
             }
             return check;
+        }
+
+        public void Insert_Vendor_Bank_Details(VendorInfo vendor,int user_Id)
+        {
+            foreach (var item in vendor.BankDetailsList)
+            {
+                List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+                sqlparam.Add(new SqlParameter("@Vendor_Id", vendor.Vendor_Id));
+                sqlparam.Add(new SqlParameter("@Bank_Name", item.Bank_Name));
+                sqlparam.Add(new SqlParameter("@Account_No", item.Account_No));
+                sqlparam.Add(new SqlParameter("@Ifsc_Code", item.Ifsc_Code));
+                sqlparam.Add(new SqlParameter("@Status", item.Status));
+                sqlparam.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlparam.Add(new SqlParameter("@Created_By", user_Id));
+                sqlparam.Add(new SqlParameter("@Updated_On", DateTime.Now));
+                sqlparam.Add(new SqlParameter("@Updated_By", user_Id));
+
+                _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Insert_Vendor_Bank_Details_Sp.ToString(), CommandType.StoredProcedure);
+            }
+        }
+
+        public List<Bank_Details> Get_Vendor_Bank_Details(int vendor_Id)
+        {
+            List<Bank_Details> bankdetailslist = new List<Bank_Details>();
+
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Bank_Details_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Bank_Details list = new Bank_Details();
+
+                    if (!dr.IsNull("Bank_Name"))
+                        list.Bank_Name = Convert.ToString(dr["Bank_Name"]);
+                    if (!dr.IsNull("Account_No"))
+                        list.Account_No = Convert.ToString(dr["Account_No"]);
+                    if (!dr.IsNull("IFSC_Code"))
+                        list.Ifsc_Code = Convert.ToString(dr["IFSC_Code"]);
+                    if (!dr.IsNull("Is_Active"))
+                        list.Status = Convert.ToBoolean(dr["Is_Active"]);
+
+                    bankdetailslist.Add(list);
+                }
+            }
+
+            return bankdetailslist;
         }
     }
 }

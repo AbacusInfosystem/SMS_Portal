@@ -80,6 +80,8 @@ namespace SMSPortalInfo.Common
         Get_Vendor_By_Id_Sp,
         Check_Existing_Vendor,
         Get_Vendor_Profile_Data_Sp,
+        Insert_Vendor_Bank_Details_Sp,
+        Get_Vendor_Bank_Details_By_Id_Sp,
 
         //Cookies
         Insert_Token_In_User_Table_Sp,
