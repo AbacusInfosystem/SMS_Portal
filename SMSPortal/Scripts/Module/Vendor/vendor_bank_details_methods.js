@@ -11,14 +11,14 @@
     var ifsc_Code = $("#txtIFSC_Code").val();    
     var status = $("#hdnIsActive").val();
     var statustring = "";
-    alert(status);
+    
     if (status == "true") {
         statustring = "Active";
     }
     else {
         statustring = "InActive";
     }
-
+    alert(statustring);
     if ($("#frmBankDetails").valid())
     {
         if (isEdit == "false" || isEdit == false) {
@@ -62,7 +62,7 @@
             $("#hdnaccount_No" + rowID).val(account_No);
             $("#trIfsc_Code" + rowID).text(ifsc_Code);
             $("#hdnifsc_Code" + rowID).val(ifsc_Code);
-            $("#trStatus" + rowID).val(statustring);
+            $("#trStatus" + rowID).text(statustring);
             $("#hdnstatus" + rowID).val(status);
         }
     }
@@ -101,8 +101,7 @@ function EditBankDetailsData(rowId) {
     $("#txtIFSC_Code").val(strIfscCode);
 
     var strStatus = $("#hdnstatus" + rowId).val();
-    $("#chkStatus").val(strStatus);
-
+    alert(strStatus);
     if (strStatus == "true") {
 
         $("#chkStatus").iCheck('check');

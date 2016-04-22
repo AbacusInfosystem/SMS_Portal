@@ -46,8 +46,7 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo Pager = new PaginationInfo();
             try
             {
-                vViewModel.States = _stateManager.Get_States();
-               
+                vViewModel.States = _stateManager.Get_States();                              
             }
             catch (Exception ex)
             {
@@ -126,6 +125,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 vViewModel.Vendor = _vendorManager.Get_Vendor_By_Id(vViewModel.Vendor.Vendor_Id);
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
             }
             catch (Exception ex)
             {
@@ -199,6 +199,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
 
                 vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
                 
             }
             catch (Exception ex)

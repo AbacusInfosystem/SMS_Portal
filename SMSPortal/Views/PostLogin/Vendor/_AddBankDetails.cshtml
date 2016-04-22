@@ -90,16 +90,18 @@
                                         @if (itm.Status.ToString() == "True")
                                         {
                                             <span id="trStatus@(i)"> Active</span>
+                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="true">
                                         }        
                                         else
                                         {
                                             <span id="trStatus@(i)"> InActive</span>
+                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="false">
                                         }
-                                        <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="@itm.Status.ToString()">
+                                        
                                     </td>
                                     <td>
                                         <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditBankDetailsData(@i)"><i class='fa fa-pencil'></i></button>                                        
-                                        <button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeleteBankDetailsData(@i)"><i class='fa fa-times'></i></button>
+                                        @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeleteBankDetailsData(@i)"><i class='fa fa-times'></i></button>*@
                                     </td>
                                 </tr>
                                 i = i + 1;
