@@ -11,16 +11,11 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-
             <li class="active">Admin</li>
-
             <li class="active">User</li>
-
         </ol>
     </section>
-
     <form id="frmUserMaster">
-
         <section class="content">
             <div class="box box-primary">
                 <div class="row">
@@ -29,7 +24,6 @@
                             <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
                             <h3 class="box-title">User </h3>
                         </div>
-
                         <div class="box-body">
                             <input type="hidden" class="form-control input-sm" name="User.User_Id" id="hdf_UserId" placeholder="" value="@Model.User.User_Id">
                             <div class="row">
@@ -41,7 +35,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -58,9 +51,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -89,23 +79,10 @@
                                         <label style="color: #333">Entity</label>
                                         <select id="drpEntity" class="form-control" name="User.Entity_Id">
                                             <option value="">-Select Entity-</option>
-                                            @*@foreach (var item in Model.Roles)
-                                                {
-                                                    if (Model.User.Role_Id == item.Role_Id)
-                                                    {
-
-                                                        <option value="@item.Role_Id" selected="selected">@item.Role_Name</option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@item.Role_Id">@item.Role_Name</option>
-                                                    }
-                                                }*@
                                         </select>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -124,15 +101,9 @@
                                                 }
                                             }
                                         </select>
-
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -157,7 +128,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -176,10 +146,8 @@
                                             </label>
                                         }
                                         <input type="hidden" id="hdnIs_Active" name="User.Is_Active" value="@Model.User.Is_Active.ToString()">
-
                                     </div>
                                 </div>
-
                             </div>
                             <div class="box-footer">
                                 <div class="btn-group">
@@ -188,7 +156,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -136,5 +136,56 @@ namespace SMSPortalRepo
             }
             return check;
         }
+
+        public List<ProductInfo> Get_Productmapping(int Brand_Id, ref PaginationInfo Pager)
+        {
+            Pager.PageSize = 10;
+            List<ProductInfo> products = new List<ProductInfo>();
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@Brand_Id", Brand_Id));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Productmapping.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            {
+                products.Add(Get_Product_Values(dr));
+            }
+            return products;
+        }
+
+        private ProductInfo Get_Product_Values(DataRow dr)
+        {
+            ProductInfo product = new ProductInfo();
+
+            product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            product.Product_Name = Convert.ToString(dr["Product_Name"]);
+
+            return product;
+        }
+
+        public List<BrandInfo> Get_Brands()
+        {
+            List<BrandInfo> brandslist = new List<BrandInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Brands_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BrandInfo list = new BrandInfo();
+
+                    if (!dr.IsNull("Brand_Id"))
+                        list.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+                    if (!dr.IsNull("Brand_Name"))
+                        list.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+
+                    brandslist.Add(list);
+                }
+            }
+
+            return brandslist;
+        }
+
+        
+
     }
 }

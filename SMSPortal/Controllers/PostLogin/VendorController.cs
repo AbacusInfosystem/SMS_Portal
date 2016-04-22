@@ -102,6 +102,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pager = vViewModel.Pager;
+                
                 if (vViewModel.Filter.Vendor_Name != null)
                 {
                     vViewModel.Vendors = _vendorManager.Get_Vendor_By_Name(vViewModel.Filter.Vendor_Name, ref pager);
@@ -150,9 +151,50 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
-        public PartialViewResult Add_Product_Mapping()
+        public ActionResult Add_Product_Mapping(VendorViewModel vViewModel)
+         {
+            PaginationInfo pager = new PaginationInfo();
+            try
+            {
+                vViewModel.Brands = _vendorManager.Get_Brands(); 
+              
+                vViewModel.Pager = pager;
+                vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
+            }
+
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("VendorController Index " + ex);
+            }
+
+
+            return View("AddProductMapping" , vViewModel);
+        }
+
+   
+
+        public JsonResult Get_Product_By_Brand(int Brand_Id, int CurrentPage)
         {
-            return PartialView("_AddProductMapping");
+
+            VendorViewModel vViewModel = new VendorViewModel();
+            PaginationInfo pager = new PaginationInfo();
+            
+            try
+            {
+
+                pager.CurrentPage = CurrentPage;
+                vViewModel.Products = _vendorManager.Get_Productmapping(Brand_Id , ref pager);
+                vViewModel.Pager = pager;
+                vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
+              
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("VendorController - Get_Product_By_Brand" + ex.ToString());
+            }
+
+            return Json(vViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public PartialViewResult Add_Bank_Details()
@@ -164,7 +206,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             return View("SearchOrders");
         }
-
+         
         public ActionResult OrderDetails()
         {
             return View("OrderDetails");

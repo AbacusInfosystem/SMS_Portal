@@ -12,7 +12,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
 namespace SMSPortal.Controllers.PostLogin
 {
     public class UserController : Controller
@@ -78,40 +77,32 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Index(UserViewModel uViewModel)
         {
-
             try
             {
-                uViewModel.Roles = _userMan.Get_Roles();
-            
-
+                uViewModel.Roles = _userMan.Get_Roles();            
             }
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-
                 Logger.Error("UserController Index " + ex);
             }
 
             return View("Index", uViewModel);
-
         }
 
         public ActionResult Insert(UserViewModel uViewModel)
         {
+
             try
             {
                 uViewModel.User.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-
                 uViewModel.User.Created_On = DateTime.Now;
-
                 uViewModel.User.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-
                 uViewModel.User.Updated_On = DateTime.Now;
-
                 _userMan.Insert_Users(uViewModel.User);
-
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
             }
+
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
@@ -162,9 +153,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 uViewModel.User = _userMan.Get_User_By_Id(uViewModel.User.User_Id);
-                uViewModel.Roles = _userMan.Get_Roles();
-              
-
+                uViewModel.Roles = _userMan.Get_Roles();              
             }
             catch (Exception ex)
             {
@@ -177,7 +166,9 @@ namespace SMSPortal.Controllers.PostLogin
 
         public JsonResult Get_Entity_By_Role(int Role_Id)
         {
+
             UserViewModel uViewModel = new UserViewModel();
+
             try
             {
                 uViewModel.User.Entities = _userMan.Get_Entity_By_Role(Role_Id);
@@ -186,6 +177,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 Logger.Error("UserController - Get_Entity_By_Role" + ex.ToString());
             }
+
             return Json(uViewModel.User.Entities, JsonRequestBehavior.AllowGet);
         }
     }

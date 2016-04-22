@@ -21,6 +21,8 @@ namespace SMSPortal.Models.PostLogin
             Vendors = new List<VendorInfo>();
             Filter = new VendorFilter();
             States = new List<StateInfo>();
+            Products = new List<ProductInfo>();
+            Brands = new List<BrandInfo>();
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
@@ -28,6 +30,10 @@ namespace SMSPortal.Models.PostLogin
         public List<VendorInfo> Vendors { get; set; }
         public VendorFilter Filter { get; set; }
         public List<StateInfo> States { get; set; }
+        public List<ProductInfo> Products { get; set; }
+        public List<BrandInfo> Brands { get; set; }
+        public string ImagePath { get; set; }
+        public string Active_Products { get; set; }
     }
     public class VendorFilter
     {

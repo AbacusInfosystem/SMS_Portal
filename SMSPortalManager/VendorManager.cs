@@ -41,5 +41,16 @@ namespace SMSPortalManager
         {
             return _vendorRepo.Check_Existing_Vendor(Vendor_Name);
         }
+        public List<ProductInfo> Get_Productmapping(int Brand_Id, ref PaginationInfo Pager)
+        {
+            return _vendorRepo.Get_Productmapping(Brand_Id, ref Pager);
+        }
+
+
+        public List<BrandInfo> Get_Brands()
+        {
+            return _vendorRepo.Get_Brands();
+        }
+        
     }
 }
