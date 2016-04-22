@@ -32,11 +32,24 @@
 
         if ($("#frmSubCategory").valid()) {
 
-            $("#frmSubCategory").attr("action", "/subcategory/insert-update-subcategories/");
+            if ($("#hdnSubcategory_Id").val() == 0) {
 
-            $("#frmSubCategory").attr("method", "POST");
+                $("#frmSubCategory").attr("action", "/subcategory/insert-subcategories/");
 
-            $("#frmSubCategory").submit();
+                $("#frmSubCategory").attr("method", "POST");
+
+                $("#frmSubCategory").submit();
+            }
+            else
+            {
+                $("#frmSubCategory").attr("action", "/subcategory/update-subcategories/");
+
+                $("#frmSubCategory").attr("method", "POST");
+
+                $("#frmSubCategory").submit();
+            }
+
+            
         }
 
     });

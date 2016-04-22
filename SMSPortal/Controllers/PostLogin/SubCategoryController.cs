@@ -15,11 +15,19 @@ namespace SMSPortal.Controllers.PostLogin
 {
     public class SubCategoryController : Controller
     {
-        public SubCategoryManager _subcategoryManager;
+        public SubCategoryManager _subcategoryManager;        
+
+        public CookiesInfo cookies;
+
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
 
         public SubCategoryController()
         {
             _subcategoryManager = new SubCategoryManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+
+            cookies = _cookiesManager.Get_Token_Data(token);            
         }
 
         public ActionResult Search(SubCategoryViewModel sViewModel)
@@ -83,10 +91,12 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(sViewModel);
         }
 
-        public ActionResult Insert_Update_Subcategory(SubCategoryViewModel sViewModel)
+        public ActionResult Insert_Subcategory(SubCategoryViewModel sViewModel)
         {
             try
             {
+                string UserName = cookies.User_Name;
+
                 sViewModel.SubCategory.Created_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
 
                 sViewModel.SubCategory.Created_Date = DateTime.Now;
@@ -95,18 +105,39 @@ namespace SMSPortal.Controllers.PostLogin
 
                 sViewModel.SubCategory.Updated_Date = DateTime.Now;
 
-                if (sViewModel.SubCategory.Subcategory_Id == 0)
-                {
-                    _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory);
+                _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory);
 
-                    sViewModel.Friendly_Message.Add(MessageStore.Get("SBO001"));
-                }
-                else
-                {
-                    _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory);
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SBO001"));
+            }
+            catch (Exception ex)
+            {
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-                    sViewModel.Friendly_Message.Add(MessageStore.Get("SBO002"));
-                }
+                Logger.Error("Error At SubCategory Insert  " + ex.Message);
+            }
+
+            TempData["sViewModel"] = sViewModel;
+
+            return RedirectToAction("Search");
+        }
+
+        public ActionResult Update_Subcategory(SubCategoryViewModel sViewModel)
+        {
+            try
+            {
+                string UserName = cookies.User_Name;
+
+                sViewModel.SubCategory.Created_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+
+                sViewModel.SubCategory.Created_Date = DateTime.Now;
+
+                sViewModel.SubCategory.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+
+                sViewModel.SubCategory.Updated_Date = DateTime.Now;
+
+                _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory);
+
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SBO002"));
             }
             catch (Exception ex)
             {

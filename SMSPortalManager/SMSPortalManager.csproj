@@ -44,8 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutocompleteLookupManager.cs" />
     <Compile Include="BrandManager.cs" />
     <Compile Include="CategoryManager.cs" />
+    <Compile Include="CookiesManager.cs" />
+    <Compile Include="DashboardManager.cs" />
     <Compile Include="DealerManager.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

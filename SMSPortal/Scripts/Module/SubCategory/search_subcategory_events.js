@@ -25,9 +25,9 @@
 
     });
 
-    $("#hrefSubcategory").click(function (event) {
+    //$("#hrefSubcategory").click(function (event) {
 
-        $("#div_Parent_Modal_Fade").find(".modal-body").load("/SubCategory/Get_Subcategory_Popup", {}, call_back);
-    });
+    //    $("#div_Parent_Modal_Fade").find(".modal-body").load("/SubCategory/Get_Subcategory_Popup", {}, call_back);
+    //});
 
 });

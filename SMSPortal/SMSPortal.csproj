@@ -188,9 +188,12 @@
     <Compile Include="Common\FriendlyMessage.cs" />
     <Compile Include="Common\MessageStore.cs" />
     <Compile Include="Common\SessionExpiredAttribute.cs" />
+    <Compile Include="Common\Utility.cs" />
+    <Compile Include="Controllers\AutocompleteLookupController.cs" />
     <Compile Include="Controllers\PostLogin\AccountsController.cs" />
     <Compile Include="Controllers\PostLogin\BrandController.cs" />
     <Compile Include="Controllers\PostLogin\CategoryController.cs" />
+    <Compile Include="Controllers\PostLogin\DashboardController.cs" />
     <Compile Include="Controllers\PostLogin\DealerController.cs" />
     <Compile Include="Controllers\PostLogin\EnquiryController.cs" />
     <Compile Include="Controllers\PostLogin\HomeController.cs" />
@@ -211,6 +214,8 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\PostLogin\BrandViewModel.cs" />
     <Compile Include="Models\PostLogin\CategoryViewModel.cs" />
+    <Compile Include="Models\PostLogin\DashboardViewModel.cs" />
+    <Compile Include="Models\PostLogin\LookupViewModel.cs" />
     <Compile Include="Models\PostLogin\DealerViewModel.cs" />
     <Compile Include="Models\PostLogin\ProductViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
@@ -961,6 +966,8 @@
     <Content Include="Scripts\Module\Dealer\search_dealer_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
+    <Content Include="Scripts\Module\Partial Autocomplete\partial-page-event.js" />
+    <Content Include="Scripts\Module\Partial Autocomplete\partial-page-method.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
     <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
@@ -984,6 +991,8 @@
     <Content Include="Scripts\Module\User\user_validation.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_bank_details_events.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_bank_details_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendormapping_events.js" />
     <Content Include="Scripts\Module\Vendor\vendormapping_method.js" />
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
@@ -1074,6 +1083,10 @@
     <Content Include="Views\Shared\_ServerMessage.cshtml" />
     <Content Include="Views\Shared\_AutocompletePopup.cshtml" />
     <Content Include="Views\PostLogin\SubCategory\_SubCategoruPopup.cshtml" />
+    <Content Include="Views\Shared\_Partial.cshtml" />
+    <Content Include="Views\PostLogin\Dashboard\Index.cshtml" />
+    <Content Include="Views\PostLogin\Dashboard\_AdminWidgets.cshtml" />
+    <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,17 +2,6 @@
 
 $(document).ready(function () {
 
-    //if ($('#div_Parent_Modal_Fade').hasClass("in")) {
-        
-    //    $('#div_Child_Modal_Fade').find(".modal-title").text($("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " List");
-    //}
-    //else
-    //{
-        
-    //    $('#div_Parent_Modal_Fade').find(".modal-title").text($("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " List");
-    //}
-
-
     $('.lookup-iradio-list').iCheck({
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
@@ -30,86 +19,25 @@ $(document).ready(function () {
 
     $("#btnOK").click(function () {
 
+        var hiddenTextValue = $("#hdnValue").val();
+        var id = $("#hdnId").val();
+        var Textboxname = "#txtSubcategory";
+        $("#hdnSubcategoryName").val(hiddenTextValue);
+        $("#hdnSubcategoryId").val(id);
 
-        //if ($("#hdnId").val() != "") {
+        var htmlText = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
-        //    if ($("#hdnLookup").val() == "TPART") {
+        $(Textboxname).parents('.form-group').append(htmlText);
 
-        //        $("#hdnTPART_Name").val($("#hdnValue").val());
-
-        //    }
-
-
-        //    if ($("#hdnLookup").val() == "LFA1") {
-
-        //        $("#hdnLFA1_Name").val($("#hdnValue").val());
-        //    }
-
-
-        //    $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
-
-        //    $("#" + $("#hdnLookupHiddenId").val()).val($("#hdnId").val());
-
-        //    $("#" + $("#hdnLookupLabelId").val()).val("");
-
-
-        //    var htmltext = "";
-
-        //    htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + $("#hdnValue").val() + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
-
-        //    $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').append(htmltext);
-
-        //    $("#" + $("#hdnLookupLabelId").val()).val($("#hdnId").val());
-
-        //    $("#" + $("#hdnLookupHiddenId").val()).trigger("change");
-
-        //    if ($("#hdnLookupLabelId").val() == "txtVendorId") {
-
-        //        $.ajax({
-
-        //            url: '/vendor/get-initial-screen-data/',
-
-        //            data: { LIFNR: $("#txtVendorId").val() },
-
-        //            method: 'GET',
-
-        //            async: false,
-
-        //            success: function (data) {
-
-        //                if (data != null) {
-
-        //                    if (data.vendor.Control_LIFNR != null) {
-
-        //                        $("#txtAccountGroup").val(data.vendor.Initial_KTOKK);
-
-        //                        $("#txtAccountGroup").parent().find(".lookup-btn-add").trigger("click");
-
-        //                        $("#txtDisplayNotes").text(data.vendor.DisplayNotes);
-
-        //                        if ($("#txtAccountGroup").val() != '' && $("#txtAccountGroup").val() != null) {
-        //                            //$("#btnCreate").trigger("click");
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        });
-        //    }
-        //}
-
-
-        //if ($('#div_Child_Modal_Fade').hasClass("in")) {
-
-        //    $('#div_Child_Modal_Fade').find(".modal-body").empty();
-
-        //    $('#div_Child_Modal_Fade').modal('toggle');
-        //}
-        //else
-        //{
-        //    $('#div_Parent_Modal_Fade').find(".modal-body").empty();
-
-        //    $('#div_Parent_Modal_Fade').modal('toggle');
-        //}
+        $(Textboxname).parents('.form-group').find('.fa-remove').click(function (event) {
+            event.preventDefault();
+            $(this).parents('.form-group').find('input[type=text]').val("");
+            $(this).parents('.form-group').find('.auto-complete-value').val("");
+            $(this).parents('.form-group').find('.auto-complete-label').val("");
+            $(this).parents('.form-group').find('.auto-complete-value').trigger('change');
+            $(this).parents('.form-group').find('.auto-complete-label').trigger('change');
+            $(this).parents('.form-group').find('.todo-list').remove();
+        });
 
         $('#div_Parent_Modal_Fade').find(".modal-body").empty();
 
@@ -117,65 +45,23 @@ $(document).ready(function () {
         
     });
 
-    //$(".close").click(function () {
+    $(".close").click(function () {
 
-    //    // IF IT IS A CLONED HTML
-    //    if ($("#" + $('#div_Parent_Modal_Fade').find(".modal-title").data("obj")).length) {
+        // IF IT IS A CLONED HTML
+        if ($("#" + $('#div_Parent_Modal_Fade').find(".modal-title").data("obj")).length) {
 
-    //        // METHOD IS DEFINED IN GENERIC.POPUP.JS
-    //        Close_Pop_Up(true);
-    //    }
-    //    else {
+            // METHOD IS DEFINED IN GENERIC.POPUP.JS
+            Close_Pop_Up(true);
+        }
+        else {
 
-    //        Close_Pop_Up(false);
-    //    }
-    //});
+            Close_Pop_Up(false);
+        }
+    });
 
     if ($("#hdnLookupLabelId").val() == "txtPurchasingOrganisation" || $("#hdnLookupLabelId").val() == "txtCompanyCode") {
         $("#btnfilter_Vendor").show();
     }
-
-    $("#btnfilter_Vendor").click(function () {
-        if ($("#hdnLookupLabelId").val() == "txtPurchasingOrganisation") {
-            if ($("#txtVendorId").val() != "" && $("#hdnVendor_Id_Action").val() == 2) {
-                $.ajax({
-                    url: '/vendor/get-comapny-purchase-org/',
-                    data: { vendor_Id: $("#txtVendorId").val() },
-                    method: 'GET',
-                    async: false,
-                    success: function (data) {
-                        $("[name='r1']").parents("tr").hide();
-                        if (data.companyPurchaseOrg.Purchase_Org.length > 0) {
-                            for (i = 0; i < data.companyPurchaseOrg.Purchase_Org.length; i++) {
-                                $("#r1_" + data.companyPurchaseOrg.Purchase_Org[i].Id).parents("tr").show();
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        if ($("#hdnLookupLabelId").val() == "txtCompanyCode") {
-            if ($("#txtVendorId").val() != "" && $("#hdnVendor_Id_Action").val() == 2) {
-                $.ajax({
-                    url: '/vendor/get-comapny-purchase-org/',
-                    data: { vendor_Id: $("#txtVendorId").val() },
-                    method: 'GET',
-                    async: false,
-                    success: function (data) {
-                        $("[name='r1']").parents("tr").hide();
-                        if (data.companyPurchaseOrg.Company_Codes.length > 0) {
-                            for (i = 0; i < data.companyPurchaseOrg.Company_Codes.length; i++) {
-                                $("#r1_" + data.companyPurchaseOrg.Company_Codes[i].Id).parents("tr").show();
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-    });
-
 
 });
 
