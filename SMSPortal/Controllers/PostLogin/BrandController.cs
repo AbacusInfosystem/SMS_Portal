@@ -147,7 +147,6 @@ namespace SMSPortal.Controllers.PostLogin
 
             return View("AddEdit_Brand", bViewModel);
         }
-
         public JsonResult Check_Existing_Brand(string Brand_Name)
         {
             bool check = false;
@@ -161,8 +160,6 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(check, JsonRequestBehavior.AllowGet);
         }
-
-
         public ActionResult Brand_Logo_Upload(BrandViewModel bViewModel)
         {
             // Code to Upload Excel File 
@@ -202,6 +199,13 @@ namespace SMSPortal.Controllers.PostLogin
             }
             TempData["bViewModel"] = bViewModel;
             return RedirectToAction("Search");
+        }
+
+        public JsonResult Get_Brand_Autocomplete(string brandName)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            autoList = _brandManager.Get_Brand_Autocomplete(brandName);
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
     }
 }

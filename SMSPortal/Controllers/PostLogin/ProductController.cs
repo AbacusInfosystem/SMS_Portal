@@ -225,9 +225,9 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.ProductImage.Product_Id = Convert.ToInt32(Product_Id);
                     pViewModel.ProductImage.Image_Code = actualFileName;
                     pViewModel.ProductImage.Is_Default = Is_Default;
-                    pViewModel.ProductImage.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                    pViewModel.ProductImage.Created_By = cookies.User_Id;
                     pViewModel.ProductImage.Created_On = DateTime.Now;
-                    pViewModel.ProductImage.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                    pViewModel.ProductImage.Updated_By = cookies.User_Id;
                     pViewModel.ProductImage.Updated_On = DateTime.Now;
 
                     _productManager.Insert_Product_Image(pViewModel.ProductImage);
@@ -283,7 +283,12 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_Partial");
         }
 
-
+        public JsonResult Get_Product_Autocomplete(string ProductName)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            autoList = _productManager.Get_Product_Autocomplete(ProductName);
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
 
 
     }

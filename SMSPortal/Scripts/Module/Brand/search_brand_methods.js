@@ -127,3 +127,24 @@ function PageMore(Id) {
     Search_Brands();
 
 }
+
+function GetBrandList() {
+
+    CallAjax("/brand/Get_Brand_Autocomplete ", "json", null, "POST", "application/json", false, GetBrands, "", null);
+}
+
+function GetBrands(data) {
+
+    $("#drpList").html("");
+    var htmltext = "";
+    htmltext += "<option value=''>-Select Sub Category-</option>";
+    if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+            htmltext += "<option value='" + data[i].Value + "'>" + data[i].Label + "</option>";
+        }
+    }
+    $("#drpList").html(htmltext);
+
+}
+ 
+

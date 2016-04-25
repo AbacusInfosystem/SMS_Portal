@@ -44,9 +44,11 @@
                     data: fileData,
                     success: function (result)
                     {
+                       
                         $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: $('#hdProduct_Id').val() }, call_back);
                     },
                     error: function (err) {
+                       
                         alert(err.statusText);
                     }
                 });
@@ -60,24 +62,25 @@
 
 
     $('.remove-image-attachment').click(function (event) {
-
-        var Product_Id = $('#hdProduct_Id').val();
-        var Product_Image_Id = $(this).closest('td').find('.prod_img_id').val();
-        var Product_Image_Name = $(this).closest('td').find('.prod_img_name').val();
-
-        var param = { Product_Image_Id: Product_Image_Id, Product_Id: Product_Id, Product_Image_Name: Product_Image_Name }      
          
-
+        var Product_Id = $('#hdProduct_Id').val();
+        var Product_Image_Id = $(this).closest('li').find('.prod_img_id').val();
+        var Product_Image_Name = $(this).closest('li').find('.prod_img_name').val();
+        
+        var param = { Product_Image_Id: Product_Image_Id, Product_Id: Product_Id, Product_Image_Name: Product_Image_Name }      
+                 
         $.ajax({
-            url: "/product/Delete-Product-Image/",
+            url: '/Product/Delete_Product_Image',
             type: "Post",  
             data: param,
             success: function (response)
-            {                 
+            {
+                 
                 $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: $('#hdProduct_Id').val() }, call_back);
             },
-            error: function (xhr) {
-                alert(xhr);
+            error: function (err) {
+                 
+                alert(err.statusText);
             }
         });
 

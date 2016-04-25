@@ -5,7 +5,8 @@
         <div class="col-md-2">
             @if (Model.Brand.Brand_Logo != null)
             {
-                <img width="100" height="100" id="BrandImg" src="~/UploadedFiles/@Model.Brand.Brand_Logo" />
+                string strPath=System.Configuration.ConfigurationManager.AppSettings["BrandLogoPath"].ToString()+ @Model.Brand.Brand_Logo.ToString();
+                <img width="100" height="100" id="BrandImg" src="@strPath" />
             }
         </div>
         <div class="col-md-8" style="text-align:center ">

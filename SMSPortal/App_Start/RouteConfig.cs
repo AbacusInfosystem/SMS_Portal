@@ -87,6 +87,12 @@ namespace SMSPortal
             url: "brand/brands-upload-logo",
             defaults: new { controller = "Brand", action = "Brand_Logo_Upload", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-6",
+            url: "brand/brands-autocomplete/{brand}",
+            defaults: new { controller = "Brand", action = "Get_Brand_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
             #region Category
@@ -189,11 +195,11 @@ namespace SMSPortal
             defaults: new { controller = "Product", action = "Check_Existing_Product", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
-            routes.MapRoute(
-            name: "Product-7",
-            url: "product/Delete-Product-Image",
-            defaults: new { controller = "Product", action = "Delete_Product_Image", id = UrlParameter.Optional },
-            namespaces: new string[] { "SMSPortal.Controllers" });
+            //routes.MapRoute(
+            //name: "Product-7",
+            //url: "product/Delete-Product-Image",
+            //defaults: new { controller = "Product", action = "Delete_Product_Image", id = UrlParameter.Optional },
+            //namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion
 

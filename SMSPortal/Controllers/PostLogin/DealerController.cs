@@ -153,5 +153,9 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
+        public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName)
+        {
+            return _dealerManager.Get_Dealer_Autocomplete(DealerName);
+        }
     }
 }

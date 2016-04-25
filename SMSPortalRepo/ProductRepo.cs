@@ -190,6 +190,24 @@ namespace SMSPortalRepo
 
         }
 
+        public List<AutocompleteInfo> Get_Product_Autocomplete(string ProductName)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", ProductName == null ? System.String.Empty : ProductName.Trim()));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Dealer_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
 
         public void Delete_Product_Image(int Product_Image_Id)
         {
