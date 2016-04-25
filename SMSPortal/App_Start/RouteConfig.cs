@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -48,6 +49,41 @@ namespace SMSPortal
             namespaces: new string[] { "SMSPortal.Controllers" });
           
             #endregion
+
+            #region Brand
+
+            routes.MapRoute(
+            name: "Brand-1",
+            url: "brand/get-brands",
+            defaults: new { controller = "Brand", action = "Get_Brands", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-2",
+            url: "brand/insert-brands",
+            defaults: new { controller = "Brand", action = "Insert_Brand", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-3",
+            url: "brand/update-brands",
+            defaults: new { controller = "Brand", action = "Update_Brand", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-4",
+            url: "brand/get-brand",
+            defaults: new { controller = "Brand", action = "Get_Brand_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });           
+                    
+
+            routes.MapRoute(
+            name: "Brand-6",
+            url: "brand/brands-upload-logo",
+            defaults: new { controller = "Brand", action = "Brand_Logo_Upload", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+            #endregion
+
 
             #region Autocomplete
 

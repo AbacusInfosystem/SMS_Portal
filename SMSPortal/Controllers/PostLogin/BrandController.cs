@@ -38,30 +38,30 @@ namespace SMSPortal.Controllers.PostLogin
                 bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("BrandController Search " + ex);
             }
-            return View("Search",bViewModel);
+            return View("Search", bViewModel);
         }
 
         public ActionResult AddEdit_Brand(BrandViewModel bViewModel)
         {
-            PaginationInfo Pager=new PaginationInfo();
+            PaginationInfo Pager = new PaginationInfo();
             try
             {
                 bViewModel.Brands = _brandManager.Get_Brands(ref Pager);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("BrandController - AddEdit_Brand " + ex.Message);
             }
 
-            return View("AddEdit_Brand",bViewModel);
+            return View("AddEdit_Brand", bViewModel);
         }
 
         public PartialViewResult Add_Brand_Logo(string Id)
         {
             BrandViewModel model = new BrandViewModel();
-             model.Brand = _brandManager.Get_Brand_By_Id(Convert.ToInt32(Id));
+            model.Brand = _brandManager.Get_Brand_By_Id(Convert.ToInt32(Id));
 
-            return PartialView("_Upload_Brand_Logo",model);
+            return PartialView("_Upload_Brand_Logo", model);
         }
 
         public JsonResult Get_Brands(BrandViewModel bViewModel)
@@ -89,7 +89,7 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(bViewModel);
         }
 
-        public ActionResult Insert_Update_Brand(BrandViewModel bViewModel)
+        public ActionResult Insert_Brand(BrandViewModel bViewModel)
         {
             try
             {
@@ -97,27 +97,37 @@ namespace SMSPortal.Controllers.PostLogin
                 bViewModel.Brand.Created_On = DateTime.Now;
                 bViewModel.Brand.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
                 bViewModel.Brand.Updated_On = DateTime.Now;
+                _brandManager.Insert_Brand(bViewModel.Brand);
+                bViewModel.Friendly_Message.Add(MessageStore.Get("BO001"));
 
-                if (bViewModel.Brand.Brand_Id == 0)
-                {
-                    _brandManager.Insert_Brand(bViewModel.Brand);
-                    bViewModel.Friendly_Message.Add(MessageStore.Get("BO001"));
-                }
-                else
-                {
-                    _brandManager.Update_Brand(bViewModel.Brand);
-                    bViewModel.Friendly_Message.Add(MessageStore.Get("BO002"));
-                }
             }
             catch (Exception ex)
             {
                 bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("Error At Brand Insert/Update  " + ex.Message);
+                Logger.Error("BrandController Insert " + ex.Message);
             }
             TempData["bViewModel"] = bViewModel;
             return RedirectToAction("Search");
         }
 
+        public ActionResult Update_Brand(BrandViewModel bViewModel)
+        {
+            try
+            {
+                bViewModel.Brand.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Updated_On = DateTime.Now;
+                _brandManager.Update_Brand(bViewModel.Brand);
+                bViewModel.Friendly_Message.Add(MessageStore.Get("BO002"));
+
+            }
+            catch (Exception ex)
+            {
+                bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("BrandController Update  " + ex.Message);
+            }
+            TempData["bViewModel"] = bViewModel;
+            return RedirectToAction("Search");
+        }
         public ActionResult Get_Brand_By_Id(BrandViewModel bViewModel)
         {
             try
@@ -155,7 +165,7 @@ namespace SMSPortal.Controllers.PostLogin
             var fileName = "";
             var path = "";
             //bool is_Error = false;    
-       
+
             try
             {
                 if (bViewModel.Upload_Logo.ContentLength > 0)
@@ -163,7 +173,7 @@ namespace SMSPortal.Controllers.PostLogin
                     actualFileName = Path.GetFileName(bViewModel.Upload_Logo.FileName);
                     path = Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), actualFileName);
 
-                   // Logger.Debug("*************************** " + path.ToString());
+                    // Logger.Debug("*************************** " + path.ToString());
                     bViewModel.Upload_Logo.SaveAs(path);
                     _brandManager.Update_Brand_FileName(bViewModel.Brand.Brand_Id, actualFileName);
 
@@ -176,7 +186,7 @@ namespace SMSPortal.Controllers.PostLogin
                     {
                         bViewModel.Friendly_Message.Add(MessageStore.Get("BO004"));
                     }
-                   
+
                 }
             }
             catch (Exception ex)

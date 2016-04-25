@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web;
 namespace SMSPortalInfo
 {
     public class ProductInfo
@@ -18,9 +18,15 @@ namespace SMSPortalInfo
 
         public int Brand_Id { get; set; }
 
+        public string Brand_Name { get; set; }
+
         public int Category_Id { get; set; }
 
+        public string Category_Name { get; set; }
+
         public int SubCategory_Id { get; set; }
+
+        public string SubCategory_Name { get; set; }
 
         public bool Is_Biddable { get; set; }
 
@@ -33,5 +39,30 @@ namespace SMSPortalInfo
         public DateTime Updated_On { get; set; }
 
         public int Updated_By { get; set; }
+
+        public List<ProductImageInfo> ProductImages { get; set; }
+        
+    }
+
+    public class ProductImageInfo
+    {
+        public int Product_Image_Id { get; set; }
+
+        public int Product_Id { get; set; }
+
+        public string Image_Code { get; set; }
+
+        public bool Is_Default { get; set; }
+
+        public DateTime Created_On { get; set; }
+
+        public int Created_By { get; set; }
+
+        public DateTime Updated_On { get; set; }
+
+        public int Updated_By { get; set; }
+
+        public HttpPostedFileBase File { get; set; }
+
     }
 }
