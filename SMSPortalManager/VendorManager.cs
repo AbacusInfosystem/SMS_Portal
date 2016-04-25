@@ -41,5 +41,41 @@ namespace SMSPortalManager
         {
             return _vendorRepo.Check_Existing_Vendor(Vendor_Name);
         }
+
+        public VendorInfo Get_Vendor_Profile_Data_By_User_Id(int user_Id)
+        {
+            return _vendorRepo.Get_Vendor_Profile_Data_By_User_Id(user_Id);
+        }
+
+        public void Insert_Vendor_Bank_Details(VendorInfo Vendor,int user_Id)
+        {
+            _vendorRepo.Insert_Vendor_Bank_Details(Vendor, user_Id);
+        }
+
+        public List<Bank_Details> Get_Vendor_Bank_Details(int vendor_Id)
+        {
+            return _vendorRepo.Get_Vendor_Bank_Details(vendor_Id);
+        }
+        public List<ProductInfo> Get_Productmapping(int Brand_Id, ref PaginationInfo Pager)
+        {
+            return _vendorRepo.Get_Productmapping(Brand_Id, ref Pager);
+        }
+
+
+        public List<BrandInfo> Get_Brands()
+        {
+            return _vendorRepo.Get_Brands();
+        }
+
+        public void Insert_Vendor_Product_Mapping_Details(List<ProductInfo> product_List, int user_Id, int vendor_Id,int brand_Id)
+        {
+            _vendorRepo.Insert_Vendor_Product_Mapping_Details(product_List, user_Id, vendor_Id, brand_Id);
+        }
+
+        public List<ProductInfo> Get_Mapped_Product_List(int vendor_Id)
+        {
+            return _vendorRepo.Get_Vendor_Mapped_Product_List(vendor_Id);
+        }
+        
     }
 }

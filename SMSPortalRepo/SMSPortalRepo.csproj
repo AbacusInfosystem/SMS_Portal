@@ -48,6 +48,8 @@
     <Compile Include="BrandRepo.cs" />
     <Compile Include="CategoryRepo.cs" />
     <Compile Include="Common\CommonMethods.cs" />
+    <Compile Include="CookiesRepo.cs" />
+    <Compile Include="DashboardRepo.cs" />
     <Compile Include="DealerRepo.cs" />
     <Compile Include="ProductRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

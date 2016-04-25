@@ -11,11 +11,11 @@ namespace SMSPortal.Models.PreLogin
     {
         public LoginViewModel()
         {
-            Session = new SessionInfo();
+            Cookies = new CookiesInfo();
             Friendly_Message = new List<FriendlyMessage>();
         }
          
-        public SessionInfo Session { get; set; }
+        public CookiesInfo Cookies { get; set; }
         public List<FriendlyMessage> Friendly_Message { get;set;}
     }
 }

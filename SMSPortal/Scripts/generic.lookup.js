@@ -63,48 +63,6 @@ $(document).ready(function () {
         $("#btnfilter_Vendor").show();
     }
 
-    $("#btnfilter_Vendor").click(function () {
-        if ($("#hdnLookupLabelId").val() == "txtPurchasingOrganisation") {
-            if ($("#txtVendorId").val() != "" && $("#hdnVendor_Id_Action").val() == 2) {
-                $.ajax({
-                    url: '/vendor/get-comapny-purchase-org/',
-                    data: { vendor_Id: $("#txtVendorId").val() },
-                    method: 'GET',
-                    async: false,
-                    success: function (data) {
-                        $("[name='r1']").parents("tr").hide();
-                        if (data.companyPurchaseOrg.Purchase_Org.length > 0) {
-                            for (i = 0; i < data.companyPurchaseOrg.Purchase_Org.length; i++) {
-                                $("#r1_" + data.companyPurchaseOrg.Purchase_Org[i].Id).parents("tr").show();
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        if ($("#hdnLookupLabelId").val() == "txtCompanyCode") {
-            if ($("#txtVendorId").val() != "" && $("#hdnVendor_Id_Action").val() == 2) {
-                $.ajax({
-                    url: '/vendor/get-comapny-purchase-org/',
-                    data: { vendor_Id: $("#txtVendorId").val() },
-                    method: 'GET',
-                    async: false,
-                    success: function (data) {
-                        $("[name='r1']").parents("tr").hide();
-                        if (data.companyPurchaseOrg.Company_Codes.length > 0) {
-                            for (i = 0; i < data.companyPurchaseOrg.Company_Codes.length; i++) {
-                                $("#r1_" + data.companyPurchaseOrg.Company_Codes[i].Id).parents("tr").show();
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-    });
-
-
 });
 
 // PAGE MORE METHOD FOR LOOKUPS.

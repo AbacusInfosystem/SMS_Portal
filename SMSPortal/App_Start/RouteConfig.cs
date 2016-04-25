@@ -26,8 +26,8 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "SubCategory-2",
-            url: "subcategory/insert-update-subcategories",
-            defaults: new { controller = "SubCategory", action = "Insert_Update_Subcategory", id = UrlParameter.Optional },
+            url: "subcategory/insert-subcategories",
+            defaults: new { controller = "SubCategory", action = "Insert_Subcategory", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
@@ -46,6 +46,12 @@ namespace SMSPortal
             name: "SubCategory-5",
             url: "subcategory/subcategory-exist-check/{subcategory}",
             defaults: new { controller = "SubCategory", action = "Check_Existing_Sub_Category", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "SubCategory-6",
+            url: "subcategory/update-subcategories",
+            defaults: new { controller = "SubCategory", action = "Update_Subcategory", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
           
             #endregion
@@ -91,6 +97,22 @@ namespace SMSPortal
             name: "Autocomplete-1",
             url: "autocomplete/autocomplete-get-lookup-data",
             defaults: new { controller = "AutocompleteLookup", action = "Load_Vendor_Modal_Data", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
+            #region Vendor
+
+            routes.MapRoute(
+            name: "Vendor-1",
+            url: "vendor/get-vendor-profile-details",
+            defaults: new { controller = "Vendor", action = "Get_Vendor_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Vendor-2",
+            url: "vendor/add-vendor-bank-details",
+            defaults: new { controller = "Vendor", action = "Insert_Bank_Details", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion

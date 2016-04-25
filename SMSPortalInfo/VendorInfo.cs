@@ -10,6 +10,8 @@ namespace SMSPortalInfo
     {
         public int Vendor_Id { get; set; }
 
+        public int Brand_Id { get; set; }
+
         public string Vendor_Name { get; set; }
 
         public string Address { get; set; }
@@ -26,7 +28,7 @@ namespace SMSPortalInfo
 
         public string Email { get; set; }
 
-        public bool Is_Active { get; set; }
+        public bool Is_Active { get; set; }     
 
         public DateTime Created_On { get; set; }
 
@@ -36,5 +38,25 @@ namespace SMSPortalInfo
 
         public int Updated_By { get; set; }
 
+        public List<Bank_Details> BankDetailsList { get; set; }
+
+        public VendorInfo()
+        {
+            BankDetailsList = new List<Bank_Details>();
+        }
+
     }
+
+    public class Bank_Details
+    {
+        public string Bank_Name { get; set; }
+
+        public string Account_No { get; set; }
+
+        public string Ifsc_Code { get; set; }
+
+        public bool Status { get; set; }
+    }
+
+
 }

@@ -17,22 +17,25 @@ namespace SMSPortalRepo
 	public class UsersRepo
 	{
         SQLHelper sqlHelper = null;
+
         public UsersRepo()
         {
             sqlHelper = new SQLHelper();
         }        
-         public SessionInfo AuthenticateUser(string userName, string password)
+        public CookiesInfo AuthenticateUser(string userName, string password)
         {
-            SessionInfo user = new SessionInfo(); 
+            CookiesInfo user = new CookiesInfo();
             List<SqlParameter> sqlParam = new List<SqlParameter>();
             sqlParam.Add(new SqlParameter("@User_Name", userName));
             sqlParam.Add(new SqlParameter("@Password", password));
             try
             {
                 DataTable dt = sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Authenticate_User_sp.ToString(), CommandType.StoredProcedure);
+
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     DataRow dr = dt.AsEnumerable().FirstOrDefault();
+
                     if (dr != null)
                     {
                         user.User_Id = Convert.ToInt32(dr["User_Id"]);
@@ -47,7 +50,26 @@ namespace SMSPortalRepo
             {
                 Logger.Error("UserRepo - AuthenticateLoginCredentials: " + ex.ToString());
             }
+
             return user;
+        }
+
+        public string Set_User_Token_For_Cookies(string userName, string password)
+        {
+            string user_Token = "Token" + DateTime.Now.ToString("yyMMddHHmmssff");            
+            try
+            {                
+                List<SqlParameter> sqlParam = new List<SqlParameter>();
+                sqlParam.Add(new SqlParameter("@user_Token", user_Token));
+                sqlParam.Add(new SqlParameter("@User_Name", userName));
+                sqlHelper.ExecuteNonQuery(sqlParam, StoreProcedures.Insert_Token_In_User_Table_Sp.ToString(), CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("UserRepo - Set_User_Token_For_Cookies: " + ex.ToString());
+            }
+
+            return user_Token;
         }
 
          public void Insert_Users(UserInfo users)
@@ -63,6 +85,7 @@ namespace SMSPortalRepo
          private List<SqlParameter> Set_Values_In_Users(UserInfo users)
          {
              List<SqlParameter> sqlParams = new List<SqlParameter>();
+
              if (users.User_Id != 0)
              {
                  sqlParams.Add(new SqlParameter("@User_Id", users.User_Id));
@@ -93,19 +116,19 @@ namespace SMSPortalRepo
          {
              List<UserInfo> users = new List<UserInfo>();
              DataTable dt = sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Users_Sp.ToString(), CommandType.StoredProcedure);
+
              foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
              {
                  users.Add(Get_Users_Values(dr));
              }
+
              return users;
          }
 
          public List<RolesInfo> Get_Roles()
          {
              List<RolesInfo> roleslist = new List<RolesInfo>();
-
              List<SqlParameter> sqlparam = new List<SqlParameter>();
-
              DataTable dt = sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Roles_Sp.ToString(), CommandType.StoredProcedure);
 
              if (dt != null && dt.Rows.Count > 0)
@@ -163,14 +186,14 @@ namespace SMSPortalRepo
          {
              List<SqlParameter> parameters = new List<SqlParameter>();
              parameters.Add(new SqlParameter("@User_Name", User_Name));
-
              List<UserInfo> Users = new List<UserInfo>();
-
              DataTable dt = sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Users_By_User_Name_Sp.ToString(), CommandType.StoredProcedure);
+
              foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
              {
                  Users.Add(Get_Users_Values(dr));
              }
+
              return Users;
          }
 
@@ -179,8 +202,8 @@ namespace SMSPortalRepo
              List<Entity> Entities = new List<Entity>();
              List<SqlParameter> parameters = new List<SqlParameter>();
              parameters.Add(new SqlParameter("@Role_Id", Role_Id));
+            DataTable dt = sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Entity_By_Role_Sp.ToString(), CommandType.StoredProcedure);
 
-             DataTable dt = sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Entity_By_Role_Sp.ToString(), CommandType.StoredProcedure);
              if (dt != null && dt.Rows.Count > 0)
              {
                  foreach (DataRow dr in CommonMethods.GetRows(dt))
@@ -188,10 +211,8 @@ namespace SMSPortalRepo
                      Entities.Add(Get_Entity_By_Role_val(dr));
                  }
              }
-             return Entities;
-             
-             
 
+             return Entities;
          }
 
          public Entity Get_Entity_By_Role_val(DataRow dr)
@@ -209,26 +230,25 @@ namespace SMSPortalRepo
          public UserInfo Get_User_By_Id(int User_Id)
          {
              List<SqlParameter> parameters = new List<SqlParameter>();
-             parameters.Add(new SqlParameter("@User_Id" , User_Id));
-
+            parameters.Add(new SqlParameter("@User_Id", User_Id));
              UserInfo user = new UserInfo();
              DataTable dt = sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Users_By_Id_Sp.ToString(), CommandType.StoredProcedure);
              List<DataRow> drList = new List<DataRow>();
              drList = dt.AsEnumerable().ToList();
+
              foreach (DataRow dr in drList)
              {
                  user = Get_Users_Values(dr);
              }
+
              return user;
          }
 
          public bool Check_Existing_User(string User_Name)
          {
              bool check = false;
-
              List<SqlParameter> sqlParam = new List<SqlParameter>();
              sqlParam.Add(new SqlParameter("@User_Name", User_Name));
-
              DataTable dt = sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Check_Existing_User.ToString(), CommandType.StoredProcedure);
 
              if (dt != null && dt.Rows.Count > 0)
@@ -236,7 +256,6 @@ namespace SMSPortalRepo
                  //int count = dt.Rows.Count;
 
                  List<DataRow> drList = new List<DataRow>();
-
                  drList = dt.AsEnumerable().ToList();
 
                  foreach (DataRow dr in drList)

@@ -1,14 +1,11 @@
 ﻿@model SMSPortal.Models.PostLogin.UserViewModel
 @using SMSPortalInfo.Common;
 <script type="text/javascript">
-
     $(document).ready(function () {
-
         $('.iradio-list').iCheck({
             radioClass: 'iradio_square-green',
             increaseArea: '20%' // optional
         });
-
     });
 </script>
 <script src="~/Scripts/Module/User/search_user_event.js"></script>
@@ -29,7 +26,6 @@
                 <li class="active">User</li>
             </ol>
         </section>
-
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -39,10 +35,8 @@
                             <h3 class="box-title">User</h3>
                         </div>
                         <div class="box-body">
-                       
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnUser_Id" name="User.User_Id" value="@Model.User.User_Id">
-                         
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -50,31 +44,24 @@
                                         <input type="text" class="form-control input-sm" name="Filter.User_Name" id="txtUser_Name" placeholder="Enter user name" value="" maxlength="20">
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="box-footer">
                                 <div class="row">
                                     <div class="col-md-12">
-
                                         <div class="btn-group pull-left">
                                             <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "user")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
-
                                         <div class="btn-group pull-right">
                                             <button type="button" id="btnEdit" class="btn btn-warning btn-sm" style="display:none;">Edit </button>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div><!-- /.col -->
             </div><!-- /.row -->
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-solid">
@@ -84,23 +71,21 @@
                                     <th></th>
                                     <th>User Name</th>
                                     <th>Status</th>
-                                </tr>                                                          
-                              
+                                </tr>
                             </table>
                         </div>
                         <div class="box-footer clearfix">
-                                <div class="pagination pagination-sm no-margin pull-right">
-                                    <ul></ul>
-                                </div>
-                                <div id="divSearchGridOverlay" class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
-                                </div>
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
                             </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
-    <!-- /.content-wrapper -->
 </form>
 

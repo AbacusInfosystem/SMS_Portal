@@ -81,7 +81,19 @@ namespace SMSPortalInfo.Common
         Get_Vendor_By_Name_Sp,
         Update_Vendor_Sp,
         Get_Vendor_By_Id_Sp,
-        Check_Existing_Vendor
+        Get_Productmapping,
+        Get_Brands_Sp,
+        Check_Existing_Vendor,
+        Get_Vendor_Profile_Data_Sp,
+        Insert_Vendor_Bank_Details_Sp,
+        Get_Vendor_Bank_Details_By_Id_Sp,
+        Insert_Vendor_Product_Mapping_Details,
+        Get_Vendor_Mapped_Products_Sp,
+        Delete_Vendor_Product_Mapping_By_Id_Sp,
+
+        //Cookies
+        Insert_Token_In_User_Table_Sp,
+        Get_User_Data_By_Token_sp
         
 	}
 }

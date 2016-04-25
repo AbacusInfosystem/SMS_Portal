@@ -46,8 +46,7 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo Pager = new PaginationInfo();
             try
             {
-                vViewModel.States = _stateManager.Get_States();
-               
+                vViewModel.States = _stateManager.Get_States();                              
             }
             catch (Exception ex)
             {
@@ -102,6 +101,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pager = vViewModel.Pager;
+                
                 if (vViewModel.Filter.Vendor_Name != null)
                 {
                     vViewModel.Vendors = _vendorManager.Get_Vendor_By_Name(vViewModel.Filter.Vendor_Name, ref pager);
@@ -126,6 +126,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 vViewModel.Vendor = _vendorManager.Get_Vendor_By_Id(vViewModel.Vendor.Vendor_Id);
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
             }
             catch (Exception ex)
             {
@@ -150,21 +151,74 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
-        public PartialViewResult Add_Product_Mapping()
-        {
-            return PartialView("_AddProductMapping");
+        public ActionResult Add_Product_Mapping(VendorViewModel vViewModel)
+         {
+            PaginationInfo pager = new PaginationInfo();
+            try
+            {
+                vViewModel.Brands = _vendorManager.Get_Brands();              
+                vViewModel.Pager = pager;
+                vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
+            }
+
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("VendorController Index " + ex);
+            }
+
+
+            return View("AddProductMapping" , vViewModel);
         }
 
-        public PartialViewResult Add_Bank_Details()
+
+
+        public JsonResult Get_Product_By_Brand(int Brand_Id, int CurrentPage, int Vendor_Id)
         {
-            return PartialView("_AddBankDetails");
+
+            VendorViewModel vViewModel = new VendorViewModel();
+            PaginationInfo pager = new PaginationInfo();
+            
+            try
+            {
+
+                pager.CurrentPage = CurrentPage;
+                vViewModel.Products = _vendorManager.Get_Productmapping(Brand_Id , ref pager);
+                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(Vendor_Id);                
+                vViewModel.Pager = pager;
+                vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
+              
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("VendorController - Get_Product_By_Brand" + ex.ToString());
+            }
+
+            return Json(vViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public PartialViewResult Add_Bank_Details(int vendor_Id)
+        {
+            VendorViewModel vViewModel = new VendorViewModel();
+           
+            try
+            {
+                vViewModel.Vendor.Vendor_Id = vendor_Id;
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vendor_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Vendor Controller - Add_Bank_Details " + ex.ToString());
+            }
+
+            return PartialView("_AddBankDetails", vViewModel);
         }
 
         public ActionResult SearchOrders()
         {
             return View("SearchOrders");
         }
-
+         
         public ActionResult OrderDetails()
         {
             return View("OrderDetails");
@@ -175,9 +229,50 @@ namespace SMSPortal.Controllers.PostLogin
             return View("CreateInvoice");
         }
 
-        public ActionResult Profile()
+        public ActionResult Profile(VendorViewModel vViewModel)
         {
-            return View("Profile");
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (vViewModel.Cookies == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
+                
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Vendor Profile " + ex);
+            }
+
+            return View("Profile", vViewModel);
+        }
+
+        public ActionResult Insert_Bank_Details(VendorViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (vViewModel.Cookies == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                _vendorManager.Insert_Vendor_Bank_Details(vViewModel.Vendor,vViewModel.Cookies.User_Id);
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Vendor Profile " + ex);
+            }
+
+            return View("Profile", vViewModel);
         }
 
         public ActionResult VendorReceivables()
@@ -188,6 +283,28 @@ namespace SMSPortal.Controllers.PostLogin
         public ActionResult AddVendorReceivables()
         {
             return View("VendorReceivable");
+        }
+
+        public ActionResult Insert_Vendor_Product_Mapping_Details(VendorViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (vViewModel.Cookies == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                _vendorManager.Insert_Vendor_Product_Mapping_Details(vViewModel.Products, vViewModel.Cookies.User_Id, vViewModel.Vendor.Vendor_Id, vViewModel.Vendor.Brand_Id);
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Vendor Profile " + ex);
+            }
+
+            return View("Search", vViewModel);
         }
     }
 }

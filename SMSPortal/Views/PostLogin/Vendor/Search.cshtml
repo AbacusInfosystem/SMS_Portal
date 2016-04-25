@@ -1,12 +1,8 @@
 ﻿@model SMSPortal.Models.PostLogin.VendorViewModel
 @using SMSPortal.Common;
-<script src="~/Scripts/Module/Vendor/Vendor_events.js"></script>
+
 <script src="~/Scripts/Module/Vendor/search_vendor_methods.js"></script>
 <script src="~/Scripts/Module/Vendor/search_vendor_events.js"></script>
-<script type="text/javascript">
-
-   
-</script>
 
 <form id="frmVendor" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
@@ -58,7 +54,8 @@
                                         <div class="btn-group pull-right">
                                             <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
                                             @*<button type="button" id="btnAddBankDetails" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Bank Details </button>*@
-                                            <button type="button" id="btnAddProductMapping" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Product Mapping</button>
+                                            <a class="btn btn-warning btn-sm" role="button" id="btnAddProductMapping" style="display:none;"> Add Product Mapping</a>
+
                                         </div>
                                     </div>
                                 </div>
