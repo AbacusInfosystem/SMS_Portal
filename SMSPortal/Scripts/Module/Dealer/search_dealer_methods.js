@@ -15,7 +15,7 @@ function Search_Dealers()
 
     $('#divSearchGridOverlay').show();
 
-    CallAjax("/Dealer/Get_Dealers/", "json", JSON.stringify(dealerViewModel), "POST", "application/json", false, Bind_Dealers_Grid, "", null);
+    CallAjax("/dealer/get-dealers/", "json", JSON.stringify(dealerViewModel), "POST", "application/json", false, Bind_Dealers_Grid, "", null);
 }
 
 function Bind_Dealers_Grid(data)

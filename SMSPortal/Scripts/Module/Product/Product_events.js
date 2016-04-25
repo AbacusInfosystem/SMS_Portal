@@ -35,11 +35,11 @@
         {
             if ($("#hdf_ProductId").val() == 0)
             {
-                $("#frmProductMaster").attr("action", "/Product/Insert_Product/");
+                $("#frmProductMaster").attr("action", "/product/insert-product/");
             }
             else
             {
-                $("#frmProductMaster").attr("action", "/Product/Update_Product/");                
+                $("#frmProductMaster").attr("action", "/product/update-product/");
             }
             $('#frmProductMaster').attr("method", "POST");
             $('#frmProductMaster').submit();
@@ -53,7 +53,7 @@
         var Category_Id = $("#drpProduct_Category").val();         
         $.ajax(
         {
-            url: '/Product/Get_SubCategory_By_Category_Id',
+            url: '/product/Get-SubCategory-By-Category-Id/',
             data: { Category_Id: Category_Id },
             method: 'GET',
             async: false,

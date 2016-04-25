@@ -15,7 +15,7 @@ function Search_Categories()
 
     $('#divSearchGridOverlay').show();
 
-    CallAjax("/Category/Get_Categories/", "json", JSON.stringify(categoryViewModel), "POST", "application/json", false, Bind_Category_Grid, "", null);
+    CallAjax("/category/get-categories/", "json", JSON.stringify(categoryViewModel), "POST", "application/json", false, Bind_Category_Grid, "", null);
 
 }
 
