@@ -24,9 +24,9 @@ namespace SMSPortalManager
             return _autocompleteLookupRepo.Get_Lookup_Data(table_Name,cols,ref Pager);
         }
 
-        public string Get_Lookup_Data_By_SubcategoryId(string field_Value)
+        public string Get_Lookup_Data_By_SubcategoryId(string field_Value, string table_Name, string[] columns)
         {
-            return _autocompleteLookupRepo.Get_Lookup_Data_Add_For_Subcategory(field_Value);
+            return _autocompleteLookupRepo.Get_Lookup_Data_Add_For_Subcategory(field_Value, table_Name, columns);
         }
     }
 }

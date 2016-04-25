@@ -27,5 +27,7 @@ namespace SMSPortal.Models.PostLogin
         public string[] HeaderNames { get; set; }
 
         public string Value { get; set; }
+
+        public string EditLookupValue { get; set; }
     }
 }
