@@ -7,6 +7,8 @@ using SMSPortalInfo.Common;
 using SMSPortalManager;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -171,8 +173,6 @@ namespace SMSPortal.Controllers.PostLogin
             return View("AddProductMapping" , vViewModel);
         }
 
-
-
         public JsonResult Get_Product_By_Brand(int Brand_Id, int CurrentPage, int Vendor_Id)
         {
 
@@ -181,10 +181,12 @@ namespace SMSPortal.Controllers.PostLogin
             
             try
             {
-
+               
                 pager.CurrentPage = CurrentPage;
+
                 vViewModel.Products = _vendorManager.Get_Productmapping(Brand_Id , ref pager);
-                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(Vendor_Id);                
+                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(Vendor_Id);  
+              
                 vViewModel.Pager = pager;
                 vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
               
