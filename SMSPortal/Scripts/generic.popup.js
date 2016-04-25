@@ -18,7 +18,12 @@
     });
 
     $(document).on("click", ".text-muted", function () {
-        Get_Autocomplete_Lookup($(this), false);
+        Get_Autocomplete_Lookup(true,$(this), false);
+    });
+
+    $(document).on("focusout", ".autocomplete-text", function (event) {
+
+        Get_Autocomplete_Lookup(false, $(this), false);
     });
 
     $('#div_Parent_Modal_Fade').on('hidden.bs.modal', function (e) {
@@ -41,7 +46,7 @@
 });
 
 
-function Get_Autocomplete_Lookup(elementObj, modalExist) {
+function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
     // THIS IS THE TEXTBOX ELEMENT ON WHICH LOOKUP IS FIRED
     $("#hdnLookupLabelId").val(elementObj.parents(".auto-complete").find(".autocomplete-text").prop("id"));
@@ -69,14 +74,54 @@ function Get_Autocomplete_Lookup(elementObj, modalExist) {
         page = $("#hdfCurrentPage").val();
     }
 
-    $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page },
-        function () {
+    if (openModal) {
 
-            $("#" + model).find(".modal-title").text($("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " List");
+        alert(1);
 
-            $('#div_Parent_Modal_Fade').modal('toggle');
+        $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page },
+            function () {
+
+                $("#" + model).find(".modal-title").text($("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " List");
+
+                $('#div_Parent_Modal_Fade').modal('toggle');
+            }
+            );
+    }
+    else
+    {
+        alert(2);
+
+        var enteredValue = $("#" + $("#hdnLookupLabelId").val()).val();
+
+        if ($("#" + $("#hdnLookupLabelId").val()).val() != "") {
+
+            $.ajax({
+
+                url: '/lookup/Lookup-get-lookup-data_by_id',
+
+                data: { fieldValue: enteredValue,table_Name: tableName, columns: columns },
+
+                method: 'GET',
+
+                async: false,
+
+                success: function (data) {
+
+                    if (data != null) {
+
+                        Bind_Selected_Item(data);
+                    }
+                }
+            });
         }
-        );
+        else {
+
+            $("#" + $("#hdnLookupHiddenId").val()).val("");
+
+            // added by shakti. I think if no record is not found, then this ul should also get removed.
+            $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
+        }
+    }
    
 }
 
@@ -86,11 +131,11 @@ function Bind_Selected_Item(data) {
 
     $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
 
-    if (data.Key != null) {
+    if (data.Value != null) {
 
         $("#" + $("#hdnLookupHiddenId").val()).val($("#" + $("#hdnLookupLabelId").val()).val());
 
-        htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + data.Key + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + data.Value + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
     }
     else {
 

@@ -37,6 +37,7 @@ namespace SMSPortalInfo.Common
         Get_Subcateory_Autocomplete_Sp,
         Check_Existing_Sub_Category,
          Get_Sub_Category_By_Category_Sp,
+        Get_Lookup_Sub_Category_By_Id_Sp,
 
         //Brands
         Delete_Brand_By_Id_Sp,

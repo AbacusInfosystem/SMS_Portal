@@ -73,13 +73,13 @@ namespace SMSPortalRepo
             return categorylist;
         }
 
-        public List<SubCategoryInfo> Get_SubCategories(ref PaginationInfo Pager)
+        public List<SubCategoryInfo> Get_SubCategories(ref PaginationInfo pager)
         {
             List<SubCategoryInfo> subcategories = new List<SubCategoryInfo>();
 
             DataTable dt = _sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Sub_Category_Sp.ToString(), CommandType.StoredProcedure);
 
-            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
             {
                 subcategories.Add(Get_SubCategory_Values(dr));
             }
@@ -87,10 +87,10 @@ namespace SMSPortalRepo
             return subcategories;
         }
 
-        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int Category_Id)
+        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int category_Id)
         {
             List<SqlParameter> sqlParam = new List<SqlParameter>();
-            sqlParam.Add(new SqlParameter("@Category_Id", Category_Id));
+            sqlParam.Add(new SqlParameter("@Category_Id", category_Id));
 
             List<SubCategoryInfo> subcategories = new List<SubCategoryInfo>();
 
@@ -178,17 +178,17 @@ namespace SMSPortalRepo
             return subcategory;
         }
 
-        public void Insert_Sub_Category(SubCategoryInfo subcategory)
+        public void Insert_Sub_Category(SubCategoryInfo subcategory,int user_Id)
         {
-            _sqlHelper.ExecuteNonQuery(Set_Values_In_Sub_Category(subcategory), StoreProcedures.Insert_Sub_Category_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlHelper.ExecuteNonQuery(Set_Values_In_Sub_Category(subcategory, user_Id), StoreProcedures.Insert_Sub_Category_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        public void Update_Sub_Category(SubCategoryInfo subcategory)
+        public void Update_Sub_Category(SubCategoryInfo subcategory, int user_Id)
         {
-            _sqlHelper.ExecuteNonQuery(Set_Values_In_Sub_Category(subcategory), StoreProcedures.Update_Sub_Category_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlHelper.ExecuteNonQuery(Set_Values_In_Sub_Category(subcategory, user_Id), StoreProcedures.Update_Sub_Category_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Sub_Category(SubCategoryInfo subcategory)
+        private List<SqlParameter> Set_Values_In_Sub_Category(SubCategoryInfo subcategory, int user_Id)
         {
                 List<SqlParameter> sqlParams = new List<SqlParameter>();
 
@@ -203,12 +203,12 @@ namespace SMSPortalRepo
 
             if (subcategory.Subcategory_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", subcategory.Created_Date));
-                sqlParams.Add(new SqlParameter("@Created_By", subcategory.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_Id));
             }
 
-            sqlParams.Add(new SqlParameter("@Updated_On", subcategory.Updated_Date));
-            sqlParams.Add(new SqlParameter("@Updated_By", subcategory.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
             return sqlParams;
         }
 
@@ -256,5 +256,6 @@ namespace SMSPortalRepo
 
             return check;
         }
+        
     }
 }

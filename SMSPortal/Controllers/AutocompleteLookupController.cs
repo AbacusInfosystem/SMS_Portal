@@ -58,5 +58,30 @@ namespace SMSPortal.Controllers
             return PartialView("_Partial", LookupVM);
         }
 
+        public JsonResult Get_Lookup_Data_By_Id(string fieldValue, string table_Name, string columns)
+        {
+            LookupViewModel LookupVM = new LookupViewModel();
+            string[] fValues = { };
+
+            if (fieldValue != null)
+            {
+                fValues = fieldValue.Split(',');
+            }
+
+            try
+            {
+                if (fValues.Length != 0 )
+                {
+                    LookupVM.Value = _autocompleteLookupManager.Get_Lookup_Data_By_SubcategoryId(fieldValue);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Json(LookupVM.Value, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
