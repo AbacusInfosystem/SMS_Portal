@@ -207,6 +207,16 @@ namespace SMSPortal
 
             #endregion
 
+            #region Lookup
+
+            routes.MapRoute(
+            name: "Lookup-1",
+            url: "lookup/Lookup-get-lookup-data_by_id",
+            defaults: new { controller = "AutocompleteLookup", action = "Get_Lookup_Data_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
             #region Vendor
 
             routes.MapRoute(

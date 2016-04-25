@@ -38,19 +38,19 @@ namespace SMSPortalManager
             return _subcategoryRepo.Get_Subcategory_By_Module_Id(module_Id, ref pager);
         }
 
-        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int Category_Id)
+        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int category_Id)
         {
-            return _subcategoryRepo.Get_SubCategories_By_CategoryId(Category_Id);
+            return _subcategoryRepo.Get_SubCategories_By_CategoryId(category_Id);
         }
         
-        public void Insert_Sub_Category(SubCategoryInfo subcategory)
+        public void Insert_Sub_Category(SubCategoryInfo subcategory,int user_Id)
         {
-            _subcategoryRepo.Insert_Sub_Category(subcategory);
+            _subcategoryRepo.Insert_Sub_Category(subcategory, user_Id);
         }
 
-        public void Update_Sub_Category(SubCategoryInfo subcategory)
+        public void Update_Sub_Category(SubCategoryInfo subcategory, int user_Id)
         {
-            _subcategoryRepo.Update_Sub_Category(subcategory);
+            _subcategoryRepo.Update_Sub_Category(subcategory, user_Id);
         }
 
         public SubCategoryInfo Get_Subcategory_By_Id(int subcategory_Id)

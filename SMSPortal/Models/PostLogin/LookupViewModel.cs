@@ -25,5 +25,7 @@ namespace SMSPortal.Models.PostLogin
         public DataTable PartialDt { get; set; }
 
         public string[] HeaderNames { get; set; }
+
+        public string Value { get; set; }
     }
 }

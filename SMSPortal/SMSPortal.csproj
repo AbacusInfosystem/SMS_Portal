@@ -1077,7 +1077,7 @@
     <Content Include="Views\PostLogin\Vendor\VendorReceivables.cshtml" />
     <Content Include="Views\PostLogin\Product\_Partial.cshtml" />
     <Content Include="Views\PostLogin\SubCategory\Search.cshtml" />
-    <Content Include="Views\PostLogin\SubCategory\AddEdit_SubCategory.cshtml" />
+    <Content Include="Views\PostLogin\SubCategory\Index.cshtml" />
     <Content Include="Views\PostLogin\Category\Index.cshtml" />
     <Content Include="Views\PostLogin\Category\Search.cshtml" />
     <Content Include="Views\Shared\_ServerMessage.cshtml" />
