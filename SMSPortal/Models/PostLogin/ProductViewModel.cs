@@ -18,6 +18,8 @@ namespace SMSPortal.Models.PostLogin
             Pager.PageSize = 5;
             Product = new ProductInfo();
             Products = new List<ProductInfo>();
+            ImagesList = new List<ProductImageInfo>();
+            ProductImage = new ProductImageInfo();
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
@@ -27,6 +29,9 @@ namespace SMSPortal.Models.PostLogin
         public List<BrandInfo> Brands { get; set; }
         public List<CategoryInfo> Categories { get; set; }
         public List<SubCategoryInfo> SubCategories { get; set; }
+        public List<ProductImageInfo> ImagesList { get; set; }
+        public HttpPostedFileBase UploadImage { get; set; }
+        public ProductImageInfo ProductImage { get; set; }
     }
     public class ProductFilter
     {

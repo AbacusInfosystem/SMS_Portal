@@ -23,6 +23,7 @@
             "Product.Product_Price":
                 {
                     required: true,
+                    number:true
                 }
         },
         messages: {
@@ -47,6 +48,7 @@
             "Product.Product_Price":
             {
                 required: "Price is required",
+                number: "Numbers only"
             }
         },
     });

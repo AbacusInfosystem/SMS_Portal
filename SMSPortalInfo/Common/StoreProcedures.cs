@@ -71,6 +71,9 @@ namespace SMSPortalInfo.Common
         Get_Product_Sp,
         Update_Product_Sp,
         Insert_Product_Sp,
+        Get_Product_Images_Sp,
+        Insert_Product_Image_Sp,
+        Delete_Product_Image_Sp,
          
         
         //Vendor
