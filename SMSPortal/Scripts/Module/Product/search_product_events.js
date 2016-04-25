@@ -8,10 +8,7 @@
 
     $('#btnUploadImage').click(function (event) {
         if ($('#frmUploadProductImages').valid()) {
-            //$('#frmUploadProductImages').attr("action", "/Product/Product_Image_Upload/");
-            //$('#frmUploadProductImages').attr("method", "post");
-            //$('#frmUploadProductImages').submit();
-
+            
 
             if (window.FormData !== undefined) {
 
@@ -57,16 +54,6 @@
                 alert("FormData is not supported.");
             }
 
-
-
-            //var pViewModel =
-            //{
-            //   ProductImage:
-            //       {
-            //           File: ($("#productImage"))[0].files[0]
-            //       }
-            //};
-            //CallAjax("/Product/Product_Image_Upload/", "json", JSON.stringify(pViewModel), "post", "application/json", false, null, "", null);
         }
 
     })
@@ -78,12 +65,11 @@
         var Product_Image_Id = $(this).closest('td').find('.prod_img_id').val();
         var Product_Image_Name = $(this).closest('td').find('.prod_img_name').val();
 
-        var param = { Product_Image_Id: Product_Image_Id, Product_Id: Product_Id, Product_Image_Name: Product_Image_Name }
-       
-        //CallAjax("/Product/Delete_Product_Image/", "json", JSON.stringify(param), "post", "application/json", false, Remove_Image, "", null);
+        var param = { Product_Image_Id: Product_Image_Id, Product_Id: Product_Id, Product_Image_Name: Product_Image_Name }      
+         
 
         $.ajax({
-            url: "/Product/Delete_Product_Image/",
+            url: "/product/Delete-Product-Image/",
             type: "Post",  
             data: param,
             success: function (response)
@@ -95,21 +81,6 @@
             }
         });
 
-
-        //$.ajax({
-        //    url: '/Product/Delete_Product_Image',
-        //    type: "post",
-        //    contentType: 'application/json; charset=utf-8', // Not to set any content header
-        //    data: param,
-        //    success: function (result)
-        //    {  
-        //        $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: $('#hdProduct_Id').val() }, call_back);
-        //    },
-        //    error: function (err) {
-        //        alert(err.statusText);
-        //    }
-        //});
-
     });
 
 });
@@ -118,7 +89,7 @@ $(document).ready(function () {
     Search_Products();
 
     $("#btnEdit").click(function () {
-        $("#frmProduct").attr("action", "/Product/Get_Product_By_Id/");
+        $("#frmProduct").attr("action", "/product/edit-product/");
         $("#frmProduct").attr("method", "post");
         $("#frmProduct").submit();
     });

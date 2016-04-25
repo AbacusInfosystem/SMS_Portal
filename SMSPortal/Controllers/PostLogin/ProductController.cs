@@ -24,6 +24,8 @@ namespace SMSPortal.Controllers.PostLogin
         public CategoryManager _categoryManager;
         public DealerManager _dealerManager;
         public SubCategoryManager _subCategoryManager;
+        public CookiesInfo cookies;
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
         public ProductController()
         {
             _productManager = new ProductManager();
@@ -31,6 +33,9 @@ namespace SMSPortal.Controllers.PostLogin
             _categoryManager = new CategoryManager();
             _dealerManager = new DealerManager();
             _subCategoryManager = new SubCategoryManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+            cookies = _cookiesManager.Get_Token_Data(token); 
 
         }
         public ActionResult Search(ProductViewModel pViewModel)
@@ -69,9 +74,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Product.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Product.Created_By = cookies.User_Id;
                 pViewModel.Product.Created_On = DateTime.Now;
-                pViewModel.Product.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Product.Updated_By = cookies.User_Id;
                 pViewModel.Product.Updated_On = DateTime.Now;
                 _productManager.Insert_Product(pViewModel.Product);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO001"));
@@ -89,7 +94,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Product.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Product.Updated_By = cookies.User_Id;
                 pViewModel.Product.Updated_On = DateTime.Now;
                 _productManager.Update_Product(pViewModel.Product);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO002"));

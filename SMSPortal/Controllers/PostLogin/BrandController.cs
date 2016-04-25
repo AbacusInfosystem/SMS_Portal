@@ -19,10 +19,15 @@ namespace SMSPortal.Controllers.PostLogin
         //
         // GET: /Brand/
         public BrandManager _brandManager;
+        public CookiesInfo cookies;
 
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
         public BrandController()
         {
             _brandManager = new BrandManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+            cookies = _cookiesManager.Get_Token_Data(token); 
         }
         public ActionResult Search(BrandViewModel bViewModel)
         {
@@ -93,9 +98,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                bViewModel.Brand.Created_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Created_By = cookies.User_Id;
                 bViewModel.Brand.Created_On = DateTime.Now;
-                bViewModel.Brand.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Updated_By = cookies.User_Id;
                 bViewModel.Brand.Updated_On = DateTime.Now;
                 _brandManager.Insert_Brand(bViewModel.Brand);
                 bViewModel.Friendly_Message.Add(MessageStore.Get("BO001"));
@@ -114,7 +119,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                bViewModel.Brand.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Updated_By = cookies.User_Id;
                 bViewModel.Brand.Updated_On = DateTime.Now;
                 _brandManager.Update_Brand(bViewModel.Brand);
                 bViewModel.Friendly_Message.Add(MessageStore.Get("BO002"));
