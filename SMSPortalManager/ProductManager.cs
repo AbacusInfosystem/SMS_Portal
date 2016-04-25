@@ -45,5 +45,20 @@ namespace SMSPortalManager
         {
             return _productRepo.Check_Existing_Product(Product_Name);
         }
+
+        public List<ProductImageInfo> Get_Product_Images(int Product_Id)
+        {
+            return _productRepo.Get_Product_Images(Product_Id);
+        }
+
+        public void Insert_Product_Image(ProductImageInfo productImageInfo)
+        {
+            _productRepo.Insert_Product_Image(productImageInfo);
+        }
+
+        public void Delete_Product_Image(int Product_Image_Id)
+        {
+            _productRepo.Delete_Product_Image(Product_Image_Id);
+        }
     }
 }

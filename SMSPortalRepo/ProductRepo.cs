@@ -104,8 +104,11 @@ namespace SMSPortalRepo
             product.Product_Description = Convert.ToString(dr["Product_Description"]);
             product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
             product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+            product.Brand_Name = Convert.ToString(dr["Brand_Name"]);
             product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+            product.Category_Name = Convert.ToString(dr["Category_Name"]);
             product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
+            product.SubCategory_Name = Convert.ToString(dr["SubCategory_Name"]);
             product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
             product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
             product.Created_On = Convert.ToDateTime(dr["Created_On"]);
@@ -132,11 +135,67 @@ namespace SMSPortalRepo
             return check;
         }
 
-        //public void Delete_Product_By_Id(int product_id)
-        //{
-        //    List<SqlParameter> sqlParams = new List<SqlParameter>();
-        //    sqlParams.Add(new SqlParameter("@Product_Id", product_id));
-        //    _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Product_By_Id.ToString(), CommandType.StoredProcedure);
-        //}
+        private ProductImageInfo Get_Product_Image_Values(DataRow dr)
+        {
+            ProductImageInfo productImage = new ProductImageInfo();
+
+            productImage.Product_Image_Id = Convert.ToInt32(dr["Product_Image_Id"]);
+            productImage.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            productImage.Image_Code = Convert.ToString(dr["Image_Code"]);
+            productImage.Is_Default = Convert.ToBoolean(dr["Is_Default"]);            
+            productImage.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            productImage.Created_By = Convert.ToInt32(dr["Created_By"]);
+            productImage.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            productImage.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            return productImage;
+        }
+
+        public List<ProductImageInfo> Get_Product_Images(int Product_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Product_Id", Product_Id));
+
+            List<ProductImageInfo> productImages = new List<ProductImageInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_Images_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                productImages.Add(Get_Product_Image_Values(dr));
+            }
+            return productImages;
+        }
+
+        private List<SqlParameter> Set_Values_In_Product_Image(ProductImageInfo productImageInfo)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            if (productImageInfo.Product_Image_Id != 0)
+            {
+                sqlParams.Add(new SqlParameter("@Product_Image_Id", productImageInfo.Product_Image_Id));
+            }
+            sqlParams.Add(new SqlParameter("@Product_Id", productImageInfo.Product_Id));
+            sqlParams.Add(new SqlParameter("@Image_Code", productImageInfo.Image_Code));
+            sqlParams.Add(new SqlParameter("@Is_Default", productImageInfo.Is_Default));
+            if (productImageInfo.Product_Image_Id == 0)
+            {
+                sqlParams.Add(new SqlParameter("@Created_On", productImageInfo.Created_On));
+                sqlParams.Add(new SqlParameter("@Created_By", productImageInfo.Created_By));
+            }
+            sqlParams.Add(new SqlParameter("@Updated_On", productImageInfo.Updated_On));
+            sqlParams.Add(new SqlParameter("@Updated_By", productImageInfo.Updated_By));
+            return sqlParams;
+        }
+        public void Insert_Product_Image(ProductImageInfo productImageInfo )
+        {             
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_Image(productImageInfo), StoreProcedures.Insert_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
+
+        }
+
+
+        public void Delete_Product_Image(int Product_Image_Id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@Product_Image_Id", Product_Image_Id));
+            _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
+        }
     }
 }

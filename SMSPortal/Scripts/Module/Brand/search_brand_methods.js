@@ -2,11 +2,10 @@
 
     $('#div_Parent_Modal_Fade').modal('show');
     $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Brand Logo");     
-    $('#btnUpload').click(function (event)
-    {
-        if ($('#frmUploadBrandLogo').valid())
-        {
-            $('#frmUploadBrandLogo').attr("action", "/Brand/Brand_Logo_Upload/");
+    
+    $('#btnUpload').click(function (event) {
+        if ($('#frmUploadBrandLogo').valid()) {
+            $('#frmUploadBrandLogo').attr("action", "/brand/brands-upload-logo");
             $('#frmUploadBrandLogo').attr("method", "post");
             $('#frmUploadBrandLogo').submit();
         }
@@ -30,7 +29,7 @@ function Search_Brands()
 
     $('#divSearchGridOverlay').show();
 
-    CallAjax("/Brand/Get_Brands/", "json", JSON.stringify(brandViewModel), "POST", "application/json", false, Bind_Brands_Grid, "", null);
+    CallAjax("/brand/get-brands/", "json", JSON.stringify(brandViewModel), "POST", "application/json", false, Bind_Brands_Grid, "", null);
 }
 
 function Bind_Brands_Grid(data)
@@ -108,7 +107,7 @@ function Bind_Brands_Grid(data)
 
     $('[name="r1"]').on('ifChanged', function (event) {
         if ($(this).prop('checked'))
-        {
+        {            
             $("#hdnBrand_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnUploadLogo").show();            

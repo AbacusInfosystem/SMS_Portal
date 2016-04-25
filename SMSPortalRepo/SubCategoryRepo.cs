@@ -98,7 +98,7 @@ namespace SMSPortalRepo
 
             foreach (DataRow dr in dt.Rows)
             {
-                subcategories.Add(Get_SubCategory_Values(dr));
+                subcategories.Add(Get_SubCategory_Values_By_Category(dr));
             }
 
             return subcategories;
@@ -149,6 +149,30 @@ namespace SMSPortalRepo
                         subcategory.IsActive = Convert.ToBoolean(dr["IsActive"]);
                 }
             }
+
+            return subcategory;
+        }
+
+        private SubCategoryInfo Get_SubCategory_Values_By_Category(DataRow dr)
+        {
+            SubCategoryInfo subcategory = new SubCategoryInfo();
+
+            subcategory.Subcategory_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
+            subcategory.Subcategory_Name = Convert.ToString(dr["Sub_Category_Name"]);
+            subcategory.Category_Id = Convert.ToInt32(dr["Category_Id"]);             
+            subcategory.IsActive = Convert.ToBoolean(dr["IsActive"]);
+            if (subcategory.IsActive == true)
+            {
+                subcategory.Status = "Active";
+            }
+            else
+            {
+                subcategory.Status = "InActive";
+            }
+            subcategory.Created_Date = Convert.ToDateTime(dr["Created_On"]);
+            subcategory.Created_By = Convert.ToInt32(dr["Created_By"]);
+            subcategory.Updated_Date = Convert.ToDateTime(dr["Updated_On"]);
+            subcategory.Updated_By = Convert.ToInt32(dr["Updated_By"]);
 
             return subcategory;
         }

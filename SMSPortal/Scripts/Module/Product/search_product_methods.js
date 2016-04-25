@@ -1,13 +1,41 @@
 ﻿function call_back(data)
 {
-
     $('#div_Parent_Modal_Fade').modal('show');
 
     $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Product Image");
+       
+
+    //var pViewModel =
+    //    {
+    //        ImagesList:
+    //            {
+    //                Product_Id: $('#hdnProduct_Id').val()
+    //            }
+    //    };     
+     
+    //alert($('#Product_Id').val());
+
+    //CallAjax("/Product/Upload_Product_Image/", "json", JSON.stringify(pViewModel), "post", "application/json", false, Bind_Products_Image_Grid, "", null);
+    //$.ajax({
+    //    url: '/Product/Upload_Product_Image',
+    //    datatype: "json",
+    //    type: "post",
+    //    contenttype: 'application/json; charset=utf-8',
+    //    async: false,
+    //    success: Bind_Products_Image_Grid,
+    //    error: function (xhr)
+    //    {
+    //        alert('error');
+    //    }
+    //});
+     
 
 }
 
-function Search_Products() {
+
+
+function Search_Products()
+{
     var productViewModel =
         {
             Filter:
@@ -25,7 +53,8 @@ function Search_Products() {
     CallAjax("/Product/Get_Products/", "json", JSON.stringify(productViewModel), "POST", "application/json", false, Bind_Products_Grid, "", null);
 }
 
-function Bind_Products_Grid(data) {
+function Bind_Products_Grid(data)
+{
     var htmlText = "";
     if (data.Products.length > 0) {
         for (i = 0; i < data.Products.length; i++) {
@@ -43,11 +72,25 @@ function Bind_Products_Grid(data) {
 
             htmlText += "</td>";
 
-            //htmlText += "<td>";
+            htmlText += "<td>";
 
-            //htmlText += data.Products[i].Brand_Name == null ? "" : data.Products[i].Brand_Name;
+            htmlText += data.Products[i].Brand_Name == null ? "" : data.Products[i].Brand_Name;
 
-            //htmlText += "</td>";
+            htmlText += "</td>";
+
+
+            htmlText += "<td>";
+
+            htmlText += data.Products[i].Category_Name == null ? "" : data.Products[i].Category_Name;
+
+            htmlText += "</td>";
+
+
+            htmlText += "<td>";
+
+            htmlText += data.Products[i].SubCategory_Name == null ? "" : data.Products[i].SubCategory_Name;
+
+            htmlText += "</td>";
 
             htmlText += "<td>";
 
@@ -58,13 +101,23 @@ function Bind_Products_Grid(data) {
 
             htmlText += "</td>";
 
+
+            htmlText += "<td>";
+
+            if (data.Products[i].Is_Biddable.toString() == 'true')
+                htmlText += 'Biddable';
+            else
+                htmlText += 'Non-Biddable';
+
+            htmlText += "</td>";
+
             htmlText += "</tr>";
         }
     }
     else {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='3'> No Record found.";
+        htmlText += "<td colspan='7'> No Record found.";
 
         htmlText += "</td>";
 
@@ -91,8 +144,10 @@ function Bind_Products_Grid(data) {
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event) {
-        if ($(this).prop('checked')) {
+    $('[name="r1"]').on('ifChanged', function ()
+    {
+        if ($(this).prop('checked'))
+        {             
             $("#hdnProduct_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnUpload").show();
@@ -106,9 +161,74 @@ function Bind_Products_Grid(data) {
 function PageMore(Id) {
 
     $("#btnEdit").hide();
+    $("#btnUpload").hide();
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
     Search_Products();
 
 }
 
+//function Bind_Products_Image_Grid(data)
+//{
+//    alert(data);
+//    var htmlText = "";
+
+//    if (data.ImagesList.length > 0) {
+//        for (i = 0; i < data.ImagesList.length; i++)
+//        {
+//            htmlText += "<tr>";
+
+//            htmlText += "<td>";
+
+//            htmlText += "<img  id='" + data.ImagesList[i].Product_Image_Id + "' src='/UploadedFiles/" + data.ImagesList[i].Image_Code + "' width='100' height='100' />";
+
+//            htmlText += "</td>";
+
+//            htmlText += "</tr>";
+//        }
+//    }
+//    else {
+//        htmlText += "<tr>";
+
+//        htmlText += "<td colspan='1'> No Record found.";
+
+//        htmlText += "</td>";
+
+//        htmlText += "</tr>";
+//    }
+
+//    $('#tblProductImage').find("tr:gt(0)").remove();
+//    $('#tblProductImage tr:first').after(htmlText);
+
+//    $('.iradio-list').iCheck({
+//        radioClass: 'iradio_square-green',
+//        increaseArea: '20%' // optional
+//    });
+
+//    if (data.Products.length > 0) {
+//        $('#hdfCurrentPage').val(data.Pager.CurrentPage);
+//        if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "") {
+//            $('.pagination').html(data.Pager.PageHtmlString);
+//        }
+//    }
+//    else {
+//        $('.pagination').html("");
+//    }
+
+//    $("#divSearchGridOverlay").hide();
+
+//    $('[name="r1"]').on('ifChanged', function (event) {
+//        if ($(this).prop('checked')) {
+//            $("#hdnProduct_Id").val(this.id.replace("r1_", ""));
+//            $("#btnEdit").show();
+//            $("#btnUpload").show();
+//            $("#btnDelete").show();
+
+//        }
+//    });
+
+//}
+function Remove_Image(data)
+{
+    $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: $('#hdProduct_Id').val() }, call_back);
+}

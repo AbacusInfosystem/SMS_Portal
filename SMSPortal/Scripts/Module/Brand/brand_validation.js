@@ -33,7 +33,7 @@ jQuery.validator.addMethod("validate_Brand_Exist", function (value, element) {
 
     if ($("#txtBrand_Name").val() != "" && $("#hdnBrandName").val() != $("#txtBrand_Name").val()) {
         $.ajax({
-            url: '/Brand/Check_Existing_Brand',
+            url: '/brand/Check_Existing_Brand/',
             data: { Brand_Name: $("#txtBrand_Name").val() },
             method: 'GET',
             async: false,

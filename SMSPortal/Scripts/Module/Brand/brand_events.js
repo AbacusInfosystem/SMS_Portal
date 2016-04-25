@@ -29,11 +29,15 @@
 
     $("#btnSave").click(function ()
     {
-        if ($("#frmBrandMaster").valid())
-        {
-            $("#frmBrandMaster").attr("action", "/brand/Insert_Update_Brand/");
-            $("#frmBrandMaster").attr("method", "POST");
-            $("#frmBrandMaster").submit();
+        if ($('#frmBrandMaster').valid()) {
+            if ($("#hdf_BrandId").val() == 0) {
+                $("#frmBrandMaster").attr("action", "/brand/insert-brands/");
+            }
+            else {
+                $("#frmBrandMaster").attr("action", "/brand/update-brands/");
+            }
+            $('#frmBrandMaster').attr("method", "POST");
+            $('#frmBrandMaster').submit();
         }
 
     });

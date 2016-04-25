@@ -6,7 +6,7 @@
     	var div = document.createElement('div');
 
     	var len = $("#dvImageAttachments").find(".row").length;
-
+    	 
     	div.className = "row";
 
     	div.innerHTML = document.getElementById("dumpImageAttachment").innerHTML;
@@ -15,7 +15,10 @@
     		$(this).attr("name","productimage");
     	});
 
-    	$("#dvImageAttachments").append(div);
+    	if (len < 5)
+    	{
+    	    $("#dvImageAttachments").append(div);
+    	}
 
     	$("#dvImageAttachments").find("[name='productimage']").last().iCheck({
     	    checkboxClass: 'icheckbox_square-green',

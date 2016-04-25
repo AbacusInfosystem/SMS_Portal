@@ -7,6 +7,8 @@ using SMSPortalInfo.Common;
 using SMSPortalManager;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -35,7 +37,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                if (TempData["dViewModel"] != null)
+                if (TempData["pViewModel"] != null)
                 {
                     pViewModel = (ProductViewModel)TempData["pViewModel"];
                 }
@@ -45,7 +47,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("ProductController Search " + ex);
             }
-            return View("Search",pViewModel);
+            return View("Search", pViewModel);
         }
         public ActionResult AddEdit_Product(ProductViewModel pViewModel)
         {
@@ -109,7 +111,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pager = pViewModel.Pager;
                 if (pViewModel.Filter.Product_Name != null)
                 {
-                    pViewModel.Products = _productManager.Get_Products_By_Name  (pViewModel.Filter.Product_Name, ref pager);
+                    pViewModel.Products = _productManager.Get_Products_By_Name(pViewModel.Filter.Product_Name, ref pager);
                 }
                 else
                 {
@@ -152,7 +154,7 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Get_SubCategory_By_CategoryId(int Category_Id)
+        public JsonResult Get_SubCategory_By_Category_Id(int Category_Id)
         {
             ProductViewModel pViewModel = new ProductViewModel();
             try
@@ -161,15 +163,115 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("UserController - Get_Entity_By_Role" + ex.ToString());
+                Logger.Error("ProductController - Get_SubCategory_By_Category_Id" + ex.ToString());
             }
             return Json(pViewModel.SubCategories, JsonRequestBehavior.AllowGet);
         }
 
 
-        public PartialViewResult Upload_Product_Image()
+        public PartialViewResult Upload_Product_Image(int Product_Id)
         {
-            return PartialView("_Product_Images");
+            ProductViewModel p1ViewModel = new ProductViewModel();
+            try
+            {
+                p1ViewModel.ImagesList = _productManager.Get_Product_Images(Product_Id);
+                p1ViewModel.Product.Product_Id = Product_Id;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("ProductController - Upload_Product_Image" + ex.ToString());
+            }
+
+            return PartialView("_Product_Images", p1ViewModel);
+
+        }
+
+        public ActionResult Product_Image_Upload(ProductViewModel pViewModel)
+        {
+            // Code to Upload Excel File 
+            HttpPostedFileBase fileBase = null;
+            var actualFileName = "";
+            var fileName = "";
+            var path = "";
+            //bool is_Error = false;    
+
+            if (Request.Files.Count > 0)
+            {
+                fileBase = Request.Files[0];
+            }
+
+            string Product_Id = Request.Form.Get("Product_Id");
+            bool Is_Default =Convert.ToBoolean(Request.Form.Get("Is_Default"));
+
+            pViewModel.ProductImage.File = fileBase;
+
+            try
+            {
+                if (pViewModel.ProductImage.File.ContentLength > 0)
+                {
+
+                    fileName = Path.GetFileName(fileBase.FileName);
+                    actualFileName = "P" + Product_Id + "_" + fileName;
+                    path = Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), actualFileName);
+                    // Logger.Debug("*************************** " + path.ToString());
+
+                    pViewModel.ProductImage.File.SaveAs(path);
+
+                    pViewModel.ProductImage.Product_Id = Convert.ToInt32(Product_Id);
+                    pViewModel.ProductImage.Image_Code = actualFileName;
+                    pViewModel.ProductImage.Is_Default = Is_Default;
+                    pViewModel.ProductImage.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                    pViewModel.ProductImage.Created_On = DateTime.Now;
+                    pViewModel.ProductImage.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                    pViewModel.ProductImage.Updated_On = DateTime.Now;
+
+                    _productManager.Insert_Product_Image(pViewModel.ProductImage);
+                    //if (pViewModel.Brand.Brand_Logo != null)
+                    //{
+                    //    System.IO.File.Delete(Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), pViewModel.Brand.Brand_Logo));
+                    //    pViewModel.Friendly_Message.Add(MessageStore.Get("BO005"));
+                    //}
+                    //else
+                    //{
+                    //    pViewModel.Friendly_Message.Add(MessageStore.Get("BO004"));
+                    //}
+
+                    pViewModel.ImagesList = _productManager.Get_Product_Images(Convert.ToInt32(Product_Id));
+                    pViewModel.Product.Product_Id = Convert.ToInt32(Product_Id);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Error uploading Product Images  " + ex.Message);
+            }
+            TempData["pViewModel"] = pViewModel;
+            return PartialView("_Product_Images", pViewModel);
+        }
+
+        public ActionResult Delete_Product_Image(int Product_Image_Id, int Product_Id, string Product_Image_Name)
+        {
+            string path = "";
+            ProductViewModel pViewModel = new ProductViewModel();
+            try 
+            {
+                _productManager.Delete_Product_Image(Product_Image_Id);
+
+                path = Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), Product_Image_Name);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                pViewModel.ImagesList = _productManager.Get_Product_Images(Product_Id);
+                pViewModel.Product.Product_Id = Product_Id;
+            }
+            catch (Exception ex) 
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Error Deleting Product Image  " + ex.Message);
+            }
+            return PartialView("_Product_Images", pViewModel);
         }
         public PartialViewResult Get_Products1()
         {

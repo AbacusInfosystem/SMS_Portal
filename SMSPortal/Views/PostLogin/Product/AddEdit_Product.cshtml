@@ -13,11 +13,8 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-
             <li class="active">Admin</li>
-
             <li class="active">Product</li>
-
         </ol>
     </section>
 
@@ -33,7 +30,8 @@
                         </div>
 
                         <div class="box-body">
-
+                            <input type="hidden" id="hdnCategory_Id" value="@Model.Product.Category_Id" />
+                            <input type="hidden" id="hdnSubCategory_Id" value="@Model.Product.SubCategory_Id" />
                             <input type="hidden" class="form-control input-sm" name="Product.Product_Id" id="hdf_ProductId" value="@Model.Product.Product_Id">
                             <div class="row">
                                 <div class="col-md-4">
@@ -69,10 +67,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label style="color: #333">SubCategory</label>
-                                        <select id="drpProduct_SubCategory" class="form-control" name="Product.SubCategory_Id">
-                                            <option value="">-Select SubCategory-</option>
-                                            
-                                        </select>
+                                        <select id="drpProduct_SubCategory" class="form-control" name="Product.SubCategory_Id"></select>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +81,7 @@
                                             {
                                                 if (Model.Product.Brand_Id == item.Brand_Id)
                                                 {
-                                                    <option value="@item.Brand_Id" selected="selected">@item.Brand_Id</option>
+                                                    <option value="@item.Brand_Id" selected="selected">@item.Brand_Name</option>
                                                 }
                                                 else
                                                 {
@@ -109,9 +104,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label style="color: #333">Product Description</label>
-                                        <input type="text" class="form-control input-sm" name="Product.Product_Description" id="txtarea_productdescription" placeholder="Enter product description" value="@Model.Product.Product_Description">
-                                        @*<textarea class="form-control" id="txtarea_productdescription"   ></textarea>*@
+                                        <label style="color: #333">Product Description</label>                                         
+                                        <textarea class="form-control" id="txtarea_productdescription" name="Product.Product_Description">@Model.Product.Product_Description</textarea>
                                     </div>
                                 </div>
                             </div>
