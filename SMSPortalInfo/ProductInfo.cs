@@ -43,6 +43,12 @@ namespace SMSPortalInfo
         public int Updated_By { get; set; }
 
         public List<ProductImageInfo> ProductImages { get; set; }
+
+        public string Product_Image { get; set; }
+
+        public bool Check { get; set; }
+
+        public string Product_Ids { get; set; }
         
     }
 
@@ -66,11 +72,5 @@ namespace SMSPortalInfo
 
         public HttpPostedFileBase File { get; set; }
 
-
-        public string Product_Image { get; set; }
-
-        public bool Check { get; set; }
-
-        public string Product_Ids { get; set; }
     }
 }
