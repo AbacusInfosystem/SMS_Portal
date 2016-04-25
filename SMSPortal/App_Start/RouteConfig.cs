@@ -208,7 +208,7 @@ namespace SMSPortal
             routes.MapRoute(
             name: "Autocomplete-1",
             url: "autocomplete/autocomplete-get-lookup-data",
-            defaults: new { controller = "AutocompleteLookup", action = "Load_Vendor_Modal_Data", id = UrlParameter.Optional },
+            defaults: new { controller = "AutocompleteLookup", action = "Load_Modal_Data", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion

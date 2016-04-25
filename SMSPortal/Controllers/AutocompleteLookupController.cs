@@ -28,19 +28,22 @@ namespace SMSPortal.Controllers
             return View();
         }
 
-        public PartialViewResult Load_Vendor_Modal_Data(string table_Name, string columns, string headerNames, string page)
+        public PartialViewResult Load_Modal_Data(string table_Name, string columns, string headerNames, string page, string editValue)
         {
             LookupViewModel LookupVM = new LookupViewModel();
 
             PaginationInfo pager = new PaginationInfo();
 
             string[] cols;
+
             string[] headerNamesArr;
+
             cols = columns.Split(',');
 
             if (headerNames != null)
             {
                 headerNamesArr = headerNames.Split(',');
+
                 LookupVM.HeaderNames = headerNamesArr;
             }
 
@@ -48,6 +51,8 @@ namespace SMSPortal.Controllers
             {
 
                 LookupVM.PartialDt = _autocompleteLookupManager.Get_Lookup_Data(table_Name, cols, ref pager);
+
+                LookupVM.EditLookupValue = editValue;
 
             }
             catch (Exception ex)
@@ -58,21 +63,28 @@ namespace SMSPortal.Controllers
             return PartialView("_Partial", LookupVM);
         }
 
-        public JsonResult Get_Lookup_Data_By_Id(string fieldValue, string table_Name, string columns)
+        public JsonResult Get_Lookup_Data_By_Id(string field_Value, string table_Name, string columns, string headerNames)
         {
             LookupViewModel LookupVM = new LookupViewModel();
-            string[] fValues = { };
 
-            if (fieldValue != null)
+            string[] cols;
+
+            string[] headerNamesArr;
+
+            cols = columns.Split(',');
+
+            if (headerNames != null)
             {
-                fValues = fieldValue.Split(',');
-            }
+                headerNamesArr = headerNames.Split(',');
+
+                LookupVM.HeaderNames = headerNamesArr;
+            }         
 
             try
             {
-                if (fValues.Length != 0 )
+                if (field_Value!=null)
                 {
-                    LookupVM.Value = _autocompleteLookupManager.Get_Lookup_Data_By_SubcategoryId(fieldValue);
+                    LookupVM.Value = _autocompleteLookupManager.Get_Lookup_Data_By_SubcategoryId(field_Value, table_Name, cols);
                 }
             }
             catch (Exception ex)

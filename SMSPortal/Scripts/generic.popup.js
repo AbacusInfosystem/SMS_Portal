@@ -21,7 +21,7 @@
         Get_Autocomplete_Lookup(true,$(this), false);
     });
 
-    $(document).on("focusout", ".autocomplete-text", function (event) {
+    $(document).on("focusout", ".lookup-text", function (event) {
 
         Get_Autocomplete_Lookup(false, $(this), false);
     });
@@ -65,6 +65,8 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
     var model = "div_Parent_Modal_Fade";
 
+    var editValue = $("#hdnEditLookupValue").val();
+
     if (modalExist == false) {
 
         page = 0;
@@ -78,7 +80,7 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
         alert(1);
 
-        $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page },
+        $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page, editValue: editValue },
             function () {
 
                 $("#" + model).find(".modal-title").text($("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " List");
@@ -89,17 +91,21 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
     }
     else
     {
-        alert(2);
+        alert(2222);
 
-        var enteredValue = $("#" + $("#hdnLookupLabelId").val()).val();
+        var fieldValue = $("#" + $("#hdnLookupLabelId").val()).val();
+
+        alert(fieldValue);
 
         if ($("#" + $("#hdnLookupLabelId").val()).val() != "") {
 
+            alert(fieldValue);
+
             $.ajax({
 
-                url: '/lookup/Lookup-get-lookup-data_by_id',
+                url: '/autocompleteLookup/Get_Lookup_Data_By_Id',
 
-                data: { fieldValue: enteredValue,table_Name: tableName, columns: columns },
+                data: { field_Value: fieldValue, table_Name: tableName, columns: column },
 
                 method: 'GET',
 
@@ -107,7 +113,13 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
                 success: function (data) {
 
+                    alert(4);
+
                     if (data != null) {
+
+                        alert(5);
+
+                        alert(data);
 
                         Bind_Selected_Item(data);
                     }
@@ -127,15 +139,17 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
 function Bind_Selected_Item(data) {
 
+    alert(data);
+
     var htmltext = "";
 
     $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
 
-    if (data.Value != null) {
+    if (data != null) {
 
         $("#" + $("#hdnLookupHiddenId").val()).val($("#" + $("#hdnLookupLabelId").val()).val());
 
-        htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + data.Value + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + data + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
     }
     else {
 
@@ -143,6 +157,10 @@ function Bind_Selected_Item(data) {
 
         htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " does not exist</span><div class='tools'><i class='fa fa-remove'></i>";
     }
+
+    $("#" + $("#hdnLookupLabelId").val()).val("");
+
+    $("#hdnEditLookupValue").val(data);
 
     $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').append(htmltext);
 

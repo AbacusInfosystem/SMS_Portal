@@ -116,7 +116,7 @@ namespace SMSPortal.Controllers.PreLogin
                     
                     cookies.Values.Add("Token", cookie_Token);
 
-                    cookies.Expires = DateTime.Now.AddMinutes(20);
+                    cookies.Expires = DateTime.Now.AddDays(2);
 
                     Response.Cookies.Add(cookies);
                 }
