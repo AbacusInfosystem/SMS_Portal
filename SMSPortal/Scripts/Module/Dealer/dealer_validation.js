@@ -111,7 +111,7 @@ jQuery.validator.addMethod("validate_Dealer_Exist", function (value, element) {
 
     if ($("#txtDealer_Name").val() != "" && $("#hdnDealerName").val() != $("#txtDealer_Name").val()) {
         $.ajax({
-            url: '/Dealer/Check_Existing_Dealer',
+            url: '/dealer/Check_Existing_Dealer/',
             data: { Dealer_Name: $("#txtDealer_Name").val() },
             method: 'GET',
             async: false,

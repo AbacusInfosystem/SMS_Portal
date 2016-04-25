@@ -5,7 +5,7 @@ $(document).ready(function ()
 
     $("#btnEdit").click(function ()
     {
-        $("#frmCategory").attr("action", "/Category/Get_Category_By_Id");
+        $("#frmCategory").attr("action", "/category/edit-category/");
         $("#frmCategory").attr("method", "post");
         $("#frmCategory").submit();        
     });

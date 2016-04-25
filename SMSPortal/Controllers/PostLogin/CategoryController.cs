@@ -15,10 +15,15 @@ namespace SMSPortal.Controllers.PostLogin
     public class CategoryController : Controller
     {
         public CategoryManager _categoryManager;
+        public CookiesInfo cookies;
 
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
         public CategoryController()
         {
             _categoryManager = new CategoryManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+            cookies = _cookiesManager.Get_Token_Data(token); 
         }
 
         // GET: /Category/
@@ -83,14 +88,13 @@ namespace SMSPortal.Controllers.PostLogin
             }           
             return View("Index",categoryViewModel);
         }
-
         public ActionResult Insert_Category(CategoryViewModel categoryViewModel)
         {
             try
             {
-                categoryViewModel.Category.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                categoryViewModel.Category.Created_By = cookies.User_Id;
                 categoryViewModel.Category.Created_On = DateTime.Now;
-                categoryViewModel.Category.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                categoryViewModel.Category.Updated_By = cookies.User_Id;
                 categoryViewModel.Category.Updated_On = DateTime.Now;
                 categoryViewModel.Category.Category_Id = _categoryManager.Insert_Category(categoryViewModel.Category);
                 categoryViewModel.Friendly_Message.Add(MessageStore.Get("CO001"));
@@ -103,12 +107,11 @@ namespace SMSPortal.Controllers.PostLogin
             TempData["categoryViewMessage"] = categoryViewModel;
             return RedirectToAction("Search");
         }
-
         public ActionResult Update_Category(CategoryViewModel categoryViewModel)
         {
             try
             {
-                categoryViewModel.Category.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                categoryViewModel.Category.Updated_By = cookies.User_Id;
                 categoryViewModel.Category.Updated_On = DateTime.Now;
                 _categoryManager.Update_Category(categoryViewModel.Category);
                 categoryViewModel.Friendly_Message.Add(MessageStore.Get("CO002"));
@@ -122,7 +125,6 @@ namespace SMSPortal.Controllers.PostLogin
             TempData["categoryViewMessage"] = categoryViewModel;
             return RedirectToAction("Search");
         }
-
         public JsonResult Check_Existing_Category(string Category_Name)
         {
             bool check = false;

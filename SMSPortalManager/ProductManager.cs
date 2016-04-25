@@ -60,5 +60,10 @@ namespace SMSPortalManager
         {
             _productRepo.Delete_Product_Image(Product_Image_Id);
         }
+
+        public List<AutocompleteInfo> Get_Product_Autocomplete(string ProductName)
+        {
+            return _productRepo.Get_Product_Autocomplete(ProductName);
+        }
     }
 }

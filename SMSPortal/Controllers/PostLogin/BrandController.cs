@@ -19,10 +19,15 @@ namespace SMSPortal.Controllers.PostLogin
         //
         // GET: /Brand/
         public BrandManager _brandManager;
+        public CookiesInfo cookies;
 
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
         public BrandController()
         {
             _brandManager = new BrandManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+            cookies = _cookiesManager.Get_Token_Data(token); 
         }
         public ActionResult Search(BrandViewModel bViewModel)
         {
@@ -93,9 +98,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                bViewModel.Brand.Created_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Created_By = cookies.User_Id;
                 bViewModel.Brand.Created_On = DateTime.Now;
-                bViewModel.Brand.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Updated_By = cookies.User_Id;
                 bViewModel.Brand.Updated_On = DateTime.Now;
                 _brandManager.Insert_Brand(bViewModel.Brand);
                 bViewModel.Friendly_Message.Add(MessageStore.Get("BO001"));
@@ -114,7 +119,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                bViewModel.Brand.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
+                bViewModel.Brand.Updated_By = cookies.User_Id;
                 bViewModel.Brand.Updated_On = DateTime.Now;
                 _brandManager.Update_Brand(bViewModel.Brand);
                 bViewModel.Friendly_Message.Add(MessageStore.Get("BO002"));
@@ -142,7 +147,6 @@ namespace SMSPortal.Controllers.PostLogin
 
             return View("AddEdit_Brand", bViewModel);
         }
-
         public JsonResult Check_Existing_Brand(string Brand_Name)
         {
             bool check = false;
@@ -156,8 +160,6 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(check, JsonRequestBehavior.AllowGet);
         }
-
-
         public ActionResult Brand_Logo_Upload(BrandViewModel bViewModel)
         {
             // Code to Upload Excel File 
@@ -197,6 +199,13 @@ namespace SMSPortal.Controllers.PostLogin
             }
             TempData["bViewModel"] = bViewModel;
             return RedirectToAction("Search");
+        }
+
+        public JsonResult Get_Brand_Autocomplete(string brandName)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            autoList = _brandManager.Get_Brand_Autocomplete(brandName);
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
     }
 }

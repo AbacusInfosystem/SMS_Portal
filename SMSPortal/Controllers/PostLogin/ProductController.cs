@@ -24,6 +24,8 @@ namespace SMSPortal.Controllers.PostLogin
         public CategoryManager _categoryManager;
         public DealerManager _dealerManager;
         public SubCategoryManager _subCategoryManager;
+        public CookiesInfo cookies;
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
         public ProductController()
         {
             _productManager = new ProductManager();
@@ -31,6 +33,9 @@ namespace SMSPortal.Controllers.PostLogin
             _categoryManager = new CategoryManager();
             _dealerManager = new DealerManager();
             _subCategoryManager = new SubCategoryManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+            cookies = _cookiesManager.Get_Token_Data(token); 
 
         }
         public ActionResult Search(ProductViewModel pViewModel)
@@ -69,9 +74,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Product.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Product.Created_By = cookies.User_Id;
                 pViewModel.Product.Created_On = DateTime.Now;
-                pViewModel.Product.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Product.Updated_By = cookies.User_Id;
                 pViewModel.Product.Updated_On = DateTime.Now;
                 _productManager.Insert_Product(pViewModel.Product);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO001"));
@@ -89,7 +94,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Product.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Product.Updated_By = cookies.User_Id;
                 pViewModel.Product.Updated_On = DateTime.Now;
                 _productManager.Update_Product(pViewModel.Product);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO002"));
@@ -220,9 +225,9 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.ProductImage.Product_Id = Convert.ToInt32(Product_Id);
                     pViewModel.ProductImage.Image_Code = actualFileName;
                     pViewModel.ProductImage.Is_Default = Is_Default;
-                    pViewModel.ProductImage.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                    pViewModel.ProductImage.Created_By = cookies.User_Id;
                     pViewModel.ProductImage.Created_On = DateTime.Now;
-                    pViewModel.ProductImage.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                    pViewModel.ProductImage.Updated_By = cookies.User_Id;
                     pViewModel.ProductImage.Updated_On = DateTime.Now;
 
                     _productManager.Insert_Product_Image(pViewModel.ProductImage);
@@ -278,7 +283,12 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_Partial");
         }
 
-
+        public JsonResult Get_Product_Autocomplete(string ProductName)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            autoList = _productManager.Get_Product_Autocomplete(ProductName);
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
 
 
     }

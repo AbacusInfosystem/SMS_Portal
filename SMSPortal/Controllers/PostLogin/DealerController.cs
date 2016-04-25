@@ -18,10 +18,15 @@ namespace SMSPortal.Controllers.PostLogin
 
         public DealerManager _dealerManager;
         public StateManager _stateManager;
+        public CookiesInfo cookies;
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
         public DealerController()
         {
             _dealerManager = new DealerManager();
             _stateManager = new StateManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+            cookies = _cookiesManager.Get_Token_Data(token); 
         }   
         public ActionResult Search(DealerViewModel dViewModel) 
         {
@@ -61,9 +66,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                dViewModel.Dealer.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                dViewModel.Dealer.Created_By = cookies.User_Id; 
                 dViewModel.Dealer.Created_On = DateTime.Now;
-                dViewModel.Dealer.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                dViewModel.Dealer.Updated_By = cookies.User_Id; 
                 dViewModel.Dealer.Updated_On = DateTime.Now;
                 _dealerManager.Insert_Dealer(dViewModel.Dealer);
                 dViewModel.Friendly_Message.Add(MessageStore.Get("DO001"));
@@ -81,7 +86,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                dViewModel.Dealer.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                dViewModel.Dealer.Updated_By = cookies.User_Id; 
                 dViewModel.Dealer.Updated_On = DateTime.Now;
                 _dealerManager.Update_Dealer(dViewModel.Dealer);
                 dViewModel.Friendly_Message.Add(MessageStore.Get("DO002"));
@@ -148,5 +153,9 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
+        public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName)
+        {
+            return _dealerManager.Get_Dealer_Autocomplete(DealerName);
+        }
     }
 }

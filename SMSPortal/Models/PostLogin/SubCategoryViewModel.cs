@@ -22,7 +22,7 @@ namespace SMSPortal.Models.PostLogin
 
         public SubCategory_Filter Filter { get; set; }
 
-        public List<SubCategoryInfo> Masters { get; set; }
+        public CookiesInfo Cookies { get; set; }
 
         public SubCategoryViewModel()
         {
@@ -38,14 +38,14 @@ namespace SMSPortal.Models.PostLogin
 
             Filter = new SubCategory_Filter();
 
-            Masters = new List<SubCategoryInfo>();
+            Cookies = new CookiesInfo();
         }
     }
 
     public class SubCategory_Filter
     {
-        public int Module_Id { get; set; }
+        public int SubCategory_Id { get; set; }
 
-        public string Module_Name { get; set; }
+        public string SubCategory_Name { get; set; }
     }
 }

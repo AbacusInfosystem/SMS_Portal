@@ -37,6 +37,7 @@ namespace SMSPortalInfo.Common
         Get_Subcateory_Autocomplete_Sp,
         Check_Existing_Sub_Category,
          Get_Sub_Category_By_Category_Sp,
+        Get_Lookup_Sub_Category_By_Id_Sp,
 
         //Brands
         Delete_Brand_By_Id_Sp,
@@ -47,6 +48,7 @@ namespace SMSPortalInfo.Common
         Insert_Brand_Sp,
         Check_Existing_Brand,
         Update_Brand_Image,
+        Get_Brand_Autocomplete_Sp,
 
         //Roles
         Get_Roles_Sp,
@@ -59,6 +61,7 @@ namespace SMSPortalInfo.Common
         Update_Dealer_Sp,
         Insert_Dealer_Sp,
         Check_Existing_Dealer,
+        Get_Dealer_Autocomplete_Sp,
 
         //State
         Get_State_Sp,

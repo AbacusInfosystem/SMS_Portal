@@ -21,7 +21,7 @@ $(document).ready(function () {
 
         var hiddenTextValue = $("#hdnValue").val();
         var id = $("#hdnId").val();
-        var Textboxname = "#txtSubcategory";
+        var Textboxname = "#" + $("#hdnLookupLabelId").val();
         $("#hdnSubcategoryName").val(hiddenTextValue);
         $("#hdnSubcategoryId").val(id);
 
