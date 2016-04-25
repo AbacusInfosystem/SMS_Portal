@@ -10,6 +10,9 @@ var InitializeAutoComplete = function (elementObject) {
             if ($(elementObject).attr("id") == 'txtSubcategory') {
                 urlString = "/subcategory/subcategory-autocomplete/" + $('#txtSubcategory').val();
             }
+            if ($(elementObject).attr("id") == 'txtVendorName') {
+                urlString = "/vendor/vendor-autocomplete/" + $('#txtVendorName').val();
+            }
             
             $.ajax({
 

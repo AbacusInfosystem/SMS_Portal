@@ -182,13 +182,13 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                
-                pager.CurrentPage = CurrentPage;
+                //pager.CurrentPage = CurrentPage;
 
-                vViewModel.Products = _vendorManager.Get_Productmapping(Brand_Id , ref pager);
+                vViewModel.Products = _vendorManager.Get_Productmapping(Brand_Id);
                 vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(Vendor_Id);  
               
-                vViewModel.Pager = pager;
-                vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
+               // vViewModel.Pager = pager;
+               // vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
               
             }
             catch (Exception ex)
@@ -307,6 +307,13 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return View("Search", vViewModel);
+        }
+
+        public JsonResult Get_Vendor_Autocomplete(string vendor)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            autoList = _vendorManager.Get_Vendor_Autocomplete(vendor);
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
     }
 }
