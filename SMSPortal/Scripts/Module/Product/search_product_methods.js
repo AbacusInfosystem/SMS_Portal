@@ -1,8 +1,7 @@
 ﻿function call_back(data)
 {    
     $('#div_Parent_Modal_Fade').modal('show');
-    $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Product Image");
-    
+    $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Product Image");    
 }
 
 function Search_Products()
@@ -11,7 +10,7 @@ function Search_Products()
         {
             Filter:
                 {
-                    Product_Name: $('#txtProduct_Name').val(),
+                    Product_Id: $('#hdnProductId').val(),
                 },
             Pager:
                 {
@@ -136,7 +135,6 @@ function PageMore(Id) {
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
     Search_Products();
-
 }
 
 function Remove_Image(data)

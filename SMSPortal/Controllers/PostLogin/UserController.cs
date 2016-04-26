@@ -57,8 +57,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    uViewModel.Users = _userMan.Get_Users(ref pager); 
-
+                    uViewModel.Users = _userMan.Get_Users(ref pager);
                 }
                 uViewModel.Pager = pager;
                 uViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", uViewModel.Pager.TotalRecords, uViewModel.Pager.CurrentPage + 1, uViewModel.Pager.PageSize, 10, true);

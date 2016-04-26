@@ -48,15 +48,12 @@
 
 function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
-    // THIS IS THE TEXTBOX ELEMENT ON WHICH LOOKUP IS FIRED
     $("#hdnLookupLabelId").val(elementObj.parents(".auto-complete").find(".autocomplete-text").prop("id"));
 
-    // THIS IS THE HIDDEN CONTROL ON WHICH LOOKUP SELECTED VALUE IS TO BE STORED.
     $("#hdnLookupHiddenId").val(elementObj.parents(".auto-complete").find(".auto-complete-value").prop("id"));
 
     $("#hdnLookupHiddenValue").val(elementObj.parents(".auto-complete").find(".auto-complete-label").prop("id"));
 
-    // THIS IS THE SAP TABLE NAME WHICH IS USED IN FORMING A QUERY.
     var tableName = $("#" + $("#hdnLookupLabelId").val()).data("table");
 
     var column = $("#" + $("#hdnLookupLabelId").val()).data("col");
@@ -118,7 +115,6 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
             $("#" + $("#hdnLookupHiddenId").val()).val("");
 
-            // added by shakti. I think if no record is not found, then this ul should also get removed.
             $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
         }
     }

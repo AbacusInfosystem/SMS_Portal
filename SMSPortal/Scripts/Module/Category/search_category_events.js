@@ -1,6 +1,10 @@
 ﻿
 $(document).ready(function ()
 {
+    InitializeAutoComplete($('#txtCategory_Name'));
+
+    $('#hdfCurrentPage').val(0);
+
     Search_Categories();
 
     $("#btnEdit").click(function ()
@@ -15,13 +19,11 @@ $(document).ready(function ()
         Search_Categories();
     });
 
-});
-
-$(document).ready(function () {
-
     $('.iradio-list').iCheck({
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
-    });   
+    });
 
 });
+
+ 

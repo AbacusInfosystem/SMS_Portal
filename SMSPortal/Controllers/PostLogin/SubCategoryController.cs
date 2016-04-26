@@ -37,6 +37,8 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error At Sub_Category_Controller - Search" + ex.Message);
             }
 
@@ -51,6 +53,8 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error At Sub_Category_Controller - Index " + ex.Message);
             }
 
@@ -92,9 +96,16 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
+                if (sViewModel.Cookies.User_Id == 0)
+                {
+                    return RedirectToAction("Logout", "Login");
+                }
+                else
+                {
+                    _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
 
-                sViewModel.Friendly_Message.Add(MessageStore.Get("SBO001"));
+                    sViewModel.Friendly_Message.Add(MessageStore.Get("SBO001"));
+                }
             }
             catch (Exception ex)
             {
@@ -114,9 +125,16 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
+                if (sViewModel.Cookies.User_Id == 0)
+                {
+                    return RedirectToAction("Logout", "Login");
+                }
+                else
+                {
+                    _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
 
-                sViewModel.Friendly_Message.Add(MessageStore.Get("SBO002"));
+                    sViewModel.Friendly_Message.Add(MessageStore.Get("SBO002"));
+                }
             }
             catch (Exception ex)
             {
@@ -140,6 +158,8 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error At Sub_Category_Controller - Get_Subcategory_By_Id" + ex.Message);
             }
 
