@@ -52,6 +52,7 @@
     <Compile Include="DealerManager.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceivableManager.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="SubCategoryManager.cs" />
     <Compile Include="UserManager.cs" />

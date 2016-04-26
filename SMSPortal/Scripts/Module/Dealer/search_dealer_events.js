@@ -1,6 +1,10 @@
 ﻿
 $(document).ready(function ()
 {
+    InitializeAutoComplete($('#txtDealer_Name'));
+
+    $('#hdfCurrentPage').val(0);
+
     Search_Dealers();
 
     $("#btnEdit").click(function () {

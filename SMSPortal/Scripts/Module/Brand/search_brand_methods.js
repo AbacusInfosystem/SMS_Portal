@@ -19,7 +19,7 @@ function Search_Brands()
         {
             Filter:
                 {
-                    Brand_Name: $('#txtBrand_Name').val(),
+                    Brand_Id: $('#hdnBrandId').val(),
                 },
             Pager:
                 {
@@ -128,23 +128,6 @@ function PageMore(Id) {
 
 }
 
-function GetBrandList() {
-
-    CallAjax("/brand/Get_Brand_Autocomplete ", "json", null, "POST", "application/json", false, GetBrands, "", null);
-}
-
-function GetBrands(data) {
-
-    $("#drpList").html("");
-    var htmltext = "";
-    htmltext += "<option value=''>-Select Sub Category-</option>";
-    if (data.length > 0) {
-        for (i = 0; i < data.length; i++) {
-            htmltext += "<option value='" + data[i].Value + "'>" + data[i].Label + "</option>";
-        }
-    }
-    $("#drpList").html(htmltext);
-
-}
+ 
  
 

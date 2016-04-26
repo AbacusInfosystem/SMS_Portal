@@ -31,7 +31,7 @@
                                     <div class="form-group">
                                         <label style="color: #333">Category Name</label>
                                         <input type="text" class="form-control input-sm" id="txtCategory_Name" name="Category.Category_Name" placeholder="Enter category name" value="@Model.Category.Category_Name">
-                                        <input type="hidden" id="hdnCategoryName"  value="@Model.Category.Category_Name">
+                                        <input type="hidden" id="hdnCategoryName" value="@Model.Category.Category_Name">
                                     </div>
                                 </div>
                             </div>
@@ -40,19 +40,19 @@
                                     @if (Model.Category.IsActive == false)
                                     {
                                         <label>
-                                            <input type="checkbox"  class="chkstatus" />
+                                            <input type="checkbox" class="chkstatus" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; Active
                                         </label>
                                     }
                                     else
                                     {
                                         <label>
-                                            <input type="checkbox"  checked="checked" class="chkstatus" />
+                                            <input type="checkbox" checked="checked" class="chkstatus" />
                                             &nbsp;&nbsp;&nbsp;&nbsp; Active
                                         </label>
                                     }
                                     <input type="hidden" id="hdnIs_Active" name="Category.IsActive" value="@Model.Category.IsActive.ToString()">
-                                    
+
                                 </div>
                             </div>
                             <div class="box-footer">

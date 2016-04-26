@@ -19,13 +19,15 @@ namespace SMSPortal.Models.PostLogin
             Pager.IsPagingRequired = true;
             Pager.PageSize = 5;
             Filter = new CategoryFilter();
+            Cookies = new CookiesInfo();
         }
 
         public CategoryInfo Category { get; set; }
         public List<CategoryInfo> Categories { get; set; }
         public PaginationInfo Pager { get; set; }
         public List<FriendlyMessage> Friendly_Message { get; set; }
-        public CategoryFilter Filter { get; set; }        
+        public CategoryFilter Filter { get; set; }
+        public CookiesInfo Cookies { get; set; }
     }
 
     public class CategoryFilter

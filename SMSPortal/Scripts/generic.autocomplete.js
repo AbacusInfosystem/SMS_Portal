@@ -15,9 +15,25 @@ var InitializeAutoComplete = function (elementObject) {
             }
             
             if ($(elementObject).attr("id") == 'txtBrand_Name') {
-                urlString = "/brand/Get_Brand_Autocomplete/" + $('#txtBrand_Name').val();
+                urlString = "/brand/brands-autocomplete/" + $('#txtBrand_Name').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtDealer_Name') {
+                urlString = "/dealer/dealer-autocomplete/" + $('#txtDealer_Name').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtProduct_Name') {
+                urlString = "/product/product-autocomplete/" + $('#txtProduct_Name').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtCategory_Name') {
+                urlString = "/category/category_autocomplete/" + $('#txtCategory_Name').val();
+            }
+
+
+            if ($(elementObject).attr("id") == 'txtInvoice_No') {
+                urlString = "/Receivable/autocomplete-Invoice-No/" + $('#txtInvoice_No').val();
+            }
 
             $.ajax({
 

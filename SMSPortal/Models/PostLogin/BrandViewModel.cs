@@ -20,6 +20,7 @@ namespace SMSPortal.Models.PostLogin
             Pager.PageSize = 5;
             Friendly_Message = new List<FriendlyMessage>();
             Filter = new BrandFilter();
+            Cookies = new CookiesInfo();
         }
 
         public BrandInfo Brand { get; set; }
@@ -28,6 +29,7 @@ namespace SMSPortal.Models.PostLogin
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public BrandFilter Filter { get; set; }
         public HttpPostedFileBase Upload_Logo { get; set; }
+        public CookiesInfo Cookies { get; set; }
     }
 
     public class BrandFilter

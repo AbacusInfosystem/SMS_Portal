@@ -39,25 +39,19 @@
                     contentType: false, // Not to set any content header  
                     processData: false, // Not to process data  
                     data: fileData,
-                    success: function (result) {
-                        
+                    success: function (result)
+                    {                        
                         $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: $('#hdProduct_Id').val() }, call_back());
-
-
                     },
                     error: function (err) {
-
                         alert(err.statusText);
                     }
                 });
             } else {
                 alert("FormData is not supported.");
             }
-
         }
-
     })
-
 
     $('.remove-image-attachment').click(function (event) {
 
@@ -83,9 +77,8 @@
 
     });
 
-});
-
-$(document).ready(function () {
+    InitializeAutoComplete($('#txtProduct_Name'));
+    $('#hdfCurrentPage').val(0);
     Search_Products();
 
     $("#btnEdit").click(function () {
@@ -97,5 +90,6 @@ $(document).ready(function () {
     $("#btnSearch").click(function () {
         Search_Products();
     });
-
 });
+
+ 

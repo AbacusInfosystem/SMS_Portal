@@ -17,16 +17,12 @@ namespace SMSPortal.Controllers.PostLogin
     {
 
         public DealerManager _dealerManager;
-        public StateManager _stateManager;
-        public CookiesInfo cookies;
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+        public StateManager _stateManager;        
         public DealerController()
         {
             _dealerManager = new DealerManager();
             _stateManager = new StateManager();
-
-            CookiesManager _cookiesManager = new CookiesManager();
-            cookies = _cookiesManager.Get_Token_Data(token); 
+             
         }   
         public ActionResult Search(DealerViewModel dViewModel) 
         {
@@ -66,9 +62,10 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                dViewModel.Dealer.Created_By = cookies.User_Id; 
+                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                dViewModel.Dealer.Created_By = dViewModel.Cookies.User_Id; 
                 dViewModel.Dealer.Created_On = DateTime.Now;
-                dViewModel.Dealer.Updated_By = cookies.User_Id; 
+                dViewModel.Dealer.Updated_By = dViewModel.Cookies.User_Id; 
                 dViewModel.Dealer.Updated_On = DateTime.Now;
                 _dealerManager.Insert_Dealer(dViewModel.Dealer);
                 dViewModel.Friendly_Message.Add(MessageStore.Get("DO001"));
@@ -86,7 +83,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                dViewModel.Dealer.Updated_By = cookies.User_Id; 
+                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                dViewModel.Dealer.Updated_By = dViewModel.Cookies.User_Id; 
                 dViewModel.Dealer.Updated_On = DateTime.Now;
                 _dealerManager.Update_Dealer(dViewModel.Dealer);
                 dViewModel.Friendly_Message.Add(MessageStore.Get("DO002"));
@@ -107,9 +105,9 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pager = dViewModel.Pager;
-                if (dViewModel.Filter.Dealer_Name != null)
+                if (dViewModel.Filter.Dealer_Id != 0)
                 {
-                    dViewModel.Dealers = _dealerManager.Get_Dealer_By_Name(dViewModel.Filter.Dealer_Name, ref pager);
+                    dViewModel.Dealers = _dealerManager.Get_Dealer_By_Id(dViewModel.Filter.Dealer_Id, ref pager);
                 }
                 else
                 {
@@ -125,6 +123,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(dViewModel);
         }
+
         public ActionResult Get_Dealer_By_Id(DealerViewModel dViewModel)
         {
             try
@@ -139,6 +138,7 @@ namespace SMSPortal.Controllers.PostLogin
 
             return AddEdit_Dealer(dViewModel);
         }
+
         public JsonResult Check_Existing_Dealer(string Dealer_Name)
         {
             bool check = false;
@@ -153,9 +153,18 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
-        public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName)
+        public JsonResult Get_Dealer_Autocomplete(string Dealer)
         {
-            return _dealerManager.Get_Dealer_Autocomplete(DealerName);
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            try
+            {
+                autoList = _dealerManager.Get_Dealer_Autocomplete(Dealer);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Dealer_Controller - Get_Dealer_Autocomplete " + ex.ToString());
+            }
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
     }
 }

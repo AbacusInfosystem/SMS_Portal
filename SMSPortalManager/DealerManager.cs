@@ -38,9 +38,9 @@ namespace SMSPortalManager
             return _dealerRepo.Get_Dealer_By_Id(Dealer_Id);
         }
 
-        public List<DealerInfo> Get_Dealer_By_Name(string Dealer_Name,ref PaginationInfo Pager)
+        public List<DealerInfo> Get_Dealer_By_Id(int Dealer_Id, ref PaginationInfo Pager)
         {
-            return _dealerRepo.Get_Dealer_By_Name(Dealer_Name, ref Pager);
+            return _dealerRepo.Get_Dealer_By_Id(Dealer_Id, ref Pager);
         }
 
         public bool Check_Existing_Dealer(string Dealer_Name)

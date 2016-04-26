@@ -71,6 +71,7 @@ namespace SMSPortalRepo
             }
             return dealers;
         }
+
         public DealerInfo Get_Dealer_By_Id(int Dealer_Id)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
@@ -85,13 +86,13 @@ namespace SMSPortalRepo
             return dealer;
         }
 
-        public List<DealerInfo> Get_Dealer_By_Name(string Dealer_Name, ref PaginationInfo Pager)
+        public List<DealerInfo> Get_Dealer_By_Id(int Dealer_Id, ref PaginationInfo Pager)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Dealer_Name", Dealer_Name));
+            sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
 
             List<DealerInfo> dealer = new List<DealerInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Dealer_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Dealer_By_Id_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
                 dealer.Add(Get_Dealer_Values(dr));
