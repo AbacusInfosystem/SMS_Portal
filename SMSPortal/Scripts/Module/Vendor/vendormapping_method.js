@@ -40,15 +40,16 @@ function Bind_Vendor_Product_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += "<img width='100' height='100' id='ProductImg1' src='~/UploadedFiles/'" + data.Products[i].Image_Code + "'/></br>";
+            htmlText += "<img width='100' height='100' id='ProductImg1' src='/UploadedFiles/" + data.Products[i].Product_Image + "'/></br>";
 
-            htmlText += "<label " + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + " </br>";
-
+            htmlText += "< label  " + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + " </br>";
+        
+            
             var id = data.Products[i].Product_Id;
 
             if (product_Ids.indexOf(id) >= 0)
             {
-                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked style='align:center' id='CheckId'  value=''  /><br>";
+                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked style='margin-left: 30px' id='CheckId'  value=''  /><br>";
             }
             else
             {

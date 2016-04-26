@@ -10,7 +10,15 @@ var InitializeAutoComplete = function (elementObject) {
             if ($(elementObject).attr("id") == 'txtSubcategory') {
                 urlString = "/subcategory/subcategory-autocomplete/" + $('#txtSubcategory').val();
             }
+            if ($(elementObject).attr("id") == 'txtVendorName') {
+                urlString = "/vendor/vendor-autocomplete/" + $('#txtVendorName').val();
+            }
             
+            if ($(elementObject).attr("id") == 'txtBrand_Name') {
+                urlString = "/brand/Get_Brand_Autocomplete/" + $('#txtBrand_Name').val();
+            }
+
+
             $.ajax({
 
                 url: urlString,

@@ -2,7 +2,7 @@
     Search_Users();
 
     $("#btnEdit").click(function () {
-        $("#frmUser").attr("action", "/User/Get_User_By_Id");
+        $("#frmUser").attr("action", "/User/edit-users");
         $("#frmUser").attr("method", "post");
         $("#frmUser").submit();
     });

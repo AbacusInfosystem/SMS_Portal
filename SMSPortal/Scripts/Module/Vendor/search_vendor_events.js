@@ -1,10 +1,12 @@
 ﻿$(function () {
 
+    InitializeAutoComplete($('#txtVendorName'));
+
     Search_Vendors();
 
     $("#btnEdit").click(function () {
 
-        $("#frmVendor").attr("action", "/Vendor/Get_Vendor_By_Id/");
+        $("#frmVendor").attr("action", "/Vendor/edit-vendor-details/");
 
         $("#frmVendor").attr("method", "post");
 
@@ -19,7 +21,7 @@
 
     $("#btnAddProductMapping").click(function () {
 
-        $("#frmVendor").attr("action", "/Vendor/Add_Product_Mapping/");
+        $("#frmVendor").attr("action", "/Vendor/get-product-list-omchange-brands/");
 
         $("#frmVendor").attr("method", "post");
 
