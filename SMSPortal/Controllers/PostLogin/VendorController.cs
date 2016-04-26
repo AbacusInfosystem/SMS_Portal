@@ -18,12 +18,20 @@ namespace SMSPortal.Controllers.PostLogin
     public class VendorController : Controller
     {
         public VendorManager _vendorManager;
+
         public StateManager _stateManager;
+
+        public CookiesInfo _cookies;
+
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
 
         public VendorController()
         {
             _vendorManager = new VendorManager();
             _stateManager = new StateManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+            _cookies = _cookiesManager.Get_Token_Data(token); 
         }
 
         public ActionResult Search(VendorViewModel vViewModel)
@@ -62,9 +70,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                vViewModel.Vendor.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                vViewModel.Vendor.Created_By = _cookies.User_Id;
                 vViewModel.Vendor.Created_On = DateTime.Now;
-                vViewModel.Vendor.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                vViewModel.Vendor.Updated_By = _cookies.User_Id;
                 vViewModel.Vendor.Updated_On = DateTime.Now;
                 _vendorManager.Insert_Vendor(vViewModel.Vendor);
                 vViewModel.Friendly_Message.Add(MessageStore.Get("DO001"));
@@ -82,7 +90,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                vViewModel.Vendor.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                vViewModel.Vendor.Updated_By = _cookies.User_Id;
                 vViewModel.Vendor.Updated_On = DateTime.Now;
                 _vendorManager.Update_Vendor(vViewModel.Vendor);
                 vViewModel.Friendly_Message.Add(MessageStore.Get("DO002"));

@@ -18,9 +18,16 @@ namespace SMSPortal.Controllers.PostLogin
     {
         public UserManager _userMan;
 
+        public CookiesInfo _cookies;
+
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+
         public UserController()
         {
             _userMan = new UserManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+            _cookies = _cookiesManager.Get_Token_Data(token);
         }
 
         public ActionResult Search(UserViewModel uViewModel)
@@ -95,9 +102,9 @@ namespace SMSPortal.Controllers.PostLogin
 
             try
             {
-                uViewModel.User.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                uViewModel.User.Created_By = _cookies.User_Id;
                 uViewModel.User.Created_On = DateTime.Now;
-                uViewModel.User.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                uViewModel.User.Updated_By = _cookies.User_Id;
                 uViewModel.User.Updated_On = DateTime.Now;
                 _userMan.Insert_Users(uViewModel.User);
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
@@ -117,7 +124,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                uViewModel.User.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                uViewModel.User.Updated_By = _cookies.User_Id;
                 uViewModel.User.Updated_On = DateTime.Now;
                 _userMan.Update_User(uViewModel.User);
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM002"));
