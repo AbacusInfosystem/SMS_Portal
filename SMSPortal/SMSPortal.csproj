@@ -1082,7 +1082,6 @@
     <Content Include="Views\PostLogin\Category\Search.cshtml" />
     <Content Include="Views\Shared\_ServerMessage.cshtml" />
     <Content Include="Views\Shared\_AutocompletePopup.cshtml" />
-    <Content Include="Views\PostLogin\SubCategory\_SubCategoruPopup.cshtml" />
     <Content Include="Views\Shared\_Partial.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\Index.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_AdminWidgets.cshtml" />

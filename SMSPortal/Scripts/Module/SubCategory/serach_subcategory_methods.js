@@ -136,19 +136,20 @@ function GetSubcategory(data) {
     $("#drpList").html(htmltext);
 
 }
-function IconSearch() {
 
-    $("#txtSubcategory").parents(".form-group").find(".fa-remove").trigger("click");
+//function IconSearch() {
 
-    $("#hdnSubcategoryName").val($("#drpList option:selected").text());
-    $("#hdnSubcategoryId").val($("#drpList").val());
+//    $("#txtSubcategory").parents(".form-group").find(".fa-remove").trigger("click");
 
-    hiddenTextValue = $("#hdnSubcategoryName").val();
-    Textboxname = "#txtSubcategory";
-    SetValueToAutocomplete(hiddenTextValue, Textboxname);
+//    $("#hdnSubcategoryName").val($("#drpList option:selected").text());
+//    $("#hdnSubcategoryId").val($("#drpList").val());
+
+//    hiddenTextValue = $("#hdnSubcategoryName").val();
+//    Textboxname = "#txtSubcategory";
+//    SetValueToAutocomplete(hiddenTextValue, Textboxname);
 
 
-}
+//}
 
 function call_back(data) {
 
