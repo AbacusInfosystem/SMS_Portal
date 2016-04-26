@@ -64,15 +64,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">Pincode</label>
-                                        <input type="text" class="form-control input-sm" name="Vendor.Pincode" id="txtPincode" placeholder="Enter pincode" value="@Model.Vendor.Pincode" maxlength="20">
+                                        <input type="text"  class="form-control input-sm" name="Vendor.Pincode" id="txtPincode" placeholder="Enter pincode" value="@Model.Vendor.Pincode" maxlength="6">
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">Contact No 1</label>
-                                        <input type="text" class="form-control input-sm" name="Vendor.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Vendor.Contact_No_1" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Vendor.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Vendor.Contact_No_1" maxlength="10">
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">Contact No 2</label>
-                                        <input type="text" class="form-control input-sm" name="Vendor.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Vendor.Contact_No_2" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Vendor.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Vendor.Contact_No_2" maxlength="10">
                                     </div>
                                     <div class="form-group">
                                         @if (Model.Vendor.Is_Active == false)
@@ -106,7 +106,6 @@
                                     </div>
                                     <table class="table table-striped" id="tblBankDetails">
                                         <tr id="subhead">
-
                                             <th>Bank Name</th>
                                             <th>Account No.</th>
                                             <th>IFSC Code</th>

@@ -29,9 +29,6 @@ namespace SMSPortal.Controllers.PostLogin
         {
             _vendorManager = new VendorManager();
             _stateManager = new StateManager();
-
-            CookiesManager _cookiesManager = new CookiesManager();
-            _cookies = _cookiesManager.Get_Token_Data(token); 
         }
 
         public ActionResult Search(VendorViewModel vViewModel)
@@ -70,12 +67,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                vViewModel.Vendor.Created_By = _cookies.User_Id;
-                vViewModel.Vendor.Created_On = DateTime.Now;
-                vViewModel.Vendor.Updated_By = _cookies.User_Id;
-                vViewModel.Vendor.Updated_On = DateTime.Now;
-                _vendorManager.Insert_Vendor(vViewModel.Vendor);
-                vViewModel.Friendly_Message.Add(MessageStore.Get("DO001"));
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                _vendorManager.Insert_Vendor(vViewModel.Vendor , vViewModel.Cookies.User_Id);
+                vViewModel.Friendly_Message.Add(MessageStore.Get("VO001"));
             }
             catch (Exception ex)
             {
@@ -90,10 +84,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                vViewModel.Vendor.Updated_By = _cookies.User_Id;
-                vViewModel.Vendor.Updated_On = DateTime.Now;
-                _vendorManager.Update_Vendor(vViewModel.Vendor);
-                vViewModel.Friendly_Message.Add(MessageStore.Get("DO002"));
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                _vendorManager.Update_Vendor(vViewModel.Vendor , vViewModel.Cookies.User_Id);
+                vViewModel.Friendly_Message.Add(MessageStore.Get("VO002"));
             }
             catch (Exception ex)
             {
@@ -112,9 +105,9 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 pager = vViewModel.Pager;
                 
-                if (vViewModel.Filter.Vendor_Name != null)
+                if (vViewModel.Filter.Vendor_Id != 0)
                 {
-                    vViewModel.Vendors = _vendorManager.Get_Vendor_By_Name(vViewModel.Filter.Vendor_Name, ref pager);
+                    vViewModel.Vendors = _vendorManager.Get_Vendor_By_Id_List(vViewModel.Filter.Vendor_Id, ref pager);
                 }
                 else
                 {
@@ -147,12 +140,12 @@ namespace SMSPortal.Controllers.PostLogin
             return Index(vViewModel);
         }
 
-        public JsonResult Check_Existing_Vendor(string Vendor_Name)
+        public JsonResult Check_Existing_Vendor(string vendor_Name)
         {
             bool check = false;
             try
             {
-                check = _vendorManager.Check_Existing_Vendor(Vendor_Name);
+                check = _vendorManager.Check_Existing_Vendor(vendor_Name);
             }
             catch (Exception ex)
             {
@@ -181,7 +174,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("AddProductMapping" , vViewModel);
         }
 
-        public JsonResult Get_Product_By_Brand(int Brand_Id, int CurrentPage, int Vendor_Id)
+        public JsonResult Get_Product_By_Brand(int brand_Id, int CurrentPage, int vendor_Id)
         {
 
             VendorViewModel vViewModel = new VendorViewModel();
@@ -192,8 +185,8 @@ namespace SMSPortal.Controllers.PostLogin
                
                 //pager.CurrentPage = CurrentPage;
 
-                vViewModel.Products = _vendorManager.Get_Productmapping(Brand_Id);
-                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(Vendor_Id);  
+                vViewModel.Products = _vendorManager.Get_Productmapping(brand_Id);
+                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id);  
               
                // vViewModel.Pager = pager;
                // vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);

@@ -1,4 +1,7 @@
-﻿$(document).ready(function () {
+﻿$(function () {
+
+    InitializeAutoComplete($('#txtUser_Name'));
+
     Search_Users();
 
     $("#btnEdit").click(function () {
@@ -8,7 +11,9 @@
     });
 
     $("#btnSearch").click(function () {
+        $('#hdfCurrentPage').val(0);
         Search_Users();
+
     });
 
 });

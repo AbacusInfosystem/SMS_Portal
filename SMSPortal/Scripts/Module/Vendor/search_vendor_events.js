@@ -1,9 +1,9 @@
 ﻿$(function () {
 
-    InitializeAutoComplete($('#txtVendorName'));
+
 
     Search_Vendors();
-
+    InitializeAutoComplete($('#txtVendorName'));
     $("#btnEdit").click(function () {
 
         $("#frmVendor").attr("action", "/Vendor/edit-vendor-details/");

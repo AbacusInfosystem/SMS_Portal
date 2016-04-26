@@ -296,6 +296,14 @@ namespace SMSPortal
           url: "User/update-users",
           defaults: new { controller = "User", action = "Update_User", id = UrlParameter.Optional },
           namespaces: new string[] { "SMSPortal.Controllers" });
+
+
+            routes.MapRoute(
+            name: "User-4",
+            url: "user/user-autocomplete/{user}",
+            defaults: new { controller = "User", action = "Get_User_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #endregion

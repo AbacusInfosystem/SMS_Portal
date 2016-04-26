@@ -18,6 +18,10 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/brand/Get_Brand_Autocomplete/" + $('#txtBrand_Name').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtUser_Name') {
+                urlString = "/user/user-autocomplete/" + $('#txtUser_Name').val();
+            }
+
 
             $.ajax({
 
