@@ -14,18 +14,12 @@ using SMSPortalHelper.PageHelper;
 namespace SMSPortal.Controllers
 {
     public class AutocompleteLookupController : Controller
-    {
-        
+    {       
         public AutocompleteLookupManager _autocompleteLookupManager;
 
         public AutocompleteLookupController()
         {
             _autocompleteLookupManager = new AutocompleteLookupManager();
-        }
-
-        public ActionResult Index()
-        {
-            return View();
         }
 
         public PartialViewResult Load_Modal_Data(string table_Name, string columns, string headerNames, string page, string editValue)

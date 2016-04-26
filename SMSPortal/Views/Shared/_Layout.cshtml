@@ -5,17 +5,12 @@
         Response.AddHeader("Pragma", "no-cache");
     }
     Response.Cache.SetAllowResponseInBrowserHistory(false);
-
-    //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-    //Response.Cache.SetNoStore();
-
     Response.Cache.SetExpires(DateTime.Now.AddSeconds(5));
     Response.Cache.SetExpires(DateTime.UtcNow.AddSeconds(5));
     Response.Cache.SetNoServerCaching();
     Response.Cache.SetValidUntilExpires(true);
     Response.Cache.SetMaxAge(TimeSpan.FromSeconds(5));
     Response.Cache.SetProxyMaxAge(TimeSpan.Zero);
-    //Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 }
 
 

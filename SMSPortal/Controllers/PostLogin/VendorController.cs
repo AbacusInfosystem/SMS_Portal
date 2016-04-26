@@ -245,19 +245,23 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                if (vViewModel.Cookies == null)
+                if (vViewModel.Cookies.User_Id == 0)
                 {
-                    return RedirectToAction("Index", "Login");
+                    return RedirectToAction("Logout", "Login");
                 }
+                else
+                {
+                    vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
 
-                vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
-                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
+                    vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
+                }                
                 
             }
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("Vendor Profile " + ex);
+
+                Logger.Error("Error at Vendor controller - Profile " + ex);
             }
 
             return View("Profile", vViewModel);
@@ -269,17 +273,13 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                if (vViewModel.Cookies == null)
-                {
-                    return RedirectToAction("Index", "Login");
-                }
-
                 _vendorManager.Insert_Vendor_Bank_Details(vViewModel.Vendor,vViewModel.Cookies.User_Id);
             }
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("Vendor Profile " + ex);
+
+                Logger.Error("Error at Vendor controller - Insert_Bank_Details " + ex);
             }
 
             return View("Profile", vViewModel);
