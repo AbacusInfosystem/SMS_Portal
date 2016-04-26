@@ -19,13 +19,17 @@ $(document).ready(function () {
 
     $("#btnOK").click(function () {
 
+        $('.ui-sortable').each(function () {
+            $('#lookupUl').remove()
+        });
+       
         var hiddenTextValue = $("#hdnValue").val();
         var id = $("#hdnId").val();
         var Textboxname = "#" + $("#hdnLookupLabelId").val();
-        $("#hdnSubcategoryName").val(hiddenTextValue);
-        $("#hdnSubcategoryId").val(id);
+        //$("#" + $("#hdnLookupLabelId").val()).val(hiddenTextValue);
+        $("#" + $("#hdnLookupHiddenId").val()).val(id);
 
-        var htmlText = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
         $(Textboxname).parents('.form-group').append(htmlText);
 

@@ -78,8 +78,6 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
     if (openModal) {
 
-        alert(1);
-
         $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page, editValue: editValue },
             function () {
 
@@ -91,15 +89,11 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
     }
     else
     {
-        alert(2222);
 
         var fieldValue = $("#" + $("#hdnLookupLabelId").val()).val();
 
-        alert(fieldValue);
 
         if ($("#" + $("#hdnLookupLabelId").val()).val() != "") {
-
-            alert(fieldValue);
 
             $.ajax({
 
@@ -113,13 +107,7 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
                 success: function (data) {
 
-                    alert(4);
-
                     if (data != null) {
-
-                        alert(5);
-
-                        alert(data);
 
                         Bind_Selected_Item(data);
                     }
@@ -139,8 +127,6 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
 function Bind_Selected_Item(data) {
 
-    alert(data);
-
     var htmltext = "";
 
     $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
@@ -149,13 +135,13 @@ function Bind_Selected_Item(data) {
 
         $("#" + $("#hdnLookupHiddenId").val()).val($("#" + $("#hdnLookupLabelId").val()).val());
 
-        htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + data + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        htmltext = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + data + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
     }
     else {
 
         $("#" + $("#hdnLookupHiddenId").val()).val("");
 
-        htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " does not exist</span><div class='tools'><i class='fa fa-remove'></i>";
+        htmltext = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " does not exist</span><div class='tools'><i class='fa fa-remove'></i>";
     }
 
     $("#" + $("#hdnLookupLabelId").val()).val("");

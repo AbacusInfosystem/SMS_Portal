@@ -231,16 +231,7 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.ProductImage.Updated_On = DateTime.Now;
 
                     _productManager.Insert_Product_Image(pViewModel.ProductImage);
-                    //if (pViewModel.Brand.Brand_Logo != null)
-                    //{
-                    //    System.IO.File.Delete(Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), pViewModel.Brand.Brand_Logo));
-                    //    pViewModel.Friendly_Message.Add(MessageStore.Get("BO005"));
-                    //}
-                    //else
-                    //{
-                    //    pViewModel.Friendly_Message.Add(MessageStore.Get("BO004"));
-                    //}
-
+                    
                     pViewModel.ImagesList = _productManager.Get_Product_Images(Convert.ToInt32(Product_Id));
                     pViewModel.Product.Product_Id = Convert.ToInt32(Product_Id);
                 }
