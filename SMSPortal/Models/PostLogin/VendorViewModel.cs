@@ -47,5 +47,7 @@ namespace SMSPortal.Models.PostLogin
         public int Vendor_Id { get; set; }
         public string Vendor_Name { get; set; }
         public bool Is_Active { get; set; }
+        public string Invoice_No { get; set; }
+        public int Invoice_Number { get; set; }
     }
 }

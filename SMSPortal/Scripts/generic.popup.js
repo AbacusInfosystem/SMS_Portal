@@ -76,8 +76,7 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
     if (openModal) {
 
-        alert(1);
-
+    
         $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page },
             function () {
 
@@ -89,7 +88,7 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
     }
     else
     {
-        alert(2);
+      
 
         var enteredValue = $("#" + $("#hdnLookupLabelId").val()).val();
 

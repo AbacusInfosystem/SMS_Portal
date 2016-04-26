@@ -11,6 +11,10 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/subcategory/subcategory-autocomplete/" + $('#txtSubcategory').val();
             }
             
+            if ($(elementObject).attr("id") == 'txtInvoice_No') {
+                urlString = "/Receivable/autocomplete-Invoice-No/" + $('#txtInvoice_No').val();
+            }
+
             $.ajax({
 
                 url: urlString,

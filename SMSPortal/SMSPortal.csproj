@@ -218,6 +218,7 @@
     <Compile Include="Models\PostLogin\LookupViewModel.cs" />
     <Compile Include="Models\PostLogin\DealerViewModel.cs" />
     <Compile Include="Models\PostLogin\ProductViewModel.cs" />
+    <Compile Include="Models\PostLogin\ReceivableViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PostLogin\VendorViewModel.cs" />
@@ -991,6 +992,8 @@
     <Content Include="Scripts\Module\User\user_validation.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
+    <Content Include="Scripts\Module\Receivable\search_receivable_event.js" />
+    <Content Include="Scripts\Module\Receivable\search_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendormapping_events.js" />
@@ -999,6 +1002,7 @@
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_validation.js" />
     <Content Include="UploadedFiles\Desert.jpg" />
     <Content Include="Web.config" />

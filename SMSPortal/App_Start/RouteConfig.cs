@@ -127,6 +127,22 @@ namespace SMSPortal
 
             #endregion
 
+            #region Receivable
+
+            routes.MapRoute(
+           name: "Receivable-1",
+           url: "Receivable/autocomplete-Invoice-No/{txtInvoice_No}",
+           defaults: new { controller = "Receivable", action = "Load_Receivable_InvoiceNo", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Receivable-2",
+            url: "Receivable/Get-Recievable",
+            defaults: new { controller = "Receivable", action = "Get_Recievable", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+            #endregion
+
+
             #endregion
 
             #region PreLogin

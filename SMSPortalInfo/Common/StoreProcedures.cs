@@ -94,7 +94,12 @@ namespace SMSPortalInfo.Common
 
         //Cookies
         Insert_Token_In_User_Table_Sp,
-        Get_User_Data_By_Token_sp
-        
+        Get_User_Data_By_Token_sp,
+
+        //Receivable
+        Get_Receivable_By_Name_Sp,
+        Get_Receivable_Sp,
+        Get_InvoiceNo_AutoComplete_Sp,
+        Get_InvoiceNo_Sp
 	}
 }
