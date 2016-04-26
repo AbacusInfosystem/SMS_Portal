@@ -15,7 +15,7 @@ var InitializeAutoComplete = function (elementObject) {
             }
             
             if ($(elementObject).attr("id") == 'txtBrand_Name') {
-                urlString = "/brand/Get_Brand_Autocomplete/" + $('#txtBrand_Name').val();
+                urlString = "/brand/brands-autocomplete/" + $('#txtBrand_Name').val();
             }
 
 

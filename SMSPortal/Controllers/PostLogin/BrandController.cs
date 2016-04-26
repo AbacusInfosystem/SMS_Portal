@@ -201,10 +201,17 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
-        public JsonResult Get_Brand_Autocomplete(string brandName)
+        public JsonResult Get_Brand_Autocomplete(string brand)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
-            autoList = _brandManager.Get_Brand_Autocomplete(brandName);
+            try
+            {
+                autoList = _brandManager.Get_Brand_Autocomplete(brand);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Brand_Controller - Get_Brand_Autocomplete " + ex.ToString());
+            }
             return Json(autoList, JsonRequestBehavior.AllowGet);
         }
     }
