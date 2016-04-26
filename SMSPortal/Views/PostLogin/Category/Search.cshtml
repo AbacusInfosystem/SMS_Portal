@@ -31,12 +31,27 @@
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnCategory_Id" name="Category.Category_Id" value="@Model.Category.Category_Id">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <div class="form-group auto-complete">
+                                        <label for="Category" class="lookup-title">Category Name</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Category_Name" id="txtCategory_Name" placeholder="Enter Category Name" value="@Model.Filter.Category_Name" data-table="category" data-col="Category_Id,Category_Name" data-headernames="Category">
+                                            <input type="hidden" id="hdnCategoryId" value="@Model.Filter.Category_Id" name="Filter.Category_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnCategoryName" value="@Model.Filter.Category_Name" name="Filter.Category_Name" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefCategory" role="button"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*<div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Category Name</label>
                                         <input type="text" class="form-control input-sm" name="Filter.Category_Name" id="txtCategory_Name" placeholder="Enter category name" value="" maxlength="20">
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                             <div class="box-footer">
                                 <div class="row">

@@ -38,9 +38,6 @@
             $('#frmDealerMaster').attr("method", "POST");
             $('#frmDealerMaster').submit();
         }
-
-
     });
 
 });
- 

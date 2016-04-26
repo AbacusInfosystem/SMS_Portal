@@ -121,6 +121,13 @@ namespace SMSPortal
             defaults: new { controller = "Category", action = "Get_Category_By_Id", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+            name: "Category-5",
+            url: "category/category_autocomplete/{category}",
+            defaults: new { controller = "Category", action = "Get_Category_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+
             #endregion
 
             #region Dealer
@@ -155,6 +162,14 @@ namespace SMSPortal
             url: "dealer/Check_Existing_Dealer",
             defaults: new { controller = "Dealer", action = "Check_Existing_Dealer", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Dealer-6",
+            url: "dealer/dealer-autocomplete/{dealer}",
+            defaults: new { controller = "Dealer", action = "Get_Dealer_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+
             #endregion
 
             #region Product
@@ -195,11 +210,11 @@ namespace SMSPortal
             defaults: new { controller = "Product", action = "Check_Existing_Product", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
-            //routes.MapRoute(
-            //name: "Product-7",
-            //url: "product/Delete-Product-Image",
-            //defaults: new { controller = "Product", action = "Delete_Product_Image", id = UrlParameter.Optional },
-            //namespaces: new string[] { "SMSPortal.Controllers" });
+            routes.MapRoute(
+           name: "Product-7",
+           url: "product/product-autocomplete/{product}",
+           defaults: new { controller = "Product", action = "Get_Product_Autocomplete", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion
 

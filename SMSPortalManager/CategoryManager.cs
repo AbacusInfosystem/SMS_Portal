@@ -33,9 +33,9 @@ namespace SMSPortalManager
             return _categoryRepo.Get_Categorys(ref Pager);
         }
 
-        public List<CategoryInfo> Get_Categorys_By_Name(string Category_Name, ref PaginationInfo Pager)
+        public List<CategoryInfo> Get_Categorys_By_Id(int  Category_Id, ref PaginationInfo Pager)
         {
-            return _categoryRepo.Get_Categorys_By_Name(Category_Name, ref Pager);
+            return _categoryRepo.Get_Categorys_By_Id(Category_Id, ref Pager);
         }
 
         public CategoryInfo Get_Category_By_Id(int Category_Id)
@@ -51,6 +51,11 @@ namespace SMSPortalManager
         public bool Check_Existing_Category(string Category_Name)
         {
             return _categoryRepo.Check_Existing_Category(Category_Name);
+        }
+
+        public List<AutocompleteInfo> Get_Category_Autocomplete(string Category)
+        {
+            return _categoryRepo.Get_Category_Autocomplete(Category);
         }
     }
 }

@@ -32,9 +32,9 @@ namespace SMSPortalManager
         {
             return _productRepo.Get_Products(ref Pager);
         }
-        public List<ProductInfo> Get_Products_By_Name(string Product_Name,ref PaginationInfo Pager)
+        public List<ProductInfo> Get_Products_By_Id(int Product_Id,ref PaginationInfo Pager)
         {
-            return _productRepo.Get_Products_By_Name( Product_Name,ref Pager);
+            return _productRepo.Get_Products_By_Id(Product_Id, ref Pager);
         }
 
         public ProductInfo Get_Product_By_Id(int Product_Id)

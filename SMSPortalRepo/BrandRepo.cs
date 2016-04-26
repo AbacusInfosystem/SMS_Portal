@@ -81,13 +81,13 @@ namespace SMSPortalRepo
             return brand;
         }
          
-        public List<BrandInfo> Get_Brand_By_Name(string Brand_Name, ref PaginationInfo Pager)
+        public List<BrandInfo> Get_Brand_By_Id(int Brand_Id, ref PaginationInfo Pager)
         {
-            List<SqlParameter> sqlParamList = new List<SqlParameter>();             
-            sqlParamList.Add(new SqlParameter("@Brand_Name", Brand_Name));
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Brand_Id", Brand_Id));
 
             List<BrandInfo> brands = new List<BrandInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Brand_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Brand_By_Id_Sp.ToString(), CommandType.StoredProcedure);
              
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
@@ -153,6 +153,7 @@ namespace SMSPortalRepo
             _sqlRepo.ExecuteNonQuery(sqlParam, StoreProcedures.Update_Brand_Image.ToString(), CommandType.StoredProcedure);
 
         }
+
         public void Delete_Brand_By_Id(int brand_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();

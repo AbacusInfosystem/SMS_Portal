@@ -5,7 +5,7 @@ function Search_Dealers()
         {
             Filter:
                 {
-                    Dealer_Name: $('#txtDealer_Name').val(),
+                    Dealer_Id: $('#hdnDealerId').val(),
                 },
             Pager:
                 {

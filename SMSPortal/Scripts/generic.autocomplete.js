@@ -18,6 +18,18 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/brand/brands-autocomplete/" + $('#txtBrand_Name').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtDealer_Name') {
+                urlString = "/dealer/dealer-autocomplete/" + $('#txtDealer_Name').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtProduct_Name') {
+                urlString = "/product/product-autocomplete/" + $('#txtProduct_Name').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtCategory_Name') {
+                urlString = "/category/category_autocomplete/" + $('#txtCategory_Name').val();
+            }
+
 
             $.ajax({
 

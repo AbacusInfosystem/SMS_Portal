@@ -19,6 +19,7 @@ namespace SMSPortalInfo.Common
         Get_Category_By_Id_Sp,
         Delete_Category_By_Id_Sp,
         Check_Existing_Category,
+        Get_Category_Autocomplete_Sp,
 
         // Users
         Insert_Users_Sp,
@@ -76,6 +77,7 @@ namespace SMSPortalInfo.Common
         Get_Product_Images_Sp,
         Insert_Product_Image_Sp,
         Delete_Product_Image_Sp,
+        Get_Product_Autocomplete_Sp,
          
         
         //Vendor
