@@ -28,6 +28,10 @@ namespace SMSPortalInfo
 
         public string Email { get; set; }
 
+        public string Invoice_No { get; set; }
+
+        public int Invoice_Id { get; set; }
+
         public bool Is_Active { get; set; }     
 
         public DateTime Created_On { get; set; }

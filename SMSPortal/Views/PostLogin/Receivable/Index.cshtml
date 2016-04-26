@@ -1,4 +1,7 @@
-﻿<script src="~/Scripts/Module/Receivable/Receviable_events.js"></script>
+﻿@model SMSPortal.Models.PostLogin.ReceivableViewModel
+@using SMSPortalInfo.Common
+
+<script src="~/Scripts/Module/Receivable/Receviable_events.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -39,12 +42,36 @@
 
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-3">
+                                @*<div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Invoice No</label><br />
                                         <select id="drpInvoice" class="form-control" name="">
                                             <option value="">-Select Invoice No-</option>
+                                            @foreach (var item in Model.Receivables)
+                                            {
+                                                if (item.Invoice_Id == Model.Receivables.Invoice_Id)
+                                                {
+                                                    <option value="@(item.Invoice_Id)" selected>@item.Invoice_No</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@(item.Invoice_Id)">@item.Invoice_No</option>
+                                                }
+                                            }
                                         </select>
+                                    </div>
+                                </div>*@
+                                <div class="col-md-3">
+                                    <div class="form-group auto-complete">
+                                        <label for="InvoiceNo" class="lookup-title">Invoice No</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Receivable.Invoice_No" id="txtInvoiceNo" placeholder="Enter Invoice No" value="@Model.Receivable.Invoice_No" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                                            <input type="hidden" id="hdnInvoiceId" value="@Model.Receivable.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnInvoiceNo" value="@Model.Receivable.Invoice_No" name="Receivable.Invoice_No" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefInvoice" role="button"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +95,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <br />
@@ -101,58 +128,48 @@
                                     <table id="ReceivableTable" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Invoice No</th>
+                                                @*<th>Invoice No</th>*@
                                                 <th>Amount</th>
                                                 <th>Transaction Type</th>
-                                              
+                                                <th>Check Number</th>
                                                 <th>Action</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @*<tr>
+                                                    <td>100</td>
+                                                    <td>
+                                                        1000000
+                                                    </td>
+
+                                                    <td>cc</td>
+                                                    <td>
+                                                        <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
+                                                        <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>100</td>
+                                                    <td>
+                                                        1000000
+                                                    </td>
+
+                                                    <td>cc</td>
+                                                    <td>
+                                                        <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
+                                                        <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
+                                                    </td>
+                                                </tr>
+                                            *@
                                             <tr>
-                                                <td>100</td>
-                                                <td>
-                                                    1000000
-                                                </td>
-                                              
-                                                <td>cc</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                                 <td>
                                                     <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
                                                     <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>100</td>
-                                                <td>
-                                                    1000000
-                                                </td>
-                                            
-                                                <td>cc</td>
-                                                <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>100</td>
-                                                <td>1000</td>
-                                                <td>cc</td>
-                                                
-                                                <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
-                                                </td>
-                                            </tr>
-
-
-
-
-
-
-
-
-
                                         </tbody>
 
                                     </table>
