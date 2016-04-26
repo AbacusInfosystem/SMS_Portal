@@ -36,10 +36,10 @@
 
         if ($('#frmVendorMaster').valid()) {
             if ($("#hdf_VendorId").val() == 0) {
-                $("#frmVendorMaster").attr("action", "/Vendor/Insert_Vendor/");
+                $("#frmVendorMaster").attr("action", "/Vendor/insert-vendors/");
             }
             else {
-                $("#frmVendorMaster").attr("action", "/Vendor/Update_Vendor/");
+                $("#frmVendorMaster").attr("action", "/Vendor/update-vendors/");
             }
             $('#frmVendorMaster').attr("method", "POST");
             $('#frmVendorMaster').submit();
