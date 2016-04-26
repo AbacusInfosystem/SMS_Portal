@@ -26,8 +26,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             _userMan = new UserManager();
 
-            CookiesManager _cookiesManager = new CookiesManager();
-            _cookies = _cookiesManager.Get_Token_Data(token);
+            //CookiesManager _cookiesManager = new CookiesManager();
+            //_cookies = _cookiesManager.Get_Token_Data(token);
         }
 
         public ActionResult Search(UserViewModel uViewModel)
@@ -58,6 +58,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pager = uViewModel.Pager;
+
                 if (uViewModel.Filter.User_Name != null)
                 {
                     uViewModel.Users = _userMan.Get_Users_By_User_Name(uViewModel.Filter.User_Name, ref pager);
@@ -65,7 +66,6 @@ namespace SMSPortal.Controllers.PostLogin
                 else
                 {
                     uViewModel.Users = _userMan.Get_Users(ref pager);
-
                 }
                 uViewModel.Pager = pager;
 
