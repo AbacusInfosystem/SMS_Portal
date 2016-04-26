@@ -149,8 +149,17 @@ namespace SMSPortal.Controllers.PostLogin
         public JsonResult Get_Subcategory_Autocomplete(string subcategory)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
-            autoList = _subcategoryManager.Get_Subcategory_Autocomplete(subcategory);
-            return Json(autoList, JsonRequestBehavior.AllowGet);
+
+            try 
+            {               
+                autoList = _subcategoryManager.Get_Subcategory_Autocomplete(subcategory);                
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Sub_Category_Controller - Get_Subcategory_Autocomplete " + ex.ToString());
+            }
+
+            return Json(autoList, JsonRequestBehavior.AllowGet);           
         }
 
         public JsonResult Check_Existing_Sub_Category(string subcategory)

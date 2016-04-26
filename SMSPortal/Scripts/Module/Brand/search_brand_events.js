@@ -13,7 +13,13 @@
 
 $(document).ready(function ()
 {
+    InitializeAutoComplete($('#txtBrand_Name'));
+
+    $('#hdfCurrentPage').val(0);
+
     Search_Brands();
+
+    GetBrandList();        
 
     $("#btnEdit").click(function () {
         $("#frmBrand").attr("action", "/brand/get-brand/");

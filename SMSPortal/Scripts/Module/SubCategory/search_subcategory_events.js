@@ -6,8 +6,6 @@
 
     Search_Subcategory();
 
-    GetSubcategoryList();
-
     $("#btnEdit").click(function () {
 
         $("#frmSubCategory").attr("action", "/subcategory/edit-subcategories");
@@ -24,10 +22,5 @@
         Search_Subcategory();
 
     });
-
-    //$("#hrefSubcategory").click(function (event) {
-
-    //    $("#div_Parent_Modal_Fade").find(".modal-body").load("/SubCategory/Get_Subcategory_Popup", {}, call_back);
-    //});
 
 });

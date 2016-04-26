@@ -21,7 +21,7 @@
         Get_Autocomplete_Lookup(true,$(this), false);
     });
 
-    $(document).on("focusout", ".autocomplete-text", function (event) {
+    $(document).on("focusout", ".lookup-text", function (event) {
 
         Get_Autocomplete_Lookup(false, $(this), false);
     });
@@ -65,6 +65,8 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
     var model = "div_Parent_Modal_Fade";
 
+    var editValue = $("#hdnEditLookupValue").val();
+
     if (modalExist == false) {
 
         page = 0;
@@ -76,8 +78,7 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
     if (openModal) {
 
-    
-        $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page },
+        $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page, editValue: editValue },
             function () {
 
                 $("#" + model).find(".modal-title").text($("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " List");
@@ -88,17 +89,17 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
     }
     else
     {
-      
 
-        var enteredValue = $("#" + $("#hdnLookupLabelId").val()).val();
+        var fieldValue = $("#" + $("#hdnLookupLabelId").val()).val();
+
 
         if ($("#" + $("#hdnLookupLabelId").val()).val() != "") {
 
             $.ajax({
 
-                url: '/lookup/Lookup-get-lookup-data_by_id',
+                url: '/autocompleteLookup/Get_Lookup_Data_By_Id',
 
-                data: { fieldValue: enteredValue,table_Name: tableName, columns: columns },
+                data: { field_Value: fieldValue, table_Name: tableName, columns: column },
 
                 method: 'GET',
 
@@ -130,18 +131,22 @@ function Bind_Selected_Item(data) {
 
     $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find('.todo-list').remove();
 
-    if (data.Value != null) {
+    if (data != null) {
 
         $("#" + $("#hdnLookupHiddenId").val()).val($("#" + $("#hdnLookupLabelId").val()).val());
 
-        htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + data.Value + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        htmltext = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + data + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
     }
     else {
 
         $("#" + $("#hdnLookupHiddenId").val()).val("");
 
-        htmltext = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " does not exist</span><div class='tools'><i class='fa fa-remove'></i>";
+        htmltext = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " does not exist</span><div class='tools'><i class='fa fa-remove'></i>";
     }
+
+    $("#" + $("#hdnLookupLabelId").val()).val("");
+
+    $("#hdnEditLookupValue").val(data);
 
     $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').append(htmltext);
 

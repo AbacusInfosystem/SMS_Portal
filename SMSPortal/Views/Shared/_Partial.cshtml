@@ -7,6 +7,7 @@
 <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
 <input type="hidden" id="hdnId" name="Id">
 <input type="hidden" id="hdnValue" name="Value">
+<input type="hidden" id="hdnEditValue" name="" value="@Model.EditLookupValue">
 
 <div class="row" >
     <div class="col-md-12">
@@ -30,7 +31,15 @@
                                 {
                                     <tr>
                                         <td>
-                                            <input type='radio' name='r1_Lookup' id='r1_Lookup_@row[0]' class='lookup-iradio-list' />
+                                            @if (row[1].ToString()==Model.EditLookupValue)
+                                            {
+                                                <input type='radio' checked name='r1_Lookup' id='r1_Lookup_@row[0]' class='lookup-iradio-list' />
+                                            }
+                                            else
+                                            {
+                                                <input type='radio' name='r1_Lookup' id='r1_Lookup_@row[0]' class='lookup-iradio-list' />
+                                            }
+                                            
                                         </td>
                                         <td>@row[1]
                                             <input type='hidden' name='v1' value='@row[1]' class="v1" />
@@ -73,8 +82,6 @@
 <br />
 <div class="form-group">
     <button type="button" id="btnOK" class="btn btn-success btn-sm">OK</button>
-
-   
 </div>
 
 <script>

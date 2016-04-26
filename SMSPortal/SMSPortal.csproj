@@ -1004,7 +1004,22 @@
     <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_validation.js" />
+    <Content Include="UploadedFiles\0_Penguins.jpg" />
+    <Content Include="UploadedFiles\1_Penguins.jpg" />
+    <Content Include="UploadedFiles\Chrysanthemum.jpeg" />
     <Content Include="UploadedFiles\Desert.jpg" />
+    <Content Include="UploadedFiles\Jellyfish.jpg" />
+    <Content Include="UploadedFiles\Lighthouse.jpg" />
+    <Content Include="UploadedFiles\P1_Desert.jpg" />
+    <Content Include="UploadedFiles\P1_Hydrangeas.jpg" />
+    <Content Include="UploadedFiles\P1_Koala.jpg" />
+    <Content Include="UploadedFiles\P1_Penguins.jpg" />
+    <Content Include="UploadedFiles\P1_Tulips.jpg" />
+    <Content Include="UploadedFiles\P2_Tulips.jpg" />
+    <Content Include="UploadedFiles\P3_Hydrangeas.jpg" />
+    <Content Include="UploadedFiles\P3_Jellyfish.jpg" />
+    <Content Include="UploadedFiles\P3_Lighthouse.jpg" />
+    <Content Include="UploadedFiles\P3_Tulips.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1086,7 +1101,6 @@
     <Content Include="Views\PostLogin\Category\Search.cshtml" />
     <Content Include="Views\Shared\_ServerMessage.cshtml" />
     <Content Include="Views\Shared\_AutocompletePopup.cshtml" />
-    <Content Include="Views\PostLogin\SubCategory\_SubCategoruPopup.cshtml" />
     <Content Include="Views\Shared\_Partial.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\Index.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_AdminWidgets.cshtml" />

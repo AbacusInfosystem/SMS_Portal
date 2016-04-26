@@ -31,30 +31,30 @@ namespace SMSPortalRepo
             _sqlRepo.ExecuteNonQuery(Set_Values_In_Vendor(Vendor), StoreProcedures.Update_Vendor_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Vendor(VendorInfo Vendors)
+        private List<SqlParameter> Set_Values_In_Vendor(VendorInfo Vendor)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            if (Vendors.Vendor_Id != 0)
+            if (Vendor.Vendor_Id != 0)
             {
-                sqlParams.Add(new SqlParameter("@Vendor_Id", Vendors.Vendor_Id));
+                sqlParams.Add(new SqlParameter("@Vendor_Id", Vendor.Vendor_Id));
             }
 
-            sqlParams.Add(new SqlParameter("@Vendor_Name", Vendors.Vendor_Name));
-            sqlParams.Add(new SqlParameter("@Address", Vendors.Address));
-            sqlParams.Add(new SqlParameter("@City", Vendors.City));
-            sqlParams.Add(new SqlParameter("@State", Vendors.State));
-            sqlParams.Add(new SqlParameter("@Pincode", Vendors.Pincode));
-            sqlParams.Add(new SqlParameter("@Contact_No_1", Vendors.Contact_No_1));
-            sqlParams.Add(new SqlParameter("@Contact_No_2", Vendors.Contact_No_2));
-            sqlParams.Add(new SqlParameter("@Email", Vendors.Email));
-            sqlParams.Add(new SqlParameter("@Is_Active", Vendors.Is_Active));
-            if (Vendors.Vendor_Id == 0)
+            sqlParams.Add(new SqlParameter("@Vendor_Name", Vendor.Vendor_Name));
+            sqlParams.Add(new SqlParameter("@Address", Vendor.Address));
+            sqlParams.Add(new SqlParameter("@City", Vendor.City));
+            sqlParams.Add(new SqlParameter("@State", Vendor.State));
+            sqlParams.Add(new SqlParameter("@Pincode", Vendor.Pincode));
+            sqlParams.Add(new SqlParameter("@Contact_No_1", Vendor.Contact_No_1));
+            sqlParams.Add(new SqlParameter("@Contact_No_2", Vendor.Contact_No_2));
+            sqlParams.Add(new SqlParameter("@Email", Vendor.Email));
+            sqlParams.Add(new SqlParameter("@Is_Active", Vendor.Is_Active));
+            if (Vendor.Vendor_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", Vendors.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", Vendors.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", Vendor.Created_On));
+                sqlParams.Add(new SqlParameter("@Created_By", Vendor.Created_By));
             }
-            sqlParams.Add(new SqlParameter("@Updated_On", Vendors.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", Vendors.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", Vendor.Updated_On));
+            sqlParams.Add(new SqlParameter("@Updated_By", Vendor.Updated_By));
             return sqlParams;
         }
 
@@ -203,14 +203,14 @@ namespace SMSPortalRepo
             return bankdetailslist;
         }
 
-        public List<ProductInfo> Get_Productmapping(int Brand_Id, ref PaginationInfo Pager)
+        public List<ProductInfo> Get_Productmapping(int Brand_Id)
         {
-            Pager.PageSize = 10;
+            //Pager.PageSize = 20;
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@Brand_Id", Brand_Id));
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Productmapping.ToString(), CommandType.StoredProcedure);
-            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            foreach (DataRow dr in CommonMethods.GetRows(dt))
             {
                 products.Add(Get_Product_Values(dr));
             }
@@ -223,7 +223,7 @@ namespace SMSPortalRepo
 
             product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
-
+            product.Product_Image = Convert.ToString(dr["Image_Code"]);
             return product;
         }
 
@@ -311,5 +311,25 @@ namespace SMSPortalRepo
             return productlist;
         }
 
+        public List<AutocompleteInfo> Get_Vendor_Autocomplete(string vendor)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", vendor == null ? System.String.Empty : vendor.Trim()));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                List<DataRow> drList = new List<DataRow>();
+                drList = dt.AsEnumerable().ToList();
+                foreach (DataRow dr in drList)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
     }
 }

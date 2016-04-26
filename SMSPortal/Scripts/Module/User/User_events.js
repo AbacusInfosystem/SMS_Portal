@@ -25,10 +25,10 @@
 
         if ($('#frmUserMaster').valid()) {
             if ($("#hdf_UserId").val() == 0) {
-                $("#frmUserMaster").attr("action", "/User/Insert/");
+                $("#frmUserMaster").attr("action", "/User/insert-users/");
             }
             else {
-                $("#frmUserMaster").attr("action", "/User/Update_User/");
+                $("#frmUserMaster").attr("action", "/User/update-users/");
             }
             $('#frmUserMaster').attr("method", "POST");
             $('#frmUserMaster').submit();

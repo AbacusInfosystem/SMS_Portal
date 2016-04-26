@@ -58,7 +58,7 @@ jQuery.validator.addMethod("validate_Product_Exist", function (value, element) {
 
     if ($("#txtProduct_Name").val() != "" && $("#hdnProductName").val() != $("#txtProduct_Name").val()) {
         $.ajax({
-            url: '/Product/Check_Existing_Product',
+            url: '/product/check-existing-product',
             data: { Product_Name: $("#txtProduct_Name").val() },
             method: 'GET',
             async: false,

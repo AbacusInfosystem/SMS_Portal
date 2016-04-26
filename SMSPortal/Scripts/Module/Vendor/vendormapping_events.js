@@ -26,7 +26,7 @@ $(function () {
 
         $("#hdfProductState").val(strStates.trim(","));
 
-        $("#frmAddProductMapping").attr("action", "/Vendor/Insert_Vendor_Product_Mapping_Details/");
+        $("#frmAddProductMapping").attr("action", "/Vendor/insert-vendor-product-mapping-details/");
         $('#frmAddProductMapping').attr("method", "POST");
         $('#frmAddProductMapping').submit();
     });

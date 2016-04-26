@@ -30,10 +30,10 @@
 
         if ($('#frmDealerMaster').valid()) {
             if ($("#hdf_DealerId").val() == 0) {
-                $("#frmDealerMaster").attr("action", "/Dealer/Insert_Dealer/");
+                $("#frmDealerMaster").attr("action", "/dealer/insert-dealer/");
             }
             else {
-                $("#frmDealerMaster").attr("action", "/Dealer/Update_Dealer/");
+                $("#frmDealerMaster").attr("action", "/dealer/update-dealer/");
             }
             $('#frmDealerMaster').attr("method", "POST");
             $('#frmDealerMaster').submit();

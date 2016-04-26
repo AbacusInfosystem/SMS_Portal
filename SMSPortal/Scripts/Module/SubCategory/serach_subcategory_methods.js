@@ -5,7 +5,7 @@ function Search_Subcategory() {
         {
             Filter:
                 {
-                    Module_Id: $("#hdnSubcategoryId").val(),
+                    SubCategory_Id: $("#hdnSubcategoryId").val(),
 
                 },
 
@@ -115,45 +115,5 @@ function PageMore(Id) {
     $(".selectAll").prop("checked", false);
 
     Search_Subcategory();
-
-}
-
-function GetSubcategoryList() {
-
-    CallAjax("/SubCategory/Get_Subcategory_Autocomplete ", "json", null, "POST", "application/json", false, GetSubcategory, "", null);
-}
-
-function GetSubcategory(data) {
-
-    $("#drpList").html("");
-    var htmltext = "";
-    htmltext += "<option value=''>-Select Sub Category-</option>";
-    if (data.length > 0) {
-        for (i = 0; i < data.length; i++) {
-            htmltext += "<option value='" + data[i].Value + "'>" + data[i].Label + "</option>";
-        }
-    }
-    $("#drpList").html(htmltext);
-
-}
-function IconSearch() {
-
-    $("#txtSubcategory").parents(".form-group").find(".fa-remove").trigger("click");
-
-    $("#hdnSubcategoryName").val($("#drpList option:selected").text());
-    $("#hdnSubcategoryId").val($("#drpList").val());
-
-    hiddenTextValue = $("#hdnSubcategoryName").val();
-    Textboxname = "#txtSubcategory";
-    SetValueToAutocomplete(hiddenTextValue, Textboxname);
-
-
-}
-
-function call_back(data) {
-
-    $('#div_Parent_Modal_Fade').modal('show');
-
-    $("#div_Parent_Modal_Fade").find(".modal-title").text("Sub Category");
 
 }
