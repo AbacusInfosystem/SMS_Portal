@@ -37,5 +37,10 @@ namespace SMSPortalManager
        {
            return _receivableRepo.Get_InvoiceNo();
        }
+
+       public void Insert_Receivable(ReceivableInfo receivableInfo)
+       {
+           _receivableRepo.Insert_Receivable(receivableInfo);
+       }
     }
 }

@@ -38,4 +38,11 @@ namespace SMSPortalInfo.Common
         // Dashboard
         Token,
     }
+
+    public enum TransactionType
+    {
+        Cheque = 1,
+        NEFT = 2,
+        Credit_Debit = 3
+    }
 }

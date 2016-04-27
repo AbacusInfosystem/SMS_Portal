@@ -1,4 +1,5 @@
-﻿using SMSPortal.Common;
+﻿using Newtonsoft.Json;
+using SMSPortal.Common;
 using SMSPortal.Models.PostLogin;
 using SMSPortalHelper.Logging;
 using SMSPortalHelper.PageHelper;
@@ -242,7 +243,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("Error uploading Product Images  " + ex.Message);
             }
-            TempData["pViewModel"] = pViewModel;
+            TempData["pViewModel"] = pViewModel;             
             return PartialView("_Product_Images", pViewModel);
         }
 
