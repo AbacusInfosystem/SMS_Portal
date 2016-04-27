@@ -30,5 +30,16 @@ namespace SMSPortalInfo.Common
 
             return Get_Brand_Category;
         }
+
+        public static Dictionary<int, string> Get_Transaction_Types()
+        {
+            Dictionary<int, string> Get_Transaction_Types = new Dictionary<int, string>();
+
+            Get_Transaction_Types.Add(1, TransactionType.Cheque.ToString());
+            Get_Transaction_Types.Add(2, TransactionType.NEFT.ToString().Replace('_', ' ').ToString());
+            Get_Transaction_Types.Add(3, TransactionType.Credit_Debit.ToString().Replace('_', ' ').ToString());
+
+            return Get_Transaction_Types;
+        }
 	}
 }

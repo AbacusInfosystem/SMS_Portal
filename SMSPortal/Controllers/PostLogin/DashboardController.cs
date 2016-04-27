@@ -30,9 +30,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                dViewModel.cookies = Utility.Get_Login_User("UserInfo","Token");
+                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                if (dViewModel.cookies.Role_Id==0)
+                if (dViewModel.Cookies == null)
                 {
                     return RedirectToAction("Index", "Login");
                 }

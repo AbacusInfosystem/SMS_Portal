@@ -334,6 +334,13 @@ namespace SMSPortal
             url: "Receivable/Get-Recievable",
             defaults: new { controller = "Receivable", action = "Get_Recievable", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Receivable-3",
+            url: "Receivable/Insert-Receivable",
+            defaults: new { controller = "Receivable", action = "Insert_Receivable", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+            
             #endregion
 
             #region Purchase Order

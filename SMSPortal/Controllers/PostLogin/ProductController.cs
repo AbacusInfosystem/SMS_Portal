@@ -57,7 +57,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Brands = _dealerManager.Get_Brands();
-                pViewModel.Categories = _subCategoryManager.Get_Categories();
+                //pViewModel.Categories = _subCategoryManager.Get_Categories();
 
             }
             catch (Exception ex)
@@ -166,7 +166,7 @@ namespace SMSPortal.Controllers.PostLogin
             ProductViewModel pViewModel = new ProductViewModel();
             try
             {
-                pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
+                //pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
             }
             catch (Exception ex)
             {
