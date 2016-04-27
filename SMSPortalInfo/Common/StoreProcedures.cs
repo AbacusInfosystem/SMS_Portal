@@ -105,6 +105,13 @@ namespace SMSPortalInfo.Common
         Get_Receivable_By_Name_Sp,
         Get_Receivable_Sp,
         Get_InvoiceNo_AutoComplete_Sp,
-        Get_InvoiceNo_Sp
+        Get_InvoiceNo_Sp,
+
+        //Purchase Order
+        Get_Purchase_Order_By_Id_Sp,
+        Get_Purchase_Order_Sp,
+        Insert_Purchase_Order_Sp,
+        Get_Purchase_Order_Autocomplete_Sp
+
 	}
 }

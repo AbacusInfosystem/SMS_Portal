@@ -1,20 +1,14 @@
-﻿<script type="text/javascript">
+﻿@model SMSPortal.Models.PostLogin.PurchaseOrderViewModel
+@using SMSPortal.Common;
 
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
+<script src="~/Scripts/Module/PurchaseOrder/search_purchase_order_events.js"></script>
+<script src="~/Scripts/Module/PurchaseOrder/serach_purchase_order_methods.js"></script>
 
 <form id="frmPurchaseOrder" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @*@{Html.RenderPartial("_ServerMessage");}*@
+        @{Html.RenderPartial("_ServerMessage");}
         <section class="content-header">
             <h1>
                 Purchase Order Master
@@ -36,11 +30,20 @@
                             <h3 class="box-title">Purchase Order</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdn_PurchaseOrderId" name="PurchaseOrder.Purchase_Order_Id" value="@Model.PurchaseOrder.Purchase_Order_Id" >
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color: #333"> Purchase Order No</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtPurchaseOrder_No" placeholder="Enter purchase order no" value="" maxlength="20">
+                                    <div class="form-group auto-complete">
+                                        <label for="Purchase_Order" class="lookup-title">Purchase Order</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter Order No" value="@Model.Filter.Purchase_Order_No" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="PurchaseOrder">
+                                            <input type="hidden" id="hdnPurchaseOrderId" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnPurchaseOrderNo" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefPurchaseOrder" role="button"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -51,7 +54,7 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "PurchaseOrder")">Create </a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddEdit_Purchase_Order", "PurchaseOrder")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
                                         </div>
 
@@ -72,39 +75,22 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblReceivableMaster">
+                            <table class="table table-striped" id="tblPurchaseOrder">
                                 <tr id="subhead">
                                     <th></th>
                                     <th>Purchase Order No</th>
                                     <th>Vendor</th>
-                                </tr>
-
-                                <tr>
-                                    <td><input type="radio" id="rdo_ReceivableId1" class="iradio-list" /></td>
-                                    <td>001 </td>
-                                    <td>abc</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_PurchaseOrderId2" class="iradio-list" /></td>
-                                    <td>123</td>
-                                    <td>xyz</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_PurchaseOrderId3" class="iradio-list" /></td>
-                                    <td>123</td>
-                                    <td>wer</td>
-
-                                </tr>
+                                </tr>                                 
                             </table>
                         </div>
-                        @*<div class="box-footer clearfix">
+                        <div class="box-footer clearfix">
                                 <div class="pagination pagination-sm no-margin pull-right">
                                     <ul></ul>
                                 </div>
                                 <div id="divSearchGridOverlay" class="overlay">
                                     <i class="fa fa-refresh fa-spin"></i>
                                 </div>
-                            </div>*@
+                            </div>
                     </div>
                 </div>
             </div>

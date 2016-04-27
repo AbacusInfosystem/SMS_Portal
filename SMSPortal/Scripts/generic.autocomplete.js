@@ -35,6 +35,10 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/Receivable/autocomplete-Invoice-No/" + $('#txtInvoice_No').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtPurchase_Order_No') {
+                urlString = "/purchaseorder/purchase_order_autocomplete-autocomplete/" + $('#txtPurchase_Order_No').val();
+            }
+
             $.ajax({
 
                 url: urlString,
