@@ -21,24 +21,33 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public void Insert_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order(purchaseorder), StoreProcedures.Insert_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
+            int purchase_order_item_id = 0;
+            purchase_order_item_id=Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Purchase_Order(purchaseorder), StoreProcedures.Insert_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure));
+            return purchase_order_item_id;
         }
 
-        //public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder)
-        //{
-        //    _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order(purchaseorder), StoredProcedures.Update_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
-        //}
+        public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        {
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order(purchaseorder), StoreProcedures.Update_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
+        }
 
         private List<SqlParameter> Set_Values_In_Purchase_Order(PurchaseOrderInfo purchaseorder)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Purchase_Order_Id", purchaseorder.Purchase_Order_Id));
+
+            if (purchaseorder.Purchase_Order_Id != 0)
+            {
+                sqlParams.Add(new SqlParameter("@Purchase_Order_Id", purchaseorder.Purchase_Order_Id));
+            }
             sqlParams.Add(new SqlParameter("@Purchase_Order_No", purchaseorder.Purchase_Order_No));
             sqlParams.Add(new SqlParameter("@Vendor_Id", purchaseorder.Vendor_Id));
-            sqlParams.Add(new SqlParameter("@Created_On", purchaseorder.Created_On));
-            sqlParams.Add(new SqlParameter("@Created_By", purchaseorder.Created_By));
+            if (purchaseorder.Purchase_Order_Id == 0)
+            {
+                sqlParams.Add(new SqlParameter("@Created_On", purchaseorder.Created_On));
+                sqlParams.Add(new SqlParameter("@Created_By", purchaseorder.Created_By));
+            }
             sqlParams.Add(new SqlParameter("@Updated_On", purchaseorder.Updated_On));
             sqlParams.Add(new SqlParameter("@Updated_By", purchaseorder.Updated_By));
             return sqlParams;
@@ -89,6 +98,7 @@ namespace SMSPortalRepo
             purchaseorder.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
             purchaseorder.Purchase_Order_No = Convert.ToString(dr["Purchase_Order_No"]);
             purchaseorder.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+            purchaseorder.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
             purchaseorder.Created_On = Convert.ToDateTime(dr["Created_On"]);
             purchaseorder.Created_By = Convert.ToInt32(dr["Created_By"]);
             purchaseorder.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
@@ -114,5 +124,81 @@ namespace SMSPortalRepo
             }
             return autoList;
         }
+
+        public List<PurchaseOrderItemInfo> Get_Purchase_Order_Items_By_Id(int Purchase_Order_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Purchase_Order_Id", Purchase_Order_Id));
+
+            List<PurchaseOrderItemInfo> purchaseOrders = new List<PurchaseOrderItemInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Purchase_Order_Items_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                purchaseOrders.Add(Get_Purchase_Order_Items_Values(dr));
+            }
+            return purchaseOrders;
+        }
+
+        private PurchaseOrderItemInfo Get_Purchase_Order_Items_Values(DataRow dr)
+        {
+            PurchaseOrderItemInfo orderitem = new PurchaseOrderItemInfo();
+
+            orderitem.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
+            orderitem.Product_Id = Convert.ToInt32(dr["Purchase_Order_No"]);
+            orderitem.Product_Name = Convert.ToString(dr["Product_Name"]);
+            orderitem.Product_Quantity = Convert.ToInt32(dr["Product_Quantity"]);
+            orderitem.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            orderitem.Shipping_Address = Convert.ToString(dr["Shipping_Address"]);
+            orderitem.Shipping_Date = Convert.ToDateTime(dr["Shipping_Date"]);
+            orderitem.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            orderitem.Created_By = Convert.ToInt32(dr["Created_By"]);
+            orderitem.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            orderitem.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return orderitem;
+        }
+
+        public void Insert_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem)
+        {
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order_Item(purchaseorderitem), StoreProcedures.Insert_Purchase_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
+        }
+
+        public void Update_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem)
+        {
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order_Item(purchaseorderitem), StoreProcedures.Update_Purchase_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
+        }
+
+        private List<SqlParameter> Set_Values_In_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            if (purchaseorderitem.Purchase_Order_Item_Id != 0)
+            {
+                sqlParams.Add(new SqlParameter("@Purchase_Order_Item_Id", purchaseorderitem.Purchase_Order_Item_Id));
+            }
+            sqlParams.Add(new SqlParameter("@Purchase_Order_Id", purchaseorderitem.Purchase_Order_Id));
+            sqlParams.Add(new SqlParameter("@Product_Id", purchaseorderitem.Product_Id));
+            sqlParams.Add(new SqlParameter("@Product_Quantity", purchaseorderitem.Product_Quantity));
+            sqlParams.Add(new SqlParameter("@Product_Price", purchaseorderitem.Product_Price));
+            sqlParams.Add(new SqlParameter("@Shipping_Address", purchaseorderitem.Shipping_Address));
+            sqlParams.Add(new SqlParameter("@Shipping_Date", purchaseorderitem.Shipping_Date));
+            if (purchaseorderitem.Purchase_Order_Item_Id == 0)
+            {
+                sqlParams.Add(new SqlParameter("@Created_On", purchaseorderitem.Created_On));
+                sqlParams.Add(new SqlParameter("@Created_By", purchaseorderitem.Created_By));
+            }
+            sqlParams.Add(new SqlParameter("@Updated_On", purchaseorderitem.Updated_On));
+            sqlParams.Add(new SqlParameter("@Updated_By", purchaseorderitem.Updated_By));
+
+            return sqlParams;
+        }
+                
+        public void Delete_Purchase_Order_Item_By_Id(int purchase_order_item_id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@Purchase_Order_Item_Id", purchase_order_item_id));
+            _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Purchase_Order_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+        }
+
     }
 }

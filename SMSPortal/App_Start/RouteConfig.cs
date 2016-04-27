@@ -346,20 +346,20 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Purchase-Order-2",
-            url: "purchaseorder/insert-brands",
-            defaults: new { controller = "PurchaseOrder", action = "Insert_Brand", id = UrlParameter.Optional },
+            url: "purchaseorder/insert-purchase-order",
+            defaults: new { controller = "PurchaseOrder", action = "Insert_Purchase_Order", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Purchase-Order-3",
-            url: "purchaseorder/update-brands",
-            defaults: new { controller = "PurchaseOrder", action = "Update_Brand", id = UrlParameter.Optional },
+            url: "purchaseorder/update-purchase-order",
+            defaults: new { controller = "PurchaseOrder", action = "Update_Purchase_Order", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Purchase-Order-4",
-            url: "purchaseorder/get-brand",
-            defaults: new { controller = "PurchaseOrder", action = "Get_Brand_By_Id", id = UrlParameter.Optional },
+            url: "purchaseorder/edit-purchase-order",
+            defaults: new { controller = "PurchaseOrder", action = "Get_Purchase_Order_By_Id", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(

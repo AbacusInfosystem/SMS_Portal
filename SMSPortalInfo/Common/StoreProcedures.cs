@@ -112,7 +112,11 @@ namespace SMSPortalInfo.Common
         Get_Purchase_Order_By_Id_Sp,
         Get_Purchase_Order_Sp,
         Insert_Purchase_Order_Sp,
-        Get_Purchase_Order_Autocomplete_Sp
-
+        Update_Purchase_Order_Sp,
+        Get_Purchase_Order_Autocomplete_Sp,
+        Get_Purchase_Order_Items_By_Id_Sp,
+        Insert_Purchase_Order_Item_Sp,
+        Update_Purchase_Order_Item_Sp,
+        Delete_Purchase_Order_Item_By_Id_Sp
 	}
 }

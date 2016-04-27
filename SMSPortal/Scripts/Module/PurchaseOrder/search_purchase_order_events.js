@@ -8,7 +8,7 @@
 
     $("#btnEdit").click(function () {
 
-        $("#frmPurchaseOrder").attr("action", "/subcategory/edit-subcategories");
+        $("#frmPurchaseOrder").attr("action", "/purchaseorder/edit-purchase-order");
 
         $("#frmPurchaseOrder").attr("method", "POST");
 

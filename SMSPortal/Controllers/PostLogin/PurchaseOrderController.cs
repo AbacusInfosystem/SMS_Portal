@@ -49,7 +49,67 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("PurchaseOrderController - AddEdit_Purchase_Order " + ex.Message);
             }
 
-            return View("AddEdit_Brand", pViewModel);             
+            return View("AddEdit_Purchase_Order", pViewModel);             
+        }
+
+        public ActionResult Insert_Purchase_Order(PurchaseOrderViewModel pViewModel)
+        {
+            try
+            {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                pViewModel.PurchaseOrder.Created_By = pViewModel.Cookies.User_Id;
+                pViewModel.PurchaseOrder.Created_On = DateTime.Now;
+                pViewModel.PurchaseOrder.Updated_By = pViewModel.Cookies.User_Id;
+                pViewModel.PurchaseOrder.Updated_On = DateTime.Now;
+
+                pViewModel.PurchaseOrder.Purchase_Order_Id=_purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder);
+
+
+                pViewModel.Friendly_Message.Add(MessageStore.Get("DO001"));
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("PurchaseOrderController Insert " + ex);
+            }
+            TempData["pViewModel"] = pViewModel;
+            return RedirectToAction("Search");
+        }
+
+        public ActionResult Update_Purchase_Order(PurchaseOrderViewModel pViewModel)
+        {
+            try
+            {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                pViewModel.PurchaseOrder.Updated_By = pViewModel.Cookies.User_Id;
+                pViewModel.PurchaseOrder.Updated_On = DateTime.Now;
+                _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder);
+                pViewModel.Friendly_Message.Add(MessageStore.Get("DO002"));
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("PurchaseOrderController Update " + ex);
+            }
+
+            TempData["pViewModel"] = pViewModel;
+            return RedirectToAction("Search");
+        }
+
+        public ActionResult Get_Purchase_Order_By_Id(PurchaseOrderViewModel pViewModel)
+        {
+            try
+            {
+                pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+                pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("PurchaseOrderController Get_Purchase_Order_By_Id " + ex);
+            }
+
+            return AddEdit_Purchase_Order(pViewModel);
         }
 
         public JsonResult Get_Purchase_Orders(PurchaseOrderViewModel pViewModel)

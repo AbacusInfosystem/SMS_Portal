@@ -1,172 +1,183 @@
-﻿
-<script src="~/Scripts/Module/PurchaseOrder/PurchaseOrder_events.js"></script>
-<script src="~/Scripts/generic.popup.js"></script>
-<div class="content-wrapper">
-    @*@{Html.RenderPartial("_ServerMessage");}*@
-    <section class="content-header">
-        <h1>
-            Purchase Order Master
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+﻿@model SMSPortal.Models.PostLogin.PurchaseOrderViewModel
+@using SMSPortal.Common;
 
-            <li class="active">Admin</li>
 
-            <li class="active">Purchase Order</li>
+    <script src="~/Scripts/Module/PurchaseOrder/purchase_order_events.js"></script>
+    <script src="~/Scripts/Module/PurchaseOrder/purchase_order_methods.js"></script>
+    <script src="~/Scripts/Module/PurchaseOrder/purchase_order_validation.js"></script>
+    <div class="content-wrapper">
+        @*@{Html.RenderPartial("_ServerMessage");}*@
+        <section class="content-header">
+            <h1>
+                Purchase Order Master
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li class="active">Admin</li>
+                <li class="active">Purchase Order</li>
+            </ol>
+        </section>
 
-        </ol>
-    </section>
-
-    <form id="frmPurchaseOrderMaster">
-
-        <section class="content">
-            <div class="box box-primary">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="box-header with-border">
-                            <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            <h3 class="box-title">Purchase Order</h3>
-                        </div>
-
-                        <div class="box-body">
-
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Purchase Order No</label><br />
-                                        <label style="color: #808080">123</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Vendor</label>
-                                        <select id="drpVendor" class="form-control" name="">
-                                            <option value="">-Select Vendor-</option>
-                                        </select>
-                                    </div>
-                                </div>
+        <form id="frmPurchaseOrderMaster">
+            <input type="hidden" id="hdnPurchase_Order_Id" name="PurchaseOrder.Purchase_Order_Id" value="@Model.PurchaseOrder.Purchase_Order_Id" />
+            <input type="hidden" id="hdnPurchase_Order_Item_Id" name="PurchaseOrderItem.Purchase_Order_Item_Id" value="@Model.PurchaseOrderItem.Purchase_Order_Item_Id" />
+            <section class="content">
+                <div class="box box-primary">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box-header with-border">
+                                <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
+                                <h3 class="box-title">Purchase Order</h3>
                             </div>
 
-                            <div class="box">
-                                <div class="box-header">
-                                    <h3 class="box-title">Purchase Order Items</h3>
-                                </div>
-                                <div class="box-body">
-                                    <div class="row">
-                                        @*<div class="col-md-2">
-                                            <div class="form-group">
-                                                <label style="color: #333">Product</label>
-                                                <select id="drpProduct" class="form-control" name="">
-                                                    <option value="">-Select Product-</option>
-                                                </select>
-                                            </div>
-                                        </div>*@
-                                        <div class="col-md-3">
-                                            <div class="form-group lookup-parent">
-                                                <label for="txtCountry" style="color: #333" class="lookup-title">Product</label>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control input-sm lookup-label" id="txtCountry" name="" maxlength="3" placeholder="Enter Product" value="" data-table="">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-info btn-flat lookup-btn" name="" type="button" id="btnAddress_Country"><span class="fa fa-server"></span></button>
-                                                    </span>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label style="color: #333">Purchase Order No</label><br />
+                                            <label style="color: #808080">123</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group auto-complete">
+                                            <label for="Vendor" class="lookup-title">Vendor Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="SubCategory.Category_Name" id="txtVendor" placeholder="Enter Vendor Name" value="@Model.PurchaseOrder.Vendor_Id" data-table="Vendors" data-col="Vendor_Id,Vendor_Name" data-headernames="Vendor Name">
+                                                <input type="hidden" id="hdnVendorId" value="@Model.PurchaseOrder.Vendor_Id" name="PurchaseOrder.Vendor_Id" class="auto-complete-value" />
+                                                <input type="hidden" id="hdnVendorName" value="@Model.PurchaseOrder.Vendor_Name" name="PurchaseOrder.Vendor_Name" class="auto-complete-label" />
+                                                <div class="input-group-addon">
+                                                    <a href="#" class="text-muted" id="hrefVendor" role="button"><i class="fa fa-search"></i></a>
                                                 </div>
-                                                <input type="hidden" class="lookup-hidden" id="hdnCountry_Id" name="" value="">
-
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label style="color: #333">Product Price</label>
-                                                <input type="text" class="form-control input-sm" name="" id="txtProductPrice" placeholder="Enter product price" value="" maxlength="20">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label style="color: #333">Product Quantity</label>
-                                                <input type="text" class="form-control input-sm" name="" id="txtProductQuantity" placeholder="Enter product quantity" value="" maxlength="20">
-                                            </div>
-                                        </div>                            
-                                                                                     
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <br />
-                                                <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
-                                            </div>
-                                        </div>
-
-                                </div><!-- /.box-body -->
-                                @*<div class="box-footer">
-                <div class="btn-group">
-                    <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
-
-                </div>
-            </div>*@
-
-                            </div>
-                            
-                                <div class="box table-responsive">
+                                <div class="box">
                                     <div class="box-header">
-                                        <h3 class="box-title">Purchase Order Item Table</h3>
-                                    </div><!-- /.box-header -->
+                                        <h3 class="box-title">Purchase Order Items</h3>
+                                    </div>
                                     <div class="box-body">
-                                        <table class="table table-responsive" id="tblPurchaseOrderMaster">
-                                            <tr id="subhead">
-                                                <th>Product</th>
-                                                <th>Product Price</th>
-                                                <th>Product Quantity</th>                  
-                                                <th>Action</th>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group auto-complete">
+                                                    <label for="Product" class="lookup-title">Product Name</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Product.Product_Name" id="txtProductName" placeholder="Enter Product Name" value="@Model.PurchaseOrderItem.Product_Id" data-table="product" data-col="Product_Id,Product_Name" data-headernames="Product Name">
+                                                        <input type="hidden" id="hdnProductId" value="@(Model.Product.Product_Id == 0 ? "" : Model.Product.Product_Id.ToString())" class="auto-complete-value" />
+                                                        <input type="hidden" id="hdnProductName" value="@Model.Product.Product_Name" name="Product.Product_Name" class="auto-complete-label" />
+                                                        <div class="input-group-addon">
+                                                            <a href="#" class="text-muted" id="hrefProduct" role="button"><i class="fa fa-search"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                            </tr>
-                                            <tr>
-                                                <td>Bag</td>
-                                                <td>100</td>
-                                                <td>02</td>
-                                          
-                                                <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
-                                                </td>
+                                               
+                                                @*<div class="form-group lookup-parent">
+                                                    <label for="txtCountry" style="color: #333" class="lookup-title">Product</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control input-sm lookup-label" id="txtCountry" name="" maxlength="3" placeholder="Enter Product" value="" data-table="">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-info btn-flat lookup-btn" name="" type="button" id="btnAddress_Country"><span class="fa fa-server"></span></button>
+                                                        </span>
+                                                    </div>
+                                                    <input type="hidden" class="lookup-hidden" id="hdnCountry_Id" name="" value="">
 
-                                            </tr>
-                                            <tr>
-                                                <td>Bag</td>
-                                                <td>100</td>
-                                                <td>02</td>
-                                      
-                                                <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
-                                                </td>
+                                                </div>*@
+                                            </div>
 
-                                            </tr>
-                                            <tr>
-                                                <td>Bag</td>
-                                                <td>100</td>
-                                                <td>02</td>
-                                           
-                                                <td>
-                                                    <label id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o"></label>
-                                                    <label id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times"></label>
-                                                </td>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Product Price</label>
+                                                    <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@Model.PurchaseOrderItem.Product_Price" maxlength="20">
+                                                </div>
+                                            </div>
 
-                                            </tr>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Product Quantity</label>
+                                                    <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" placeholder="Enter product quantity" value="@Model.PurchaseOrderItem.Product_Quantity" maxlength="20">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                @*<div class="form-group">
+                                                        <label style="color: #333">Shipping Address</label>
+                                                        <textarea class="form-control input-sm" name="" id="txtShipping_Address" placeholder="Enter Shipping Address"></textarea>
+                                                    </div>*@
+                                            </div>
 
-                                        </table>
-                                    </div><!-- /.box-body -->
+                                            <div class="col-md-2">
+
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label style="color: #333">Shipping Address</label>
+                                                    <textarea class="form-control input-sm" name="PurchaseOrderItem.Shipping_Address" id="txtShipping_Address" placeholder="Enter Shipping Address">@Model.PurchaseOrderItem.Shipping_Address</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                @*<div class="form-group">
+                                                        <label style="color: #333">Product Price</label>
+                                                        <input type="text" class="form-control input-sm" name="" id="txtProductPrice" placeholder="Enter product price" value="" maxlength="20">
+                                                    </div>*@
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                @*<div class="form-group">
+                                                        <label style="color: #333">Product Quantity</label>
+                                                        <input type="text" class="form-control input-sm" name="" id="txtProductQuantity" placeholder="Enter product quantity" value="" maxlength="20">
+                                                    </div>*@
+                                            </div>
+                                            <div class="col-md-2">
+                                                @*<div class="form-group">
+                                                        <label style="color: #333">Shipping Address</label>
+                                                        <textarea class="form-control input-sm" name="" id="txtShipping_Address" placeholder="Enter Shipping Address"></textarea>
+                                                    </div>*@
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <br />
+                                                    <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="box table-responsive">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Purchase Order Item Table</h3>
+                                        </div><!-- /.box-header -->
+                                        <div class="box-body">
+                                            <table class="table table-responsive" id="tblPurchaseOrderItems">
+                                                <tr id="subhead">
+                                                    <th></th>
+                                                    <th>Product</th>
+                                                    <th>Product Price</th>
+                                                    <th>Product Quantity</th>
+                                                </tr>
+                                            </table>
+                                        </div><!-- /.box-body -->
+                                    </div>
+                                    <div class="box-footer">
+                                        <div class="btn-group">
+                                            <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
+                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            <div class="box-footer">
-                                <div class="btn-group">
-                                    <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                    <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                </div>
+
                             </div>
                         </div>
-
                     </div>
                 </div>
-            </div>
-        </section>
-    </form>
-</div>
+            </section>
+        </form>
+    </div>

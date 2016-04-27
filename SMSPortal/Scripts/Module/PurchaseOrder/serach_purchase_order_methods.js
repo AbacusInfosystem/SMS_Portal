@@ -36,7 +36,13 @@ function Bind_Purchase_Order_Grid(data)
 
         htmlText += data.PurchaseOrders[i].Purchase_Order_No;
 
-        htmlText += "</td>";         
+        htmlText += "</td>";
+
+        htmlText += "<td>";
+
+        htmlText += data.PurchaseOrders[i].Vendor_Name;
+
+        htmlText += "</td>";
 
         htmlText += "</tr>";
         }
@@ -45,7 +51,7 @@ function Bind_Purchase_Order_Grid(data)
     {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='2'>";
+        htmlText += "<td colspan='3'>";
 
         htmlText += "No record found.";
 
