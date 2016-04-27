@@ -18,8 +18,6 @@ namespace SMSPortal.Models.PostLogin
 
         public List<SubCategoryInfo> SubCategories { get; set; }
 
-        public List<CategoryInfo> Categories { get; set; }
-
         public SubCategory_Filter Filter { get; set; }
 
         public CookiesInfo Cookies { get; set; }
@@ -33,8 +31,6 @@ namespace SMSPortal.Models.PostLogin
             SubCategory = new SubCategoryInfo();
 
             SubCategories = new List<SubCategoryInfo>();
-
-            Categories = new List<CategoryInfo>();
 
             Filter = new SubCategory_Filter();
 

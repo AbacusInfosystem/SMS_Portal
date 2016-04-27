@@ -36,6 +36,9 @@ namespace SMSPortal.Common
 			FriendlyMessage SYS07 = new FriendlyMessage("SYS07", MessageType.Error, "File not found, Please contact administrator.");
 			hash.Add("SYS07", SYS07);
 
+            FriendlyMessage SYS08 = new FriendlyMessage("SYS08", MessageType.Error, "File not found, Please contact administrator.");
+            hash.Add("SYS08", SYS08);
+
 			#endregion
 
             #region Category 

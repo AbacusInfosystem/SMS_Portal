@@ -21,58 +21,6 @@ namespace SMSPortalRepo
             _sqlHelper = new SQLHelper();
         }
 
-        public List<SubCategoryInfo> Get_Subcategory_Modules()
-        {
-            List<SubCategoryInfo> modulelist = new List<SubCategoryInfo>();
-
-            List<SqlParameter> sqlparam = new List<SqlParameter>();
-
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Sub_Category_Sp.ToString(), CommandType.StoredProcedure);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    SubCategoryInfo list = new SubCategoryInfo();
-
-                    if (!dr.IsNull("Sub_Category_Id"))
-                        list.Subcategory_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
-                    if (!dr.IsNull("Sub_Category_Name"))
-                        list.Subcategory_Name = Convert.ToString(dr["Sub_Category_Name"]);
-
-                    modulelist.Add(list);
-                }
-            }
-
-            return modulelist;
-        }
-
-        public List<CategoryInfo> Get_Categories()
-        {
-            List<CategoryInfo> categorylist = new List<CategoryInfo>();
-
-            List<SqlParameter> sqlparam = new List<SqlParameter>();
-
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Category_Sp.ToString(), CommandType.StoredProcedure);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    CategoryInfo list = new CategoryInfo();
-
-                    if (!dr.IsNull("Category_Id"))
-                        list.Category_Id = Convert.ToInt32(dr["Category_Id"]);
-                    if (!dr.IsNull("Category_Name"))
-                        list.Category_Name = Convert.ToString(dr["Category_Name"]);
-
-                    categorylist.Add(list);
-                }
-            }
-
-            return categorylist;
-        }
-
         public List<SubCategoryInfo> Get_SubCategories(ref PaginationInfo pager)
         {
             List<SubCategoryInfo> subcategories = new List<SubCategoryInfo>();
@@ -90,6 +38,7 @@ namespace SMSPortalRepo
         public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int category_Id)
         {
             List<SqlParameter> sqlParam = new List<SqlParameter>();
+
             sqlParam.Add(new SqlParameter("@Category_Id", category_Id));
 
             List<SubCategoryInfo> subcategories = new List<SubCategoryInfo>();
@@ -98,19 +47,19 @@ namespace SMSPortalRepo
 
             foreach (DataRow dr in dt.Rows)
             {
-                subcategories.Add(Get_SubCategory_Values_By_Category(dr));
+                subcategories.Add(Get_SubCategory_Values(dr));
             }
 
             return subcategories;
         }
 
-        public List<SubCategoryInfo> Get_Subcategory_By_Module_Id(int module_Id, ref PaginationInfo pager)
+        public List<SubCategoryInfo> Get_Subcategories_By_Id(int subcategory_Id, ref PaginationInfo pager)
         {
             List<SubCategoryInfo> subcategory = new List<SubCategoryInfo>();
 
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
-            sqlparam.Add(new SqlParameter("Sub_Category_Id", module_Id));
+            sqlparam.Add(new SqlParameter("Sub_Category_Id", subcategory_Id));
 
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Sub_Category_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
@@ -153,31 +102,7 @@ namespace SMSPortalRepo
             return subcategory;
         }
 
-        private SubCategoryInfo Get_SubCategory_Values_By_Category(DataRow dr)
-        {
-            SubCategoryInfo subcategory = new SubCategoryInfo();
-
-            subcategory.Subcategory_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
-            subcategory.Subcategory_Name = Convert.ToString(dr["Sub_Category_Name"]);
-            subcategory.Category_Id = Convert.ToInt32(dr["Category_Id"]);             
-            subcategory.IsActive = Convert.ToBoolean(dr["IsActive"]);
-            if (subcategory.IsActive == true)
-            {
-                subcategory.Status = "Active";
-            }
-            else
-            {
-                subcategory.Status = "InActive";
-            }
-            subcategory.Created_Date = Convert.ToDateTime(dr["Created_On"]);
-            subcategory.Created_By = Convert.ToInt32(dr["Created_By"]);
-            subcategory.Updated_Date = Convert.ToDateTime(dr["Updated_On"]);
-            subcategory.Updated_By = Convert.ToInt32(dr["Updated_By"]);
-
-            return subcategory;
-        }
-
-        private SubCategoryInfo Get_SubCategory_Values(DataRow dr)
+        private SubCategoryInfo Get_SubCategory_Values(DataRow dr) 
         {
             SubCategoryInfo subcategory = new SubCategoryInfo();
 
@@ -268,11 +193,7 @@ namespace SMSPortalRepo
 
             if (dt != null && dt.Rows.Count > 0)
             {
-                List<DataRow> drList = new List<DataRow>();
-
-                drList = dt.AsEnumerable().ToList();
-
-                foreach (DataRow dr in drList)
+                foreach (DataRow dr in dt.Rows)
                 {
                     check = Convert.ToBoolean(dr["Check_SubCategory"]);
                 }

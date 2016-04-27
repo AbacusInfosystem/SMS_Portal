@@ -32,4 +32,10 @@ namespace SMSPortalInfo.Common
         Male = 1,
         Female = 2,
     }
+
+    public enum AppFunction
+    {
+        // Dashboard
+        Token,
+    }
 }
