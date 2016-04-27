@@ -43,12 +43,5 @@
             $('#frmCategoryMaster').attr("method", "POST");
             $('#frmCategoryMaster').submit();
         }
-
-
     });
-
-   
-
-
-
 });

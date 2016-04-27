@@ -25,43 +25,55 @@ namespace SMSPortalManager
         {
             return _usersRepo.AuthenticateUser(userName, password);
         }
+
         public string Set_User_Token_For_Cookies(string userName, string password)
         {
             return _usersRepo.Set_User_Token_For_Cookies(userName, password);
         }
-        public void Insert_Users(UserInfo users)
+
+        public void Insert_Users(UserInfo users , int user_Id)
         {
-            _usersRepo.Insert_Users(users);
+            _usersRepo.Insert_Users(users ,user_Id);
         }
-        public List<UserInfo> Get_Users(ref PaginationInfo Pager)
+
+        public List<UserInfo> Get_Users(ref PaginationInfo pager)
         {
-            return _usersRepo.Get_Users(ref Pager);
+            return _usersRepo.Get_Users(ref pager);
         }
-        public void Update_User(UserInfo users)
+
+        public void Update_User(UserInfo users , int user_Id)
         {
-            _usersRepo.Update_User(users);
+            _usersRepo.Update_User(users, user_Id);
         }
-        public UserInfo Get_User_By_Id(int User_Id)
+
+        public UserInfo Get_User_By_Id(int user_Id)
         {
-            return _usersRepo.Get_User_By_Id(User_Id);
+            return _usersRepo.Get_User_By_Id(user_Id);
         }
-        public List<UserInfo> Get_Users_By_User_Name(string User_Name, ref PaginationInfo Pager)
+
+        public List<UserInfo> Get_Users_By_User_Id_List(int user_Id, ref PaginationInfo pager)
         {
-            return _usersRepo.Get_Users_By_User_Name(User_Name, ref Pager);
+            return _usersRepo.Get_Users_By_User_Id_List(user_Id, ref pager);
         }
+
         public List<RolesInfo> Get_Roles()
         {
             return _usersRepo.Get_Roles();
         }
-        public List<Entity> Get_Entity_By_Role(int Role_Id)
+
+        public List<Entity> Get_Entity_By_Role(int role_Id)
         {
-            return _usersRepo.Get_Entity_By_Role(Role_Id);
+            return _usersRepo.Get_Entity_By_Role(role_Id);
         }
 
-        public bool Check_Existing_User(string User_Name)
+        public bool Check_Existing_User(string user_Name)
         {
-            return _usersRepo.Check_Existing_User(User_Name);
+            return _usersRepo.Check_Existing_User(user_Name);
         }
-     
+
+        public List<AutocompleteInfo> Get_User_Autocomplete(string user)
+        {
+            return _usersRepo.Get_User_Autocomplete(user);
+        }
     }
 }

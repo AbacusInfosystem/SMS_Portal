@@ -20,6 +20,8 @@ namespace SMSPortal.Models.PostLogin
             Products = new List<ProductInfo>();
             ImagesList = new List<ProductImageInfo>();
             ProductImage = new ProductImageInfo();
+            Filter = new ProductFilter();
+            Cookies = new CookiesInfo();
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
@@ -32,6 +34,7 @@ namespace SMSPortal.Models.PostLogin
         public List<ProductImageInfo> ImagesList { get; set; }
         public HttpPostedFileBase UploadImage { get; set; }
         public ProductImageInfo ProductImage { get; set; }
+        public CookiesInfo Cookies { get; set; }
     }
     public class ProductFilter
     {

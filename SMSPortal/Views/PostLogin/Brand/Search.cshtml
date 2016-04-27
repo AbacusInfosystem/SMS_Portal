@@ -3,12 +3,12 @@
 <script src="~/Scripts/Module/Brand/search_brand_events.js"></script>
 <script src="~/Scripts/Module/Brand/search_brand_methods.js"></script>
 <script src="~/Scripts/additional-methods.min.js"></script>
- 
+
 <form id="frmBrand" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @{Html.RenderPartial("_ServerMessage");} 
+        @{Html.RenderPartial("_ServerMessage");}
         <section class="content-header">
             <h1>
                 Brand Master
@@ -45,10 +45,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @*<div class="form-group">
-                                        <label style="color: #333">Brand Name</label>
-                                        <input type="text" class="form-control input-sm" name="Filter.Brand_Name" id="txtBrand_Name" placeholder="Enter brand name" value="" >
-                                    </div>*@
                                 </div>
                             </div>
                             <div class="box-footer">
@@ -79,17 +75,17 @@
                                     <th>Brand Name</th>
                                     <th>Brand Category</th>
                                     <th>Status</th>
-                                </tr>                                 
+                                </tr>
                             </table>
                         </div>
                         <div class="box-footer clearfix">
-                                <div class="pagination pagination-sm no-margin pull-right">
-                                    <ul></ul>
-                                </div>
-                                <div id="divSearchGridOverlay" class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
-                                </div>
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
                             </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

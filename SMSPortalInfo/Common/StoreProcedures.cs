@@ -19,6 +19,7 @@ namespace SMSPortalInfo.Common
         Get_Category_By_Id_Sp,
         Delete_Category_By_Id_Sp,
         Check_Existing_Category,
+        Get_Category_Autocomplete_Sp,
 
         // Users
         Insert_Users_Sp,
@@ -28,6 +29,7 @@ namespace SMSPortalInfo.Common
         Get_Users_By_Id_Sp,
         Get_Entity_By_Role_Sp,
         Check_Existing_User,
+        Get_User_Autocomplete_Sp,
 
         //Sub Category
         Get_Sub_Category_Sp,
@@ -76,6 +78,7 @@ namespace SMSPortalInfo.Common
         Get_Product_Images_Sp,
         Insert_Product_Image_Sp,
         Delete_Product_Image_Sp,
+        Get_Product_Autocomplete_Sp,
          
         
         //Vendor
@@ -103,6 +106,14 @@ namespace SMSPortalInfo.Common
         Get_Receivable_By_Name_Sp,
         Get_Receivable_Sp,
         Get_InvoiceNo_AutoComplete_Sp,
+        Get_InvoiceNo_Sp,
+
+        //Purchase Order
+        Get_Purchase_Order_By_Id_Sp,
+        Get_Purchase_Order_Sp,
+        Insert_Purchase_Order_Sp,
+        Get_Purchase_Order_Autocomplete_Sp
+
         Get_InvoiceNo_Sp,
         Insert_Receivable_Sp
 	}

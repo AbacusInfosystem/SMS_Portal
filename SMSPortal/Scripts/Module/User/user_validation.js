@@ -76,10 +76,9 @@
 });
 jQuery.validator.addMethod("validate_User_Exist", function (value, element) {
     var result = true;
-
     if ($("#txtUser_Name").val() != "" && $("#hdnUserName").val() != $("#txtUser_Name").val()) {
         $.ajax({
-            url: '/User/Check_Existing_Category',
+            url: '/User/Check_Existing_User',
             data: { User_Name: $("#txtUser_Name").val() },
             method: 'GET',
             async: false,

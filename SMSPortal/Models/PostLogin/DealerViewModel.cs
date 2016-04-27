@@ -20,6 +20,7 @@ namespace SMSPortal.Models.PostLogin
             Filter = new DealerFilter();
             Brands = new List<BrandInfo>();
             States = new List<StateInfo>();
+            Cookies = new CookiesInfo();
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
@@ -28,6 +29,7 @@ namespace SMSPortal.Models.PostLogin
         public DealerFilter Filter {get;set; }
         public List<BrandInfo> Brands { get; set; }
         public List<StateInfo> States { get; set; }
+        public CookiesInfo Cookies { get; set; }
     }
     public class DealerFilter
     {

@@ -21,47 +21,47 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public void Insert_Vendor(VendorInfo Vendor)
+        public void Insert_Vendor(VendorInfo vendor , int user_Id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Vendor(Vendor), StoreProcedures.Insert_Vendor_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Vendor(vendor, user_Id), StoreProcedures.Insert_Vendor_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        public void Update_Vendor(VendorInfo Vendor)
+        public void Update_Vendor(VendorInfo vendor , int user_Id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Vendor(Vendor), StoreProcedures.Update_Vendor_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Vendor(vendor, user_Id), StoreProcedures.Update_Vendor_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Vendor(VendorInfo Vendor)
+        private List<SqlParameter> Set_Values_In_Vendor(VendorInfo vendor, int user_Id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            if (Vendor.Vendor_Id != 0)
+            if (vendor.Vendor_Id != 0)
             {
-                sqlParams.Add(new SqlParameter("@Vendor_Id", Vendor.Vendor_Id));
+                sqlParams.Add(new SqlParameter("@Vendor_Id", vendor.Vendor_Id));
             }
 
-            sqlParams.Add(new SqlParameter("@Vendor_Name", Vendor.Vendor_Name));
-            sqlParams.Add(new SqlParameter("@Address", Vendor.Address));
-            sqlParams.Add(new SqlParameter("@City", Vendor.City));
-            sqlParams.Add(new SqlParameter("@State", Vendor.State));
-            sqlParams.Add(new SqlParameter("@Pincode", Vendor.Pincode));
-            sqlParams.Add(new SqlParameter("@Contact_No_1", Vendor.Contact_No_1));
-            sqlParams.Add(new SqlParameter("@Contact_No_2", Vendor.Contact_No_2));
-            sqlParams.Add(new SqlParameter("@Email", Vendor.Email));
-            sqlParams.Add(new SqlParameter("@Is_Active", Vendor.Is_Active));
-            if (Vendor.Vendor_Id == 0)
+            sqlParams.Add(new SqlParameter("@Vendor_Name", vendor.Vendor_Name));
+            sqlParams.Add(new SqlParameter("@Address", vendor.Address));
+            sqlParams.Add(new SqlParameter("@City", vendor.City));
+            sqlParams.Add(new SqlParameter("@State", vendor.State));
+            sqlParams.Add(new SqlParameter("@Pincode", vendor.Pincode));
+            sqlParams.Add(new SqlParameter("@Contact_No_1", vendor.Contact_No_1));
+            sqlParams.Add(new SqlParameter("@Contact_No_2", vendor.Contact_No_2));
+            sqlParams.Add(new SqlParameter("@Email", vendor.Email));
+            sqlParams.Add(new SqlParameter("@Is_Active", vendor.Is_Active));
+            if (vendor.Vendor_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", Vendor.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", Vendor.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_Id));
             }
-            sqlParams.Add(new SqlParameter("@Updated_On", Vendor.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", Vendor.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
             return sqlParams;
         }
 
-        public VendorInfo Get_Vendor_By_Id(int Vendor_Id)
+        public VendorInfo Get_Vendor_By_Id(int vendor_Id)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", vendor_Id));
 
             VendorInfo Vendor = new VendorInfo();
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
@@ -86,25 +86,25 @@ namespace SMSPortalRepo
             return Vendor;
         }
 
-        public List<VendorInfo> Get_Vendors(ref PaginationInfo Pager)
+        public List<VendorInfo> Get_Vendors(ref PaginationInfo pager)
         {
             List<VendorInfo> Vendors = new List<VendorInfo>();
             DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Vendor_Sp.ToString(), CommandType.StoredProcedure);
-            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
             {
                 Vendors.Add(Get_Vendor_Values(dr));
             }
             return Vendors;
         }
 
-        public List<VendorInfo> Get_Vendor_By_Name(string Vendor_Name, ref PaginationInfo Pager)
+        public List<VendorInfo> Get_Vendor_By_Id_List(int vendor_Id, ref PaginationInfo pager)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Vendor_Name", Vendor_Name));
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", vendor_Id));
 
             List<VendorInfo> Vendor = new List<VendorInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Name_Sp.ToString(), CommandType.StoredProcedure);
-            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
             {
                 Vendor.Add(Get_Vendor_Values(dr));
             }
@@ -133,11 +133,11 @@ namespace SMSPortalRepo
             return Vendor;
         }
 
-        public bool Check_Existing_Vendor(string Vendor_Name)
+        public bool Check_Existing_Vendor(string vendor_Name)
         {
             bool check = false;
             List<SqlParameter> sqlParam = new List<SqlParameter>();
-            sqlParam.Add(new SqlParameter("@Vendor_Name", Vendor_Name));
+            sqlParam.Add(new SqlParameter("@Vendor_Name", vendor_Name));
 
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Check_Existing_Vendor.ToString(), CommandType.StoredProcedure);
 
@@ -203,12 +203,12 @@ namespace SMSPortalRepo
             return bankdetailslist;
         }
 
-        public List<ProductInfo> Get_Productmapping(int Brand_Id)
+        public List<ProductInfo> Get_Productmapping(int brand_Id)
         {
             //Pager.PageSize = 20;
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Brand_Id", Brand_Id));
+            sqlParams.Add(new SqlParameter("@Brand_Id", brand_Id));
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Productmapping.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt))
             {

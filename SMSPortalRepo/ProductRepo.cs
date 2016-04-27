@@ -67,19 +67,20 @@ namespace SMSPortalRepo
             return products;
         }
 
-        public List<ProductInfo> Get_Products_By_Name(string Product_Name,ref PaginationInfo Pager)
+        public List<ProductInfo> Get_Products_By_Id(int Product_Id, ref PaginationInfo Pager)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Product_Name", Product_Name));
+            sqlParamList.Add(new SqlParameter("@Product_Id", Product_Id));
 
             List<ProductInfo> products = new List<ProductInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
                 products.Add(Get_Product_Values(dr));
             }
             return products;
         }
+
         public ProductInfo Get_Product_By_Id(int Product_Id)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
@@ -117,6 +118,7 @@ namespace SMSPortalRepo
             product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
             return product;
         }
+
         public bool Check_Existing_Product(string Product_Name)
         {
             bool check = false;
@@ -184,6 +186,7 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Updated_By", productImageInfo.Updated_By));
             return sqlParams;
         }
+
         public void Insert_Product_Image(ProductImageInfo productImageInfo )
         {             
             _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_Image(productImageInfo), StoreProcedures.Insert_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
@@ -195,7 +198,7 @@ namespace SMSPortalRepo
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
             List<SqlParameter> sqlparam = new List<SqlParameter>();
             sqlparam.Add(new SqlParameter("@Description", ProductName == null ? System.String.Empty : ProductName.Trim()));
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Dealer_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Product_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
             if (dt != null && dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)

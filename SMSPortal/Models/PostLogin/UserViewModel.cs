@@ -17,6 +17,7 @@ namespace SMSPortal.Models.PostLogin
             Users = new List<UserInfo>();
             Filter = new UserFilter();
             Roles = new List<RolesInfo>();
+            Cookies = new CookiesInfo();
             
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
@@ -25,11 +26,12 @@ namespace SMSPortal.Models.PostLogin
         public List<UserInfo> Users { get; set; }
         public UserFilter Filter { get; set; }
         public List<RolesInfo> Roles { get; set; }
+        public CookiesInfo Cookies { get; set; }
        
     }
     public class UserFilter
     {
-        public string User_Id { get; set; }
+        public int User_Id { get; set; }
         public string User_Name { get; set; }
         public bool Is_Active { get; set; }
     }

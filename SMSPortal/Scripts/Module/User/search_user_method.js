@@ -4,7 +4,7 @@
         {
             Filter:
                 {
-                    User_Name: $('#txtUser_Name').val(),
+                    User_Id: $('#hdnUserId').val(),
                 },
             Pager:
                 {

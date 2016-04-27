@@ -5,7 +5,7 @@ function Search_Categories()
         {
             Filter:
                 {
-                    Category_Name: $('#txtCategory_Name').val(),
+                    Category_Id: $('#hdnCategoryId').val(),
                 },
             Pager:
                 {

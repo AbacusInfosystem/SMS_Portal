@@ -1,4 +1,10 @@
-﻿using System;
+﻿using SMSPortal.Common;
+using SMSPortal.Models.PostLogin;
+using SMSPortalHelper.Logging;
+using SMSPortalHelper.PageHelper;
+using SMSPortalInfo.Common;
+using SMSPortalManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,17 +14,83 @@ namespace SMSPortal.Controllers.PostLogin
 {
     public class PurchaseOrderController : Controller
     {
-        //
-        // GET: /PurchaseOrder/
-        public ActionResult Search()
+        public PurchaseOrderManager _purchaseOrderManager;
+
+        public PurchaseOrderController()
         {
-            return View("Search");
+            _purchaseOrderManager = new PurchaseOrderManager();
+        }
+        public ActionResult Search(PurchaseOrderViewModel pViewModel)
+        {
+            try
+            {
+                if (TempData["pViewModel"] != null)
+                {
+                    pViewModel = (PurchaseOrderViewModel)TempData["pViewModel"];
+                }
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("PurchaseOrderController Search " + ex);
+            }
+            return View("Search", pViewModel);
         }
 
-        public ActionResult Index()
+        public ActionResult AddEdit_Purchase_Order(PurchaseOrderViewModel pViewModel)
         {
-            return View("Index");
+            PaginationInfo Pager = new PaginationInfo();
+            try
+            {
+                pViewModel.PurchaseOrders = _purchaseOrderManager.Get_Purchase_Orders(ref Pager);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("PurchaseOrderController - AddEdit_Purchase_Order " + ex.Message);
+            }
+
+            return View("AddEdit_Brand", pViewModel);             
         }
+
+        public JsonResult Get_Purchase_Orders(PurchaseOrderViewModel pViewModel)
+        {
+            PaginationInfo pager = new PaginationInfo();
+            try
+            {
+                pager = pViewModel.Pager;
+                if (pViewModel.Filter.Purchase_Order_Id != 0)
+                {
+                    pViewModel.PurchaseOrders = _purchaseOrderManager.Get_Purchase_Orders_By_Id(pViewModel.Filter.Purchase_Order_Id, ref pager);
+                }
+                else
+                {
+                    pViewModel.PurchaseOrders = _purchaseOrderManager.Get_Purchase_Orders(ref pager);
+                }
+                pViewModel.Pager = pager;
+                pViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", pViewModel.Pager.TotalRecords, pViewModel.Pager.CurrentPage + 1, pViewModel.Pager.PageSize, 10, true);
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("PurchaseOrderController Get_Purchase_Orders " + ex);
+            }
+            return Json(pViewModel);
+        }
+        
+        public JsonResult Get_Purchase_Order_Autocomplete(string Purchase_Order_No)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            try
+            {
+                autoList = _purchaseOrderManager.Get_Purchase_Order_Autocomplete(Purchase_Order_No);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Purchase_Controller - Get_Purchase_Order_Autocomplete " + ex.ToString());
+            }
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Add_Purchase_Order_Item()
         {
             return View("AddPurchaseOrderItem");
