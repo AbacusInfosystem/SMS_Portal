@@ -24,9 +24,11 @@ $(document).ready(function () {
         });
        
         var hiddenTextValue = $("#hdnValue").val();
+
         var id = $("#hdnId").val();
+
         var Textboxname = "#" + $("#hdnLookupLabelId").val();
-        //$("#" + $("#hdnLookupLabelId").val()).val(hiddenTextValue);
+
         $("#" + $("#hdnLookupHiddenId").val()).val(id);
 
         var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
@@ -51,10 +53,8 @@ $(document).ready(function () {
 
     $(".close").click(function () {
 
-        // IF IT IS A CLONED HTML
         if ($("#" + $('#div_Parent_Modal_Fade').find(".modal-title").data("obj")).length) {
 
-            // METHOD IS DEFINED IN GENERIC.POPUP.JS
             Close_Pop_Up(true);
         }
         else {

@@ -34,6 +34,10 @@ var InitializeAutoComplete = function (elementObject) {
             if ($(elementObject).attr("id") == 'txtInvoice_No') {
                 urlString = "/Receivable/autocomplete-Invoice-No/" + $('#txtInvoice_No').val();
             }
+            if ($(elementObject).attr("id") == 'txtUser_Name') {
+                urlString = "/user/user-autocomplete/" + $('#txtUser_Name').val();
+            }
+
 
             if ($(elementObject).attr("id") == 'txtPurchase_Order_No') {
                 urlString = "/purchaseorder/purchase_order_autocomplete-autocomplete/" + $('#txtPurchase_Order_No').val();
@@ -74,7 +78,7 @@ var InitializeAutoComplete = function (elementObject) {
                 $(this).parents('.form-group').find('.todo-list').remove();
             }
 
-            var htmlText = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + ui.item.label + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+            var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + ui.item.label + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
             if ($(this).parents('.form-group').find(".ui-menu")[0]) {
 
@@ -98,7 +102,6 @@ var InitializeAutoComplete = function (elementObject) {
             return false;
         },
         open: function () {
-            //$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
             $(this).removeClass("ui-corner-all").addClass("ui-sortable");
         },
         close: function (event, ui) {
@@ -112,7 +115,7 @@ var InitializeAutoComplete = function (elementObject) {
         if ($(this).parents('.form-group').find('.auto-complete-value').val() != 0) {
 
           
-            var htmlText = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + $(this).parents('.form-group').find('.auto-complete-label').val() + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+            var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + $(this).parents('.form-group').find('.auto-complete-label').val() + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
             if ($(this).parents('.form-group').find(".ui-menu")[0]) {
 

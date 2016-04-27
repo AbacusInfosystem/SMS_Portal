@@ -121,6 +121,19 @@ namespace SMSPortal.Common
             hash.Add("PO003", PO003);
 
             #endregion
+
+            #region Vendors
+
+            FriendlyMessage VO001 = new FriendlyMessage("VO001", MessageType.Success, "Vendor added successfully");
+            hash.Add("VO001", VO001);
+
+            FriendlyMessage VO002 = new FriendlyMessage("VO002", MessageType.Success, "Vendor updated successfully");
+            hash.Add("VO002", VO002);
+
+            FriendlyMessage VO003 = new FriendlyMessage("VO003", MessageType.Success, "Vendor deleted successfully");
+            hash.Add("VO003", VO003);
+
+            #endregion
 			
 		}
 

@@ -1,9 +1,7 @@
 ﻿@model SMSPortal.Models.PostLogin.VendorViewModel
 @using SMSPortal.Common;
-
 <script src="~/Scripts/Module/Vendor/search_vendor_methods.js"></script>
 <script src="~/Scripts/Module/Vendor/search_vendor_events.js"></script>
-
 <form id="frmVendor" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -20,7 +18,6 @@
                 <li class="active">Vendor</li>
             </ol>
         </section>
-
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -32,13 +29,7 @@
                         <div class="box-body">
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id">
-                            <div class="row">
-                                @*<div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color: #333">Vendor Name</label>
-                                        <input type="text" class="form-control input-sm" name="Filter.Vendor_Name" id="txtVendor_Name" placeholder="Enter vendor name" value="" maxlength="20">
-                                    </div>
-                                </div>*@
+                            <div class="row">                             
                                 <div class="col-md-4">
                                     <div class="form-group auto-complete">
                                         <label for="vendor" class="lookup-title">Vendor Name</label>
@@ -63,12 +54,9 @@
                                             <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Vendor")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
-
                                         <div class="btn-group pull-right">
                                             <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
-                                            @*<button type="button" id="btnAddBankDetails" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Bank Details </button>*@
                                             <a class="btn btn-warning btn-sm" role="button" id="btnAddProductMapping" style="display:none;"> Add Product Mapping</a>
-
                                         </div>
                                     </div>
                                 </div>
@@ -77,9 +65,8 @@
 
                         </div>
                     </div>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-solid">
@@ -90,9 +77,7 @@
                                     <th>Vendor Name</th>
                                     <th>Address</th>
                                     <th>Status</th>
-                                </tr>
-                            
-
+                                </tr>                            
                             </table>
                         </div>
                         <div class="box-footer clearfix">

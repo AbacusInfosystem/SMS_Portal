@@ -4,7 +4,7 @@ function Search_Vendors() {
         {
             Filter:
                 {
-                    Vendor_Name: $('#txtVendorName').val(),
+                    Vendor_ID: $('#hdnVendorId').val(),
                 },
             Pager:
                 {

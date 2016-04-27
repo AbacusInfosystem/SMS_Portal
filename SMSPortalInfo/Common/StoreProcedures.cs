@@ -29,6 +29,7 @@ namespace SMSPortalInfo.Common
         Get_Users_By_Id_Sp,
         Get_Entity_By_Role_Sp,
         Check_Existing_User,
+        Get_User_Autocomplete_Sp,
 
         //Sub Category
         Get_Sub_Category_Sp,
