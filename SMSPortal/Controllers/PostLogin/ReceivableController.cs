@@ -21,9 +21,13 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ReceivableManager _receivableManager;
 
+        public CookiesInfo _cookies;
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
         public ReceivableController()
         {
             _receivableManager = new ReceivableManager();
+            CookiesManager _cookiesManager = new CookiesManager();
+            _cookies = _cookiesManager.Get_Token_Data(token); 
         }
 
         public ActionResult Search(ReceivableViewModel rViewModel)
@@ -75,6 +79,27 @@ namespace SMSPortal.Controllers.PostLogin
             Invoice_No = _receivableManager.Load_Receivable_InvoiceNo(txtInvoice_No);
 
             return Json(Invoice_No, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Insert_Receivable(ReceivableViewModel rViewModel)
+        {
+            try
+            {
+                rViewModel.Receivable.Created_By = _cookies.User_Id;
+                rViewModel.Receivable.Created_On = DateTime.Now;
+                rViewModel.Receivable.Updated_By = _cookies.User_Id;
+                rViewModel.Receivable.Updated_On = DateTime.Now;
+                _receivableManager.Insert_Receivable(rViewModel.Receivable);
+                rViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
+            }
+            catch (Exception ex)
+            {
+                rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("ReceivableController Insert " + ex);
+            }
+            TempData["vViewModel"] = rViewModel;
+            return RedirectToAction("Search");
         }
     }
 }

@@ -121,8 +121,14 @@ namespace SMSPortal.Common
             hash.Add("PO003", PO003);
 
             #endregion
-			
-		}
+
+            #region Receivable
+
+            FriendlyMessage RE001 = new FriendlyMessage("RE001", MessageType.Success, "Receivable added successfully");
+            hash.Add("RE001", RE001);
+
+            #endregion
+        }
 
 		public static FriendlyMessage Get(string code)
 		{

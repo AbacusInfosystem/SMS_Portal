@@ -32,4 +32,11 @@ namespace SMSPortalInfo.Common
         Male = 1,
         Female = 2,
     }
+
+    public enum TransactionType
+    {
+        Cheque = 1,
+        NEFT = 2,
+        Credit_Debit = 3
+    }
 }

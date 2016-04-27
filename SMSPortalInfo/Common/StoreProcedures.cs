@@ -103,6 +103,7 @@ namespace SMSPortalInfo.Common
         Get_Receivable_By_Name_Sp,
         Get_Receivable_Sp,
         Get_InvoiceNo_AutoComplete_Sp,
-        Get_InvoiceNo_Sp
+        Get_InvoiceNo_Sp,
+        Insert_Receivable_Sp
 	}
 }
