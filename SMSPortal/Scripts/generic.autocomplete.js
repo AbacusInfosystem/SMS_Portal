@@ -39,6 +39,10 @@ var InitializeAutoComplete = function (elementObject) {
             }
 
 
+            if ($(elementObject).attr("id") == 'txtPurchase_Order_No') {
+                urlString = "/purchaseorder/purchase_order_autocomplete-autocomplete/" + $('#txtPurchase_Order_No').val();
+            }
+
             $.ajax({
 
                 url: urlString,

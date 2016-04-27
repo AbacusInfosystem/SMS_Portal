@@ -17,15 +17,14 @@ namespace SMSPortal.Controllers.PostLogin
     {
         public SubCategoryManager _subcategoryManager;        
 
-        public CookiesInfo _cookies;
-
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+        public CookiesInfo _cookies;     
 
         public SubCategoryController()
         {
-            _subcategoryManager = new SubCategoryManager();           
+            _subcategoryManager = new SubCategoryManager();          
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(SubCategoryViewModel sViewModel)
         {
             try
@@ -45,11 +44,12 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Search", sViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Index(SubCategoryViewModel sViewModel)
         {
             try
             {
-                sViewModel.Categories = _subcategoryManager.Get_Categories();
+
             }
             catch (Exception ex)
             {
@@ -90,22 +90,16 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(sViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert_Subcategory(SubCategoryViewModel sViewModel)
         {
             try
             {
                 sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                if (sViewModel.Cookies.User_Id == 0)
-                {
-                    return RedirectToAction("Logout", "Login");
-                }
-                else
-                {
-                    _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
+                _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
 
-                    sViewModel.Friendly_Message.Add(MessageStore.Get("SBO001"));
-                }
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SBO001"));
             }
             catch (Exception ex)
             {
@@ -119,22 +113,16 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Update_Subcategory(SubCategoryViewModel sViewModel)
         {
             try
             {
                 sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                if (sViewModel.Cookies.User_Id == 0)
-                {
-                    return RedirectToAction("Logout", "Login");
-                }
-                else
-                {
-                    _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
+                _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
 
-                    sViewModel.Friendly_Message.Add(MessageStore.Get("SBO002"));
-                }
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SBO002"));
             }
             catch (Exception ex)
             {
@@ -148,13 +136,12 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Subcategory_By_Id(SubCategoryViewModel sViewModel)
         {
             try
             {
                 sViewModel.SubCategory = _subcategoryManager.Get_Subcategory_By_Id(sViewModel.SubCategory.Subcategory_Id);
-
-                sViewModel.Categories = _subcategoryManager.Get_Categories();
             }
             catch (Exception ex)
             {

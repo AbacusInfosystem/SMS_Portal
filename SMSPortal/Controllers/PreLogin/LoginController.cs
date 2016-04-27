@@ -31,32 +31,27 @@ namespace SMSPortal.Controllers.PreLogin
                 {
                     lViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                    if (lViewModel.Cookies.Role_Id==0)
+                    if (lViewModel.Cookies==null)
                     {
-                        return RedirectToAction("Logout", "Login");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Dashboard");
-                    }                   
+                        lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+                    }                 
                 }
                 else
                 {
                     if (TempData["FriendlyMessage"] != null)
                     {
                         lViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
-                    }
-
-                    return View("Index", lViewModel);
+                    }                    
                 }
             }
             catch (Exception ex)
             {
                 Logger.Error("Error at Home : " + ex.Message);
                 lViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-
                 return View("Index", lViewModel);
             }
+
+            return View("Index", lViewModel);
         }
         
         public ActionResult ForgotPassword()
@@ -124,6 +119,12 @@ namespace SMSPortal.Controllers.PreLogin
 
                     Response.Cookies.Add(cookies);
                 }
+                else
+                {
+                    string cookie_Token = _userManager.Set_User_Token_For_Cookies(userName, password);
+
+                    Response.Cookies["UserInfo"]["Token"] = cookie_Token;
+                }
             }
             catch (Exception ex)
             {
@@ -164,6 +165,12 @@ namespace SMSPortal.Controllers.PreLogin
             Response.Cache.SetNoStore();
 
             Response.AddHeader("Pragma", "no-cache");
+        }
+
+        public ActionResult Anauthorize_Token(LoginViewModel lViewModel)
+        {
+            lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+            return View("Index", lViewModel);
         }
 
     }

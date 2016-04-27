@@ -1,4 +1,5 @@
-﻿using SMSPortal.Common;
+﻿using Newtonsoft.Json;
+using SMSPortal.Common;
 using SMSPortal.Models.PostLogin;
 using SMSPortalHelper.Logging;
 using SMSPortalHelper.PageHelper;
@@ -56,7 +57,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Brands = _dealerManager.Get_Brands();
-                pViewModel.Categories = _subCategoryManager.Get_Categories();
+                //pViewModel.Categories = _subCategoryManager.Get_Categories();
 
             }
             catch (Exception ex)
@@ -165,7 +166,7 @@ namespace SMSPortal.Controllers.PostLogin
             ProductViewModel pViewModel = new ProductViewModel();
             try
             {
-                pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
+                //pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
             }
             catch (Exception ex)
             {
@@ -242,7 +243,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("Error uploading Product Images  " + ex.Message);
             }
-            TempData["pViewModel"] = pViewModel;
+            TempData["pViewModel"] = pViewModel;             
             return PartialView("_Product_Images", pViewModel);
         }
 

@@ -36,6 +36,9 @@ namespace SMSPortal.Common
 			FriendlyMessage SYS07 = new FriendlyMessage("SYS07", MessageType.Error, "File not found, Please contact administrator.");
 			hash.Add("SYS07", SYS07);
 
+            FriendlyMessage SYS08 = new FriendlyMessage("SYS08", MessageType.Error, "File not found, Please contact administrator.");
+            hash.Add("SYS08", SYS08);
+
 			#endregion
 
             #region Category 
@@ -121,7 +124,7 @@ namespace SMSPortal.Common
             hash.Add("PO003", PO003);
 
             #endregion
-
+			
             #region Vendors
 
             FriendlyMessage VO001 = new FriendlyMessage("VO001", MessageType.Success, "Vendor added successfully");
@@ -135,6 +138,12 @@ namespace SMSPortal.Common
 
             #endregion
 			
+            #region Receivable
+
+            FriendlyMessage RE001 = new FriendlyMessage("RE001", MessageType.Success, "Receivable added successfully");
+            hash.Add("RE001", RE001);
+
+            #endregion
 		}
 
 		public static FriendlyMessage Get(string code)

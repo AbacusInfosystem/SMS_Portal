@@ -16,24 +16,26 @@ namespace SMSPortalRepo
 {
     public class CookiesRepo
     {
-        SQLHelper sqlHelper = null;
+        SQLHelper _sqlHelper = null;
+
         public CookiesRepo()
         {
-            sqlHelper = new SQLHelper();
+            _sqlHelper = new SQLHelper();
         }
         public CookiesInfo Get_User_Data_By_User_Token(string token)
         {
-            CookiesInfo cookie = new CookiesInfo();
+            CookiesInfo cookie = null;
             List<SqlParameter> sqlParam = new List<SqlParameter>();
             sqlParam.Add(new SqlParameter("@Token", token));
             try
             {
-                DataTable dt = sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Get_User_Data_By_Token_sp.ToString(), CommandType.StoredProcedure);
+                DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Get_User_Data_By_Token_sp.ToString(), CommandType.StoredProcedure);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     DataRow dr = dt.AsEnumerable().FirstOrDefault();
                     if (dr != null)
                     {
+                        cookie = new CookiesInfo();
                         cookie.User_Id = Convert.ToInt32(dr["User_Id"]);
                         cookie.Role_Id = Convert.ToInt32(dr["Role_Id"]);
                         cookie.Role_Name = Convert.ToString(dr["Role_Name"]);

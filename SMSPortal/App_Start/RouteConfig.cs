@@ -334,6 +334,52 @@ namespace SMSPortal
             url: "Receivable/Get-Recievable",
             defaults: new { controller = "Receivable", action = "Get_Recievable", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Receivable-3",
+            url: "Receivable/Insert-Receivable",
+            defaults: new { controller = "Receivable", action = "Insert_Receivable", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+            
+            #endregion
+
+            #region Purchase Order
+
+            routes.MapRoute(
+            name: "Purchase-Order-1",
+            url: "purchaseorder/get-purchase_orders",
+            defaults: new { controller = "PurchaseOrder", action = "Get_Purchase_Orders", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Purchase-Order-2",
+            url: "purchaseorder/insert-purchase-order",
+            defaults: new { controller = "PurchaseOrder", action = "Insert_Purchase_Order", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Purchase-Order-3",
+            url: "purchaseorder/update-purchase-order",
+            defaults: new { controller = "PurchaseOrder", action = "Update_Purchase_Order", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Purchase-Order-4",
+            url: "purchaseorder/edit-purchase-order",
+            defaults: new { controller = "PurchaseOrder", action = "Get_Purchase_Order_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Purchase-Order-5",
+            url: "purchaseorder/brands-upload-logo",
+            defaults: new { controller = "PurchaseOrder", action = "Brand_Logo_Upload", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Purchase-Order-6",
+            url: "purchaseorder/purchase_order_autocomplete-autocomplete/{purchaseorder}",
+            defaults: new { controller = "PurchaseOrder", action = "Get_Purchase_Order_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
 

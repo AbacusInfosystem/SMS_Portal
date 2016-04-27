@@ -12,12 +12,12 @@ namespace SMSPortal.Models.PostLogin
     {
         public DashboardViewModel()
         {
-            cookies = new CookiesInfo();
+            Cookies = new CookiesInfo();
 
             Friendly_Message = new List<FriendlyMessage>();
         }
 
-        public CookiesInfo cookies { get; set; }
+        public CookiesInfo Cookies { get; set; }
 
         public List<FriendlyMessage> Friendly_Message { get; set; }
     }

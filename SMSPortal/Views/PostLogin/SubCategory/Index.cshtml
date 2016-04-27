@@ -63,7 +63,7 @@
                                     <div class="form-group auto-complete">
                                         <label for="Subcategory" class="lookup-title">Category Name</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="SubCategory.Category_Name" id="txtCategory" placeholder="Enter Category Name" value="@Model.SubCategory.Category_Id" data-table="Category" data-col="Category_Id,Category_Name" data-headernames="Category Name">
+                                            <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="SubCategory.Category_Name" id="txtCategory" placeholder="Enter Category Name" value="@(Model.SubCategory.Category_Id == 0 ? "" : Model.SubCategory.Category_Id.ToString())" data-table="Category" data-col="Category_Id,Category_Name" data-headernames="Category Name">
                                             <input type="hidden" id="hdnCategoryId" value="@Model.SubCategory.Category_Id" name="SubCategory.Category_Id" class="auto-complete-value" />
                                             <input type="hidden" id="hdnCategoryName" value="@Model.SubCategory.Category_Name" name="SubCategory.Category_Name" class="auto-complete-label" />
                                             <div class="input-group-addon">
