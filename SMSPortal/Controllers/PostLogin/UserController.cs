@@ -39,7 +39,7 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Search " + ex);
+                Logger.Error("Error At User_Controller - Search " + ex);
             }
 
             return View("Search", uViewModel);
@@ -66,7 +66,7 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Get_Users " + ex);
+                Logger.Error("Error At User_Controller - Get_Users " + ex);
             }
 
             return Json(uViewModel);
@@ -81,7 +81,7 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Index " + ex);
+                Logger.Error("Error At User Controller - Index " + ex);
             }
 
             return View("Index", uViewModel);
@@ -98,7 +98,7 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Insert " + ex);
+                Logger.Error("Error At User Controller - Insert " + ex);
             }
 
             TempData["userViewMessage"] = uViewModel;
@@ -116,7 +116,7 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("CategoryController Update " + ex);
+                Logger.Error("Error At User_Controller - Update_User " + ex);
             }
 
             TempData["userViewMessage"] = uViewModel;
@@ -133,7 +133,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("User Controller - Check_Existing_User " + ex.ToString());
+                Logger.Error("Error At User Controller - Check_Existing_User " + ex.ToString());
             }
 
             return Json(check, JsonRequestBehavior.AllowGet);
@@ -149,7 +149,7 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Get_User_By_Id " + ex);
+                Logger.Error("Error At User Controller - Get_User_By_Id " + ex);
             }
 
             return View("Index", uViewModel);
@@ -165,7 +165,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("UserController - Get_Entity_By_Role" + ex.ToString());
+                Logger.Error("Error At User_Controller - Get_Entity_By_Role" + ex.ToString());
             }
 
             return Json(uViewModel.User.Entities, JsonRequestBehavior.AllowGet);

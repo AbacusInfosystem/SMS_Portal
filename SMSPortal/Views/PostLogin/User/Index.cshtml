@@ -1,6 +1,6 @@
 ﻿@model SMSPortal.Models.PostLogin.UserViewModel
 @using SMSPortalInfo.Common
-<script src="~/Scripts/Module/User/User_events.js"></script>
+<script src="~/Scripts/Module/user/User_events.js"></script>
 <script src="~/Scripts/Module/User/user_method.js"></script>
 <script src="~/Scripts/Module/User/user_validation.js"></script>
 <div class="content-wrapper">
@@ -26,6 +26,7 @@
                         </div>
                         <div class="box-body">
                             <input type="hidden" class="form-control input-sm" name="User.User_Id" id="hdf_UserId" placeholder="" value="@Model.User.User_Id">
+                            <input type="hidden" class="form-control input-sm" name="User.Entity_Id" id="hdf_EntityId" placeholder="" value="0">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -56,8 +57,9 @@
                                     <div class="form-group">
                                         <label style="color: #333">Role</label>
                                         <select id="drpRole" class="form-control" name="User.Role_Id">
-                                            <option value="">-Select Role-</option>
-                                            @foreach (var item in Model.Roles)
+                                            @*<option value="">-Select Role-</option>*@
+                                            <option value="1" selected>Admin</option>
+                                            @*@foreach (var item in Model.Roles)
                                             {
                                                 if (Model.User.Role_Id == item.Role_Id)
                                                 {
@@ -68,12 +70,12 @@
                                                 {
                                                     <option value="@item.Role_Id">@item.Role_Name</option>
                                                 }
-                                            }
+                                            }*@
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            @*<div class="row" style="display:none" id="div_Entity">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Entity</label>
@@ -82,7 +84,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">

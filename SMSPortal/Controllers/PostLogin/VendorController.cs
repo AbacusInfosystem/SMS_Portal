@@ -57,6 +57,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("VendorController - Index " + ex.Message);
             }
 
@@ -183,13 +184,8 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                
-                //pager.CurrentPage = CurrentPage;
-
                 vViewModel.Products = _vendorManager.Get_Productmapping(brand_Id);
-                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id);  
-              
-               // vViewModel.Pager = pager;
-               // vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
+                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id, brand_Id);               
               
             }
             catch (Exception ex)
@@ -211,6 +207,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
+
                 Logger.Error("Vendor Controller - Add_Bank_Details " + ex.ToString());
             }
 

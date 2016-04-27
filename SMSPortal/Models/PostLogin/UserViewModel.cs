@@ -33,7 +33,6 @@ namespace SMSPortal.Models.PostLogin
     {
         public int User_Id { get; set; }
         public string User_Name { get; set; }
-        public bool Is_Active { get; set; }
     }
    
 }

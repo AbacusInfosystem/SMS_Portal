@@ -10,19 +10,12 @@ $(function () {
 
     $("#btnSave").click(function () {
 
-        //if ($('#frmVendorMaster').valid()) {
-        //    if ($("#hdf_VendorId").val() == 0) {
-        //        $("#frmVendorMaster").attr("action", "/Vendor/Insert_Vendor/");
-        //    }
-        //    else {
-        //        $("#frmVendorMaster").attr("action", "/Vendor/Update_Vendor/");
-        //    }
         var strStates = "";
         $('.checkresult:checked').each(function () {
             $(this).val(true);        
         });
 
-        alert(strStates);
+         
 
         $("#hdfProductState").val(strStates.trim(","));
 

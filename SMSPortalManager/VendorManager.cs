@@ -78,9 +78,9 @@ namespace SMSPortalManager
             _vendorRepo.Insert_Vendor_Product_Mapping_Details(product_List, user_Id, vendor_Id, brand_Id);
         }
 
-        public List<ProductInfo> Get_Mapped_Product_List(int vendor_Id)
+        public List<ProductInfo> Get_Mapped_Product_List(int vendor_Id, int brand_Id)
         {
-            return _vendorRepo.Get_Vendor_Mapped_Product_List(vendor_Id);
+            return _vendorRepo.Get_Vendor_Mapped_Product_List(vendor_Id, brand_Id);
         }
 
         public List<AutocompleteInfo> Get_Vendor_Autocomplete(string vendor)

@@ -1,5 +1,4 @@
-﻿
-function Search_Vendors() {
+﻿function Search_Vendors() {
     var vendorViewModel =
         {
             Filter:

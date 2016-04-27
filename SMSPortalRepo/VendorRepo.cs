@@ -256,7 +256,8 @@ namespace SMSPortalRepo
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
             sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
-            sqlparam.Add(new SqlParameter("@Brand_Id", vendor_Id));
+            sqlparam.Add(new SqlParameter("@Brand_Id", brand_Id));
+
 
             _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Delete_Vendor_Product_Mapping_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
@@ -281,13 +282,16 @@ namespace SMSPortalRepo
             }
         }
 
-        public List<ProductInfo> Get_Vendor_Mapped_Product_List(int vendor_Id)
+        public List<ProductInfo> Get_Vendor_Mapped_Product_List(int vendor_Id , int brand_Id)
         {
             List<ProductInfo> productlist = new List<ProductInfo>();
 
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
-            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));           
+            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
+
+            //sqlparam.Add(new SqlParameter("@Vendor_Id", brand_Id));
+          
 
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Mapped_Products_Sp.ToString(), CommandType.StoredProcedure);
 
@@ -301,6 +305,8 @@ namespace SMSPortalRepo
                         list.Product_Id = Convert.ToInt32(dr["Product_Id"]);
                     if (!dr.IsNull("Vendor_Id"))
                         list.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+                    if (!dr.IsNull("Brand_Id"))
+                        list.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
 
                     list.Product_Ids = list.Product_Id + ",";
 
