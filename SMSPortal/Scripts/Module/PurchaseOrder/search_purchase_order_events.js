@@ -6,6 +6,8 @@
 
     Search_Purchase_Orders();
 
+   
+
     $("#btnEdit").click(function () {
 
         $("#frmPurchaseOrder").attr("action", "/purchaseorder/edit-purchase-order");
@@ -15,6 +17,8 @@
         $("#frmPurchaseOrder").submit();
 
     });
+
+
 
     $("#btnSearch").click(function () {
 
