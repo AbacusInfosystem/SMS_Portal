@@ -10,21 +10,21 @@ namespace SMSPortalInfo
     {
         public int  Receivable_Id{ get; set; }
 
+        public int Receivable_Item_Id { get; set; }
+
         public string Invoice_No { get; set; }
 
         public int Invoice_Id { get; set; }
 
         public bool Is_Active { get; set; }
 
-        public int TransactionType { get; set; }
+        public int Transaction_Type { get; set; }
 
-        //public string CheckNumber { get; set; }
+        public string Cheque_Date { get; set; }
 
-        public string ChequeDate { get; set; }
+        public string Cheque_Number { get; set; }
 
-        public string ChequeNo { get; set; }
-
-        public string BankName { get; set; }
+        public string Bank_Name { get; set; }
 
         public string IFSC_Code { get; set; }
 
@@ -32,7 +32,7 @@ namespace SMSPortalInfo
 
         public string Credit_Debit_Card { get; set; }
 
-        public string ReceivableDate { get; set; }
+        public DateTime Receivable_Date { get; set; }
 
         public DateTime Created_On { get; set; }
 
@@ -42,8 +42,14 @@ namespace SMSPortalInfo
 
         public int Updated_By { get; set; }
 
-        public int Status { get; set; }
+        public bool Status { get; set; }
 
-        public decimal Amount { get; set; }
+        public decimal Balance_Amount { get; set; }
+
+        public decimal Receivable_Item_Amount { get; set; }
+
+        public decimal Invoice_Amount { get; set; }
+
+        public int Role_Id { get; set; }
     }
 }

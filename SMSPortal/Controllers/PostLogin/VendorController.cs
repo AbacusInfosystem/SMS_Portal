@@ -31,6 +31,7 @@ namespace SMSPortal.Controllers.PostLogin
             _stateManager = new StateManager();
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(VendorViewModel vViewModel)
         {
             try
@@ -48,6 +49,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Search", vViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Index(VendorViewModel vViewModel)
         {
             PaginationInfo Pager = new PaginationInfo();
@@ -64,12 +66,15 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Index", vViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert_Vendor(VendorViewModel vViewModel)
         {
             try
             {
                 vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 _vendorManager.Insert_Vendor(vViewModel.Vendor , vViewModel.Cookies.User_Id);
+
                 vViewModel.Friendly_Message.Add(MessageStore.Get("VO001"));
             }
             catch (Exception ex)
@@ -81,17 +86,21 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Update_Vendor(VendorViewModel vViewModel)
         {
             try
             {
                 vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 _vendorManager.Update_Vendor(vViewModel.Vendor , vViewModel.Cookies.User_Id);
+
                 vViewModel.Friendly_Message.Add(MessageStore.Get("VO002"));
             }
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("VendorController Update " + ex);
             }
 
@@ -120,16 +129,19 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("VendorController Get_Vendors " + ex);
             }
             return Json(vViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Vendor_By_Id(VendorViewModel vViewModel)
         {
             try
             {
                 vViewModel.Vendor = _vendorManager.Get_Vendor_By_Id(vViewModel.Vendor.Vendor_Id);
+
                 vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
             }
             catch (Exception ex)
@@ -203,10 +215,12 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 vViewModel.Vendor.Vendor_Id = vendor_Id;
+
                 vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vendor_Id);
             }
             catch (Exception ex)
             {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
                 Logger.Error("Vendor Controller - Add_Bank_Details " + ex.ToString());
             }
@@ -279,6 +293,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("VendorReceivable");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert_Vendor_Product_Mapping_Details(VendorViewModel vViewModel)
         {
             try
@@ -295,6 +310,7 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Vendor Profile " + ex);
             }
 
@@ -304,7 +320,9 @@ namespace SMSPortal.Controllers.PostLogin
         public JsonResult Get_Vendor_Autocomplete(string vendor)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+
             autoList = _vendorManager.Get_Vendor_Autocomplete(vendor);
+
             return Json(autoList, JsonRequestBehavior.AllowGet);
         }
     }

@@ -21,7 +21,7 @@ namespace SMSPortalRepo
            _sqlRepo = new SQLHelper();
        }
 
-       public List<ReceivableInfo> Get_Receivable_By_Name(string Invoice_No, ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivable_By_Id(string Invoice_No, ref PaginationInfo pager)
        {
            List<SqlParameter> sqlParamList = new List<SqlParameter>();
            sqlParamList.Add(new SqlParameter("@Invoice_No", Invoice_No));
@@ -39,16 +39,22 @@ namespace SMSPortalRepo
        {
            ReceivableInfo receivable = new ReceivableInfo();
 
+           receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);
            receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
            receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
-           receivable.Status = Convert.ToInt32(dr["Status"]);
-           receivable.Amount = Convert.ToDecimal(dr["Amount"]);
-           receivable.TransactionType = Convert.ToInt32(dr["Transaction_Type"]);
-           receivable.ChequeNo = Convert.ToString(dr["CheckNumber"]);
-           //receivable.Created_On = Convert.ToDateTime(dr["Created_On"]);
-           //receivable.Created_By = Convert.ToInt32(dr["Created_By"]);
-           //receivable.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
-           //receivable.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+           receivable.Role_Id = Convert.ToInt32(dr["Roll_Id"]);
+           receivable.Status = Convert.ToBoolean(dr["Status"]);
+           receivable.Invoice_Amount = Convert.ToInt32(dr["Amount"]);
+           receivable.Receivable_Item_Id = Convert.ToInt32(dr["Receivable_Item_Id"]);
+           receivable.Receivable_Date = Convert.ToDateTime(dr["Receivable_Date"]);
+           receivable.Receivable_Item_Amount = Convert.ToDecimal(dr["Receivable_Item_Amount"]);
+           receivable.Transaction_Type = Convert.ToInt32(dr["Transaction_Type"]);
+           receivable.Cheque_Number = Convert.ToString(dr["Cheque_Number"]);
+           receivable.Cheque_Date = Convert.ToString(dr["Cheque_Date"]);
+           receivable.IFSC_Code = Convert.ToString(dr["IFSC_Code"]);
+           receivable.Bank_Name = Convert.ToString(dr["Bank_Name"]);
+           receivable.NEFT = Convert.ToString(dr["NEFT"]);
+           receivable.Credit_Debit_Card = Convert.ToString(dr["Credit_Debit_Card"]);
 
            return receivable;
        }
@@ -119,32 +125,36 @@ namespace SMSPortalRepo
            return Receivables;
        }
 
-       public void Insert_Receivable(ReceivableInfo receivableInfo)
+       public int Insert_Receivable(ReceivableInfo receivableInfo,int user_Id)
        {
-           _sqlRepo.ExecuteNonQuery(Set_Values_In_Receivable(receivableInfo), StoreProcedures.Insert_Receivable_Sp.ToString(), CommandType.StoredProcedure);
+           int Receivable_Id = 0;
+           Receivable_Id=Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));
+           return Receivable_Id;
        }
 
-       private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo)
+       private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id)
        {
            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
            if (receivableInfo.Receivable_Id != 0)
            {
                sqlParams.Add(new SqlParameter("@Receivable_Id", receivableInfo.Receivable_Id));
            }
 
            sqlParams.Add(new SqlParameter("@Invoice_Id", receivableInfo.Invoice_Id));
-           sqlParams.Add(new SqlParameter("@TransactionType", receivableInfo.TransactionType));
-           sqlParams.Add(new SqlParameter("@ReceivableDate", receivableInfo.ReceivableDate));
-           if (receivableInfo.TransactionType == 1)
+           sqlParams.Add(new SqlParameter("@TransactionType", receivableInfo.Transaction_Type));
+           sqlParams.Add(new SqlParameter("@ReceivableDate", receivableInfo.Receivable_Date));
+
+           if (receivableInfo.Transaction_Type == 1)
            {
-               sqlParams.Add(new SqlParameter("@ChequeNo", receivableInfo.ChequeNo));
-               sqlParams.Add(new SqlParameter("@ChequeDate", receivableInfo.ChequeDate));
-               sqlParams.Add(new SqlParameter("@BankName", receivableInfo.BankName));
+               sqlParams.Add(new SqlParameter("@ChequeNo", receivableInfo.Cheque_Number));
+               sqlParams.Add(new SqlParameter("@ChequeDate", receivableInfo.Cheque_Date));
+               sqlParams.Add(new SqlParameter("@BankName", receivableInfo.Bank_Name));
                sqlParams.Add(new SqlParameter("@IFSC_Code", receivableInfo.IFSC_Code));
                sqlParams.Add(new SqlParameter("@NEFT", "NA"));
                sqlParams.Add(new SqlParameter("@Credit_Debit", "NA"));
            }
-           else if (receivableInfo.TransactionType == 2)
+           else if (receivableInfo.Transaction_Type == 2)
            {
                sqlParams.Add(new SqlParameter("@ChequeNo", "NA"));
                sqlParams.Add(new SqlParameter("@ChequeDate", "NA"));
@@ -161,15 +171,19 @@ namespace SMSPortalRepo
                sqlParams.Add(new SqlParameter("@IFSC_Code", "NA"));
                sqlParams.Add(new SqlParameter("@NEFT","NA"));
                sqlParams.Add(new SqlParameter("@Credit_Debit", receivableInfo.Credit_Debit_Card));
-           } 
-           sqlParams.Add(new SqlParameter("@Is_Active", receivableInfo.Is_Active));
+           }
+
+           receivableInfo.Balance_Amount = receivableInfo.Invoice_Amount - receivableInfo.Receivable_Item_Amount;
+
            if (receivableInfo.Receivable_Id == 0)
            {
                sqlParams.Add(new SqlParameter("@Created_On", receivableInfo.Created_On));
                sqlParams.Add(new SqlParameter("@Created_By", receivableInfo.Created_By));
            }
+
            sqlParams.Add(new SqlParameter("@Updated_On", receivableInfo.Updated_On));
            sqlParams.Add(new SqlParameter("@Updated_By", receivableInfo.Updated_By));
+
            return sqlParams;
        }
     }

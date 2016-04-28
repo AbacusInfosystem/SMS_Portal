@@ -81,16 +81,15 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(Invoice_No, JsonRequestBehavior.AllowGet);
         }
 
-
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert_Receivable(ReceivableViewModel rViewModel)
         {
             try
             {
-                rViewModel.Receivable.Created_By = _cookies.User_Id;
-                rViewModel.Receivable.Created_On = DateTime.Now;
-                rViewModel.Receivable.Updated_By = _cookies.User_Id;
-                rViewModel.Receivable.Updated_On = DateTime.Now;
-                _receivableManager.Insert_Receivable(rViewModel.Receivable);
+                rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+
                 rViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
             }
             catch (Exception ex)

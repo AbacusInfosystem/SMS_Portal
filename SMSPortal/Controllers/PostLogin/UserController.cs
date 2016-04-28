@@ -27,6 +27,7 @@ namespace SMSPortal.Controllers.PostLogin
             _userMan = new UserManager();
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(UserViewModel uViewModel)
         {
             try
@@ -72,6 +73,7 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(uViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Index(UserViewModel uViewModel)
         {
             try
@@ -87,17 +89,21 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Index", uViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert(UserViewModel uViewModel)
         {
             try
             {
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 _userMan.Insert_Users(uViewModel.User , uViewModel.Cookies.User_Id);
+
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
             }
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error At User Controller - Insert " + ex);
             }
 
@@ -105,17 +111,21 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Update_User(UserViewModel uViewModel)
         {
             try
             {
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 _userMan.Update_User(uViewModel.User , uViewModel.Cookies.User_Id);
+
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM002"));
             }
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error At User_Controller - Update_User " + ex);
             }
 
@@ -139,6 +149,7 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
+         [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_User_By_Id(UserViewModel uViewModel)
         {
             try
