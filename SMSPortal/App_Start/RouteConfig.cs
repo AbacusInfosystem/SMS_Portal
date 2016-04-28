@@ -371,8 +371,8 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Purchase-Order-5",
-            url: "purchaseorder/brands-upload-logo",
-            defaults: new { controller = "PurchaseOrder", action = "Brand_Logo_Upload", id = UrlParameter.Optional },
+            url: "purchaseorder/delete-purchase-order",
+            defaults: new { controller = "PurchaseOrder", action = "Delete_Purchase_Order_Item", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(

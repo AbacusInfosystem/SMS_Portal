@@ -219,6 +219,7 @@
     <Compile Include="Models\PostLogin\LookupViewModel.cs" />
     <Compile Include="Models\PostLogin\DealerViewModel.cs" />
     <Compile Include="Models\PostLogin\ProductViewModel.cs" />
+    <Compile Include="Models\PostLogin\PurchaseOrderViewModel.cs" />
     <Compile Include="Models\PostLogin\ReceivableViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
@@ -978,6 +979,11 @@
     <Content Include="Scripts\Module\Product\search_product_methods.js" />
     <Content Include="Scripts\Module\Product\Product_method.js" />
     <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_methods.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_validation.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\serach_purchase_order_methods.js" />
     <Content Include="Scripts\Module\Receivable\Receivable_methods.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
@@ -1109,6 +1115,7 @@
     <Content Include="Views\PostLogin\Dashboard\Index.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_AdminWidgets.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
+    <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

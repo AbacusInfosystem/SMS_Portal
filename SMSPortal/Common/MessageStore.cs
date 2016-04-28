@@ -144,6 +144,25 @@ namespace SMSPortal.Common
             hash.Add("RE001", RE001);
 
             #endregion
+
+            #region Purchase Order
+
+            FriendlyMessage POR001 = new FriendlyMessage("POR001", MessageType.Success, "Purchase order added successfully");
+            hash.Add("POR001", POR001);
+
+            FriendlyMessage POR002 = new FriendlyMessage("POR002", MessageType.Success, "Purchase order updated successfully");
+            hash.Add("POR002", POR002);
+
+            FriendlyMessage POR003 = new FriendlyMessage("POR003", MessageType.Success, "Product item added successfully");
+            hash.Add("POR003", POR003);
+
+            FriendlyMessage POR004 = new FriendlyMessage("POR004", MessageType.Success, "Product item updated successfully");
+            hash.Add("POR004", POR004);
+
+            FriendlyMessage POR005 = new FriendlyMessage("POR005", MessageType.Success, "Product item deleted successfully");
+            hash.Add("POR005", POR005);
+
+            #endregion
 		}
 
 		public static FriendlyMessage Get(string code)
