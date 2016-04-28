@@ -2,11 +2,18 @@
 
     $("#txtRecDate").datepicker({
         autoclose: true,
-        startDate: '-6m',
         enddate: null,
     });
 
-    $("#datemask").inputmask("mm/dd/yyyy", { "placeholder": "mm/dd/yyyy" });
+    $("#txtChequeDate").datepicker({
+        autoclose: true,
+        enddate: null,
+    });
+
+    if ($("#hdnReceivable_Id").val() != 0)
+    {
+        $("#dvInvoice").find(".autocomplete-text").trigger("focusout");
+    }
 
     $(".fa-chevron-left").click(function () {
 
@@ -46,7 +53,7 @@
 
     });
 
-    $("#btnSave").click(function () {
+    $("#btnNEFTSave").click(function () {
 
         Save_Receivable_Data();
 

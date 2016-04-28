@@ -55,7 +55,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                 if (rViewModel.Filter.Invoice_No != null)
                 {
-                    rViewModel.Receivables = _receivableManager.Get_Receivable_By_Name(rViewModel.Filter.Invoice_No, ref pager);
+                    rViewModel.Receivables = _receivableManager.Get_Receivable_By_Id(rViewModel.Filter.Invoice_Id, ref pager);
                 }
                 else
                 {
@@ -72,33 +72,69 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(rViewModel);
         }
 
-        public JsonResult Load_Receivable_InvoiceNo(string txtInvoice_No)
-        { 
-            List<AutocompleteInfo> Invoice_No = new List<AutocompleteInfo>();
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Get_Receivables_By_Id(ReceivableViewModel rViewModel)
+        {
+            try
+            {
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
 
-            Invoice_No = _receivableManager.Load_Receivable_InvoiceNo(txtInvoice_No);
+                rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
+            }
+            catch (Exception ex)
+            {
+                rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-            return Json(Invoice_No, JsonRequestBehavior.AllowGet);
+                Logger.Error("Error At Receivable Controller - Get_Receivables_By_Id" + ex.Message);
+            }
+
+            return View("Index", rViewModel);
         }
 
-        [AuthorizeUserAttribute(AppFunction.Token)]
-        public ActionResult Insert_Receivable(ReceivableViewModel rViewModel)
+        public JsonResult Insert_Receivable(ReceivableViewModel rViewModel)
         {
             try
             {
                 rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+                rViewModel.Receivable.Receivable_Id = _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+
+                _receivableManager.Insert_ReceivableItems(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+
+                rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
 
                 rViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
             }
             catch (Exception ex)
             {
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("ReceivableController Insert " + ex);
+                Logger.Error("Error at Receivable Controller - Insert_Receivable " + ex);
             }
-            TempData["vViewModel"] = rViewModel;
-            return RedirectToAction("Search");
+
+            return Json(rViewModel);
         }
+
+        public JsonResult Delete_Receivable_Data_By_Id(int receivable_Item_Id,int receivable_Id)
+        {
+            ReceivableViewModel rViewModel = new ReceivableViewModel();
+            try
+            {
+                _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+
+                rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
+
+                rViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("DesignationInterview Controller - Delete_Company_By_PropertyId " + ex.ToString());
+            }
+            return Json(rViewModel, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

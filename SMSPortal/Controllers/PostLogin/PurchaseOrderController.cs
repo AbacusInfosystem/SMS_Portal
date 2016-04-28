@@ -49,8 +49,8 @@ namespace SMSPortal.Controllers.PostLogin
         //        Logger.Error("PurchaseOrderController - AddEdit_Purchase_Order " + ex.Message);
         //    }
 
-            return View("AddEdit_Purchase_Order", pViewModel);             
-        }
+            //return View("AddEdit_Purchase_Order", pViewModel);             
+       // }
 
         public ActionResult Insert_Purchase_Order(PurchaseOrderViewModel pViewModel)
         {
@@ -96,21 +96,21 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
-        public ActionResult Get_Purchase_Order_By_Id(PurchaseOrderViewModel pViewModel)
-        {
-            try
-            {
-                pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
-                pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
-            }
-            catch (Exception ex)
-            {
-                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("PurchaseOrderController Get_Purchase_Order_By_Id " + ex);
-            }
+        //public ActionResult Get_Purchase_Order_By_Id(PurchaseOrderViewModel pViewModel)
+        //{
+        //    try
+        //    {
+        //        pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+        //        pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+        //        Logger.Error("PurchaseOrderController Get_Purchase_Order_By_Id " + ex);
+        //    }
 
-            return AddEdit_Purchase_Order(pViewModel);
-        }
+        //    return AddEdit_Purchase_Order(pViewModel);
+        //}
 
         public JsonResult Get_Purchase_Orders_Items(PurchaseOrderViewModel pViewModel)
         {
