@@ -20,7 +20,7 @@ namespace SMSPortalManager
 
        public List<ReceivableInfo> Get_Receivable_By_Name(string Invoice_No, ref PaginationInfo pager)
        {
-           return _receivableRepo.Get_Receivable_By_Name(Invoice_No, ref pager);
+           return _receivableRepo.Get_Receivable_By_Id(Invoice_No, ref pager);
        }
 
        public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager)
@@ -38,9 +38,14 @@ namespace SMSPortalManager
            return _receivableRepo.Get_InvoiceNo();
        }
 
-       public void Insert_Receivable(ReceivableInfo receivableInfo)
+       public void Insert_Receivable(ReceivableInfo receivableInfo,int user_Id)
        {
-           _receivableRepo.Insert_Receivable(receivableInfo);
+           _receivableRepo.Insert_Receivable(receivableInfo, user_Id);
        }
+
+       //public List<ReceivableInfo> Get_Receivable_Items(int receivable_Id)
+       //{
+       //    return _receivableRepo.(receivable_Id);
+       //}
     }
 }

@@ -16,7 +16,9 @@
 
 
 function Bind_Receivable_Grid(data) {
+
     var htmlText = "";
+
     if (data.Receivables.length > 0) {
         for (i = 0; i < data.Receivables.length; i++) {
             htmlText += "<tr>";
@@ -33,20 +35,17 @@ function Bind_Receivable_Grid(data) {
 
             htmlText += "</td>";
 
-            //htmlText += "<td>";
+            htmlText += "<td>";
 
-            //htmlText += data.Receivables[i].Amount == null ? "" : data.Receivables[i].Amount;
+            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
 
-            //htmlText += "</td>";
+            htmlText += "</td>";
 
-            //htmlText += "<td>";
+            htmlText += "<td>";
 
-            //if (data.Receivables[i].Status.toString() == 'true')
-            //    htmlText += 'Active';
-            //else
-            //    htmlText += 'InActive';
+            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
 
-            //htmlText += "</td>";
+            htmlText += "</td>";
 
             htmlText += "</tr>";
         }

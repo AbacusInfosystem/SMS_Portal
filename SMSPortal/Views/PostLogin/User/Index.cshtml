@@ -57,6 +57,7 @@
                                         <label style="color: #333">Role</label>
                                         <select id="drpRole" class="form-control" name="User.Role_Id">
                                             <option value="">-Select Role-</option>
+                                            <option value="1" selected>Admin</option>
                                             @foreach (var item in Model.Roles)
                                             {
                                                 if (Model.User.Role_Id == item.Role_Id)

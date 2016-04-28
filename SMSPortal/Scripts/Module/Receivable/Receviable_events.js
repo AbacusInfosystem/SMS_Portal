@@ -1,5 +1,10 @@
 ﻿$(function () {
 
+    $("#txtRecDate").datepicker({
+        autoclose: true,
+        startDate: '-6m',
+        enddate: null,
+    });
 
     $("#datemask").inputmask("mm/dd/yyyy", { "placeholder": "mm/dd/yyyy" });
 
@@ -38,6 +43,12 @@
             $("#divNEFT").hide();
             $("#divCredit_Debit").show();
         }
+
+    });
+
+    $("#btnSave").click(function () {
+
+        Save_Receivable_Data();
 
     });
 
