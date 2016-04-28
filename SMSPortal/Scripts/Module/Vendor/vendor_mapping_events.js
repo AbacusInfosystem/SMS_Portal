@@ -1,5 +1,4 @@
-﻿
-$(function () {
+﻿$(function () {
     
 
     $("#drpBrand").change(function () {
@@ -22,10 +21,7 @@ $(function () {
         $("#frmAddProductMapping").attr("action", "/Vendor/insert-vendor-product-mapping-details/");
         $('#frmAddProductMapping').attr("method", "POST");
         $('#frmAddProductMapping').submit();
-    });
-
-    
-    
+    });  
 });
  
 

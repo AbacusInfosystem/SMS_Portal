@@ -1,5 +1,10 @@
 ﻿$(function () {
 
+
+    if ($("#hdnPurchase_Order_Id").val() != 0) {
+        $("#dvSubc").find(".autocomplete-text").trigger("focusout");
+    }
+    
     $(".fa-chevron-left").click(function ()
     {
         $('#frmPurchaseOrderMaster').validate().cancelSubmit = true;
