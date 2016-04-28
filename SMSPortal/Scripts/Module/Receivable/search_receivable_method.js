@@ -1,9 +1,9 @@
 ﻿function Search_Receivable() {
-    var VendorViewModel =
+    var rViewModel =
         {
             Filter:
                 {
-                    Invoice_No: $('#hdnInvoice_No').val(),
+                    Invoice_Id: $('#hdnInvoiceId').val(),
                 },
             Pager:
                 {
@@ -11,7 +11,7 @@
                 },
         }
 
-    CallAjax("/Receivable/Get-Recievable/", "json", JSON.stringify(vendorViewModel), "POST", "application/json", false, Bind_Receivable_Grid, "", null);
+    CallAjax("/Receivable/Get-Recievable/", "json", JSON.stringify(rViewModel), "POST", "application/json", false, Bind_Receivable_Grid, "", null);
 }
 
 
@@ -25,7 +25,7 @@ function Bind_Receivable_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += "<input type='radio' name='r1' id='r1_" + data.Receivables[i].Invoice_Id + "' class='iradio-list'/>";
+            htmlText += "<input type='radio' name='r1' id='r1_" + data.Receivables[i].Receivable_Id + "' class='iradio-list'/>";
 
             htmlText += "</td>";
 
@@ -37,16 +37,16 @@ function Bind_Receivable_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].Amount == null ? "" : data.Receivables[i].Amount;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].Status == null ? "" : data.Receivables[i].Status;
 
             htmlText += "</td>";
-
+         
             htmlText += "</tr>";
         }
     }
@@ -82,7 +82,7 @@ function Bind_Receivable_Grid(data) {
 
     $('[name="r1"]').on('ifChanged', function (event) {
         if ($(this).prop('checked')) {
-            $("#hdnVendor_Id").val(this.id.replace("r1_", ""));
+            $("#hdnReceivable_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnAddProductMapping").show();
             $("#btnDelete").show();

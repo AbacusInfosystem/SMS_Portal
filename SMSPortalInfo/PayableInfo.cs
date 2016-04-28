@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SMSPortalInfo
 {
-    public class ReceivableInfo
+   public class PayableInfo
     {
-        public int  Receivable_Id{ get; set; }
+          public int  Payable_Id{ get; set; }
 
-        public int Receivable_Item_Id { get; set; }
+        public int Payable_Item_Id { get; set; }
 
         public string Invoice_No { get; set; }
 
@@ -20,7 +20,7 @@ namespace SMSPortalInfo
 
         public int Transaction_Type { get; set; }
 
-        public string Cheque_Date { get; set; }
+        public DateTime Cheque_Date { get; set; }
 
         public string Cheque_Number { get; set; }
 
@@ -32,7 +32,7 @@ namespace SMSPortalInfo
 
         public string Credit_Debit_Card { get; set; }
 
-        public DateTime Receivable_Date { get; set; }
+        public DateTime Payable_Date { get; set; }
 
         public DateTime Created_On { get; set; }
 
@@ -42,14 +42,15 @@ namespace SMSPortalInfo
 
         public int Updated_By { get; set; }
 
-        public string Status { get; set; }
+        public bool Status { get; set; }
 
         public decimal Balance_Amount { get; set; }
 
-        public decimal Receivable_Item_Amount { get; set; }
+        public decimal Payable_Item_Amount { get; set; }
 
         public decimal Invoice_Amount { get; set; }
 
         public int Role_Id { get; set; }
+    
     }
 }

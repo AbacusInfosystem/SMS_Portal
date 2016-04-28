@@ -21,10 +21,10 @@ namespace SMSPortalRepo
            _sqlRepo = new SQLHelper();
        }
 
-       public List<ReceivableInfo> Get_Receivable_By_Id(string Invoice_No, ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivable_By_Id(int invoice_Id, ref PaginationInfo pager)
        {
            List<SqlParameter> sqlParamList = new List<SqlParameter>();
-           sqlParamList.Add(new SqlParameter("@Invoice_No", Invoice_No));
+           sqlParamList.Add(new SqlParameter("@Invoice_Id", invoice_Id));
 
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_By_Name_Sp.ToString(), CommandType.StoredProcedure);
@@ -35,26 +35,87 @@ namespace SMSPortalRepo
            return Receivables;
        }
 
+       public ReceivableInfo Get_Receivable_Data_By_Id(int receivable_Id)
+       {
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+           sqlparam.Add(new SqlParameter("@Receivable_Id", receivable_Id));
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Receivable_Data_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+           if (dt != null && dt.Rows.Count > 0)
+           {
+               foreach (DataRow dr in dt.Rows)
+               {
+                   if (!dr.IsNull("Receivable_Id"))
+                       receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);
+                   if (!dr.IsNull("Status"))
+                       receivable.Status = Convert.ToString(dr["Status"]);
+                   if (!dr.IsNull("Amount"))
+                       receivable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
+                   if (!dr.IsNull("Invoice_No"))
+                       receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+                   if (!dr.IsNull("Invoice_Id"))
+                       receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+               }
+           }
+           return receivable;
+       }
+
+       public List<ReceivableInfo> Get_Receivable_Items_By_Id(int receivable_Id)
+       {
+           List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
+
+           List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+           sqlParamList.Add(new SqlParameter("@Receivable_Id", receivable_Id));
+        
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_Data_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+           foreach (DataRow dr in CommonMethods.GetRows(dt))
+           {
+               Receivables.Add(Get_Receivable_Item_Values(dr));
+           }
+           return Receivables;
+       }
+
+       private ReceivableInfo Get_Receivable_Item_Values(DataRow dr)
+       {
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           receivable.Receivable_Item_Id = Convert.ToInt32(dr["Receivable_Item_Id"]);
+           receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);           
+           receivable.Receivable_Date = Convert.ToDateTime(dr["Receivable_Date"]);
+           receivable.Receivable_Item_Amount = Convert.ToDecimal(dr["Receivable_Item_Amount"]);
+           receivable.Transaction_Type = Convert.ToInt32(dr["Transaction_Type"]);
+
+           if (!dr.IsNull("Cheque_Number"))
+           receivable.Cheque_Number = Convert.ToString(dr["Cheque_Number"]);
+           if (!dr.IsNull("Cheque_Date"))
+           receivable.Cheque_Date = Convert.ToString(dr["Cheque_Date"]);
+           if (!dr.IsNull("IFSC_Code"))
+           receivable.IFSC_Code = Convert.ToString(dr["IFSC_Code"]);
+           if (!dr.IsNull("Bank_Name"))
+           receivable.Bank_Name = Convert.ToString(dr["Bank_Name"]);
+           if (!dr.IsNull("NEFT"))
+           receivable.NEFT = Convert.ToString(dr["NEFT"]);
+           if (!dr.IsNull("Credit_Debit_Card"))
+           receivable.Credit_Debit_Card = Convert.ToString(dr["Credit_Debit_Card"]);
+
+           return receivable;
+       }
+
        private ReceivableInfo Get_Receivable_Values(DataRow dr)
        {
            ReceivableInfo receivable = new ReceivableInfo();
 
            receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);
-           receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+           receivable.Status = Convert.ToString(dr["Status"]);
+           receivable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
            receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
-           receivable.Role_Id = Convert.ToInt32(dr["Roll_Id"]);
-           receivable.Status = Convert.ToBoolean(dr["Status"]);
-           receivable.Invoice_Amount = Convert.ToInt32(dr["Amount"]);
-           receivable.Receivable_Item_Id = Convert.ToInt32(dr["Receivable_Item_Id"]);
-           receivable.Receivable_Date = Convert.ToDateTime(dr["Receivable_Date"]);
-           receivable.Receivable_Item_Amount = Convert.ToDecimal(dr["Receivable_Item_Amount"]);
-           receivable.Transaction_Type = Convert.ToInt32(dr["Transaction_Type"]);
-           receivable.Cheque_Number = Convert.ToString(dr["Cheque_Number"]);
-           receivable.Cheque_Date = Convert.ToString(dr["Cheque_Date"]);
-           receivable.IFSC_Code = Convert.ToString(dr["IFSC_Code"]);
-           receivable.Bank_Name = Convert.ToString(dr["Bank_Name"]);
-           receivable.NEFT = Convert.ToString(dr["NEFT"]);
-           receivable.Credit_Debit_Card = Convert.ToString(dr["Credit_Debit_Card"]);
+           receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
 
            return receivable;
        }
@@ -129,62 +190,109 @@ namespace SMSPortalRepo
        {
            int Receivable_Id = 0;
            Receivable_Id=Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));
+
+           if(receivableInfo.Receivable_Item_Id!=0)
+           {
+               Receivable_Id = receivableInfo.Receivable_Id;
+           }
+
            return Receivable_Id;
+       }
+
+       public void Insert_Receivable_Items(ReceivableInfo receivableInfo, int user_Id)
+       {
+           _sqlRepo.ExecuteNonQuery(Set_Values_In_Receivable_Items(receivableInfo, user_Id), StoreProcedures.Insert_Receivable_Item_Data_Sp.ToString(), CommandType.StoredProcedure);
+       }
+
+       private List<SqlParameter> Set_Values_In_Receivable_Items(ReceivableInfo receivableInfo, int user_Id)
+       {
+           List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+           sqlParams.Add(new SqlParameter("@Receivable_Item_Id", receivableInfo.Receivable_Item_Id));
+
+           sqlParams.Add(new SqlParameter("@Receivable_Id", receivableInfo.Receivable_Id));
+           sqlParams.Add(new SqlParameter("@Invoice_Id", receivableInfo.Invoice_Id));
+           sqlParams.Add(new SqlParameter("@Receivable_Date", receivableInfo.Receivable_Date));
+           sqlParams.Add(new SqlParameter("@Receivable_Item_Amount", receivableInfo.Receivable_Item_Amount));
+           sqlParams.Add(new SqlParameter("@Transaction_Type", receivableInfo.Transaction_Type));
+           sqlParams.Add(new SqlParameter("@Status", "Done"));
+
+           if (receivableInfo.Transaction_Type == 1)
+           {
+               sqlParams.Add(new SqlParameter("@Cheque_Number", receivableInfo.Cheque_Number));
+               sqlParams.Add(new SqlParameter("@Cheque_Date", receivableInfo.Cheque_Date));
+               sqlParams.Add(new SqlParameter("@Bank_Name", receivableInfo.Bank_Name));
+               sqlParams.Add(new SqlParameter("@IFSC_Code", receivableInfo.IFSC_Code));
+               sqlParams.Add(new SqlParameter("@NEFT", "NA"));
+               sqlParams.Add(new SqlParameter("@Credit_Debit_Card", "NA"));
+           }
+           else if (receivableInfo.Transaction_Type == 2)
+           {
+               sqlParams.Add(new SqlParameter("@Cheque_Number", "NA"));
+               sqlParams.Add(new SqlParameter("@Cheque_Date", DateTime.Now));
+               sqlParams.Add(new SqlParameter("@Bank_Name", "NA"));
+               sqlParams.Add(new SqlParameter("@IFSC_Code", "NA"));
+               sqlParams.Add(new SqlParameter("@NEFT", receivableInfo.NEFT));
+               sqlParams.Add(new SqlParameter("@Credit_Debit_Card", "NA"));
+           }
+           else
+           {
+               sqlParams.Add(new SqlParameter("@Cheque_Number", "NA"));
+               sqlParams.Add(new SqlParameter("@Cheque_Date", DateTime.Now));
+               sqlParams.Add(new SqlParameter("@Bank_Name", "NA"));
+               sqlParams.Add(new SqlParameter("@IFSC_Code", "NA"));
+               sqlParams.Add(new SqlParameter("@NEFT", "NA"));
+               sqlParams.Add(new SqlParameter("@Credit_Debit_Card", receivableInfo.Credit_Debit_Card));
+           }
+
+           sqlParams.Add(new SqlParameter("@Balance_Amount", receivableInfo.Balance_Amount));
+
+           sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+           sqlParams.Add(new SqlParameter("@Created_By", receivableInfo.Created_By));
+
+           sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+           sqlParams.Add(new SqlParameter("@Updated_By", receivableInfo.Updated_By));
+
+           return sqlParams;
        }
 
        private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id)
        {
            List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-           if (receivableInfo.Receivable_Id != 0)
-           {
-               sqlParams.Add(new SqlParameter("@Receivable_Id", receivableInfo.Receivable_Id));
-           }
+           sqlParams.Add(new SqlParameter("@Receivable_Id", receivableInfo.Receivable_Id));
 
            sqlParams.Add(new SqlParameter("@Invoice_Id", receivableInfo.Invoice_Id));
-           sqlParams.Add(new SqlParameter("@TransactionType", receivableInfo.Transaction_Type));
-           sqlParams.Add(new SqlParameter("@ReceivableDate", receivableInfo.Receivable_Date));
-
-           if (receivableInfo.Transaction_Type == 1)
-           {
-               sqlParams.Add(new SqlParameter("@ChequeNo", receivableInfo.Cheque_Number));
-               sqlParams.Add(new SqlParameter("@ChequeDate", receivableInfo.Cheque_Date));
-               sqlParams.Add(new SqlParameter("@BankName", receivableInfo.Bank_Name));
-               sqlParams.Add(new SqlParameter("@IFSC_Code", receivableInfo.IFSC_Code));
-               sqlParams.Add(new SqlParameter("@NEFT", "NA"));
-               sqlParams.Add(new SqlParameter("@Credit_Debit", "NA"));
-           }
-           else if (receivableInfo.Transaction_Type == 2)
-           {
-               sqlParams.Add(new SqlParameter("@ChequeNo", "NA"));
-               sqlParams.Add(new SqlParameter("@ChequeDate", "NA"));
-               sqlParams.Add(new SqlParameter("@BankName", "NA"));
-               sqlParams.Add(new SqlParameter("@IFSC_Code", "NA"));
-               sqlParams.Add(new SqlParameter("@NEFT", receivableInfo.NEFT));
-               sqlParams.Add(new SqlParameter("@Credit_Debit", "NA"));
-           }
-           else
-           {
-               sqlParams.Add(new SqlParameter("@ChequeNo", "NA"));
-               sqlParams.Add(new SqlParameter("@ChequeDate", "NA"));
-               sqlParams.Add(new SqlParameter("@BankName", "NA"));
-               sqlParams.Add(new SqlParameter("@IFSC_Code", "NA"));
-               sqlParams.Add(new SqlParameter("@NEFT","NA"));
-               sqlParams.Add(new SqlParameter("@Credit_Debit", receivableInfo.Credit_Debit_Card));
-           }
+           sqlParams.Add(new SqlParameter("@Amount", receivableInfo.Invoice_Amount));
 
            receivableInfo.Balance_Amount = receivableInfo.Invoice_Amount - receivableInfo.Receivable_Item_Amount;
 
-           if (receivableInfo.Receivable_Id == 0)
+           if (receivableInfo.Balance_Amount!=0)
            {
-               sqlParams.Add(new SqlParameter("@Created_On", receivableInfo.Created_On));
-               sqlParams.Add(new SqlParameter("@Created_By", receivableInfo.Created_By));
+               sqlParams.Add(new SqlParameter("@Status", "Partially Paid")); 
+           }
+           else
+           {
+               sqlParams.Add(new SqlParameter("@Status", "Payment Completed")); 
            }
 
-           sqlParams.Add(new SqlParameter("@Updated_On", receivableInfo.Updated_On));
+
+           sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+           sqlParams.Add(new SqlParameter("@Created_By", receivableInfo.Created_By));
+
+           sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
            sqlParams.Add(new SqlParameter("@Updated_By", receivableInfo.Updated_By));
 
            return sqlParams;
+       }
+
+       public void Delete_Receivable_Data_Item_By_Id(int receivable_Item_Id)
+       {
+           List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+           sqlparam.Add(new SqlParameter("@Receivable_Item_Id", receivable_Item_Id));
+
+           _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Receivable_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
        }
     }
 }

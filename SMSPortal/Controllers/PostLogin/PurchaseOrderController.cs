@@ -49,7 +49,7 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("PurchaseOrderController - AddEdit_Purchase_Order " + ex.Message);
             }
 
-            return View("AddEdit_Purchase_Order", pViewModel);
+            return View("AddEdit_Purchase_Order", pViewModel);             
         }
 
         public JsonResult Insert_Update_Purchase_Order(PurchaseOrderViewModel pViewModel)
@@ -62,7 +62,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.PurchaseOrder.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrder.Updated_On = DateTime.Now;
                 pViewModel.PurchaseOrder.Purchase_Order_No = "PO001";
-                 
+
                 pViewModel.PurchaseOrderItem.Created_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrderItem.Created_On = DateTime.Now;
                 pViewModel.PurchaseOrderItem.Updated_By = pViewModel.Cookies.User_Id;
@@ -184,7 +184,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(pViewModel);
         }
-
+        
         public JsonResult Get_Purchase_Order_Autocomplete(string Purchase_Order_No)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();

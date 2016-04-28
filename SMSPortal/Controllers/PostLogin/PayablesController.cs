@@ -1,4 +1,9 @@
-﻿using System;
+﻿using SMSPortal.Common;
+using SMSPortal.Models.PostLogin;
+using SMSPortalHelper.Logging;
+using SMSPortalInfo.Common;
+using SMSPortalManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,14 +16,58 @@ namespace SMSPortal.Controllers.PostLogin
         //
         // GET: /Payables/
 
-        public ActionResult Index()
+        public PayableManager _payableManager;
+
+        public CookiesInfo _cookies;
+
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+
+        public PayablesController()
         {
-            return View("Index");
+            _payableManager = new PayableManager();
+
+            CookiesManager _cookiesManager = new CookiesManager();
+
+            _cookies = _cookiesManager.Get_Token_Data(token); 
+        }
+
+        public ActionResult Index(PayableViewModel pViewModel)
+        {
+            return View("Index", pViewModel);
         }
 
         public ActionResult Search()
         {
             return View("Search");
+        }
+
+      
+        public JsonResult Insert_Payable(PayableViewModel pViewModel)
+        {
+            try
+            {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                pViewModel.Payable.Created_By = pViewModel.Cookies.User_Id;
+
+                pViewModel.Payable.Created_On = DateTime.Now;
+
+                pViewModel.Payable.Updated_By = pViewModel.Cookies.User_Id;
+
+                pViewModel.Payable.Updated_On = DateTime.Now;
+
+                _payableManager.Insert_Payable(pViewModel.Payable, pViewModel.Cookies.User_Id);
+
+                pViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("ReceivableController Insert " + ex);
+            }
+            TempData["pViewModel"] = pViewModel;
+            return Json(pViewModel);
         }
 
     }

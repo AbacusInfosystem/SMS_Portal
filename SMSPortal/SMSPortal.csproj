@@ -218,6 +218,7 @@
     <Compile Include="Models\PostLogin\DashboardViewModel.cs" />
     <Compile Include="Models\PostLogin\LookupViewModel.cs" />
     <Compile Include="Models\PostLogin\DealerViewModel.cs" />
+    <Compile Include="Models\PostLogin\PayableViewModel.cs" />
     <Compile Include="Models\PostLogin\ProductViewModel.cs" />
     <Compile Include="Models\PostLogin\PurchaseOrderViewModel.cs" />
     <Compile Include="Models\PostLogin\ReceivableViewModel.cs" />
@@ -973,6 +974,7 @@
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-event.js" />
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-method.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
+    <Content Include="Scripts\Module\Payables\Payables_Methods.js" />
     <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
     <Content Include="Scripts\Module\Product\product_image_events.js" />

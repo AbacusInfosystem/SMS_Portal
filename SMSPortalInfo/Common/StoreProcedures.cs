@@ -109,6 +109,10 @@ namespace SMSPortalInfo.Common
         Insert_Receivable_Data_Sp,
         Get_InvoiceNo_Sp,
          Insert_Receivable_Sp,
+        Insert_Receivable_Item_Data_Sp,
+        Get_Receivable_Data_Item_By_Id_Sp,
+        Get_Receivable_Data_By_Id_Sp,
+        Delete_Receivable_Item_By_Id_Sp,
 
         //Purchase Order
         Get_Purchase_Order_By_Id_Sp,
@@ -121,6 +125,10 @@ namespace SMSPortalInfo.Common
         Update_Purchase_Order_Item_Sp,
         Delete_Purchase_Order_Item_By_Id_Sp,
         Check_DuplicateProduct_PurchaseOrder
+        Delete_Purchase_Order_Item_By_Id_Sp,
+
+        //Payables
+       Insert_Payable_Item_Data_Sp
 
 	}
 }
