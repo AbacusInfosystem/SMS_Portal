@@ -18,9 +18,9 @@ namespace SMSPortalManager
             _receivableRepo = new ReceivableRepo();
         }
 
-       public List<ReceivableInfo> Get_Receivable_By_Name(string Invoice_No, ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivable_By_Id(int invoice_Id, ref PaginationInfo pager)
        {
-           return _receivableRepo.Get_Receivable_By_Id(Invoice_No, ref pager);
+           return _receivableRepo.Get_Receivable_By_Id(invoice_Id, ref pager);
        }
 
        public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager)
@@ -28,24 +28,29 @@ namespace SMSPortalManager
            return _receivableRepo.Get_Receivables(ref pager);
        }
 
-       public List<AutocompleteInfo> Load_Receivable_InvoiceNo(string txtInvoice_No)
+       public int Insert_Receivable(ReceivableInfo receivableInfo,int user_Id)
        {
-           return _receivableRepo.Load_Receivable_InvoiceNo(txtInvoice_No);
+           return _receivableRepo.Insert_Receivable(receivableInfo, user_Id);
        }
 
-       public List<ReceivableInfo> Get_InvoiceNo()
+       public void Insert_ReceivableItems(ReceivableInfo receivableInfo, int user_Id)
        {
-           return _receivableRepo.Get_InvoiceNo();
+           _receivableRepo.Insert_Receivable_Items(receivableInfo, user_Id);
        }
 
-       public void Insert_Receivable(ReceivableInfo receivableInfo,int user_Id)
+       public ReceivableInfo Get_Receivable_Data_By_Id(int receivable_Id)
        {
-           _receivableRepo.Insert_Receivable(receivableInfo, user_Id);
+           return _receivableRepo.Get_Receivable_Data_By_Id(receivable_Id);
        }
 
-       //public List<ReceivableInfo> Get_Receivable_Items(int receivable_Id)
-       //{
-       //    return _receivableRepo.(receivable_Id);
-       //}
+       public List<ReceivableInfo> Get_Receivable_Items(int receivable_Id)
+       {
+           return _receivableRepo.Get_Receivable_Items_By_Id(receivable_Id);
+       }
+
+       public void Delete_Receivable_Data_Item_By_Id(int receivable_Item_Id)
+       {
+           _receivableRepo.Delete_Receivable_Data_Item_By_Id(receivable_Item_Id);
+       }
     }
 }

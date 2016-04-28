@@ -3,85 +3,170 @@ function Save_Receivable_Data() {
 
     var rViewModel =
      {
-         InvoiceNo: $("#txtInvoiceNo").val(),
+         Receivable : {
+                          
+             Invoice_Id: $("#hdnInvoiceId").val(),
 
-         ReceivableDate: $("#txtRecDate").val(),
+             Invoice_Amount: $("#txtInvoice_Amount").val(),
 
-         TransactionType: $("#drpTransaction").val(),
+             Receivable_Item_Amount: $("#txtReceivable_Item_Amount").val(),
 
-         ChequeDate: $("#txtChequeDate").val(),
+             Receivable_Date: $("#txtRecDate").val(),
 
-         ChequeNo: $("#txtChequeNo").val(),
+             Transaction_Type: $("#drpTransaction").val(),
 
-         BankName: $("#txtBankName").val(),
+             Cheque_Date: $("#txtChequeDate").val(),
 
-         IFSC_Code: $("#txtIFSCCode").val(),
+             Cheque_Number: $("#txtChequeNo").val(),
 
-         NEFT: $("#txtNEFT").val(),
+             Bank_Name: $("#txtBankName").val(),
 
-         Credit_Debit_Card: $("#txtCredit_Debit").val()
+             IFSC_Code: $("#txtIFSCCode").val(),
+
+             NEFT: $("#txtNEFT").val(),
+
+             Credit_Debit_Card: $("#txtCredit_Debit").val(),
+
+             Receivable_Id: $("#hdnReceivable_Id").val(),
+
+             Receivable_Item_Id: $("#hdnReceivable_Item_Id").val()
+         }
      }
 
-    CallAjax("/Receivable/Insert-Receivable/", "json", JSON.stringify(rViewModel), "POST", "application/json", false, Bind_Receivable_Grid_Items, "", null);
+
+    CallAjax("/Receivable/Insert-Receivable", "json", JSON.stringify(rViewModel), "POST", "application/json", false, Bind_Receivable_Grid_Items, "", null);
 
 }
 
 function Bind_Receivable_Grid_Items(data) {
 
-    $("#tblPolicy").html("");
+    $("#tblReceivableItems").html("");
 
     var htmlText = "";
+
+    htmlText += "<tr>";
+
+    htmlText += "<th>Transaction Type</th>";
+
+    htmlText += "<th>Amount</th>";
+
+    htmlText += "<th>Bank Name</th>";
+
+    htmlText += "<th>IFSC Code</th>";
+
+    htmlText += "<th>Cheque No</th>";
+
+    htmlText += "<th>Cheque Date</th>";
+
+    htmlText += "<th>NEFT Details</th>";
+
+    htmlText += "<th>Credit/Debit Card Details</th>";
+
+    htmlText += "<th>Receivable Date</th>";
+
+    htmlText += "<th>Action</th>";
+
+    htmlText += "</tr>";
+    
+    $("#txtInvoiceNo").val(data.Receivable.Invoice_Id),
+
+    $("#hdnInvoiceId").val(data.Receivable.Invoice_Id),
+
+    $("#txtInvoice_Amount").val(data.Receivable.Invoice_Amount)
+
+    $("#dvInvoice").find(".autocomplete-text").trigger("focusout");
 
     if (data.Receivables.length > 0) {
 
         for (i = 0; i < data.Receivables.length; i++) {
+
             htmlText += "<tr>";
 
             htmlText += "<td>";
 
-            htmlText += "<input type='radio' name='r1' id='r1_" + data.Receivables[i].Invoice_Id + "' class='iradio-list'/>";
+            htmlText += "<input type='hidden' id='hdnTransaction_Type" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Transaction_Type + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnReceivable_Item_Amount" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Receivable_Item_Amount + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnBank_Name" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Bank_Name + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnIFSC_Code" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].IFSC_Code + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnCheque_Number" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Cheque_Number + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Cheque_Date + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnNEFT" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].NEFT + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnCredit_Debit_Card" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Credit_Debit_Card + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnReceivable_Date" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Receivable_Date + "'/>";
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].Receivable_Item_Amount == null ? "" : data.Receivables[i].Receivable_Item_Amount;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].Transaction_Type == null ? "" : data.Receivables[i].Transaction_Type;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].Bank_Name == null ? "" : data.Receivables[i].Bank_Name;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].IFSC_Code == null ? "" : data.Receivables[i].IFSC_Code;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].Cheque_Number == null ? "" : data.Receivables[i].Cheque_Number;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].Cheque_Date == null ? "" : data.Receivables[i].Cheque_Date;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Receivables[i].NEFT == null ? "" : data.Receivables[i].NEFT;
+
+            htmlText += "</td>";
+
+            htmlText += "<td>";
+
+            htmlText += data.Receivables[i].Credit_Debit_Card == null ? "" : data.Receivables[i].Credit_Debit_Card;
+
+            htmlText += "</td>";
+
+            htmlText += "<td>";
+
+            htmlText += data.Receivables[i].Receivable_Date == null ? "" : data.Receivables[i].Receivable_Date;
+
+            htmlText += "</td>";
+
+            htmlText += "<td>";
+
+            htmlText += "<button type='button' id='edit-receivable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
+
+            htmlText += "</td>";
+
+            htmlText += "<td>";
+
+            htmlText += "<button type='button' id='delete-receivable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeleteReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
 
             htmlText += "</td>";
 
@@ -98,25 +183,27 @@ function Bind_Receivable_Grid_Items(data) {
         htmlText += "</tr>";
     }
 
-    $('#tblReceivableItems').find("tr:gt(0)").remove();
-    $('#tblReceivableItems tr:first').after(htmlText);
+    //$('#tblReceivableItems').find("tr:gt(0)").remove();
+    $('#tblReceivableItems').html(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event) {
-        if ($(this).prop('checked')) {
-            $("#hdnVendor_Id").val(this.id.replace("r1_", ""));
-            $("#btnEdit").show();
-            $("#btnAddProductMapping").show();
-            $("#btnDelete").show();
+    ClearReceivableData();
 
-        }
-    });
+    //$('[name="r1"]').on('ifChanged', function (event) {
+    //    if ($(this).prop('checked')) {
+    //        $("#hdnVendor_Id").val(this.id.replace("r1_", ""));
+    //        $("#btnEdit").show();
+    //        $("#btnAddProductMapping").show();
+    //        $("#btnDelete").show();
+
+    //    }
+    //});
 
 }
 
@@ -217,39 +304,58 @@ function Bind_Receivable_Grid_Items(data) {
 //    Friendly_Message(data);
 //}
 
-//function Edit_CTC(id) {
-//    $("#drpSalaryComponents").val($("#CTCPo" + id).find(".Components").val());
-//    $("#drpOperands").val($("#CTCPo" + id).find(".Operation").val());
-//    $("#txtValue").val($("#CTCPo" + id).find(".Value").val());
-//    $("#drpOF").val($("#CTCPo" + id).find(".OF").val());
-//    $("#drpMetros").val($("#CTCPo" + id).find(".Metros").val());
-//    $("#hdfCTCTemplateID").val($("#CTCPo" + id).find(".ID").val());
-//    $("#hdfCTCPolicyId").val($("#CTCPo" + id).find(".TemplateID").val());
-
-//}
-
-//function DeleteCTC(id) {
 
 
-//    $("#hdfCTCTemplateID").val($("#CTCPo" + id).find(".ID").val());
+function EditReceivableData(id) {
 
-//    $("#hdfCTCPolicyId").val($("#CTCPo" + id).find(".TemplateID").val());
+    $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
+    $("#txtReceivable_Item_Amount").val($("#hdnReceivable_Item_Amount" + id).val());
+    $("#txtRecDate").val($("#hdnReceivable_Date" + id).val());
+    $("#txtBankName").val($("#hdnBank_Name" + id).val());
+    $("#txtIFSCCode").val($("#hdnIFSC_Code" + id).val());
+    $("#txtChequeNo").val($("#hdnCheque_Number" + id).val());
+    $("#txtChequeDate").val($("#hdnCheque_Date" + id).val());
+    $("#txtNEFT").val($("#hdnNEFT" + id).val());
+    $("#txtCredit_Debit").val($("#hdnCredit_Debit_Card" + id).val());
+    $("#hdnReceivable_Item_Id").val($("#hdnReceivable_Item_Id" + id).val());
+    $("#hdnReceivable_Id").val($("#hdnhdnReceivable_Id" + id).val());
+    $('#drpTransaction').trigger('change');
+
+}
+
+function ClearReceivableData() {
+
+    $("#drpTransaction").val(0);
+    $("#txtReceivable_Item_Amount").val('');
+    $("#txtRecDate").val('');
+    $("#txtBankName").val('');
+    $("#txtIFSCCode").val('');
+    $("#txtChequeNo").val('');
+    $("#txtChequeDate").val('');
+    $("#txtNEFT").val('');
+    $("#txtCredit_Debit").val('');
+
+}
+
+function DeleteReceivableData(id) {
 
 
-//    var TemplateId = $("#hdfCTCPolicyId").val();
+    $("#hdnReceivable_Item_Id").val($("#hdnReceivable_Item_Id" + id).val());
+    $("#hdnReceivable_Id").val($("#hdnhdnReceivable_Id" + id).val());
 
-//    //  alert(TemplateId);
 
-//    $.ajax({
-//        url: '/HRMS/Delete_Policy',
-//        data: { CTCID: id, TemplateId: TemplateId },
-//        method: 'GET',
-//        async: false,
-//        success: function (data) {
+    var Receivable_Item_Id = $("#hdnReceivable_Item_Id").val();
 
-//            Bind_CTC_Policy(data);
-//            Friendly_Message(data);
-//            // $("#hdfCTCPolicyId").val(data.CTCPolicies.CTCPolicyId);
-//        }
-//    });
-//}
+    $.ajax({
+        url: '/Receivable/Delete_Policy',
+        data: { receivable_Item_Id: Receivable_Item_Id, receivable_Id: Receivable_Id },
+        method: 'GET',
+        async: false,
+        success: function (data) {
+
+            Bind_Receivable_Grid_Items(data);
+            Friendly_Message(data);
+
+        }
+    });
+}
