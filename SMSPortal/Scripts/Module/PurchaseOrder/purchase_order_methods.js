@@ -1,34 +1,45 @@
 ﻿
 
 function Search_Purchase_Order_Items() {
-    var productViewModel =
+    var pViewModel =
         {
             Filter:
                 {
-                    Product_Id: $('#hdnProductId').val(),
-                },
-            Pager:
-                {
-                    CurrentPage: $('#hdfCurrentPage').val(),
-                },
+                    Purchase_Order_Id: $('#hdnPurchase_Order_Id').val(),
+                }
         }
 
     $('#divSearchGridOverlay').show();
 
-    CallAjax("/Product/Get_Products/", "json", JSON.stringify(productViewModel), "POST", "application/json", false, Bind_Purchase_Order_Items, "", null);
+    CallAjax("/PurchaseOrder/Get_Purchase_Orders_Items/", "json", JSON.stringify(pViewModel), "POST", "application/json", false, Bind_Purchase_Order_Items, "", null);
 }
 
-function Bind_Purchase_Order_Items(data) {
+function Bind_Purchase_Order_Items(data)
+{
+    $("#tblPurchaseOrderItems").html("");
     var htmlText = "";
-    if (data.PurchaseOrderItems.length > 0) {
-        for (i = 0; i < data.PurchaseOrderItems.length; i++) {
-            htmlText += "<tr>";
 
-            htmlText += "<td>";
+    $("#hdnPurchase_Order_Id").val(data.PurchaseOrder.Purchase_Order_Id);
 
-            htmlText += "<input type='radio' name='r1' id='r1_" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + "' class='iradio-list'/>";
+    var htmlText = "";
+    if (data.PurchaseOrderItems.length > 0)
+    {
+        htmlText += "<tr>";
+        htmlText += "<th>Product Name</th>"
+        htmlText += "<th>Product Price</th>"
+        htmlText += "<th>Product Quantity</th>"
+         
+        htmlText += "</tr>";
 
-            htmlText += "</td>";
+        for (i = 0; i < data.PurchaseOrderItems.length; i++)
+        {
+            htmlText += "<tr id='PItem" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + "' >";
+
+            //htmlText += "<td>";
+
+            //htmlText += "<input type='radio' name='r1' id='r1_" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + "' class='iradio-list'/>";
+
+            //htmlText += "</td>";
 
             htmlText += "<td>";
 
@@ -42,12 +53,20 @@ function Bind_Purchase_Order_Items(data) {
 
             htmlText += "</td>";
 
-
             htmlText += "<td>";
 
             htmlText += data.PurchaseOrderItems[i].Product_Price == null ? "" : data.PurchaseOrderItems[i].Product_Price;
 
-            htmlText += "</td>";
+            htmlText += "<td>" + "<button type='button' id='btnEdit' class='btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o' onclick='Edit_Purchase_Order_Item(" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + ")'></button>" + "</td>";
+
+            htmlText += "<td>" + "<button type='button' id='btnRemove' class='btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times' onclick='Delete_Purchase_Order_Item(" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + ")'></button>" + "</td>";
+
+            htmlText += "<input type='hidden' class='ItmId' value='" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + "'>";
+            htmlText += "<input type='hidden' class='ItmPOrderId' value='" + data.PurchaseOrderItems[i].Purchase_Order_Id + "'>";
+            htmlText += "<input type='hidden' class='ItmProductId' value='" + data.PurchaseOrderItems[i].Product_Id + "'>";
+            htmlText += "<input type='hidden' class='ItmProductPrice' value='" + data.PurchaseOrderItems[i].Product_Price + "'>";
+            htmlText += "<input type='hidden' class='ItmProductQty' value='" + data.PurchaseOrderItems[i].Product_Quantity + "'>";
+            htmlText += "<input type='hidden' class='ItmShipAdd' value='" + data.PurchaseOrderItems[i].Shipping_Address + "'>";
 
             htmlText += "</tr>";
         }
@@ -55,7 +74,7 @@ function Bind_Purchase_Order_Items(data) {
     else {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='4'> No Record found.";
+        htmlText += "<td colspan='5'> No Record found.";
 
         htmlText += "</td>";
 
@@ -94,11 +113,69 @@ function Bind_Purchase_Order_Items(data) {
 
 }
 
-//function PageMore(Id) {
+ 
 
-//    $("#btnEdit").hide();
-//    $("#btnUpload").hide();
-//    $('#hdfCurrentPage').val((parseInt(Id) - 1));
+function Set_Purchase_Order_Items() {
 
-//    Search_Products();
-//}
+    var pViewModel =
+        {
+            PurchaseOrderItem:
+                {
+                    Purchase_Order_Item_Id: $('#hdnPurchase_Order_Item_Id').val(),
+                    Purchase_Order_Id: $('#hdnPurchase_Order_Id').val(),
+                    Product_Name: $('#txtProductName').val(),
+                    Product_Id: $('#hdnProductId').val(),
+                    Product_Quantity: $('#txtProductQuantity').val(),
+                    Product_Price: $('#txtProductPrice').val(),
+                    Shipping_Address: $('#txtShipping_Address').val(),
+                }
+        }
+    return pViewModel;
+}
+
+function Save_Purchase_Order_Items()
+{
+    var pViewModel = Set_Purchase_Order_Items();
+
+
+    if ($("#hdnContact_Id").val() == 0) {
+        CallAjax("/crm/contact-insert/", "json", JSON.stringify(cViewModel), "POST", "application/json", false, Contact_CallBack, "", null);
+    }
+    else {
+        CallAjax("/crm/contact-update/", "json", JSON.stringify(cViewModel), "POST", "application/json", false, Contact_CallBack, "", null);
+    }
+}
+
+function Edit_Purchase_Order_Item(id)
+{
+    $("#txtProductPrice").val($("#PItem" + id).find(".ItmProductPrice").val());
+    $("#txtProductQuantity").val($("#PItem" + id).find(".ItmProductQty").val());
+    $("#txtShipping_Address").val($("#PItem" + id).find(".ItmShipAdd").val());
+    $("#hdnProductId").val($("#PItem" + id).find(".ItmProductId").val());
+    $("#hdnPurchase_Order_Id").val($("#PItem" + id).find(".ItmPOrderId").val());
+    $("#hdnPurchase_Order_Item_Id").val($("#PItem" + id).find(".ItmId").val());
+}
+
+function Delete_Purchase_Order_Item(id)
+{
+    $("#hdnPurchase_Order_Id").val($("#PItem" + id).find(".ItmPOrderId").val());
+    //$("#hdnPurchase_Order_Item_Id").val($("#PItem" + id).find(".ItmId").val());
+
+    var Purchase_Order_Id = $("#hdnPurchase_Order_Id").val();
+
+   
+
+    $.ajax({
+        url: '/purchaseorder/delete-purchase-order',
+        data: { Purchase_Order_Item_Id: id, Purchase_Order_Id: Purchase_Order_Id },
+        method: 'GET',
+        async: false,
+        success: function (data) {
+
+            Bind_Purchase_Order_Items(data);
+            //Friendly_Message(data);
+            
+        }
+    });
+}
+

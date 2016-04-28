@@ -2,7 +2,7 @@
 
     $(".fa-chevron-left").click(function ()
     {
-        $('#form').validate().cancelSubmit = true;
+        $('#frmPurchaseOrderMaster').validate().cancelSubmit = true;
 
         $("#frmPurchaseOrderMaster").attr("action", "/PurchaseOrder/Search/");
 

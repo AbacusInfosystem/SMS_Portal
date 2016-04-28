@@ -81,9 +81,11 @@ namespace SMSPortalRepo
 
         public PurchaseOrderInfo Get_Purchase_Order_By_Id(int Purchase_Order_Id)
         {
+            List<SqlParameter> paramList = new List<SqlParameter>();
+            paramList.Add(new SqlParameter("@Purchase_Order_Id", Purchase_Order_Id));
 
             PurchaseOrderInfo purchaseorder = new PurchaseOrderInfo();
-            DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Purchase_Order_By_Id_Sp.ToString(), CommandType.StoredProcedure);            
+            DataTable dt = _sqlRepo.ExecuteDataTable(paramList, StoreProcedures.Get_Purchase_Order_By_Id_Sp.ToString(), CommandType.StoredProcedure);            
             foreach (DataRow dr in dt.Rows)
             {
                 purchaseorder = Get_Purchase_Order_Values(dr);
@@ -145,7 +147,7 @@ namespace SMSPortalRepo
             PurchaseOrderItemInfo orderitem = new PurchaseOrderItemInfo();
 
             orderitem.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
-            orderitem.Product_Id = Convert.ToInt32(dr["Purchase_Order_No"]);
+            orderitem.Product_Id = Convert.ToInt32(dr["Product_Id"]);
             orderitem.Product_Name = Convert.ToString(dr["Product_Name"]);
             orderitem.Product_Quantity = Convert.ToInt32(dr["Product_Quantity"]);
             orderitem.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
@@ -193,10 +195,10 @@ namespace SMSPortalRepo
             return sqlParams;
         }
                 
-        public void Delete_Purchase_Order_Item_By_Id(int purchase_order_item_id)
+        public void Delete_Purchase_Order_Item_By_Id(int Purchase_Order_Item_Id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Purchase_Order_Item_Id", purchase_order_item_id));
+            sqlParams.Add(new SqlParameter("@Purchase_Order_Item_Id", Purchase_Order_Item_Id));
             _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Purchase_Order_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
         }
 

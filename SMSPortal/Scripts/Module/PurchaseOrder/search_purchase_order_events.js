@@ -13,6 +13,7 @@
         $("#frmPurchaseOrder").attr("method", "POST");
 
         $("#frmPurchaseOrder").submit();
+
     });
 
     $("#btnSearch").click(function () {
