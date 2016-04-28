@@ -1,7 +1,4 @@
 ﻿$(function () {
-
-
-
     Search_Vendors();
     InitializeAutoComplete($('#txtVendorName'));
     $("#btnEdit").click(function () {

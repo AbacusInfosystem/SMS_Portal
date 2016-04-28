@@ -721,6 +721,7 @@
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green%402x.png" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green.png" />
+    <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green_2.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey%402x.png" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey.png" />
@@ -995,7 +996,7 @@
     <Content Include="Scripts\Module\SubCategory\subcategory_validation.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
-    <Content Include="Scripts\Module\User\User_events.js" />
+    <Content Include="Scripts\Module\User\user_events.js" />
     <Content Include="Scripts\Module\User\user_method.js" />
     <Content Include="Scripts\Module\User\user_validation.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
@@ -1004,8 +1005,8 @@
     <Content Include="Scripts\Module\Receivable\search_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_methods.js" />
-    <Content Include="Scripts\Module\Vendor\vendormapping_events.js" />
-    <Content Include="Scripts\Module\Vendor\vendormapping_method.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_mapping_events.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_mapping_method.js" />
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
