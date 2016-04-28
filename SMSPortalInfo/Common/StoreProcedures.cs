@@ -119,7 +119,8 @@ namespace SMSPortalInfo.Common
         Get_Purchase_Order_Items_By_Id_Sp,
         Insert_Purchase_Order_Item_Sp,
         Update_Purchase_Order_Item_Sp,
-        Delete_Purchase_Order_Item_By_Id_Sp
+        Delete_Purchase_Order_Item_By_Id_Sp,
+        Check_DuplicateProduct_PurchaseOrder
 
 	}
 }

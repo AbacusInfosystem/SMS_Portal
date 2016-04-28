@@ -11,7 +11,7 @@
 <script src="~/Scripts/Module/PurchaseOrder/purchase_order_methods.js"></script>
 <script src="~/Scripts/Module/PurchaseOrder/purchase_order_validation.js"></script>
 <div class="content-wrapper">
-    @*@{Html.RenderPartial("_ServerMessage");}*@
+    @{Html.RenderPartial("_ServerMessage");}
     <section class="content-header">
         <h1>
             Purchase Order Master
@@ -64,12 +64,12 @@
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" id="divProduct">
                                             <div class="form-group auto-complete">
                                                 <label for="Product" class="lookup-title">Product Name</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Product.Product_Name" id="txtProductName" placeholder="Enter Product Name" value="@(Model.PurchaseOrderItem.Product_Id == 0 ? "" : Model.PurchaseOrderItem.Product_Id.ToString())" data-table="product" data-col="Product_Id,Product_Name" data-headernames="Product Name">
-                                                    <input type="hidden" id="hdnProductId" value="@Model.Product.Product_Id" class="auto-complete-value" />
+                                                    <input type="hidden" id="hdnProductId" value="@Model.Product.Product_Id" name="Product.Product_Id" class="auto-complete-value" />
                                                     <input type="hidden" id="hdnProductName" value="@Model.Product.Product_Name" name="Product.Product_Name" class="auto-complete-label" />
                                                     <div class="input-group-addon">
                                                         <a href="#" class="text-muted" id="hrefProduct" role="button"><i class="fa fa-search"></i></a>
@@ -94,14 +94,14 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label style="color: #333">Product Price</label>
-                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@Model.PurchaseOrderItem.Product_Price" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@(Model.PurchaseOrderItem.Product_Price == 0 ? "" : Model.PurchaseOrderItem.Product_Price.ToString())" maxlength="20">
                                             </div>
                                         </div>
 
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label style="color: #333">Product Quantity</label>
-                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" placeholder="Enter product quantity" value="@Model.PurchaseOrderItem.Product_Quantity" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" placeholder="Enter product quantity" value="@(Model.PurchaseOrderItem.Product_Quantity == 0 ? "" : @Model.PurchaseOrderItem.Product_Quantity.ToString())" maxlength="20">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -126,14 +126,14 @@
 
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Date:</label>
-                                                <div class="input-group date">
+                                                <label for="txtRecDate" style="color: #333">Receivable Date</label>
+                                                <div class="input-group">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input type="text" class="form-control pull-right" id="txtShippingDate" >
+                                                    <input type="text" class="form-control  input-sm" id="txtShippingDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="PurchaseOrderItem.Shipping_Date" placeholder="Enter Shipping Date" value="@Model.PurchaseOrderItem.Shipping_Date" />
+                                                   
                                                 </div>
-
                                             </div>
                                         </div>
 
@@ -172,6 +172,7 @@
                                                 <th>Product</th>
                                                 <th>Product Quantity</th>
                                                 <th>Product Price</th>
+                                                <th>Shipping Date</th>
 
                                             </tr>
 
@@ -184,12 +185,12 @@
                                                     <td>@item.Product_Quantity.ToString()</td>
 
                                                     <td>@item.Product_Price.ToString()</td>
-
+                                                    <td>@item.Shipping_Date</td>
                                                     <td>
-                                                        <button id="btnEdit" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" onclick="Edit_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"></button>
+                                                        <button id="btnEdit" type="button" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" onclick="Edit_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"></button>
                                                     </td>
                                                     <td>
-                                                        <button id="btnRemove" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times" onclick="Delete_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"></button>
+                                                        <button id="btnRemove" type="button" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times" onclick="Delete_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"></button>
                                                     </td>
 
                                                     <input type="hidden" class="ItmId" value="@item.Purchase_Order_Item_Id">
@@ -197,6 +198,7 @@
                                                     <input type="hidden" class="ItmProductId" value="@item.Product_Id">
                                                     <input type="hidden" class="ItmProductPrice" value="@item.Product_Price">
                                                     <input type="hidden" class="ItmProductQty" value="@item.Product_Quantity">
+                                                    <input type="hidden" class="ItmShipDate" value="@item.Shipping_Date">
                                                     <input type="hidden" class="ItmShipAdd" value="@item.Shipping_Address">
 
                                                 </tr>
