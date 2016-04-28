@@ -20,6 +20,9 @@ namespace SMSPortal.Models.PostLogin
             Pager.PageSize = 5;
             Cookies = new CookiesInfo();
             Filter = new PurchaseOrder_Filter();
+            PurchaseOrderItem = new PurchaseOrderItemInfo();
+            PurchaseOrderItems = new List<PurchaseOrderItemInfo>();
+            Product = new ProductInfo();
         }
         public PurchaseOrderInfo PurchaseOrder { get; set; }
         public List<PurchaseOrderInfo> PurchaseOrders { get; set; }
@@ -27,6 +30,9 @@ namespace SMSPortal.Models.PostLogin
         public PaginationInfo Pager { get; set; }
         public PurchaseOrder_Filter Filter { get; set; }
         public CookiesInfo Cookies { get; set; }
+        public PurchaseOrderItemInfo PurchaseOrderItem { get; set; }
+        public List<PurchaseOrderItemInfo> PurchaseOrderItems { get; set; }
+        public ProductInfo Product { get; set; }
     }
 
     public class PurchaseOrder_Filter
@@ -36,4 +42,7 @@ namespace SMSPortal.Models.PostLogin
         public string Vendor_Id { get; set; }
         public bool Is_Active { get; set; }
     }
+
+    
+
 }

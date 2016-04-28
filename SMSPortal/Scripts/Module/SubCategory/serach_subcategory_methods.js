@@ -1,6 +1,4 @@
-﻿
-
-function Search_Subcategory() {
+﻿function Search_Subcategory() {
     var sViewModel =
         {
             Filter:

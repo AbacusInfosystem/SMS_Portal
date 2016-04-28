@@ -38,7 +38,7 @@ function Bind_Vendor_Product_Grid(data) {
         for (i = 0; i < data.Products.length; i++) {
             
 
-            htmlText += "<td>";
+            htmlText += "<td style='width:1px'>";
 
             htmlText += "<img width='100' height='100' id='ProductImg1' src='/UploadedFiles/" + data.Products[i].Product_Image + "'/></br>";
 
@@ -49,15 +49,15 @@ function Bind_Vendor_Product_Grid(data) {
 
             if (product_Ids.indexOf(id) >= 0)
             {
-                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked style='margin-left: 30px' id='CheckId'  value=''  /><br>";
+                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
             }
             else
             {
-                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' style='align:center' id='CheckId'  value=''  /><br>";
+                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
             }
          
             htmlText += "<input type='hidden' id='hd_Productid" + i + "' name='Products[" + i + "].Product_id' value='" + data.Products[i].Product_Id + "'>";
-         
+           
             htmlText += "</td>";
  
             count++;
@@ -86,8 +86,8 @@ function Bind_Vendor_Product_Grid(data) {
     $('#tblVendorProductMappingMaster tr:first').after(htmlText);
 
     $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
+        checkboxClass: 'icheckbox_square-green_new',
+        radioClass: 'iradio_square-green_new',
         increaseArea: '20%' // optional
     });
 

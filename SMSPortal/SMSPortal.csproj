@@ -219,6 +219,7 @@
     <Compile Include="Models\PostLogin\LookupViewModel.cs" />
     <Compile Include="Models\PostLogin\DealerViewModel.cs" />
     <Compile Include="Models\PostLogin\ProductViewModel.cs" />
+    <Compile Include="Models\PostLogin\PurchaseOrderViewModel.cs" />
     <Compile Include="Models\PostLogin\ReceivableViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
@@ -720,6 +721,7 @@
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green%402x.png" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green.png" />
+    <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green_2.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey%402x.png" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey.png" />
@@ -978,6 +980,11 @@
     <Content Include="Scripts\Module\Product\search_product_methods.js" />
     <Content Include="Scripts\Module\Product\Product_method.js" />
     <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_methods.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_validation.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\serach_purchase_order_methods.js" />
     <Content Include="Scripts\Module\Receivable\Receivable_methods.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
@@ -989,7 +996,7 @@
     <Content Include="Scripts\Module\SubCategory\subcategory_validation.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
-    <Content Include="Scripts\Module\User\User_events.js" />
+    <Content Include="Scripts\Module\User\user_events.js" />
     <Content Include="Scripts\Module\User\user_method.js" />
     <Content Include="Scripts\Module\User\user_validation.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
@@ -998,8 +1005,8 @@
     <Content Include="Scripts\Module\Receivable\search_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_methods.js" />
-    <Content Include="Scripts\Module\Vendor\vendormapping_events.js" />
-    <Content Include="Scripts\Module\Vendor\vendormapping_method.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_mapping_events.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_mapping_method.js" />
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
@@ -1109,6 +1116,7 @@
     <Content Include="Views\PostLogin\Dashboard\Index.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_AdminWidgets.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
+    <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,10 @@
 ﻿$(function () {
 
+    $('.iradio-list').iCheck({
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%' // optional
+    });
+
     InitializeAutoComplete($('#txtUser_Name'));
 
     Search_Users();
@@ -14,15 +19,6 @@
         $('#hdfCurrentPage').val(0);
         Search_Users();
 
-    });
-
-});
-
-$(document).ready(function () {
-
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
     });
 
 });

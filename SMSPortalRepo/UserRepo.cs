@@ -44,6 +44,8 @@ namespace SMSPortalRepo
                         user.User_Name = Convert.ToString(dr["User_Name"]);
                         user.First_Name = Convert.ToString(dr["First_Name"]);
                         user.Last_Name = Convert.ToString(dr["Last_Name"]);
+
+
                     }
                 }
             }
@@ -98,7 +100,7 @@ namespace SMSPortalRepo
              sqlParams.Add(new SqlParameter("@Email_Id", users.Email_Id));
              sqlParams.Add(new SqlParameter("@Gender", users.Gender));
              sqlParams.Add(new SqlParameter("@User_Name", users.User_Name));
-             sqlParams.Add(new SqlParameter("@Password", "jkj"));
+             sqlParams.Add(new SqlParameter("@Password", "admin"));
              sqlParams.Add(new SqlParameter("@Entity_Id", users.Entity_Id));
              sqlParams.Add(new SqlParameter("@Role_Id", users.Role_Id));
              sqlParams.Add(new SqlParameter("@Is_Active", users.Is_Active));
@@ -161,11 +163,14 @@ namespace SMSPortalRepo
              user.Last_Name = Convert.ToString(dr["Last_Name"]);
              user.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
              user.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
-             user.Password = Convert.ToString(dr["Email_Id"]);
+             if (!dr.IsNull("Email_Id"))
+             user.Email_Id = Convert.ToString(dr["Email_Id"]);
              user.Gender = Convert.ToInt32(dr["Gender"]);
              user.User_Name = Convert.ToString(dr["User_Name"]);
+             if (!dr.IsNull("Password"))
              user.Password = Convert.ToString(dr["Password"]);
-             user.Password = Convert.ToString(dr["Entity_Id"]);
+             if (!dr.IsNull("Entity_Id"))
+             user.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
              user.Role_Id = Convert.ToInt32(dr["Role_Id"]);
              user.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
              if (user.Is_Active == true)

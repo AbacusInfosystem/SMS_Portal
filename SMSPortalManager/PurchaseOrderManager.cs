@@ -18,15 +18,15 @@ namespace SMSPortalManager
             _purchaseorderRepo = new PurchaseOrderRepo();
         }
 
-        public void Insert_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder)
         {
-            _purchaseorderRepo.Insert_Purchase_Order(purchaseorder);
+            return _purchaseorderRepo.Insert_Purchase_Order(purchaseorder);
         }
 
-        //public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder)
-        //{
-        //    _purchaseorderRepo.Update_Purchase_Order(purchaseorder);
-        //}
+        public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        {
+            _purchaseorderRepo.Update_Purchase_Order(purchaseorder);
+        }
 
         public List<PurchaseOrderInfo> Get_Purchase_Orders(ref PaginationInfo Pager)
         {
@@ -47,6 +47,25 @@ namespace SMSPortalManager
         {
             return _purchaseorderRepo.Get_Purchase_Order_Autocomplete(Purchase_Order_No);
         }
-        
+
+        public List<PurchaseOrderItemInfo> Get_Purchase_Order_Items_By_Id(int Purchase_Order_Id)
+        {
+            return _purchaseorderRepo.Get_Purchase_Order_Items_By_Id(Purchase_Order_Id);
+        }
+
+        public void Insert_Purchase_Order_Item(PurchaseOrderItemInfo purchaseOrderItemInfo)
+        {
+             _purchaseorderRepo.Insert_Purchase_Order_Item(purchaseOrderItemInfo);
+        }
+
+        public void Update_Purchase_Order_Item(PurchaseOrderItemInfo purchaseOrderItemInfo)
+        {
+            _purchaseorderRepo.Update_Purchase_Order_Item(purchaseOrderItemInfo);
+        }
+
+        public void Delete_Purchase_Order_Item_By_Id(int purchase_order_item_id)
+        {
+            _purchaseorderRepo.Delete_Purchase_Order_Item_By_Id(purchase_order_item_id);
+        }
     }
 }
