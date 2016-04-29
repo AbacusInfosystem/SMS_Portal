@@ -113,6 +113,7 @@ namespace SMSPortalInfo.Common
         Get_Receivable_Data_Item_By_Id_Sp,
         Get_Receivable_Data_By_Id_Sp,
         Delete_Receivable_Item_By_Id_Sp,
+        Get_Receivable_Balance_Amount_By_Id_Sp,
 
         //Purchase Order
         Get_Purchase_Order_By_Id_Sp,

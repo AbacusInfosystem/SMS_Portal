@@ -49,8 +49,8 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("PurchaseOrderController - AddEdit_Purchase_Order " + ex.Message);
             }
 
-            //return View("AddEdit_Purchase_Order", pViewModel);             
-       // }
+            return View("AddEdit_Purchase_Order", pViewModel);
+        }
 
         public ActionResult Insert_Purchase_Order(PurchaseOrderViewModel pViewModel)
         {

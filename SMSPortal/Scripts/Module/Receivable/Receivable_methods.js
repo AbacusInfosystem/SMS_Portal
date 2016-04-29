@@ -43,32 +43,10 @@ function Bind_Receivable_Grid_Items(data) {
     $("#tblReceivableItems").html("");
 
     var htmlText = "";
-
-    htmlText += "<tr>";
-
-    htmlText += "<th>Transaction Type</th>";
-
-    htmlText += "<th>Amount</th>";
-
-    htmlText += "<th>Bank Name</th>";
-
-    htmlText += "<th>IFSC Code</th>";
-
-    htmlText += "<th>Cheque No</th>";
-
-    htmlText += "<th>Cheque Date</th>";
-
-    htmlText += "<th>NEFT Details</th>";
-
-    htmlText += "<th>Credit/Debit Card Details</th>";
-
-    htmlText += "<th>Receivable Date</th>";
-
-    htmlText += "<th>Action</th>";
-
-    htmlText += "</tr>";
     
     $("#txtInvoiceNo").val(data.Receivable.Invoice_Id),
+
+    $("#hdnReceivable_Id").val(data.Receivable.Receivable_Id),
 
     $("#hdnInvoiceId").val(data.Receivable.Invoice_Id),
 
@@ -78,29 +56,43 @@ function Bind_Receivable_Grid_Items(data) {
 
     if (data.Receivables.length > 0) {
 
+        htmlText += "<tr>";
+
+        htmlText += "<th>Transaction Type</th>";
+
+        htmlText += "<th>Amount</th>";
+
+        htmlText += "<th>Bank Name</th>";
+
+        htmlText += "<th>IFSC Code</th>";
+
+        htmlText += "<th>Cheque No</th>";
+
+        htmlText += "<th>Cheque Date</th>";
+
+        htmlText += "<th>NEFT Details</th>";
+
+        htmlText += "<th>Credit/Debit Card Details</th>";
+
+        htmlText += "<th>Receivable Date</th>";
+
+        htmlText += "<th>Action</th>";
+
+        htmlText += "</tr>";
+
         for (i = 0; i < data.Receivables.length; i++) {
+
+            var showReceivableDate = new Date(parseInt(data.Receivables[i].Receivable_Date.replace('/Date(', '')));
+            showReceivableDate = (showReceivableDate.getMonth() + 1).toString() + "/" + (showReceivableDate.getDate().toString() + "/" + showReceivableDate.getFullYear());
+
+            var showChequeDate = new Date(parseInt(data.Receivables[i].Cheque_Date.replace('/Date(', '')));
+            showChequeDate = (showChequeDate.getMonth() + 1).toString() + "/" + (showChequeDate.getDate().toString() + "/" + showChequeDate.getFullYear());
 
             htmlText += "<tr>";
 
             htmlText += "<td>";
 
-            htmlText += "<input type='hidden' id='hdnTransaction_Type" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Transaction_Type + "'/>";
-
-            htmlText += "<input type='hidden' id='hdnReceivable_Item_Amount" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Receivable_Item_Amount + "'/>";
-
-            htmlText += "<input type='hidden' id='hdnBank_Name" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Bank_Name + "'/>";
-
-            htmlText += "<input type='hidden' id='hdnIFSC_Code" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].IFSC_Code + "'/>";
-
-            htmlText += "<input type='hidden' id='hdnCheque_Number" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Cheque_Number + "'/>";
-
-            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Cheque_Date + "'/>";
-
-            htmlText += "<input type='hidden' id='hdnNEFT" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].NEFT + "'/>";
-
-            htmlText += "<input type='hidden' id='hdnCredit_Debit_Card" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Credit_Debit_Card + "'/>";
-
-            htmlText += "<input type='hidden' id='hdnReceivable_Date" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Receivable_Date + "'/>";
+            htmlText += data.Receivables[i].Transaction_Type_Name == null ? "" : data.Receivables[i].Transaction_Type_Name;
 
             htmlText += "</td>";
 
@@ -108,13 +100,7 @@ function Bind_Receivable_Grid_Items(data) {
 
             htmlText += data.Receivables[i].Receivable_Item_Amount == null ? "" : data.Receivables[i].Receivable_Item_Amount;
 
-            htmlText += "</td>";
-
-            htmlText += "<td>";
-
-            htmlText += data.Receivables[i].Transaction_Type == null ? "" : data.Receivables[i].Transaction_Type;
-
-            htmlText += "</td>";
+            htmlText += "</td>";        
 
             htmlText += "<td>";
 
@@ -136,7 +122,7 @@ function Bind_Receivable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Cheque_Date == null ? "" : data.Receivables[i].Cheque_Date;
+            htmlText += data.Receivables[i].showChequeDate == null ? "" : data.Receivables[i].showChequeDate;
 
             htmlText += "</td>";
 
@@ -154,17 +140,35 @@ function Bind_Receivable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Receivable_Date == null ? "" : data.Receivables[i].Receivable_Date;
+            htmlText += showReceivableDate == null ? "" : showReceivableDate;
+
+            htmlText += "<input type='hidden' id='hdnTransaction_Type" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Transaction_Type + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnReceivable_Item_Amount" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Receivable_Item_Amount + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnBank_Name" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Bank_Name + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnIFSC_Code" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].IFSC_Code + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnCheque_Number" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Cheque_Number + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].showChequeDate + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnNEFT" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].NEFT + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnCredit_Debit_Card" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Credit_Debit_Card + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnReceivable_Date" + data.Receivables[i].Receivable_Item_Id + "' value='" + showReceivableDate + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnReceivable_Item_Id" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Receivable_Item_Id + "'/>";
+
+            htmlText += "<input type='hidden' id='hdnReceivable_Id" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Receivable_Id + "'/>";
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
             htmlText += "<button type='button' id='edit-receivable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
-
-            htmlText += "</td>";
-
-            htmlText += "<td>";
 
             htmlText += "<button type='button' id='delete-receivable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeleteReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
 
@@ -337,17 +341,18 @@ function ClearReceivableData() {
 
 }
 
-function DeleteReceivableData(id) {
+function DeletReceivableData(id) {
 
 
     $("#hdnReceivable_Item_Id").val($("#hdnReceivable_Item_Id" + id).val());
-    $("#hdnReceivable_Id").val($("#hdnhdnReceivable_Id" + id).val());
+    $("#hdnReceivable_Id").val($("#hdnReceivable_Id" + id).val());
 
 
     var Receivable_Item_Id = $("#hdnReceivable_Item_Id").val();
+    var Receivable_Id = $("#hdnReceivable_Id").val();
 
     $.ajax({
-        url: '/Receivable/Delete_Policy',
+        url: '/Receivable/Delete_Receivable_Data_By_Id',
         data: { receivable_Item_Id: Receivable_Item_Id, receivable_Id: Receivable_Id },
         method: 'GET',
         async: false,
