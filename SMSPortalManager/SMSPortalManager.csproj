@@ -50,6 +50,7 @@
     <Compile Include="CookiesManager.cs" />
     <Compile Include="DashboardManager.cs" />
     <Compile Include="DealerManager.cs" />
+    <Compile Include="InvoiceManager.cs" />
     <Compile Include="PayableManager.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

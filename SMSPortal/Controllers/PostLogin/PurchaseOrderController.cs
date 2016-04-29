@@ -61,8 +61,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.PurchaseOrder.Created_On = DateTime.Now;
                 pViewModel.PurchaseOrder.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrder.Updated_On = DateTime.Now;
-                pViewModel.PurchaseOrder.Purchase_Order_No = "PO001";
-
+                pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO000", "Purchase_Order_No", "3", "15", "Purchase_Order");
                 pViewModel.PurchaseOrderItem.Created_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrderItem.Created_On = DateTime.Now;
                 pViewModel.PurchaseOrderItem.Updated_By = pViewModel.Cookies.User_Id;
@@ -93,8 +92,8 @@ namespace SMSPortal.Controllers.PostLogin
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
                     }
                 }
+                pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
                 pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
-
 
             }
             catch (Exception ex)

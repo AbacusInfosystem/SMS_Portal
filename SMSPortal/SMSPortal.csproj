@@ -216,6 +216,9 @@
     <Compile Include="Models\PostLogin\BrandViewModel.cs" />
     <Compile Include="Models\PostLogin\CategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\DashboardViewModel.cs" />
+    <Compile Include="Models\PostLogin\InvoiceViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\PostLogin\LookupViewModel.cs" />
     <Compile Include="Models\PostLogin\DealerViewModel.cs" />
     <Compile Include="Models\PostLogin\PayableViewModel.cs" />
@@ -972,6 +975,8 @@
     <Content Include="Scripts\Module\Dealer\search_dealer_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
+    <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
+    <Content Include="Scripts\Module\Invoice\search_invoice_methods.js" />
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-event.js" />
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-method.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
@@ -1100,7 +1105,7 @@
     <Content Include="Views\PostLogin\SalesOrder\OrderItems.cshtml" />
     <Content Include="Views\PostLogin\Vendor\Profile.cshtml" />
     <Content Include="Views\PostLogin\Payables\Search.cshtml" />
-    <Content Include="Views\PostLogin\Invoice\CreateInvoice.cshtml" />
+    <Content Include="Views\PostLogin\Invoice\ViewInvoice.cshtml" />
     <Content Include="Views\PostLogin\Vendor\SearchOrders.cshtml" />
     <Content Include="Views\PostLogin\Vendor\OrderDetails.cshtml" />
     <Content Include="Views\PostLogin\Vendor\CreateInvoice.cshtml" />
