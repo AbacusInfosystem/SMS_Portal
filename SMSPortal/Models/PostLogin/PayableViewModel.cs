@@ -43,9 +43,12 @@ namespace SMSPortal.Models.PostLogin
     {
         public int Payable_Id { get; set; }
 
+        public int Invoice_Id { get; set; }
+
         public bool Is_Active { get; set; }
 
         public string Invoice_No { get; set; }
+
 
         public int Invoice_Number { get; set; }
     }
