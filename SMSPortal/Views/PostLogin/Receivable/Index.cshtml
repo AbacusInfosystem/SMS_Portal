@@ -3,6 +3,7 @@
 
 <script src="~/Scripts/Module/Receivable/Receviable_events.js"></script>
 <script src="~/Scripts/Module/Receivable/Receivable_methods.js"></script>
+<script src="~/Scripts/Module/Receivable/receivable_validation.js"></script>
 
 <script type="text/javascript">
 
@@ -71,6 +72,13 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label style="color: #333">Balance Amount</label>
+                                        <input type="text" class="form-control input-sm" name="Receivable.Invoice_Amount" id="txtBalance_Amount" placeholder="Enter Invoice Amount" value="@Model.Receivable.Balance_Amount" maxlength="20">
+                                    </div>
+                                </div>
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="txtRecDate" style="color: #333">Receivable Date</label>
@@ -107,144 +115,18 @@
                                 </div>
                             </div>
 
-                            <div class="box-body" style="display:none" id="divCheque">                               
-
-                                <div class="row">
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label style="color: #333">Amount</label>
-                                            <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount2" placeholder="Enter IFSC Code" value="@(Model.Receivable.Receivable_Item_Amount==0 ? "":Model.Receivable.Receivable_Item_Amount.ToString())">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="txtRecDate" style="color: #333">Cheque Date</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-calendar"></i>
-                                                </div>
-                                                <input type="text" class="form-control  input-sm" id="txtChequeDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Receivable.Cheque_Date" placeholder="Enter Cheque Date" value="@Model.Receivable.Cheque_Date" />
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label style="color: #333">Cheque No</label>
-                                            <input type="text" class="form-control input-sm" name="Receivable.Cheque_Number" id="txtChequeNo" placeholder="Enter Cheque No" value="@Model.Receivable.Cheque_Number" maxlength="20">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label style="color: #333">Bank Name</label>
-                                            <input type="text" class="form-control input-sm" name="Receivable.Bank_Name" id="txtBankName" placeholder="Enter Bank Name" value="@Model.Receivable.Bank_Name" maxlength="20">
-                                        </div>
-                                    </div>
-
-                               </div>
-                              
-                                <div class="row">
-
-                                   <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label style="color: #333">IFSC Code</label>
-                                                <input type="text" class="form-control input-sm" name="Receivable.IFSC_Code" id="txtIFSCCode" placeholder="Enter IFSC Code" value="@Model.Receivable.IFSC_Code" maxlength="20">
-                                            </div>
-                                        </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-2">
-                                        <br />
-                                        <div class="btn-group">
-                                            <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                        </div>
-                                    </div>
-
-                                </div>
+                            <div id="dvMain">
 
                             </div>
 
-                            <div class="box-body" style="display:none" id="divNEFT">
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label style="color: #333">Amount</label>
-                                            <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount" placeholder="Enter IFSC Code" value="@Model.Receivable.Receivable_Item_Amount" maxlength="20">
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <br />
+                                    <div class="btn-group">
+                                        <button type="button" id="btnNEFTSave" class="btn btn-success btn-sm">Save</button>
+                                        <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label style="color: #333">NEFT</label>
-                                            <input type="text" class="form-control input-sm" name="Receivable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Receivable.NEFT" maxlength="20">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <br />
-                                        <div class="btn-group">
-                                            <button type="button" id="btnNEFTSave" class="btn btn-success btn-sm">Save</button>
-                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                                                                                      
-                            </div>
-
-                            <div class="box-body" style="display:none" id="divCredit_Debit">
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label style="color: #333">Amount</label>
-                                            <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount1" placeholder="Enter IFSC Code" value="@Model.Receivable.Receivable_Item_Amount" maxlength="20">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label style="color: #333">Credit/Debit Card</label>
-                                            <input type="text" class="form-control input-sm" name="Receivable.Credit_Debit_Card" id="txtCredit_Debit" placeholder="Enter Credit Debit Card Details" value="@Model.Receivable.Credit_Debit_Card" maxlength="20">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <br />
-                                        <div class="btn-group">
-                                            <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             
@@ -352,4 +234,115 @@
             </div>
         </section>
     </form>
+</div>
+
+
+<div class="box-body" style="display:none" id="divCheque">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color: #333">Amount</label>
+                <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount1" placeholder="Enter IFSC Code" value="@(Model.Receivable.Receivable_Item_Amount==0 ? "":Model.Receivable.Receivable_Item_Amount.ToString())">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtRecDate" style="color: #333">Cheque Date</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control  input-sm" id="txtChequeDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Receivable.Cheque_Date" placeholder="Enter Cheque Date" value="@Model.Receivable.Cheque_Date" />
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label style="color: #333">Cheque No</label>
+                <input type="text" class="form-control input-sm" name="Receivable.Cheque_Number" id="txtChequeNo" placeholder="Enter Cheque No" value="@Model.Receivable.Cheque_Number" maxlength="20">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label style="color: #333">Bank Name</label>
+                <input type="text" class="form-control input-sm" name="Receivable.Bank_Name" id="txtBankName" placeholder="Enter Bank Name" value="@Model.Receivable.Bank_Name" maxlength="20">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label style="color: #333">IFSC Code</label>
+                <input type="text" class="form-control input-sm" name="Receivable.IFSC_Code" id="txtIFSCCode" placeholder="Enter IFSC Code" value="@Model.Receivable.IFSC_Code" maxlength="20">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="box-body" style="display:none" id="divNEFT">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color: #333">Amount</label>
+                <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount" placeholder="Enter IFSC Code" value="@Model.Receivable.Receivable_Item_Amount" maxlength="20">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color: #333">NEFT</label>
+                <input type="text" class="form-control input-sm" name="Receivable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Receivable.NEFT" maxlength="20">
+            </div>
+        </div>
+    </div>
+
+   
+
+</div>
+
+<div class="box-body" style="display:none" id="divCredit_Debit">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color: #333">Amount</label>
+                <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount2" placeholder="Enter IFSC Code" value="@Model.Receivable.Receivable_Item_Amount" maxlength="20">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color: #333">Credit/Debit Card</label>
+                <input type="text" class="form-control input-sm" name="Receivable.Credit_Debit_Card" id="txtCredit_Debit" placeholder="Enter Credit Debit Card Details" value="@Model.Receivable.Credit_Debit_Card" maxlength="20">
+            </div>
+        </div>
+    </div>
 </div>

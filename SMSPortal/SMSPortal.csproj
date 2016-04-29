@@ -981,6 +981,7 @@
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-method.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
     <Content Include="Scripts\Module\Payables\Payables_Methods.js" />
+    <Content Include="Scripts\Module\Product\product_image_methods.js" />
     <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
     <Content Include="Scripts\Module\Product\product_image_events.js" />
@@ -994,6 +995,7 @@
     <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_events.js" />
     <Content Include="Scripts\Module\PurchaseOrder\serach_purchase_order_methods.js" />
     <Content Include="Scripts\Module\Receivable\Receivable_methods.js" />
+    <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
     <Content Include="Scripts\Module\SalesOrder\search_sales_order_evnents.js" />

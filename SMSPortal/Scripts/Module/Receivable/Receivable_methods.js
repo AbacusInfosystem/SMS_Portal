@@ -1,6 +1,21 @@
 ﻿ 
 function Save_Receivable_Data() {
 
+    var Item_Amount = 0;
+
+    if ($("#drpTransaction").val() == 1) {
+
+        Item_Amount: $("#txtReceivable_Item_Amount1").val()
+    }
+    else if ($("#drpTransaction").val() == 2) {
+
+        Item_Amount: $("#txtReceivable_Item_Amount").val()
+    }
+    else {
+
+        Item_Amount: $("#txtReceivable_Item_Amount2").val()
+    }
+
     var rViewModel =
      {
          Receivable : {
@@ -9,7 +24,7 @@ function Save_Receivable_Data() {
 
              Invoice_Amount: $("#txtInvoice_Amount").val(),
 
-             Receivable_Item_Amount: $("#txtReceivable_Item_Amount").val(),
+             Receivable_Item_Amount: Item_Amount,
 
              Receivable_Date: $("#txtRecDate").val(),
 
@@ -51,6 +66,8 @@ function Bind_Receivable_Grid_Items(data) {
     $("#hdnInvoiceId").val(data.Receivable.Invoice_Id),
 
     $("#txtInvoice_Amount").val(data.Receivable.Invoice_Amount)
+
+    $("#txtBalance_Amount").val(data.Receivable.Balance_Amount)
 
     $("#dvInvoice").find(".autocomplete-text").trigger("focusout");
 
@@ -322,7 +339,7 @@ function EditReceivableData(id) {
     $("#txtNEFT").val($("#hdnNEFT" + id).val());
     $("#txtCredit_Debit").val($("#hdnCredit_Debit_Card" + id).val());
     $("#hdnReceivable_Item_Id").val($("#hdnReceivable_Item_Id" + id).val());
-    $("#hdnReceivable_Id").val($("#hdnhdnReceivable_Id" + id).val());
+    $("#hdnReceivable_Id").val($("#hdnReceivable_Id" + id).val());
     $('#drpTransaction').trigger('change');
 
 }

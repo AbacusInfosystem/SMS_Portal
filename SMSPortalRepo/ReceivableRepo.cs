@@ -27,7 +27,7 @@ namespace SMSPortalRepo
            sqlParamList.Add(new SqlParameter("@Invoice_Id", invoice_Id));
 
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
-           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_Data_By_Invoice_Id_Sp.ToString(), CommandType.StoredProcedure);
            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
            {
                Receivables.Add(Get_Receivable_Values(dr));
@@ -144,59 +144,26 @@ namespace SMSPortalRepo
            return Receivables;
        }
 
-       public List<AutocompleteInfo> Load_Receivable_InvoiceNo(string txtInvoice_No)
-       { 
-            List<AutocompleteInfo> Invoice_No = new List<AutocompleteInfo>();
-
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-
-            sqlParams.Add(new SqlParameter("@Invoice_No", txtInvoice_No));
-
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_InvoiceNo_AutoComplete_Sp.ToString(), CommandType.StoredProcedure);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                List<DataRow> drList = new List<DataRow>();
-
-                drList = dt.AsEnumerable().ToList();
-
-                foreach (DataRow dr in drList)
-                {
-                    AutocompleteInfo auto = new AutocompleteInfo();
-
-                    auto.Label = Convert.ToString(dr["Label"]);
-
-                    auto.Value = Convert.ToInt32(dr["Value"]);
-
-                    Invoice_No.Add(auto);
-                }
-            }
-
-            return Invoice_No;
-        
-       }
-
-       public List<ReceivableInfo> Get_InvoiceNo()
+       public decimal Get_Invoice_Amount(int id)
        {
-           List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
-           DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_InvoiceNo_Sp.ToString(), CommandType.StoredProcedure);
+           decimal Invoice_Amount = 0;
+
+           List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+           sqlParams.Add(new SqlParameter("@Invoice_Id", id));
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Invoice_Amount_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
            if (dt != null && dt.Rows.Count > 0)
            {
                foreach (DataRow dr in dt.Rows)
                {
-                   ReceivableInfo list = new ReceivableInfo();
-
-                   if (!dr.IsNull("Invoice_Id"))
-                       list.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
-                   if (!dr.IsNull("Invoice_No"))
-                       list.Invoice_No = Convert.ToString(dr["Invoice_No"]);
-
-                   Receivables.Add(list);
+                   if (!dr.IsNull("Gross_Amount"))
+                       Invoice_Amount = Convert.ToDecimal(dr["Gross_Amount"]);
                }
            }
 
-           return Receivables;
+           return Invoice_Amount;
        }
 
        public decimal Get_Balance_Amount(int receivable_Id)
@@ -354,6 +321,27 @@ namespace SMSPortalRepo
            sqlparam.Add(new SqlParameter("@Receivable_Item_Id", receivable_Item_Id));
 
            _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Receivable_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+       }
+
+       public List<AutocompleteInfo> Get_Invoice_Autocomplete(string invoice_No)
+       {
+           List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+           List<SqlParameter> sqlparam = new List<SqlParameter>();
+           sqlparam.Add(new SqlParameter("@Description", invoice_No == null ? System.String.Empty : invoice_No.Trim()));
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Invoice_No_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+           if (dt != null && dt.Rows.Count > 0)
+           {
+               List<DataRow> drList = new List<DataRow>();
+               drList = dt.AsEnumerable().ToList();
+               foreach (DataRow dr in drList)
+               {
+                   AutocompleteInfo auto = new AutocompleteInfo();
+                   auto.Label = Convert.ToString(dr["Label"]);
+                   auto.Value = Convert.ToInt32(dr["Value"]);
+                   autoList.Add(auto);
+               }
+           }
+           return autoList;
        }
     }
 }

@@ -114,6 +114,9 @@ namespace SMSPortalInfo.Common
         Get_Receivable_Data_By_Id_Sp,
         Delete_Receivable_Item_By_Id_Sp,
         Get_Receivable_Balance_Amount_By_Id_Sp,
+        Get_Invoice_Amount_By_Id_Sp,
+        Get_Invoice_No_Autocomplete_Sp,
+        Get_Receivable_Data_By_Invoice_Id_Sp,
 
         //Purchase Order
         Get_Purchase_Order_By_Id_Sp,
@@ -131,7 +134,7 @@ namespace SMSPortalInfo.Common
        Insert_Payable_Item_Data_Sp,
        Insert_Payable_Data_Sp,
        Get_Payable_Data_Item_By_Id_Sp,
-       Get_Payable_Data_By_Id_Sp
+       Get_Payable_Data_By_Id_Sp,
 
         //Invoice
         Insert_Invoice_Sp,
