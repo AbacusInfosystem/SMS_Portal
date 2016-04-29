@@ -2,6 +2,7 @@
 
     $("#frmPurchaseOrderMaster").validate({
         errorClass: 'login-error',
+        ignore: [],
         rules: {
             "PurchaseOrderItem.Product_Price":
                {
@@ -11,12 +12,22 @@
             "PurchaseOrderItem.Product_Quantity":
                 {
                     required: true,
-                    digits:true,
+                    digits:true 
                 },
             "PurchaseOrderItem.Shipping_Address":
                {
                    required: true 
                }
+            //,
+            //"Product.Product_Name":
+            //    {
+            //        required: true,
+            //        validate_Product_Exist:true
+            //    },
+            //"PurchaseOrder.Vendor_Name":
+            //    {
+            //        required: true
+            //    }
 
         },
         messages: {
@@ -35,17 +46,28 @@
                {
                    required: "Shipping address is required."
                }
+            //,
+            //"Product.Product_Name":
+            //   {
+            //       required: "Select product item"
+            //   },
+            //"PurchaseOrder.Vendor_Name":
+            //    {
+            //        required: "Please select Vendor"
+            //    }
 
         },
     });
 });
-jQuery.validator.addMethod("validate_Brand_Exist", function (value, element) {
+jQuery.validator.addMethod("validate_Product_Exist", function (value, element) {
     var result = true;
+    var purchase_order_id = $('#hdnPurchase_Order_Id').val();
+    var product_id = $('#hdnProductId').val();
 
-    if ($("#txtBrand_Name").val() != "" && $("#hdnBrandName").val() != $("#txtBrand_Name").val()) {
+    if ($("#hdnProductId").val() != "" ) {
         $.ajax({
-            url: '/brand/Check_Existing_Brand/',
-            data: { Brand_Name: $("#txtBrand_Name").val() },
+            url: '/purchaseorder/check-duplicate-products-purchase-order/',
+            data: { Product_Id: product_id, Purchase_Order_Id: purchase_order_id },
             method: 'GET',
             async: false,
             success: function (data) {
@@ -57,4 +79,4 @@ jQuery.validator.addMethod("validate_Brand_Exist", function (value, element) {
     }
     return result;
 
-}, "Brand Name already exists.");
+}, "Product already added in purchase order.");

@@ -19,15 +19,34 @@ $(document).ready(function () {
 
     $("#btnOK").click(function () {
 
-        $('.ui-sortable').each(function () {
-            $('#lookupUl').remove()
-        });
-       
+        //$('.ui-sortable').each(function () {
+        //    $('#lookupUl').remove()
+        //});
+
         var hiddenTextValue = $("#hdnValue").val();
 
         var id = $("#hdnId").val();
 
         var Textboxname = "#" + $("#hdnLookupLabelId").val();
+
+        // Get ProductInfo for Purchase order items
+        if ($("#hdnLookupLabelId").val() == "txtProductName");
+        {
+            $.ajax({
+                url: '/purchaseorder/Get_Product/',
+                data: { Product_Id: id },
+                method: 'GET',
+                async: false,
+                success: function (data) {
+
+                    if (data != null) {
+                        if(data.Product != null)
+                        $('#txtProductPrice').val(data.Product.Product_Price);
+                    }
+                }
+            });
+        }
+
 
         $("#" + $("#hdnLookupHiddenId").val()).val(id);
 
@@ -48,7 +67,7 @@ $(document).ready(function () {
         $('#div_Parent_Modal_Fade').find(".modal-body").empty();
 
         $('#div_Parent_Modal_Fade').modal('toggle')
-        
+
     });
 
     $(".close").click(function () {

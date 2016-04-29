@@ -146,6 +146,7 @@ namespace SMSPortalRepo
         {
             PurchaseOrderItemInfo orderitem = new PurchaseOrderItemInfo();
 
+            orderitem.Purchase_Order_Item_Id = Convert.ToInt32(dr["Purchase_Order_Item_Id"]);
             orderitem.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
             orderitem.Product_Id = Convert.ToInt32(dr["Product_Id"]);
             orderitem.Product_Name = Convert.ToString(dr["Product_Name"]);
@@ -202,5 +203,35 @@ namespace SMSPortalRepo
             _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Purchase_Order_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
         }
 
+
+        public bool Check_Duplicate_Product_PurchaseOrder(int Product_Id,int Purchase_Id)
+        {
+            bool check = false;
+
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Product_Id", Product_Id));
+            sqlParam.Add(new SqlParameter("@Purchase_Order_Id", Purchase_Id));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Check_DuplicateProduct_PurchaseOrder.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    check = Convert.ToBoolean(dr["Check_Product_Item"]);
+                }
+            }
+            return check;
+        }
+
+        //public string Get_id(string initialCharacter, string columnName, string substringStartIndex, string substringEndIndex, string tableName)
+        //{
+        //    string newid = "";
+
+        //    string strQry = "Select '" + initialCharacter + "' + CAST(ISNULL(max(CAST(substring(" + columnName + "," + substringStartIndex + "," + substringEndIndex + ") AS int))+1, 1) as nvarchar) as " + columnName + " from " + tableName;
+        //    strQry += " where " + columnName + " like '" + initialCharacter + "' + '%'";
+
+
+        //}
     }
 }

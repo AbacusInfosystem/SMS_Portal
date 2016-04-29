@@ -940,6 +940,7 @@
     <Content Include="Scripts\generic.ajax.js" />
     <Content Include="Scripts\generic.autocomplete.js" />
     <Content Include="Scripts\generic.lookup.js" />
+    <Content Include="Scripts\generic.message.js" />
     <Content Include="Scripts\generic.popup.js" />
     <Content Include="Scripts\IconSearchAutocomplet.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

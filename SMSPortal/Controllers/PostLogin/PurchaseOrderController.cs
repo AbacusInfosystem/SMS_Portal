@@ -49,10 +49,10 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("PurchaseOrderController - AddEdit_Purchase_Order " + ex.Message);
             }
 
-            //return View("AddEdit_Purchase_Order", pViewModel);             
-       // }
+            return View("AddEdit_Purchase_Order", pViewModel);             
+        }
 
-        public ActionResult Insert_Purchase_Order(PurchaseOrderViewModel pViewModel)
+        public JsonResult Insert_Update_Purchase_Order(PurchaseOrderViewModel pViewModel)
         {
             try
             {
@@ -61,11 +61,41 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.PurchaseOrder.Created_On = DateTime.Now;
                 pViewModel.PurchaseOrder.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrder.Updated_On = DateTime.Now;
+                pViewModel.PurchaseOrder.Purchase_Order_No = "PO001";
 
-                pViewModel.PurchaseOrder.Purchase_Order_Id=_purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder);
+                pViewModel.PurchaseOrderItem.Created_By = pViewModel.Cookies.User_Id;
+                pViewModel.PurchaseOrderItem.Created_On = DateTime.Now;
+                pViewModel.PurchaseOrderItem.Updated_By = pViewModel.Cookies.User_Id;
+                pViewModel.PurchaseOrderItem.Updated_On = DateTime.Now;
+
+                if (pViewModel.PurchaseOrder.Purchase_Order_Id != 0)
+                {
+                    _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder);
+                    if (pViewModel.PurchaseOrderItem.Purchase_Order_Item_Id != 0)
+                    {
+                        _purchaseOrderManager.Update_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("POR004"));
+                    }
+                    else
+                    {
+                        _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
+                    }
+                }
+                else
+                {
+                    pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder);
+                    pViewModel.Friendly_Message.Add(MessageStore.Get("POR001"));
+                    if (pViewModel.PurchaseOrder.Purchase_Order_Id != 0)
+                    {
+                        pViewModel.PurchaseOrderItem.Purchase_Order_Id = pViewModel.PurchaseOrder.Purchase_Order_Id;
+                        _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
+                    }
+                }
+                pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
 
 
-                pViewModel.Friendly_Message.Add(MessageStore.Get("DO001"));
             }
             catch (Exception ex)
             {
@@ -73,7 +103,8 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("PurchaseOrderController Insert " + ex);
             }
             TempData["pViewModel"] = pViewModel;
-            return RedirectToAction("Search");
+            //return RedirectToAction("Search");
+            return Json(pViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Update_Purchase_Order(PurchaseOrderViewModel pViewModel)
@@ -94,23 +125,25 @@ namespace SMSPortal.Controllers.PostLogin
 
             TempData["pViewModel"] = pViewModel;
             return RedirectToAction("Search");
+
+            // return Json(pViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        //public ActionResult Get_Purchase_Order_By_Id(PurchaseOrderViewModel pViewModel)
-        //{
-        //    try
-        //    {
-        //        pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
-        //        pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-        //        Logger.Error("PurchaseOrderController Get_Purchase_Order_By_Id " + ex);
-        //    }
+        public ActionResult Get_Purchase_Order_By_Id(PurchaseOrderViewModel pViewModel)
+        {
+            try
+            {
+                pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+                pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("PurchaseOrderController Get_Purchase_Order_By_Id " + ex);
+            }
 
-        //    return AddEdit_Purchase_Order(pViewModel);
-        //}
+            return AddEdit_Purchase_Order(pViewModel);
+        }
 
         public JsonResult Get_Purchase_Orders_Items(PurchaseOrderViewModel pViewModel)
         {
@@ -169,7 +202,7 @@ namespace SMSPortal.Controllers.PostLogin
         public JsonResult Delete_Purchase_Order_Item(int Purchase_Order_Item_Id, int Purchase_Order_Id)
         {
             List<FriendlyMessage> Friendly_Message = new List<FriendlyMessage>();
-            PurchaseOrderViewModel pViewModel= new PurchaseOrderViewModel();
+            PurchaseOrderViewModel pViewModel = new PurchaseOrderViewModel();
             pViewModel.PurchaseOrder.Purchase_Order_Id = Purchase_Order_Id;
             try
             {
@@ -190,6 +223,35 @@ namespace SMSPortal.Controllers.PostLogin
         public ActionResult Add_Purchase_Order_Item()
         {
             return View("AddPurchaseOrderItem");
+        }
+
+        public JsonResult Check_Duplicate_ProductItems(int Product_Id,int Purchase_Order_Id)
+        {
+            bool check = false;
+            try
+            {
+                check = _purchaseOrderManager.Check_Duplicate_Product_PurchaseOrder(Product_Id, Purchase_Order_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("PurchaseOrder Controller - Check_Duplicate_ProductItems " + ex.ToString());
+            }
+            return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_Product(int Product_Id)
+        {
+            ProductManager _productManager = new ProductManager();
+            ProductViewModel vModel = new ProductViewModel();
+            try
+            {
+                vModel.Product = _productManager.Get_Product_By_Id(Product_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("PurchaseOrder Controller - Get_Product " + ex.ToString());
+            }
+            return Json(vModel, JsonRequestBehavior.AllowGet);
         }
     }
 }

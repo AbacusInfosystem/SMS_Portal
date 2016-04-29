@@ -359,8 +359,8 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Purchase-Order-2",
-            url: "purchaseorder/insert-purchase-order",
-            defaults: new { controller = "PurchaseOrder", action = "Insert_Purchase_Order", id = UrlParameter.Optional },
+            url: "purchaseorder/insert-update-purchase-order",
+            defaults: new { controller = "PurchaseOrder", action = "Insert_Update_Purchase_Order", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
@@ -385,6 +385,12 @@ namespace SMSPortal
             name: "Purchase-Order-6",
             url: "purchaseorder/purchase_order_autocomplete-autocomplete/{purchaseorder}",
             defaults: new { controller = "PurchaseOrder", action = "Get_Purchase_Order_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Purchase-Order-7",
+            url: "purchaseorder/check-duplicate-products-purchase-order/",
+            defaults: new { controller = "PurchaseOrder", action = "Check_Duplicate_ProductItems", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
