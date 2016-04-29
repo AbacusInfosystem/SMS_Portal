@@ -22,5 +22,11 @@ namespace SMSPortal.Common
 
             return _cookiesManager.Get_Token_Data(token); 
         }
+
+        public static string Generate_Ref_No(string initialCharacter, string columnName, string substringStartIndex, string substringEndIndex, string tableName)
+        {
+            PurchaseOrderManager _purchaseOrderManager = new PurchaseOrderManager();
+            return _purchaseOrderManager.Generate_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName);
+        }
     }
 }

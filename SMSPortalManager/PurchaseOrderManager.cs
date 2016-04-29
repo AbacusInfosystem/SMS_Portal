@@ -72,5 +72,10 @@ namespace SMSPortalManager
         {
             return _purchaseorderRepo.Check_Duplicate_Product_PurchaseOrder(Product_Id, Purchase_Order_Id);
         }
+
+        public string Generate_Ref_No(string initialCharacter, string columnName, string substringStartIndex, string substringEndIndex, string tableName)
+        {
+            return _purchaseorderRepo.Generate_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName);
+        }
     }
 }

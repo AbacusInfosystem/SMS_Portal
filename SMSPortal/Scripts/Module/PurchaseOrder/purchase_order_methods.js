@@ -3,7 +3,7 @@
 function Search_Purchase_Order_Items() {
     var pViewModel =
         {
-            Filter:
+            PurchaseOrder:
                 {
                     Purchase_Order_Id: $('#hdnPurchase_Order_Id').val(),
                 }
@@ -55,7 +55,10 @@ function Bind_Purchase_Order_Items(data)
 
             htmlText += "<td>";
 
-            htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : new Date(parseInt(data.PurchaseOrderItems[i].Shipping_Date.replace('/Date(', ''))).toLocaleDateString();
+            //htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : new Date(parseInt(data.PurchaseOrderItems[i].Shipping_Date.replace('/Date(', ''))).toLocaleDateString();
+
+            htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : Get_Date(data.PurchaseOrderItems[i].Shipping_Date);
+
 
             htmlText += "</td>";
 
@@ -83,7 +86,7 @@ function Bind_Purchase_Order_Items(data)
         htmlText += "</tr>";
     }
 
-    //$('#tblPurchaseOrderItems').find("tr:gt(0)").remove();
+     
     $('#tblPurchaseOrderItems').html(htmlText);
 
     $('.iradio-list').iCheck({
@@ -209,4 +212,14 @@ function Reset_Purchase_Order()
     $("#divProduct").find(".autocomplete-text").trigger("focusout");
 }
 
-
+function Get_Date(date)
+{
+    
+    var dateString = date.substr(6);
+    var currentTime = new Date(parseInt(dateString));
+    var month = currentTime.getMonth() + 1;
+    var day = currentTime.getDate();
+    var year = currentTime.getFullYear();
+    var date = day + "/" + month + "/" + year;   
+    return date;
+}
