@@ -48,14 +48,6 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                //pViewModel.Payable.Created_By = pViewModel.Cookies.User_Id;
-
-                //pViewModel.Payable.Created_On = DateTime.Now;
-
-                //pViewModel.Payable.Updated_By = pViewModel.Cookies.User_Id;
-
-                //pViewModel.Payable.Updated_On = DateTime.Now;
-
                 pViewModel.Payable.Payable_Id = _payableManager.Insert_Payable(pViewModel.Payable, pViewModel.Cookies.User_Id);
 
                 _payableManager.Insert_PayableItems(pViewModel.Payable, pViewModel.Cookies.User_Id);
@@ -76,6 +68,8 @@ namespace SMSPortal.Controllers.PostLogin
             TempData["pViewModel"] = pViewModel;
             return Json(pViewModel);
         }
+
+       
 
     }
 }

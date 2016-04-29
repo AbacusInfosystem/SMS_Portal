@@ -34,10 +34,10 @@ namespace SMSPortalManager
             return _payableRepo.Get_Payable_Data_By_Id(payable_Id);
         }
 
-    //    public List<PayableInfo> Get_Payable_Items_By_Id(int payable_Id)
-    //    {
-    //        return _payableRepo.Get_Payable_Items_By_Id(payable_Id);
-    //    }
+        public List<PayableInfo> Get_Payable_Items_By_Id(int payable_Id)
+        {
+            return _payableRepo.Get_Payable_Items_By_Id(payable_Id);
+        }
     }
 }
 

@@ -29,7 +29,7 @@ namespace SMSPortalRepo
 
             if (payableInfo.Payable_Item_Id != 0)
             {
-                Payable_Id = payableInfo.Payable_Item_Id;
+                Payable_Id = payableInfo.Payable_Id;
             }
 
             return Payable_Id;
@@ -37,9 +37,9 @@ namespace SMSPortalRepo
 
         public void Insert_PayableItems(PayableInfo payableInfo, int user_Id)
         {
-            //int Payable_Id = 0;
+           
             _sqlHelper.ExecuteScalerObj(Set_Values_In_Payable_Items(payableInfo, user_Id), StoreProcedures.Insert_Payable_Item_Data_Sp.ToString(), CommandType.StoredProcedure);
-            //return Payable_Id;
+           
         }
 
         private List<SqlParameter> Set_Values_In_Payable(PayableInfo payableInfo, int user_Id)
@@ -76,55 +76,51 @@ namespace SMSPortalRepo
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-            if (payableInfo.Payable_Item_Id != 0)
-            {
-                sqlParams.Add(new SqlParameter("@Payable_Item_Id", payableInfo.Payable_Item_Id));
-            }
+            sqlParams.Add(new SqlParameter("@Payable_Item_Id", payableInfo.Payable_Item_Id));
 
-            sqlParams.Add(new SqlParameter("@Invoice_Id", payableInfo.Invoice_Id));
-            sqlParams.Add(new SqlParameter("@TransactionType", payableInfo.Transaction_Type));
-            sqlParams.Add(new SqlParameter("@ReceivableDate", payableInfo.Payable_Date));
-            sqlParams.Add(new SqlParameter("@Invoice_No", payableInfo.Invoice_No));
-
+            sqlParams.Add(new SqlParameter("@Payable_Id", payableInfo.Payable_Id));
+            sqlParams.Add(new SqlParameter("@Invoice_Id", payableInfo.Invoice_Id));           
+            sqlParams.Add(new SqlParameter("@Payable_Date", payableInfo.Payable_Date));
+            sqlParams.Add(new SqlParameter("@Payable_Item_Amount", payableInfo.Payable_Item_Amount));
+            sqlParams.Add(new SqlParameter("@Transaction_Type", payableInfo.Transaction_Type));
+            sqlParams.Add(new SqlParameter("@Status", "Done"));
 
             if (payableInfo.Transaction_Type == 1)
             {
-                sqlParams.Add(new SqlParameter("@ChequeNo", payableInfo.Cheque_Number));
-                sqlParams.Add(new SqlParameter("@ChequeDate", payableInfo.Cheque_Date));
-                sqlParams.Add(new SqlParameter("@BankName", payableInfo.Bank_Name));
+                sqlParams.Add(new SqlParameter("@Cheque_Number", payableInfo.Cheque_Number));
+                sqlParams.Add(new SqlParameter("@Cheque_Date", payableInfo.Cheque_Date));
+                sqlParams.Add(new SqlParameter("@Bank_Name", payableInfo.Bank_Name));
                 sqlParams.Add(new SqlParameter("@IFSC_Code", payableInfo.IFSC_Code));
                 sqlParams.Add(new SqlParameter("@NEFT", "NA"));
-                sqlParams.Add(new SqlParameter("@Credit_Debit", "NA"));
+                sqlParams.Add(new SqlParameter("@Credit_Debit_Card", "NA"));
             }
             else if (payableInfo.Transaction_Type == 2)
             {
-                sqlParams.Add(new SqlParameter("@ChequeNo", "NA"));
-                sqlParams.Add(new SqlParameter("@ChequeDate", DateTime.Now));
-                sqlParams.Add(new SqlParameter("@BankName", "NA"));
+                sqlParams.Add(new SqlParameter("@Cheque_Number", "NA"));
+                sqlParams.Add(new SqlParameter("@Cheque_Date", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Bank_Name", "NA"));
                 sqlParams.Add(new SqlParameter("@IFSC_Code", "NA"));
                 sqlParams.Add(new SqlParameter("@NEFT", payableInfo.NEFT));
-                sqlParams.Add(new SqlParameter("@Credit_Debit", "NA"));
+                sqlParams.Add(new SqlParameter("@Credit_Debit_Card", "NA"));
             }
             else
             {
-                sqlParams.Add(new SqlParameter("@ChequeNo", "NA"));
-                sqlParams.Add(new SqlParameter("@ChequeDate", DateTime.Now));
-                sqlParams.Add(new SqlParameter("@BankName", "NA"));
+                sqlParams.Add(new SqlParameter("@Cheque_Number", "NA"));
+                sqlParams.Add(new SqlParameter("@Cheque_Date", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Bank_Name", "NA"));
                 sqlParams.Add(new SqlParameter("@IFSC_Code", "NA"));
                 sqlParams.Add(new SqlParameter("@NEFT", "NA"));
-                sqlParams.Add(new SqlParameter("@Credit_Debit", payableInfo.Credit_Debit_Card));
+                sqlParams.Add(new SqlParameter("@Credit_Debit_Card", payableInfo.Credit_Debit_Card));
             }
 
-            payableInfo.Balance_Amount = payableInfo.Invoice_Amount - payableInfo.Payable_Item_Amount;
+            //payableInfo.Balance_Amount = payableInfo.Invoice_Amount - payableInfo.Payable_Item_Amount;
+            sqlParams.Add(new SqlParameter("@Balance_Amount", payableInfo.Balance_Amount));
 
-            if (payableInfo.Payable_Id == 0)
-            {
-                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
-                sqlParams.Add(new SqlParameter("@Created_By", user_Id));
-            }
+            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Created_By", payableInfo.Created_By));
 
             sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
-            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
+            sqlParams.Add(new SqlParameter("@Updated_By", payableInfo.Updated_By));
 
             return sqlParams;
         }
@@ -137,7 +133,7 @@ namespace SMSPortalRepo
 
             sqlparam.Add(new SqlParameter("@Payable_Id", payable_Id));
 
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Receivable_Data_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Payable_Data_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -158,22 +154,48 @@ namespace SMSPortalRepo
             return payable;
         }
 
-        //public List<PayableInfo> Get_Receivable_Items_By_Id(int payable_Id)
-        //{
-        //    List<PayableInfo> Payables = new List<PayableInfo>();
+        public List<PayableInfo> Get_Payable_Items_By_Id(int payable_Id)
+        {
+            List<PayableInfo> Payables = new List<PayableInfo>();
 
-        //    List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
 
-        //    sqlParamList.Add(new SqlParameter("@payable_Id", payable_Id));
+            sqlParamList.Add(new SqlParameter("@payable_Id", payable_Id));
 
-        //    DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_Data_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Payable_Data_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
-        //    foreach (DataRow dr in CommonMethods.GetRows(dt))
-        //    {
-        //        Payables.Add(Get_Payable_Item_Values(dr));
-        //    }
-        //    return Payables;
-        //}
+            foreach (DataRow dr in CommonMethods.GetRows(dt))
+            {
+                Payables.Add(Get_Payble_Item_Values(dr));
+            }
+            return Payables;
+        }
+
+        private PayableInfo Get_Payble_Item_Values(DataRow dr)
+        {
+            PayableInfo payable = new PayableInfo();
+
+            payable.Payable_Item_Id = Convert.ToInt32(dr["Payable_Item_Id"]);
+            payable.Payable_Id = Convert.ToInt32(dr["Payable_Id"]);
+            payable.Payable_Date = Convert.ToDateTime(dr["Payable_Date"]);
+            payable.Payable_Item_Amount = Convert.ToDecimal(dr["Payable_Item_Amount"]);
+            payable.Transaction_Type = Convert.ToInt32(dr["Transaction_Type"]);
+
+            if (!dr.IsNull("Cheque_Number"))
+                payable.Cheque_Number = Convert.ToString(dr["Cheque_Number"]);
+            if (!dr.IsNull("Cheque_Date"))
+                payable.Cheque_Date = Convert.ToDateTime(dr["Cheque_Date"]);
+            if (!dr.IsNull("IFSC_Code"))
+                payable.IFSC_Code = Convert.ToString(dr["IFSC_Code"]);
+            if (!dr.IsNull("Bank_Name"))
+                payable.Bank_Name = Convert.ToString(dr["Bank_Name"]);
+            if (!dr.IsNull("NEFT"))
+                payable.NEFT = Convert.ToString(dr["NEFT"]);
+            if (!dr.IsNull("Credit_Debit_Card"))
+                payable.Credit_Debit_Card = Convert.ToString(dr["Credit_Debit_Card"]);
+
+            return payable;
+        }
 
     }
 }

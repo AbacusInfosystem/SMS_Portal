@@ -50,7 +50,5 @@ namespace SMSPortalInfo
 
         public decimal Invoice_Amount { get; set; }
 
-        public int Role_Id { get; set; }
-    
     }
 }

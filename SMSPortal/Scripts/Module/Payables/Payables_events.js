@@ -12,7 +12,8 @@
     //$("#datemask").inputmask("mm/dd/yyyy", { "placeholder": "mm/dd/yyyy" });
 
 
-    if ($("#hdnPayable_Id").val() != 0) {
+    if ($("#hdnPayable_Id").val() != 0)
+    {
         $("#dvInvoice").find(".autocomplete-text").trigger("focusout");
     }
 
@@ -27,7 +28,7 @@
     });
     $("#btnAdd").click(function () {
 
-        AddPayableDetailsData();
+        AddReceivableDetailsData();
 
     });
 
