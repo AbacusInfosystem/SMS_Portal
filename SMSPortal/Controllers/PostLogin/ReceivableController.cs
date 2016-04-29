@@ -121,11 +121,11 @@ namespace SMSPortal.Controllers.PostLogin
             ReceivableViewModel rViewModel = new ReceivableViewModel();
             try
             {
-                _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+                _receivableManager.Delete_Receivable_Data_Item_By_Id(receivable_Item_Id);
 
-                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(receivable_Id);
 
-                rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
+                rViewModel.Receivables = _receivableManager.Get_Receivable_Items(receivable_Id);
 
                 rViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
             }

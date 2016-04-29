@@ -37,7 +37,7 @@ function Bind_Receivable_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Amount == null ? "" : data.Receivables[i].Amount;
+            htmlText += data.Receivables[i].Invoice_Amount == null ? "" : data.Receivables[i].Invoice_Amount;
 
             htmlText += "</td>";
 

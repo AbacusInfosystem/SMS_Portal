@@ -20,7 +20,7 @@ namespace SMSPortalInfo
 
         public int Transaction_Type { get; set; }
 
-        public string Cheque_Date { get; set; }
+        public DateTime Cheque_Date { get; set; }
 
         public string Cheque_Number { get; set; }
 
@@ -51,5 +51,7 @@ namespace SMSPortalInfo
         public decimal Invoice_Amount { get; set; }
 
         public int Role_Id { get; set; }
+
+        public string Transaction_Type_Name { get; set; }
     }
 }

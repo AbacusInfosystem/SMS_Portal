@@ -54,7 +54,7 @@
                                     <div class="form-group auto-complete">
                                         <label for="InvoiceNo" class="lookup-title">Invoice No</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Receivable.Invoice_No" id="txtInvoiceNo" placeholder="Enter Invoice No" value="@Model.Receivable.Invoice_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                                            <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Receivable.Invoice_No" id="txtInvoiceNo" placeholder="Enter Invoice No" value="@(Model.Receivable.Invoice_Id == 0 ? "" : Model.Receivable.Invoice_Id.ToString())" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
                                             <input type="hidden" id="hdnInvoiceId" value="@Model.Receivable.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
                                             <input type="hidden" id="hdnInvoiceNo" value="@Model.Receivable.Invoice_No" name="Receivable.Invoice_No" class="auto-complete-label" />
                                             <div class="input-group-addon">
@@ -114,7 +114,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label style="color: #333">Amount</label>
-                                            <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount2" placeholder="Enter IFSC Code" value="@Model.Receivable.Receivable_Item_Amount" maxlength="20">
+                                            <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount2" placeholder="Enter IFSC Code" value="@(Model.Receivable.Receivable_Item_Amount==0 ? "":Model.Receivable.Receivable_Item_Amount.ToString())">
                                         </div>
                                     </div>
 
@@ -291,7 +291,7 @@
                                     {
                                         <tr id="tr(@itm.Receivable_Item_Id)">
                                             <td>
-                                                <span id="trBankName@(itm.Receivable_Item_Id)"> @itm.Transaction_Type</span>
+                                                <span id="trBankName@(itm.Receivable_Item_Id)"> @itm.Transaction_Type_Name</span>
                                                 <input type="hidden" id="hdnTransaction_Type@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Transaction_Type">
                                                 <input type="hidden" id="hdnReceivable_Item_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Item_Id">
                                                 <input type="hidden" id="hdnReceivable_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Id">
@@ -313,8 +313,8 @@
                                                 <input type="hidden" id="hdnCheque_Number@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Receivable_Item_Id)"> @itm.Cheque_Date</span>
-                                                <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date">
+                                                <span id="trIfsc_Code@(itm.Receivable_Item_Id)"> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
+                                                <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
                                                 <span id="trAccount_No@(itm.Receivable_Item_Id)"> @itm.NEFT</span>
@@ -325,8 +325,8 @@
                                                 <input type="hidden" id="hdnCredit_Debit_Card@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Credit_Debit_Card">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Receivable_Item_Id)"> @itm.Receivable_Date</span>
-                                                <input type="hidden" id="hdnReceivable_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Receivable_Date">
+                                                <span id="trIfsc_Code@(itm.Receivable_Item_Id)"> @itm.Receivable_Date.ToString("MM/dd/yyyy")</span>
+                                                <input type="hidden" id="hdnReceivable_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Receivable_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
                                                 <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-pencil'></i></button>
