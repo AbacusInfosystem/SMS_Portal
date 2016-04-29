@@ -1,11 +1,20 @@
 ﻿$(function () {
     $("#txtPayDate").datepicker({
         autoclose: true,
-        startDate: '-6m',
         enddate: null,
     });
 
-    $("#datemask").inputmask("mm/dd/yyyy", { "placeholder": "mm/dd/yyyy" });
+    $("#txtChequeDate").datepicker({
+        autoclose: true,
+        enddate: null,
+    });
+
+    //$("#datemask").inputmask("mm/dd/yyyy", { "placeholder": "mm/dd/yyyy" });
+
+
+    if ($("#hdnPayable_Id").val() != 0) {
+        $("#dvInvoice").find(".autocomplete-text").trigger("focusout");
+    }
 
     $(".fa-chevron-left").click(function () {
 
@@ -18,7 +27,7 @@
     });
     $("#btnAdd").click(function () {
 
-        AddReceivableDetailsData();
+        AddPayableDetailsData();
 
     });
 

@@ -126,7 +126,8 @@ namespace SMSPortalInfo.Common
         Delete_Purchase_Order_Item_By_Id_Sp,
 
         //Payables
-       Insert_Payable_Item_Data_Sp
+       Insert_Payable_Item_Data_Sp,
+       Insert_Payable_Data_Sp
 
 	}
 }

@@ -36,6 +36,8 @@
     </section>
 
     <form id="frmPayableMaster">
+        <input type="hidden" id="hdnPayable_Id" value="@Model.Payable.Payable_Id" name="Payable.Payable_Id" />
+        <input type="hidden" id="hdnPayable_Item_Id" value="" name="" />
 
         <section class="content">
             <div class="box box-primary">
@@ -48,13 +50,13 @@
                         </div>
 
                         <div class="box-body">
-                            <input type="hidden" id="hdnPayable_Id" name="User.User_Id" value="@Model.Payable.Payable_Id">
-                            <div class="row">
+
+                            <div id="dvInvoice" class="row">
                                 <div class="col-md-3">
                                     <div class="form-group auto-complete">
                                         <label for="InvoiceNo" class="lookup-title">Invoice No</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Payable.Filter.Invoice_No" id="txtInvoiceNo" placeholder="Enter Invoice No" value="@Model.Filter.Invoice_No" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Payable.Invoice_No" id="txtInvoiceNo" placeholder="Enter Invoice No" value="@Model.Payable.Invoice_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
                                             <input type="hidden" id="hdnInvoiceId" value="@Model.Payable.Invoice_Id" name="Payable.Invoice_Id" class="auto-complete-value" />
                                             <input type="hidden" id="hdnInvoiceNo" value="@Model.Payable.Invoice_No" name="Payable.Invoice_No" class="auto-complete-label" />
                                             <div class="input-group-addon">
@@ -78,11 +80,14 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control  input-sm" id="txtPayDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Payable.ReceivableDate" placeholder="Enter Payable Date" value="@Model.Payable.Payable_Date" />
+                                            <input type="text" class="form-control  input-sm" id="txtPayDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Payable.Payable_Date" placeholder="Enter Payable Date" value="@Model.Payable.Payable_Date" />
                                             @*<input type="text" class="form-control  input-sm" id="txtBirthDate" name="candidateshortlist.Candidate_DOB" placeholder="Enter Birth Date" value="@((Model.candidateshortlist.Candidate_DOB == DateTime.MinValue ? "" : Model.candidateshortlist.Candidate_DOB.ToString("dd-mm-yyyy")))" />*@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
 
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -93,11 +98,11 @@
                                             {
                                                 if (Model.Payable.Transaction_Type == item.Key)
                                                 {
-                                                    <option value="@item.Key" selected="selected">@item.Value</option>
+                                            <option value="@item.Key" selected="selected">@item.Value</option>
                                                 }
                                                 else
                                                 {
-                                                    <option value="@item.Key">@item.Value</option>
+                                            <option value="@item.Key">@item.Value</option>
                                                 }
                                             }
                                         </select>
@@ -119,6 +124,16 @@
 
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label style="color: #333">Amount</label>
+                                                <input type="text" class="form-control input-sm" name="Payable.Payable_Item_Amount" id="txtPayable_Item_Amount2" placeholder="Enter IFSC Code" value="@Model.Payable.Payable_Item_Amount" maxlength="20">
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -153,7 +168,15 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label style="color: #333">NEFT</label>
-                                            <input type="text" class="form-control input-sm" name="Payable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Payable.NEFT"  maxlength="20">
+                                            <input type="text" class="form-control input-sm" name="Payable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Payable.NEFT" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label style="color: #333">Amount</label>
+                                                <input type="text" class="form-control input-sm" name="Payable.Payable_Item_Amount" id="txtPayable_Item_Amount" placeholder="Enter IFSC Code" value="@Model.Payable.Payable_Item_Amount" maxlength="20">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -169,6 +192,12 @@
 
                             <div class="box-body" style="display:none" id="divCredit_Debit">
                                 <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label style="color: #333">Amount</label>
+                                            <input type="text" class="form-control input-sm" name="Payable.Payable_Item_Amount" id="txtPayable_Item_Amount1" placeholder="Enter IFSC Code" value="@Model.Payable.Payable_Item_Amount" maxlength="20">
+                                        </div>
+                                    </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label style="color: #333">Credit/Debit Card</label>
