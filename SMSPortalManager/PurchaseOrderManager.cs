@@ -67,5 +67,15 @@ namespace SMSPortalManager
         {
             _purchaseorderRepo.Delete_Purchase_Order_Item_By_Id(purchase_order_item_id);
         }
+
+        public bool Check_Duplicate_Product_PurchaseOrder(int Product_Id, int Purchase_Order_Id)
+        {
+            return _purchaseorderRepo.Check_Duplicate_Product_PurchaseOrder(Product_Id, Purchase_Order_Id);
+        }
+
+        public string Generate_Ref_No(string initialCharacter, string columnName, string substringStartIndex, string substringEndIndex, string tableName)
+        {
+            return _purchaseorderRepo.Generate_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName);
+        }
     }
 }
