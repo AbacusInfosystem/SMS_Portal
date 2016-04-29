@@ -128,7 +128,11 @@ namespace SMSPortalInfo.Common
 
         //Payables
        Insert_Payable_Item_Data_Sp,
-       Insert_Payable_Data_Sp
+       Insert_Payable_Data_Sp,
 
+        //Invoice
+        Insert_Invoice_Sp,
+        Get_Invoice_Sp,
+        Get_Invoice_By_Id_Sp
 	}
 }

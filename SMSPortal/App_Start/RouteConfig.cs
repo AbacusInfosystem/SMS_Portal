@@ -394,6 +394,21 @@ namespace SMSPortal
             namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
+            #region Invoice
+
+            routes.MapRoute(
+            name: "Invoice-1",
+            url: "invoice/get-purchase_orders",
+            defaults: new { controller = "Invoice", action = "Get_Purchase_Orders", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Invoice-2",
+            url: "invoice/insert-update-purchase-order",
+            defaults: new { controller = "Invoice", action = "Insert_Update_Purchase_Order", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+             
+            #endregion
 
             #endregion
 
