@@ -127,7 +127,8 @@ namespace SMSPortalInfo.Common
         Check_DuplicateProduct_PurchaseOrder,         
 
         //Payables
-       Insert_Payable_Item_Data_Sp
+       Insert_Payable_Item_Data_Sp,
+       Insert_Payable_Data_Sp
 
 	}
 }

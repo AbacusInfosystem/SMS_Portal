@@ -42,7 +42,7 @@ namespace SMSPortalInfo
 
         public int Updated_By { get; set; }
 
-        public bool Status { get; set; }
+        public string Status { get; set; }
 
         public decimal Balance_Amount { get; set; }
 

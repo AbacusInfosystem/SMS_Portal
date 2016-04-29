@@ -5,12 +5,11 @@
          Payable:
              {
 
-                 Invoice_No: $("#txtInvoiceNo").val(),
-
-                 Payable_Id: $("#hdnPayable_Id").val(),
-
-
                  Invoice_Id: $("#hdnInvoiceId").val(),
+
+                 Invoice_Amount: $("#txtInvoice_Amount").val(),
+
+                 Payable_Item_Amount: $("#txtPayable_Item_Amount").val(),
 
                  Payable_Date: $("#txtPayDate").val(),
 
@@ -26,7 +25,11 @@
 
                  NEFT: $("#txtNEFT").val(),
 
-                 Credit_Debit_Card: $("#txtCredit_Debit").val()
+                 Credit_Debit_Card: $("#txtCredit_Debit").val(),
+
+                 Payable_Id: $("#hdnPayable_Id").val(),
+
+                 Payable_Item_Id: $("#hdnPayable_Item_Id").val()
              }
      }
 
