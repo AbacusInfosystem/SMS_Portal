@@ -17,12 +17,17 @@
             "PurchaseOrderItem.Shipping_Address":
                {
                    required: true 
-               },
-            "Product.Product_Id":
-                {
-                    required: true,
-                    validate_Product_Exist:true
-                }
+               }
+            //,
+            //"Product.Product_Name":
+            //    {
+            //        required: true,
+            //        validate_Product_Exist:true
+            //    },
+            //"PurchaseOrder.Vendor_Name":
+            //    {
+            //        required: true
+            //    }
 
         },
         messages: {
@@ -40,11 +45,16 @@
             "PurchaseOrderItem.Shipping_Address":
                {
                    required: "Shipping address is required."
-               },
-            "Product.Product_Id":
-               {
-                   required: "Select product item"
                }
+            //,
+            //"Product.Product_Name":
+            //   {
+            //       required: "Select product item"
+            //   },
+            //"PurchaseOrder.Vendor_Name":
+            //    {
+            //        required: "Please select Vendor"
+            //    }
 
         },
     });

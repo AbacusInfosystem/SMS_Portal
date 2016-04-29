@@ -39,7 +39,10 @@ $(document).ready(function () {
                 async: false,
                 success: function (data) {
 
+                    if (data != null) {
+                        if(data.Product != null)
                         $('#txtProductPrice').val(data.Product.Product_Price);
+                    }
                 }
             });
         }

@@ -92,7 +92,7 @@ function Bind_Purchase_Order_Items(data)
     });
 
     Reset_Purchase_Order();
-    
+    Friendly_Message(data);
     //if (data.Products.length > 0) {
     //    $('#hdfCurrentPage').val(data.Pager.CurrentPage);
     //    if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "") {
@@ -185,7 +185,7 @@ function Delete_Purchase_Order_Item(id)
             success: function (data) {
 
                 Bind_Purchase_Order_Items(data);
-                //Friendly_Message(data);
+                Friendly_Message(data);
 
             }
         });
@@ -202,8 +202,8 @@ function Delete_Purchase_Order_Item(id)
 function Reset_Purchase_Order()
 {
     $("#txtProductPrice").val("0");
-    $("#txtProductQuantity").val("0");
-    $("#txtShipping_Address").val("0");
+    $("#txtProductQuantity").val("");
+    $("#txtShipping_Address").val("");
     $("#txtShippingDate").val("");
     $("#hdnProductId").val("0");
     $("#divProduct").find(".autocomplete-text").trigger("focusout");
