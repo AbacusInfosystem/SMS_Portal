@@ -32,23 +32,23 @@
     });
 
     $("#drpTransaction").change(function () {
+
+        $("#dvMain").html('');
+
         if ($("#drpTransaction").val() == 1)
         {
-            $("#divCheque").show();
-            $("#divNEFT").hide();
-            $("#divCredit_Debit").hide();
+            var divHTML = $("#divCheque").html();
+            $("#dvMain").html(divHTML);
         }
         else if ($("#drpTransaction").val() == 2)
         {
-            $("#divCheque").hide();
-            $("#divNEFT").show();
-            $("#divCredit_Debit").hide();
+            var divHTML = $("#divNEFT").html();
+            $("#dvMain").html(divHTML);
         }
         else
         {
-            $("#divCheque").hide();
-            $("#divNEFT").hide();
-            $("#divCredit_Debit").show();
+            var divHTML = $("#divCredit_Debit").html();
+            $("#dvMain").html(divHTML);
         }
 
     });
@@ -58,5 +58,8 @@
         Save_Receivable_Data();
 
     });
+
+
+
 
 });

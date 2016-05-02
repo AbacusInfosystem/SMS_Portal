@@ -38,8 +38,8 @@
 }
 
 function Bind_Payable_Grid_Items(data) {
-
-    $("#tblReceivableItems").html("");
+    alert(20);
+    $("#tblPayableItems").html("");
 
     var htmlText = "";
 
@@ -218,7 +218,7 @@ function EditPayableData(id) {
     $("#txtNEFT").val($("#hdnNEFT" + id).val());
     $("#txtCredit_Debit").val($("#hdnCredit_Debit_Card" + id).val());
     $("#hdnPayable_Item_Id").val($("#hdnPayable_Item_Id" + id).val());
-    $("#hdnReceivable_Id").val($("#hdnhdnPayable_Id" + id).val());
+    $("#hdnPayable_Id").val($("#hdnPayable_Id" + id).val());
     $('#drpTransaction').trigger('change');
 
 }

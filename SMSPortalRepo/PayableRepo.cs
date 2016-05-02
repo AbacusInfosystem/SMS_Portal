@@ -22,6 +22,44 @@ namespace SMSPortalRepo
             _sqlHelper = new SQLHelper();
         }
 
+        public List<PayableInfo> Get_Payable_By_Id(int invoice_Id, ref PaginationInfo pager)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Invoice_Id", invoice_Id));
+
+            List<PayableInfo> Payables = new List<PayableInfo>();
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Payable_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+            {
+                Payables.Add(Get_Payable_Values(dr));
+            }
+            return Payables;
+        }
+
+        private PayableInfo Get_Payable_Values(DataRow dr)
+        {
+            PayableInfo payable = new PayableInfo();
+
+            payable.Payable_Id = Convert.ToInt32(dr["Payable_Id"]);
+            payable.Status = Convert.ToString(dr["Status"]);
+            payable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
+            payable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+            payable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+
+            return payable;
+        }
+
+        public List<PayableInfo> Get_Payables(ref PaginationInfo pager)
+        {
+            List<PayableInfo> payables = new List<PayableInfo>();
+            DataTable dt = _sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Payable_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+            {
+                payables.Add(Get_Payable_Values(dr));
+            }
+            return payables;
+        }
+
         public int Insert_Payable(PayableInfo payableInfo, int user_Id)
         {
             int Payable_Id = 0;

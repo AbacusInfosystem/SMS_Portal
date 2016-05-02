@@ -237,28 +237,86 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-striped" id="tblPayableItems">
                                 <tr id="subhead">
-                                    <th></th>
-                                    <th>Amount</th>
+
                                     <th>Transaction Type</th>
+                                    <th>Amount</th>
                                     <th>Bank Name</th>
                                     <th>IFSC Code</th>
-                                    <th>Cheque</th>
                                     <th>Cheque No</th>
-                                    <th>Transaction Details</th>
+                                    <th>Cheque Date</th>
+                                    <th>NEFT Details</th>
+                                    <th>Credit/Debit Card Details</th>
+                                    <th>Receivable Date</th>
+                                    <th>Action</th>
                                 </tr>
+
+                                @if (Model.Payables != null && Model.Payables.Count() > 0)
+                                {
+                                    int i = 1;
+                                    foreach (var itm in Model.Payables)
+                                    {
+                                        <tr id="tr(@itm.Payable_Item_Id)">
+                                            <td>
+                                                <span id="trBankName@(itm.Payable_Item_Id)"> @itm.Transaction_Type</span>
+                                                <input type="hidden" id="hdnTransaction_Type@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Transaction_Type">
+                                                <input type="hidden" id="hdnReceivable_Item_Id@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Payable_Item_Id">
+                                                <input type="hidden" id="hdnReceivable_Id@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Payable_Id">
+                                            </td>
+                                            <td>
+                                                <span id="trAccount_No@(itm.Payable_Item_Id)"> @itm.Payable_Item_Amount</span>
+                                                <input type="hidden" id="hdnReceivable_Item_Amount@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Payable_Item_Amount">
+                                            </td>
+                                            <td>
+                                                <span id="trIfsc_Code@(itm.Payable_Item_Id)"> @itm.Bank_Name</span>
+                                                <input type="hidden" id="hdnBank_Name@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Bank_Name">
+                                            </td>
+                                            <td>
+                                                <span id="trBankName@(itm.Payable_Item_Id)"> @itm.IFSC_Code</span>
+                                                <input type="hidden" id="hdnIFSC_Code@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.IFSC_Code">
+                                            </td>
+                                            <td>
+                                                <span id="trAccount_No@(itm.Payable_Item_Id)"> @itm.Cheque_Number</span>
+                                                <input type="hidden" id="hdnCheque_Number@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
+                                            </td>
+                                            <td>
+                                                <span id="trIfsc_Code@(itm.Payable_Item_Id)"> @itm.Cheque_Date</span>
+                                                <input type="hidden" id="hdnCheque_Date@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date">
+                                            </td>
+                                            <td>
+                                                <span id="trAccount_No@(itm.Payable_Item_Id)"> @itm.NEFT</span>
+                                                <input type="hidden" id="hdnNEFT@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.NEFT">
+                                            </td>
+                                            <td>
+                                                <span id="trIfsc_Code@(itm.Payable_Item_Id)"> @itm.Credit_Debit_Card</span>
+                                                <input type="hidden" id="hdnCredit_Debit_Card@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Credit_Debit_Card">
+                                            </td>
+                                            <td>
+                                                <span id="trIfsc_Code@(itm.Payable_Item_Id)"> @itm.Payable_Date</span>
+                                                <input type="hidden" id="hdnReceivable_Date@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Payable_Date">
+                                            </td>
+                                            <td>
+                                                <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Payable_Item_Id)"><i class='fa fa-pencil'></i></button>
+                                                <button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Payable_Item_Id)"><i class='fa fa-times'></i></button>
+                                            </td>
+                                        </tr>
+                                        i = i + 1;
+                                    }
+                                }
+
                             </table>
                         </div>
                         <div class="box-footer clearfix">
                             <div class="pagination pagination-sm no-margin pull-right">
                                 <ul></ul>
                             </div>
-                            <div id="divSearchGridOverlay" class="overlay">
-                                <i class="fa fa-refresh fa-spin"></i>
-                            </div>
+                            @*<div id="divSearchGridOverlay" class="overlay">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>*@
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
     </form>
 </div>

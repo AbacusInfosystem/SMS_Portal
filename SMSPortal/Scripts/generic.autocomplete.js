@@ -38,13 +38,17 @@ var InitializeAutoComplete = function (elementObject) {
             if ($(elementObject).attr("id") == 'txtInvoice_No') {
                 urlString = "/Receivable/autocomplete-Invoice-No/" + $('#txtInvoice_No').val();
             }
+
             if ($(elementObject).attr("id") == 'txtUser_Name') {
                 urlString = "/user/user-autocomplete/" + $('#txtUser_Name').val();
             }
 
-
             if ($(elementObject).attr("id") == 'txtPurchase_Order_No') {
                 urlString = "/purchaseorder/purchase_order_autocomplete-autocomplete/" + $('#txtPurchase_Order_No').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtInvoiceNo') {
+                urlString = "/receivable/receivable-autocomplete/" + $('txtInvoiceNo').val();
             }
 
             $.ajax({

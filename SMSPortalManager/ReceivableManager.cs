@@ -52,5 +52,15 @@ namespace SMSPortalManager
        {
            _receivableRepo.Delete_Receivable_Data_Item_By_Id(receivable_Item_Id);
        }
+
+       public decimal Get_Invoice_Amount(int id)
+       {
+           return _receivableRepo.Get_Invoice_Amount(id);
+       }
+
+       public List<AutocompleteInfo> Get_Invoice_Autocomplete(string invoice_No)
+       {
+           return _receivableRepo.Get_Invoice_Autocomplete(invoice_No);
+       }
     }
 }

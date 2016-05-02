@@ -47,6 +47,27 @@ $(document).ready(function () {
             });
         }
 
+        alert($("#hdnLookupLabelId").val());
+
+        // Get Invoice amount for receivables
+        if ($("#hdnLookupLabelId").val() == "txtInvoiceNo");
+        {
+            alert($("#hdnLookupLabelId").val());
+            $.ajax({
+                url: '/Receivable/Get_Invoice_Amount_By_Id/',
+                data: { Id: id },
+                method: 'GET',
+                async: false,
+                success: function (data) {
+
+                    if (data != null) {
+                        if (data.Receivable != null)
+                            $('#txtInvoice_Amount').val(data.Receivable.Invoice_Amount);
+                    }
+                }
+            });
+        }
+
 
         $("#" + $("#hdnLookupHiddenId").val()).val(id);
 
