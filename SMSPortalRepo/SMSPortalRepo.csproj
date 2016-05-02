@@ -51,8 +51,12 @@
     <Compile Include="CookiesRepo.cs" />
     <Compile Include="DashboardRepo.cs" />
     <Compile Include="DealerRepo.cs" />
+    <Compile Include="InvoiceRepo.cs" />
+    <Compile Include="PayableRepo.cs" />
     <Compile Include="ProductRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrderRepo.cs" />
+    <Compile Include="ReceivableRepo.cs" />
     <Compile Include="StateRepo.cs" />
     <Compile Include="SubCategoryRepo.cs" />
     <Compile Include="UserRepo.cs" />

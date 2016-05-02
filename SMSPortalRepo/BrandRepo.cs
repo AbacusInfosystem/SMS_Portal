@@ -81,13 +81,13 @@ namespace SMSPortalRepo
             return brand;
         }
          
-        public List<BrandInfo> Get_Brand_By_Name(string Brand_Name, ref PaginationInfo Pager)
+        public List<BrandInfo> Get_Brand_By_Id(int Brand_Id, ref PaginationInfo Pager)
         {
-            List<SqlParameter> sqlParamList = new List<SqlParameter>();             
-            sqlParamList.Add(new SqlParameter("@Brand_Name", Brand_Name));
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Brand_Id", Brand_Id));
 
             List<BrandInfo> brands = new List<BrandInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Brand_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Brand_By_Id_Sp.ToString(), CommandType.StoredProcedure);
              
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
@@ -154,12 +154,30 @@ namespace SMSPortalRepo
 
         }
 
-
         public void Delete_Brand_By_Id(int brand_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@Brand_Id", brand_id));
             _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Brand_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+        }
+
+        public List<AutocompleteInfo> Get_Brand_Autocomplete(string brandName)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", brandName == null ? System.String.Empty : brandName.Trim()));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Brand_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {                
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
         }
     }
 }

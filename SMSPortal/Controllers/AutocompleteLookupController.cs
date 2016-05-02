@@ -14,8 +14,7 @@ using SMSPortalHelper.PageHelper;
 namespace SMSPortal.Controllers
 {
     public class AutocompleteLookupController : Controller
-    {
-        
+    {       
         public AutocompleteLookupManager _autocompleteLookupManager;
 
         public AutocompleteLookupController()
@@ -23,24 +22,22 @@ namespace SMSPortal.Controllers
             _autocompleteLookupManager = new AutocompleteLookupManager();
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public PartialViewResult Load_Vendor_Modal_Data(string table_Name, string columns, string headerNames, string page)
+        public PartialViewResult Load_Modal_Data(string table_Name, string columns, string headerNames, string page, string editValue)
         {
             LookupViewModel LookupVM = new LookupViewModel();
 
             PaginationInfo pager = new PaginationInfo();
 
             string[] cols;
+
             string[] headerNamesArr;
+
             cols = columns.Split(',');
 
             if (headerNames != null)
             {
                 headerNamesArr = headerNames.Split(',');
+
                 LookupVM.HeaderNames = headerNamesArr;
             }
 
@@ -49,6 +46,8 @@ namespace SMSPortal.Controllers
 
                 LookupVM.PartialDt = _autocompleteLookupManager.Get_Lookup_Data(table_Name, cols, ref pager);
 
+                LookupVM.EditLookupValue = editValue;
+
             }
             catch (Exception ex)
             {
@@ -56,6 +55,38 @@ namespace SMSPortal.Controllers
             }
 
             return PartialView("_Partial", LookupVM);
+        }
+
+        public JsonResult Get_Lookup_Data_By_Id(string field_Value, string table_Name, string columns, string headerNames)
+        {
+            LookupViewModel LookupVM = new LookupViewModel();
+
+            string[] cols;
+
+            string[] headerNamesArr;
+
+            cols = columns.Split(',');
+
+            if (headerNames != null)
+            {
+                headerNamesArr = headerNames.Split(',');
+
+                LookupVM.HeaderNames = headerNamesArr;
+            }         
+
+            try
+            {
+                if (field_Value!=null)
+                {
+                    LookupVM.Value = _autocompleteLookupManager.Get_Lookup_Data_By_SubcategoryId(field_Value, table_Name, cols);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Json(LookupVM.Value, JsonRequestBehavior.AllowGet);
         }
 
     }

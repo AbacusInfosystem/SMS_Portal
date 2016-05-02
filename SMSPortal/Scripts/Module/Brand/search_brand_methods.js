@@ -19,7 +19,7 @@ function Search_Brands()
         {
             Filter:
                 {
-                    Brand_Name: $('#txtBrand_Name').val(),
+                    Brand_Id: $('#hdnBrandId').val(),
                 },
             Pager:
                 {
@@ -127,3 +127,7 @@ function PageMore(Id) {
     Search_Brands();
 
 }
+
+ 
+ 
+

@@ -16,11 +16,7 @@
         $("#frmVendorMaster").submit();
 
     });
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+
     $(".chkstatus").on("ifChanged", function () {
 
         if ($(this).parents().prop("class").indexOf("checked") != -1) {
@@ -36,10 +32,10 @@
 
         if ($('#frmVendorMaster').valid()) {
             if ($("#hdf_VendorId").val() == 0) {
-                $("#frmVendorMaster").attr("action", "/Vendor/Insert_Vendor/");
+                $("#frmVendorMaster").attr("action", "/Vendor/insert-vendors/");
             }
             else {
-                $("#frmVendorMaster").attr("action", "/Vendor/Update_Vendor/");
+                $("#frmVendorMaster").attr("action", "/Vendor/update-vendors/");
             }
             $('#frmVendorMaster').attr("method", "POST");
             $('#frmVendorMaster').submit();

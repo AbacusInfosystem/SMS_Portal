@@ -15,43 +15,43 @@ namespace SMSPortal.Controllers.PreLogin
 {
     public class LoginController : Controller
     {
-        //
-        // GET: /Login/
 
-        public UserManager userManager;        
+        public UserManager _userManager;        
 
         public LoginController()
         {
-            userManager = new UserManager();
+            _userManager = new UserManager();
         }
 
-        public ActionResult Index(LoginViewModel loginViewModel)
+        public ActionResult Index(LoginViewModel lViewModel)
         {
             try
             {
                 if (Request.Cookies["UserInfo"] != null)
                 {
-                    return RedirectToAction("Index", "Dashboard");
+                    lViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                    if (lViewModel.Cookies==null)
+                    {
+                        lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+                    }                 
                 }
                 else
                 {
                     if (TempData["FriendlyMessage"] != null)
                     {
-                        loginViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
-                    }
-
-                    return View("Index", loginViewModel);
+                        lViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
+                    }                    
                 }
             }
             catch (Exception ex)
             {
                 Logger.Error("Error at Home : " + ex.Message);
-                loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-
-                return View("Index", loginViewModel);
+                lViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                return View("Index", lViewModel);
             }
 
-
+            return View("Index", lViewModel);
         }
         
         public ActionResult ForgotPassword()
@@ -59,18 +59,17 @@ namespace SMSPortal.Controllers.PreLogin
             return View("ForgotPassword");
         }
 
-        public ActionResult Authenticate(LoginViewModel loginViewModel)
+        public ActionResult Authenticate(LoginViewModel lViewModel)
         {
             try
             {
-
-                CookiesInfo cookies = userManager.AuthenticateUser(loginViewModel.Cookies.User_Name, loginViewModel.Cookies.Password);
+                CookiesInfo cookies = _userManager.AuthenticateUser(lViewModel.Cookies.User_Name, lViewModel.Cookies.Password);
 
                 if (cookies.User_Id != 0 && cookies.Is_Active == true)
                 {
-                    if (cookies.User_Name == loginViewModel.Cookies.User_Name)
+                    if (cookies.User_Name == lViewModel.Cookies.User_Name)
                     {
-                        SetUsersCookies(loginViewModel.Cookies.User_Name, loginViewModel.Cookies.Password);
+                        SetUsersCookies(lViewModel.Cookies.User_Name, lViewModel.Cookies.Password);
                     }                    
 
                     return RedirectToAction("Index", "Dashboard");
@@ -96,9 +95,9 @@ namespace SMSPortal.Controllers.PreLogin
 
                 HttpContext.Request.Cookies.Clear();
 
-                loginViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                lViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 
-                return RedirectToAction("Index", "Login", loginViewModel);
+                return RedirectToAction("Index", "Login", lViewModel);
             }
         }               
 
@@ -112,20 +111,26 @@ namespace SMSPortal.Controllers.PreLogin
                 {
                     HttpCookie cookies = new HttpCookie("UserInfo");
 
-                    string cookie_Token = userManager.Set_User_Token_For_Cookies(userName, password);
+                    string cookie_Token = _userManager.Set_User_Token_For_Cookies(userName, password);
                     
                     cookies.Values.Add("Token", cookie_Token);
 
-                    cookies.Expires = DateTime.Now.AddMinutes(2);
+                    cookies.Expires = DateTime.Now.AddDays(2);
 
                     Response.Cookies.Add(cookies);
+                }
+                else
+                {
+                    string cookie_Token = _userManager.Set_User_Token_For_Cookies(userName, password);
+
+                    Response.Cookies["UserInfo"]["Token"] = cookie_Token;
                 }
             }
             catch (Exception ex)
             {
                 HttpContext.Request.Cookies.Clear();
 
-                Logger.Error("SetUsersCookies : " + ex.Message);
+                Logger.Error("Error at Login Controller - SetUsersCookies : " + ex.Message);
             }
         }
 
@@ -133,15 +138,13 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                LogoutUser();                
-                //if (timeOut == "Timeout")
-               // {
-                    TempData["FriendlyMessage"] = MessageStore.Get("SYS02");
-                //}
+                LogoutUser();
+
+                TempData["FriendlyMessage"] = MessageStore.Get("SYS02");
             }
             catch (Exception ex)
             {
-                Logger.Error("LoginController - Logout: " + ex.ToString());
+                Logger.Error("Error at Login Controller - Logout: " + ex.ToString());
             }
 
             return RedirectToAction("Index", "login");
@@ -162,6 +165,12 @@ namespace SMSPortal.Controllers.PreLogin
             Response.Cache.SetNoStore();
 
             Response.AddHeader("Pragma", "no-cache");
+        }
+
+        public ActionResult Anauthorize_Token(LoginViewModel lViewModel)
+        {
+            lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+            return View("Index", lViewModel);
         }
 
     }

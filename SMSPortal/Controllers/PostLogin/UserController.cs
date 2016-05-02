@@ -18,28 +18,29 @@ namespace SMSPortal.Controllers.PostLogin
     {
         public UserManager _userMan;
 
+        public CookiesInfo _cookies;
+
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+
         public UserController()
         {
             _userMan = new UserManager();
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(UserViewModel uViewModel)
         {
             try
             {
-
                 if (TempData["userViewMessage"] != null)
                 {
                     uViewModel = (UserViewModel)TempData["userViewMessage"];
                 }
-
             }
             catch (Exception ex)
             {
-
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Search " + ex);
-
+                Logger.Error("Error At User_Controller - Search " + ex);
             }
 
             return View("Search", uViewModel);
@@ -51,30 +52,28 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pager = uViewModel.Pager;
-                if (uViewModel.Filter.User_Name != null)
+                if (uViewModel.Filter.User_Id != 0)
                 {
-                    uViewModel.Users = _userMan.Get_Users_By_User_Name(uViewModel.Filter.User_Name, ref pager);
+                    uViewModel.Users = _userMan.Get_Users_By_User_Id_List(uViewModel.Filter.User_Id, ref pager);
                 }
                 else
                 {
                     uViewModel.Users = _userMan.Get_Users(ref pager);
-
                 }
                 uViewModel.Pager = pager;
-
                 uViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", uViewModel.Pager.TotalRecords, uViewModel.Pager.CurrentPage + 1, uViewModel.Pager.PageSize, 10, true);
 
             }
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Get_Users " + ex);
-
+                Logger.Error("Error At User_Controller - Get_Users " + ex);
             }
 
             return Json(uViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Index(UserViewModel uViewModel)
         {
             try
@@ -84,70 +83,73 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Index " + ex);
+                Logger.Error("Error At User Controller - Index " + ex);
             }
 
             return View("Index", uViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert(UserViewModel uViewModel)
         {
-
             try
             {
-                uViewModel.User.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                uViewModel.User.Created_On = DateTime.Now;
-                uViewModel.User.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                uViewModel.User.Updated_On = DateTime.Now;
-                _userMan.Insert_Users(uViewModel.User);
+                uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _userMan.Insert_Users(uViewModel.User , uViewModel.Cookies.User_Id);
+
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
             }
-
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Insert " + ex);
+
+                Logger.Error("Error At User Controller - Insert " + ex);
             }
 
             TempData["userViewMessage"] = uViewModel;
             return RedirectToAction("Search");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Update_User(UserViewModel uViewModel)
         {
             try
             {
-                uViewModel.User.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                uViewModel.User.Updated_On = DateTime.Now;
-                _userMan.Update_User(uViewModel.User);
+                uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _userMan.Update_User(uViewModel.User , uViewModel.Cookies.User_Id);
+
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM002"));
             }
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("CategoryController Update " + ex);
+
+                Logger.Error("Error At User_Controller - Update_User " + ex);
             }
 
             TempData["userViewMessage"] = uViewModel;
             return RedirectToAction("Search");
         }
 
-        public JsonResult Check_Existing_Category(string User_Name)
+        public JsonResult Check_Existing_User(string user_Name)
         {
             bool check = false;
 
             try
             {
-                check = _userMan.Check_Existing_User(User_Name);
+                check = _userMan.Check_Existing_User(user_Name);
             }
             catch (Exception ex)
             {
-                Logger.Error("User Controller - Check_Existing_User " + ex.ToString());
+                Logger.Error("Error At User Controller - Check_Existing_User " + ex.ToString());
             }
 
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
+         [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_User_By_Id(UserViewModel uViewModel)
         {
             try
@@ -158,27 +160,43 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("UserController Get_User_By_Id " + ex);
+                Logger.Error("Error At User Controller - Get_User_By_Id " + ex);
             }
 
             return View("Index", uViewModel);
         }
 
-        public JsonResult Get_Entity_By_Role(int Role_Id)
+        public JsonResult Get_Entity_By_Role(int role_Id)
         {
-
             UserViewModel uViewModel = new UserViewModel();
 
             try
             {
-                uViewModel.User.Entities = _userMan.Get_Entity_By_Role(Role_Id);
+                uViewModel.User.Entities = _userMan.Get_Entity_By_Role(role_Id);
             }
             catch (Exception ex)
             {
-                Logger.Error("UserController - Get_Entity_By_Role" + ex.ToString());
+                Logger.Error("Error At User_Controller - Get_Entity_By_Role" + ex.ToString());
             }
 
             return Json(uViewModel.User.Entities, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Get_User_Autocomplete(string user)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+
+            try
+            {
+                autoList = _userMan.Get_User_Autocomplete(user);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At User_Controller - Get_User_Autocomplete " + ex.ToString());
+            }
+
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

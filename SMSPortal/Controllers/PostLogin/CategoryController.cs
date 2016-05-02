@@ -14,61 +14,60 @@ namespace SMSPortal.Controllers.PostLogin
 {
     public class CategoryController : Controller
     {
-        public CategoryManager _categoryManager;
-
+        public CategoryManager _categoryManager;      
         public CategoryController()
         {
             _categoryManager = new CategoryManager();
         }
-
         // GET: /Category/
-        public ActionResult Search(CategoryViewModel categoryViewModel)
+        public ActionResult Search(CategoryViewModel cViewModel)
         {             
             try
             { 
-                if (TempData["categoryViewMessage"] != null)
+                if (TempData["cViewModel"] != null)
                 {
-                    categoryViewModel=(CategoryViewModel)TempData["categoryViewMessage"];
+                    cViewModel=(CategoryViewModel)TempData["cViewModel"];
                 }
             }
             catch (Exception ex)
             {
-                categoryViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                cViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("UserController Search " + ex);
             }
-            return View("Search",categoryViewModel);
+            return View("Search",cViewModel);
         }
 
-        public JsonResult Get_Categories(CategoryViewModel categoryViewModel)
+        public JsonResult Get_Categories(CategoryViewModel cViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
             try
             {
-                pager = categoryViewModel.Pager;
-                if (categoryViewModel.Filter.Category_Name != null)
+                pager = cViewModel.Pager;
+                if (cViewModel.Filter.Category_Id != 0)
                 {
-                    categoryViewModel.Categories = _categoryManager.Get_Categorys_By_Name(categoryViewModel.Filter.Category_Name, ref pager);
+                    cViewModel.Categories = _categoryManager.Get_Categorys_By_Id(cViewModel.Filter.Category_Id, ref pager);
                 }
                 else
                 {
-                    categoryViewModel.Categories = _categoryManager.Get_Categorys(ref pager);
+                    cViewModel.Categories = _categoryManager.Get_Categorys(ref pager);
                 }
 
-                categoryViewModel.Pager = pager;
+                cViewModel.Pager = pager;
 
-                categoryViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", categoryViewModel.Pager.TotalRecords, categoryViewModel.Pager.CurrentPage + 1, categoryViewModel.Pager.PageSize, 10, true);
+                cViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", cViewModel.Pager.TotalRecords, cViewModel.Pager.CurrentPage + 1, cViewModel.Pager.PageSize, 10, true);
 
             }
             catch (Exception ex)
             {
-                categoryViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                cViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("UserController Get_Categories " + ex);
 
             }
 
-            return Json(categoryViewModel);
+            return Json(cViewModel);
         }
-        public ActionResult Index(CategoryViewModel categoryViewModel)
+
+        public ActionResult Index(CategoryViewModel cViewModel)
         {
             PaginationInfo Pager = new PaginationInfo();
             try
@@ -78,48 +77,50 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch(Exception ex)
             {
-                categoryViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                cViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("UserController Index " + ex);
             }           
-            return View("Index",categoryViewModel);
+            return View("Index",cViewModel);
         }
 
-        public ActionResult Insert_Category(CategoryViewModel categoryViewModel)
+        public ActionResult Insert_Category(CategoryViewModel cViewModel)
         {
             try
             {
-                categoryViewModel.Category.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                categoryViewModel.Category.Created_On = DateTime.Now;
-                categoryViewModel.Category.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                categoryViewModel.Category.Updated_On = DateTime.Now;
-                categoryViewModel.Category.Category_Id = _categoryManager.Insert_Category(categoryViewModel.Category);
-                categoryViewModel.Friendly_Message.Add(MessageStore.Get("CO001"));
+                cViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                cViewModel.Category.Created_By = cViewModel.Cookies.User_Id;
+                cViewModel.Category.Created_On = DateTime.Now;
+                cViewModel.Category.Updated_By = cViewModel.Cookies.User_Id;
+                cViewModel.Category.Updated_On = DateTime.Now;
+                cViewModel.Category.Category_Id = _categoryManager.Insert_Category(cViewModel.Category);
+                cViewModel.Friendly_Message.Add(MessageStore.Get("CO001"));
             }
             catch (Exception ex)
             {
-                categoryViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                cViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("CategoryController Insert " + ex);
             }
-            TempData["categoryViewMessage"] = categoryViewModel;
+            TempData["cViewModel"] = cViewModel;
             return RedirectToAction("Search");
         }
 
-        public ActionResult Update_Category(CategoryViewModel categoryViewModel)
+        public ActionResult Update_Category(CategoryViewModel cViewModel)
         {
             try
             {
-                categoryViewModel.Category.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                categoryViewModel.Category.Updated_On = DateTime.Now;
-                _categoryManager.Update_Category(categoryViewModel.Category);
-                categoryViewModel.Friendly_Message.Add(MessageStore.Get("CO002"));
+                cViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                cViewModel.Category.Updated_By = cViewModel.Cookies.User_Id;
+                cViewModel.Category.Updated_On = DateTime.Now;
+                _categoryManager.Update_Category(cViewModel.Category);
+                cViewModel.Friendly_Message.Add(MessageStore.Get("CO002"));
             }
             catch (Exception ex)
             {
-                categoryViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                cViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("CategoryController Update " + ex);
             }
 
-            TempData["categoryViewMessage"] = categoryViewModel;
+            TempData["cViewModel"] = cViewModel;
             return RedirectToAction("Search");
         }
 
@@ -138,21 +139,35 @@ namespace SMSPortal.Controllers.PostLogin
 
             return Json(check, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Get_Category_By_Id(CategoryViewModel categoryViewModel)
+
+        public ActionResult Get_Category_By_Id(CategoryViewModel cViewModel)
         {
             try
             {
-                categoryViewModel.Category = _categoryManager.Get_Category_By_Id(categoryViewModel.Category.Category_Id);
+                cViewModel.Category = _categoryManager.Get_Category_By_Id(cViewModel.Category.Category_Id);
 
             }
             catch (Exception ex)
             {
-                categoryViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                cViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("CategoryController Get_Category_By_Id " + ex);
             }
 
-            return View("Index", categoryViewModel);
+            return View("Index", cViewModel);
         }
 
+        public JsonResult Get_Category_Autocomplete(string Category)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            try
+            {
+                autoList = _categoryManager.Get_Category_Autocomplete(Category);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Category_Controller - Get_Category_Autocomplete " + ex.ToString());
+            }
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

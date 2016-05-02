@@ -1,10 +1,9 @@
-﻿
-function Search_Vendors() {
+﻿function Search_Vendors() {
     var vendorViewModel =
         {
             Filter:
                 {
-                    Vendor_Name: $('#txtVendor_Name').val(),
+                    Vendor_ID: $('#hdnVendorId').val(),
                 },
             Pager:
                 {

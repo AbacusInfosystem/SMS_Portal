@@ -1,4 +1,5 @@
-﻿using SMSPortal.Common;
+﻿using Newtonsoft.Json;
+using SMSPortal.Common;
 using SMSPortal.Models.PostLogin;
 using SMSPortalHelper.Logging;
 using SMSPortalHelper.PageHelper;
@@ -24,6 +25,7 @@ namespace SMSPortal.Controllers.PostLogin
         public CategoryManager _categoryManager;
         public DealerManager _dealerManager;
         public SubCategoryManager _subCategoryManager;
+         
         public ProductController()
         {
             _productManager = new ProductManager();
@@ -31,7 +33,6 @@ namespace SMSPortal.Controllers.PostLogin
             _categoryManager = new CategoryManager();
             _dealerManager = new DealerManager();
             _subCategoryManager = new SubCategoryManager();
-
         }
         public ActionResult Search(ProductViewModel pViewModel)
         {
@@ -49,13 +50,14 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return View("Search", pViewModel);
         }
+
         public ActionResult AddEdit_Product(ProductViewModel pViewModel)
         {
             PaginationInfo Pager = new PaginationInfo();
             try
             {
                 pViewModel.Brands = _dealerManager.Get_Brands();
-                pViewModel.Categories = _subCategoryManager.Get_Categories();
+                //pViewModel.Categories = _subCategoryManager.Get_Categories();
 
             }
             catch (Exception ex)
@@ -69,9 +71,10 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Product.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                pViewModel.Product.Created_By = pViewModel.Cookies.User_Id;
                 pViewModel.Product.Created_On = DateTime.Now;
-                pViewModel.Product.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Product.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.Product.Updated_On = DateTime.Now;
                 _productManager.Insert_Product(pViewModel.Product);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO001"));
@@ -89,7 +92,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Product.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                pViewModel.Product.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.Product.Updated_On = DateTime.Now;
                 _productManager.Update_Product(pViewModel.Product);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO002"));
@@ -103,15 +107,16 @@ namespace SMSPortal.Controllers.PostLogin
             TempData["pViewModel"] = pViewModel;
             return RedirectToAction("Search");
         }
+
         public JsonResult Get_Products(ProductViewModel pViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
             try
             {
                 pager = pViewModel.Pager;
-                if (pViewModel.Filter.Product_Name != null)
+                if (pViewModel.Filter.Product_Id != 0)
                 {
-                    pViewModel.Products = _productManager.Get_Products_By_Name(pViewModel.Filter.Product_Name, ref pager);
+                    pViewModel.Products = _productManager.Get_Products_By_Id(pViewModel.Filter.Product_Id, ref pager);
                 }
                 else
                 {
@@ -127,6 +132,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(pViewModel);
         }
+
         public ActionResult Get_Product_By_Id(ProductViewModel pViewModel)
         {
             try
@@ -140,6 +146,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return AddEdit_Product(pViewModel);
         }
+
         public JsonResult Check_Existing_Product(string Product_Name)
         {
             bool check = false;
@@ -159,7 +166,7 @@ namespace SMSPortal.Controllers.PostLogin
             ProductViewModel pViewModel = new ProductViewModel();
             try
             {
-                pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
+                //pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
             }
             catch (Exception ex)
             {
@@ -167,7 +174,6 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(pViewModel.SubCategories, JsonRequestBehavior.AllowGet);
         }
-
 
         public PartialViewResult Upload_Product_Image(int Product_Id)
         {
@@ -188,7 +194,8 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Product_Image_Upload(ProductViewModel pViewModel)
         {
-            // Code to Upload Excel File 
+
+            pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
             HttpPostedFileBase fileBase = null;
             var actualFileName = "";
             var fileName = "";
@@ -201,7 +208,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             string Product_Id = Request.Form.Get("Product_Id");
-            bool Is_Default =Convert.ToBoolean(Request.Form.Get("Is_Default"));
+            bool Is_Default = Convert.ToBoolean(Request.Form.Get("Is_Default"));
 
             pViewModel.ProductImage.File = fileBase;
 
@@ -220,21 +227,11 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.ProductImage.Product_Id = Convert.ToInt32(Product_Id);
                     pViewModel.ProductImage.Image_Code = actualFileName;
                     pViewModel.ProductImage.Is_Default = Is_Default;
-                    pViewModel.ProductImage.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
                     pViewModel.ProductImage.Created_On = DateTime.Now;
-                    pViewModel.ProductImage.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
+                    pViewModel.ProductImage.Updated_By = pViewModel.Cookies.User_Id;
                     pViewModel.ProductImage.Updated_On = DateTime.Now;
 
                     _productManager.Insert_Product_Image(pViewModel.ProductImage);
-                    //if (pViewModel.Brand.Brand_Logo != null)
-                    //{
-                    //    System.IO.File.Delete(Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), pViewModel.Brand.Brand_Logo));
-                    //    pViewModel.Friendly_Message.Add(MessageStore.Get("BO005"));
-                    //}
-                    //else
-                    //{
-                    //    pViewModel.Friendly_Message.Add(MessageStore.Get("BO004"));
-                    //}
 
                     pViewModel.ImagesList = _productManager.Get_Product_Images(Convert.ToInt32(Product_Id));
                     pViewModel.Product.Product_Id = Convert.ToInt32(Product_Id);
@@ -246,7 +243,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("Error uploading Product Images  " + ex.Message);
             }
-            TempData["pViewModel"] = pViewModel;
+            TempData["pViewModel"] = pViewModel;             
             return PartialView("_Product_Images", pViewModel);
         }
 
@@ -254,7 +251,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             string path = "";
             ProductViewModel pViewModel = new ProductViewModel();
-            try 
+            try
             {
                 _productManager.Delete_Product_Image(Product_Image_Id);
 
@@ -266,19 +263,27 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.ImagesList = _productManager.Get_Product_Images(Product_Id);
                 pViewModel.Product.Product_Id = Product_Id;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("Error Deleting Product Image  " + ex.Message);
             }
             return PartialView("_Product_Images", pViewModel);
         }
-        public PartialViewResult Get_Products1()
+        
+        public JsonResult Get_Product_Autocomplete(string Product)
         {
-            return PartialView("_Partial");
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            try
+            {
+                autoList = _productManager.Get_Product_Autocomplete(Product);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Product_Controller - Get_Product_Autocomplete " + ex.ToString());
+            }
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
-
-
 
 
     }

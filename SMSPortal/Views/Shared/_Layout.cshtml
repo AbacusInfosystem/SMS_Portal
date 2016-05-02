@@ -5,17 +5,12 @@
         Response.AddHeader("Pragma", "no-cache");
     }
     Response.Cache.SetAllowResponseInBrowserHistory(false);
-
-    //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-    //Response.Cache.SetNoStore();
-
     Response.Cache.SetExpires(DateTime.Now.AddSeconds(5));
     Response.Cache.SetExpires(DateTime.UtcNow.AddSeconds(5));
     Response.Cache.SetNoServerCaching();
     Response.Cache.SetValidUntilExpires(true);
     Response.Cache.SetMaxAge(TimeSpan.FromSeconds(5));
     Response.Cache.SetProxyMaxAge(TimeSpan.Zero);
-    //Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 }
 
 
@@ -49,6 +44,8 @@
 
     <!-- iCheck -->
     <link href="~/Content/AdminLTE/plugins/iCheck/skins/square/green.css" rel="stylesheet" />
+
+    <link href="~/Content/AdminLTE/plugins/iCheck/skins/square/green_2.css" rel="stylesheet" />
 
     <!-- Custom style classes -->
     <link href="~/Content/CustomStyle.css" rel="stylesheet" />
@@ -105,6 +102,7 @@
     <script src="/Scripts/generic.autocomplete.js"></script>
     <script src="/Scripts/jquery-ui-1.11.2.js"></script>
     <script src="/Scripts/generic.popup.js"></script>
+    <script src="/Scripts/generic.message.js"></script>
     
 </head>
 
@@ -115,6 +113,7 @@
         <input type="hidden" id="hdnLookupLabelId" name="Label" />
         <input type="hidden" id="hdnLookupHiddenId" name="Hidden" />
         <input type="hidden" id="hdnLookupHiddenValue" name="Hidden" />
+        <input type="hidden" id="hdnEditLookupValue" name="EditLookupValue">
 
         @{Html.RenderPartial("_Header");}
 

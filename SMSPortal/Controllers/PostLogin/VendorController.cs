@@ -18,7 +18,12 @@ namespace SMSPortal.Controllers.PostLogin
     public class VendorController : Controller
     {
         public VendorManager _vendorManager;
+
         public StateManager _stateManager;
+
+        public CookiesInfo _cookies;
+
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
 
         public VendorController()
         {
@@ -26,6 +31,7 @@ namespace SMSPortal.Controllers.PostLogin
             _stateManager = new StateManager();
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(VendorViewModel vViewModel)
         {
             try
@@ -43,6 +49,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Search", vViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Index(VendorViewModel vViewModel)
         {
             PaginationInfo Pager = new PaginationInfo();
@@ -52,22 +59,23 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("VendorController - Index " + ex.Message);
             }
 
             return View("Index", vViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert_Vendor(VendorViewModel vViewModel)
         {
             try
             {
-                vViewModel.Vendor.Created_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                vViewModel.Vendor.Created_On = DateTime.Now;
-                vViewModel.Vendor.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                vViewModel.Vendor.Updated_On = DateTime.Now;
-                _vendorManager.Insert_Vendor(vViewModel.Vendor);
-                vViewModel.Friendly_Message.Add(MessageStore.Get("DO001"));
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _vendorManager.Insert_Vendor(vViewModel.Vendor , vViewModel.Cookies.User_Id);
+
+                vViewModel.Friendly_Message.Add(MessageStore.Get("VO001"));
             }
             catch (Exception ex)
             {
@@ -78,18 +86,21 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Update_Vendor(VendorViewModel vViewModel)
         {
             try
             {
-                vViewModel.Vendor.Updated_By = ((UserInfo)Session["SessionInfo"]).User_Id;
-                vViewModel.Vendor.Updated_On = DateTime.Now;
-                _vendorManager.Update_Vendor(vViewModel.Vendor);
-                vViewModel.Friendly_Message.Add(MessageStore.Get("DO002"));
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _vendorManager.Update_Vendor(vViewModel.Vendor , vViewModel.Cookies.User_Id);
+
+                vViewModel.Friendly_Message.Add(MessageStore.Get("VO002"));
             }
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("VendorController Update " + ex);
             }
 
@@ -104,9 +115,9 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 pager = vViewModel.Pager;
                 
-                if (vViewModel.Filter.Vendor_Name != null)
+                if (vViewModel.Filter.Vendor_Id != 0)
                 {
-                    vViewModel.Vendors = _vendorManager.Get_Vendor_By_Name(vViewModel.Filter.Vendor_Name, ref pager);
+                    vViewModel.Vendors = _vendorManager.Get_Vendor_By_Id_List(vViewModel.Filter.Vendor_Id, ref pager);
                 }
                 else
                 {
@@ -118,16 +129,19 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("VendorController Get_Vendors " + ex);
             }
             return Json(vViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Vendor_By_Id(VendorViewModel vViewModel)
         {
             try
             {
                 vViewModel.Vendor = _vendorManager.Get_Vendor_By_Id(vViewModel.Vendor.Vendor_Id);
+
                 vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
             }
             catch (Exception ex)
@@ -139,12 +153,12 @@ namespace SMSPortal.Controllers.PostLogin
             return Index(vViewModel);
         }
 
-        public JsonResult Check_Existing_Vendor(string Vendor_Name)
+        public JsonResult Check_Existing_Vendor(string vendor_Name)
         {
             bool check = false;
             try
             {
-                check = _vendorManager.Check_Existing_Vendor(Vendor_Name);
+                check = _vendorManager.Check_Existing_Vendor(vendor_Name);
             }
             catch (Exception ex)
             {
@@ -173,7 +187,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("AddProductMapping" , vViewModel);
         }
 
-        public JsonResult Get_Product_By_Brand(int Brand_Id, int CurrentPage, int Vendor_Id)
+        public JsonResult Get_Product_By_Brand(int brand_Id, int CurrentPage, int vendor_Id)
         {
 
             VendorViewModel vViewModel = new VendorViewModel();
@@ -182,13 +196,8 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                
-                pager.CurrentPage = CurrentPage;
-
-                vViewModel.Products = _vendorManager.Get_Productmapping(Brand_Id , ref pager);
-                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(Vendor_Id);  
-              
-                vViewModel.Pager = pager;
-                vViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vViewModel.Pager.TotalRecords, vViewModel.Pager.CurrentPage + 1, vViewModel.Pager.PageSize, 10, true);
+                vViewModel.Products = _vendorManager.Get_Productmapping(brand_Id);
+                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id, brand_Id);               
               
             }
             catch (Exception ex)
@@ -206,10 +215,13 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 vViewModel.Vendor.Vendor_Id = vendor_Id;
+
                 vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vendor_Id);
             }
             catch (Exception ex)
             {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Vendor Controller - Add_Bank_Details " + ex.ToString());
             }
 
@@ -231,25 +243,23 @@ namespace SMSPortal.Controllers.PostLogin
             return View("CreateInvoice");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Profile(VendorViewModel vViewModel)
         {
             try
             {
                 vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                if (vViewModel.Cookies == null)
-                {
-                    return RedirectToAction("Index", "Login");
-                }
-
                 vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
-                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
+
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);               
                 
             }
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("Vendor Profile " + ex);
+
+                Logger.Error("Error at Vendor controller - Profile " + ex);
             }
 
             return View("Profile", vViewModel);
@@ -261,17 +271,13 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                if (vViewModel.Cookies == null)
-                {
-                    return RedirectToAction("Index", "Login");
-                }
-
                 _vendorManager.Insert_Vendor_Bank_Details(vViewModel.Vendor,vViewModel.Cookies.User_Id);
             }
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("Vendor Profile " + ex);
+
+                Logger.Error("Error at Vendor controller - Insert_Bank_Details " + ex);
             }
 
             return View("Profile", vViewModel);
@@ -287,6 +293,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("VendorReceivable");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert_Vendor_Product_Mapping_Details(VendorViewModel vViewModel)
         {
             try
@@ -303,10 +310,20 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Vendor Profile " + ex);
             }
 
             return View("Search", vViewModel);
+        }
+
+        public JsonResult Get_Vendor_Autocomplete(string vendor)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+
+            autoList = _vendorManager.Get_Vendor_Autocomplete(vendor);
+
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
     }
 }

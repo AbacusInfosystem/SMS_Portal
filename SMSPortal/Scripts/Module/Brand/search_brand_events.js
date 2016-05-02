@@ -1,18 +1,15 @@
 ﻿$(function () {
 
     $("#btnUploadLogo").click(function (event) {
-        
-        var BrandId=$('#hdnBrand_Id').val();         
+
+        var BrandId = $('#hdnBrand_Id').val();
         $("#div_Parent_Modal_Fade").find(".modal-body").load("/brand/Add_Brand_Logo", { Id: BrandId }, call_back);
     });
 
-    
+    InitializeAutoComplete($('#txtBrand_Name'));
 
+    $('#hdfCurrentPage').val(0);
 
-});
-
-$(document).ready(function ()
-{
     Search_Brands();
 
     $("#btnEdit").click(function () {
@@ -25,5 +22,5 @@ $(document).ready(function ()
         Search_Brands();
     });
 
-    
 });
+

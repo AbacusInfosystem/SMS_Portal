@@ -14,57 +14,57 @@ namespace SMSPortalRepo
 {
    public class VendorRepo
     {
-        SQLHelper _sqlRepo;
+        SQLHelper _sqlHelper;
 
         public VendorRepo()
         {
-            _sqlRepo = new SQLHelper();
+            _sqlHelper = new SQLHelper();
         }
 
-        public void Insert_Vendor(VendorInfo Vendor)
+        public void Insert_Vendor(VendorInfo vendor , int user_Id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Vendor(Vendor), StoreProcedures.Insert_Vendor_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlHelper.ExecuteNonQuery(Set_Values_In_Vendor(vendor, user_Id), StoreProcedures.Insert_Vendor_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        public void Update_Vendor(VendorInfo Vendor)
+        public void Update_Vendor(VendorInfo vendor , int user_Id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Vendor(Vendor), StoreProcedures.Update_Vendor_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlHelper.ExecuteNonQuery(Set_Values_In_Vendor(vendor, user_Id), StoreProcedures.Update_Vendor_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Vendor(VendorInfo Vendors)
+        private List<SqlParameter> Set_Values_In_Vendor(VendorInfo vendor, int user_Id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            if (Vendors.Vendor_Id != 0)
+            if (vendor.Vendor_Id != 0)
             {
-                sqlParams.Add(new SqlParameter("@Vendor_Id", Vendors.Vendor_Id));
+                sqlParams.Add(new SqlParameter("@Vendor_Id", vendor.Vendor_Id));
             }
 
-            sqlParams.Add(new SqlParameter("@Vendor_Name", Vendors.Vendor_Name));
-            sqlParams.Add(new SqlParameter("@Address", Vendors.Address));
-            sqlParams.Add(new SqlParameter("@City", Vendors.City));
-            sqlParams.Add(new SqlParameter("@State", Vendors.State));
-            sqlParams.Add(new SqlParameter("@Pincode", Vendors.Pincode));
-            sqlParams.Add(new SqlParameter("@Contact_No_1", Vendors.Contact_No_1));
-            sqlParams.Add(new SqlParameter("@Contact_No_2", Vendors.Contact_No_2));
-            sqlParams.Add(new SqlParameter("@Email", Vendors.Email));
-            sqlParams.Add(new SqlParameter("@Is_Active", Vendors.Is_Active));
-            if (Vendors.Vendor_Id == 0)
+            sqlParams.Add(new SqlParameter("@Vendor_Name", vendor.Vendor_Name));
+            sqlParams.Add(new SqlParameter("@Address", vendor.Address));
+            sqlParams.Add(new SqlParameter("@City", vendor.City));
+            sqlParams.Add(new SqlParameter("@State", vendor.State));
+            sqlParams.Add(new SqlParameter("@Pincode", vendor.Pincode));
+            sqlParams.Add(new SqlParameter("@Contact_No_1", vendor.Contact_No_1));
+            sqlParams.Add(new SqlParameter("@Contact_No_2", vendor.Contact_No_2));
+            sqlParams.Add(new SqlParameter("@Email", vendor.Email));
+            sqlParams.Add(new SqlParameter("@Is_Active", vendor.Is_Active));
+            if (vendor.Vendor_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", Vendors.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", Vendors.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_Id));
             }
-            sqlParams.Add(new SqlParameter("@Updated_On", Vendors.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", Vendors.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
             return sqlParams;
         }
 
-        public VendorInfo Get_Vendor_By_Id(int Vendor_Id)
+        public VendorInfo Get_Vendor_By_Id(int vendor_Id)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", vendor_Id));
 
             VendorInfo Vendor = new VendorInfo();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in dt.Rows)
             {
                 Vendor = Get_Vendor_Values(dr);
@@ -78,7 +78,7 @@ namespace SMSPortalRepo
             sqlParamList.Add(new SqlParameter("@User_Id", user_Id));
 
             VendorInfo Vendor = new VendorInfo();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Profile_Data_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Profile_Data_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in dt.Rows)
             {
                 Vendor = Get_Vendor_Values(dr);
@@ -86,25 +86,25 @@ namespace SMSPortalRepo
             return Vendor;
         }
 
-        public List<VendorInfo> Get_Vendors(ref PaginationInfo Pager)
+        public List<VendorInfo> Get_Vendors(ref PaginationInfo pager)
         {
             List<VendorInfo> Vendors = new List<VendorInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Vendor_Sp.ToString(), CommandType.StoredProcedure);
-            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            DataTable dt = _sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Vendor_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
             {
                 Vendors.Add(Get_Vendor_Values(dr));
             }
             return Vendors;
         }
 
-        public List<VendorInfo> Get_Vendor_By_Name(string Vendor_Name, ref PaginationInfo Pager)
+        public List<VendorInfo> Get_Vendor_By_Id_List(int vendor_Id, ref PaginationInfo pager)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Vendor_Name", Vendor_Name));
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", vendor_Id));
 
             List<VendorInfo> Vendor = new List<VendorInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Name_Sp.ToString(), CommandType.StoredProcedure);
-            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
             {
                 Vendor.Add(Get_Vendor_Values(dr));
             }
@@ -133,13 +133,13 @@ namespace SMSPortalRepo
             return Vendor;
         }
 
-        public bool Check_Existing_Vendor(string Vendor_Name)
+        public bool Check_Existing_Vendor(string vendor_Name)
         {
             bool check = false;
             List<SqlParameter> sqlParam = new List<SqlParameter>();
-            sqlParam.Add(new SqlParameter("@Vendor_Name", Vendor_Name));
+            sqlParam.Add(new SqlParameter("@Vendor_Name", vendor_Name));
 
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Check_Existing_Vendor.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoreProcedures.Check_Existing_Vendor.ToString(), CommandType.StoredProcedure);
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -167,7 +167,7 @@ namespace SMSPortalRepo
                 sqlparam.Add(new SqlParameter("@Updated_On", DateTime.Now));
                 sqlparam.Add(new SqlParameter("@Updated_By", user_Id));
 
-                _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Insert_Vendor_Bank_Details_Sp.ToString(), CommandType.StoredProcedure);
+                _sqlHelper.ExecuteNonQuery(sqlparam, StoreProcedures.Insert_Vendor_Bank_Details_Sp.ToString(), CommandType.StoredProcedure);
             }
         }
 
@@ -179,7 +179,7 @@ namespace SMSPortalRepo
 
             sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
 
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Bank_Details_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Bank_Details_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -203,14 +203,14 @@ namespace SMSPortalRepo
             return bankdetailslist;
         }
 
-        public List<ProductInfo> Get_Productmapping(int Brand_Id, ref PaginationInfo Pager)
+        public List<ProductInfo> Get_Productmapping(int brand_Id)
         {
-            Pager.PageSize = 10;
+            //Pager.PageSize = 20;
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Brand_Id", Brand_Id));
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Productmapping.ToString(), CommandType.StoredProcedure);
-            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            sqlParams.Add(new SqlParameter("@Brand_Id", brand_Id));
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoreProcedures.Get_Productmapping.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt))
             {
                 products.Add(Get_Product_Values(dr));
             }
@@ -223,7 +223,7 @@ namespace SMSPortalRepo
 
             product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
-
+            product.Product_Image = Convert.ToString(dr["Image_Code"]);
             return product;
         }
 
@@ -231,7 +231,7 @@ namespace SMSPortalRepo
         {
             List<BrandInfo> brandslist = new List<BrandInfo>();
             List<SqlParameter> sqlparam = new List<SqlParameter>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Brands_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Brands_Sp.ToString(), CommandType.StoredProcedure);
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -256,9 +256,10 @@ namespace SMSPortalRepo
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
             sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
-            sqlparam.Add(new SqlParameter("@Brand_Id", vendor_Id));
+            sqlparam.Add(new SqlParameter("@Brand_Id", brand_Id));
 
-            _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Delete_Vendor_Product_Mapping_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Delete_Vendor_Product_Mapping_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
             foreach (var item in product_List)
             {
@@ -275,21 +276,24 @@ namespace SMSPortalRepo
 
                 if(item.Check == true)
                 {
-                    _sqlRepo.ExecuteNonQuery(sqlparamnew, StoreProcedures.Insert_Vendor_Product_Mapping_Details.ToString(), CommandType.StoredProcedure);
+                    _sqlHelper.ExecuteNonQuery(sqlparamnew, StoreProcedures.Insert_Vendor_Product_Mapping_Details.ToString(), CommandType.StoredProcedure);
                 }
               
             }
         }
 
-        public List<ProductInfo> Get_Vendor_Mapped_Product_List(int vendor_Id)
+        public List<ProductInfo> Get_Vendor_Mapped_Product_List(int vendor_Id , int brand_Id)
         {
             List<ProductInfo> productlist = new List<ProductInfo>();
 
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
-            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));           
+            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
 
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Mapped_Products_Sp.ToString(), CommandType.StoredProcedure);
+            //sqlparam.Add(new SqlParameter("@Vendor_Id", brand_Id));
+
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Mapped_Products_Sp.ToString(), CommandType.StoredProcedure);
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -301,6 +305,8 @@ namespace SMSPortalRepo
                         list.Product_Id = Convert.ToInt32(dr["Product_Id"]);
                     if (!dr.IsNull("Vendor_Id"))
                         list.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+                    if (!dr.IsNull("Brand_Id"))
+                        list.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
 
                     list.Product_Ids = list.Product_Id + ",";
 
@@ -311,5 +317,25 @@ namespace SMSPortalRepo
             return productlist;
         }
 
+        public List<AutocompleteInfo> Get_Vendor_Autocomplete(string vendor)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", vendor == null ? System.String.Empty : vendor.Trim()));
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                List<DataRow> drList = new List<DataRow>();
+                drList = dt.AsEnumerable().ToList();
+                foreach (DataRow dr in drList)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
     }
 }

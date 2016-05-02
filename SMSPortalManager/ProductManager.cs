@@ -32,9 +32,9 @@ namespace SMSPortalManager
         {
             return _productRepo.Get_Products(ref Pager);
         }
-        public List<ProductInfo> Get_Products_By_Name(string Product_Name,ref PaginationInfo Pager)
+        public List<ProductInfo> Get_Products_By_Id(int Product_Id,ref PaginationInfo Pager)
         {
-            return _productRepo.Get_Products_By_Name( Product_Name,ref Pager);
+            return _productRepo.Get_Products_By_Id(Product_Id, ref Pager);
         }
 
         public ProductInfo Get_Product_By_Id(int Product_Id)
@@ -59,6 +59,11 @@ namespace SMSPortalManager
         public void Delete_Product_Image(int Product_Image_Id)
         {
             _productRepo.Delete_Product_Image(Product_Image_Id);
+        }
+
+        public List<AutocompleteInfo> Get_Product_Autocomplete(string ProductName)
+        {
+            return _productRepo.Get_Product_Autocomplete(ProductName);
         }
     }
 }

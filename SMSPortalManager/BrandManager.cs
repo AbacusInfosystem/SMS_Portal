@@ -12,6 +12,7 @@ namespace SMSPortalManager
     public class BrandManager
     {
         BrandRepo _brandRepo;
+
         public BrandManager()
         {
             _brandRepo = new BrandRepo();
@@ -37,9 +38,9 @@ namespace SMSPortalManager
             return _brandRepo.Get_Brand_By_Id(Brand_Id);
         }
 
-        public List<BrandInfo> Get_Brand_By_Name(string Brand_Name,ref PaginationInfo Pager)
+        public List<BrandInfo> Get_Brand_By_Id(int Brand_Id,ref PaginationInfo Pager)
         {
-            return _brandRepo.Get_Brand_By_Name(Brand_Name, ref Pager);
+            return _brandRepo.Get_Brand_By_Id(Brand_Id, ref Pager);
         }
 
         public void Delete_Brand_By_Id(int Brand_Id)
@@ -51,9 +52,15 @@ namespace SMSPortalManager
         {
             return _brandRepo.Check_Existing_Brand(Brand_Name);
         }
+
         public void Update_Brand_FileName(int Brand_Id, string Brand_Name)
         {
              _brandRepo.Update_Brand_FileName(Brand_Id, Brand_Name);
+        }
+
+        public List<AutocompleteInfo> Get_Brand_Autocomplete(string brandName)
+        {
+            return _brandRepo.Get_Brand_Autocomplete(brandName);
         }
     }
 }

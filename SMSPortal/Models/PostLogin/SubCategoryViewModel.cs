@@ -18,11 +18,9 @@ namespace SMSPortal.Models.PostLogin
 
         public List<SubCategoryInfo> SubCategories { get; set; }
 
-        public List<CategoryInfo> Categories { get; set; }
-
         public SubCategory_Filter Filter { get; set; }
 
-        public List<SubCategoryInfo> Masters { get; set; }
+        public CookiesInfo Cookies { get; set; }
 
         public SubCategoryViewModel()
         {
@@ -34,18 +32,16 @@ namespace SMSPortal.Models.PostLogin
 
             SubCategories = new List<SubCategoryInfo>();
 
-            Categories = new List<CategoryInfo>();
-
             Filter = new SubCategory_Filter();
 
-            Masters = new List<SubCategoryInfo>();
+            Cookies = new CookiesInfo();
         }
     }
 
     public class SubCategory_Filter
     {
-        public int Module_Id { get; set; }
+        public int SubCategory_Id { get; set; }
 
-        public string Module_Name { get; set; }
+        public string SubCategory_Name { get; set; }
     }
 }

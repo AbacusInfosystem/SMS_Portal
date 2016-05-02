@@ -1,5 +1,6 @@
 ﻿@model SMSPortal.Models.PostLogin.SubCategoryViewModel
 @using SMSPortalInfo.Common
+
 <script src="~/Scripts/Module/SubCategory/search_subcategory_events.js"></script>
 <script src="~/Scripts/Module/SubCategory/serach_subcategory_methods.js"></script>
 
@@ -33,25 +34,13 @@
                             </div>
                             <div class="box-body">
                                 <div class="row">
-                                    @*<div class="col-md-4">
-                                        <div class="form-group">
-                                            <label style="color: #333">SubCategory Name</label>                                           
-                                            <select id="drpSubCategoryName" class="form-control" name="Filter.Module_Id">
-                                                <option value="">-Select SubCategory Name-</option>
-                                                @foreach (var item in Model.Masters)
-                                                {
-                                                    <option value="@item.Subcategory_Id">@item.Subcategory_Name</option>
-                                                }
-                                            </select>
-                                        </div>
-                                    </div>*@
                                     <div class="col-md-3">
                                         <div class="form-group auto-complete">
                                             <label for="Subcategory" class="lookup-title">SubCategory Name</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Module_Name" id="txtSubcategory" placeholder="Enter SubCategory Name" value="@Model.Filter.Module_Name" data-table="Sub_Category" data-col="Sub_Category_Id,Sub_Category_Name" data-headernames="Subcategory">
-                                                <input type="hidden" id="hdnSubcategoryId" value="@Model.Filter.Module_Id" name="Filter.Module_Id" class="auto-complete-value" />
-                                                <input type="hidden" id="hdnSubcategoryName" value="@Model.Filter.Module_Name" name="Filter.Module_Name" class="auto-complete-label" />
+                                                <input type="text" class="form-control input-sm autocomplete-text" name="Filter.SubCategory_Name" id="txtSubcategory" placeholder="Enter SubCategory Name" value="@Model.Filter.SubCategory_Name" data-table="Sub_Category" data-col="Sub_Category_Id,Sub_Category_Name" data-headernames="Subcategory">
+                                                <input type="hidden" id="hdnSubcategoryId" value="@Model.Filter.SubCategory_Id" name="Filter.SubCategory_Id" class="auto-complete-value" />
+                                                <input type="hidden" id="hdnSubcategoryName" value="@Model.Filter.SubCategory_Name" name="Filter.SubCategory_Name" class="auto-complete-label" />
                                                 <div class="input-group-addon">
                                                     <a href="#" class="text-muted" id="hrefSubcategory" role="button"><i class="fa fa-search"></i></a>
                                                 </div>
@@ -63,7 +52,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="btn-group pull-left">
-                                                <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("AddEdit_SubCategory", "SubCategory")">Create </a>
+                                                <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("Index", "SubCategory")">Create </a>
                                                 <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                             </div>
                                             <div class="btn-group pull-right">

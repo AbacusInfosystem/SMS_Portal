@@ -71,6 +71,7 @@ namespace SMSPortalRepo
             }
             return dealers;
         }
+
         public DealerInfo Get_Dealer_By_Id(int Dealer_Id)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
@@ -85,13 +86,13 @@ namespace SMSPortalRepo
             return dealer;
         }
 
-        public List<DealerInfo> Get_Dealer_By_Name(string Dealer_Name, ref PaginationInfo Pager)
+        public List<DealerInfo> Get_Dealer_By_Id(int Dealer_Id, ref PaginationInfo Pager)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Dealer_Name", Dealer_Name));
+            sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
 
             List<DealerInfo> dealer = new List<DealerInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Dealer_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Dealer_By_Id_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
                 dealer.Add(Get_Dealer_Values(dr));
@@ -167,6 +168,24 @@ namespace SMSPortalRepo
             return brandList;
         }
 
+        public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", DealerName == null ? System.String.Empty : DealerName.Trim()));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Dealer_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {                
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
          
     }
 }

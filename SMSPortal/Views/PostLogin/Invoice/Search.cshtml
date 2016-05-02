@@ -1,15 +1,8 @@
-﻿<script type="text/javascript">
+﻿@model SMSPortal.Models.PostLogin.InvoiceViewModel
+@using SMSPortal.Common;
 
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
-
+<script src="~/Scripts/Module/Invoice/search_invoice_events.js"></script>
+<script src="~/Scripts/Module/Invoice/search_invoice_methods.js"></script>
 <form id="frmInvoice" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -42,8 +35,7 @@
                                         <label style="color: #333">Invoice No</label>
                                         <input type="text" class="form-control input-sm" name="" id="txtInvoice_No" placeholder="Enter Invoice no" value="" maxlength="20">
                                     </div>
-                                </div>
-
+                                </div> 
                             </div>
 
                             <div class="box-footer">
@@ -56,7 +48,7 @@
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("CreateInvoice", "Invoice")">Details </a>
+                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("ViewInvoice", "Invoice")">Details </a>
                                         </div>
                                     </div>
                                 </div>

@@ -36,6 +36,9 @@ namespace SMSPortal.Common
 			FriendlyMessage SYS07 = new FriendlyMessage("SYS07", MessageType.Error, "File not found, Please contact administrator.");
 			hash.Add("SYS07", SYS07);
 
+            FriendlyMessage SYS08 = new FriendlyMessage("SYS08", MessageType.Error, "File not found, Please contact administrator.");
+            hash.Add("SYS08", SYS08);
+
 			#endregion
 
             #region Category 
@@ -122,6 +125,44 @@ namespace SMSPortal.Common
 
             #endregion
 			
+            #region Vendors
+
+            FriendlyMessage VO001 = new FriendlyMessage("VO001", MessageType.Success, "Vendor added successfully");
+            hash.Add("VO001", VO001);
+
+            FriendlyMessage VO002 = new FriendlyMessage("VO002", MessageType.Success, "Vendor updated successfully");
+            hash.Add("VO002", VO002);
+
+            FriendlyMessage VO003 = new FriendlyMessage("VO003", MessageType.Success, "Vendor deleted successfully");
+            hash.Add("VO003", VO003);
+
+            #endregion
+			
+            #region Receivable
+
+            FriendlyMessage RE001 = new FriendlyMessage("RE001", MessageType.Success, "Receivable added successfully");
+            hash.Add("RE001", RE001);
+
+            #endregion
+
+            #region Purchase Order
+
+            FriendlyMessage POR001 = new FriendlyMessage("POR001", MessageType.Success, "Purchase order added successfully");
+            hash.Add("POR001", POR001);
+
+            FriendlyMessage POR002 = new FriendlyMessage("POR002", MessageType.Success, "Purchase order updated successfully");
+            hash.Add("POR002", POR002);
+
+            FriendlyMessage POR003 = new FriendlyMessage("POR003", MessageType.Success, "Product item added successfully");
+            hash.Add("POR003", POR003);
+
+            FriendlyMessage POR004 = new FriendlyMessage("POR004", MessageType.Success, "Product item updated successfully");
+            hash.Add("POR004", POR004);
+
+            FriendlyMessage POR005 = new FriendlyMessage("POR005", MessageType.Success, "Product item deleted successfully");
+            hash.Add("POR005", POR005);
+
+            #endregion
 		}
 
 		public static FriendlyMessage Get(string code)

@@ -19,13 +19,59 @@ $(document).ready(function () {
 
     $("#btnOK").click(function () {
 
-        var hiddenTextValue = $("#hdnValue").val();
-        var id = $("#hdnId").val();
-        var Textboxname = "#txtSubcategory";
-        $("#hdnSubcategoryName").val(hiddenTextValue);
-        $("#hdnSubcategoryId").val(id);
+        //$('.ui-sortable').each(function () {
+        //    $('#lookupUl').remove()
+        //});
 
-        var htmlText = "<ul class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        var hiddenTextValue = $("#hdnValue").val();
+
+        var id = $("#hdnId").val();
+
+        var Textboxname = "#" + $("#hdnLookupLabelId").val();
+
+        // Get ProductInfo for Purchase order items
+        if ($("#hdnLookupLabelId").val() == "txtProductName");
+        {
+            $.ajax({
+                url: '/purchaseorder/Get_Product/',
+                data: { Product_Id: id },
+                method: 'GET',
+                async: false,
+                success: function (data) {
+
+                    if (data != null) {
+                        if(data.Product != null)
+                        $('#txtProductPrice').val(data.Product.Product_Price);
+                    }
+                }
+            });
+        }
+
+        alert($("#hdnLookupLabelId").val());
+
+        // Get Invoice amount for receivables
+        if ($("#hdnLookupLabelId").val() == "txtInvoiceNo");
+        {
+            alert($("#hdnLookupLabelId").val());
+            $.ajax({
+                url: '/Receivable/Get_Invoice_Amount_By_Id/',
+                data: { Id: id },
+                method: 'GET',
+                async: false,
+                success: function (data) {
+
+                    if (data != null) {
+                        if (data.Receivable != null)
+                            $('#txtInvoice_Amount').val(data.Receivable.Invoice_Amount);
+                    }
+                }
+            });
+        }
+
+
+        $("#" + $("#hdnLookupHiddenId").val()).val(id);
+
+        var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
         $(Textboxname).parents('.form-group').append(htmlText);
 
@@ -42,15 +88,13 @@ $(document).ready(function () {
         $('#div_Parent_Modal_Fade').find(".modal-body").empty();
 
         $('#div_Parent_Modal_Fade').modal('toggle')
-        
+
     });
 
     $(".close").click(function () {
 
-        // IF IT IS A CLONED HTML
         if ($("#" + $('#div_Parent_Modal_Fade').find(".modal-title").data("obj")).length) {
 
-            // METHOD IS DEFINED IN GENERIC.POPUP.JS
             Close_Pop_Up(true);
         }
         else {

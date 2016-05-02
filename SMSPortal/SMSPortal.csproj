@@ -184,6 +184,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\AuthorizeUser.cs" />
     <Compile Include="Common\CustomRazorViewEngine.cs" />
     <Compile Include="Common\FriendlyMessage.cs" />
     <Compile Include="Common\MessageStore.cs" />
@@ -215,9 +216,15 @@
     <Compile Include="Models\PostLogin\BrandViewModel.cs" />
     <Compile Include="Models\PostLogin\CategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\DashboardViewModel.cs" />
+    <Compile Include="Models\PostLogin\InvoiceViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\PostLogin\LookupViewModel.cs" />
     <Compile Include="Models\PostLogin\DealerViewModel.cs" />
+    <Compile Include="Models\PostLogin\PayableViewModel.cs" />
     <Compile Include="Models\PostLogin\ProductViewModel.cs" />
+    <Compile Include="Models\PostLogin\PurchaseOrderViewModel.cs" />
+    <Compile Include="Models\PostLogin\ReceivableViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PostLogin\VendorViewModel.cs" />
@@ -718,6 +725,7 @@
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green%402x.png" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green.png" />
+    <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\green_2.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey%402x.png" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey.css" />
     <Content Include="Content\AdminLTE\plugins\iCheck\skins\square\grey.png" />
@@ -935,6 +943,7 @@
     <Content Include="Scripts\generic.ajax.js" />
     <Content Include="Scripts\generic.autocomplete.js" />
     <Content Include="Scripts\generic.lookup.js" />
+    <Content Include="Scripts\generic.message.js" />
     <Content Include="Scripts\generic.popup.js" />
     <Content Include="Scripts\IconSearchAutocomplet.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -966,9 +975,13 @@
     <Content Include="Scripts\Module\Dealer\search_dealer_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
+    <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
+    <Content Include="Scripts\Module\Invoice\search_invoice_methods.js" />
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-event.js" />
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-method.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
+    <Content Include="Scripts\Module\Payables\Payables_Methods.js" />
+    <Content Include="Scripts\Module\Product\product_image_methods.js" />
     <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
     <Content Include="Scripts\Module\Product\product_image_events.js" />
@@ -976,6 +989,13 @@
     <Content Include="Scripts\Module\Product\search_product_methods.js" />
     <Content Include="Scripts\Module\Product\Product_method.js" />
     <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_methods.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\purchase_order_validation.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_events.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\serach_purchase_order_methods.js" />
+    <Content Include="Scripts\Module\Receivable\Receivable_methods.js" />
+    <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
     <Content Include="Scripts\Module\SalesOrder\search_sales_order_evnents.js" />
@@ -986,22 +1006,42 @@
     <Content Include="Scripts\Module\SubCategory\subcategory_validation.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
-    <Content Include="Scripts\Module\User\User_events.js" />
+    <Content Include="Scripts\Module\User\user_events.js" />
     <Content Include="Scripts\Module\User\user_method.js" />
     <Content Include="Scripts\Module\User\user_validation.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
+    <Content Include="Scripts\Module\Receivable\search_receivable_event.js" />
+    <Content Include="Scripts\Module\Receivable\search_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_methods.js" />
-    <Content Include="Scripts\Module\Vendor\vendormapping_events.js" />
-    <Content Include="Scripts\Module\Vendor\vendormapping_method.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_mapping_events.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_mapping_method.js" />
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_validation.js" />
+    <Content Include="UploadedFiles\0_Penguins.jpg" />
+    <Content Include="UploadedFiles\1_Penguins.jpg" />
+    <Content Include="UploadedFiles\Chrysanthemum.jpeg" />
     <Content Include="UploadedFiles\Desert.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="UploadedFiles\Jellyfish.jpg" />
+    <Content Include="UploadedFiles\Lighthouse.jpg" />
+    <Content Include="UploadedFiles\P1_Desert.jpg" />
+    <Content Include="UploadedFiles\P1_Hydrangeas.jpg" />
+    <Content Include="UploadedFiles\P1_Koala.jpg" />
+    <Content Include="UploadedFiles\P1_Penguins.jpg" />
+    <Content Include="UploadedFiles\P1_Tulips.jpg" />
+    <Content Include="UploadedFiles\P2_Tulips.jpg" />
+    <Content Include="UploadedFiles\P3_Hydrangeas.jpg" />
+    <Content Include="UploadedFiles\P3_Jellyfish.jpg" />
+    <Content Include="UploadedFiles\P3_Lighthouse.jpg" />
+    <Content Include="UploadedFiles\P3_Tulips.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1067,7 +1107,7 @@
     <Content Include="Views\PostLogin\SalesOrder\OrderItems.cshtml" />
     <Content Include="Views\PostLogin\Vendor\Profile.cshtml" />
     <Content Include="Views\PostLogin\Payables\Search.cshtml" />
-    <Content Include="Views\PostLogin\Invoice\CreateInvoice.cshtml" />
+    <Content Include="Views\PostLogin\Invoice\ViewInvoice.cshtml" />
     <Content Include="Views\PostLogin\Vendor\SearchOrders.cshtml" />
     <Content Include="Views\PostLogin\Vendor\OrderDetails.cshtml" />
     <Content Include="Views\PostLogin\Vendor\CreateInvoice.cshtml" />
@@ -1077,16 +1117,16 @@
     <Content Include="Views\PostLogin\Vendor\VendorReceivables.cshtml" />
     <Content Include="Views\PostLogin\Product\_Partial.cshtml" />
     <Content Include="Views\PostLogin\SubCategory\Search.cshtml" />
-    <Content Include="Views\PostLogin\SubCategory\AddEdit_SubCategory.cshtml" />
+    <Content Include="Views\PostLogin\SubCategory\Index.cshtml" />
     <Content Include="Views\PostLogin\Category\Index.cshtml" />
     <Content Include="Views\PostLogin\Category\Search.cshtml" />
     <Content Include="Views\Shared\_ServerMessage.cshtml" />
     <Content Include="Views\Shared\_AutocompletePopup.cshtml" />
-    <Content Include="Views\PostLogin\SubCategory\_SubCategoruPopup.cshtml" />
     <Content Include="Views\Shared\_Partial.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\Index.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_AdminWidgets.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
+    <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

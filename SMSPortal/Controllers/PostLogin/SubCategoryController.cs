@@ -17,19 +17,14 @@ namespace SMSPortal.Controllers.PostLogin
     {
         public SubCategoryManager _subcategoryManager;        
 
-        public CookiesInfo cookies;
-
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+        public CookiesInfo _cookies;     
 
         public SubCategoryController()
         {
-            _subcategoryManager = new SubCategoryManager();
-
-            CookiesManager _cookiesManager = new CookiesManager();
-
-            cookies = _cookiesManager.Get_Token_Data(token);            
+            _subcategoryManager = new SubCategoryManager();          
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(SubCategoryViewModel sViewModel)
         {
             try
@@ -38,28 +33,32 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     sViewModel = (SubCategoryViewModel)TempData["sViewModel"];
                 }
-                sViewModel.Masters = _subcategoryManager.Get_Subcategory_Modules();
             }
             catch (Exception ex)
             {
-                Logger.Error("SubCategoryController - Search" + ex.Message);
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error At Sub_Category_Controller - Search" + ex.Message);
             }
 
             return View("Search", sViewModel);
         }
 
-        public ActionResult AddEdit_SubCategory(SubCategoryViewModel sViewModel)
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Index(SubCategoryViewModel sViewModel)
         {
             try
             {
-                sViewModel.Categories = _subcategoryManager.Get_Categories();
+
             }
             catch (Exception ex)
             {
-                Logger.Error("SubCategoryController - Index " + ex.Message);
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error At Sub_Category_Controller - Index " + ex.Message);
             }
 
-            return View("AddEdit_SubCategory", sViewModel);
+            return View("Index", sViewModel);
         }
 
         public JsonResult Get_SubCategories(SubCategoryViewModel sViewModel)
@@ -70,9 +69,9 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 pager = sViewModel.Pager;
 
-                if (sViewModel.Filter.Module_Id != 0)
+                if (sViewModel.Filter.SubCategory_Id != 0)
                 {
-                    sViewModel.SubCategories = _subcategoryManager.Get_Subcategories_By_Id(sViewModel.Filter.Module_Id, ref pager);
+                    sViewModel.SubCategories = _subcategoryManager.Get_Subcategories_By_Id(sViewModel.Filter.SubCategory_Id, ref pager);
                 }
                 else
                 {
@@ -85,27 +84,20 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("SubCategoryController - Get_Roles" + ex.Message);
+                Logger.Error("Error At Sub_Category_Controller - Get_SubCategories" + ex.Message);
             }
 
             return Json(sViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert_Subcategory(SubCategoryViewModel sViewModel)
         {
             try
             {
-                string UserName = cookies.User_Name;
+                sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                sViewModel.SubCategory.Created_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
-
-                sViewModel.SubCategory.Created_Date = DateTime.Now;
-
-                sViewModel.SubCategory.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
-
-                sViewModel.SubCategory.Updated_Date = DateTime.Now;
-
-                _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory);
+                _subcategoryManager.Insert_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
 
                 sViewModel.Friendly_Message.Add(MessageStore.Get("SBO001"));
             }
@@ -113,7 +105,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-                Logger.Error("Error At SubCategory Insert  " + ex.Message);
+                Logger.Error("Error At Sub_Category_Controller - Insert  " + ex.Message);
             }
 
             TempData["sViewModel"] = sViewModel;
@@ -121,21 +113,14 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Update_Subcategory(SubCategoryViewModel sViewModel)
         {
             try
             {
-                string UserName = cookies.User_Name;
+                sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                sViewModel.SubCategory.Created_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
-
-                sViewModel.SubCategory.Created_Date = DateTime.Now;
-
-                sViewModel.SubCategory.Updated_By = ((SessionInfo)Session["SessionInfo"]).User_Id;
-
-                sViewModel.SubCategory.Updated_Date = DateTime.Now;
-
-                _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory);
+                _subcategoryManager.Update_Sub_Category(sViewModel.SubCategory, sViewModel.Cookies.User_Id);
 
                 sViewModel.Friendly_Message.Add(MessageStore.Get("SBO002"));
             }
@@ -143,7 +128,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-                Logger.Error("Error At SubCategory Insert  " + ex.Message);
+                Logger.Error("Error At Sub_Category_Controller - Update_Subcategory " + ex.Message);
             }
 
             TempData["sViewModel"] = sViewModel;
@@ -151,6 +136,7 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Search");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Subcategory_By_Id(SubCategoryViewModel sViewModel)
         {
             try
@@ -159,17 +145,28 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("SubCategoryController - Get_Roles" + ex.Message);
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error At Sub_Category_Controller - Get_Subcategory_By_Id" + ex.Message);
             }
 
-            return AddEdit_SubCategory(sViewModel);
+            return View("Index",sViewModel);
         }
 
         public JsonResult Get_Subcategory_Autocomplete(string subcategory)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
-            autoList = _subcategoryManager.Get_Subcategory_Autocomplete(subcategory);
-            return Json(autoList, JsonRequestBehavior.AllowGet);
+
+            try 
+            {               
+                autoList = _subcategoryManager.Get_Subcategory_Autocomplete(subcategory);                
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Sub_Category_Controller - Get_Subcategory_Autocomplete " + ex.ToString());
+            }
+
+            return Json(autoList, JsonRequestBehavior.AllowGet);           
         }
 
         public JsonResult Check_Existing_Sub_Category(string subcategory)
@@ -182,15 +179,11 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("SubCategoryController - Check_Existing_Sub_Category " + ex.ToString());
+                Logger.Error("Error At Sub_Category_Controller - Check_Existing_Sub_Category " + ex.ToString());
             }
 
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
-        public PartialViewResult Get_Subcategory_Popup()
-        {
-            return PartialView("_SubCategoruPopup");
-        }
     }
 }

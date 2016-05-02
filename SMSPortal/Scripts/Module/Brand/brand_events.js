@@ -7,19 +7,16 @@
 
     $(".chkstatus").on("ifChanged", function () {
 
-        if ($(this).parents().prop("class").indexOf("checked") != -1)
-        {
+        if ($(this).parents().prop("class").indexOf("checked") != -1) {
             $("#hdnIs_Active").val(false);
         }
         else {
             $("#hdnIs_Active").val(true);
         }
-
     });
 
 
-    $(".fa-chevron-left").click(function ()
-    {
+    $(".fa-chevron-left").click(function () {
         $("#frmBrandMaster").validate().cancelSubmit = true;
         $("#frmBrandMaster").attr("action", "/Brand/Search/");
         $("#frmBrandMaster").attr("method", "POST");
@@ -27,8 +24,7 @@
 
     });
 
-    $("#btnSave").click(function ()
-    {
+    $("#btnSave").click(function () {
         if ($('#frmBrandMaster').valid()) {
             if ($("#hdf_BrandId").val() == 0) {
                 $("#frmBrandMaster").attr("action", "/brand/insert-brands/");
@@ -39,9 +35,7 @@
             $('#frmBrandMaster').attr("method", "POST");
             $('#frmBrandMaster').submit();
         }
-
     });
 
 });
 
- 

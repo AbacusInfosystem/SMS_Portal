@@ -17,7 +17,9 @@ namespace SMSPortal.Controllers.PostLogin
 {
     public class DashboardController : Controller
     {
-        public DashboardManager _dashboardManager;        
+        public DashboardManager _dashboardManager;
+
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
 
         public DashboardController()
         {
@@ -28,9 +30,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                dViewModel.cookies = Utility.Get_Login_User("UserInfo","Token");
+                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                if (dViewModel.cookies==null)
+                if (dViewModel.Cookies == null)
                 {
                     return RedirectToAction("Index", "Login");
                 }

@@ -3,12 +3,12 @@
 <script src="~/Scripts/Module/Brand/search_brand_events.js"></script>
 <script src="~/Scripts/Module/Brand/search_brand_methods.js"></script>
 <script src="~/Scripts/additional-methods.min.js"></script>
- 
+
 <form id="frmBrand" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @{Html.RenderPartial("_ServerMessage");} 
+        @{Html.RenderPartial("_ServerMessage");}
         <section class="content-header">
             <h1>
                 Brand Master
@@ -34,9 +34,16 @@
                             <input type="hidden" id="hdnBrand_Logo" name="Brand.Brand_Logo" value="@Model.Brand.Brand_Logo">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color: #333">Brand Name</label>
-                                        <input type="text" class="form-control input-sm" name="Filter.Brand_Name" id="txtBrand_Name" placeholder="Enter brand name" value="" >
+                                    <div class="form-group auto-complete">
+                                        <label for="Brand" class="lookup-title">Brand Name</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Brand_Name" id="txtBrand_Name" placeholder="Enter Brand Name" value="@Model.Filter.Brand_Name" data-table="Brand" data-col="Brand_Id,Brand_Name" data-headernames="Brand">
+                                            <input type="hidden" id="hdnBrandId" value="@Model.Filter.Brand_Id" name="Filter.Brand_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnBrandName" value="@Model.Filter.Brand_Name" name="Filter.Brand_Name" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefBrand" role="button"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -68,17 +75,17 @@
                                     <th>Brand Name</th>
                                     <th>Brand Category</th>
                                     <th>Status</th>
-                                </tr>                                 
+                                </tr>
                             </table>
                         </div>
                         <div class="box-footer clearfix">
-                                <div class="pagination pagination-sm no-margin pull-right">
-                                    <ul></ul>
-                                </div>
-                                <div id="divSearchGridOverlay" class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
-                                </div>
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
                             </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
