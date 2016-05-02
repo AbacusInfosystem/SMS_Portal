@@ -12,6 +12,8 @@ namespace SMSPortalInfo
 
         public int Order_Id { get; set; }
 
+        public string Order_No { get; set; }
+
         public string Invoice_No { get; set; }
 
         public DateTime Invoice_Date { get; set; }

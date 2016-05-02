@@ -29,13 +29,22 @@
                             <h3 class="box-title">Invoice</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnInvoice_Id" name="Invoice.Invoice_Id" value="@Model.Invoice.Invoice_Id">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color: #333">Invoice No</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtInvoice_No" placeholder="Enter Invoice no" value="" maxlength="20">
+                                    <div class="form-group auto-complete">
+                                        <label for="Invoice" class="lookup-title">Invoices</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Invoice_No" id="txtInvoice_Number" placeholder="Enter Invoice No" value="@Model.Filter.Invoice_No" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice">
+                                            <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Filter.Invoice_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnInvoiceNo" value="@Model.Filter.Invoice_No" name="Filter.Invoice_No" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefInvoice" role="button"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
                             <div class="box-footer">
@@ -48,7 +57,7 @@
                                         </div>
 
                                         <div class="btn-group pull-right">
-                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("ViewInvoice", "Invoice")">Details </a>
+                                            <button type="button" id="btnDetails" style="display:none;" class="btn btn-warning btn-sm">Details </button>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -64,50 +73,27 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblInvoiceMaster">
+                            <table class="table table-striped" id="tblInvoices">
                                 <tr id="subhead">
                                     <th></th>
                                     <th>Invoice No</th>
                                     <th>Order No</th>
                                     <th>Invoice Date</th>
                                 </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_InvoiceId1" name="Invoice" class="iradio-list" /></td>
-                                    <td>001</td>
-                                    <td>bags</td>
-                                    <td>2/11/2015</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_InvoiceId2" name="Invoice" class="iradio-list" /></td>
-                                    <td>002</td>
-                                    <td>bags</td>
-                                    <td>2/11/2015</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_InvoiceId3" name="Invoice" class="iradio-list" /></td>
-                                    <td>003</td>
-                                    <td>bags</td>
-                                    <td>2/11/2015</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_InvoiceId4" name="Invoice" class="iradio-list" /></td>
-                                    <td>004</td>
-                                    <td>bags</td>
-                                    <td>2/11/2015</td>
-                                </tr>
+
                             </table>
                         </div>
-                        @*<div class="box-footer clearfix">
-                                <div class="pagination pagination-sm no-margin pull-right">
-                                    <ul></ul>
-                                </div>
-                                <div id="divSearchGridOverlay" class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
-                                </div>
+                        <div class="box-footer clearfix">
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
                             </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>*@
+            </div>
         </section>
     </div>
     <!-- /.content-wrapper -->

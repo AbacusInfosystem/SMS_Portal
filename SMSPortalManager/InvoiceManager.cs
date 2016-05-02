@@ -32,7 +32,10 @@ namespace SMSPortalManager
         {
             return _invoiceRepo.Get_Invoices(ref Pager);
         }
-
+        public List<InvoiceInfo> Get_Invoices_By_Id(int Invoice_Id, ref PaginationInfo Pager)
+        {
+            return _invoiceRepo.Get_Invoices_By_Id(Invoice_Id, ref Pager);
+        }
         public InvoiceInfo Get_Invoice_By_Id(int Invoice_Id)
         {
             return _invoiceRepo.Get_Invoice_By_Id(Invoice_Id);
@@ -41,5 +44,10 @@ namespace SMSPortalManager
         //{
         //    _enquiryRepo.Delete_Invoice_By_Id(Invoice_Id);
         //}
+
+        public List<AutocompleteInfo> Get_Invoice_Autocomplete(string InvoiceNo)
+        {
+            return _invoiceRepo.Get_Invoice_Autocomplete(InvoiceNo);
+        }
     }
 }
