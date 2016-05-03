@@ -37,9 +37,9 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Index", pViewModel);
         }
 
-        public ActionResult Search()
+        public ActionResult Search(PayableViewModel pViewModel)
         {
-            return View("Search");
+            return View("Search", pViewModel);
         }
 
         public JsonResult Get_Payable(PayableViewModel pViewModel)
@@ -49,9 +49,9 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 pager = pViewModel.Pager;
 
-                if (pViewModel.Filter.Invoice_No != null)
+                if (pViewModel.Filter.Purchase_Order_No != null)
                 {
-                    pViewModel.Payables = _payableManager.Get_Payable_By_Id(pViewModel.Filter.Invoice_Id, ref pager);
+                    pViewModel.Payables = _payableManager.Get_Payable_By_Id(pViewModel.Filter.Purchase_Order_Id, ref pager);
                 }
                 else
                 {
@@ -114,7 +114,25 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(pViewModel);
         }
 
-       
+        public JsonResult Delete_payable_Data_By_Id(int payable_Item_Id, int payable_Id)
+        {
+            PayableViewModel pViewModel = new PayableViewModel();
+            try
+            {
+                _payableManager.Delete_Payable_Data_Item_By_Id(payable_Item_Id);
+
+                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(payable_Id);
+
+                pViewModel.Payables = _payableManager.Get_Payable_Items_By_Id(payable_Id);
+
+                pViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("payable Controller - Delete_payable_Data_By_Id " + ex.ToString());
+            }
+            return Json(pViewModel, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
