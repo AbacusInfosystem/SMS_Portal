@@ -5,9 +5,9 @@ function Save_Receivable_Data() {
      {
          Receivable : {
                           
-             Invoice_Id: $("#hdnInvoiceId").val(),
+             Invoice_Id: $("#hdnInvoice_Id").val(),
 
-             Invoice_Amount: $("#txtInvoice_Amount").val(),
+             Invoice_Amount: $("#hdnInvoice_Amount").val(),
 
              Receivable_Item_Amount: $("#txtReceivable_Item_Amount").val(),
 
@@ -43,14 +43,14 @@ function Bind_Receivable_Grid_Items(data) {
     $("#tblReceivableItems").html("");
 
     var htmlText = "";
-    
-    $("#txtInvoiceNo").val(data.Receivable.Invoice_Id),
 
     $("#hdnReceivable_Id").val(data.Receivable.Receivable_Id),
 
     $("#hdnInvoiceId").val(data.Receivable.Invoice_Id),
 
     $("#txtInvoice_Amount").val(data.Receivable.Invoice_Amount)
+
+    $("#txtBalance_Amount").val(data.Receivable.Balance_Amount)
 
     $("#dvInvoice").find(".autocomplete-text").trigger("focusout");
 
@@ -76,7 +76,11 @@ function Bind_Receivable_Grid_Items(data) {
 
         htmlText += "<th>Receivable Date</th>";
 
-        htmlText += "<th>Action</th>";
+        if (data.Receivable.Status != "Payment Done") {
+
+            htmlText += "<th>Action</th>";
+
+        }
 
         htmlText += "</tr>";
 
@@ -122,7 +126,7 @@ function Bind_Receivable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].showChequeDate == null ? "" : data.Receivables[i].showChequeDate;
+            htmlText += showChequeDate == "01/01/1999" ? "" : showChequeDate;
 
             htmlText += "</td>";
 
@@ -152,7 +156,7 @@ function Bind_Receivable_Grid_Items(data) {
 
             htmlText += "<input type='hidden' id='hdnCheque_Number" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].Cheque_Number + "'/>";
 
-            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].showChequeDate + "'/>";
+            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Receivables[i].Receivable_Item_Id + "' value='" + showChequeDate + "'/>";
 
             htmlText += "<input type='hidden' id='hdnNEFT" + data.Receivables[i].Receivable_Item_Id + "' value='" + data.Receivables[i].NEFT + "'/>";
 
@@ -166,14 +170,18 @@ function Bind_Receivable_Grid_Items(data) {
 
             htmlText += "</td>";
 
-            htmlText += "<td>";
+            if (data.Receivable.Status != "Payment Done")
 
-            htmlText += "<button type='button' id='edit-receivable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
+            {
+                htmlText += "<td>";
 
-            htmlText += "<button type='button' id='delete-receivable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeleteReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
+                htmlText += "<button type='button' id='edit-receivable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
 
-            htmlText += "</td>";
+                //htmlText += "<button type='button' id='delete-receivable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeletReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
 
+                htmlText += "</td>";
+            }
+          
             htmlText += "</tr>";
         }
     }
@@ -311,8 +319,11 @@ function Bind_Receivable_Grid_Items(data) {
 
 
 function EditReceivableData(id) {
-
+    
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
+
+    $('#drpTransaction').trigger('change');
+
     $("#txtReceivable_Item_Amount").val($("#hdnReceivable_Item_Amount" + id).val());
     $("#txtRecDate").val($("#hdnReceivable_Date" + id).val());
     $("#txtBankName").val($("#hdnBank_Name" + id).val());
@@ -322,14 +333,14 @@ function EditReceivableData(id) {
     $("#txtNEFT").val($("#hdnNEFT" + id).val());
     $("#txtCredit_Debit").val($("#hdnCredit_Debit_Card" + id).val());
     $("#hdnReceivable_Item_Id").val($("#hdnReceivable_Item_Id" + id).val());
-    $("#hdnReceivable_Id").val($("#hdnhdnReceivable_Id" + id).val());
-    $('#drpTransaction').trigger('change');
+    $("#hdnReceivable_Id").val($("#hdnReceivable_Id" + id).val());
+   
 
 }
 
 function ClearReceivableData() {
 
-    $("#drpTransaction").val(0);
+    $("#drpTransaction").val("0");
     $("#txtReceivable_Item_Amount").val('');
     $("#txtRecDate").val('');
     $("#txtBankName").val('');

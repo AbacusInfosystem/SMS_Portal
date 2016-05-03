@@ -23,5 +23,7 @@ namespace SMSPortalInfo.Common
         public string First_Name { get; set; }
 
         public string Last_Name { get; set; }
+
+        public string User_Email { get; set; }
     }
 }

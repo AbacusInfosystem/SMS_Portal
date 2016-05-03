@@ -3,12 +3,7 @@
     $("#txtRecDate").datepicker({
         autoclose: true,
         enddate: null,
-    });
-
-    $("#txtChequeDate").datepicker({
-        autoclose: true,
-        enddate: null,
-    });
+    }); 
 
     if ($("#hdnReceivable_Id").val() != 0)
     {
@@ -16,6 +11,8 @@
     }
 
     $(".fa-chevron-left").click(function () {
+
+        $("form").validate().cancelSubmit = true;
 
         $("#frmReceivableMaster").attr("action", "/Receivable/Search/");
 
@@ -25,38 +22,41 @@
 
     });
 
-    $("#btnAdd").click(function () {
-
-        AddReceivableDetailsData();
-
-    });
-
     $("#drpTransaction").change(function () {
+
+        $("#dvMain").html('');
+
         if ($("#drpTransaction").val() == 1)
         {
-            $("#divCheque").show();
-            $("#divNEFT").hide();
-            $("#divCredit_Debit").hide();
+            var divHTML = $("#divCheque").html();
+            $("#dvMain").html(divHTML);
+            $("#txtChequeDate").datepicker({
+                autoclose: true,
+                enddate: null,
+            });
         }
         else if ($("#drpTransaction").val() == 2)
         {
-            $("#divCheque").hide();
-            $("#divNEFT").show();
-            $("#divCredit_Debit").hide();
+            var divHTML = $("#divNEFT").html();
+            $("#dvMain").html(divHTML);
         }
         else
         {
-            $("#divCheque").hide();
-            $("#divNEFT").hide();
-            $("#divCredit_Debit").show();
+            var divHTML = $("#divCredit_Debit").html();
+            $("#dvMain").html(divHTML);
         }
 
     });
 
-    $("#btnNEFTSave").click(function () {
+    $("#btnYes").click(function () {
 
-        Save_Receivable_Data();
+        if ($("#frmReceivableMaster").valid()) {
+            Save_Receivable_Data();
+        }
 
     });
+
+
+
 
 });

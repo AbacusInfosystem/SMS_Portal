@@ -974,6 +974,7 @@
     <Content Include="Scripts\Module\Dealer\search_dealer_events.js" />
     <Content Include="Scripts\Module\Dealer\search_dealer_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
+    <Content Include="Scripts\Module\Invoice\invoice_methods.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_methods.js" />
@@ -984,6 +985,7 @@
     <Content Include="Scripts\Module\Payables\payable_validation.js" />
     <Content Include="Scripts\Module\Payables\search_payable_event.js" />
     <Content Include="Scripts\Module\Payables\search_payable_method.js" />
+    <Content Include="Scripts\Module\Product\product_image_methods.js" />
     <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
     <Content Include="Scripts\Module\Product\product_image_events.js" />
@@ -997,6 +999,7 @@
     <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_events.js" />
     <Content Include="Scripts\Module\PurchaseOrder\serach_purchase_order_methods.js" />
     <Content Include="Scripts\Module\Receivable\Receivable_methods.js" />
+    <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
     <Content Include="Scripts\Module\SalesOrder\search_sales_order_evnents.js" />
@@ -1024,12 +1027,14 @@
     <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_validation.js" />
+    <Content Include="Scripts\printThis.js" />
     <Content Include="UploadedFiles\0_Penguins.jpg" />
     <Content Include="UploadedFiles\1_Penguins.jpg" />
     <Content Include="UploadedFiles\Chrysanthemum.jpeg" />
     <Content Include="UploadedFiles\Desert.jpg" />
     <Content Include="UploadedFiles\Jellyfish.jpg" />
     <Content Include="UploadedFiles\Lighthouse.jpg" />
+    <Content Include="UploadedFiles\no-image.png" />
     <Content Include="UploadedFiles\P1_Desert.jpg" />
     <Content Include="UploadedFiles\P1_Hydrangeas.jpg" />
     <Content Include="UploadedFiles\P1_Koala.jpg" />

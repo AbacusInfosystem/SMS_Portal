@@ -346,6 +346,12 @@ namespace SMSPortal
             url: "receivable/edit-receivable",
             defaults: new { controller = "Receivable", action = "Get_Receivables_By_Id", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Receivable-5",
+            url: "receivable/receivable-autocomplete/{invoiceno}",
+            defaults: new { controller = "Receivable", action = "Get_Receivable_Invoice_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
             
             #endregion
 
@@ -398,14 +404,20 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Invoice-1",
-            url: "invoice/get-purchase_orders",
-            defaults: new { controller = "Invoice", action = "Get_Purchase_Orders", id = UrlParameter.Optional },
+            url: "invoice/get-invoices",
+            defaults: new { controller = "Invoice", action = "Get_Invoices", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Invoice-2",
-            url: "invoice/insert-update-purchase-order",
-            defaults: new { controller = "Invoice", action = "Insert_Update_Purchase_Order", id = UrlParameter.Optional },
+            url: "invoice/get-invoice",
+            defaults: new { controller = "Invoice", action = "Get_Invoice_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Invoice-3",
+            url: "invoice/get-invoice-autocomplete/{invoice}",
+            defaults: new { controller = "Invoice", action = "Get_Invoice_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
              
             #endregion

@@ -21,13 +21,9 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ReceivableManager _receivableManager;
 
-        public CookiesInfo _cookies;
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
         public ReceivableController()
         {
             _receivableManager = new ReceivableManager();
-            CookiesManager _cookiesManager = new CookiesManager();
-            _cookies = _cookiesManager.Get_Token_Data(token); 
         }
 
         public ActionResult Search(ReceivableViewModel rViewModel)
@@ -37,14 +33,8 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Index( ReceivableViewModel rViewModel)
         { 
-            //rViewModel.Receivables = _receivableManager.Get_InvoiceNo();
             return View("Index", rViewModel);
-        }
-       
-        public ActionResult ReceivableIndex()
-        {
-            return View("ReceivableIndex");
-        }
+        }     
 
         public JsonResult Get_Recievable(ReceivableViewModel rViewModel)
         {
@@ -53,7 +43,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 pager = rViewModel.Pager;
 
-                if (rViewModel.Filter.Invoice_No != null)
+                if (rViewModel.Filter.Invoice_Id != 0)
                 {
                     rViewModel.Receivables = _receivableManager.Get_Receivable_By_Id(rViewModel.Filter.Invoice_Id, ref pager);
                 }
@@ -67,7 +57,7 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("ReceivableController Get_Receivables " + ex);
+                Logger.Error("Error at Receivable Controller - Get_Receivables " + ex);
             }
             return Json(rViewModel);
         }
@@ -77,9 +67,15 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+                int Id = rViewModel.Receivable.Invoice_Id;
+
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id);
 
                 rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
+
+                rViewModel.Receivable.Invoice_Id = Id;
+
+                rViewModel.Receivable.Invoice_Amount = _receivableManager.Get_Invoice_Amount(Id);
             }
             catch (Exception ex)
             {
@@ -101,9 +97,20 @@ namespace SMSPortal.Controllers.PostLogin
 
                 _receivableManager.Insert_ReceivableItems(rViewModel.Receivable, rViewModel.Cookies.User_Id);
 
-                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id);
 
                 rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
+
+                rViewModel.Receivable.Status = _receivableManager.Get_Receivable_Status(rViewModel.Receivable.Invoice_Id);
+
+                _receivableManager.Insert_Receivable_Receipt(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+
+                _receivableManager.Send_Payment_Receipt(rViewModel.Cookies.User_Email, rViewModel.Receivable, rViewModel.Receivables);
+
+                if (rViewModel.Receivable.Status=="Payment Done")
+                {
+                    _receivableManager.Update_Sales_Order_Status(rViewModel.Receivable.Invoice_Id);
+                }
 
                 rViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
             }
@@ -131,9 +138,25 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("DesignationInterview Controller - Delete_Company_By_PropertyId " + ex.ToString());
+                Logger.Error("Error at Receivable Controller - Delete_Receivable_Data_By_Id " + ex.ToString());
             }
             return Json(rViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_Receivable_Invoice_Autocomplete(string invoiceno)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+
+            try
+            {
+                autoList = _receivableManager.Get_Invoice_Autocomplete(invoiceno);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error at Receivable Controller - Get_Receivable_Invoice_Autocomplete " + ex.ToString());
+            }
+
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
 
     }
