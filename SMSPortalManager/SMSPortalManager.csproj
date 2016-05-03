@@ -58,6 +58,7 @@
     <Compile Include="ReceivableManager.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="SubCategoryManager.cs" />
+    <Compile Include="TaxManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="VendorManager.cs" />
   </ItemGroup>

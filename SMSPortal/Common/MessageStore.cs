@@ -163,6 +163,16 @@ namespace SMSPortal.Common
             hash.Add("POR005", POR005);
 
             #endregion
+
+            #region Tax
+
+            FriendlyMessage TO001 = new FriendlyMessage("TO001", MessageType.Success, "Tax added successfully");
+            hash.Add("TO001", TO001);
+
+            FriendlyMessage TO002 = new FriendlyMessage("TO002", MessageType.Success, "Tax updated successfully");
+            hash.Add("TO002", TO002);
+
+            #endregion
 		}
 
 		public static FriendlyMessage Get(string code)

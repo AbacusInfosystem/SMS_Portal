@@ -141,6 +141,12 @@ namespace SMSPortalInfo.Common
         //Invoice
         Insert_Invoice_Sp,
         Get_Invoice_Sp,
-        Get_Invoice_By_Id_Sp
+        Get_Invoice_By_Id_Sp,
+
+        //Tax
+
+        Insert_Tax_Sp,
+        Update_Tax_Sp,
+        Get_Tax_By_Id_Sp
 	}
 }

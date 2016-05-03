@@ -59,6 +59,7 @@
     <Compile Include="RolesInfo.cs" />
     <Compile Include="StateInfo.cs" />
     <Compile Include="SubCategoryInfo.cs" />
+    <Compile Include="TaxInfo.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="VendorInfo.cs" />
   </ItemGroup>
