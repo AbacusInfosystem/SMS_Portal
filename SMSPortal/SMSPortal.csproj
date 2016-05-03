@@ -974,7 +974,6 @@
     <Content Include="Scripts\Module\Dealer\search_dealer_events.js" />
     <Content Include="Scripts\Module\Dealer\search_dealer_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
-    <Content Include="Scripts\Module\Invoice\invoice_methods.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_methods.js" />

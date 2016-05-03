@@ -127,5 +127,50 @@ namespace SMSPortalRepo
         //    sqlParams.Add(new SqlParameter("@Invoice_Id", invoice_id));
         //    _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Invoice_By_Id.ToString(), CommandType.StoredProcedure);
         //}
+
+        public void Send_Email_Notification()
+        {
+            StringBuilder html = new StringBuilder();
+
+            html.Append("");
+            html.Append("");
+            html.Append(""); 
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+            html.Append("");
+
+
+
+        }
+
     }
 }

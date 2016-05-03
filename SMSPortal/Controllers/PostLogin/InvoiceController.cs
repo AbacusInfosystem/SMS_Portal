@@ -111,5 +111,19 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(autoList, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Send_Mail(InvoiceViewModel iViewModel)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Invoice_Controller - Send_Mail " + ex.ToString());
+            }
+            return View("Send_Mail", iViewModel);
+        
+        }
     }
 }
