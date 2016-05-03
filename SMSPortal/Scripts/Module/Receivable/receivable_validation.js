@@ -4,19 +4,36 @@
         errorClass: 'login-error',
         rules: {
 
-        //    "SubCategory.Subcategory_Name":
-        //       {
-        //           required: true,
-        //           validate_SubCategory_Exist: true
-        //       }
+            "Receivable.Receivable_Date":
+               {
+                   required: true
+               },
+            "Receivable.Transaction_Type":
+               {
+                   required: true,
+                   number_validation:true
+               },
+            "Receivable.Receivable_Item_Amount":
+               {
+                   required: true,
+                   check_balance_amount_validation:true
+               }
 
-        //},
-        //messages: {
+        },
+        messages: {
 
-        //    "SubCategory.Subcategory_Name":
-        //       {
-        //           required: "SubCategory Name is required."
-        //       }
+            "Receivable.Receivable_Date":
+               {
+                   required: "Receivable date is required."
+               },
+            "Receivable.Transaction_Type":
+               {
+                   required: "Transaction type is required."
+               },
+            "Receivable.Receivable_Item_Amount":
+              {
+                  required: "Amount is required."
+              }
 
         },
     });
@@ -26,9 +43,15 @@ jQuery.validator.addMethod("check_balance_amount_validation", function (value, e
     var result = true;
 
     if ($("#txtReceivable_Item_Amount").val() != "") {
-       
+
         var Balance_Amount = $("#txtBalance_Amount").val();
         var Entered_Amount = $("#txtReceivable_Item_Amount").val();
+
+        if (Balance_Amount=="0")
+        {
+            Balance_Amount = $("#txtInvoice_Amount").val();
+        }
+
         if(Entered_Amount>Balance_Amount)
         {
             result = false;
@@ -38,3 +61,18 @@ jQuery.validator.addMethod("check_balance_amount_validation", function (value, e
     return result;
 
 }, "Please enter amount less than balance amount.");
+
+jQuery.validator.addMethod("number_validation", function (value, element) {
+    var result = true;
+
+    if ($("#drpTransaction").val() != "") {
+
+        if ($("#drpTransaction").val() == "0") {
+
+            result = false;
+        }
+
+    }
+    return result;
+
+}, "Transaction type is required..");

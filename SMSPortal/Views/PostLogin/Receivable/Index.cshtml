@@ -35,8 +35,10 @@
     </section>
 
     <form id="frmReceivableMaster">
-        <input type="hidden" id="hdnReceivable_Id" value="@Model.Receivable.Receivable_Id" name="Receivable.Receivable_Id" />
+        <input type="hidden" id="hdnInvoice_Id" value="@Model.Receivable.Invoice_Id" name="Receivable.Invoice_Id" />
+        <input type="hidden" id="hdnInvoice_Amount" value="@Model.Receivable.Invoice_Amount" name="Receivable.Invoice_Amount" />
         <input type="hidden" id="hdnReceivable_Item_Id" value="" name="" />
+        <input type="hidden" id="hdnReceivable_Id" value="" name="" />
 
         <section class="content">
             <div class="box box-primary">
@@ -51,43 +53,27 @@
                         <div class="box-body">
 
                             <div id="dvInvoice" class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group auto-complete">
-                                        <label for="InvoiceNo" class="lookup-title">Invoice No</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Receivable.Invoice_No" id="txtInvoiceNo" placeholder="Enter Invoice No" value="@(Model.Receivable.Invoice_Id == 0 ? "" : Model.Receivable.Invoice_Id.ToString())" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
-                                            <input type="hidden" id="hdnInvoiceId" value="@Model.Receivable.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
-                                            <input type="hidden" id="hdnInvoiceNo" value="@Model.Receivable.Invoice_No" name="Receivable.Invoice_No" class="auto-complete-label" />
-                                            <div class="input-group-addon">
-                                                <a href="#" class="text-muted lookup-btn" id="hrefInvoice" role="button"><i class="fa fa-server"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label style="color: #333">Total Amount</label>
-                                        <input type="text" class="form-control input-sm" name="Receivable.Invoice_Amount" id="txtInvoice_Amount" placeholder="Enter Invoice Amount" value="@Model.Receivable.Invoice_Amount" maxlength="20">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label style="color: #333">Balance Amount</label>
-                                        <input type="text" class="form-control input-sm" name="Receivable.Invoice_Amount" id="txtBalance_Amount" placeholder="Enter Invoice Amount" value="@Model.Receivable.Balance_Amount" maxlength="20">
-                                    </div>
-                                </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="txtRecDate" style="color: #333">Receivable Date</label>
                                         <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
                                             <input type="text" class="form-control  input-sm" id="txtRecDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Receivable.Receivable_Date" placeholder="Enter Receivable Date" value="@((Model.Receivable.Receivable_Date == DateTime.MinValue ? "" : Model.Receivable.Receivable_Date.ToString("dd-MM-yyyy")))" />
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Total Amount</label>
+                                        <input readonly type="text" class="form-control input-sm" name="Receivable.Invoice_Amount" id="txtInvoice_Amount" placeholder="Enter IFSC Code" value="@Model.Receivable.Invoice_Amount" maxlength="20">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Balance Amount</label>
+                                        <input readonly type="text" class="form-control input-sm" name="Receivable.Balance_Amount" id="txtBalance_Amount" placeholder="Enter IFSC Code" value="@Model.Receivable.Balance_Amount" maxlength="20">
                                     </div>
                                 </div>
 
@@ -97,8 +83,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Transaction Type</label>
-                                        <select id="drpTransaction" class="form-control" name="">
-                                            <option value="">-Select Transaction Type-</option>
+                                        <select id="drpTransaction" class="form-control" name="Receivable.Transaction_Type">
+                                            <option value="0">-Select Transaction Type-</option>
                                             @foreach (var item in LookupInfo.Get_Transaction_Types())
                                             {
                                                 if (Model.Receivable.Transaction_Type == item.Key)
@@ -115,33 +101,33 @@
                                 </div>
                             </div>
 
-                            <div id="dvMain">
-
-                            </div>
-
                             <div class="row">
                                 <div class="col-md-3">
-                                    <br />
-                                    <div class="btn-group">
-                                        <button type="button" id="btnNEFTSave" class="btn btn-success btn-sm">Save</button>
-                                        <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
+                                    <div class="form-group">
+                                        <label style="color: #333">Amount</label>
+                                        <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount" placeholder="Enter Amount" value="@(Model.Receivable.Receivable_Item_Amount==0 ? "" : Model.Receivable.Receivable_Item_Amount.ToString())" maxlength="20">
                                     </div>
+                                </div>
+                                </div>
+
+                                <div id="dvMain">
 
                                 </div>
-                            </div>
-                            
-                            <div class="box-footer">
+
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnDelete" style="display:none;" class="btn btn-warning btn-sm">Delete </button>
+                                    <div class="col-md-3">
+                                        <br />
+                                                @if(Model.Receivable.Status!="Payment Done")
+                                                {
+                                        <div class="btn-group">
+                                            <button type="button" id="btnNEFTSave" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDelete">Save</button>
+                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
                                         </div>
+                                                }
                                     </div>
                                 </div>
-                            </div>
 
-                        </div>
+                            </div>
 
                     </div>
                 </div>
@@ -163,7 +149,10 @@
                                     <th>NEFT Details</th>
                                     <th>Credit/Debit Card Details</th>
                                     <th>Receivable Date</th> 
-                                    <th>Action</th>                                   
+                                    @if(Model.Receivable.Status!="Payment Done")
+                                    {
+                                    <th>Action</th>   
+                                    }                                
                                 </tr>
 
                                 @if (Model.Receivables != null && Model.Receivables.Count() > 0)
@@ -173,46 +162,50 @@
                                     {
                                         <tr id="tr(@itm.Receivable_Item_Id)">
                                             <td>
-                                                <span id="trBankName@(itm.Receivable_Item_Id)"> @itm.Transaction_Type_Name</span>
+                                                <span> @itm.Transaction_Type_Name</span>
                                                 <input type="hidden" id="hdnTransaction_Type@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Transaction_Type">
                                                 <input type="hidden" id="hdnReceivable_Item_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Item_Id">
                                                 <input type="hidden" id="hdnReceivable_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Id">
                                             </td>
                                             <td>
-                                                <span id="trAccount_No@(itm.Receivable_Item_Id)"> @itm.Receivable_Item_Amount</span>
+                                                <span> @itm.Receivable_Item_Amount</span>
                                                 <input type="hidden" id="hdnReceivable_Item_Amount@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Receivable_Item_Amount">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Receivable_Item_Id)"> @itm.Bank_Name</span>
-                                                <input type="hidden" id="hdnBank_Name@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Bank_Name">
+                                                <span> @itm.Bank_Name</span>
+                                                <input type="hidden" id="hdnBank_Name@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
                                             </td>
                                             <td>
-                                                <span id="trBankName@(itm.Receivable_Item_Id)"> @itm.IFSC_Code</span>
+                                                <span> @itm.IFSC_Code</span>
                                                 <input type="hidden" id="hdnIFSC_Code@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.IFSC_Code">
                                             </td>
                                             <td>
-                                                <span id="trAccount_No@(itm.Receivable_Item_Id)"> @itm.Cheque_Number</span>
+                                                <span> @itm.Cheque_Number</span>
                                                 <input type="hidden" id="hdnCheque_Number@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Receivable_Item_Id)"> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
+                                                <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
                                                 <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
-                                                <span id="trAccount_No@(itm.Receivable_Item_Id)"> @itm.NEFT</span>
+                                                <span> @itm.NEFT</span>
                                                 <input type="hidden" id="hdnNEFT@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.NEFT">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Receivable_Item_Id)"> @itm.Credit_Debit_Card</span>
+                                                <span> @itm.Credit_Debit_Card</span>
                                                 <input type="hidden" id="hdnCredit_Debit_Card@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Credit_Debit_Card">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Receivable_Item_Id)"> @itm.Receivable_Date.ToString("MM/dd/yyyy")</span>
+                                                <span> @itm.Receivable_Date.ToString("MM/dd/yyyy")</span>
                                                 <input type="hidden" id="hdnReceivable_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Receivable_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
-                                                <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-pencil'></i></button>
-                                                <button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>
+                                                @if(Model.Receivable.Status!="Payment Done")
+                                                {
+                                                    <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-pencil'></i></button>
+                                                   @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>*@
+                                                }
+                                                
                                             </td>
                                         </tr>
                                                 i = i + 1;
@@ -225,9 +218,6 @@
                             <div class="pagination pagination-sm no-margin pull-right">
                                 <ul></ul>
                             </div>
-                            @*<div id="divSearchGridOverlay" class="overlay">
-                                <i class="fa fa-refresh fa-spin"></i>
-                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -243,24 +233,9 @@
 
         <div class="col-md-3">
             <div class="form-group">
-                <label style="color: #333">Amount</label>
-                <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount1" placeholder="Enter IFSC Code" value="@(Model.Receivable.Receivable_Item_Amount==0 ? "":Model.Receivable.Receivable_Item_Amount.ToString())">
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-3">
-            <div class="form-group">
                 <label for="txtRecDate" style="color: #333">Cheque Date</label>
                 <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" class="form-control  input-sm" id="txtChequeDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Receivable.Cheque_Date" placeholder="Enter Cheque Date" value="@Model.Receivable.Cheque_Date" />
-
+                    <input type="text" class="form-control  input-sm" id="txtChequeDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Receivable.Cheque_Date" placeholder="Enter Cheque Date" value="@((Model.Receivable.Cheque_Date == DateTime.MinValue ? "" : Model.Receivable.Cheque_Date.ToString("dd-MM-yyyy")))" />
                 </div>
             </div>
         </div>
@@ -307,22 +282,11 @@
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                <label style="color: #333">Amount</label>
-                <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount" placeholder="Enter IFSC Code" value="@Model.Receivable.Receivable_Item_Amount" maxlength="20">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
                 <label style="color: #333">NEFT</label>
                 <input type="text" class="form-control input-sm" name="Receivable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Receivable.NEFT" maxlength="20">
             </div>
         </div>
     </div>
-
-   
 
 </div>
 
@@ -331,17 +295,32 @@
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                <label style="color: #333">Amount</label>
-                <input type="text" class="form-control input-sm" name="Receivable.Receivable_Item_Amount" id="txtReceivable_Item_Amount2" placeholder="Enter IFSC Code" value="@Model.Receivable.Receivable_Item_Amount" maxlength="20">
+                <label style="color: #333">Credit/Debit Card</label>
+                <input type="text" class="form-control input-sm" name="Receivable.Credit_Debit_Card" id="txtCredit_Debit" placeholder="Enter Credit Debit Card Details" value="@Model.Receivable.Credit_Debit_Card" maxlength="20">
             </div>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
-                <label style="color: #333">Credit/Debit Card</label>
-                <input type="text" class="form-control input-sm" name="Receivable.Credit_Debit_Card" id="txtCredit_Debit" placeholder="Enter Credit Debit Card Details" value="@Model.Receivable.Credit_Debit_Card" maxlength="20">
+<div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="DeleteRecordLabel">Insert Receivable Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center ">
+                        <h5 class="">Are you sure you want to insert that record?</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center ">
+                        <button type="button" id="btnYes" class="btn btn-success btn-sm" data-dismiss="modal">Yes </button>
+                        <button type="button" id="btnNo" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">No</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

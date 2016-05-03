@@ -39,7 +39,8 @@
                             <h3 class="box-title">Receivable</h3>
                         </div>
                         <div class="box-body">
-                            <input type="hidden" id="hdnReceivable_Id" value="@Model.Receivable.Receivable_Id" name="Receivable.Receivable_Id" />
+                            <input type="hidden" id="hdnInvoice_Id" value="@Model.Receivable.Invoice_Id" name="Receivable.Invoice_Id" />
+                            <input type="hidden" id="hdnInvoice_Amount" value="@Model.Receivable.Invoice_Amount" name="Receivable.Invoice_Amount" />                            
                             <div class="row"> 
                                 <div class="col-md-3">
                                     <div class="form-group auto-complete">
@@ -61,7 +62,7 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Receivable")">Create </a>
+                                            @*<a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Receivable")">Create </a>*@
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
                                         </div>
 

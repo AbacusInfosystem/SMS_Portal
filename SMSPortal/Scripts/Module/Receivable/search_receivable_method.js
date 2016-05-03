@@ -25,7 +25,7 @@ function Bind_Receivable_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += "<input type='radio' name='r1' id='r1_" + data.Receivables[i].Receivable_Id + "' class='iradio-list'/>";
+            htmlText += "<input type='radio' name='r1' id='r1_" + data.Receivables[i].Invoice_Id + "_" + data.Receivables[i].Invoice_Amount + "' class='iradio-list'/>";
 
             htmlText += "</td>";
 
@@ -37,13 +37,13 @@ function Bind_Receivable_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_Amount == null ? "" : data.Receivables[i].Invoice_Amount;
+            htmlText += data.Receivables[i].Invoice_Amount == 0 ? "" : data.Receivables[i].Invoice_Amount;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Status == null ? "" : data.Receivables[i].Status;
+            htmlText += data.Receivables[i].Status == "" ? "Pending" : data.Receivables[i].Status;
 
             htmlText += "</td>";
          
@@ -82,7 +82,10 @@ function Bind_Receivable_Grid(data) {
 
     $('[name="r1"]').on('ifChanged', function (event) {
         if ($(this).prop('checked')) {
-            $("#hdnReceivable_Id").val(this.id.replace("r1_", ""));
+            var Id = this.id.replace("r1_", "");
+            var String = Id.split("_");
+            $("#hdnInvoice_Id").val(String[0]);
+            $("#hdnInvoice_Amount").val(String[1]);
             $("#btnEdit").show();
             $("#btnAddProductMapping").show();
             $("#btnDelete").show();

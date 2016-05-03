@@ -38,9 +38,14 @@ namespace SMSPortalManager
            _receivableRepo.Insert_Receivable_Items(receivableInfo, user_Id);
        }
 
-       public ReceivableInfo Get_Receivable_Data_By_Id(int receivable_Id)
+       public void Insert_Receivable_Receipt(ReceivableInfo receivableInfo, int user_Id)
        {
-           return _receivableRepo.Get_Receivable_Data_By_Id(receivable_Id);
+           _receivableRepo.Insert_Receivable_Receipt_Data(receivableInfo, user_Id);
+       }
+
+       public ReceivableInfo Get_Receivable_Data_By_Id(int invoice_Id)
+       {
+           return _receivableRepo.Get_Receivable_Data_By_Id(invoice_Id);
        }
 
        public List<ReceivableInfo> Get_Receivable_Items(int receivable_Id)
@@ -53,14 +58,29 @@ namespace SMSPortalManager
            _receivableRepo.Delete_Receivable_Data_Item_By_Id(receivable_Item_Id);
        }
 
-       public decimal Get_Invoice_Amount(int id)
-       {
-           return _receivableRepo.Get_Invoice_Amount(id);
-       }
-
        public List<AutocompleteInfo> Get_Invoice_Autocomplete(string invoice_No)
        {
            return _receivableRepo.Get_Invoice_Autocomplete(invoice_No);
+       }
+
+       public void Send_Payment_Receipt(string email_Id, ReceivableInfo receivableInfo, List<ReceivableInfo> receivables)
+       {
+           _receivableRepo.Send_Payment_Receipt(email_Id, receivableInfo, receivables);
+       }
+
+       public string Get_Receivable_Status(int invoice_Id)
+       {
+           return _receivableRepo.Get_Receivable_Status(invoice_Id);
+       }
+
+       public decimal Get_Invoice_Amount(int invoice_Id)
+       {
+           return _receivableRepo.Get_Invoice_Amount(invoice_Id);
+       }
+
+       public void Update_Sales_Order_Status(int invoice_Id)
+       {
+           _receivableRepo.Update_Sales_Order_Status(invoice_Id);
        }
     }
 }

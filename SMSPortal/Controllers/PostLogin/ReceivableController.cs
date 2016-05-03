@@ -67,9 +67,15 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+                int Id = rViewModel.Receivable.Invoice_Id;
+
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id);
 
                 rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
+
+                rViewModel.Receivable.Invoice_Id = Id;
+
+                rViewModel.Receivable.Invoice_Amount = _receivableManager.Get_Invoice_Amount(Id);
             }
             catch (Exception ex)
             {
@@ -91,9 +97,20 @@ namespace SMSPortal.Controllers.PostLogin
 
                 _receivableManager.Insert_ReceivableItems(rViewModel.Receivable, rViewModel.Cookies.User_Id);
 
-                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Receivable_Id);
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id);
 
                 rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
+
+                rViewModel.Receivable.Status = _receivableManager.Get_Receivable_Status(rViewModel.Receivable.Invoice_Id);
+
+                _receivableManager.Insert_Receivable_Receipt(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+
+                _receivableManager.Send_Payment_Receipt(rViewModel.Cookies.User_Email, rViewModel.Receivable, rViewModel.Receivables);
+
+                if (rViewModel.Receivable.Status=="Payment Done")
+                {
+                    _receivableManager.Update_Sales_Order_Status(rViewModel.Receivable.Invoice_Id);
+                }
 
                 rViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
             }
@@ -122,20 +139,6 @@ namespace SMSPortal.Controllers.PostLogin
             catch (Exception ex)
             {
                 Logger.Error("Error at Receivable Controller - Delete_Receivable_Data_By_Id " + ex.ToString());
-            }
-            return Json(rViewModel, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult Get_Invoice_Amount_By_Id(int Id)
-        {
-            ReceivableViewModel rViewModel = new ReceivableViewModel();
-            try
-            {
-               rViewModel.Receivable.Invoice_Amount= _receivableManager.Get_Invoice_Amount(Id);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error("Error at Receivable Controller - Get_Invoice_Amount_By_Id " + ex.ToString());
             }
             return Json(rViewModel, JsonRequestBehavior.AllowGet);
         }
