@@ -43,6 +43,7 @@ namespace SMSPortalRepo
                         cookie.User_Name = Convert.ToString(dr["User_Name"]);
                         cookie.First_Name = Convert.ToString(dr["First_Name"]);
                         cookie.Last_Name = Convert.ToString(dr["Last_Name"]);
+                        cookie.User_Email = Convert.ToString(dr["Email_Id"]);
                     }
                 }
             }

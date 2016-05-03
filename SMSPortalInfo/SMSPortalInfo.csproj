@@ -51,6 +51,7 @@
     <Compile Include="Common\StoreProcedures.cs" />
     <Compile Include="DealerInfo.cs" />
     <Compile Include="InvoiceInfo.cs" />
+    <Compile Include="OrdersInfo.cs" />
     <Compile Include="PayableInfo.cs" />
     <Compile Include="ProductInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

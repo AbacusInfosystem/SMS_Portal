@@ -12,9 +12,9 @@ namespace SMSPortalInfo
 
         public int Payable_Item_Id { get; set; }
 
-        public string Invoice_No { get; set; }
+        public string Purchase_Order_No { get; set; }
 
-        public int Invoice_Id { get; set; }
+        public int Purchase_Order_Id { get; set; }
 
         public bool Is_Active { get; set; }
 
@@ -48,7 +48,7 @@ namespace SMSPortalInfo
 
         public decimal Payable_Item_Amount { get; set; }
 
-        public decimal Invoice_Amount { get; set; }
+        public decimal Purchase_Order_Amount { get; set; }
 
     }
 }

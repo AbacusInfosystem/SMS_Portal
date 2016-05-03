@@ -43,13 +43,13 @@ namespace SMSPortal.Models.PostLogin
     {
         public int Payable_Id { get; set; }
 
-        public int Invoice_Id { get; set; }
+        public int Purchase_Order_Id { get; set; }
 
         public bool Is_Active { get; set; }
 
-        public string Invoice_No { get; set; }
+        public string Purchase_Order_No { get; set; }
 
 
-        public int Invoice_Number { get; set; }
+        public int Purchase_Order_Number { get; set; }
     }
 }

@@ -1,52 +1,55 @@
-﻿function Search_Receivable() {
-    var rViewModel =
+﻿function Search_Payable() {
+    alert(21);
+    var pViewModel =
         {
             Filter:
                 {
-                    Invoice_Id: $('#hdnInvoiceId').val(),
+                    
+                    Purchase_Order_Id: $('#hdnPurchase_Order_Id').val(),
                 },
             Pager:
                 {
                     CurrentPage: $('#hdfCurrentPage').val(),
                 },
         }
+    $('#divSearchGridOverlay').show();
 
-    CallAjax("/Receivable/Get-Recievable/", "json", JSON.stringify(rViewModel), "POST", "application/json", false, Bind_Receivable_Grid, "", null);
+    CallAjax("/Payables/Get_Payable/", "json", JSON.stringify(pViewModel), "POST", "application/json", false, Bind_Payable_Grid, "", null);
 }
 
 
-function Bind_Receivable_Grid(data) {
+function Bind_Payable_Grid(data) {
 
     var htmlText = "";
 
-    if (data.Receivables.length > 0) {
-        for (i = 0; i < data.Receivables.length; i++) {
+    if (data.Payables.length > 0) {
+        for (i = 0; i < data.Payables.length; i++) {
             htmlText += "<tr>";
 
             htmlText += "<td>";
 
-            htmlText += "<input type='radio' name='r1' id='r1_" + data.Receivables[i].Invoice_Id + "_" + data.Receivables[i].Invoice_Amount + "' class='iradio-list'/>";
+            htmlText += "<input type='radio' name='r1' id='r1_" + data.Payables[i].Payable_Id + "' class='iradio-list'/>";
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_No == null ? "" : data.Receivables[i].Invoice_No;
+            htmlText += data.Payables[i].Purchase_Order_No == null ? "" : data.Payables[i].Purchase_Order_No;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Invoice_Amount == 0 ? "" : data.Receivables[i].Invoice_Amount;
+            htmlText += data.Payables[i].Purchase_Order_Amount == null ? "" : data.Payables[i].Purchase_Order_Amount;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Status == "" ? "Pending" : data.Receivables[i].Status;
+            htmlText += data.Payables[i].Status == null ? "" : data.Payables[i].Status;
 
             htmlText += "</td>";
-         
+
             htmlText += "</tr>";
         }
     }
@@ -60,15 +63,15 @@ function Bind_Receivable_Grid(data) {
         htmlText += "</tr>";
     }
 
-    $('#tblReceivableMaster').find("tr:gt(0)").remove();
-    $('#tblReceivableMaster tr:first').after(htmlText);
+    $('#tblPayableMaster').find("tr:gt(0)").remove();
+    $('#tblPayableMaster tr:first').after(htmlText);
 
     $('.iradio-list').iCheck({
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
 
-    if (data.Receivables.length > 0) {
+    if (data.Payables.length > 0) {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);
         if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "") {
             $('.pagination').html(data.Pager.PageHtmlString);
@@ -82,10 +85,7 @@ function Bind_Receivable_Grid(data) {
 
     $('[name="r1"]').on('ifChanged', function (event) {
         if ($(this).prop('checked')) {
-            var Id = this.id.replace("r1_", "");
-            var String = Id.split("_");
-            $("#hdnInvoice_Id").val(String[0]);
-            $("#hdnInvoice_Amount").val(String[1]);
+            $("#hdnPayable_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnAddProductMapping").show();
             $("#btnDelete").show();
@@ -99,6 +99,6 @@ function PageMore(Id) {
 
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
-    Search_Receivable();
+    Search_Payable();
 
 }

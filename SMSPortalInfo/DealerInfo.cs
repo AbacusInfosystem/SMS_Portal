@@ -22,6 +22,8 @@ namespace SMSPortalInfo
 
         public int State { get; set; }
 
+        public string State_Name { get; set; }
+
         public int Pincode { get; set; }
 
         public string Contact_No_1 { get; set; }

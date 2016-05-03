@@ -1,5 +1,6 @@
-﻿<script type="text/javascript">
-
+﻿@model SMSPortal.Models.PostLogin.PayableViewModel
+@using SMSPortalInfo.Common
+<script type="text/javascript">
     $(document).ready(function () {
 
         $('.iradio-list').iCheck({
@@ -9,7 +10,8 @@
 
     });
 </script>
-
+<script src="~/Scripts/Module/Payables/search_payable_event.js"></script>
+<script src="~/Scripts/Module/Payables/search_payable_method.js"></script>
 <form id="frmPayables" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -36,11 +38,20 @@
                             <h3 class="box-title">Payables</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdnPayable_Id" value="@Model.Payable.Payable_Id" name="Payable.Payable_Id" />
+               
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color: #333">Invoice No</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtinvoice_No" placeholder="Enter invoice no" value="" maxlength="20">
+                                    <div class="form-group auto-complete">
+                                        <label style="color: #333">Purchase Order No</label>
+                                        <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order no" value="@Model.Filter.Purchase_Order_No" maxlength="20">
+                                        @*<input type="hidden" id="hdnPurchase_Order_Number" value="@Model.Filter.Purchase_Order_Number" name="Filter.Purchase_Order_Number" class="auto-complete-value" />*@
+                                        <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
+                                        <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
+                                        @*<div class="input-group-addon">
+                    <a href="#" class="text-muted" id="hrefInvoice_No" role="button"><i class="fa fa-search"></i></a>
+                </div>*@
                                     </div>
                                 </div>
 
@@ -72,42 +83,23 @@
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblPayablesMaster">
+                            <table class="table table-striped" id="tblPayableMaster">
                                 <tr id="subhead">
                                     <th></th>
-                                    <th>Invoice No</th>
+                                    <th>Purchase Order No</th>
                                     <th>Amount</th>
                                     <th>Status</th>
                                 </tr>
-
-                                <tr>
-                                    <td><input type="radio" id="rdo_PayablesId1" name="Receivables" class="iradio-list" /></td>
-                                    <td>001 </td>
-                                    <td>12,222</td>
-                                    <td>vv</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_PayablesId2" name="Receivables" class="iradio-list" /></td>
-                                    <td>002 </td>
-                                    <td>10,000</td>
-                                    <td>ss</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_PayablesId3" name="Receivables" class="iradio-list" /></td>
-                                    <td>003 </td>
-                                    <td>12000</td>
-                                    <td>dd</td>
-                                </tr>
                             </table>
                         </div>
-                        @*<div class="box-footer clearfix">
-                                <div class="pagination pagination-sm no-margin pull-right">
-                                    <ul></ul>
-                                </div>
-                                <div id="divSearchGridOverlay" class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
-                                </div>
-                            </div>*@
+                        <div class="box-footer clearfix">
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
+                            </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -47,12 +47,11 @@ $(document).ready(function () {
             });
         }
 
-        alert($("#hdnLookupLabelId").val());
+         
 
         // Get Invoice amount for receivables
         if ($("#hdnLookupLabelId").val() == "txtInvoiceNo");
-        {
-            alert($("#hdnLookupLabelId").val());
+        {             
             $.ajax({
                 url: '/Receivable/Get_Invoice_Amount_By_Id/',
                 data: { Id: id },

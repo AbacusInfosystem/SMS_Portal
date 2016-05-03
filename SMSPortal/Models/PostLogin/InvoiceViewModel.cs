@@ -18,12 +18,18 @@ namespace SMSPortal.Models.PostLogin
             Pager.IsPagingRequired = true;
             Pager.PageSize = 5;
             Friendly_Message = new List<FriendlyMessage>();
+            Filter = new Invoice_Filter();
+            Order = new OrdersInfo();
+            Dealer = new DealerInfo();
         }
 
         public InvoiceInfo Invoice { get; set; }
         public List<InvoiceInfo> Invoices { get; set; }
         public PaginationInfo Pager { get; set; }
         public List<FriendlyMessage> Friendly_Message { get; set; }
+        public Invoice_Filter Filter { get; set; }
+        public OrdersInfo Order { get; set; }
+        public DealerInfo Dealer { get; set; }
     }
     public class Invoice_Filter
     {

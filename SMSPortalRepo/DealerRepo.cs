@@ -111,6 +111,7 @@ namespace SMSPortalRepo
             dealer.Address = Convert.ToString(dr["Address"]);
             dealer.City = Convert.ToString(dr["City"]);
             dealer.State = Convert.ToInt32(dr["State"]);
+            dealer.State_Name = Convert.ToString(dr["State_Name"]);
             dealer.Pincode = Convert.ToInt32(dr["Pincode"]);
             dealer.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
             dealer.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
