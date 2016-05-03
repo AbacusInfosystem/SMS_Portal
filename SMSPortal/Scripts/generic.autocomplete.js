@@ -30,6 +30,11 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/category/category_autocomplete/" + $('#txtCategory_Name').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtInvoice_Number') {
+                urlString = "/invoice/get-invoice-autocomplete/" + $('#txtInvoice_Number').val();
+                 
+            }
+
             if ($(elementObject).attr("id") == 'txtInvoice_No') {
                 urlString = "/Receivable/autocomplete-Invoice-No/" + $('#txtInvoice_No').val();
             }

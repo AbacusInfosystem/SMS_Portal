@@ -1,20 +1,20 @@
 ﻿
 $(document).ready(function ()
 {
-    InitializeAutoComplete($('#txtDealer_Name'));
+    InitializeAutoComplete($('#txtInvoice_Number'));
 
     $('#hdfCurrentPage').val(0);
 
-    Search_Dealers();
+    Search_Invoices();
 
-    $("#btnEdit").click(function () {
-        $("#frmDealer").attr("action", "/dealer/edit-dealer/");
-        $("#frmDealer").attr("method", "post");
-        $("#frmDealer").submit();
+    $("#btnDetails").click(function () {
+        $("#frmInvoice").attr("action", "/invoice/get-invoice/");
+        $("#frmInvoice").attr("method", "post");
+        $("#frmInvoice").submit();
     });
 
     $("#btnSearch").click(function () {
-        Search_Dealers();
+        Search_Invoices();
     });
 
 });

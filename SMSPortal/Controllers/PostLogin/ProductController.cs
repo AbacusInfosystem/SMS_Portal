@@ -56,8 +56,10 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo Pager = new PaginationInfo();
             try
             {
+
                 pViewModel.Brands = _dealerManager.Get_Brands();
                 //pViewModel.Categories = _subCategoryManager.Get_Categories();
+                pViewModel.Categories = _categoryManager.Get_Categorys(ref Pager);
 
             }
             catch (Exception ex)
@@ -117,6 +119,7 @@ namespace SMSPortal.Controllers.PostLogin
                 if (pViewModel.Filter.Product_Id != 0)
                 {
                     pViewModel.Products = _productManager.Get_Products_By_Id(pViewModel.Filter.Product_Id, ref pager);
+                     
                 }
                 else
                 {
@@ -166,7 +169,7 @@ namespace SMSPortal.Controllers.PostLogin
             ProductViewModel pViewModel = new ProductViewModel();
             try
             {
-                //pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
+                pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
             }
             catch (Exception ex)
             {

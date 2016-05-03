@@ -1,11 +1,11 @@
 ﻿
-function Search_Dealers()
+function Search_Invoices()
 {
-    var dealerViewModel =
+    var invoiceViewModel =
         {
             Filter:
                 {
-                    Dealer_Id: $('#hdnDealerId').val(),
+                    Invoice_Id: $('#hdnInvoiceId').val(),
                 },
             Pager:
                 {
@@ -15,42 +15,39 @@ function Search_Dealers()
 
     $('#divSearchGridOverlay').show();
 
-    CallAjax("/dealer/get-dealers/", "json", JSON.stringify(dealerViewModel), "POST", "application/json", false, Bind_Dealers_Grid, "", null);
+    CallAjax("/invoice/get-invoices/", "json", JSON.stringify(invoiceViewModel), "POST", "application/json", false, Bind_Invoices_Grid, "", null);
 }
 
-function Bind_Dealers_Grid(data)
+function Bind_Invoices_Grid(data)
 {
     var htmlText = "";
-    if (data.Dealers.length > 0)
+    if (data.Invoices.length > 0)
     {
-        for (i = 0; i < data.Dealers.length; i++)
+        for (i = 0; i < data.Invoices.length; i++)
         {
             htmlText += "<tr>";
 
             htmlText += "<td>";
 
-            htmlText += "<input type='radio' name='r1' id='r1_" + data.Dealers[i].Dealer_Id + "' class='iradio-list'/>";
+            htmlText += "<input type='radio' name='r1' id='r1_" + data.Invoices[i].Invoice_Id + "' class='iradio-list'/>";
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Dealers[i].Dealer_Name == null ? "" : data.Dealers[i].Dealer_Name;
+            htmlText += data.Invoices[i].Invoice_No == null ? "" : data.Invoices[i].Invoice_No;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            htmlText += data.Dealers[i].Brand_Name == null ? "" : data.Dealers[i].Brand_Name;
+            htmlText += data.Invoices[i].Order_No == null ? "" : data.Invoices[i].Order_No;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            if (data.Dealers[i].Is_Active.toString() == 'true')
-                htmlText += 'Active';
-            else
-                htmlText += 'InActive';
+            htmlText += data.Invoices[i].Invoice_Date == null ? "" : Get_Date(data.Invoices[i].Invoice_Date);
 
             htmlText += "</td>";
 
@@ -68,15 +65,15 @@ function Bind_Dealers_Grid(data)
         htmlText += "</tr>";
     }
 
-    $('#tblDealerMaster').find("tr:gt(0)").remove();
-    $('#tblDealerMaster tr:first').after(htmlText);
+    $('#tblInvoices').find("tr:gt(0)").remove();
+    $('#tblInvoices tr:first').after(htmlText);
 
     $('.iradio-list').iCheck({
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
 
-    if (data.Dealers.length > 0)
+    if (data.Invoices.length > 0)
     {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);
         if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "")
@@ -94,10 +91,8 @@ function Bind_Dealers_Grid(data)
     $('[name="r1"]').on('ifChanged', function (event) {
         if ($(this).prop('checked'))
         {
-            $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
-            $("#btnEdit").show();                        
-            $("#btnDelete").show();
-
+            $("#hdnInvoice_Id").val(this.id.replace("r1_", ""));
+            $("#btnDetails").show();
         }
     });
 
@@ -105,9 +100,20 @@ function Bind_Dealers_Grid(data)
 
 function PageMore(Id) {
 
-    $("#btnEdit").hide();    
+    $("#btnDetails").hide();
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
-    Search_Dealers();
+    Search_Invoices();
 
+}
+
+function Get_Date(date) {
+
+    var dateString = date.substr(6);
+    var currentTime = new Date(parseInt(dateString));
+    var month = currentTime.getMonth() + 1;
+    var day = currentTime.getDate();
+    var year = currentTime.getFullYear();
+    var date = day + "/" + month + "/" + year;
+    return date;
 }
