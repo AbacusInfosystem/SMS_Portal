@@ -40,6 +40,8 @@ namespace SMSPortalInfo
 
         public string Invoice_No { get; set; }
 
+        public DateTime Shipping_Date { get; set; }
+
         public DateTime Created_On { get; set; }
 
         public int Created_By { get; set; }
