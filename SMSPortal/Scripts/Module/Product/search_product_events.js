@@ -6,6 +6,12 @@
         $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: Product_Id }, call_back);
     });
 
+    $("#btnUploadProducts").click(function (event) {
+
+        $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Excel", null, excel_call_back);
+    });
+
+
     $('#btnUploadImage').click(function (event) {
         if ($('#frmUploadProductImages').valid()) {
 
