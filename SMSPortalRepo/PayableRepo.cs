@@ -22,10 +22,10 @@ namespace SMSPortalRepo
             _sqlHelper = new SQLHelper();
         }
 
-        public List<PayableInfo> Get_Payable_By_Id(int invoice_Id, ref PaginationInfo pager)
+        public List<PayableInfo> Get_Payable_By_Id(int Purchase_Order_Id, ref PaginationInfo pager)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Invoice_Id", invoice_Id));
+            sqlParamList.Add(new SqlParameter("@Purchase_Order_Id", Purchase_Order_Id));
 
             List<PayableInfo> Payables = new List<PayableInfo>();
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Payable_By_Name_Sp.ToString(), CommandType.StoredProcedure);
@@ -42,9 +42,9 @@ namespace SMSPortalRepo
 
             payable.Payable_Id = Convert.ToInt32(dr["Payable_Id"]);
             payable.Status = Convert.ToString(dr["Status"]);
-            payable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
-            payable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
-            payable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+            payable.Purchase_Order_Amount = Convert.ToDecimal(dr["Amount"]);
+            payable.Purchase_Order_No = Convert.ToString(dr["Purchase_Order_No"]);
+            payable.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
 
             return payable;
         }
@@ -58,6 +58,28 @@ namespace SMSPortalRepo
                 payables.Add(Get_Payable_Values(dr));
             }
             return payables;
+        }
+
+        public decimal Get_Balance_Amount(int payable_Id)
+        {
+            decimal Balance_Amount = 0;
+
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@Payable_Id", payable_Id));
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoreProcedures.Get_Payable_Balance_Amount_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (!dr.IsNull("Balance_Amount"))
+                        Balance_Amount = Convert.ToDecimal(dr["Balance_Amount"]);
+                }
+            }
+
+            return Balance_Amount;
         }
 
         public int Insert_Payable(PayableInfo payableInfo, int user_Id)
@@ -82,14 +104,36 @@ namespace SMSPortalRepo
 
         private List<SqlParameter> Set_Values_In_Payable(PayableInfo payableInfo, int user_Id)
         {
+            decimal Total_Balance_Amount = 0;
+            decimal Amount = 0;
+
             List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            decimal Balance_Amount = Get_Balance_Amount(payableInfo.Payable_Id);
 
             sqlParams.Add(new SqlParameter("@Payable_Id", payableInfo.Payable_Id));
 
-            sqlParams.Add(new SqlParameter("@Invoice_Id", payableInfo.Invoice_Id));
-            sqlParams.Add(new SqlParameter("@Amount", payableInfo.Invoice_Amount));
+            sqlParams.Add(new SqlParameter("@Purchase_Order_Id", payableInfo.Purchase_Order_Id));
+            sqlParams.Add(new SqlParameter("@Amount", payableInfo.Purchase_Order_Amount));
 
-            payableInfo.Balance_Amount = payableInfo.Invoice_Amount - payableInfo.Payable_Item_Amount;
+            if (Balance_Amount > 0)
+            {
+                Total_Balance_Amount = Balance_Amount - payableInfo.Payable_Item_Amount;
+            }
+            else
+            {
+                Total_Balance_Amount = payableInfo.Payable_Item_Amount;
+            }
+
+            Amount = payableInfo.Purchase_Order_Amount - Balance_Amount;
+
+            decimal Total_Amount = (payableInfo.Purchase_Order_Amount - (Amount + payableInfo.Payable_Item_Amount));
+
+
+
+            payableInfo.Balance_Amount = (Total_Amount - Total_Balance_Amount);
+
+            sqlParams.Add(new SqlParameter("@Balance_Amount", payableInfo.Balance_Amount));
 
             if (payableInfo.Balance_Amount != 0)
             {
@@ -97,15 +141,15 @@ namespace SMSPortalRepo
             }
             else
             {
-                sqlParams.Add(new SqlParameter("@Status", "Payment Completed"));
+                sqlParams.Add(new SqlParameter("@Status", "Payment Done"));
             }
 
 
             sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
-            sqlParams.Add(new SqlParameter("@Created_By", payableInfo.Created_By));
+            sqlParams.Add(new SqlParameter("@Created_By", user_Id));
 
             sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
-            sqlParams.Add(new SqlParameter("@Updated_By", payableInfo.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
 
             return sqlParams;
         }
@@ -117,7 +161,7 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Payable_Item_Id", payableInfo.Payable_Item_Id));
 
             sqlParams.Add(new SqlParameter("@Payable_Id", payableInfo.Payable_Id));
-            sqlParams.Add(new SqlParameter("@Invoice_Id", payableInfo.Invoice_Id));           
+            sqlParams.Add(new SqlParameter("@Purchase_Order_Id", payableInfo.Purchase_Order_Id));           
             sqlParams.Add(new SqlParameter("@Payable_Date", payableInfo.Payable_Date));
             sqlParams.Add(new SqlParameter("@Payable_Item_Amount", payableInfo.Payable_Item_Amount));
             sqlParams.Add(new SqlParameter("@Transaction_Type", payableInfo.Transaction_Type));
@@ -155,10 +199,10 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Balance_Amount", payableInfo.Balance_Amount));
 
             sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
-            sqlParams.Add(new SqlParameter("@Created_By", payableInfo.Created_By));
+            sqlParams.Add(new SqlParameter("@Created_By", user_Id));
 
             sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
-            sqlParams.Add(new SqlParameter("@Updated_By", payableInfo.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
 
             return sqlParams;
         }
@@ -182,11 +226,11 @@ namespace SMSPortalRepo
                     if (!dr.IsNull("Status"))
                         payable.Status = Convert.ToString(dr["Status"]);
                     if (!dr.IsNull("Amount"))
-                        payable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
-                    if (!dr.IsNull("Invoice_No"))
-                        payable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
-                    if (!dr.IsNull("Invoice_Id"))
-                        payable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+                        payable.Purchase_Order_Amount = Convert.ToDecimal(dr["Amount"]);
+                    if (!dr.IsNull("Purchase_Order_No"))
+                        payable.Purchase_Order_No = Convert.ToString(dr["Purchase_Order_No"]);
+                    if (!dr.IsNull("Purchase_Order_Id"))
+                        payable.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
                 }
             }
             return payable;
@@ -198,7 +242,7 @@ namespace SMSPortalRepo
 
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
 
-            sqlParamList.Add(new SqlParameter("@payable_Id", payable_Id));
+            sqlParamList.Add(new SqlParameter("@Payable_Id", payable_Id));
 
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Payable_Data_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
@@ -233,6 +277,15 @@ namespace SMSPortalRepo
                 payable.Credit_Debit_Card = Convert.ToString(dr["Credit_Debit_Card"]);
 
             return payable;
+        }
+
+        public void Delete_Payable_Data_Item_By_Id(int payable_Item_Id)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("@Receivable_Item_Id", payable_Item_Id));
+
+            _sqlHelper.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Payable_Data_Item_By_Id.ToString(), CommandType.StoredProcedure);
         }
 
     }

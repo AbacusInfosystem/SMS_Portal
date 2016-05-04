@@ -433,6 +433,29 @@ namespace SMSPortal
              
             #endregion
 
+            #region Tax
+
+
+            routes.MapRoute(
+            name: "Tax-1",
+            url: "tax/insert-tax",
+            defaults: new { controller = "Tax", action = "Insert_Tax", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Tax-2",
+            url: "tax/edit-tax",
+            defaults: new { controller = "Tax", action = "Update_Tax", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Tax-3",
+            url: "tax/get_tax_by_Id",
+            defaults: new { controller = "Tax", action = "Index", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
             #endregion
 
             #region PreLogin

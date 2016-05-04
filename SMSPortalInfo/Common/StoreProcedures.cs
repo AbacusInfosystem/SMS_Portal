@@ -110,7 +110,7 @@ namespace SMSPortalInfo.Common
         Get_InvoiceNo_AutoComplete_Sp,
         Insert_Receivable_Data_Sp,
         Get_InvoiceNo_Sp,
-        Insert_Receivable_Sp,
+         Insert_Receivable_Sp,
         Insert_Receivable_Item_Data_Sp,
         Get_Receivable_Data_Item_By_Id_Sp,
         Get_Receivable_Data_By_Id_Sp,
@@ -143,6 +143,8 @@ namespace SMSPortalInfo.Common
        Get_Payable_Data_By_Id_Sp,
         Get_Payable_By_Name_Sp,
         Get_Payable_Sp,
+        Delete_Payable_Data_Item_By_Id,
+        Get_Payable_Balance_Amount_By_Id_Sp,
 
         //Invoice
         Insert_Invoice_Sp,
@@ -154,5 +156,12 @@ namespace SMSPortalInfo.Common
         Get_Order_By_Id,
         Get_Order_Items_By_Order_Id,
         Get_Orders
+        Get_Invoice_By_Id_Sp,
+
+        //Tax
+
+        Insert_Tax_Sp,
+        Update_Tax_Sp,
+        Get_Tax_By_Id_Sp
 	}
 }

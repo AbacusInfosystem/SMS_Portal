@@ -14,7 +14,7 @@
 
     if ($("#hdnPayable_Id").val() != 0)
     {
-        $("#dvInvoice").find(".autocomplete-text").trigger("focusout");
+        $("#dvPurchase_Order").find(".autocomplete-text").trigger("focusout");
     }
 
     $(".fa-chevron-left").click(function () {
@@ -26,11 +26,11 @@
         $("#frmPayableMaster").submit();
 
     });
-    $("#btnAdd").click(function () {
+    //$("#btnAdd").click(function () {
 
-        AddReceivableDetailsData();
+    //    AddReceivableDetailsData();
 
-    });
+    //});
 
     $("#drpTransaction").change(function () {
         if ($("#drpTransaction").val() == 1) {
@@ -50,18 +50,18 @@
         }
 
     });
-    $("#btnSave").click(function () {
-        alert(1);
+    $("#btnNEFTSave").click(function () {
+
         Save_Payable_Data();
 
     });
     $("#btnSave1").click(function () {
-        alert(1);
+        alert("click1")
         Save_Payable_Data();
 
     });
     $("#btnSave2").click(function () {
-        alert(1);
+        alert("click2")
         Save_Payable_Data();
 
     });
