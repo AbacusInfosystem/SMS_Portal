@@ -329,7 +329,7 @@ namespace SMSPortal
             url: "user/user-autocomplete/{user}",
             defaults: new { controller = "User", action = "Get_User_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
-
+                         
             #endregion
 
             #region Receivable
@@ -506,6 +506,11 @@ namespace SMSPortal
               defaults: new { controller = "System", action = "UnAuthorize", id = UrlParameter.Optional },
               namespaces: new string[] { "SMSPortal.Controllers" });
 
+            //routes.MapRoute(
+            //  name: "login-3",
+            //  url: "login/reset-password/{passtoken}",
+            //  defaults: new { controller = "Login", action = "Reset_Password", id = UrlParameter.Optional },
+            //  namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
         }
 	}

@@ -85,5 +85,15 @@ namespace SMSPortalManager
         {
             return _usersRepo.Get_User_By_Password_Token(Password_Token);
         }
+
+        public void Send_Reset_Password_Email(string Email_Id,string link,UserInfo User)
+        {
+            _usersRepo.Send_Reset_Password_Email(Email_Id, link, User);
+        }
+
+        public void Reset_Password(string New_Password, int User_Id,string Password_Token)
+        {
+            _usersRepo.Reset_Password(New_Password, User_Id, Password_Token);
+        }
     }
 }

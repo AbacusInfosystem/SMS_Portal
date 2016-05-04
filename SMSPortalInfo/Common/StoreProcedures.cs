@@ -32,6 +32,7 @@ namespace SMSPortalInfo.Common
         Get_User_Autocomplete_Sp,
         Get_Users_By_Entity_Id_Sp,
         Get_User_By_Password_Token,
+        Reset_Password,
 
         //Sub Category
         Get_Sub_Category_Sp,
@@ -110,7 +111,7 @@ namespace SMSPortalInfo.Common
         Get_InvoiceNo_AutoComplete_Sp,
         Insert_Receivable_Data_Sp,
         Get_InvoiceNo_Sp,
-        Insert_Receivable_Sp,
+         Insert_Receivable_Sp,
         Insert_Receivable_Item_Data_Sp,
         Get_Receivable_Data_Item_By_Id_Sp,
         Get_Receivable_Data_By_Id_Sp,

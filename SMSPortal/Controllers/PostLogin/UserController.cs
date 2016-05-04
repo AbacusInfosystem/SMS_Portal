@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace SMSPortal.Controllers.PostLogin
 {
@@ -20,7 +21,9 @@ namespace SMSPortal.Controllers.PostLogin
 
         public CookiesInfo _cookies;
 
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+
+        //public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+
 
         public UserController()
         {
@@ -111,12 +114,16 @@ namespace SMSPortal.Controllers.PostLogin
         [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert(UserViewModel uViewModel)
         {
+            string link=string.Empty;
             try
             {
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
+                uViewModel.User.Pass_Token = Utility.Generate_Token();
                 _userMan.Insert_Users(uViewModel.User , uViewModel.Cookies.User_Id);
+                link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken="+ uViewModel.User.Pass_Token;
 
+                _userMan.Send_Reset_Password_Email(uViewModel.User.Email_Id, link, uViewModel.User);
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
             }
             catch (Exception ex)

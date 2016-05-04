@@ -27,7 +27,7 @@ namespace SMSPortal.Common
 			FriendlyMessage SYS04 = new FriendlyMessage("SYS04", MessageType.Information, "No records found.");
 			hash.Add("SYS04", SYS04);
 
-			FriendlyMessage SYS05 = new FriendlyMessage("SYS05", MessageType.Information, "Password has been changed successfully.");
+			FriendlyMessage SYS05 = new FriendlyMessage("SYS05", MessageType.Information, "Password has been changed successfully. You can use your new password to login.");
 			hash.Add("SYS05", SYS05);
 
 			FriendlyMessage SYS06 = new FriendlyMessage("SYS06", MessageType.Error, "You dont have online access. Please contact administrator.");
@@ -38,6 +38,9 @@ namespace SMSPortal.Common
 
             FriendlyMessage SYS08 = new FriendlyMessage("SYS08", MessageType.Error, "File not found, Please contact administrator.");
             hash.Add("SYS08", SYS08);
+
+            FriendlyMessage SYS09 = new FriendlyMessage("SYS09", MessageType.Error, "Link has expired.");
+            hash.Add("SYS09", SYS09);
 
 			#endregion
 
