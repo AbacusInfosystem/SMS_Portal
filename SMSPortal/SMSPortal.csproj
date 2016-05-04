@@ -203,6 +203,7 @@
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
     <Compile Include="Controllers\PostLogin\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PostLogin\ReceivableController.cs" />
+    <Compile Include="Controllers\PostLogin\SalesOrderController.cs" />
     <Compile Include="Controllers\PostLogin\SubCategoryController.cs" />
     <Compile Include="Controllers\PostLogin\TaxController.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
