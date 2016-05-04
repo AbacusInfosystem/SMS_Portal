@@ -115,6 +115,7 @@ namespace SMSPortalRepo
             orders.Swatch_Bharat_Tax = Convert.ToDecimal(dr["Swatch_Bharat_Tax"]);
             orders.Net_Amount = Convert.ToDecimal(dr["Net_Amount"]);
             orders.Status_Id = Convert.ToInt32(dr["Status"]);
+            orders.Shipping_Date = Convert.ToDateTime(dr["Shipping_Date"]);
             if (orders.Status_Id==1)
             {
                 orders.Status = "Order Received";
@@ -204,6 +205,8 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Order_Id", order.Order_Id));
 
             sqlParams.Add(new SqlParameter("@Status_Id", order.Status_Id));
+
+            sqlParams.Add(new SqlParameter("@Shipping_Date", order.Shipping_Date));
 
             _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Update_Order_Status_Sp.ToString(), CommandType.StoredProcedure);
         }
