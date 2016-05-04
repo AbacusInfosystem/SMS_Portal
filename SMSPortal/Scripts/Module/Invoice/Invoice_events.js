@@ -17,4 +17,14 @@ $(function () {
 
     });
 
+    $("#btnSendEmail").click(function () {
+
+        $("#frmCreateInvoice").attr("action", "/Invoice/Send_Mail/");
+
+        $("#frmCreateInvoice").attr("method", "POST");
+
+        $("#frmCreateInvoice").submit();
+
+    });
+
 });

@@ -95,7 +95,8 @@ function Bind_Dealers_Grid(data)
         if ($(this).prop('checked'))
         {
             $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
-            $("#btnEdit").show();                        
+            $("#btnEdit").show();
+            $("#btnAddUser").show();
             $("#btnDelete").show();
 
         }

@@ -212,6 +212,10 @@ namespace SMSPortal.Controllers.PostLogin
 
             string Product_Id = Request.Form.Get("Product_Id");
             bool Is_Default = Convert.ToBoolean(Request.Form.Get("Is_Default"));
+            if (pViewModel.ImagesList.Count == 0)
+            {
+                Is_Default = true;
+            }
 
             pViewModel.ProductImage.File = fileBase;
 

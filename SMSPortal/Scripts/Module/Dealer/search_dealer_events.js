@@ -13,6 +13,13 @@ $(document).ready(function ()
         $("#frmDealer").submit();
     });
 
+    $("#btnAddUser").click(function () {
+        $("#frmDealer").attr("action", "/dealer/add-dealer-user/");
+        $("#frmDealer").attr("method", "post");
+        $("#frmDealer").submit();
+    });
+
+
     $("#btnSearch").click(function () {
         Search_Dealers();
     });

@@ -104,20 +104,46 @@ namespace SMSPortalRepo
         {
             DealerInfo dealer = new DealerInfo();
 
+            if (!dr.IsNull("Dealer_Id"))
             dealer.Dealer_Id = Convert.ToInt32(dr["Dealer_Id"]);
+
+            if (!dr.IsNull("Dealer_Name"))
             dealer.Dealer_Name = Convert.ToString(dr["Dealer_Name"]);
+
+            if (!dr.IsNull("Brand_Id"))
             dealer.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+
+            if (!dr.IsNull("Brand_Name"))
             dealer.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+
+            if (!dr.IsNull("Address"))
             dealer.Address = Convert.ToString(dr["Address"]);
+
+            if (!dr.IsNull("City"))
             dealer.City = Convert.ToString(dr["City"]);
+
+            if (!dr.IsNull("State"))
             dealer.State = Convert.ToInt32(dr["State"]);
+
             dealer.State_Name = Convert.ToString(dr["State_Name"]);
+
+            if (!dr.IsNull("Pincode"))
             dealer.Pincode = Convert.ToInt32(dr["Pincode"]);
+
+            if (!dr.IsNull("Contact_No_1"))
             dealer.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
+
+            if (!dr.IsNull("Contact_No_2"))
             dealer.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
+
             dealer.Email = Convert.ToString(dr["Email"]);
+
+            if (!dr.IsNull("Dealer_Percentage_Share"))
             dealer.Dealer_Percentage_Share = Convert.ToInt32(dr["Dealer_Percentage_Share"]);
+
+            if (!dr.IsNull("Brand_Percentage_Share"))
             dealer.Brand_Percentage_Share = Convert.ToInt32(dr["Brand_Percentage_Share"]);
+
             dealer.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
             dealer.Created_On = Convert.ToDateTime(dr["Created_On"]);
             dealer.Created_By = Convert.ToInt32(dr["Created_By"]);

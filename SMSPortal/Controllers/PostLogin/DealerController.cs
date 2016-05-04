@@ -7,6 +7,7 @@ using SMSPortalInfo.Common;
 using SMSPortalManager;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -165,6 +166,12 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error At Dealer_Controller - Get_Dealer_Autocomplete " + ex.ToString());
             }
             return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Add_Dealer_User(DealerViewModel dViewModel)
+        {
+            TempData["Dealer_Id"] = dViewModel.Dealer.Dealer_Id; 
+            return RedirectToAction("Index", "User");
         }
     }
 }

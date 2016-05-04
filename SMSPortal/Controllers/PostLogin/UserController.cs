@@ -78,6 +78,25 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
+                if (TempData["Brand_Id"] != null)
+                {
+                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Brand_Id"]);
+                    if (uViewModel.User.User_Id == 0)
+                    {
+                        uViewModel.User.Role_Id = 2;
+                        uViewModel.User.Entity_Id = (int)TempData["Brand_Id"];
+                    }
+                }
+                if (TempData["Dealer_Id"] != null)
+                {
+                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Dealer_Id"]);
+                    if (uViewModel.User.User_Id == 0)
+                    {
+                        uViewModel.User.Role_Id = 8;
+                        uViewModel.User.Entity_Id = (int)TempData["Dealer_Id"];
+                    }
+                } 
+
                 uViewModel.Roles = _userMan.Get_Roles();            
             }
             catch (Exception ex)
