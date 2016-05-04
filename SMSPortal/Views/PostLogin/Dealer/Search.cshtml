@@ -4,7 +4,7 @@
 <script src="~/Scripts/Module/Dealer/search_dealer_events.js"></script>
 <script src="~/Scripts/Module/Dealer/search_dealer_methods.js"></script>
 
-<form id="frmDealer" enctype="multipart/form-data">
+<form id="frmDealer">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -22,27 +22,51 @@
         </section>
 
         <!-- Main content -->
+
         <section class="content">
+
             <div class="row">
+
                 <div class="col-md-12">
+
                     <div class="box box-primary">
+
                         <div class="box-header with-border">
+
                             <h3 class="box-title">Dealer</h3>
+
                         </div>
+
                         <div class="box-body">
+
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+
                             <input type="hidden" id="hdnDealer_Id" name="Dealer.Dealer_Id" value="@Model.Dealer.Dealer_Id">
+
                             <div class="row">
+
                                 <div class="col-md-4">
+
                                     <div class="form-group auto-complete">
+
                                         <label for="Dealer" class="lookup-title">Dealers</label>
+
                                         <div class="input-group">
+
                                             <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Dealer_Name" id="txtDealer_Name" placeholder="Enter Dealer Name" value="@Model.Filter.Dealer_Name" data-table="Dealer" data-col="Dealer_Id,Dealer_Name" data-headernames="Dealer">
+                                            
                                             <input type="hidden" id="hdnDealerId" value="@Model.Filter.Dealer_Id" name="Filter.Dealer_Id" class="auto-complete-value" />
+
+                                            <input type="hidden" id="hdnBrandId" value="@Model.Filter.Brand_Id" name="Filter.Brand_Id" />
+
                                             <input type="hidden" id="hdnDealerName" value="@Model.Filter.Dealer_Name" name="Filter.Dealer_Name" class="auto-complete-label" />
+                                            
                                             <div class="input-group-addon">
+
                                                 <a href="#" class="text-muted" id="hrefDealer" role="button"><i class="fa fa-search"></i></a>
+                                            
                                             </div>
+
                                         </div>
                                     </div>                                    
                                 </div>
@@ -50,16 +74,26 @@
                             </div>
 
                             <div class="box-footer">
+
                                 <div class="row">
+
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
+
                                             <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddEdit_Dealer", "Dealer")">Create </a>
+                                            
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
+                                        
                                         </div>
 
                                         <div class="btn-group pull-right">
+
                                             <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
+
+                                            <button type="button" id="btnView" style="display:none;" class="btn btn-warning btn-sm">View</button>
+
+                                            <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
                                         </div>
                                     </div>
                                 </div>
@@ -72,32 +106,59 @@
             </div><!-- /.row -->
 
             <div class="row">
+
                 <div class="col-md-12">
+
                     <div class="box box-solid">
+
                         <div class="box-body table-responsive no-padding">
+
                             <table class="table table-striped" id="tblDealerMaster">
+
                                 <tr id="subhead">
+
                                     <th></th>
+
                                     <th>Dealer Name</th>
+
                                     <th>Associated Brand</th>
+
                                     <th>Status</th>
+
                                 </tr>
+
                             </table>
+
                         </div>
+
                         <div class="box-footer clearfix">
+
                                 <div class="pagination pagination-sm no-margin pull-right">
+
                                     <ul></ul>
+
                                 </div>
+
                                 <div id="divSearchGridOverlay" class="overlay">
+
                                     <i class="fa fa-refresh fa-spin"></i>
+
                                 </div>
+
                             </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
     </div>
+
     <!-- /.content-wrapper -->
+
 </form>
 
 

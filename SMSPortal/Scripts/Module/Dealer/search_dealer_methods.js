@@ -6,6 +6,8 @@ function Search_Dealers()
             Filter:
                 {
                     Dealer_Id: $('#hdnDealerId').val(),
+
+                    Brand_Id: $('#hdnBrandId').val()
                 },
             Pager:
                 {
@@ -48,8 +50,11 @@ function Bind_Dealers_Grid(data)
             htmlText += "<td>";
 
             if (data.Dealers[i].Is_Active.toString() == 'true')
+
                 htmlText += 'Active';
+
             else
+
                 htmlText += 'InActive';
 
             htmlText += "</td>";
@@ -57,6 +62,7 @@ function Bind_Dealers_Grid(data)
             htmlText += "</tr>";
         }
     }
+
     else
     {
         htmlText += "<tr>";
@@ -69,17 +75,22 @@ function Bind_Dealers_Grid(data)
     }
 
     $('#tblDealerMaster').find("tr:gt(0)").remove();
+
     $('#tblDealerMaster tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
+    $('.iradio-list').iCheck(
+        {
+            radioClass: 'iradio_square-green',
+
+            increaseArea: '20%' // optional
     });
 
     if (data.Dealers.length > 0)
     {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);
+
         if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "")
+
         {
             $('.pagination').html(data.Pager.PageHtmlString);
         }
@@ -91,21 +102,31 @@ function Bind_Dealers_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event) {
+    $('[name="r1"]').on('ifChanged', function (event)
+    {
         if ($(this).prop('checked'))
+
         {
             $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
-            $("#btnEdit").show();                        
+
+            $("#btnEdit").show();
+
             $("#btnDelete").show();
+
+            $("#btnView").show();
 
         }
     });
 
 }
 
-function PageMore(Id) {
+function PageMore(Id)
+{
 
-    $("#btnEdit").hide();    
+    $("#btnEdit").hide();
+
+    $("#btnView").hide();
+
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
     Search_Dealers();

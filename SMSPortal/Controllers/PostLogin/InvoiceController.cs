@@ -55,7 +55,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 iViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(iViewModel.Invoice.Invoice_Id);
                 iViewModel.Order = _OrdersManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
-                iViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+                //iViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
                 
             }
             catch (Exception ex)

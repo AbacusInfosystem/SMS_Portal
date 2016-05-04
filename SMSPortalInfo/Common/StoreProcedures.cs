@@ -153,8 +153,8 @@ namespace SMSPortalInfo.Common
         //Orders
         Get_Order_By_Id,
         Get_Order_Items_By_Order_Id,
-        Get_Orders
-        Get_Invoice_By_Id_Sp,
+        Get_Orders,
+         
 
         //Tax
 
