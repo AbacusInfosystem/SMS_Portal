@@ -38,7 +38,9 @@
                             <h3 class="box-title">Payables</h3>
                         </div>
                         <div class="box-body">
-                            <input type="hidden" id="hdnPayable_Id" value="@Model.Payable.Payable_Id" name="Payable.Payable_Id" />
+                            @*<input type="hidden" id="hdnPayable_Id" value="@Model.Payable.Payable_Id" name="Payable.Payable_Id" />*@
+                            <input type="hidden" id="hdnPurchaseOrder_Id" value="@Model.Payable.Purchase_Order_Id" name="Payable.Purchase_Order_Id" />
+                            <input type="hidden" id="hdnPurchase_Order_Amount" value="@Model.Payable.Purchase_Order_Amount" name="Payable.Purchase_Order_Amount" />
                
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <div class="row">
@@ -62,7 +64,7 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Payables")">Create </a>
+                                            @*<a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Payables")">Create </a>*@
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
                                         </div>
 

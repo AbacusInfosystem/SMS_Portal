@@ -224,6 +224,7 @@ namespace SMSPortalRepo
             product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
             product.Product_Image = Convert.ToString(dr["Image_Code"]);
+            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
             return product;
         }
 

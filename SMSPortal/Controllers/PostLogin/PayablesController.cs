@@ -49,7 +49,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 pager = pViewModel.Pager;
 
-                if (pViewModel.Filter.Purchase_Order_No != null)
+                if (pViewModel.Filter.Purchase_Order_Id != 0)
                 {
                     pViewModel.Payables = _payableManager.Get_Payable_By_Id(pViewModel.Filter.Purchase_Order_Id, ref pager);
                 }
@@ -73,9 +73,16 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(pViewModel.Payable.Payable_Id);
+
+                int Id = pViewModel.Payable.Purchase_Order_Id;
+
+                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(pViewModel.Payable.Purchase_Order_Id);
 
                 pViewModel.Payables = _payableManager.Get_Payable_Items_By_Id(pViewModel.Payable.Payable_Id);
+
+                pViewModel.Payable.Purchase_Order_Id = Id;
+
+                pViewModel.Payable.Purchase_Order_Amount = _payableManager.Get_Purchase_Order_Amount(Id);
             }
             catch (Exception ex)
             {
@@ -97,9 +104,11 @@ namespace SMSPortal.Controllers.PostLogin
 
                 _payableManager.Insert_PayableItems(pViewModel.Payable, pViewModel.Cookies.User_Id);
 
-                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(pViewModel.Payable.Payable_Id);
+                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(pViewModel.Payable.Purchase_Order_Id);
 
                 pViewModel.Payables = _payableManager.Get_Payable_Items_By_Id(pViewModel.Payable.Payable_Id);
+
+                //pViewModel.Payable.Status = _payableManager.Get_Payable_Status(pViewModel.Payable.Purchase_Order_Id);
 
                 pViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
 
@@ -108,7 +117,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-                Logger.Error("ReceivableController Insert " + ex);
+                Logger.Error("PayableController Insert " + ex);
             }
             TempData["pViewModel"] = pViewModel;
             return Json(pViewModel);
@@ -132,6 +141,22 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("payable Controller - Delete_payable_Data_By_Id " + ex.ToString());
             }
             return Json(pViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_Payable_Purchase_Order_Autocomplete(string purchaseorder)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+
+            try
+            {
+                autoList = _payableManager.Get_Payable_Purchase_Order_Autocomplete(purchaseorder);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error at Payable Controller - Get_Payable_Purchase_Order_Autocomplete " + ex.ToString());
+            }
+
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
 
     }

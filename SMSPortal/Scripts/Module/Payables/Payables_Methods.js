@@ -46,13 +46,15 @@ function Bind_Payable_Grid_Items(data) {
 
     var htmlText = "";
 
-    $("#txtPurchase_Order_No").val(data.Payable.Purchase_Order_Id),
+    //$("#txtPurchase_Order_No").val(data.Payable.Purchase_Order_Id),
 
     $("#hdnPayable_Id").val(data.Payable.Payable_Id),
 
     $("#hdnPurchase_Order_Id").val(data.Payable.Purchase_Order_Id),
 
     $("#txtPurchase_Order_Amount").val(data.Payable.Purchase_Order_Amount)
+
+    $("#txtBalance_Amount").val(data.Payable.Balance_Amount)
 
     $("#dvPurchase_Order").find(".autocomplete-text").trigger("focusout");
 
@@ -94,19 +96,19 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            if (data.Payables[i].Transaction_Type == 1) {
-                data.Payables[i].Transaction_Type = 'Cheque'
-            }
+            //if (data.Payables[i].Transaction_Type == 1) {
+            //    data.Payables[i].Transaction_Type = 'Cheque'
+            //}
 
-            if (data.Payables[i].Transaction_Type == 2) {
-                data.Payables[i].Transaction_Type = 'Neft'
-            }
+            //if (data.Payables[i].Transaction_Type == 2) {
+            //    data.Payables[i].Transaction_Type = 'Neft'
+            //}
 
-            if (data.Payables[i].Transaction_Type == 3) {
-                data.Payables[i].Transaction_Type = 'Credit-Debit Card'
-            }
+            //if (data.Payables[i].Transaction_Type == 3) {
+            //    data.Payables[i].Transaction_Type = 'Credit-Debit Card'
+            //}
 
-            htmlText += data.Payables[i].Transaction_Type == null ? "" : data.Payables[i].Transaction_Type;
+            htmlText += data.Payables[i].Transaction_Type_Name == null ? "" : data.Payables[i].Transaction_Type_Name;
 
             htmlText += "</td>";
 
@@ -184,7 +186,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<button type='button' id='edit-Payable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditPayableData(" + data.Payables[i].Payable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
 
-            htmlText += "<button type='button' id='delete-Payable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeletPayableData(" + data.Payables[i].Payable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
+            //htmlText += "<button type='button' id='delete-Payable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeletPayableData(" + data.Payables[i].Payable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
 
             htmlText += "</td>";
 
@@ -228,6 +230,7 @@ function Bind_Payable_Grid_Items(data) {
 function EditPayableData(id) {
     alert(143);
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
+    $('#drpTransaction').trigger('change');
     $("#txtPayable_Item_Amount").val($("#hdnPayable_Item_Amount" + id).val());
     $("#txtPayDate").val($("#hdnPayable_Date" + id).val());
     $("#txtBankName").val($("#hdnBank_Name" + id).val());
@@ -238,7 +241,7 @@ function EditPayableData(id) {
     $("#txtCredit_Debit").val($("#hdnCredit_Debit_Card" + id).val());
     $("#hdnPayable_Item_Id").val($("#hdnPayable_Item_Id" + id).val());
     $("#hdnPayable_Id").val($("#hdnPayable_Id" + id).val());
-    $('#drpTransaction').trigger('change');
+   
 
 }
 function DeletPayableData(id) {
