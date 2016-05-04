@@ -93,6 +93,12 @@ namespace SMSPortal
             url: "brand/brands-autocomplete/{brand}",
             defaults: new { controller = "Brand", action = "Get_Brand_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-7",
+            url: "brand/add-brand-user",
+            defaults: new { controller = "Brand", action = "Add_Brand_User", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
             #region Category
@@ -169,6 +175,11 @@ namespace SMSPortal
             defaults: new { controller = "Dealer", action = "Get_Dealer_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+            name: "Dealer-7",
+            url: "dealer/add-dealer-user",
+            defaults: new { controller = "Dealer", action = "Add_Dealer_User", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion
 
@@ -446,6 +457,29 @@ namespace SMSPortal
             name: "Sales_Order-4",
             url: "salesorder/salesorder-autocomplete/{orderno}",
             defaults: new { controller = "SalesOrder", action = "Get_Order_No_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
+            #region Tax
+
+
+            routes.MapRoute(
+            name: "Tax-1",
+            url: "tax/insert-tax",
+            defaults: new { controller = "Tax", action = "Insert_Tax", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Tax-2",
+            url: "tax/edit-tax",
+            defaults: new { controller = "Tax", action = "Update_Tax", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Tax-3",
+            url: "tax/get_tax_by_Id",
+            defaults: new { controller = "Tax", action = "Index", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion

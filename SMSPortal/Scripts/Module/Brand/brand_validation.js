@@ -11,6 +11,10 @@
             "Brand.Brand_Category":
                 {
                     required: true,
+                },
+            "Brand.Website_Url":
+                {
+                    required:true,
                 }
 
         },
@@ -23,7 +27,11 @@
             "Brand.Brand_Category":
             {
                required: "Brand Category is required."
-            }
+            },
+            "Brand.Website_Url":
+                {
+                    required: "Website Url is required",
+                }
 
         },
     });

@@ -214,5 +214,11 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(autoList, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Add_Brand_User(BrandViewModel bViewModel)
+        {
+            TempData["Brand_Id"] = bViewModel.Brand.Brand_Id;
+            return RedirectToAction("Index", "User");
+        }
     }
 }

@@ -205,6 +205,7 @@
     <Compile Include="Controllers\PostLogin\ReceivableController.cs" />
     <Compile Include="Controllers\PostLogin\SalesOrderController.cs" />
     <Compile Include="Controllers\PostLogin\SubCategoryController.cs" />
+    <Compile Include="Controllers\PostLogin\TaxController.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Models\PostLogin\ReceivableViewModel.cs" />
     <Compile Include="Models\PostLogin\SalesOrderViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
+    <Compile Include="Models\PostLogin\TaxViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PostLogin\VendorViewModel.cs" />
     <Compile Include="Models\PreLogin\LoginViewModel.cs" />
@@ -940,6 +942,7 @@
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\logo.png" />
     <Content Include="Scripts\additional-methods.min.js" />
     <Content Include="Scripts\generic.ajax.js" />
     <Content Include="Scripts\generic.autocomplete.js" />
@@ -975,7 +978,6 @@
     <Content Include="Scripts\Module\Dealer\search_dealer_events.js" />
     <Content Include="Scripts\Module\Dealer\search_dealer_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
-    <Content Include="Scripts\Module\Invoice\invoice_methods.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_methods.js" />
@@ -983,6 +985,9 @@
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-method.js" />
     <Content Include="Scripts\Module\Payables\Payables_events.js" />
     <Content Include="Scripts\Module\Payables\Payables_Methods.js" />
+    <Content Include="Scripts\Module\Payables\payable_validation.js" />
+    <Content Include="Scripts\Module\Payables\search_payable_event.js" />
+    <Content Include="Scripts\Module\Payables\search_payable_method.js" />
     <Content Include="Scripts\Module\Product\product_image_methods.js" />
     <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
@@ -1009,6 +1014,8 @@
     <Content Include="Scripts\Module\SubCategory\subcategory_events.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_methods.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_validation.js" />
+    <Content Include="Scripts\Module\Tax\Tax_events.js" />
+    <Content Include="Scripts\Module\Tax\Tax_mthod.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
     <Content Include="Scripts\Module\User\user_events.js" />
@@ -1134,6 +1141,8 @@
     <Content Include="Views\PostLogin\Dashboard\_AdminWidgets.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
     <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
+    <Content Include="Views\PostLogin\Tax\Index.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\Dealer_Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

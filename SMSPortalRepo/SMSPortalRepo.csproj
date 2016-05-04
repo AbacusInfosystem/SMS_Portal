@@ -60,6 +60,7 @@
     <Compile Include="ReceivableRepo.cs" />
     <Compile Include="StateRepo.cs" />
     <Compile Include="SubCategoryRepo.cs" />
+    <Compile Include="TaxRepo.cs" />
     <Compile Include="UserRepo.cs" />
     <Compile Include="VendorRepo.cs" />
   </ItemGroup>

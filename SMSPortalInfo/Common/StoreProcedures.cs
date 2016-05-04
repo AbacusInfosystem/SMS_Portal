@@ -30,6 +30,8 @@ namespace SMSPortalInfo.Common
         Get_Entity_By_Role_Sp,
         Check_Existing_User,
         Get_User_Autocomplete_Sp,
+        Get_Users_By_Entity_Id_Sp,
+        Get_User_By_Password_Token,
 
         //Sub Category
         Get_Sub_Category_Sp,
@@ -141,6 +143,8 @@ namespace SMSPortalInfo.Common
        Get_Payable_Data_By_Id_Sp,
         Get_Payable_By_Name_Sp,
         Get_Payable_Sp,
+        Delete_Payable_Data_Item_By_Id,
+        Get_Payable_Balance_Amount_By_Id_Sp,
 
         //Invoice
         Insert_Invoice_Sp,
@@ -151,6 +155,14 @@ namespace SMSPortalInfo.Common
         //Orders
         Get_Order_By_Id,
         Get_Order_Items_By_Order_Id,
+        Get_Orders,
+         
+
+        //Tax
+
+        Insert_Tax_Sp,
+        Update_Tax_Sp,
+        Get_Tax_By_Id_Sp
         Get_Orders,
         Get_Sales_Order_Sp,
         Get_Sales_OrderBy_Id_Sp,

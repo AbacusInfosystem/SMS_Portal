@@ -18,6 +18,7 @@ namespace SMSPortal.Controllers.PostLogin
         public InvoiceManager _invoiceManager;
         public DealerManager _dealerManager;
         public OrdersManager _OrdersManager;
+        public UserManager _userManager;
         public InvoiceController()
         {
             _invoiceManager = new InvoiceManager();
@@ -55,7 +56,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 iViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(iViewModel.Invoice.Invoice_Id);
                 iViewModel.Order = _OrdersManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
-                iViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+                //iViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
                 
             }
             catch (Exception ex)
@@ -110,6 +111,24 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error At Invoice_Controller - Get_Invoice_Autocomplete " + ex.ToString());
             }
             return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Send_Mail(InvoiceViewModel iViewModel)
+        {
+            try
+            {
+                iViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(iViewModel.Invoice.Invoice_Id);
+                iViewModel.Order = _OrdersManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
+                iViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+               _invoiceManager.Send_Invoice_Email(iViewModel.Dealer.Email, iViewModel.Invoice, iViewModel.Order,iViewModel.Dealer);
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Invoice_Controller - Send_Mail " + ex.ToString());
+            }
+            return View(iViewModel);
+        
         }
     }
 }

@@ -30,6 +30,9 @@
                         <li><a href="@Url.Action("Search","SalesOrder")"><i class=" fa fa-circle-o text-info"></i> Sales Orders </a></li>
                         <li><a href="@Url.Action("Search","Category")"><i class=" fa fa-circle-o text-info"></i> Category</a></li>
                         <li><a href="@Url.Action("Search","SubCategory")"><i class="fa fa-circle-o text-info"></i> SubCategory </a></li> 
+                        <li><a href="@Url.Action("Index","Tax")"><i class="fa fa-circle-o text-info"></i> Add Tax </a></li> 
+                     
+
                         @*<li class="treeview">
                             <a href="#"><i class="fa fa-circle-o text-info"></i><span>module 3</span></a>
                             <ul class="treeview-menu">
@@ -54,8 +57,28 @@
                    <li><a href="@Url.Action("Search", "Receivable")"><i class="fa fa-circle-o text-info"></i> Receivables </a></li>
                </ul>
            </li>  
+
+
+           @*//Brand*@
+
+           <li class="treeview">
+               <a href="#">
+                   <i class="fa fa-link"></i>
+                   <span>Brand</span>
+                   <i class="fa fa-angle-left pull-right"></i>
+               </a>
+               <ul class="treeview-menu">
+
+                   <li><a href="@Url.Action("Profile", "Brand")"><i class=" fa fa-circle-o text-info"></i> Profile </a></li>
+
+                
+                   <li><a href="@Url.Action("Search","Dealer")"><i class="fa fa-circle-o text-info"></i> Dealers </a></li>
+
+               </ul>
+           </li>  
           
             </ul>
     </section>
+
     <!-- /.sidebar -->
 </aside>

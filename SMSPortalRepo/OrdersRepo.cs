@@ -102,7 +102,6 @@ namespace SMSPortalRepo
         private OrdersInfo Get_Orders_Values(DataRow dr)
         {
             OrdersInfo orders = new OrdersInfo();
-
             orders.Order_Id = Convert.ToInt32(dr["Order_Id"]);
             orders.Order_No = Convert.ToString(dr["Order_No"]);
             orders.Dealer_Id = Convert.ToInt32(dr["Dealer_Id"]);
