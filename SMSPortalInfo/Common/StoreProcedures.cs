@@ -151,6 +151,11 @@ namespace SMSPortalInfo.Common
         //Orders
         Get_Order_By_Id,
         Get_Order_Items_By_Order_Id,
-        Get_Orders
+        Get_Orders,
+        Get_Sales_Order_Sp,
+        Get_Sales_OrderBy_Id_Sp,
+        Get_Dealer_Data_Sp,
+        Update_Order_Status_Sp,
+        Get_Order_No_Autocomplete_Sp,
 	}
 }

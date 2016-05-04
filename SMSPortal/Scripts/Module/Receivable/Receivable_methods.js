@@ -205,6 +205,8 @@ function Bind_Receivable_Grid_Items(data) {
 
     $("#divSearchGridOverlay").hide();
 
+    Friendly_Message(data);
+
     ClearReceivableData();
 
     //$('[name="r1"]').on('ifChanged', function (event) {

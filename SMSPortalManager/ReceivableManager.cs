@@ -53,10 +53,10 @@ namespace SMSPortalManager
            return _receivableRepo.Get_Receivable_Items_By_Id(receivable_Id);
        }
 
-       public void Delete_Receivable_Data_Item_By_Id(int receivable_Item_Id)
-       {
-           _receivableRepo.Delete_Receivable_Data_Item_By_Id(receivable_Item_Id);
-       }
+       //public void Delete_Receivable_Data_Item_By_Id(int receivable_Item_Id)
+       //{
+       //    _receivableRepo.Delete_Receivable_Data_Item_By_Id(receivable_Item_Id);
+       //}
 
        public List<AutocompleteInfo> Get_Invoice_Autocomplete(string invoice_No)
        {
@@ -68,10 +68,10 @@ namespace SMSPortalManager
            _receivableRepo.Send_Payment_Receipt(email_Id, receivableInfo, receivables);
        }
 
-       public string Get_Receivable_Status(int invoice_Id)
-       {
-           return _receivableRepo.Get_Receivable_Status(invoice_Id);
-       }
+       //public string Get_Receivable_Status(int invoice_Id)
+       //{
+       //    return _receivableRepo.Get_Receivable_Status(invoice_Id);
+       //}
 
        public decimal Get_Invoice_Amount(int invoice_Id)
        {

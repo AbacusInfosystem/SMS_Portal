@@ -203,7 +203,7 @@
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
     <Compile Include="Controllers\PostLogin\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PostLogin\ReceivableController.cs" />
-    <Compile Include="Controllers\PostLogin\SalesOrder.cs" />
+    <Compile Include="Controllers\PostLogin\SalesOrderController.cs" />
     <Compile Include="Controllers\PostLogin\SubCategoryController.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
@@ -225,6 +225,7 @@
     <Compile Include="Models\PostLogin\ProductViewModel.cs" />
     <Compile Include="Models\PostLogin\PurchaseOrderViewModel.cs" />
     <Compile Include="Models\PostLogin\ReceivableViewModel.cs" />
+    <Compile Include="Models\PostLogin\SalesOrderViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
     <Compile Include="Models\PostLogin\VendorViewModel.cs" />
@@ -999,7 +1000,10 @@
     <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
-    <Content Include="Scripts\Module\SalesOrder\search_sales_order_evnents.js" />
+    <Content Include="Scripts\Module\SalesOrder\sales_order_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\sales_order_methods.js" />
+    <Content Include="Scripts\Module\SalesOrder\search_sales_order_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\search_sales_order_methods.js" />
     <Content Include="Scripts\Module\SubCategory\search_subcategory_events.js" />
     <Content Include="Scripts\Module\SubCategory\serach_subcategory_methods.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_events.js" />
