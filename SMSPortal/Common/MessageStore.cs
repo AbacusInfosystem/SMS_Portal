@@ -167,6 +167,13 @@ namespace SMSPortal.Common
 
             #endregion
 
+            #region Receivables
+
+            FriendlyMessage RC001 = new FriendlyMessage("RC001", MessageType.Success, "Receivable data added successfully");
+            hash.Add("RC001", RC001);
+
+            #endregion
+
             #region Tax
 
             FriendlyMessage TO001 = new FriendlyMessage("TO001", MessageType.Success, "Tax added successfully");

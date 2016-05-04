@@ -28,19 +28,19 @@ namespace SMSPortalManager
             _dealerRepo.Update_Dealer(dealer);
         }
 
-        public List<DealerInfo> Get_Dealers(ref PaginationInfo Pager)
+        public List<DealerInfo> Get_Dealers(ref PaginationInfo Pager, int Brand_Id)
         {
-            return _dealerRepo.Get_Dealers(ref Pager);
+            return _dealerRepo.Get_Dealers(ref Pager, Brand_Id);
         }
 
-        public DealerInfo Get_Dealer_By_Id(int Dealer_Id)
+        public DealerInfo Get_Dealer_By_Id(int Dealer_Id, int Brand_Id)
         {
-            return _dealerRepo.Get_Dealer_By_Id(Dealer_Id);
+            return _dealerRepo.Get_Dealer_By_Id(Dealer_Id, Brand_Id);
         }
 
-        public List<DealerInfo> Get_Dealer_By_Id(int Dealer_Id, ref PaginationInfo Pager)
+        public List<DealerInfo> Get_Dealer_By_Id(int Dealer_Id, int Brand_Id, ref PaginationInfo Pager)
         {
-            return _dealerRepo.Get_Dealer_By_Id(Dealer_Id, ref Pager);
+            return _dealerRepo.Get_Dealer_By_Id(Dealer_Id, Brand_Id, ref Pager);
         }
 
         public bool Check_Existing_Dealer(string Dealer_Name)

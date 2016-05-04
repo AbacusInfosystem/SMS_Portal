@@ -128,9 +128,13 @@ namespace SMSPortalRepo
        {
            ReceivableInfo receivable = new ReceivableInfo();
 
+           if (!dr.IsNull("Status"))
            receivable.Status = Convert.ToString(dr["Status"]);
+           if (!dr.IsNull("Amount"))
            receivable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
+           if (!dr.IsNull("Invoice_No"))
            receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+           if (!dr.IsNull("Invoice_Id"))
            receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
 
            return receivable;
@@ -202,6 +206,11 @@ namespace SMSPortalRepo
                Receivable_Id = receivableInfo.Receivable_Id;
            }
 
+           if (receivableInfo.Balance_Amount == 0)
+           {
+               Update_Sales_Order_Status(receivableInfo.Invoice_Id);
+           }
+
            return Receivable_Id;
        }
 
@@ -270,7 +279,6 @@ namespace SMSPortalRepo
        private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id)
        {
            decimal Total_Balance_Amount = 0;
-          // decimal Amount = 0;
 
            List<SqlParameter> sqlParams = new List<SqlParameter>();
 
@@ -322,14 +330,14 @@ namespace SMSPortalRepo
            return sqlParams;
        }
 
-       public void Delete_Receivable_Data_Item_By_Id(int receivable_Item_Id)
-       {
-           List<SqlParameter> sqlparam = new List<SqlParameter>();
+       //public void Delete_Receivable_Data_Item_By_Id(int receivable_Item_Id)
+       //{
+       //    List<SqlParameter> sqlparam = new List<SqlParameter>();
 
-           sqlparam.Add(new SqlParameter("@Receivable_Item_Id", receivable_Item_Id));
+       //    sqlparam.Add(new SqlParameter("@Receivable_Item_Id", receivable_Item_Id));
 
-           _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Receivable_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
-       }
+       //    _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Receivable_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+       //}
 
        public List<AutocompleteInfo> Get_Invoice_Autocomplete(string invoice_No)
        {
@@ -358,19 +366,35 @@ namespace SMSPortalRepo
 
            string subject = " Payment receipt for invoice no : " + receivableInfo.Invoice_No;
 
-           html.Append("<h4> Hello, </h4> \n");
+           html.Append("<table width=1000px border=1 cellspacing=2 cellpadding=2 align=center bgcolor=White dir=ltr rules=all style=border-width: thin; line-height: normal; vertical-align: baseline; text-align: center; font-family: Calibri; font-size: medium; font-weight: normal; font-style: normal; font-variant: normal>");
 
-           html.Append("<h4> This is a payment receipt against invoice No : " + receivableInfo.Invoice_No + "</h4>");
-
-           html.Append("<br/>");
-
-           html.Append("<h4> Following are transaction details.</h4>");
-
-           html.Append("<br/>");
-
-           html.Append("<table width=600px border=1 cellspacing=2 cellpadding=2 align=center bgcolor=White dir=ltr rules=all style=border-width: thin; border-style: solid; line-height: normal; vertical-align: baseline; text-align: center; font-family: Calibri; font-size: medium; font-weight: normal; font-style: normal; font-variant: normal; color: #000000; list-style-type: none;>");
- 
            html.Append("<tr>");
+
+           html.Append("<td align='center' colspan='8'>");
+
+           html.Append("<h1><center>SMS</center></h1>\n");
+
+           html.Append("<h2><center>Payment Receipt</center></h2>");
+
+           html.Append("</td>");
+
+           html.Append("</tr>");
+
+           html.Append("<tr>");
+
+           html.Append("<td align='left' colspan='8'>");
+
+           html.Append("<p> Payment receipt for Invoice No : " + receivableInfo.Invoice_No + " of amount " + receivables[receivables.Count() - 1].Receivable_Item_Amount +"<br> Receipt Date : " + DateTime.Now.ToShortDateString()+" </p>");
+
+           html.Append("</td>");
+
+           html.Append("</tr>");
+
+           html.Append("<tr>");
+
+           html.Append("<td align='left' colspan='8'>");
+
+           html.Append("<table width=800px border=1 cellspacing=5 cellpadding=5 align=center bgcolor=White style=border-width: thin; line-height: normal; vertical-align: baseline; text-align: center>");
 
            html.Append("<td width='40px'>");
 
@@ -479,6 +503,12 @@ namespace SMSPortalRepo
 
            html.Append("</table>");
 
+           html.Append("</td>");
+
+           html.Append("</tr>");
+ 
+           html.Append("</table>");
+
            MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
 
 
@@ -502,27 +532,27 @@ namespace SMSPortalRepo
 
        }
 
-       public string Get_Receivable_Status(int invoice_Id)
-       {
-           string Status = "";
+       //public string Get_Receivable_Status(int invoice_Id)
+       //{
+       //    string Status = "";
 
-           List<SqlParameter> sqlParams = new List<SqlParameter>();
+       //    List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-           sqlParams.Add(new SqlParameter("@Invoice_Id", invoice_Id));
+       //    sqlParams.Add(new SqlParameter("@Invoice_Id", invoice_Id));
 
-           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Receivable_Status_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+       //    DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Receivable_Status_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
-           if (dt != null && dt.Rows.Count > 0)
-           {
-               foreach (DataRow dr in dt.Rows)
-               {
-                   if (!dr.IsNull("Status"))
-                       Status = Convert.ToString(dr["Status"]);
-               }
-           }
+       //    if (dt != null && dt.Rows.Count > 0)
+       //    {
+       //        foreach (DataRow dr in dt.Rows)
+       //        {
+       //            if (!dr.IsNull("Status"))
+       //                Status = Convert.ToString(dr["Status"]);
+       //        }
+       //    }
 
-           return Status;
-       }
+       //    return Status;
+       //}
 
        public decimal Get_Invoice_Amount(int invoice_Id)
        {
@@ -554,7 +584,7 @@ namespace SMSPortalRepo
 
            sqlParams.Add(new SqlParameter("@Order_Id", Order_Id));
 
-          _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Receivable_Status_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+           _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Update_Sales_Order_Status_Sp.ToString(), CommandType.StoredProcedure);
        }
     }
 }

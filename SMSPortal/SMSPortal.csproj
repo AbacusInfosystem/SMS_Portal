@@ -203,7 +203,6 @@
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
     <Compile Include="Controllers\PostLogin\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PostLogin\ReceivableController.cs" />
-    <Compile Include="Controllers\PostLogin\SalesOrder.cs" />
     <Compile Include="Controllers\PostLogin\SubCategoryController.cs" />
     <Compile Include="Controllers\PostLogin\TaxController.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
@@ -226,6 +225,7 @@
     <Compile Include="Models\PostLogin\ProductViewModel.cs" />
     <Compile Include="Models\PostLogin\PurchaseOrderViewModel.cs" />
     <Compile Include="Models\PostLogin\ReceivableViewModel.cs" />
+    <Compile Include="Models\PostLogin\SalesOrderViewModel.cs" />
     <Compile Include="Models\PostLogin\SubCategoryViewModel.cs" />
     <Compile Include="Models\PostLogin\TaxViewModel.cs" />
     <Compile Include="Models\PostLogin\UserViewModel.cs" />
@@ -1004,7 +1004,10 @@
     <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
-    <Content Include="Scripts\Module\SalesOrder\search_sales_order_evnents.js" />
+    <Content Include="Scripts\Module\SalesOrder\sales_order_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\sales_order_methods.js" />
+    <Content Include="Scripts\Module\SalesOrder\search_sales_order_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\search_sales_order_methods.js" />
     <Content Include="Scripts\Module\SubCategory\search_subcategory_events.js" />
     <Content Include="Scripts\Module\SubCategory\serach_subcategory_methods.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_events.js" />
@@ -1014,7 +1017,6 @@
     <Content Include="Scripts\Module\Tax\Tax_mthod.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
-    <Content Include="Scripts\Module\User\reset_password.js" />
     <Content Include="Scripts\Module\User\user_events.js" />
     <Content Include="Scripts\Module\User\user_method.js" />
     <Content Include="Scripts\Module\User\user_validation.js" />
@@ -1139,7 +1141,7 @@
     <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
     <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
     <Content Include="Views\PostLogin\Tax\Index.cshtml" />
-    <Content Include="Views\PreLogin\Login\Reset_Password.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\Dealer_Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

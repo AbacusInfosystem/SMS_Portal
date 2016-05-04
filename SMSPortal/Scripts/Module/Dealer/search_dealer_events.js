@@ -7,10 +7,31 @@ $(document).ready(function ()
 
     Search_Dealers();
 
-    $("#btnEdit").click(function () {
+    $("#btnEdit").click(function ()
+
+    {
+        $("#hdnMode").val("Edit");
+
         $("#frmDealer").attr("action", "/dealer/edit-dealer/");
+
         $("#frmDealer").attr("method", "post");
+
         $("#frmDealer").submit();
+
+    });
+
+    $("#btnView").click(function ()
+
+    {
+
+        $("#hdnMode").val("View");
+
+        $("#frmDealer").attr("action", "/dealer/edit-dealer/");
+
+        $("#frmDealer").attr("method", "POST");
+
+        $("#frmDealer").submit();
+
     });
 
     $("#btnAddUser").click(function () {
@@ -22,6 +43,7 @@ $(document).ready(function ()
 
     $("#btnSearch").click(function () {
         Search_Dealers();
+
     });
 
 });

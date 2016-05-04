@@ -45,4 +45,12 @@ namespace SMSPortalInfo.Common
         NEFT = 2,
         Credit_Debit = 3
     }
+
+    public enum OrderStatus
+    {
+        Order_Received = 1,
+        Order_Confirmed = 2,
+        Order_Dispatched = 3,
+        Order_Delivered = 4
+    }
 }

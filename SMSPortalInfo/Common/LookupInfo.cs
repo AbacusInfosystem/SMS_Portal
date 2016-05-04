@@ -41,5 +41,17 @@ namespace SMSPortalInfo.Common
 
             return Get_Transaction_Types;
         }
+
+        public static Dictionary<int, string> Get_Order_Status()
+        {
+            Dictionary<int, string> Get_Order_Status = new Dictionary<int, string>();
+
+            Get_Order_Status.Add(1, OrderStatus.Order_Received.ToString().Replace('_', ' ').ToString());
+            Get_Order_Status.Add(2, OrderStatus.Order_Confirmed.ToString().Replace('_', ' ').ToString());
+            Get_Order_Status.Add(3, OrderStatus.Order_Dispatched.ToString().Replace('_', ' ').ToString());
+            Get_Order_Status.Add(4, OrderStatus.Order_Delivered.ToString().Replace('_', ' ').ToString());
+
+            return Get_Order_Status;
+        }
 	}
 }
