@@ -227,8 +227,10 @@ namespace SMSPortalRepo
 
             int i = 1;
 
+            BrandRepo _brandRepo = new BrandRepo();
+            CategoryRepo _categoryRepo = new CategoryRepo();
+            SubCategoryRepo _subCategoryRepo = new SubCategoryRepo();
             List<ProductInfo> products = new List<ProductInfo>();
-
             List<SqlParameter> sqlParam = new List<SqlParameter>();
 
             //List<ExceptionInfo> exceptionList = new List<ExceptionInfo>();
@@ -251,6 +253,28 @@ namespace SMSPortalRepo
                         _product.Product_Description = Convert.ToString(dr["Product Description"]);
 
                         _product.Product_Price = Convert.ToDecimal(dr["Product Price"]);
+
+                        _product.Brand_Id = _brandRepo.Get_Brand_Id_By_Name(dr["Brand"].ToString());
+
+                        _product.Category_Id = _categoryRepo.Get_Category_Id_By_Name(dr["Category"].ToString());
+
+                        _product.SubCategory_Id = _subCategoryRepo.Get_SubCategory_Id_By_Name(_product.Category_Id ,dr["SubCategory"].ToString());
+
+                        _product.Is_Biddable = false;
+
+                        _product.Is_Active = true;
+
+                        _product.Created_By = 1;
+
+                        _product.Updated_By = 1;
+
+                        _product.Created_On = DateTime.Now;
+
+                        _product.Updated_On = DateTime.Now;
+
+                        Insert_Product(_product);
+
+
 
                         //_product.Default_Frame_Id = _vRepo.Get_Frame_Id_By_Object(_product.Object_Id, _product.Default_Frame_Name);
 
@@ -281,15 +305,15 @@ namespace SMSPortalRepo
 
                         //        if (Validation_Default_Fields(_product))
                         //        {
-                                    _product.Created_By = 1;
+                                    //_product.Created_By = 1;
 
-                                    _product.Updated_By = 1;
+                                    //_product.Updated_By = 1;
 
-                                    _product.Created_On = DateTime.Now;
+                                    //_product.Created_On = DateTime.Now;
 
-                                    _product.Updated_On = DateTime.Now;
+                                    //_product.Updated_On = DateTime.Now;
 
-                                    Insert_Product(_product);
+                                    //Insert_Product(_product);
                         //         }
                         //         else
                         //         {
@@ -362,6 +386,8 @@ namespace SMSPortalRepo
 
             return Is_Error;
         }
+
+         
 
          
     }
