@@ -195,7 +195,7 @@ namespace SMSPortalRepo
             else
             {
                 sqlParams.Add(new SqlParameter("@Cheque_Number", "NA"));
-                sqlParams.Add(new SqlParameter("@Cheque_Date", "01/02/1999"));
+                sqlParams.Add(new SqlParameter("@Cheque_Date", "01/01/1999"));
                 sqlParams.Add(new SqlParameter("@Bank_Name", "NA"));
                 sqlParams.Add(new SqlParameter("@IFSC_Code", "NA"));
                 sqlParams.Add(new SqlParameter("@NEFT", "NA"));

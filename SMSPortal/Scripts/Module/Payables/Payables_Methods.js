@@ -1,5 +1,5 @@
 ﻿function Save_Payable_Data() {
-    alert(3);
+    //alert(3);
     var pViewModel =
      {
          Payable:
@@ -35,7 +35,7 @@
              }
      }
 
-    CallAjax("/Payables/Insert_Payable", "json", JSON.stringify(pViewModel), "POST", "application/json", false, Bind_Payable_Grid_Items, "", null);
+    CallAjax("/Payable/Insert-Payable", "json", JSON.stringify(pViewModel), "POST", "application/json", false, Bind_Payable_Grid_Items, "", null);
 
 }
 
@@ -80,7 +80,12 @@ function Bind_Payable_Grid_Items(data) {
 
         htmlText += "<th>Payable Date</th>";
 
-        htmlText += "<th>Action</th>";
+        //htmlText += "<th>Action</th>";
+        if (data.Payable.Status != "Payment Done") {
+
+            htmlText += "<th>Action</th>";
+
+        }
 
         htmlText += "</tr>";
 
@@ -138,7 +143,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            htmlText += showChequeDate == null ? "" : showChequeDate;
+            htmlText += showChequeDate == "01/01/1999" ? "" : showChequeDate;
 
             htmlText += "</td>";
 
@@ -228,7 +233,7 @@ function Bind_Payable_Grid_Items(data) {
 }
 
 function EditPayableData(id) {
-    alert(143);
+    //alert(143);
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
     $('#drpTransaction').trigger('change');
     $("#txtPayable_Item_Amount").val($("#hdnPayable_Item_Amount" + id).val());
@@ -246,7 +251,7 @@ function EditPayableData(id) {
 }
 function DeletPayableData(id) {
 
-    alert("delete");
+    //alert("delete");
     $("#hdnPayable_Item_Id").val($("#hdnPayable_Item_Id" + id).val());
     $("#hdnPayable_Id").val($("#hdnPayable_Id" + id).val());
 

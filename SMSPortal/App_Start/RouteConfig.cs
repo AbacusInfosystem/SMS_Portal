@@ -8,11 +8,11 @@ using System.Web.Routing;
 
 namespace SMSPortal
 {
-	public class RouteConfig
-	{
-		public static void RegisterRoutes(RouteCollection routes)
-		{
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+    public class RouteConfig
+    {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             #region PostLogin
 
@@ -53,7 +53,7 @@ namespace SMSPortal
             url: "subcategory/update-subcategories",
             defaults: new { controller = "SubCategory", action = "Update_Subcategory", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
-          
+
             #endregion
 
             #region Brand
@@ -80,8 +80,8 @@ namespace SMSPortal
             name: "Brand-4",
             url: "brand/get-brand",
             defaults: new { controller = "Brand", action = "Get_Brand_By_Id", id = UrlParameter.Optional },
-            namespaces: new string[] { "SMSPortal.Controllers" });           
-                    
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             routes.MapRoute(
             name: "Brand-5",
             url: "brand/brands-upload-logo",
@@ -120,7 +120,7 @@ namespace SMSPortal
             url: "category/edit-category",
             defaults: new { controller = "Category", action = "Update_Category", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
-                       
+
             routes.MapRoute(
             name: "Category-4",
             url: "category/edit-category",
@@ -329,7 +329,7 @@ namespace SMSPortal
             url: "user/user-autocomplete/{user}",
             defaults: new { controller = "User", action = "Get_User_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
-                         
+
             #endregion
 
             #region Receivable
@@ -363,7 +363,23 @@ namespace SMSPortal
             url: "receivable/receivable-autocomplete/{invoiceno}",
             defaults: new { controller = "Receivable", action = "Get_Receivable_Invoice_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
-            
+
+            #endregion
+
+            #region Payable
+
+            routes.MapRoute(
+            name: "Payable-1",
+            url: "Payable/Insert-Payable",
+            defaults: new { controller = "Payables", action = "Insert_Payable", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+                routes.MapRoute(
+            name: "Payable-2",
+            url: "Payable/edit-payable",
+            defaults: new { controller = "Payables", action = "Get_Payables_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #region Purchase Order
@@ -430,7 +446,7 @@ namespace SMSPortal
             url: "invoice/get-invoice-autocomplete/{invoice}",
             defaults: new { controller = "Invoice", action = "Get_Invoice_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
-             
+
             #endregion
 
             #region Sales Order
@@ -513,5 +529,5 @@ namespace SMSPortal
             //  namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
         }
-	}
+    }
 }

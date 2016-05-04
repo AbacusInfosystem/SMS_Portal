@@ -19,7 +19,7 @@
 
     $(".fa-chevron-left").click(function () {
 
-        //$("form").validate().cancelSubmit = true;
+        $("form").validate().cancelSubmit = true;
 
         $("#frmPayableMaster").attr("action", "/Payables/Search/");
 

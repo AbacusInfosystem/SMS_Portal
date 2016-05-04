@@ -174,6 +174,13 @@ namespace SMSPortal.Common
 
             #endregion
 
+            #region Payables
+
+            FriendlyMessage PA001 = new FriendlyMessage("PA001", MessageType.Success, "Payable data added successfully");
+            hash.Add("PA001", PA001);
+
+            #endregion
+
             #region Tax
 
             FriendlyMessage TO001 = new FriendlyMessage("TO001", MessageType.Success, "Tax added successfully");

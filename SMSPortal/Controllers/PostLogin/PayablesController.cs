@@ -110,7 +110,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                 //pViewModel.Payable.Status = _payableManager.Get_Payable_Status(pViewModel.Payable.Purchase_Order_Id);
 
-                pViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
+                pViewModel.Friendly_Message.Add(MessageStore.Get("PA001"));
 
             }
             catch (Exception ex)
@@ -123,25 +123,25 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(pViewModel);
         }
 
-        public JsonResult Delete_payable_Data_By_Id(int payable_Item_Id, int payable_Id)
-        {
-            PayableViewModel pViewModel = new PayableViewModel();
-            try
-            {
-                _payableManager.Delete_Payable_Data_Item_By_Id(payable_Item_Id);
+        //public JsonResult Delete_payable_Data_By_Id(int payable_Item_Id, int payable_Id)
+        //{
+        //    PayableViewModel pViewModel = new PayableViewModel();
+        //    try
+        //    {
+        //        _payableManager.Delete_Payable_Data_Item_By_Id(payable_Item_Id);
 
-                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(payable_Id);
+        //        pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(payable_Id);
 
-                pViewModel.Payables = _payableManager.Get_Payable_Items_By_Id(payable_Id);
+        //        pViewModel.Payables = _payableManager.Get_Payable_Items_By_Id(payable_Id);
 
-                pViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
-            }
-            catch (Exception ex)
-            {
-                Logger.Error("payable Controller - Delete_payable_Data_By_Id " + ex.ToString());
-            }
-            return Json(pViewModel, JsonRequestBehavior.AllowGet);
-        }
+        //        pViewModel.Friendly_Message.Add(MessageStore.Get("RE001"));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.Error("payable Controller - Delete_payable_Data_By_Id " + ex.ToString());
+        //    }
+        //    return Json(pViewModel, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult Get_Payable_Purchase_Order_Autocomplete(string purchaseorder)
         {

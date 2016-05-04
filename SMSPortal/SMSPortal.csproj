@@ -1143,6 +1143,7 @@
     <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
     <Content Include="Views\PostLogin\Tax\Index.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Dealer_Detail.cshtml" />
+    <Content Include="Views\PostLogin\Brand\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
