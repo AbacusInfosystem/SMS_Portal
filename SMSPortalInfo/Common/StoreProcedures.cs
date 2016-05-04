@@ -167,7 +167,7 @@ namespace SMSPortalInfo.Common
 
         Insert_Tax_Sp,
         Update_Tax_Sp,
-        Get_Tax_By_Id_Sp
-     
+        Get_Tax_By_Id_Sp,
+      
 	}
 }
