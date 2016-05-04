@@ -30,6 +30,9 @@ namespace SMSPortalInfo.Common
         Get_Entity_By_Role_Sp,
         Check_Existing_User,
         Get_User_Autocomplete_Sp,
+        Get_Users_By_Entity_Id_Sp,
+        Get_User_By_Password_Token,
+        Reset_Password,
 
         //Sub Category
         Get_Sub_Category_Sp,
@@ -108,7 +111,7 @@ namespace SMSPortalInfo.Common
         Get_InvoiceNo_AutoComplete_Sp,
         Insert_Receivable_Data_Sp,
         Get_InvoiceNo_Sp,
-        Insert_Receivable_Sp,
+         Insert_Receivable_Sp,
         Insert_Receivable_Item_Data_Sp,
         Get_Receivable_Data_Item_By_Id_Sp,
         Get_Receivable_Data_By_Id_Sp,
@@ -156,6 +159,19 @@ namespace SMSPortalInfo.Common
         //Orders
         Get_Order_By_Id,
         Get_Order_Items_By_Order_Id,
-        Get_Orders
+        Get_Orders,
+        Get_Sales_Order_Sp,
+        Get_Sales_OrderBy_Id_Sp,
+        Get_Dealer_Data_Sp,
+        Update_Order_Status_Sp,
+        Get_Order_No_Autocomplete_Sp,
+         
+
+        //Tax
+
+        Insert_Tax_Sp,
+        Update_Tax_Sp,
+        Get_Tax_By_Id_Sp,
+      
 	}
 }

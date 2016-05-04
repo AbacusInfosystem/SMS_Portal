@@ -1,17 +1,11 @@
-﻿<script src="~/Scripts/Module/SalesOrder/search_sales_order_evnents.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
+﻿@model SMSPortal.Models.PostLogin.SalesOrderViewModel
+@using SMSPortalInfo.Common
 
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%',
-            toggle: true// optional
-        });
-
-    });
-</script>
+<script src="~/Scripts/Module/SalesOrder/search_sales_order_methods.js"></script>
+<script src="~/Scripts/Module/SalesOrder/search_sales_order_events.js"></script>
 
 <form id="frmSalesOrder" enctype="multipart/form-data">
+    <input type="hidden" id="hdnOrder_Id" name="Sales_Order.Order_Id" value="@Model.Sales_Order.Order_Id">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -38,13 +32,19 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color: #333">Order No</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtOrder_No" placeholder="Enter Order No" value="" maxlength="20">
+                                <div class="col-md-3">
+                                    <div class="form-group auto-complete">
+                                        <label for="Subcategory" class="lookup-title">Order No</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Order_No" id="txtOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-table="Orders" data-col="Order_Id,Order_No" data-headernames="Orders">
+                                            <input type="hidden" id="hdnOrderId" value="@Model.Filter.Order_Id" name="Filter.Order_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnOrderNo" value="@Model.Filter.Order_No" name="Filter.Order_No" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefOrder" role="button"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="box-footer">
@@ -55,11 +55,7 @@
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
                                         <div class="btn-group pull-right">
-
-                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("OrderDetails", "SalesOrder")">Details </a>
-                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("CreateInvoice", "Invoice")">Create Invoice</a>
-                                            @*<button type="button" id="btnOrderDetails" class="btn btn-warning btn-sm ">Create Inovice</button>
-    <button type="button" id="btnGenerateInvoice" class="btn btn-warning btn-sm ">Create Inovice </button>*@
+                                            <button type="button" id="btnOrderDetails" style="display:none;" class="btn btn-warning btn-sm ">Order Details</button>
                                         </div>
                                     </div>
                                 </div>
@@ -82,48 +78,18 @@
                                         <th>Order No</th>
                                         <th>Dealer Name</th>
                                         <th>Amount</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                     
+                                        <th>Status</th>                                    
                                     </tr>
-
-                                    <tr>
-                                        <td><input type="radio" id="rdo_BrandId1" name="SalesOrder" class="iradio-list " /></td>
-                                        <td>O123</td>
-                                        <td>Dealer 1</td>
-                                        <td>4000</td>
-                                        <td>04/01/2016</td>
-                                        <td>Active</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" id="rdo_BrandId1" name="SalesOrder" class="iradio-list " /></td>
-                                        <td>O123</td>
-                                        <td>Dealer 1</td>
-                                        <td>4000</td>
-                                        <td>04/01/2016</td>
-                                        <td>Active</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" id="rdo_BrandId1" name="SalesOrder" class="iradio-list " /></td>
-                                        <td>O123</td>
-                                        <td>Dealer 1</td>
-                                        <td>4000</td>
-                                        <td>04/01/2016</td>
-                                        <td>Active</td>
-                                    
-                                    </tr>
-                                     
-
                                 </table>
                            
-                            @*<div class="box-footer clearfix">
+                            <div class="box-footer clearfix">
                                     <div class="pagination pagination-sm no-margin pull-right">
                                         <ul></ul>
                                     </div>
                                     <div id="divSearchGridOverlay" class="overlay">
                                         <i class="fa fa-refresh fa-spin"></i>
                                     </div>
-                                </div>*@
+                                </div>
                         </div>
                     </div>
                 </div>

@@ -42,6 +42,7 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Brand_Name", brand.Brand_Name));
             sqlParams.Add(new SqlParameter("@Brand_Category", brand.Brand_Category));
             sqlParams.Add(new SqlParameter("@Brand_Logo", brand.Brand_Logo));
+            sqlParams.Add(new SqlParameter("@Website_Url", brand.Website_Url));
             sqlParams.Add(new SqlParameter("@Is_Active", brand.Is_Active));
 
             if (brand.Brand_Id == 0)
@@ -100,8 +101,13 @@ namespace SMSPortalRepo
         {
             BrandInfo brand = new BrandInfo();
 
+            if (!dr.IsNull("Brand_Id"))
             brand.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+
+            if (!dr.IsNull("Brand_Name"))
             brand.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+
+            if (!dr.IsNull("Brand_Category"))
             brand.Brand_Category = Convert.ToInt32(dr["Brand_Category"]);
 
             if(brand.Brand_Category== (int)BrandCategory.Elite)
@@ -117,7 +123,13 @@ namespace SMSPortalRepo
                 brand.Brand_Category_Name = BrandCategory.Beyond_Borders.ToString().Replace('_', ' ');
             }
 
+            if (!dr.IsNull("Brand_Logo"))
             brand.Brand_Logo = Convert.ToString(dr["Brand_Logo"]);
+
+            if (!dr.IsNull("Website_Url"))
+            brand.Website_Url = Convert.ToString(dr["Website_Url"]);
+
+            if (!dr.IsNull("Is_Active"))
             brand.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
             brand.Created_On = Convert.ToDateTime(dr["Created_On"]);
             brand.Created_By = Convert.ToInt32(dr["Created_By"]);

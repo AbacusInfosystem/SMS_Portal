@@ -1,25 +1,31 @@
 ﻿$(function () {
 
-    $(".fa-chevron-left").click(function () {
-        
-        $("#frmOrderDetails").attr("action", "/SalesOrder/Search/");
+    InitializeAutoComplete($('#txtOrderNo'));
 
-        $("#frmOrderDetails").attr("method", "POST");
+    $('#hdfCurrentPage').val(0);
 
-        $("#frmOrderDetails").submit();
+    Search_Sales_Order();
 
-    });
-});
+    $("#btnOrderDetails").click(function () {
 
-$(document).ready(function () {
+        $("#frmSalesOrder").attr("action", "/salesorder/edit-salesorder");
 
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
+        $("#frmSalesOrder").attr("method", "POST");
+
+        $("#frmSalesOrder").submit();
     });
 
+    $("#btnSearch").click(function () {
+
+        $('#hdfCurrentPage').val(0);
+
+        Search_Sales_Order();
+
+    });
+
+
 });
+
 
 
  

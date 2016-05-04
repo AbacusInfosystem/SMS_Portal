@@ -10,9 +10,11 @@ namespace SMSPortalInfo
     {
         public int Order_Id { get; set; }
 
-        public string Order_No { get; set; }
+        public string Order_No { get; set; } 
 
         public int Dealer_Id { get; set; }
+
+        public string Dealer_Name { get; set; }
 
         public DateTime Order_Date { get; set; }
 
@@ -30,6 +32,16 @@ namespace SMSPortalInfo
 
         public decimal Net_Amount { get; set; }
 
+        public string Status { get; set; }
+
+        public int Status_Id { get; set; }
+
+        public int Invoice_Id { get; set; }
+
+        public string Invoice_No { get; set; }
+
+        public DateTime Shipping_Date { get; set; }
+
         public DateTime Created_On { get; set; }
 
         public int Created_By { get; set; }
@@ -38,9 +50,7 @@ namespace SMSPortalInfo
 
         public int Updated_By { get; set; }
 
-        public List<OrderItemInfo> OrderItems { get; set; }
-        
- 
+        public List<OrderItemInfo> OrderItems { get; set; }      
 
     }
 
@@ -51,6 +61,8 @@ namespace SMSPortalInfo
         public int Order_Id { get; set; }
 
         public int Product_Id { get; set; }
+
+        public string Product_Name { get; set; }
 
         public int Product_Quantity { get; set; }
 

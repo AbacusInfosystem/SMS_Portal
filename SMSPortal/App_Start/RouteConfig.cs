@@ -93,6 +93,12 @@ namespace SMSPortal
             url: "brand/brands-autocomplete/{brand}",
             defaults: new { controller = "Brand", action = "Get_Brand_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-7",
+            url: "brand/add-brand-user",
+            defaults: new { controller = "Brand", action = "Add_Brand_User", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
             #region Category
@@ -169,6 +175,11 @@ namespace SMSPortal
             defaults: new { controller = "Dealer", action = "Get_Dealer_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+            name: "Dealer-7",
+            url: "dealer/add-dealer-user",
+            defaults: new { controller = "Dealer", action = "Add_Dealer_User", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion
 
@@ -318,7 +329,7 @@ namespace SMSPortal
             url: "user/user-autocomplete/{user}",
             defaults: new { controller = "User", action = "Get_User_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
-
+                         
             #endregion
 
             #region Receivable
@@ -422,6 +433,57 @@ namespace SMSPortal
              
             #endregion
 
+            #region Sales Order
+
+            routes.MapRoute(
+           name: "Sales_Order-1",
+           url: "salesorde/get-orders",
+           defaults: new { controller = "SalesOrder", action = "Get_Orders", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Sales_Order-2",
+            url: "salesorder/edit-salesorder",
+            defaults: new { controller = "SalesOrder", action = "Index", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+           name: "Sales_Order-3",
+           url: "salesorder/update-salesorder-status",
+           defaults: new { controller = "SalesOrder", action = "Update_Order_Status_By_Id", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Sales_Order-4",
+            url: "salesorder/salesorder-autocomplete/{orderno}",
+            defaults: new { controller = "SalesOrder", action = "Get_Order_No_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
+            #region Tax
+
+
+            routes.MapRoute(
+            name: "Tax-1",
+            url: "tax/insert-tax",
+            defaults: new { controller = "Tax", action = "Insert_Tax", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Tax-2",
+            url: "tax/edit-tax",
+            defaults: new { controller = "Tax", action = "Update_Tax", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Tax-3",
+            url: "tax/get_tax_by_Id",
+            defaults: new { controller = "Tax", action = "Index", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
             #endregion
 
             #region PreLogin
@@ -444,6 +506,11 @@ namespace SMSPortal
               defaults: new { controller = "System", action = "UnAuthorize", id = UrlParameter.Optional },
               namespaces: new string[] { "SMSPortal.Controllers" });
 
+            //routes.MapRoute(
+            //  name: "login-3",
+            //  url: "login/reset-password/{passtoken}",
+            //  defaults: new { controller = "Login", action = "Reset_Password", id = UrlParameter.Optional },
+            //  namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
         }
 	}

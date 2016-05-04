@@ -49,5 +49,10 @@ namespace SMSPortalManager
         {
             return _invoiceRepo.Get_Invoice_Autocomplete(InvoiceNo);
         }
+
+        public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order,DealerInfo Dealer)
+        {
+            _invoiceRepo.Send_Invoice_Email(Email_Id, invoice, Order, Dealer);
+        }
     }
 }

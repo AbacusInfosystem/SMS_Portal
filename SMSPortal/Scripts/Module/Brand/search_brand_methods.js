@@ -110,7 +110,8 @@ function Bind_Brands_Grid(data)
         {            
             $("#hdnBrand_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
-            $("#btnUploadLogo").show();            
+            $("#btnUploadLogo").show();
+            $("#btnAddUser").show();            
             $("#btnDelete").show();
 
         }
