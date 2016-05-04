@@ -433,6 +433,34 @@ namespace SMSPortal
              
             #endregion
 
+            #region Sales Order
+
+            routes.MapRoute(
+           name: "Sales_Order-1",
+           url: "salesorde/get-orders",
+           defaults: new { controller = "SalesOrder", action = "Get_Orders", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Sales_Order-2",
+            url: "salesorder/edit-salesorder",
+            defaults: new { controller = "SalesOrder", action = "Index", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+           name: "Sales_Order-3",
+           url: "salesorder/update-salesorder-status",
+           defaults: new { controller = "SalesOrder", action = "Update_Order_Status_By_Id", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Sales_Order-4",
+            url: "salesorder/salesorder-autocomplete/{orderno}",
+            defaults: new { controller = "SalesOrder", action = "Get_Order_No_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
             #region Tax
 
 
