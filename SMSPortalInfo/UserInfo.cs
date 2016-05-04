@@ -32,9 +32,15 @@ namespace SMSPortalInfo
 
         public string Password { get; set; }
 
+        public string New_Password { get; set; }
+
+        public string Confirm_Password { get; set; }
+
         public int Entity_Id { get; set; }
 
         public int Role_Id { get; set; }
+
+        public string Pass_Token { get; set; }
 
         public bool Is_Active { get; set; }
 

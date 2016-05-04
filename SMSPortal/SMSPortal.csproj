@@ -1014,6 +1014,7 @@
     <Content Include="Scripts\Module\Tax\Tax_mthod.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
+    <Content Include="Scripts\Module\User\reset_password.js" />
     <Content Include="Scripts\Module\User\user_events.js" />
     <Content Include="Scripts\Module\User\user_method.js" />
     <Content Include="Scripts\Module\User\user_validation.js" />
@@ -1138,6 +1139,7 @@
     <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
     <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
     <Content Include="Views\PostLogin\Tax\Index.cshtml" />
+    <Content Include="Views\PreLogin\Login\Reset_Password.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

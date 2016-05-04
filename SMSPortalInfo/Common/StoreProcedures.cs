@@ -32,6 +32,7 @@ namespace SMSPortalInfo.Common
         Get_User_Autocomplete_Sp,
         Get_Users_By_Entity_Id_Sp,
         Get_User_By_Password_Token,
+        Reset_Password,
 
         //Sub Category
         Get_Sub_Category_Sp,
@@ -155,8 +156,7 @@ namespace SMSPortalInfo.Common
         //Orders
         Get_Order_By_Id,
         Get_Order_Items_By_Order_Id,
-        Get_Orders
-        Get_Invoice_By_Id_Sp,
+        Get_Orders,         
 
         //Tax
 
