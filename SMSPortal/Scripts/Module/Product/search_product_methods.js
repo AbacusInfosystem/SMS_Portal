@@ -2,7 +2,20 @@
 {    
     $('#div_Parent_Modal_Fade').modal('show');
     $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Product Image");
+}
 
+function excel_call_back(data) {
+    $('#div_Parent_Modal_Fade').modal('show');
+    $("#div_Parent_Modal_Fade").find(".modal-title").text("Upload Excel");
+
+    $('#btnUploadExcel').click(function (event) {
+        if ($('#frmProductUpload').valid()) {
+            $('#frmProductUpload').attr("action", "/product/product-excel-upload/");
+            $('#frmProductUpload').attr("method", "post");
+            $('#frmProductUpload').submit();
+        }
+
+    })
 }
 
 function Search_Products()
