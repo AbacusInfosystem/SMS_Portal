@@ -43,6 +43,8 @@ function Bind_Vendor_Product_Grid(data) {
             htmlText += "<img width='100' height='100' id='ProductImg1' src='/UploadedFiles/" + data.Products[i].Product_Image + "'/></br>";
 
             htmlText += "< label  " + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + " </br>";
+
+            htmlText += "< label  " + data.Products[i].Product_Price == null ? "" : data.Products[i].Product_Price + " </br>";
         
             
             var id = data.Products[i].Product_Id;
