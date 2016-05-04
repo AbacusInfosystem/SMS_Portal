@@ -26,7 +26,8 @@
                         </div>
                         <div class="box-body">
                             <input type="hidden" class="form-control input-sm" name="User.User_Id" id="hdf_UserId" placeholder="" value="@Model.User.User_Id">
-                            <input type="hidden" class="form-control input-sm" name="User.Entity_Id" id="hdf_EntityId" placeholder="" value="0">
+                            <input type="hidden" class="form-control input-sm" name="User.Entity_Id" id="hdf_EntityId" placeholder="" value="@Model.User.Entity_Id">
+                            <input type="hidden" class="form-control input-sm" name="User.Role_Id" id="hdf_RoleId" placeholder="" value="@Model.User.Role_Id">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -58,6 +59,7 @@
                                         <label style="color: #333">Role</label>
                                         <select id="drpRole" class="form-control" name="User.Role_Id">
                                             @*<option value="">-Select Role-</option>*@
+
                                             <option value="1" selected>Admin</option>
                                             @*@foreach (var item in Model.Roles)
                                                 {

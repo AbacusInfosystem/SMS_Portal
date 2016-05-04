@@ -93,6 +93,12 @@ namespace SMSPortal
             url: "brand/brands-autocomplete/{brand}",
             defaults: new { controller = "Brand", action = "Get_Brand_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-7",
+            url: "brand/add-brand-user",
+            defaults: new { controller = "Brand", action = "Add_Brand_User", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
             #region Category
@@ -169,6 +175,11 @@ namespace SMSPortal
             defaults: new { controller = "Dealer", action = "Get_Dealer_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+            name: "Dealer-7",
+            url: "dealer/add-dealer-user",
+            defaults: new { controller = "Dealer", action = "Add_Dealer_User", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion
 

@@ -18,6 +18,8 @@ namespace SMSPortalInfo
 
         public string Brand_Logo { get; set; }
 
+        public string Website_Url { get; set; }
+
         public bool Is_Active { get; set; }
 
         public DateTime Created_On { get; set; }

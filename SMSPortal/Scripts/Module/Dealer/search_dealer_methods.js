@@ -80,9 +80,9 @@ function Bind_Dealers_Grid(data)
 
     $('.iradio-list').iCheck(
         {
-            radioClass: 'iradio_square-green',
+        radioClass: 'iradio_square-green',
 
-            increaseArea: '20%' // optional
+        increaseArea: '20%' // optional
     });
 
     if (data.Dealers.length > 0)
@@ -109,8 +109,8 @@ function Bind_Dealers_Grid(data)
         {
             $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
 
-            $("#btnEdit").show();
-
+            $("#btnEdit").show();                        
+            $("#btnAddUser").show();
             $("#btnDelete").show();
 
             $("#btnView").show();
@@ -123,7 +123,7 @@ function Bind_Dealers_Grid(data)
 function PageMore(Id)
 {
 
-    $("#btnEdit").hide();
+    $("#btnEdit").hide();    
 
     $("#btnView").hide();
 
