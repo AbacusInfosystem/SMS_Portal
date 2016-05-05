@@ -11,7 +11,7 @@
 
                  Purchase_Order_Id: $("#hdnPurchase_Order_Id").val(),
 
-                 Purchase_Order_Amount: $("#hdnPurchase_Order_Amount").val(),
+                 Purchase_Order_Amount: $("#txtPurchase_Order_Amount").val(),
 
                  Payable_Item_Amount: $("#txtPayable_Item_Amount").val(),
 
@@ -83,7 +83,9 @@ function Bind_Payable_Grid_Items(data) {
         htmlText += "<th>Payable Date</th>";
 
         //htmlText += "<th>Action</th>";
-        if (data.Payable.Status != "Payment Done") {
+
+        if (data.Payable.Status != "Payment Done")
+        {
 
             htmlText += "<th>Action</th>";
 
@@ -91,7 +93,8 @@ function Bind_Payable_Grid_Items(data) {
 
         htmlText += "</tr>";
 
-        for (i = 0; i < data.Payables.length; i++) {
+        for (i = 0; i < data.Payables.length; i++)
+        {
 
             var showPayableDate = new Date(parseInt(data.Payables[i].Payable_Date.replace('/Date(', '')));
 
@@ -202,7 +205,10 @@ function Bind_Payable_Grid_Items(data) {
             htmlText += "</tr>";
         }
     }
-    else {
+
+    else
+
+    {
         htmlText += "<tr>";
 
         htmlText += "<td colspan='3'> No Record found.";
@@ -213,6 +219,7 @@ function Bind_Payable_Grid_Items(data) {
     }
 
     //$('#tblReceivableItems').find("tr:gt(0)").remove();
+
     $('#tblPayableItems').html(htmlText);
 
     //$('.iradio-list').iCheck({
@@ -236,8 +243,11 @@ function Bind_Payable_Grid_Items(data) {
 
 }
 
-function EditPayableData(id) {
-    alert(143);
+function EditPayableData(id)
+
+{
+    //alert(143);
+
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
 
     $('#drpTransaction').trigger('change');
@@ -261,7 +271,7 @@ function EditPayableData(id) {
     $("#hdnPayable_Item_Id").val($("#hdnPayable_Item_Id" + id).val());
 
     $("#hdnPayable_Id").val($("#hdnPayable_Id" + id).val());
-   
+
 
 }
 function DeletPayableData(id) {
@@ -277,26 +287,29 @@ function DeletPayableData(id) {
     var Payable_Id = $("#hdnPayable_Id").val();
 
     $.ajax(
+
         {
-        url: '/Payables/Delete_payable_Data_By_Id',
+            url: '/Payables/Delete_payable_Data_By_Id',
 
-        data: { Payable_Item_Id: Payable_Item_Id, Payable_Id: Payable_Id },
+            data: { Payable_Item_Id: Payable_Item_Id, Payable_Id: Payable_Id },
 
-        method: 'GET',
+            method: 'GET',
 
-        async: false,
+            async: false,
 
-            success: function (data)
-            {
+            success: function (data) {
 
-            Bind_Payable_Grid_Items(data);
+                Bind_Payable_Grid_Items(data);
 
-            Friendly_Message(data);
+                Friendly_Message(data);
 
-        }
-    });
+            }
+        });
+
 }
+
 function ClearPayableData()
+
 {
 
     $("#drpTransaction").val(0);

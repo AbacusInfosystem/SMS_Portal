@@ -1,11 +1,15 @@
-﻿function Search_Receivable() {
+﻿function Search_Receivable()
+{
     var rViewModel =
+
         {
             Filter:
+
                 {
                     Invoice_Id: $('#hdnInvoiceId').val(),
                 },
             Pager:
+
                 {
                     CurrentPage: $('#hdfCurrentPage').val(),
                 },
@@ -21,7 +25,8 @@ function Bind_Receivable_Grid(data) {
 
     if (data.Receivables.length > 0)
     {
-        for (i = 0; i < data.Receivables.length; i++) {
+        for (i = 0; i < data.Receivables.length; i++)
+        {
             htmlText += "<tr>";
 
             htmlText += "<td>";

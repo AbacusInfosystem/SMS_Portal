@@ -128,7 +128,8 @@ function Bind_Receivable_Grid(data)
 
 }
 
-function PageMore(Id) {
+function PageMore(Id)
+{
 
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 

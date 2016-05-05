@@ -34,6 +34,8 @@ namespace SMSPortalInfo.Common
         Get_Users_By_Entity_Id_Sp,
         Get_User_By_Password_Token,
         Reset_Password,
+        Get_User_Password_By_Id,
+        Get_User_By_Email,
 
         //Sub Category
         Get_Sub_Category_Sp,
@@ -141,7 +143,9 @@ namespace SMSPortalInfo.Common
         Insert_Purchase_Order_Item_Sp,
         Update_Purchase_Order_Item_Sp,
         Delete_Purchase_Order_Item_By_Id_Sp,
-        Check_DuplicateProduct_PurchaseOrder,         
+        Check_DuplicateProduct_PurchaseOrder,  
+        Update_Purchase_Order_Gross_Amount,
+        Get_Vendor_Product_Price_Id_Sp,
 
         //Payables
        Insert_Payable_Item_Data_Sp,

@@ -1,10 +1,14 @@
 ﻿@model SMSPortal.Models.PostLogin.PayableViewModel
 @using SMSPortalInfo.Common
 
+<script src="~/Scripts/Module/Vendor_Receivable/search_vendor_receivable_events.js"></script>
+
+<script src="~/Scripts/Module/Vendor_Receivable/search_vendor_receivable_methods.js"></script>
+
+
 <script type="text/javascript">
 
-    $(document).ready(function ()
-    {
+    $(document).ready(function () {
 
         $('.iradio-list').iCheck({
             radioClass: 'iradio_square-green',
@@ -15,10 +19,6 @@
 
 </script>
 
-<script src="~/Scripts/Module/Payables/search_payable_event.js"></script>
-
-<script src="~/Scripts/Module/Payables/search_payable_method.js"></script>
-
 <form id="frmPayable" enctype="multipart/form-data">
 
     <!-- Content Wrapper. Contains page content -->
@@ -26,14 +26,13 @@
     <div class="content-wrapper">
 
         <!-- Content Header (Page header) -->
-
         @*@{Html.RenderPartial("_ServerMessage");}*@
 
         <section class="content-header">
 
             <h1>
 
-                Payables Master
+                Vendor Receivable Master
 
                 <small></small>
 
@@ -42,7 +41,7 @@
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Payables</li>
+                <li class="active">Receivable</li>
             </ol>
 
         </section>
@@ -59,7 +58,7 @@
 
                         <div class="box-header with-border">
 
-                            <h3 class="box-title">Payables</h3>
+                            <h3 class="box-title">Receivable</h3>
 
                         </div>
 
@@ -70,7 +69,9 @@
                             <input type="hidden" id="hdnPurchaseOrder_Id" value="@Model.Payable.Purchase_Order_Id" name="Payable.Purchase_Order_Id" />
 
                             <input type="hidden" id="hdnPurchase_Order_Amount" value="@Model.Payable.Purchase_Order_Amount" name="Payable.Purchase_Order_Amount" />
-               
+
+                            <input type="hidden" id="hdnVendorId" value="@Model.Filter.Vendor_Id" name="Filter.Vendor_Id" />
+
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
 
                             <div class="row">
@@ -82,18 +83,18 @@
                                         <label style="color: #333">Purchase Order No</label>
 
                                         <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order no" value="@Model.Filter.Purchase_Order_No" maxlength="20">
-                                        @*<input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Payable.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order No" value="@(Model.Filter.Purchase_Order_Id == 0 ? "" : Model.Filter.Purchase_Order_Id.ToString())" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">*@
+
                                         @*<input type="hidden" id="hdnPurchase_Order_Number" value="@Model.Filter.Purchase_Order_Number" name="Filter.Purchase_Order_Number" class="auto-complete-value" />*@
-                                        
+
                                         <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
-                                        
+
                                         <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
-                                        
+
                                         @*<div class="input-group-addon">
 
-                    <a href="#" class="text-muted" id="hrefInvoice_No" role="button"><i class="fa fa-search"></i></a>
+                                                             <a href="#" class="text-muted" id="hrefInvoice_No" role="button"><i class="fa fa-search"></i></a>
 
-                </div>*@
+                                            </div>*@
 
                                     </div>
 
@@ -117,7 +118,7 @@
 
                                         <div class="btn-group pull-right">
 
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
+                                            <button type="button" id="btnView" class="btn btn-warning btn-sm">View</button>
 
                                             <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
 

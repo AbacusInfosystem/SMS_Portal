@@ -8,7 +8,7 @@ namespace SMSPortalInfo
 {
    public class PayableInfo
     {
-          public int  Payable_Id{ get; set; }
+        public int  Payable_Id{ get; set; }
 
         public int Payable_Item_Id { get; set; }
 

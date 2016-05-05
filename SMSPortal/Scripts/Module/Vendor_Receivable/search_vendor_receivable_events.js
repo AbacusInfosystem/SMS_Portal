@@ -7,15 +7,13 @@
     Search_Payable();
 
     $("#btnSearch").click(function ()
-
     {
         Search_Payable();
     });
 
-    $("#btnEdit").click(function ()
+    $("#btnView").click(function () {
 
-    {
-        $("#hdnMode").val("Edit");
+        $("#hdnMode").val("View");
 
         $("#frmPayable").attr("action", "/Payable/edit-payable");
 

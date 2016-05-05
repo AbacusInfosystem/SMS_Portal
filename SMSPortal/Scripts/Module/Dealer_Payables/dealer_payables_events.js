@@ -1,11 +1,14 @@
 ﻿$(function () {
 
-    $("#txtRecDate").datepicker({
-        autoclose: true,
-        enddate: null,
+    $("#txtRecDate").datepicker(
+        {
+            autoclose: true,
+
+            enddate: null,
     });
 
-    if ($("#hdnReceivable_Id").val() != 0) {
+    if ($("#hdnReceivable_Id").val() != 0)
+    {
         $("#dvInvoice").find(".autocomplete-text").trigger("focusout");
     }
 
@@ -21,32 +24,46 @@
 
     });
 
-    $("#drpTransaction").change(function () {
+    $("#drpTransaction").change(function ()
+    {
 
         $("#dvMain").html('');
 
-        if ($("#drpTransaction").val() == 1) {
+        if ($("#drpTransaction").val() == 1)
+        {
             var divHTML = $("#divCheque").html();
+
             $("#dvMain").html(divHTML);
-            $("#txtChequeDate").datepicker({
-                autoclose: true,
-                enddate: null,
+
+            $("#txtChequeDate").datepicker(
+                {
+
+                    autoclose: true,
+
+                    enddate: null,
             });
         }
-        else if ($("#drpTransaction").val() == 2) {
+
+        else if ($("#drpTransaction").val() == 2)
+        {
             var divHTML = $("#divNEFT").html();
+
             $("#dvMain").html(divHTML);
         }
-        else {
+        else
+        {
             var divHTML = $("#divCredit_Debit").html();
+
             $("#dvMain").html(divHTML);
         }
 
     });
 
-    $("#btnYes").click(function () {
+    $("#btnYes").click(function ()
+    {
 
-        if ($("#frmReceivable").valid()) {
+        if ($("#frmReceivable").valid())
+        {
             Save_Receivable_Data();
         }
 

@@ -39,11 +39,13 @@ namespace SMSPortal.Controllers.PostLogin
                 rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 if (rViewModel.Cookies.Role_Id == 1)
+
                    {
                        rViewModel.Filter.Dealer_Id = 0;
                    }
 
                    else
+
                    {
                        rViewModel.Filter.Dealer_Id = rViewModel.Cookies.Entity_Id;
                    }
@@ -51,6 +53,7 @@ namespace SMSPortal.Controllers.PostLogin
                }
 
             catch (Exception ex)
+
             {
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
@@ -78,10 +81,11 @@ namespace SMSPortal.Controllers.PostLogin
                 if (rViewModel.Filter.Invoice_Id != 0)
 
                 {
-                    rViewModel.Receivables = _receivableManager.Get_Receivable_By_Id(rViewModel.Filter.Dealer_Id, rViewModel.Filter.Invoice_Id, ref pager);
+                    rViewModel.Receivables = _receivableManager.Get_Receivable_By_Id(rViewModel.Filter.Invoice_Id, ref pager);
                 }
 
                 else
+
                 {
                     rViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, rViewModel.Filter.Dealer_Id);
                 }
@@ -98,6 +102,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                 Logger.Error("Error at Receivable Controller - Get_Receivables " + ex);
             }
+
             return Json(rViewModel);
         }
 
@@ -119,6 +124,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                 rViewModel.Receivable.Invoice_Amount = _receivableManager.Get_Invoice_Amount(Id);
             }
+
             catch (Exception ex)
             {
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
@@ -128,9 +134,11 @@ namespace SMSPortal.Controllers.PostLogin
 
 
             if (rViewModel.Filter.Mode == "Edit")
+
             {
                 return View("Index", rViewModel);
             }
+
             else
             {
                 return View("Dealer_Payables_Detail", rViewModel);
@@ -141,7 +149,9 @@ namespace SMSPortal.Controllers.PostLogin
         public JsonResult Insert_Receivable(ReceivableViewModel rViewModel)
         {
             try
+
             {
+
                 rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 rViewModel.Receivable.Receivable_Id = _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id);
@@ -160,6 +170,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             catch (Exception ex)
+            
             {
 
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
@@ -208,6 +219,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return Json(autoList, JsonRequestBehavior.AllowGet);
+
         }
 
     }

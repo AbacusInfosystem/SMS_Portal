@@ -29,19 +29,23 @@ $(document).ready(function () {
 
         var Textboxname = "#" + $("#hdnLookupLabelId").val();
 
+
         // Get ProductInfo for Purchase order items
+        var vendor_id = $('#hdnVendorId').val();
+
         if ($("#hdnLookupLabelId").val() == "txtProductName");
         {
             $.ajax({
                 url: '/purchaseorder/Get_Product/',
-                data: { Product_Id: id },
+                data: { Product_Id: id, Vendor_Id: vendor_id },
                 method: 'GET',
                 async: false,
                 success: function (data) {
 
-                    if (data != null) {
-                        if(data.Product != null)
-                        $('#txtProductPrice').val(data.Product.Product_Price);
+                    if (data != null)
+                    {
+                        if (data.Product != null)
+                            $('#txtProductPrice').val(data.Product.Product_Price);
                     }
                 }
             });

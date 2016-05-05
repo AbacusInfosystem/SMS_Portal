@@ -64,6 +64,12 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
     var editValue = $("#hdnEditLookupValue").val();
 
+    //for Purchase order
+    var filterField = $("#" + $("#hdnLookupLabelId").val()).data("param");
+     
+    var filter = $('#' + filterField).val();
+    
+     
     if (modalExist == false) {
 
         page = 0;
@@ -75,7 +81,7 @@ function Get_Autocomplete_Lookup(openModal,elementObj, modalExist) {
 
     if (openModal) {
 
-        $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page, editValue: editValue },
+        $("#" + model).find(".modal-body").load("/autocomplete/autocomplete-get-lookup-data/", { table_Name: tableName, columns: column, headerNames: headerNames, page: page, editValue: editValue, filter: filter },
             function () {
 
                 $("#" + model).find(".modal-title").text($("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " List");

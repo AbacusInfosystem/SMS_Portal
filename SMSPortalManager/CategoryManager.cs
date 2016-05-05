@@ -58,9 +58,6 @@ namespace SMSPortalManager
             return _categoryRepo.Get_Category_Autocomplete(Category);
         }
 
-        public int Get_Category_Id_By_Name(string Category_Name)
-        {
-            return _categoryRepo.Get_Category_Id_By_Name(Category_Name);
-        }
+       
     }
 }

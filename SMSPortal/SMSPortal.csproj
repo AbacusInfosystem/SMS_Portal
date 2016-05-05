@@ -1063,6 +1063,11 @@
     <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_validation.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\search_vendor_receivable_events.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\search_vendor_receivable_methods.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\vendor_receivable_events.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\vendor_receivable_methods.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\vendor_receivable_validation.js" />
     <Content Include="Scripts\printThis.js" />
     <Content Include="UploadedFiles\0_Penguins.jpg" />
     <Content Include="UploadedFiles\1_Penguins.jpg" />
