@@ -3,50 +3,51 @@
     alert("validation")
 
     $("#frmPayableMaster").validate(
+
         {
 
             errorClass: 'login-error',
 
             rules:
+
                 {
-          
-                "Payable.Payable_Date":
+                    "Payable.Payable_Date":
 
-                    {
-                        required: true,
-                 
-                    },
-                "Payable.Transaction_Type":
+                        {
+                            required: true,
 
-                    {
+                        },
+                    "Payable.Transaction_Type":
 
-                        required: true,
+                        {
 
-                        number_validation: true
+                            required: true,
 
-                    },
+                            number_validation: true
 
-                "Payable.Payable_Item_Amount":
+                        },
 
-                    {
+                    "Payable.Payable_Item_Amount":
 
-                        required: true,
+                        {
 
-                        check_balance_amount_validation: true
-              }
+                            required: true,
+
+                            check_balance_amount_validation: true
+                        }
                 },
 
             messages:
                 {
 
-        
+
 
                     "Payable.Payable_Date":
 
                         {
 
                             required: "Enter date.",
-               
+
 
                         },
 
@@ -55,7 +56,7 @@
                         {
 
                             required: "select atleast one transaction"
-              
+
 
                         },
 
@@ -66,25 +67,21 @@
                             required: "Amount is required."
 
                         }
-        },
-    });
+                },
+        });
 });
 
 
-jQuery.validator.addMethod("check_balance_amount_validation", function (value, element)
-
-{
+jQuery.validator.addMethod("check_balance_amount_validation", function (value, element) {
     var result = true;
 
-    if ($("#txtPayable_Item_Amount").val() != "")
-    {
+    if ($("#txtPayable_Item_Amount").val() != "") {
 
         var Balance_Amount = $("#txtBalance_Amount").val();
 
         var Entered_Amount = $("#txtPayable_Item_Amount").val();
 
         if (Balance_Amount == "0")
-
         {
             Balance_Amount = $("#txtPurchase_Order_Amount").val();
         }
@@ -101,7 +98,6 @@ jQuery.validator.addMethod("check_balance_amount_validation", function (value, e
 }, "Please enter amount less than balance amount.");
 
 jQuery.validator.addMethod("number_validation", function (value, element)
-
 {
     var result = true;
 
@@ -110,8 +106,7 @@ jQuery.validator.addMethod("number_validation", function (value, element)
 
         if ($("#drpTransaction").val() == "0")
         {
-
-            result = false;
+           result = false;
         }
 
     }

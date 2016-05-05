@@ -76,7 +76,8 @@ function Bind_Receivable_Grid_Items(data) {
 
         htmlText += "<th>Receivable Date</th>";
 
-        if (data.Receivable.Status != "Payment Done") {
+        if (data.Receivable.Status != "Payment Done")
+        {
 
             htmlText += "<th>Action</th>";
 
@@ -84,7 +85,8 @@ function Bind_Receivable_Grid_Items(data) {
 
         htmlText += "</tr>";
 
-        for (i = 0; i < data.Receivables.length; i++) {
+        for (i = 0; i < data.Receivables.length; i++)
+        {
 
             var showReceivableDate = new Date(parseInt(data.Receivables[i].Receivable_Date.replace('/Date(', '')));
 
@@ -189,6 +191,7 @@ function Bind_Receivable_Grid_Items(data) {
     }
 
     else
+
     {
         htmlText += "<tr>";
 
@@ -326,6 +329,7 @@ function Bind_Receivable_Grid_Items(data) {
 
 
 function EditReceivableData(id)
+
 {
 
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());

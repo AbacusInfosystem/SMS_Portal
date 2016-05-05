@@ -2,10 +2,9 @@
 
 @using SMSPortal.Common;
 
+<script src="~/Scripts/Module/Dealer_Payables/search_dealer_payables_events.js"></script>
 
-<script src="~/Scripts/Module/Receivable/search_receivable_event.js"></script>
-
-<script src="~/Scripts/Module/Receivable/search_receivable_method.js"></script>
+<script src="~/Scripts/Module/Dealer_Payables/search_dealer_payables_methods.js"></script>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -31,189 +30,95 @@
         </ol>
     </section>
 
-    <div class="row">
-
-        <div class="col-xs-12">
-
-            <div class="box">
-
-                <div class="box-body">
-
-                    <div class="row">
-
-                        <div class="col-md-12">
-
-                            <form id="frmReceivable">
-
-                                <table border="1" style="width:100%">
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">Transaction Type : </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtCustomer_Name">@Model.Receivable.Transaction_Type</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">Balance Amount : </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtCustomer_Address">@Model.Receivable.Balance_Amount</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">Bank Name : </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtTel_No">@Model.Receivable.Bank_Name</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">IFSC Code : </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtEmail">@Model.Receivable.IFSC_Code</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">Cheque Number :  </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtContact_Person">@Model.Receivable.Cheque_Number</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">Cheque Date : </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtContact_Person_Tel_No"> @Model.Receivable.Cheque_Date</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">NEFT : </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtContact_Person_Mobile_No"> @Model.Receivable.NEFT</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">Credit Debit Card : </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtEnquiry_No"> @Model.Receivable.Credit_Debit_Card</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <th style="padding: 5px; text-align: left; width:15%">Receivable Date : </th>
-
-                                        <td style="padding: 10px; text-align: left; width:85%">
-
-                                            @*<div class="form-group">*@
-
-                                            <label style="color: #333" for="txtEnquiry_Date"> @Model.Receivable.Receivable_Date</label>
-
-                                            @*</div>*@
-
-                                        </td>
-
-                                    </tr>
-
-                                </table>
-
-                                <div class="btn-group">
-
-                                    <input type="hidden" id="hdnDealerId" value="@Model.Filter.Dealer_Id" name="Filter.Dealer_Id"/>
-
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
-
+    <div style="align-content:center" class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-striped" id="tblReceivableItems">
+                        <tr id="subhead">
+
+                            <th>Transaction Type</th>
+                            <th>Amount</th>
+                            <th>Bank Name</th>
+                            <th>IFSC Code</th>
+                            <th>Cheque No</th>
+                            <th>Cheque Date</th>
+                            <th>NEFT Details</th>
+                            <th>Credit/Debit Card Details</th>
+                            <th>Receivable Date</th>
+                            @if (Model.Receivable.Status != "Payment Done")
+                            {
+                                <th>Action</th>
+                            }
+                        </tr>
+
+                        @if (Model.Receivables != null && Model.Receivables.Count() > 0)
+                        {
+                            int i = 1;
+                            foreach (var itm in Model.Receivables)
+                            {
+                                <tr id="tr(@itm.Receivable_Item_Id)">
+                                    <td>
+                                        <span> @itm.Transaction_Type_Name</span>
+                                        <input type="hidden" id="hdnTransaction_Type@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Transaction_Type">
+                                        <input type="hidden" id="hdnReceivable_Item_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Item_Id">
+                                        <input type="hidden" id="hdnReceivable_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Id">
+                                    </td>
+                                    <td>
+                                        <span> @itm.Receivable_Item_Amount</span>
+                                        <input type="hidden" id="hdnReceivable_Item_Amount@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Receivable_Item_Amount">
+                                    </td>
+                                    <td>
+                                        <span> @itm.Bank_Name</span>
+                                        <input type="hidden" id="hdnBank_Name@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
+                                    </td>
+                                    <td>
+                                        <span> @itm.IFSC_Code</span>
+                                        <input type="hidden" id="hdnIFSC_Code@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.IFSC_Code">
+                                    </td>
+                                    <td>
+                                        <span> @itm.Cheque_Number</span>
+                                        <input type="hidden" id="hdnCheque_Number@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
+                                    </td>
+                                    <td>
+                                        <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
+                                        <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
+                                    </td>
+                                    <td>
+                                        <span> @itm.NEFT</span>
+                                        <input type="hidden" id="hdnNEFT@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.NEFT">
+                                    </td>
+                                    <td>
+                                        <span> @itm.Credit_Debit_Card</span>
+                                        <input type="hidden" id="hdnCredit_Debit_Card@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Credit_Debit_Card">
+                                    </td>
+                                    <td>
+                                        <span> @itm.Receivable_Date.ToString("MM/dd/yyyy")</span>
+                                        <input type="hidden" id="hdnReceivable_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Receivable_Date.ToString("MM/dd/yyyy")">
+                                    </td>
+                                    <td>
+                                        @if (Model.Receivable.Status != "Payment Done")
+                                        {
+                                            <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-pencil'></i></button>
+                                            @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>*@
+                                        }
+
+                                    </td>
+                                </tr>
+                                        i = i + 1;
+                            }
+                        }
+
+                    </table>
                 </div>
-                <!-- /.box-body -->
-
+                <div class="box-footer clearfix">
+                    <div class="pagination pagination-sm no-margin pull-right">
+                        <ul></ul>
+                    </div>
+                </div>
             </div>
-            <!-- /.box -->
-
         </div>
-
     </div>
-
 
 
 </div>

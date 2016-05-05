@@ -8,8 +8,10 @@
             Filter:
 
                 {
-                    
+
                     Purchase_Order_Id: $('#hdnPurchase_Order_Id').val(),
+
+                    Vendor_Id: $('#hdnVendorId').val(),
                 },
 
             Pager:
@@ -32,6 +34,7 @@ function Bind_Payable_Grid(data)
 
     if (data.Payables.length > 0)
     {
+
         for (i = 0; i < data.Payables.length; i++)
         {
             htmlText += "<tr>";
@@ -88,7 +91,7 @@ function Bind_Payable_Grid(data)
 
 
             increaseArea: '20%' // optional
-    });
+        });
 
     if (data.Payables.length > 0)
     {
@@ -109,14 +112,14 @@ function Bind_Payable_Grid(data)
     $("#divSearchGridOverlay").hide();
 
     $('[name="r1"]').on('ifChanged', function (event)
-
     {
-        if ($(this).prop('checked'))
-        {
+        if ($(this).prop('checked')) {
 
             //$("#hdnPurchaseOrder_Id").val(this.id.replace("r1_", ""));
 
             var Id = this.id.replace("r1_", "");
+
+            $("#hdnVendor_Id").val(this.id.replace("r1_", ""));
 
             var String = Id.split("_");
 
@@ -124,7 +127,7 @@ function Bind_Payable_Grid(data)
 
             $("#hdnPurchase_Order_Amount").val(String[1]);
 
-            $("#btnEdit").show();
+            $("#btnView").show();
 
             $("#btnAddProductMapping").show();
 
@@ -135,7 +138,8 @@ function Bind_Payable_Grid(data)
 
 }
 
-function PageMore(Id) {
+function PageMore(Id)
+{
 
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 

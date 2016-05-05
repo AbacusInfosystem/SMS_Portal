@@ -11,6 +11,7 @@
     });
 
     $("#btnView").click(function ()
+
     {
         $("#hdnMode").val("View");
 
