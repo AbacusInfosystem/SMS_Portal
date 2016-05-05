@@ -38,7 +38,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-                Logger.Error("Error At Sub_Category_Controller - Search" + ex.Message);
+                Logger.Error("Error At Sales Order Controller - Search" + ex.Message);
             }
 
             return View("Search", sViewModel);
@@ -57,7 +57,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-                Logger.Error("Error At Sub_Category_Controller - Index " + ex.Message);
+                Logger.Error("Error At Sales Order Controller - Index " + ex.Message);
 
             }
 
@@ -78,7 +78,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    sViewModel.Sales_Orders = _orderManager.Get_Orders(ref pager);
+                    sViewModel.Sales_Orders = _orderManager.Get_Orders(ref pager, sViewModel.Dealer.Dealer_Id);
                 }
 
                 sViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", sViewModel.Pager.TotalRecords, sViewModel.Pager.CurrentPage + 1, sViewModel.Pager.PageSize, 10, true);
@@ -87,7 +87,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("Error At Sub_Category_Controller - Get_SubCategories" + ex.Message);
+                Logger.Error("Error At Sales Order Controller - Get_Orders" + ex.Message);
             }
 
             return Json(sViewModel);
@@ -108,7 +108,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
-                Logger.Error("Error At Sub_Category_Controller - Get_Subcategory_By_Id" + ex.Message);
+                Logger.Error("Error At Sales Order Controller - Update_Order_Status_By_Id" + ex.Message);
             }
 
             return View("Search", sViewModel);
@@ -134,10 +134,30 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("Error at Receivable Controller - Get_Receivable_Invoice_Autocomplete " + ex.ToString());
+                Logger.Error("Error at Sales Order Controller - Get_Order_No_Autocomplete " + ex.ToString());
             }
 
             return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Display_Dealer_Sales_Order_Details(SalesOrderViewModel sViewModel)
+        {
+            try
+            {
+                sViewModel.Sales_Order = _orderManager.Get_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
+                sViewModel.Dealer = _orderManager.Get_Dealer_Data_By_Id(sViewModel.Sales_Order.Dealer_Id);
+                sViewModel.Sales_Order.OrderItems = _orderManager.Get_Orders_Item_By_Id(sViewModel.Sales_Order.Order_Id);
+            }
+            catch (Exception ex)
+            {
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error At Sales Order Controller - Display_Dealer_Sales_Order_Details " + ex.Message);
+
+            }
+
+            return View("My_Order_Details", sViewModel);
         }
 
     }

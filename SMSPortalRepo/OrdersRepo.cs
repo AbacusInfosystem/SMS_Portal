@@ -55,10 +55,12 @@ namespace SMSPortalRepo
             return sqlParams;
         }
 
-        public List<OrdersInfo> Get_Orders(ref PaginationInfo Pager)
+        public List<OrdersInfo> Get_Orders(ref PaginationInfo Pager,int dealer_Id)
         {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Dealer_Id", dealer_Id));
             List<OrdersInfo> orderss = new List<OrdersInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Orders.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Orders.ToString(), CommandType.StoredProcedure);
 
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {

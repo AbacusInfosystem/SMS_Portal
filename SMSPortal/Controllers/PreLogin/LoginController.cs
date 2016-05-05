@@ -94,8 +94,6 @@ namespace SMSPortal.Controllers.PreLogin
 
         }
 
-
-
         public ActionResult Authenticate(LoginViewModel lViewModel)
         {
             try

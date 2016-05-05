@@ -348,5 +348,25 @@ namespace SMSPortal.Controllers.PostLogin
 
             return RedirectToAction("Profile");
         }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult My_Orders(SalesOrderViewModel sViewModel)
+        {
+            try
+            {
+                sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                sViewModel.Dealer.Dealer_Id = sViewModel.Cookies.Entity_Id;
+
+            }
+            catch (Exception ex)
+            {
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Dealer controller - My_Orders " + ex);
+            }
+
+            return View("My_Orders", sViewModel);
+        }
     }
 }

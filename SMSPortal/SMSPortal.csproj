@@ -1026,6 +1026,9 @@
     <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\my_order_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\sales_my_order_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\sales_my_order_methods.js" />
     <Content Include="Scripts\Module\SalesOrder\sales_order_events.js" />
     <Content Include="Scripts\Module\SalesOrder\sales_order_methods.js" />
     <Content Include="Scripts\Module\SalesOrder\search_sales_order_events.js" />
@@ -1177,6 +1180,8 @@
     <Content Include="Views\PostLogin\Vendor\Update_Profile.cshtml" />
     <Content Include="Views\PostLogin\Brand\Update_Profile.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Update_Profile.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\My_Orders.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\My_Order_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
