@@ -192,12 +192,21 @@ namespace SMSPortalRepo
             return autoList;
         }
 
-        public int Get_Brand_Id_By_Name(string Brand_Name)
+        public void Update_Brand_Profile(BrandInfo brand,int user_Id)
         {
-            List<SqlParameter>  sqlparam = new List<SqlParameter>();
-            sqlparam.Add(new SqlParameter("@BrandName", Brand_Name));
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Brand_Profile(brand, user_Id), StoreProcedures.Update_Brand_Profile_Sp.ToString(), CommandType.StoredProcedure);
+        }
 
-            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Brand_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        private List<SqlParameter> Set_Values_In_Brand_Profile(BrandInfo brand,int user_Id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@Brand_Id", brand.Brand_Id));
+            sqlParams.Add(new SqlParameter("@Brand_Name", brand.Brand_Name));
+            sqlParams.Add(new SqlParameter("@Brand_Category", brand.Brand_Category));
+            sqlParams.Add(new SqlParameter("@Website_Url", brand.Website_Url));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
+            return sqlParams;
         }
     }
 }

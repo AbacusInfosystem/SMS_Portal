@@ -53,5 +53,17 @@ namespace SMSPortalInfo.Common
 
             return Get_Order_Status;
         }
+
+        public static Dictionary<int, string> Get_Roles()
+        {
+            Dictionary<int, string> Get_Roles = new Dictionary<int, string>();
+
+            Get_Roles.Add(1, Roles.Admin.ToString());
+            Get_Roles.Add(2, Roles.Brand.ToString());
+            Get_Roles.Add(3, Roles.Dealer.ToString());
+            Get_Roles.Add(4, Roles.Vendor.ToString());
+
+            return Get_Roles;
+        }
 	}
 }

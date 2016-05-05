@@ -101,14 +101,12 @@ namespace SMSPortalRepo
             return dealers;
         }
 
-        public DealerInfo Get_Dealer_By_Id(int Dealer_Id, int Brand_Id)
+        public DealerInfo Get_Dealer_By_Id(int Dealer_Id)
         {
            
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
 
             sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
-
-            sqlParamList.Add(new SqlParameter("@Brand_Id", Brand_Id));
 
             DealerInfo dealer = new DealerInfo();
             
@@ -284,6 +282,46 @@ namespace SMSPortalRepo
             }
 
             return autoList;
+        }
+
+        public void Update_Dealer_Profile(DealerInfo dealer, int user_Id)
+        {
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer_Profile(dealer, user_Id), StoreProcedures.Update_Dealer_Profile_Sp.ToString(), CommandType.StoredProcedure);
+        }
+
+        private List<SqlParameter> Set_Values_In_Dealer_Profile(DealerInfo dealer, int user_Id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@Dealer_Id", dealer.Dealer_Id));
+
+            sqlParams.Add(new SqlParameter("@Dealer_Name", dealer.Dealer_Name));
+
+            sqlParams.Add(new SqlParameter("@Brand_Id", dealer.Brand_Id));
+
+            sqlParams.Add(new SqlParameter("@Address", dealer.Address));
+
+            sqlParams.Add(new SqlParameter("@City", dealer.City));
+
+            sqlParams.Add(new SqlParameter("@State", dealer.State));
+
+            sqlParams.Add(new SqlParameter("@Pincode", dealer.Pincode));
+
+            sqlParams.Add(new SqlParameter("@Contact_No_1", dealer.Contact_No_1));
+
+            sqlParams.Add(new SqlParameter("@Contact_No_2", dealer.Contact_No_2));
+
+            sqlParams.Add(new SqlParameter("@Email", dealer.Email));
+
+            sqlParams.Add(new SqlParameter("@Dealer_Percentage_Share", dealer.Dealer_Percentage_Share));
+
+            sqlParams.Add(new SqlParameter("@Brand_Percentage_Share", dealer.Brand_Percentage_Share));
+
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+
+            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
+
+            return sqlParams;
         }
          
     }

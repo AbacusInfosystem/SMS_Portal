@@ -355,7 +355,6 @@ namespace SMSPortalRepo
              client.Send(message);
          }
 
-
          public void Reset_Password(string New_Password, int User_Id,string Password_Token)
          {              
              try
@@ -371,7 +370,7 @@ namespace SMSPortalRepo
                  Logger.Error("UserRepo - Reset_Password: " + ex.ToString());
              }              
          }
-
+         
          public UserInfo Get_User_By_Email(string Email_Id)
          {
              List<SqlParameter> parameters = new List<SqlParameter>();

@@ -1,20 +1,28 @@
-﻿$(function () {
+﻿$(function ()
+{
     //alert(1);
+
     InitializeAutoComplete($('#txtPurchase_Order_No'));
 
     Search_Payable();
 
-    $("#btnSearch").click(function () {
+    $("#btnSearch").click(function ()
+
+    {
         Search_Payable();
     });
 
-    $("#btnEdit").click(function () {
+    $("#btnEdit").click(function ()
 
-        $("#frmPayables").attr("action", "/Payable/edit-payable");
+    {
+        $("#hdnMode").val("Edit");
 
-        $("#frmPayables").attr("method", "POST");
+        $("#frmPayable").attr("action", "/Payable/edit-payable");
 
-        $("#frmPayables").submit();
+        $("#frmPayable").attr("method", "POST");
+
+        $("#frmPayable").submit();
+
     });
 
 });

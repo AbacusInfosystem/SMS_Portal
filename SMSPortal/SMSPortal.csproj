@@ -972,13 +972,21 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Module\Brand\brand_events.js" />
+    <Content Include="Scripts\Module\Brand\brand_profile_events.js" />
+    <Content Include="Scripts\Module\Brand\brand_profile_methods.js" />
+    <Content Include="Scripts\Module\Brand\brand_profile_validation.js" />
     <Content Include="Scripts\Module\Brand\brand_validation.js" />
     <Content Include="Scripts\Module\Brand\search_brand_events.js" />
     <Content Include="Scripts\Module\Brand\search_brand_methods.js" />
+    <Content Include="Scripts\Module\Brand\update_brand_profile_events.js" />
+    <Content Include="Scripts\Module\Brand\update_brand_profile_methods.js" />
     <Content Include="Scripts\Module\Category\category_validation.js" />
     <Content Include="Scripts\Module\Category\search_category_methods.js" />
     <Content Include="Scripts\Module\Category\search_category_events.js" />
     <Content Include="Scripts\Module\Category\Category_events.js" />
+    <Content Include="Scripts\Module\Dealer\dealer_profile_events.js" />
+    <Content Include="Scripts\Module\Dealer\dealer_profile_methods.js" />
+    <Content Include="Scripts\Module\Dealer\dealer_profile_validation.js" />
     <Content Include="Scripts\Module\Dealer\dealer_validation.js" />
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Dealer\search_dealer_events.js" />
@@ -988,6 +996,8 @@
     <Content Include="Scripts\Module\Dealer_Payables\dealer_payables_validation.js" />
     <Content Include="Scripts\Module\Dealer_Payables\search_dealer_payables_events.js" />
     <Content Include="Scripts\Module\Dealer_Payables\search_dealer_payables_methods.js" />
+    <Content Include="Scripts\Module\Dealer\update_dealer_profile_events.js" />
+    <Content Include="Scripts\Module\Dealer\update_dealer_profile_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
@@ -1037,6 +1047,8 @@
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
     <Content Include="Scripts\Module\Receivable\search_receivable_event.js" />
     <Content Include="Scripts\Module\Receivable\search_receivable_method.js" />
+    <Content Include="Scripts\Module\Vendor\update_vendor_profile_events.js" />
+    <Content Include="Scripts\Module\Vendor\update_vendor_profile_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_bank_details_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendor_mapping_events.js" />
@@ -1044,9 +1056,15 @@
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_profile_validation.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_validation.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\search_vendor_receivable_events.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\search_vendor_receivable_methods.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\vendor_receivable_events.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\vendor_receivable_methods.js" />
+    <Content Include="Scripts\Module\Vendor_Receivable\vendor_receivable_validation.js" />
     <Content Include="Scripts\printThis.js" />
     <Content Include="UploadedFiles\0_Penguins.jpg" />
     <Content Include="UploadedFiles\1_Penguins.jpg" />
@@ -1159,6 +1177,11 @@
     <Content Include="Views\PreLogin\Login\Reset_Password.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Searches.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Dealer_Payables_Detail.cshtml" />
+    <Content Include="Views\PostLogin\Brand\Profile.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\Profile.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\Update_Profile.cshtml" />
+    <Content Include="Views\PostLogin\Brand\Update_Profile.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\Update_Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

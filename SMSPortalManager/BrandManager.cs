@@ -62,5 +62,10 @@ namespace SMSPortalManager
         {
             return _brandRepo.Get_Brand_Autocomplete(brandName);
         }
+
+        public void Update_Brand_Profile(BrandInfo brand,int user_Id)
+        {
+            _brandRepo.Update_Brand_Profile(brand, user_Id);
+        }
     }
 }

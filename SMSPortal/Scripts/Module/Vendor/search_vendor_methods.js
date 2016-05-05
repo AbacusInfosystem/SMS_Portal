@@ -88,7 +88,7 @@ function Bind_Vendors_Grid(data) {
             $("#btnEdit").show();
             $("#btnAddProductMapping").show();
             $("#btnDelete").show();
-
+            $("#btnAddUser").show();
         }
     });
 
