@@ -23,13 +23,11 @@ namespace SMSPortalRepo
            _sqlRepo = new SQLHelper();
        }
 
-       public List<ReceivableInfo> Get_Receivable_By_Id(int Dealer_Id, int invoice_Id, ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivable_By_Id(int invoice_Id, ref PaginationInfo pager)
        {
            List<SqlParameter> sqlParamList = new List<SqlParameter>();
 
            sqlParamList.Add(new SqlParameter("@Invoice_Id", invoice_Id));
-
-           sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
 
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
 
@@ -97,35 +95,55 @@ namespace SMSPortalRepo
            ReceivableInfo receivable = new ReceivableInfo();
 
            receivable.Receivable_Item_Id = Convert.ToInt32(dr["Receivable_Item_Id"]);
-           receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);           
+
+           receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);    
+       
            receivable.Receivable_Date = Convert.ToDateTime(dr["Receivable_Date"]);
+
            receivable.Receivable_Item_Amount = Convert.ToDecimal(dr["Receivable_Item_Amount"]);
+
            receivable.Transaction_Type = Convert.ToInt32(dr["Transaction_Type"]);
 
            if (receivable.Transaction_Type==1)
+
            {
                receivable.Transaction_Type_Name = "Cheque";
            }
+
            else if (receivable.Transaction_Type == 2)
+
            {
                receivable.Transaction_Type_Name = "NEFT";
            }
+
            else
+
            {
                receivable.Transaction_Type_Name = "Credit/Debit Card";
            }
 
            if (!dr.IsNull("Cheque_Number"))
+
            receivable.Cheque_Number = Convert.ToString(dr["Cheque_Number"]);
+
            if (!dr.IsNull("Cheque_Date"))
+
            receivable.Cheque_Date = Convert.ToDateTime(dr["Cheque_Date"]);
+
            if (!dr.IsNull("IFSC_Code"))
+
            receivable.IFSC_Code = Convert.ToString(dr["IFSC_Code"]);
+
            if (!dr.IsNull("Bank_Name"))
+
            receivable.Bank_Name = Convert.ToString(dr["Bank_Name"]);
+
            if (!dr.IsNull("NEFT"))
+
            receivable.NEFT = Convert.ToString(dr["NEFT"]);
+
            if (!dr.IsNull("Credit_Debit_Card"))
+
            receivable.Credit_Debit_Card = Convert.ToString(dr["Credit_Debit_Card"]);
 
            return receivable;
@@ -136,12 +154,19 @@ namespace SMSPortalRepo
            ReceivableInfo receivable = new ReceivableInfo();
 
            if (!dr.IsNull("Status"))
+
            receivable.Status = Convert.ToString(dr["Status"]);
+
            if (!dr.IsNull("Amount"))
+
            receivable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
+
            if (!dr.IsNull("Invoice_No"))
+
            receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+
            if (!dr.IsNull("Invoice_Id"))
+
            receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
 
            return receivable;
@@ -182,9 +207,11 @@ namespace SMSPortalRepo
            if (dt != null && dt.Rows.Count > 0)
            {
                foreach (DataRow dr in dt.Rows)
+
                {
                    if (!dr.IsNull("Order_Id"))
-                       Order_Id = Convert.ToInt32(dr["Order_Id"]);
+
+                    Order_Id = Convert.ToInt32(dr["Order_Id"]);
                }
            }
 
@@ -617,5 +644,6 @@ namespace SMSPortalRepo
 
            _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Update_Sales_Order_Status_Sp.ToString(), CommandType.StoredProcedure);
        }
+
     }
 }

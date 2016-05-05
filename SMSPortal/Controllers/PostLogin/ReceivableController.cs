@@ -81,7 +81,7 @@ namespace SMSPortal.Controllers.PostLogin
                 if (rViewModel.Filter.Invoice_Id != 0)
 
                 {
-                    rViewModel.Receivables = _receivableManager.Get_Receivable_By_Id(rViewModel.Filter.Dealer_Id, rViewModel.Filter.Invoice_Id, ref pager);
+                    rViewModel.Receivables = _receivableManager.Get_Receivable_By_Id(rViewModel.Filter.Invoice_Id, ref pager);
                 }
 
                 else

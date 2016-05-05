@@ -256,7 +256,7 @@ namespace SMSPortalRepo
 
                         _product.Product_Price = Convert.ToDecimal(dr["Product Price"]);
 
-                        _product.Brand_Id = _brandRepo.Get_Brand_Id_By_Name(dr["Brand"].ToString());
+                        //_product.Brand_Id = _brandRepo.Get_Brand_Id_By_Name(dr["Brand"].ToString());
 
                         _product.Category_Id = _categoryRepo.Get_Category_Id_By_Name(dr["Category"].ToString());
 
