@@ -371,5 +371,32 @@ namespace SMSPortalRepo
              }              
          }
          
+         public UserInfo Get_User_By_Email(string Email_Id)
+         {
+             List<SqlParameter> parameters = new List<SqlParameter>();
+             parameters.Add(new SqlParameter("@Email_Id",Email_Id));
+             UserInfo user = new UserInfo();
+             DataTable dt = _sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_User_By_Email.ToString(), CommandType.StoredProcedure);
+             foreach (DataRow dr in dt.Rows)
+             {
+                 user = Get_Users_Email_Values(dr);
+             }
+
+             return user;
+         }
+
+         private UserInfo Get_Users_Email_Values(DataRow dr)
+         {
+             UserInfo user = new UserInfo();
+
+             user.User_Id = Convert.ToInt32(dr["User_Id"]);
+             if (!dr.IsNull("Email_Id"))
+                 user.Email_Id = Convert.ToString(dr["Email_Id"]);
+         
+                 user.Pass_Token = Convert.ToString(dr["Pass_Token"]);
+        
+             return user;
+         }
+         
 	}
 }

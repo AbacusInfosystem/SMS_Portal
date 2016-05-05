@@ -11,7 +11,7 @@
 
                  Purchase_Order_Id: $("#hdnPurchase_Order_Id").val(),
 
-                 Purchase_Order_Amount: $("#txtPurchase_Order_Amount").val(),
+                 Purchase_Order_Amount: $("#hdnPurchase_Order_Amount").val(),
 
                  Payable_Item_Amount: $("#txtPayable_Item_Amount").val(),
 
@@ -237,7 +237,7 @@ function Bind_Payable_Grid_Items(data) {
 }
 
 function EditPayableData(id) {
-    //alert(143);
+    alert(143);
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
 
     $('#drpTransaction').trigger('change');
@@ -278,20 +278,20 @@ function DeletPayableData(id) {
 
     $.ajax(
         {
-            url: '/Payables/Delete_payable_Data_By_Id',
+        url: '/Payables/Delete_payable_Data_By_Id',
 
-            data: { Payable_Item_Id: Payable_Item_Id, Payable_Id: Payable_Id },
+        data: { Payable_Item_Id: Payable_Item_Id, Payable_Id: Payable_Id },
 
-            method: 'GET',
+        method: 'GET',
 
-            async: false,
+        async: false,
 
             success: function (data)
             {
 
-                Bind_Payable_Grid_Items(data);
+            Bind_Payable_Grid_Items(data);
 
-                Friendly_Message(data);
+            Friendly_Message(data);
 
         }
     });

@@ -34,6 +34,8 @@ namespace SMSPortalInfo.Common
         Get_Users_By_Entity_Id_Sp,
         Get_User_By_Password_Token,
         Reset_Password,
+        Get_User_Password_By_Id,
+        Get_User_By_Email,
 
         //Sub Category
         Get_Sub_Category_Sp,
