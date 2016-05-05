@@ -44,18 +44,20 @@ namespace SMSPortal.Controllers.PostLogin
 
                 dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-               if(dViewModel.Cookies.Role_Id == 1)
-               {
-                   dViewModel.Filter.Brand_Id = 0;
-               }
-               else
-               {
-                dViewModel.Filter.Brand_Id = dViewModel.Cookies.Entity_Id;
+                if (dViewModel.Cookies.Role_Id == 1)
+                {
+                    dViewModel.Filter.Brand_Id = 0;
+                }
+
+                else
+                {
+                    dViewModel.Filter.Brand_Id = dViewModel.Cookies.Entity_Id;
+                }
+
             }
-               }
+
 
             catch (Exception ex)
-            
             {
                 dViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 

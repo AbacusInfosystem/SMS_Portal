@@ -34,14 +34,21 @@ $(document).ready(function ()
 
     });
 
-    $("#btnAddUser").click(function () {
+    $("#btnAddUser").click(function ()
+    {
+
         $("#frmDealer").attr("action", "/dealer/add-dealer-user/");
+
         $("#frmDealer").attr("method", "post");
+
         $("#frmDealer").submit();
+
     });
 
 
-    $("#btnSearch").click(function () {
+    $("#btnSearch").click(function ()
+    {
+
         Search_Dealers();
 
     });

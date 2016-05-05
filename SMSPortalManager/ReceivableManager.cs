@@ -18,14 +18,14 @@ namespace SMSPortalManager
             _receivableRepo = new ReceivableRepo();
         }
 
-       public List<ReceivableInfo> Get_Receivable_By_Id(int invoice_Id, ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivable_By_Id(int Dealer_Id, int invoice_Id, ref PaginationInfo pager)
        {
-           return _receivableRepo.Get_Receivable_By_Id(invoice_Id, ref pager);
+           return _receivableRepo.Get_Receivable_By_Id(Dealer_Id, invoice_Id, ref pager);
        }
 
-       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int Dealer_Id)
        {
-           return _receivableRepo.Get_Receivables(ref pager);
+           return _receivableRepo.Get_Receivables(ref pager, Dealer_Id);
        }
 
        public int Insert_Receivable(ReceivableInfo receivableInfo,int user_Id)

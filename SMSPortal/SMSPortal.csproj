@@ -203,6 +203,7 @@
     <Compile Include="Controllers\PostLogin\ProductController.cs" />
     <Compile Include="Controllers\PostLogin\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PostLogin\ReceivableController.cs" />
+    <Compile Include="Controllers\PostLogin\SalesOrderController.cs" />
     <Compile Include="Controllers\PostLogin\SubCategoryController.cs" />
     <Compile Include="Controllers\PostLogin\TaxController.cs" />
     <Compile Include="Controllers\PostLogin\UserController.cs" />
@@ -237,6 +238,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\log4net.dll" />
+    <Content Include="bin\SMSPortal.dll" />
+    <Content Include="bin\SMSPortal.pdb" />
+    <Content Include="bin\SMSPortalInfo.dll" />
+    <Content Include="bin\SMSPortalManager.dll" />
+    <Content Include="bin\SMSPortalRepo.dll" />
     <Content Include="Content\AdminLTE\bootstrap\css\bootstrap.css" />
     <Content Include="Content\AdminLTE\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\AdminLTE\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -976,6 +983,11 @@
     <Content Include="Scripts\Module\Dealer\Dealer_events.js" />
     <Content Include="Scripts\Module\Dealer\search_dealer_events.js" />
     <Content Include="Scripts\Module\Dealer\search_dealer_methods.js" />
+    <Content Include="Scripts\Module\Dealer_Payables\dealer_payables_events.js" />
+    <Content Include="Scripts\Module\Dealer_Payables\dealer_payables_methods.js" />
+    <Content Include="Scripts\Module\Dealer_Payables\dealer_payables_validation.js" />
+    <Content Include="Scripts\Module\Dealer_Payables\search_dealer_payables_events.js" />
+    <Content Include="Scripts\Module\Dealer_Payables\search_dealer_payables_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
@@ -1142,9 +1154,20 @@
     <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
     <Content Include="Views\PostLogin\Tax\Index.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Dealer_Detail.cshtml" />
+    <Content Include="Views\PostLogin\Receivable\Searches.cshtml" />
+    <Content Include="Views\PostLogin\Receivable\Dealer_Payables_Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\de\" />
+    <Folder Include="bin\es\" />
+    <Folder Include="bin\fr\" />
+    <Folder Include="bin\it\" />
+    <Folder Include="bin\ja\" />
+    <Folder Include="bin\ko\" />
+    <Folder Include="bin\ru\" />
+    <Folder Include="bin\zh-Hans\" />
+    <Folder Include="bin\zh-Hant\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
