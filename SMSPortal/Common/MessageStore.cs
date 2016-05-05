@@ -74,6 +74,9 @@ namespace SMSPortal.Common
             FriendlyMessage BO005 = new FriendlyMessage("BO005", MessageType.Success, "Brand logo changed successfully");
             hash.Add("BO005", BO005);
 
+            FriendlyMessage BO006 = new FriendlyMessage("BO006", MessageType.Success, "Brand profile updated successfully");
+            hash.Add("BO006", BO006);
+
             #endregion
 
             #region User
@@ -113,6 +116,9 @@ namespace SMSPortal.Common
             FriendlyMessage DO003 = new FriendlyMessage("DO003", MessageType.Success, "Dealer deleted successfully");
             hash.Add("DO003", DO003);
 
+            FriendlyMessage DO004 = new FriendlyMessage("DO004", MessageType.Success, "Dealer profile updated successfully");
+            hash.Add("DO004", DO004);
+
             #endregion
 
             #region Product
@@ -144,6 +150,9 @@ namespace SMSPortal.Common
 
             FriendlyMessage VO003 = new FriendlyMessage("VO003", MessageType.Success, "Vendor deleted successfully");
             hash.Add("VO003", VO003);
+
+            FriendlyMessage VO004 = new FriendlyMessage("VO004", MessageType.Success, "Vendor profile updated successfully");
+            hash.Add("VO004", VO004);
 
             #endregion
 			

@@ -25,4 +25,13 @@
         $("#frmVendor").submit();
 
     });
+
+    $("#btnAddUser").click(function () {
+
+        $("#frmVendor").attr("action", "/vendor/add-vendor-user/");
+
+        $("#frmVendor").attr("method", "post");
+
+        $("#frmVendor").submit();
+    });
 });

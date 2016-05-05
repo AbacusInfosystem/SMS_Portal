@@ -109,8 +109,10 @@ function Bind_Dealers_Grid(data)
         {
             $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
 
-            $("#btnEdit").show();                        
+            $("#btnEdit").show();
+
             $("#btnAddUser").show();
+
             $("#btnDelete").show();
 
             $("#btnView").show();

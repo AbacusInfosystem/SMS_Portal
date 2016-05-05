@@ -64,7 +64,7 @@ namespace SMSPortalRepo
             DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Product_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
-                products.Add(Get_Product_Values(dr));
+                 products.Add(Get_Product_Values(dr));
             }
             return products;
         }
@@ -90,7 +90,7 @@ namespace SMSPortalRepo
 
             ProductInfo product = new ProductInfo();
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
-
+            
             foreach (DataRow dr in dt.Rows)
             {
                 product = Get_Product_Values(dr);
@@ -146,7 +146,7 @@ namespace SMSPortalRepo
             productImage.Product_Image_Id = Convert.ToInt32(dr["Product_Image_Id"]);
             productImage.Product_Id = Convert.ToInt32(dr["Product_Id"]);
             productImage.Image_Code = Convert.ToString(dr["Image_Code"]);
-            productImage.Is_Default = Convert.ToBoolean(dr["Is_Default"]);
+            productImage.Is_Default = Convert.ToBoolean(dr["Is_Default"]);            
             productImage.Created_On = Convert.ToDateTime(dr["Created_On"]);
             productImage.Created_By = Convert.ToInt32(dr["Created_By"]);
             productImage.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
@@ -190,7 +190,7 @@ namespace SMSPortalRepo
         }
 
         public void Insert_Product_Image(ProductImageInfo productImageInfo)
-        {
+        {             
             _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_Image(productImageInfo), StoreProcedures.Insert_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
 
         }
@@ -262,23 +262,23 @@ namespace SMSPortalRepo
                         {
                             _product.Is_Biddable = true;
                         }
-                        else
+                        else 
                         {
                             _product.Is_Biddable = false;
-                        }
+                        }                        
 
                         if (Valid_Default_Row(_product)) // To check if row get all ids 
                         {
 
-                            _product.Is_Active = true;
+                                    _product.Is_Active = true;
 
-                            _product.Created_By = 1;
+                                    _product.Created_By = 1;
 
-                            _product.Updated_By = 1;
+                                    _product.Updated_By = 1;
 
-                            _product.Created_On = DateTime.Now;
+                                    _product.Created_On = DateTime.Now;
 
-                            _product.Updated_On = DateTime.Now;
+                                    _product.Updated_On = DateTime.Now;
 
                             if (Check_Existing_Product(_product.Product_Name))
                             {
@@ -286,7 +286,7 @@ namespace SMSPortalRepo
                             }
                             else 
                             {
-                                Insert_Product(_product);
+                                    Insert_Product(_product);
                             }
                         }
                         else
@@ -375,6 +375,6 @@ namespace SMSPortalRepo
             return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Brand_Id_By_Name.ToString(), CommandType.StoredProcedure));
         }
 
-
+         
     }
 }

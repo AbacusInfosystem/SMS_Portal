@@ -1,7 +1,10 @@
 ﻿@model SMSPortal.Models.PostLogin.PayableViewModel
 @using SMSPortalInfo.Common
+
 <script type="text/javascript">
-    $(document).ready(function () {
+
+    $(document).ready(function ()
+    {
 
         $('.iradio-list').iCheck({
             radioClass: 'iradio_square-green',
@@ -9,105 +12,182 @@
         });
 
     });
+
 </script>
+
 <script src="~/Scripts/Module/Payables/search_payable_event.js"></script>
+
 <script src="~/Scripts/Module/Payables/search_payable_method.js"></script>
-<form id="frmPayables" enctype="multipart/form-data">
+
+<form id="frmPayable" enctype="multipart/form-data">
+
     <!-- Content Wrapper. Contains page content -->
+
     <div class="content-wrapper">
+
         <!-- Content Header (Page header) -->
+
         @*@{Html.RenderPartial("_ServerMessage");}*@
+
         <section class="content-header">
+
             <h1>
+
                 Payables Master
+
                 <small></small>
+
             </h1>
+
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
                 <li class="active">Payables</li>
             </ol>
+
         </section>
 
         <!-- Main content -->
+
         <section class="content">
+
             <div class="row">
+
                 <div class="col-md-12">
+
                     <div class="box box-primary">
+
                         <div class="box-header with-border">
+
                             <h3 class="box-title">Payables</h3>
+
                         </div>
+
                         <div class="box-body">
+
                             @*<input type="hidden" id="hdnPayable_Id" value="@Model.Payable.Payable_Id" name="Payable.Payable_Id" />*@
+
                             <input type="hidden" id="hdnPurchaseOrder_Id" value="@Model.Payable.Purchase_Order_Id" name="Payable.Purchase_Order_Id" />
+
                             <input type="hidden" id="hdnPurchase_Order_Amount" value="@Model.Payable.Purchase_Order_Amount" name="Payable.Purchase_Order_Amount" />
                
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+
                             <div class="row">
+
                                 <div class="col-md-4">
+
                                     <div class="form-group auto-complete">
+
                                         <label style="color: #333">Purchase Order No</label>
+
                                         <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order no" value="@Model.Filter.Purchase_Order_No" maxlength="20">
+                                        @*<input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Payable.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order No" value="@(Model.Filter.Purchase_Order_Id == 0 ? "" : Model.Filter.Purchase_Order_Id.ToString())" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">*@
                                         @*<input type="hidden" id="hdnPurchase_Order_Number" value="@Model.Filter.Purchase_Order_Number" name="Filter.Purchase_Order_Number" class="auto-complete-value" />*@
+                                        
                                         <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
+                                        
                                         <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
+                                        
                                         @*<div class="input-group-addon">
+
                     <a href="#" class="text-muted" id="hrefInvoice_No" role="button"><i class="fa fa-search"></i></a>
+
                 </div>*@
+
                                     </div>
+
                                 </div>
 
                             </div>
 
                             <div class="box-footer">
+
                                 <div class="row">
+
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
+
                                             @*<a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Payables")">Create </a>*@
+
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
+
                                         </div>
 
                                         <div class="btn-group pull-right">
+
                                             <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
+
+                                            <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
+
                                         </div>
+
                                     </div>
+
                                 </div>
 
                             </div>
 
                         </div>
+
                     </div>
+
                 </div><!-- /.col -->
+
             </div><!-- /.row -->
 
             <div class="row">
+
                 <div class="col-md-12">
+
                     <div class="box box-solid">
+
                         <div class="box-body table-responsive no-padding">
+
                             <table class="table table-striped" id="tblPayableMaster">
+
                                 <tr id="subhead">
+
                                     <th></th>
+
                                     <th>Purchase Order No</th>
                                     <th>Amount</th>
                                     <th>Status</th>
+
                                 </tr>
                             </table>
+
                         </div>
+
                         <div class="box-footer clearfix">
+
                             <div class="pagination pagination-sm no-margin pull-right">
+
                                 <ul></ul>
+
                             </div>
+
                             <div id="divSearchGridOverlay" class="overlay">
+
                                 <i class="fa fa-refresh fa-spin"></i>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
     </div>
+
     <!-- /.content-wrapper -->
+
 </form>
 
 

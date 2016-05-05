@@ -115,6 +115,7 @@ namespace SMSPortalRepo
             orders.Swatch_Bharat_Tax = Convert.ToDecimal(dr["Swatch_Bharat_Tax"]);
             orders.Net_Amount = Convert.ToDecimal(dr["Net_Amount"]);
             orders.Status_Id = Convert.ToInt32(dr["Status"]);
+            if (!dr.IsNull("Shipping_Date"))
             orders.Shipping_Date = Convert.ToDateTime(dr["Shipping_Date"]);
             if (orders.Status_Id==1)
             {

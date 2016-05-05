@@ -53,4 +53,20 @@ namespace SMSPortalInfo.Common
         Order_Dispatched = 3,
         Order_Delivered = 4
     }
+
+    public enum Roles
+    {
+        Admin = 1,
+        Brand = 2,
+        Dealer = 3,
+        Vendor = 4
+    }
+
+    public enum RolesIds : int
+    {
+        Admin = 1,
+        Brand = 2,
+        Dealer = 3,
+        Vendor = 4
+    }
 }

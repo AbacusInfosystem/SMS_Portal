@@ -1,104 +1,184 @@
 ﻿@model SMSPortal.Models.PostLogin.ReceivableViewModel
+
 @using SMSPortalInfo.Common
+
 <script src="~/Scripts/Module/Receivable/search_receivable_event.js"></script>
+
 <script src="~/Scripts/Module/Receivable/search_receivable_method.js"></script>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
 
-        $('.iradio-list').iCheck({
+        $('.iradio-list').iCheck(
+            {
             radioClass: 'iradio_square-green',
             increaseArea: '20%' // optional
+
         }); 
     });
+
 </script>
 
 <form id="frmReceivable" enctype="multipart/form-data">
+
     <!-- Content Wrapper. Contains page content -->
+
     <div class="content-wrapper">
+
         <!-- Content Header (Page header) -->
+
         @*@{Html.RenderPartial("_ServerMessage");}*@
+
         <section class="content-header">
+
             <h1>
+
                 Receivable Master
+
                 <small></small>
+
             </h1>
+
             <ol class="breadcrumb">
+
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+
                 <li class="active">Receivable</li>
+
             </ol>
+
         </section>
 
         <!-- Main content -->
+
         <section class="content">
+
             <div class="row">
+
                 <div class="col-md-12">
+
                     <div class="box box-primary">
+
                         <div class="box-header with-border">
+
                             <h3 class="box-title">Receivable</h3>
+
                         </div>
+
                         <div class="box-body">
+
                             <input type="hidden" id="hdnInvoice_Id" value="@Model.Receivable.Invoice_Id" name="Receivable.Invoice_Id" />
-                            <input type="hidden" id="hdnInvoice_Amount" value="@Model.Receivable.Invoice_Amount" name="Receivable.Invoice_Amount" />                            
+
+                            <input type="hidden" id="hdnInvoice_Amount" value="@Model.Receivable.Invoice_Amount" name="Receivable.Invoice_Amount" />   
+                                                     
                             <div class="row"> 
+
                                 <div class="col-md-3">
+
                                     <div class="form-group auto-complete">
+
                                         <label for="InvoiceNo" class="lookup-title">Invoice No</label>
+
                                         <div class="input-group">
+
                                             <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Receivable.Invoice_No" id="txtInvoiceNo" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                                            
                                             <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
+                                            
                                             <input type="hidden" id="hdnInvoiceNo" value="@Model.Filter.Invoice_No" name="Receivable.Invoice_No" class="auto-complete-label" />
+                                            
                                             <div class="input-group-addon">
+
                                                 <a href="#" class="text-muted lookup-btn" id="hrefInvoice" role="button"><i class="fa fa-server"></i></a>
+
                                             </div>
+
                                         </div>
+
                                     </div>
+
                                 </div>
+
                             </div>
 
                             <div class="box-footer">
+
                                 <div class="row">
+
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
+
                                             @*<a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Receivable")">Create </a>*@
+
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
+
+
                                         </div>
 
                                         <div class="btn-group pull-right">
+
                                             <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
+
+
+                                            <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
+
                                         </div>
+
                                     </div>
+
                                 </div>
 
                             </div>
 
                         </div>
+
                     </div>
+
                 </div><!-- /.col -->
+
             </div><!-- /.row -->
 
             <div class="row">
+
                 <div class="col-md-12">
+
                     <div class="box box-solid">
+
                         <div class="box-body table-responsive no-padding">
+
                             <table class="table table-striped" id="tblReceivableMaster">
+
                                 <tr id="subhead">
+
                                     <th></th>
                                     <th>Invoice No</th>
                                     <th>Amount</th>
                                     <th>Status</th>
+
                                 </tr>
+
                             </table>
+
                         </div>
+
                         <div class="box-footer clearfix">
+
                                 <div class="pagination pagination-sm no-margin pull-right">
+
                                     <ul></ul>
+
                                 </div>
+
                                 <div id="divSearchGridOverlay" class="overlay">
+
                                     <i class="fa fa-refresh fa-spin"></i>
+
                                 </div>
+
                             </div>
                     </div>
                 </div>

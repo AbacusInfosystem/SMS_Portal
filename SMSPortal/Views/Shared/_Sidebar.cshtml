@@ -31,6 +31,8 @@
                         <li><a href="@Url.Action("Search","Category")"><i class=" fa fa-circle-o text-info"></i> Category</a></li>
                         <li><a href="@Url.Action("Search","SubCategory")"><i class="fa fa-circle-o text-info"></i> SubCategory </a></li> 
                         <li><a href="@Url.Action("Index","Tax")"><i class="fa fa-circle-o text-info"></i> Add Tax </a></li> 
+                        <li><a href="@Url.Action("Search","Dealer_Payables")"><i class="fa fa-circle-o text-info"></i> Dealer Payables </a></li>
+
                      
 
                         @*<li class="treeview">
@@ -54,7 +56,7 @@
 
                    <li><a href="@Url.Action("SearchOrders", "Vendor")"><i class="fa fa-circle-o text-info"></i> Sales Orders </a></li>
 
-                   <li><a href="@Url.Action("Search", "Receivable")"><i class="fa fa-circle-o text-info"></i> Receivables </a></li>
+                   <li><a href="@Url.Action("Searches", "Payables")"><i class="fa fa-circle-o text-info"></i> Receivables </a></li>
                </ul>
            </li>  
 
@@ -76,7 +78,37 @@
 
                </ul>
            </li>  
+
+           <li class="treeview">
+               <a href="#">
+                   <i class="fa fa-link"></i>
+                   <span>Dealer</span>
+                   <i class="fa fa-angle-left pull-right"></i>
+               </a>
+               <ul class="treeview-menu">
+                   <li><a href="@Url.Action("Profile", "Dealer")"><i class=" fa fa-circle-o text-info"></i> Profile </a></li>
+               </ul>
+           </li>
+
           
+           @*//Dealer*@
+
+           <li class="treeview">
+               <a href="#">
+                   <i class="fa fa-link"></i>
+                   <span>Dealer</span>
+                   <i class="fa fa-angle-left pull-right"></i>
+               </a>
+               <ul class="treeview-menu">
+
+                   <li><a href="@Url.Action("Profile", "Dealer")"><i class=" fa fa-circle-o text-info"></i> Profile </a></li>
+
+
+                   <li><a href="@Url.Action("Searches", "Receivable")"><i class="fa fa-circle-o text-info"></i> Payables </a></li>
+
+               </ul>
+           </li>  
+
             </ul>
     </section>
 

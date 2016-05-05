@@ -58,10 +58,36 @@ namespace SMSPortal.Controllers.PreLogin
 
             return View("Index", lViewModel);
         }
-        
-        public ActionResult ForgotPassword()
+
+        public ActionResult ForgotPassword(UserViewModel uViewModel)
         {
-            return View("ForgotPassword");
+            return View("ForgotPassword", uViewModel);
+        }
+          
+        public ActionResult Send_Reset_Password(UserViewModel uViewModel)
+        {
+            string link = string.Empty;
+            //UserViewModel uViewModel = new UserViewModel();
+            UserInfo User = new UserInfo();
+        
+            try
+            {
+              
+                uViewModel.User = _userManager.Get_User_By_Email(uViewModel.User.Email_Id);
+                link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken=" + uViewModel.User.Pass_Token;
+
+                _userManager.Send_Reset_Password_Email(uViewModel.User.Email_Id, link, uViewModel.User);
+                uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
+            }
+            catch (Exception ex)
+            {
+                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error At User Controller - Insert " + ex);
+            }
+
+            TempData["userViewMessage"] = uViewModel;
+            return RedirectToAction("Index");
         }
 
         public ActionResult Authenticate(LoginViewModel lViewModel)

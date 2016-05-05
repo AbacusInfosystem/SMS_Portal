@@ -1,15 +1,17 @@
-﻿function Save_Payable_Data() {
+﻿function Save_Payable_Data()
+{
     //alert(3);
+
     var pViewModel =
+
      {
          Payable:
+
              {
 
                  Purchase_Order_Id: $("#hdnPurchase_Order_Id").val(),
 
-  
-
-                 Purchase_Order_Amount: $("#txtPurchase_Order_Amount").val(),
+                 Purchase_Order_Amount: $("#hdnPurchase_Order_Amount").val(),
 
                  Payable_Item_Amount: $("#txtPayable_Item_Amount").val(),
 
@@ -92,9 +94,11 @@ function Bind_Payable_Grid_Items(data) {
         for (i = 0; i < data.Payables.length; i++) {
 
             var showPayableDate = new Date(parseInt(data.Payables[i].Payable_Date.replace('/Date(', '')));
+
             showPayableDate = (showPayableDate.getMonth() + 1).toString() + "/" + (showPayableDate.getDate().toString() + "/" + showPayableDate.getFullYear());
 
             var showChequeDate = new Date(parseInt(data.Payables[i].Cheque_Date.replace('/Date(', '')));
+
             showChequeDate = (showChequeDate.getMonth() + 1).toString() + "/" + (showChequeDate.getDate().toString() + "/" + showChequeDate.getFullYear());
 
             htmlText += "<tr>";
@@ -233,18 +237,29 @@ function Bind_Payable_Grid_Items(data) {
 }
 
 function EditPayableData(id) {
-    //alert(143);
+    alert(143);
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
+
     $('#drpTransaction').trigger('change');
+
     $("#txtPayable_Item_Amount").val($("#hdnPayable_Item_Amount" + id).val());
+
     $("#txtPayDate").val($("#hdnPayable_Date" + id).val());
+
     $("#txtBankName").val($("#hdnBank_Name" + id).val());
+
     $("#txtIFSCCode").val($("#hdnIFSC_Code" + id).val());
+
     $("#txtChequeNo").val($("#hdnCheque_Number" + id).val());
+
     $("#txtChequeDate").val($("#hdnCheque_Date" + id).val());
+
     $("#txtNEFT").val($("#hdnNEFT" + id).val());
+
     $("#txtCredit_Debit").val($("#hdnCredit_Debit_Card" + id).val());
+
     $("#hdnPayable_Item_Id").val($("#hdnPayable_Item_Id" + id).val());
+
     $("#hdnPayable_Id").val($("#hdnPayable_Id" + id).val());
    
 
@@ -252,36 +267,54 @@ function EditPayableData(id) {
 function DeletPayableData(id) {
 
     //alert("delete");
+
     $("#hdnPayable_Item_Id").val($("#hdnPayable_Item_Id" + id).val());
+
     $("#hdnPayable_Id").val($("#hdnPayable_Id" + id).val());
 
-
     var Payable_Item_Id = $("#hdnPayable_Item_Id").val();
+
     var Payable_Id = $("#hdnPayable_Id").val();
 
-    $.ajax({
+    $.ajax(
+        {
         url: '/Payables/Delete_payable_Data_By_Id',
+
         data: { Payable_Item_Id: Payable_Item_Id, Payable_Id: Payable_Id },
+
         method: 'GET',
+
         async: false,
-        success: function (data) {
+
+            success: function (data)
+            {
 
             Bind_Payable_Grid_Items(data);
+
             Friendly_Message(data);
 
         }
     });
 }
-function ClearPayableData() {
+function ClearPayableData()
+{
 
     $("#drpTransaction").val(0);
+
     $("#txtPayable_Item_Amount").val('');
+
     $("#txtPayDate").val('');
+
     $("#txtBankName").val('');
+
     $("#txtIFSCCode").val('');
+
     $("#txtChequeNo").val('');
+
     $("#txtChequeDate").val('');
+
     $("#txtNEFT").val('');
+
     $("#txtCredit_Debit").val('');
 
 }

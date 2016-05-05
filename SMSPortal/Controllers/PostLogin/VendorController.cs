@@ -248,6 +248,11 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
+                if (TempData["vViewModel"] != null)
+                {
+                    vViewModel = (VendorViewModel)TempData["vViewModel"];
+                }
+
                 vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
@@ -324,6 +329,62 @@ namespace SMSPortal.Controllers.PostLogin
             autoList = _vendorManager.Get_Vendor_Autocomplete(vendor);
 
             return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Add_Vendor_User(VendorViewModel vViewModel)
+        {
+            TempData["Entity_Id"] = vViewModel.Vendor.Vendor_Id;
+
+            TempData["Role_Id"] = RolesIds.Vendor;
+
+            return RedirectToAction("Index", "User");
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Edit_Vendor_Profile(VendorViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
+
+                vViewModel.States = _stateManager.Get_States(); 
+
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
+
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Vendor controller - Profile " + ex);
+            }
+
+            return View("Update_Profile", vViewModel);
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Update_Vendor_Profile(VendorViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _vendorManager.Update_Vendor_Profile(vViewModel.Vendor, vViewModel.Cookies.User_Id);
+
+                vViewModel.Friendly_Message.Add(MessageStore.Get("VO004"));
+
+                TempData["vViewModel"] = vViewModel;
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Vendor Controller - Update_Vendor_Profile " + ex);
+            }
+            
+            return RedirectToAction("Profile");
         }
     }
 }
