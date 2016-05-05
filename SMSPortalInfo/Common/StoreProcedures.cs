@@ -54,6 +54,7 @@ namespace SMSPortalInfo.Common
         Check_Existing_Brand,
         Update_Brand_Image,
         Get_Brand_Autocomplete_Sp,
+        Update_Brand_Profile_Sp,
 
         //Roles
         Get_Roles_Sp,
@@ -67,6 +68,7 @@ namespace SMSPortalInfo.Common
         Insert_Dealer_Sp,
         Check_Existing_Dealer,
         Get_Dealer_Autocomplete_Sp,
+        Update_Dealer_Profile_Sp,
 
         //State
         Get_State_Sp,
@@ -99,6 +101,7 @@ namespace SMSPortalInfo.Common
         Insert_Vendor_Product_Mapping_Details,
         Get_Vendor_Mapped_Products_Sp,
         Delete_Vendor_Product_Mapping_By_Id_Sp,
+        Update_Vendor_Profile_Sp,
         Get_Vendor_Autocomplete_Sp,
 
         //Cookies

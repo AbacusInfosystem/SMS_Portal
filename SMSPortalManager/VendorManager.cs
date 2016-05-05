@@ -87,6 +87,11 @@ namespace SMSPortalManager
         {
             return _vendorRepo.Get_Vendor_Autocomplete(vendor);
         }
+
+        public void Update_Vendor_Profile(VendorInfo vendor, int user_Id)
+        {
+            _vendorRepo.Update_Vendor_Profile(vendor, user_Id);
+        }
         
     }
 }

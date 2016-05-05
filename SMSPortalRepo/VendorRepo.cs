@@ -337,5 +337,31 @@ namespace SMSPortalRepo
             }
             return autoList;
         }
+
+        public void Update_Vendor_Profile(VendorInfo vendor, int user_Id)
+        {
+            _sqlHelper.ExecuteNonQuery(Set_Values_In_Vendor_Profile(vendor, user_Id), StoreProcedures.Update_Vendor_Profile_Sp.ToString(), CommandType.StoredProcedure);
+        }
+
+        private List<SqlParameter> Set_Values_In_Vendor_Profile(VendorInfo vendor, int user_Id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@Vendor_Id", vendor.Vendor_Id));
+
+            sqlParams.Add(new SqlParameter("@Vendor_Name", vendor.Vendor_Name));
+            sqlParams.Add(new SqlParameter("@Address", vendor.Address));
+            sqlParams.Add(new SqlParameter("@City", vendor.City));
+            sqlParams.Add(new SqlParameter("@State", vendor.State));
+            sqlParams.Add(new SqlParameter("@Pincode", vendor.Pincode));
+            sqlParams.Add(new SqlParameter("@Contact_No_1", vendor.Contact_No_1));
+            sqlParams.Add(new SqlParameter("@Contact_No_2", vendor.Contact_No_2));
+            sqlParams.Add(new SqlParameter("@Email", vendor.Email));
+
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
+
+            return sqlParams;
+        }
     }
 }
