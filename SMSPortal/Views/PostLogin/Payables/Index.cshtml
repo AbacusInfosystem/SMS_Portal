@@ -28,7 +28,7 @@
 
             <li class="active">Admin</li>
 
-            <li class="active">Receivable</li>
+            <li class="active">Payable</li>
 
         </ol>
     </section>
@@ -51,7 +51,7 @@
 
                         <div class="box-body">
 
-                            <div id="dvInvoice" class="row">
+                            <div id="dvPurchase_Order" class="row">
 
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -65,7 +65,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Total Amount</label>
-                                        <input readonly  type="text" class="form-control input-sm" name="Payable.Purchase_Order_Amount" id="txtPurchase_Order_Amount" placeholder="Enter IFSC Code" value="@Model.Payable.Purchase_Order_Amount" maxlength="20">
+                                        <input readonly type="text" class="form-control input-sm" name="Payable.Purchase_Order_Amount" id="txtPurchase_Order_Amount" placeholder="Enter IFSC Code" value="@Model.Payable.Purchase_Order_Amount" maxlength="20">
                                     </div>
                                 </div>
 
@@ -163,8 +163,8 @@
                                             <td>
                                                 <span> @itm.Transaction_Type_Name</span>
                                                 <input type="hidden" id="hdnTransaction_Type@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Transaction_Type">
-                                                <input type="hidden" id="hdnReceivable_Item_Id@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Payable_Item_Id">
-                                                <input type="hidden" id="hdnReceivable_Id@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Payable_Id">
+                                                <input type="hidden" id="hdnPayable_Item_Id@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Payable_Item_Id">
+                                                <input type="hidden" id="hdnPayable_Id@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Payable_Id">
                                             </td>
                                             <td>
                                                 <span> @itm.Payable_Item_Amount</span>
@@ -202,7 +202,7 @@
                                                 @if (Model.Payable.Status != "Payment Done")
                                                 {
                                                     <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditPayableData(@itm.Payable_Item_Id)"><i class='fa fa-pencil'></i></button>
-                                                    @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>*@
+                                                    @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletPayableData(@itm.Payable_Item_Id)"><i class='fa fa-times'></i></button>*@
                                                 }
 
                                             </td>

@@ -48,6 +48,7 @@
                                     <div class="form-group auto-complete">
                                         <label style="color: #333">Purchase Order No</label>
                                         <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order no" value="@Model.Filter.Purchase_Order_No" maxlength="20">
+                                        @*<input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Payable.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order No" value="@(Model.Filter.Purchase_Order_Id == 0 ? "" : Model.Filter.Purchase_Order_Id.ToString())" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">*@
                                         @*<input type="hidden" id="hdnPurchase_Order_Number" value="@Model.Filter.Purchase_Order_Number" name="Filter.Purchase_Order_Number" class="auto-complete-value" />*@
                                         <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
                                         <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />

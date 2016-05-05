@@ -386,6 +386,12 @@ namespace SMSPortal
             defaults: new { controller = "Payables", action = "Get_Payables_By_Id", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+             //   routes.MapRoute(
+             //name: "payable-3",
+             //url: "payable/payable-autocomplete/{purchaseorder}",
+             //defaults: new { controller = "Payables", action = "Get_Payable_Purchase_Order_Autocomplete", id = UrlParameter.Optional },
+             //namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #region Purchase Order

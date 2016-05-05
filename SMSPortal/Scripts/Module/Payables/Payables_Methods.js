@@ -6,10 +6,8 @@
              {
 
                  Purchase_Order_Id: $("#hdnPurchase_Order_Id").val(),
-
-  
-
-                 Purchase_Order_Amount: $("#txtPurchase_Order_Amount").val(),
+    
+                 Purchase_Order_Amount: $("#hdnPurchase_Order_Amount").val(),
 
                  Payable_Item_Amount: $("#txtPayable_Item_Amount").val(),
 
@@ -233,7 +231,7 @@ function Bind_Payable_Grid_Items(data) {
 }
 
 function EditPayableData(id) {
-    //alert(143);
+    alert(143);
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
     $('#drpTransaction').trigger('change');
     $("#txtPayable_Item_Amount").val($("#hdnPayable_Item_Amount" + id).val());
