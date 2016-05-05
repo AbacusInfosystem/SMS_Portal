@@ -41,8 +41,12 @@ namespace SMSPortalRepo
             {
                 sqlParams.Add(new SqlParameter("@Purchase_Order_Id", purchaseorder.Purchase_Order_Id));
             }
-            sqlParams.Add(new SqlParameter("@Purchase_Order_No", purchaseorder.Purchase_Order_No));
+            if (purchaseorder.Purchase_Order_Id == 0)
+            {
+                sqlParams.Add(new SqlParameter("@Purchase_Order_No", purchaseorder.Purchase_Order_No));
+            }
             sqlParams.Add(new SqlParameter("@Vendor_Id", purchaseorder.Vendor_Id));
+            sqlParams.Add(new SqlParameter("@Gross_Amount", purchaseorder.Gross_Amount));
             if (purchaseorder.Purchase_Order_Id == 0)
             {
                 sqlParams.Add(new SqlParameter("@Created_On", purchaseorder.Created_On));
@@ -98,9 +102,18 @@ namespace SMSPortalRepo
             PurchaseOrderInfo purchaseorder = new PurchaseOrderInfo();
 
             purchaseorder.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
+
+            if (!dr.IsNull("Purchase_Order_No"))
             purchaseorder.Purchase_Order_No = Convert.ToString(dr["Purchase_Order_No"]);
+
+            if (!dr.IsNull("Vendor_Id"))
             purchaseorder.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+
+            if (!dr.IsNull("Gross_Amount"))
+            purchaseorder.Gross_Amount = Convert.ToDecimal(dr["Gross_Amount"]);
+
             purchaseorder.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+
             purchaseorder.Created_On = Convert.ToDateTime(dr["Created_On"]);
             purchaseorder.Created_By = Convert.ToInt32(dr["Created_By"]);
             purchaseorder.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
@@ -150,10 +163,18 @@ namespace SMSPortalRepo
             orderitem.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
             orderitem.Product_Id = Convert.ToInt32(dr["Product_Id"]);
             orderitem.Product_Name = Convert.ToString(dr["Product_Name"]);
+
+            if (!dr.IsNull("Product_Quantity")) 
             orderitem.Product_Quantity = Convert.ToInt32(dr["Product_Quantity"]);
+
+            if (!dr.IsNull("Product_Price")) 
             orderitem.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+
             orderitem.Shipping_Address = Convert.ToString(dr["Shipping_Address"]);
+
+            if (!dr.IsNull("Shipping_Date")) 
             orderitem.Shipping_Date = Convert.ToDateTime(dr["Shipping_Date"]);
+
             orderitem.Created_On = Convert.ToDateTime(dr["Created_On"]);
             orderitem.Created_By = Convert.ToInt32(dr["Created_By"]);
             orderitem.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
@@ -203,7 +224,6 @@ namespace SMSPortalRepo
             _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Purchase_Order_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-
         public bool Check_Duplicate_Product_PurchaseOrder(int Product_Id,int Purchase_Id)
         {
             bool check = false;
@@ -240,6 +260,32 @@ namespace SMSPortalRepo
                 RefNo = Convert.ToString(dr[0]);
             }
             return RefNo;
+        }
+
+        public void Update_Purchase_Order_Gross_Amount(int Purchaser_Order_Id , decimal Gross_Amount )
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Purchase_Order_Id", Purchaser_Order_Id));
+            sqlparam.Add(new SqlParameter("@Gross_Amount", Gross_Amount));
+            Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Update_Purchase_Order_Gross_Amount.ToString(), CommandType.StoredProcedure));            
+        }
+
+        public ProductInfo Get_Vendor_Product_Price_Id(int Product_Id, int Vendor_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Product_Id", Product_Id));
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+             
+            ProductInfo product = new ProductInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Product_Price_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (!dr.IsNull("Product_Id"))
+                    product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+                    product.Product_Price=Convert.ToDecimal(dr["Product_Price"]);
+            }
+            return product;
         }
     }
 }

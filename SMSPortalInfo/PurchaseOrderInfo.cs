@@ -14,6 +14,8 @@ namespace SMSPortalInfo
 
         public int Vendor_Id { get; set; }
 
+        public decimal Gross_Amount { get; set; }
+
         public string Vendor_Name { get; set; }
 
         public DateTime Created_On { get; set; }

@@ -64,7 +64,7 @@ namespace SMSPortalRepo
             DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Product_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
-                 products.Add(Get_Product_Values(dr));
+                products.Add(Get_Product_Values(dr));
             }
             return products;
         }
@@ -90,7 +90,7 @@ namespace SMSPortalRepo
 
             ProductInfo product = new ProductInfo();
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
-            
+
             foreach (DataRow dr in dt.Rows)
             {
                 product = Get_Product_Values(dr);
@@ -146,7 +146,7 @@ namespace SMSPortalRepo
             productImage.Product_Image_Id = Convert.ToInt32(dr["Product_Image_Id"]);
             productImage.Product_Id = Convert.ToInt32(dr["Product_Id"]);
             productImage.Image_Code = Convert.ToString(dr["Image_Code"]);
-            productImage.Is_Default = Convert.ToBoolean(dr["Is_Default"]);            
+            productImage.Is_Default = Convert.ToBoolean(dr["Is_Default"]);
             productImage.Created_On = Convert.ToDateTime(dr["Created_On"]);
             productImage.Created_By = Convert.ToInt32(dr["Created_By"]);
             productImage.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
@@ -189,8 +189,8 @@ namespace SMSPortalRepo
             return sqlParams;
         }
 
-        public void Insert_Product_Image(ProductImageInfo productImageInfo )
-        {             
+        public void Insert_Product_Image(ProductImageInfo productImageInfo)
+        {
             _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_Image(productImageInfo), StoreProcedures.Insert_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
 
         }
@@ -221,7 +221,6 @@ namespace SMSPortalRepo
             _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-
         public bool Bulk_Excel_Upload_Default(DataTable dt)
         {
 
@@ -229,9 +228,6 @@ namespace SMSPortalRepo
 
             int i = 1;
 
-            BrandRepo _brandRepo = new BrandRepo();
-            CategoryRepo _categoryRepo = new CategoryRepo();
-            SubCategoryRepo _subCategoryRepo = new SubCategoryRepo();
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParam = new List<SqlParameter>();
 
@@ -256,76 +252,46 @@ namespace SMSPortalRepo
 
                         _product.Product_Price = Convert.ToDecimal(dr["Product Price"]);
 
-                        _product.Brand_Id = _brandRepo.Get_Brand_Id_By_Name(dr["Brand"].ToString());
+                        _product.Brand_Id = Get_Brand_Id_By_Name(dr["Brand"].ToString());
 
-                        _product.Category_Id = _categoryRepo.Get_Category_Id_By_Name(dr["Category"].ToString());
+                        _product.Category_Id = Get_Category_Id_By_Name(dr["Category"].ToString());
 
-                        _product.SubCategory_Id = _subCategoryRepo.Get_SubCategory_Id_By_Name(_product.Category_Id ,dr["SubCategory"].ToString());
+                        _product.SubCategory_Id = Get_SubCategory_Id_By_Name(_product.Category_Id, dr["SubCategory"].ToString());
 
                         if (dr["Is Biddable"].ToString().ToLower() == "yes")
                         {
                             _product.Is_Biddable = true;
                         }
-                        else 
+                        else
                         {
                             _product.Is_Biddable = false;
-                        }                        
+                        }
 
                         if (Valid_Default_Row(_product)) // To check if row get all ids 
                         {
-                        //    if (Get_Default_Validations_By_Objcet_Frame_Field(_product.Object_Id, _product.Default_Frame_Id, _product.Default_Field_Id, ref pager).Count > 0)
-                        //    {
 
-                        //        if (Validation_Default_Fields(_product))
-                        //        {                                    
+                            _product.Is_Active = true;
 
-                                    _product.Is_Active = true;
+                            _product.Created_By = 1;
 
-                                    _product.Created_By = 1;
+                            _product.Updated_By = 1;
 
-                                    _product.Updated_By = 1;
+                            _product.Created_On = DateTime.Now;
 
-                                    _product.Created_On = DateTime.Now;
+                            _product.Updated_On = DateTime.Now;
 
-                                    _product.Updated_On = DateTime.Now;
-
-                                    Insert_Product(_product);
-                        //         }
-                        //         else
-                        //         {
-                        //             Is_Error = true;
-
-                        //            ExceptionInfo exceptionInfo = new ExceptionInfo();
-
-                        //            exceptionInfo.FileName = "Product Upload";
-
-                        //            exceptionInfo.UploadedDate = DateTime.Now;
-
-                        //            exceptionInfo.RowNo = i;
-
-                        //            exceptionInfo.ErrorMessage = exceptionInfo.FileName + " : " + exceptionInfo.UploadedDate + " : " + "Validation Error at row " + i;
-
-                        //            exceptionList.Add(exceptionInfo);
-                        //        }
-                        //    }
-                        //    else
-                        //    {
-                        //        _product.Created_By = 1;
-
-                        //        _product.Updated_By = 1;
-
-                        //        _product.Created_On = DateTime.Now;
-
-                        //        _product.Updated_On = DateTime.Now;
-
-                        //        Insert_Default_Validation(_product);
-                        //    }
-
+                            if (Check_Existing_Product(_product.Product_Name))
+                            {
+                                Update_Product(_product);
+                            }
+                            else 
+                            {
+                                Insert_Product(_product);
+                            }
                         }
                         else
                         {
                             // return Error
-
                             Is_Error = true;
 
                             ExceptionInfo exception = new ExceptionInfo();
@@ -384,6 +350,31 @@ namespace SMSPortalRepo
             return valid;
         }
 
-         
+        public int Get_SubCategory_Id_By_Name(int Category_Id, string SubCategory_Name)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@CategoryId", Category_Id));
+            sqlparam.Add(new SqlParameter("@SubCategoryName", SubCategory_Name));
+
+            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_SubCategory_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        }
+
+        public int Get_Category_Id_By_Name(string Category_Name)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@CategoryName", Category_Name));
+
+            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Category_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        }
+
+        public int Get_Brand_Id_By_Name(string Brand_Name)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@BrandName", Brand_Name));
+
+            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Brand_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        }
+
+
     }
 }

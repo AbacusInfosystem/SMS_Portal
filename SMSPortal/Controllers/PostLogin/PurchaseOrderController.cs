@@ -2,6 +2,7 @@
 using SMSPortal.Models.PostLogin;
 using SMSPortalHelper.Logging;
 using SMSPortalHelper.PageHelper;
+using SMSPortalInfo;
 using SMSPortalInfo.Common;
 using SMSPortalManager;
 using System;
@@ -54,41 +55,56 @@ namespace SMSPortal.Controllers.PostLogin
 
         public JsonResult Insert_Update_Purchase_Order(PurchaseOrderViewModel pViewModel)
         {
+            
             try
             {
+                ProductManager _productManager = new ProductManager();
+
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
                 pViewModel.PurchaseOrder.Created_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrder.Created_On = DateTime.Now;
                 pViewModel.PurchaseOrder.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrder.Updated_On = DateTime.Now;
-                pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO000", "Purchase_Order_No", "3", "15", "Purchase_Order");
+               
                 pViewModel.PurchaseOrderItem.Created_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrderItem.Created_On = DateTime.Now;
                 pViewModel.PurchaseOrderItem.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.PurchaseOrderItem.Updated_On = DateTime.Now;
 
                 if (pViewModel.PurchaseOrder.Purchase_Order_Id != 0)
-                {
-                    _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder);
+                {                    
                     if (pViewModel.PurchaseOrderItem.Purchase_Order_Item_Id != 0)
                     {
+                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Price;
                         _purchaseOrderManager.Update_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR004"));
                     }
                     else
                     {
+                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Price;
                         _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+                        pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);                         
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
                     }
+
+                    pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+                    pViewModel.PurchaseOrder.Gross_Amount = pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
+                    _purchaseOrderManager.Update_Purchase_Order_Gross_Amount(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.PurchaseOrder.Gross_Amount);
+                    _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder);
                 }
                 else
                 {
+                    pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO000", "Purchase_Order_No", "3", "15", "Purchase_Order");
                     pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder);
                     pViewModel.Friendly_Message.Add(MessageStore.Get("POR001"));
                     if (pViewModel.PurchaseOrder.Purchase_Order_Id != 0)
                     {
                         pViewModel.PurchaseOrderItem.Purchase_Order_Id = pViewModel.PurchaseOrder.Purchase_Order_Id;
+                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Price;
                         _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+                        pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+                        pViewModel.PurchaseOrder.Gross_Amount = pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
+                        _purchaseOrderManager.Update_Purchase_Order_Gross_Amount(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.PurchaseOrder.Gross_Amount);
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
                     }
                 }
@@ -200,6 +216,7 @@ namespace SMSPortal.Controllers.PostLogin
 
         public JsonResult Delete_Purchase_Order_Item(int Purchase_Order_Item_Id, int Purchase_Order_Id)
         {
+            decimal gross_amount=0;
             List<FriendlyMessage> Friendly_Message = new List<FriendlyMessage>();
             PurchaseOrderViewModel pViewModel = new PurchaseOrderViewModel();
             pViewModel.PurchaseOrder.Purchase_Order_Id = Purchase_Order_Id;
@@ -207,7 +224,9 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 _purchaseOrderManager.Delete_Purchase_Order_Item_By_Id(Purchase_Order_Item_Id);
                 pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
-
+                gross_amount=pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
+                _purchaseOrderManager.Update_Purchase_Order_Gross_Amount(pViewModel.PurchaseOrder.Purchase_Order_Id, gross_amount);
+                pViewModel.PurchaseOrder.Gross_Amount = gross_amount;
                 pViewModel.Friendly_Message.Add(MessageStore.Get("POR005"));
             }
             catch (Exception ex)
@@ -238,13 +257,12 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Get_Product(int Product_Id)
-        {
-            ProductManager _productManager = new ProductManager();
+        public JsonResult Get_Product(int Product_Id, int Vendor_Id)
+        {            
             ProductViewModel vModel = new ProductViewModel();
             try
             {
-                vModel.Product = _productManager.Get_Product_By_Id(Product_Id);
+                vModel.Product = _purchaseOrderManager.Get_Vendor_Product_Price_Id(Product_Id, Vendor_Id);
             }
             catch (Exception ex)
             {
