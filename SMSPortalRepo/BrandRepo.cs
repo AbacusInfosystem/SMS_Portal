@@ -191,5 +191,13 @@ namespace SMSPortalRepo
             }
             return autoList;
         }
+
+        public int Get_Brand_Id_By_Name(string Brand_Name)
+        {
+            List<SqlParameter>  sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@BrandName", Brand_Name));
+
+            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Brand_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        }
     }
 }

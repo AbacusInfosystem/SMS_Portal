@@ -28,5 +28,10 @@ namespace SMSPortal.Common
             PurchaseOrderManager _purchaseOrderManager = new PurchaseOrderManager();
             return _purchaseOrderManager.Generate_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName);
         }
+
+        public static string Generate_Token()
+        {
+            return Guid.NewGuid().ToString();
+        }
     }
 }

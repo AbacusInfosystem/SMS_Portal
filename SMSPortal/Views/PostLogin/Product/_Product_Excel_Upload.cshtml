@@ -1,0 +1,42 @@
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel 
+ 
+<form id="frmProductUpload" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-md-2"> </div>
+        <div class="col-md-8" style="text-align:center ">
+            <div class="form-group">
+                <div class="input-group pull-left">
+                    <input type="file" class="btn" name="UploadProductExcel" id="uploadfile">
+                    <span class="input-group-btn">
+                        <button type="button" id="btnUploadExcel" class="btn btn-success btn-sm">Upload</button>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"> </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#frmProductUpload").validate({
+                errorClass: 'login-error',
+                rules: {
+                    "UploadProductExcel": {
+                        required: true,
+                        extension: "xls|xlsx"
+                    }
+                },
+                messages: {
+                    "UploadProductExcel": {
+                        required: "File is required.",
+                        extension: "Please upload .xls , .xlsx file "
+                    }
+                }
+            });
+
+        })
+    </script>
+
+</form>

@@ -20,6 +20,7 @@ namespace SMSPortalInfo.Common
         Delete_Category_By_Id_Sp,
         Check_Existing_Category,
         Get_Category_Autocomplete_Sp,
+        Get_Category_Id_By_Name,
 
         // Users
         Insert_Users_Sp,
@@ -32,6 +33,7 @@ namespace SMSPortalInfo.Common
         Get_User_Autocomplete_Sp,
         Get_Users_By_Entity_Id_Sp,
         Get_User_By_Password_Token,
+        Reset_Password,
 
         //Sub Category
         Get_Sub_Category_Sp,
@@ -42,6 +44,7 @@ namespace SMSPortalInfo.Common
         Check_Existing_Sub_Category,
          Get_Sub_Category_By_Category_Sp,
         Get_Lookup_Sub_Category_By_Id_Sp,
+        Get_SubCategory_Id_By_Name,
 
         //Brands
         Delete_Brand_By_Id_Sp,
@@ -53,6 +56,7 @@ namespace SMSPortalInfo.Common
         Check_Existing_Brand,
         Update_Brand_Image,
         Get_Brand_Autocomplete_Sp,
+        Get_Brand_Id_By_Name,
 
         //Roles
         Get_Roles_Sp,
@@ -110,7 +114,7 @@ namespace SMSPortalInfo.Common
         Get_InvoiceNo_AutoComplete_Sp,
         Insert_Receivable_Data_Sp,
         Get_InvoiceNo_Sp,
-        Insert_Receivable_Sp,
+         Insert_Receivable_Sp,
         Insert_Receivable_Item_Data_Sp,
         Get_Receivable_Data_Item_By_Id_Sp,
         Get_Receivable_Data_By_Id_Sp,
@@ -145,6 +149,9 @@ namespace SMSPortalInfo.Common
         Get_Payable_Sp,
         Delete_Payable_Data_Item_By_Id,
         Get_Payable_Balance_Amount_By_Id_Sp,
+        Get_Receivable_Data_By_Purchase_Order_By_Id_Sp,
+        Get_Purchase_Order_Amount_By_Id_Sp,
+        Get_Payable_Status_By_Id_Sp,
 
         //Invoice
         Insert_Invoice_Sp,

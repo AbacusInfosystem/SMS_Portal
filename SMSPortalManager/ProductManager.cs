@@ -3,6 +3,7 @@ using SMSPortalInfo.Common;
 using SMSPortalRepo;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,6 +65,11 @@ namespace SMSPortalManager
         public List<AutocompleteInfo> Get_Product_Autocomplete(string ProductName)
         {
             return _productRepo.Get_Product_Autocomplete(ProductName);
+        }
+
+        public bool Bulk_Excel_Upload_Default(DataTable dt)
+        {
+            return _productRepo.Bulk_Excel_Upload_Default(dt);
         }
     }
 }

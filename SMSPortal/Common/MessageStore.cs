@@ -27,7 +27,7 @@ namespace SMSPortal.Common
 			FriendlyMessage SYS04 = new FriendlyMessage("SYS04", MessageType.Information, "No records found.");
 			hash.Add("SYS04", SYS04);
 
-			FriendlyMessage SYS05 = new FriendlyMessage("SYS05", MessageType.Information, "Password has been changed successfully.");
+			FriendlyMessage SYS05 = new FriendlyMessage("SYS05", MessageType.Information, "Password has been changed successfully. You can use your new password to login.");
 			hash.Add("SYS05", SYS05);
 
 			FriendlyMessage SYS06 = new FriendlyMessage("SYS06", MessageType.Error, "You dont have online access. Please contact administrator.");
@@ -38,6 +38,9 @@ namespace SMSPortal.Common
 
             FriendlyMessage SYS08 = new FriendlyMessage("SYS08", MessageType.Error, "File not found, Please contact administrator.");
             hash.Add("SYS08", SYS08);
+
+            FriendlyMessage SYS09 = new FriendlyMessage("SYS09", MessageType.Error, "Link has expired.");
+            hash.Add("SYS09", SYS09);
 
 			#endregion
 
@@ -123,6 +126,12 @@ namespace SMSPortal.Common
             FriendlyMessage PO003 = new FriendlyMessage("PO003", MessageType.Success, "Product deleted successfully");
             hash.Add("PO003", PO003);
 
+            FriendlyMessage PO004 = new FriendlyMessage("PO004", MessageType.Success, "Error occur while uploading data.");
+            hash.Add("PO004", PO004);
+
+            FriendlyMessage PO005 = new FriendlyMessage("PO005", MessageType.Success, "Data uploaded successfully.");
+            hash.Add("PO005", PO005);
+
             #endregion
 			
             #region Vendors
@@ -168,6 +177,13 @@ namespace SMSPortal.Common
 
             FriendlyMessage RC001 = new FriendlyMessage("RC001", MessageType.Success, "Receivable data added successfully");
             hash.Add("RC001", RC001);
+
+            #endregion
+
+            #region Payables
+
+            FriendlyMessage PA001 = new FriendlyMessage("PA001", MessageType.Success, "Payable data added successfully");
+            hash.Add("PA001", PA001);
 
             #endregion
 
