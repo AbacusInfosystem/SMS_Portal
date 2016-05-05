@@ -354,6 +354,7 @@ namespace SMSPortalRepo
              SmtpClient client = new SmtpClient();
              client.Send(message);
          }
+
          public void Reset_Password(string New_Password, int User_Id,string Password_Token)
          {              
              try

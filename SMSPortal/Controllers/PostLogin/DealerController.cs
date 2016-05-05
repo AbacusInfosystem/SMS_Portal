@@ -194,12 +194,11 @@ namespace SMSPortal.Controllers.PostLogin
         }
 
         public ActionResult Get_Dealer_By_Id(DealerViewModel dViewModel)
-
         {
             try
 
             {
-                dViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(dViewModel.Dealer.Dealer_Id, dViewModel.Filter.Brand_Id);
+                dViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(dViewModel.Dealer.Dealer_Id);
             }
 
             catch (Exception ex)
@@ -268,8 +267,87 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Add_Dealer_User(DealerViewModel dViewModel)
         {
-            TempData["Dealer_Id"] = dViewModel.Dealer.Dealer_Id; 
+            TempData["Entity_Id"] = dViewModel.Dealer.Dealer_Id;
+
+            TempData["Role_Id"] = RolesIds.Dealer;
+
             return RedirectToAction("Index", "User");
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Profile(DealerViewModel dViewModel)
+        {
+            try
+            {
+                if (TempData["dViewModel"] != null)
+                {
+                    dViewModel = (DealerViewModel)TempData["dViewModel"];
+                }
+
+                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                dViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(dViewModel.Cookies.Entity_Id);
+
+                dViewModel.States = _stateManager.Get_States();
+
+                dViewModel.Brands = _dealerManager.Get_Brands();
+
+            }
+            catch (Exception ex)
+            {
+                dViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Dealer controller - Profile " + ex);
+            }
+
+            return View("Profile", dViewModel);
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Edit_Dealer_Profile(DealerViewModel dViewModel)
+        {
+            try
+            {
+                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                dViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(dViewModel.Dealer.Dealer_Id);
+
+                dViewModel.States = _stateManager.Get_States();
+
+                dViewModel.Brands = _dealerManager.Get_Brands();
+
+            }
+            catch (Exception ex)
+            {
+                dViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Dealer controller - Edit_Dealer_Profile " + ex);
+            }
+
+            return View("Update_Profile", dViewModel);
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Update_Dealer_Profile(DealerViewModel dViewModel)
+        {
+            try
+            {
+                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _dealerManager.Update_Dealer_Profile(dViewModel.Dealer, dViewModel.Cookies.User_Id);
+
+                dViewModel.Friendly_Message.Add(MessageStore.Get("DO004"));
+
+                TempData["dViewModel"] = dViewModel;
+            }
+            catch (Exception ex)
+            {
+                dViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Dealer Controller - Update_Dealer_Profile " + ex);
+            }
+
+            return RedirectToAction("Profile");
         }
     }
 }

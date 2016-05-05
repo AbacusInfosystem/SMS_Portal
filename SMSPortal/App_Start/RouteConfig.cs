@@ -99,6 +99,25 @@ namespace SMSPortal
             url: "brand/add-brand-user",
             defaults: new { controller = "Brand", action = "Add_Brand_User", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+          name: "Brand-8",
+          url: "brand/display-brand-profile-details",
+          defaults: new { controller = "Brand", action = "Profile", id = UrlParameter.Optional },
+          namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-9",
+            url: "brand/edit-brand-profile-details",
+            defaults: new { controller = "Brand", action = "Edit_Brand_Profile", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Brand-10",
+            url: "brand/update-brand-profile-details",
+            defaults: new { controller = "Brand", action = "Update_Brand_Profile", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #region Category
@@ -179,6 +198,24 @@ namespace SMSPortal
             name: "Dealer-7",
             url: "dealer/add-dealer-user",
             defaults: new { controller = "Dealer", action = "Add_Dealer_User", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Dealer-8",
+            url: "dealer/display-dealer-profile-details",
+            defaults: new { controller = "Dealer", action = "Profile", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Dealer-9",
+            url: "dealer/edit-dealer-profile-details",
+            defaults: new { controller = "Dealer", action = "Edit_Dealer_Profile", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Dealer-10",
+            url: "dealer/update-dealer-profile-details",
+            defaults: new { controller = "Dealer", action = "Update_Dealer_Profile", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion
@@ -304,6 +341,24 @@ namespace SMSPortal
          url: "vendor/vendor-autocomplete/{vendor}",
          defaults: new { controller = "Vendor", action = "Get_Vendor_Autocomplete", id = UrlParameter.Optional },
          namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Vendor-9",
+            url: "vendor/add-vendor-user",
+            defaults: new { controller = "Vendor", action = "Add_Vendor_User", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Vendor-10",
+            url: "vendor/edit-vendor-profile-details",
+            defaults: new { controller = "Vendor", action = "Edit_Vendor_Profile", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Vendor-11",
+            url: "vendor/update-vendor-profile-details",
+            defaults: new { controller = "Vendor", action = "Update_Vendor_Profile", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
 
 
             #endregion

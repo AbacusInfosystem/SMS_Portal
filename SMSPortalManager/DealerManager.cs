@@ -33,9 +33,9 @@ namespace SMSPortalManager
             return _dealerRepo.Get_Dealers(ref Pager, Brand_Id);
         }
 
-        public DealerInfo Get_Dealer_By_Id(int Dealer_Id, int Brand_Id)
+        public DealerInfo Get_Dealer_By_Id(int Dealer_Id)
         {
-            return _dealerRepo.Get_Dealer_By_Id(Dealer_Id, Brand_Id);
+            return _dealerRepo.Get_Dealer_By_Id(Dealer_Id);
         }
 
         public List<DealerInfo> Get_Dealer_By_Id(int Dealer_Id, int Brand_Id, ref PaginationInfo Pager)
@@ -56,6 +56,11 @@ namespace SMSPortalManager
         public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName)
         {
             return _dealerRepo.Get_Dealer_Autocomplete(DealerName);
+        }
+
+        public void Update_Dealer_Profile(DealerInfo dealer,int user_Id)
+        {
+            _dealerRepo.Update_Dealer_Profile(dealer, user_Id);
         }
     }
 }
