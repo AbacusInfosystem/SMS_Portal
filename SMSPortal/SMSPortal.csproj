@@ -1144,6 +1144,7 @@
     <Content Include="Views\PostLogin\Tax\Index.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Dealer_Detail.cshtml" />
     <Content Include="Views\PostLogin\Product\_Product_Excel_Upload.cshtml" />
+    <Content Include="Views\PreLogin\Login\Reset_Password.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
