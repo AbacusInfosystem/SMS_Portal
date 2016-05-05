@@ -132,6 +132,12 @@ namespace SMSPortal.Common
             FriendlyMessage PO003 = new FriendlyMessage("PO003", MessageType.Success, "Product deleted successfully");
             hash.Add("PO003", PO003);
 
+            FriendlyMessage PO004 = new FriendlyMessage("PO004", MessageType.Success, "Error occur while uploading data.");
+            hash.Add("PO004", PO004);
+
+            FriendlyMessage PO005 = new FriendlyMessage("PO005", MessageType.Success, "Data uploaded successfully.");
+            hash.Add("PO005", PO005);
+
             #endregion
 			
             #region Vendors
@@ -180,6 +186,13 @@ namespace SMSPortal.Common
 
             FriendlyMessage RC001 = new FriendlyMessage("RC001", MessageType.Success, "Receivable data added successfully");
             hash.Add("RC001", RC001);
+
+            #endregion
+
+            #region Payables
+
+            FriendlyMessage PA001 = new FriendlyMessage("PA001", MessageType.Success, "Payable data added successfully");
+            hash.Add("PA001", PA001);
 
             #endregion
 

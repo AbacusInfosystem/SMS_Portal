@@ -50,5 +50,6 @@ namespace SMSPortalInfo
 
         public decimal Purchase_Order_Amount { get; set; }
 
+        public string Transaction_Type_Name { get; set; }
     }
 }

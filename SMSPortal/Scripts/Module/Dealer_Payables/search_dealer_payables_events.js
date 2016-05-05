@@ -5,19 +5,21 @@
     Search_Receivable();
 
     $("#btnSearch").click(function ()
+
     {
-        Search_Receivable(); 
+        Search_Receivable();
     });
 
-    $("#btnEdit").click(function () {
-
-        $("#hdnMode").val("Edit");
+    $("#btnView").click(function ()
+    {
+        $("#hdnMode").val("View");
 
         $("#frmReceivable").attr("action", "/receivable/edit-receivable");
 
         $("#frmReceivable").attr("method", "POST");
 
         $("#frmReceivable").submit();
+
     });
 
 });

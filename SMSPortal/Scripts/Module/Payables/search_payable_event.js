@@ -1,5 +1,5 @@
 ﻿$(function () {
-    alert(1);
+    //alert(1);
     InitializeAutoComplete($('#txtPurchase_Order_No'));
 
     Search_Payable();
@@ -10,7 +10,7 @@
 
     $("#btnEdit").click(function () {
 
-        $("#frmPayables").attr("action", "/Payables/Get_Payables_By_Id");
+        $("#frmPayables").attr("action", "/Payable/edit-payable");
 
         $("#frmPayables").attr("method", "POST");
 

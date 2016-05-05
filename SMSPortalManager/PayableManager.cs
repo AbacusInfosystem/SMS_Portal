@@ -41,9 +41,9 @@ namespace SMSPortalManager
 
 
 
-        public PayableInfo Get_Payable_Data_By_Id(int payable_Id)
+        public PayableInfo Get_Payable_Data_By_Id(int purchase_order_id)
         {
-            return _payableRepo.Get_Payable_Data_By_Id(payable_Id);
+            return _payableRepo.Get_Payable_Data_By_Id(purchase_order_id);
         }
 
         public List<PayableInfo> Get_Payable_Items_By_Id(int payable_Id)
@@ -55,6 +55,22 @@ namespace SMSPortalManager
         {
             _payableRepo.Delete_Payable_Data_Item_By_Id(payable_Item_Id);
         }
+
+        public decimal Get_Purchase_Order_Amount(int purchase_order_Id)
+        {
+            return _payableRepo.Get_Purchase_Order_Amount(purchase_order_Id);
+        }
+
+        //public string Get_Payable_Status(int purchase_order_id)
+        //{
+        //    return _payableRepo.Get_Payable_Status(purchase_order_id);
+        //}
+
+        public List<AutocompleteInfo> Get_Payable_Purchase_Order_Autocomplete(string Purchase_order_no)
+        {
+            return _payableRepo.Get_Payable_Purchase_Order_Autocomplete(Purchase_order_no);
+        }
+
     }
 }
 

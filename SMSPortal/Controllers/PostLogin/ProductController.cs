@@ -5,14 +5,17 @@ using SMSPortalHelper.Logging;
 using SMSPortalHelper.PageHelper;
 using SMSPortalInfo;
 using SMSPortalInfo.Common;
+using SMSPortalRepo;
 using SMSPortalManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SMSPortalRepo.Common;
 
 namespace SMSPortal.Controllers.PostLogin
 {
@@ -292,6 +295,61 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(autoList, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Bulk_Excel_Product_Upload(ProductViewModel pViewModel)
+        {
+            // Code to Upload Excel File 
+            var fileName = "";
+            var path = "";
+            bool is_Error = false;
 
+            try
+            {
+                ExcelReader _excel = new ExcelReader();
+
+                if (pViewModel.UploadProductExcel.ContentLength > 0)
+                {
+
+                    fileName = Path.GetFileName(pViewModel.UploadProductExcel.FileName);
+
+                    path = Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), fileName);
+
+                    Logger.Debug("*************************** " + path.ToString());
+
+                    pViewModel.UploadProductExcel.SaveAs(path);
+
+                    DataSet ds = _excel.ExecuteDataSet(path);
+
+                    is_Error = _productManager.Bulk_Excel_Upload_Default(ds.Tables[0]);
+
+                    if (is_Error == true)
+                    {
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("PO004"));
+                    }
+                    else
+                    {
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("PO005"));
+                    }
+
+                    System.IO.File.Delete(path);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.Delete(path);
+
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error At Product Controller Bulk_Excel_Product_Upload  " + ex.Message);
+            }
+
+            TempData["Message"] = pViewModel.Friendly_Message;
+
+            return RedirectToAction("Search");
+        }
+
+        public PartialViewResult Upload_Product_Excel()
+        {
+            return PartialView("_Product_Excel_Upload");
+        }
     }
 }

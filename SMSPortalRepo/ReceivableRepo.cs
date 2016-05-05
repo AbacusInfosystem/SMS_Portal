@@ -23,17 +23,24 @@ namespace SMSPortalRepo
            _sqlRepo = new SQLHelper();
        }
 
-       public List<ReceivableInfo> Get_Receivable_By_Id(int invoice_Id, ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivable_By_Id(int Dealer_Id, int invoice_Id, ref PaginationInfo pager)
        {
            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
            sqlParamList.Add(new SqlParameter("@Invoice_Id", invoice_Id));
 
+           sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
+
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
+
            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_Data_By_Invoice_Id_Sp.ToString(), CommandType.StoredProcedure);
+
            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+
            {
                Receivables.Add(Get_Receivable_Values(dr));
            }
+
            return Receivables;
        }
 
@@ -140,14 +147,25 @@ namespace SMSPortalRepo
            return receivable;
        }
 
-       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int Dealer_Id)
+
        {
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
-           DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Receivable_Sp.ToString(), CommandType.StoredProcedure);
+
+           List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+           sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
+
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_Sp.ToString(), CommandType.StoredProcedure);
+
            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+
            {
                Receivables.Add(Get_Receivable_Values(dr));
            }
+
            return Receivables;
        }
 

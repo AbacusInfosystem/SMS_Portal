@@ -1,27 +1,38 @@
-﻿function Search_Receivable() {
+﻿function Search_Receivable()
+{
     var rViewModel =
+
         {
             Filter:
+
                 {
                     Invoice_Id: $('#hdnInvoiceId').val(),
+
+                    Dealer_Id: $('#hdnDealerId').val(),
                 },
+
             Pager:
                 {
                     CurrentPage: $('#hdfCurrentPage').val(),
                 },
+
         }
 
     CallAjax("/Receivable/Get-Recievable/", "json", JSON.stringify(rViewModel), "POST", "application/json", false, Bind_Receivable_Grid, "", null);
 }
 
 
-function Bind_Receivable_Grid(data) {
+function Bind_Receivable_Grid(data)
+{
 
     var htmlText = "";
 
     if (data.Receivables.length > 0)
     {
-        for (i = 0; i < data.Receivables.length; i++) {
+
+        for (i = 0; i < data.Receivables.length; i++)
+
+        {
             htmlText += "<tr>";
 
             htmlText += "<td>";
@@ -47,11 +58,12 @@ function Bind_Receivable_Grid(data) {
             htmlText += data.Receivables[i].Status == "" ? "Pending" : data.Receivables[i].Status;
 
             htmlText += "</td>";
-         
+
             htmlText += "</tr>";
         }
     }
-    else {
+    else
+    {
         htmlText += "<tr>";
 
         htmlText += "<td colspan='3'> No Record found.";
@@ -62,33 +74,53 @@ function Bind_Receivable_Grid(data) {
     }
 
     $('#tblReceivableMaster').find("tr:gt(0)").remove();
+
     $('#tblReceivableMaster tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
+    $('.iradio-list').iCheck(
+        {
+            radioClass: 'iradio_square-green',
+
+            increaseArea: '20%' // optional
+
     });
 
-    if (data.Receivables.length > 0) {
+    if (data.Receivables.length > 0)
+    {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);
-        if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "") {
+
+        if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "")
+        {
             $('.pagination').html(data.Pager.PageHtmlString);
         }
     }
-    else {
+    else
+    {
         $('.pagination').html("");
     }
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event) {
-        if ($(this).prop('checked')) {
+    $('[name="r1"]').on('ifChanged', function (event)
+
+    {
+        if ($(this).prop('checked'))
+        {
+
             var Id = this.id.replace("r1_", "");
+
+            $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
+
             var String = Id.split("_");
+
             $("#hdnInvoice_Id").val(String[0]);
+
             $("#hdnInvoice_Amount").val(String[1]);
-            $("#btnEdit").show();
+
+            $("#btnView").show();
+
             $("#btnAddProductMapping").show();
+
             $("#btnDelete").show();
 
         }

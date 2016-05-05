@@ -16,6 +16,8 @@ namespace SMSPortalRepo
     {
         SQLHelper _sqlRepo;
 
+        ExcelReader _excelRepo = null;
+
         public ProductRepo()
         {
             _sqlRepo = new SQLHelper();
@@ -218,5 +220,170 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Product_Image_Id", Product_Image_Id));
             _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
         }
+
+
+        public bool Bulk_Excel_Upload_Default(DataTable dt)
+        {
+
+            bool Is_Error = false;
+
+            int i = 1;
+
+            BrandRepo _brandRepo = new BrandRepo();
+            CategoryRepo _categoryRepo = new CategoryRepo();
+            SubCategoryRepo _subCategoryRepo = new SubCategoryRepo();
+            List<ProductInfo> products = new List<ProductInfo>();
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+
+            List<ExceptionInfo> exceptionList = new List<ExceptionInfo>();
+
+            PaginationInfo pager = new PaginationInfo();
+
+            pager.IsPagingRequired = false;
+
+            try
+            {
+                if (dt != null && dt.Rows.Count > 0)
+                {
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        ProductInfo _product = new ProductInfo();
+
+                        _product.Product_Name = Convert.ToString(dr["Product Name"]);
+
+                        _product.Product_Description = Convert.ToString(dr["Product Description"]);
+
+                        _product.Product_Price = Convert.ToDecimal(dr["Product Price"]);
+
+                        _product.Brand_Id = _brandRepo.Get_Brand_Id_By_Name(dr["Brand"].ToString());
+
+                        _product.Category_Id = _categoryRepo.Get_Category_Id_By_Name(dr["Category"].ToString());
+
+                        _product.SubCategory_Id = _subCategoryRepo.Get_SubCategory_Id_By_Name(_product.Category_Id ,dr["SubCategory"].ToString());
+
+                        if (dr["Is Biddable"].ToString().ToLower() == "yes")
+                        {
+                            _product.Is_Biddable = true;
+                        }
+                        else 
+                        {
+                            _product.Is_Biddable = false;
+                        }                        
+
+                        if (Valid_Default_Row(_product)) // To check if row get all ids 
+                        {
+                        //    if (Get_Default_Validations_By_Objcet_Frame_Field(_product.Object_Id, _product.Default_Frame_Id, _product.Default_Field_Id, ref pager).Count > 0)
+                        //    {
+
+                        //        if (Validation_Default_Fields(_product))
+                        //        {                                    
+
+                                    _product.Is_Active = true;
+
+                                    _product.Created_By = 1;
+
+                                    _product.Updated_By = 1;
+
+                                    _product.Created_On = DateTime.Now;
+
+                                    _product.Updated_On = DateTime.Now;
+
+                                    Insert_Product(_product);
+                        //         }
+                        //         else
+                        //         {
+                        //             Is_Error = true;
+
+                        //            ExceptionInfo exceptionInfo = new ExceptionInfo();
+
+                        //            exceptionInfo.FileName = "Product Upload";
+
+                        //            exceptionInfo.UploadedDate = DateTime.Now;
+
+                        //            exceptionInfo.RowNo = i;
+
+                        //            exceptionInfo.ErrorMessage = exceptionInfo.FileName + " : " + exceptionInfo.UploadedDate + " : " + "Validation Error at row " + i;
+
+                        //            exceptionList.Add(exceptionInfo);
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        _product.Created_By = 1;
+
+                        //        _product.Updated_By = 1;
+
+                        //        _product.Created_On = DateTime.Now;
+
+                        //        _product.Updated_On = DateTime.Now;
+
+                        //        Insert_Default_Validation(_product);
+                        //    }
+
+                        }
+                        else
+                        {
+                            // return Error
+
+                            Is_Error = true;
+
+                            ExceptionInfo exception = new ExceptionInfo();
+
+                            exception.FileName = "Default Validation";
+
+                            exception.UploadedDate = DateTime.Now;
+
+                            exception.RowNo = i;
+
+                            exception.ErrorMessage = exception.FileName + " : " + exception.UploadedDate + " : " + "Invalid Entry at row " + i;
+
+                            exceptionList.Add(exception);
+                        }
+
+                        i++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Is_Error = true;
+
+                ExceptionInfo exception = new ExceptionInfo();
+
+                exception.UploadedDate = DateTime.Now;
+
+                exception.ErrorMessage = "Replacebale Validation : " + exception.UploadedDate + " : " + ex.Message;
+            }
+
+            _excelRepo.LogExceptions(exceptionList);
+
+            return Is_Error;
+        }
+
+        public bool Valid_Default_Row(ProductInfo _product)
+        {
+            bool valid = true;
+
+            if (_product.Brand_Id == 0)
+            {
+                valid = false;
+            }
+
+            if (_product.Category_Id == 0)
+            {
+                valid = false;
+            }
+
+            if (_product.SubCategory_Id == 0)
+            {
+                valid = false;
+            }
+
+            return valid;
+        }
+
+         
     }
 }

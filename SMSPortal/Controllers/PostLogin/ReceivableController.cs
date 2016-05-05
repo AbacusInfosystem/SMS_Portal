@@ -31,41 +31,83 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Search", rViewModel);
         }
 
+        public ActionResult Searches(ReceivableViewModel rViewModel)
+        {
+            try
+            
+            {
+                rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (rViewModel.Cookies.Role_Id == 1)
+                   {
+                       rViewModel.Filter.Dealer_Id = 0;
+                   }
+
+                   else
+                   {
+                       rViewModel.Filter.Dealer_Id = rViewModel.Cookies.Entity_Id;
+                   }
+
+               }
+
+            catch (Exception ex)
+            {
+                rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("DealerController Search " + ex);
+            }   
+
+            return View("Searches", rViewModel);
+        }
+
         public ActionResult Index( ReceivableViewModel rViewModel)
         { 
             return View("Index", rViewModel);
         }     
 
         public JsonResult Get_Recievable(ReceivableViewModel rViewModel)
+
         {
             PaginationInfo pager = new PaginationInfo();
+
             try
+
             {
                 pager = rViewModel.Pager;
 
                 if (rViewModel.Filter.Invoice_Id != 0)
+
                 {
-                    rViewModel.Receivables = _receivableManager.Get_Receivable_By_Id(rViewModel.Filter.Invoice_Id, ref pager);
+                    rViewModel.Receivables = _receivableManager.Get_Receivable_By_Id(rViewModel.Filter.Dealer_Id, rViewModel.Filter.Invoice_Id, ref pager);
                 }
+
                 else
                 {
-                    rViewModel.Receivables = _receivableManager.Get_Receivables(ref pager);
+                    rViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, rViewModel.Filter.Dealer_Id);
                 }
+
                 rViewModel.Pager = pager;
+
                 rViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", rViewModel.Pager.TotalRecords, rViewModel.Pager.CurrentPage + 1, rViewModel.Pager.PageSize, 10, true);
             }
+
             catch (Exception ex)
+            
             {
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error at Receivable Controller - Get_Receivables " + ex);
             }
             return Json(rViewModel);
         }
 
         [AuthorizeUserAttribute(AppFunction.Token)]
+
         public ActionResult Get_Receivables_By_Id(ReceivableViewModel rViewModel)
+
         {
             try
+            
             {
                 int Id = rViewModel.Receivable.Invoice_Id;
 
@@ -84,7 +126,16 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error At Receivable Controller - Get_Receivables_By_Id" + ex.Message);
             }
 
-            return View("Index", rViewModel);
+
+            if (rViewModel.Filter.Mode == "Edit")
+            {
+                return View("Index", rViewModel);
+            }
+            else
+            {
+                return View("Dealer_Payables_Detail", rViewModel);
+            }
+ 
         }
 
         public JsonResult Insert_Receivable(ReceivableViewModel rViewModel)
@@ -107,9 +158,12 @@ namespace SMSPortal.Controllers.PostLogin
 
                 rViewModel.Friendly_Message.Add(MessageStore.Get("RC001"));
             }
+
             catch (Exception ex)
             {
+
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error at Receivable Controller - Insert_Receivable " + ex);
             }
 
@@ -138,13 +192,17 @@ namespace SMSPortal.Controllers.PostLogin
 
         public JsonResult Get_Receivable_Invoice_Autocomplete(string invoiceno)
         {
+
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
 
             try
+
             {
                 autoList = _receivableManager.Get_Invoice_Autocomplete(invoiceno);
             }
+
             catch (Exception ex)
+
             {
                 Logger.Error("Error at Receivable Controller - Get_Receivable_Invoice_Autocomplete " + ex.ToString());
             }

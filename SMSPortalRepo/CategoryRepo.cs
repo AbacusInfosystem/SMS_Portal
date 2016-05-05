@@ -165,5 +165,13 @@ namespace SMSPortalRepo
             }
             return autoList;
         }
+
+        public int Get_Category_Id_By_Name(string Category_Name)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@CategoryName", Category_Name));
+
+            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Category_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        }
     }
 }
