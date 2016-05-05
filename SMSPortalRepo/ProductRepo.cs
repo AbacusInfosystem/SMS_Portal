@@ -16,6 +16,8 @@ namespace SMSPortalRepo
     {
         SQLHelper _sqlRepo;
 
+        ExcelReader _excelRepo = null;
+
         public ProductRepo()
         {
             _sqlRepo = new SQLHelper();
@@ -233,7 +235,7 @@ namespace SMSPortalRepo
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParam = new List<SqlParameter>();
 
-            //List<ExceptionInfo> exceptionList = new List<ExceptionInfo>();
+            List<ExceptionInfo> exceptionList = new List<ExceptionInfo>();
 
             PaginationInfo pager = new PaginationInfo();
 
@@ -260,60 +262,34 @@ namespace SMSPortalRepo
 
                         _product.SubCategory_Id = _subCategoryRepo.Get_SubCategory_Id_By_Name(_product.Category_Id ,dr["SubCategory"].ToString());
 
-                        _product.Is_Biddable = false;
+                        if (dr["Is Biddable"].ToString().ToLower() == "yes")
+                        {
+                            _product.Is_Biddable = true;
+                        }
+                        else 
+                        {
+                            _product.Is_Biddable = false;
+                        }                        
 
-                        _product.Is_Active = true;
-
-                        _product.Created_By = 1;
-
-                        _product.Updated_By = 1;
-
-                        _product.Created_On = DateTime.Now;
-
-                        _product.Updated_On = DateTime.Now;
-
-                        Insert_Product(_product);
-
-
-
-                        //_product.Default_Frame_Id = _vRepo.Get_Frame_Id_By_Object(_product.Object_Id, _product.Default_Frame_Name);
-
-                        //_product.Default_Field_Name = Convert.ToString(dr["Default Field Name"]);
-
-                        //_product.Default_Field_Id = _vRepo.Get_Field_Id_By_Object_Frame(_product.Object_Id, _product.Default_Frame_Id, _product.Default_Field_Name);
-
-                        //_product.Default_Dependent_Frame_Name = Convert.ToString(dr["Default Dependent Frame Name"]);
-
-                        //_product.Default_Dependent_Frame_Id = _vRepo.Get_Frame_Id_By_Object(_product.Object_Id, _product.Default_Dependent_Frame_Name);
-
-                        //_product.Default_Dependent_Field_Name = Convert.ToString(dr["Default Dependent Field Name"]);
-
-                        //_product.Default_Dependent_Field_Id = _vRepo.Get_Field_Id_By_Object_Frame(_product.Object_Id, _product.Default_Dependent_Frame_Id, _product.Default_Dependent_Field_Name);
-
-                        //_product.Default_Dependent_Field_Value = Convert.ToString(dr["Default Dependent Field Value"]);
-
-                        //// _default.Default_Value = Convert.ToString(dr["Default Value");
-                        //_product.Default_Value = Convert.ToString(dr["Default Value"]);
-
-                        //_product.Is_Mandetory = Convert.ToString(dr["Is Mandetory"]);
-
-
-                        //if (Valid_Default_Row(_product)) // To check if row get all ids 
-                        //{
+                        if (Valid_Default_Row(_product)) // To check if row get all ids 
+                        {
                         //    if (Get_Default_Validations_By_Objcet_Frame_Field(_product.Object_Id, _product.Default_Frame_Id, _product.Default_Field_Id, ref pager).Count > 0)
                         //    {
 
                         //        if (Validation_Default_Fields(_product))
-                        //        {
-                                    //_product.Created_By = 1;
+                        //        {                                    
 
-                                    //_product.Updated_By = 1;
+                                    _product.Is_Active = true;
 
-                                    //_product.Created_On = DateTime.Now;
+                                    _product.Created_By = 1;
 
-                                    //_product.Updated_On = DateTime.Now;
+                                    _product.Updated_By = 1;
 
-                                    //Insert_Product(_product);
+                                    _product.Created_On = DateTime.Now;
+
+                                    _product.Updated_On = DateTime.Now;
+
+                                    Insert_Product(_product);
                         //         }
                         //         else
                         //         {
@@ -345,25 +321,25 @@ namespace SMSPortalRepo
                         //        Insert_Default_Validation(_product);
                         //    }
 
-                        //}
-                        //else
-                        //{
-                        //    // return Error
+                        }
+                        else
+                        {
+                            // return Error
 
-                        //    Is_Error = true;
+                            Is_Error = true;
 
-                        //    SAPExceptionInfo sapException = new SAPExceptionInfo();
+                            ExceptionInfo exception = new ExceptionInfo();
 
-                        //    sapException.FileName = "Default Validation";
+                            exception.FileName = "Default Validation";
 
-                        //    sapException.UploadedDate = DateTime.Now;
+                            exception.UploadedDate = DateTime.Now;
 
-                        //    sapException.RowNo = i;
+                            exception.RowNo = i;
 
-                        //    sapException.ErrorMessage = sapException.FileName + " : " + sapException.UploadedDate + " : " + "Invalid Entry at row " + i;
+                            exception.ErrorMessage = exception.FileName + " : " + exception.UploadedDate + " : " + "Invalid Entry at row " + i;
 
-                        //    sapExceptionList.Add(sapException);
-                        //}
+                            exceptionList.Add(exception);
+                        }
 
                         i++;
                     }
@@ -372,22 +348,41 @@ namespace SMSPortalRepo
             catch (Exception ex)
             {
 
-                //Is_Error = true;
+                Is_Error = true;
 
-                //ExceptionInfo exception = new ExceptionInfo();
+                ExceptionInfo exception = new ExceptionInfo();
 
-                //exception.UploadedDate = DateTime.Now;
+                exception.UploadedDate = DateTime.Now;
 
-                //exception.ErrorMessage = "Replacebale Validation : " + exception.UploadedDate + " : " + ex.Message;
+                exception.ErrorMessage = "Replacebale Validation : " + exception.UploadedDate + " : " + ex.Message;
             }
 
-
-            //_excelRepo.LogExceptions(exceptionList);
+            _excelRepo.LogExceptions(exceptionList);
 
             return Is_Error;
         }
 
-         
+        public bool Valid_Default_Row(ProductInfo _product)
+        {
+            bool valid = true;
+
+            if (_product.Brand_Id == 0)
+            {
+                valid = false;
+            }
+
+            if (_product.Category_Id == 0)
+            {
+                valid = false;
+            }
+
+            if (_product.SubCategory_Id == 0)
+            {
+                valid = false;
+            }
+
+            return valid;
+        }
 
          
     }
