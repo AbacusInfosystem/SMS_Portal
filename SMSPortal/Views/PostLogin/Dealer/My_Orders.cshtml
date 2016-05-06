@@ -1,0 +1,106 @@
+﻿@model SMSPortal.Models.PostLogin.SalesOrderViewModel
+@using SMSPortal.Common;
+
+<script src="~/Scripts/Module/SalesOrder/sales_my_order_events.js"></script>
+<script src="~/Scripts/Module/SalesOrder/sales_my_order_methods.js"></script>
+
+<form id="frmMyOrders" enctype="multipart/form-data">
+    <input type="hidden" id="hdnOrder_Id" name="Sales_Order.Order_Id" value="@Model.Sales_Order.Order_Id">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        @*@{Html.RenderPartial("_ServerMessage");}*@
+        <section class="content-header">
+            <h1>
+                Sales Orders
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">Sales Orders</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Sales Orders</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group auto-complete">
+                                        <label for="Subcategory" class="lookup-title">Order No</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Order_No" id="txtOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-table="Orders" data-col="Order_Id,Order_No" data-headernames="Orders">
+                                            <input type="hidden" id="hdnOrderId" value="@Model.Filter.Order_Id" name="Filter.Order_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnOrderNo" value="@Model.Filter.Order_No" name="Filter.Order_No" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefOrder" role="button"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="btn-group pull-left">
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button type="button" id="btnDetails" style="display:none;" class="btn btn-warning btn-sm ">Order Details</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body table-responsive no-padding">
+
+                            <table class="table table-striped" id="tblMyOrders">
+                                <tr id="subhead">
+                                    <th></th>
+                                    <th>Order No</th>
+                                    <th>Dealer Name</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </table>
+
+                            <div class="box-footer clearfix">
+                                <div class="pagination pagination-sm no-margin pull-right">
+                                    <ul></ul>
+                                </div>
+                                <div id="divSearchGridOverlay" class="overlay">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+</form>
+
+
+
+
+
+

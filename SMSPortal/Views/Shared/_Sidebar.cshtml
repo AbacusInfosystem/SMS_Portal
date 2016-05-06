@@ -1,15 +1,21 @@
 ﻿@using SMSPortalInfo.Common
+@using SMSPortal.Common
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-        
+
+        @{
+            CookiesInfo cookies = new CookiesInfo();
+
+            cookies = Utility.Get_Login_User("UserInfo", "Token");
+               
        <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             
                 <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Main Header</a></li>
-            
-
-           
+              
+           @if(cookies.Role_Id==Convert.ToInt32(RolesIds.Admin))
+           {
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-link"></i>
@@ -32,20 +38,13 @@
                         <li><a href="@Url.Action("Search","SubCategory")"><i class="fa fa-circle-o text-info"></i> SubCategory </a></li> 
                         <li><a href="@Url.Action("Index","Tax")"><i class="fa fa-circle-o text-info"></i> Add Tax </a></li> 
                         <li><a href="@Url.Action("Search","Dealer_Payables")"><i class="fa fa-circle-o text-info"></i> Dealer Payables </a></li>
-
-                     
-
-                        @*<li class="treeview">
-                            <a href="#"><i class="fa fa-circle-o text-info"></i><span>module 3</span></a>
-                            <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-circle-o text-info"></i>Sub-Module 1 </a></li>
-                                <li><a href="#"><i class="fa fa-circle-o text-info"></i>Sub-Module 2 </a></li>
-                            </ul>
-                        </li>*@
                   </ul>
             </li>
-
-           <li class="treeview">
+           }      
+          
+           @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+           {
+               <li class="treeview">
                <a href="#">
                    <i class="fa fa-link"></i>
                    <span>Vendor</span>
@@ -59,11 +58,11 @@
                    <li><a href="@Url.Action("Searches", "Payables")"><i class="fa fa-circle-o text-info"></i> Receivables </a></li>
                </ul>
            </li>  
+           }
 
-
-           @*//Brand*@
-
-           <li class="treeview">
+          @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
+          {
+              <li class="treeview">
                <a href="#">
                    <i class="fa fa-link"></i>
                    <span>Brand</span>
@@ -77,23 +76,12 @@
                    <li><a href="@Url.Action("Search","Dealer")"><i class="fa fa-circle-o text-info"></i> Dealers </a></li>
 
                </ul>
-           </li>  
-
-           <li class="treeview">
-               <a href="#">
-                   <i class="fa fa-link"></i>
-                   <span>Dealer</span>
-                   <i class="fa fa-angle-left pull-right"></i>
-               </a>
-               <ul class="treeview-menu">
-                   <li><a href="@Url.Action("Profile", "Dealer")"><i class=" fa fa-circle-o text-info"></i> Profile </a></li>
-               </ul>
            </li>
+          }
 
-          
-           @*//Dealer*@
-
-           <li class="treeview">
+           @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+           {
+               <li class="treeview">
                <a href="#">
                    <i class="fa fa-link"></i>
                    <span>Dealer</span>
@@ -102,14 +90,19 @@
                <ul class="treeview-menu">
 
                    <li><a href="@Url.Action("Profile", "Dealer")"><i class=" fa fa-circle-o text-info"></i> Profile </a></li>
-
 
                    <li><a href="@Url.Action("Searches", "Receivable")"><i class="fa fa-circle-o text-info"></i> Payables </a></li>
 
-               </ul>
-           </li>  
+                   <li><a href="@Url.Action("My_Orders", "Dealer")"><i class="fa fa-circle-o text-info"></i> My Orders </a></li>
 
-            </ul>
+               </ul>
+           </li> 
+           }     
+
+      </ul>
+            
+        }
+
     </section>
 
     <!-- /.sidebar -->

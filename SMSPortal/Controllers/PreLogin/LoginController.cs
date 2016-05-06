@@ -63,7 +63,7 @@ namespace SMSPortal.Controllers.PreLogin
         {
             return View("ForgotPassword", uViewModel);
         }
-          
+
         public ActionResult Send_Reset_Password(UserViewModel uViewModel)
         {
             string link = string.Empty;
@@ -72,7 +72,7 @@ namespace SMSPortal.Controllers.PreLogin
         
             try
             {
-              
+
                 uViewModel.User = _userManager.Get_User_By_Email(uViewModel.User.Email_Id);
                 link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken=" + uViewModel.User.Pass_Token;
 

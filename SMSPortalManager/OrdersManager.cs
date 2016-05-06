@@ -18,10 +18,10 @@ namespace SMSPortalManager
             _ordersRepo = new OrdersRepo();
         }
 
-        public List<OrdersInfo> Get_Orders(ref PaginationInfo Pager)
+        public List<OrdersInfo> Get_Orders(ref PaginationInfo Pager,int dealer_Id)
         {
-            return _ordersRepo.Get_Orders(ref Pager);
-        }       
+            return _ordersRepo.Get_Orders(ref Pager, dealer_Id);
+        }
 
         public OrdersInfo Get_Order_Data_By_Id(int order_Id)
         {
