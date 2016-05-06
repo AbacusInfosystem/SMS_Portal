@@ -6,29 +6,15 @@
 
 <script src="~/Scripts/Module/Receivable/search_receivable_method.js"></script>
 
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck(
-            {
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-
-        }); 
-    });
-
-</script>
-
 <form id="frmReceivable" enctype="multipart/form-data">
 
-    <!-- Content Wrapper. Contains page content -->
+    <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage">
 
     <div class="content-wrapper">
 
         <!-- Content Header (Page header) -->
 
-        @*@{Html.RenderPartial("_ServerMessage");}*@
+        @{Html.RenderPartial("_ServerMessage");}
 
         <section class="content-header">
 
@@ -121,7 +107,7 @@
 
                                         <div class="btn-group pull-right">
 
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
+                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
 
 
                                             <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />

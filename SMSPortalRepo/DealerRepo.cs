@@ -59,10 +59,6 @@ namespace SMSPortalRepo
 
             sqlParams.Add(new SqlParameter("@Email", dealer.Email));
 
-            sqlParams.Add(new SqlParameter("@Dealer_Percentage_Share", dealer.Dealer_Percentage_Share));
-
-            sqlParams.Add(new SqlParameter("@Brand_Percentage_Share", dealer.Brand_Percentage_Share));
-
             sqlParams.Add(new SqlParameter("@Is_Active", dealer.Is_Active));
 
             if (dealer.Dealer_Id == 0)
@@ -179,12 +175,6 @@ namespace SMSPortalRepo
             dealer.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
 
             dealer.Email = Convert.ToString(dr["Email"]);
-
-            if (!dr.IsNull("Dealer_Percentage_Share"))
-            dealer.Dealer_Percentage_Share = Convert.ToInt32(dr["Dealer_Percentage_Share"]);
-
-            if (!dr.IsNull("Brand_Percentage_Share"))
-            dealer.Brand_Percentage_Share = Convert.ToInt32(dr["Brand_Percentage_Share"]);
 
             dealer.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
 
@@ -312,10 +302,6 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Contact_No_2", dealer.Contact_No_2));
 
             sqlParams.Add(new SqlParameter("@Email", dealer.Email));
-
-            sqlParams.Add(new SqlParameter("@Dealer_Percentage_Share", dealer.Dealer_Percentage_Share));
-
-            sqlParams.Add(new SqlParameter("@Brand_Percentage_Share", dealer.Brand_Percentage_Share));
 
             sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
 
