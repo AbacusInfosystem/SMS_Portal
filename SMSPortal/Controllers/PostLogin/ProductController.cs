@@ -24,18 +24,13 @@ namespace SMSPortal.Controllers.PostLogin
         //
         // GET: /Product/
         public ProductManager _productManager;
-        public BrandManager _brandManager;
-        public CategoryManager _categoryManager;
         public DealerManager _dealerManager;
         public SubCategoryManager _subCategoryManager;
          
         public ProductController()
         {
-            _productManager = new ProductManager();
-            _brandManager = new BrandManager();
-            _categoryManager = new CategoryManager();
-            _dealerManager = new DealerManager();
-            _subCategoryManager = new SubCategoryManager();
+            _productManager = new ProductManager(); 
+            _dealerManager = new DealerManager();             
         }
         public ActionResult Search(ProductViewModel pViewModel)
         {
@@ -59,11 +54,9 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo Pager = new PaginationInfo();
             try
             {
-
-                pViewModel.Brands = _dealerManager.Get_Brands();
+                pViewModel.Brands = _productManager.Get_Brands();
                 //pViewModel.Categories = _subCategoryManager.Get_Categories();
-                pViewModel.Categories = _categoryManager.Get_Categorys(ref Pager);
-
+                pViewModel.Categories = _productManager.Get_Categorys();
             }
             catch (Exception ex)
             {
@@ -76,12 +69,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                pViewModel.Product.Created_By = pViewModel.Cookies.User_Id;
-                pViewModel.Product.Created_On = DateTime.Now;
-                pViewModel.Product.Updated_By = pViewModel.Cookies.User_Id;
-                pViewModel.Product.Updated_On = DateTime.Now;
-                _productManager.Insert_Product(pViewModel.Product);
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");                 
+                _productManager.Insert_Product(pViewModel.Product,pViewModel.Cookies.User_Id);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO001"));
             }
             catch (Exception ex)
@@ -97,10 +86,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                pViewModel.Product.Updated_By = pViewModel.Cookies.User_Id;
-                pViewModel.Product.Updated_On = DateTime.Now;
-                _productManager.Update_Product(pViewModel.Product);
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");                
+                _productManager.Update_Product(pViewModel.Product, pViewModel.Cookies.User_Id);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO002"));
             }
             catch (Exception ex)
@@ -172,7 +159,7 @@ namespace SMSPortal.Controllers.PostLogin
             ProductViewModel pViewModel = new ProductViewModel();
             try
             {
-                pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
+                pViewModel.SubCategories = _productManager.Get_SubCategories_By_CategoryId(Category_Id);
             }
             catch (Exception ex)
             {
@@ -195,7 +182,6 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return PartialView("_Product_Images", p1ViewModel);
-
         }
 
         public ActionResult Product_Image_Upload(ProductViewModel pViewModel)
@@ -305,7 +291,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 ExcelReader _excel = new ExcelReader();
-
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token"); 
                 if (pViewModel.UploadProductExcel.ContentLength > 0)
                 {
 
@@ -319,7 +305,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                     DataSet ds = _excel.ExecuteDataSet(path);
 
-                    is_Error = _productManager.Bulk_Excel_Upload_Default(ds.Tables[0]);
+                    is_Error = _productManager.Bulk_Excel_Upload_Default(ds.Tables[0], pViewModel.Cookies.User_Id);
 
                     if (is_Error == true)
                     {
