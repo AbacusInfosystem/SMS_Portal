@@ -47,6 +47,12 @@ namespace SMSPortalRepo
             }
             sqlParams.Add(new SqlParameter("@Vendor_Id", purchaseorder.Vendor_Id));
             sqlParams.Add(new SqlParameter("@Gross_Amount", purchaseorder.Gross_Amount));
+
+            if (purchaseorder.Purchase_Order_Id == 0)
+            {
+                sqlParams.Add(new SqlParameter("@Status", purchaseorder.Status));
+            }
+
             if (purchaseorder.Purchase_Order_Id == 0)
             {
                 sqlParams.Add(new SqlParameter("@Created_On", purchaseorder.Created_On));
@@ -113,6 +119,22 @@ namespace SMSPortalRepo
             purchaseorder.Gross_Amount = Convert.ToDecimal(dr["Gross_Amount"]);
 
             purchaseorder.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+
+            if (!dr.IsNull("Status"))
+            purchaseorder.Status = Convert.ToInt32(dr["Status"]);
+
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Confirmed)
+            {
+                purchaseorder.Status_Text = PurchaseOrderStatus.Confirmed.ToString();
+            }
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Dispatched)
+            {
+                purchaseorder.Status_Text = PurchaseOrderStatus.Dispatched.ToString();
+            }
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Pending)
+            {
+                purchaseorder.Status_Text = PurchaseOrderStatus.Pending.ToString();
+            }             
 
             purchaseorder.Created_On = Convert.ToDateTime(dr["Created_On"]);
             purchaseorder.Created_By = Convert.ToInt32(dr["Created_By"]);

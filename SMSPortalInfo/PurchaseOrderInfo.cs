@@ -18,6 +18,10 @@ namespace SMSPortalInfo
 
         public string Vendor_Name { get; set; }
 
+        public int Status { get; set; }
+
+        public string Status_Text { get; set; }
+
         public DateTime Created_On { get; set; }
 
         public int Created_By { get; set; }

@@ -15,15 +15,13 @@ namespace SMSPortal.Controllers.PostLogin
     public class InvoiceController : Controller
     {
 
-        public InvoiceManager _invoiceManager;
-        public DealerManager _dealerManager;
-        public OrdersManager _OrdersManager;
+        public InvoiceManager _invoiceManager;         
+        public OrdersManager _ordersManager;
         public UserManager _userManager;
         public InvoiceController()
         {
-            _invoiceManager = new InvoiceManager();
-            _dealerManager = new DealerManager();
-            _OrdersManager = new OrdersManager();
+            _invoiceManager = new InvoiceManager();            
+            _ordersManager = new OrdersManager();
         }
 
         // GET: /Invoice/
@@ -55,9 +53,19 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 iViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(iViewModel.Invoice.Invoice_Id);
-                iViewModel.Order = _OrdersManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
-                //iViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
-                
+                iViewModel.Order = _invoiceManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
+                if (iViewModel.Order.Order_Id != 0)
+                {
+                    iViewModel.Order.OrderItems = _invoiceManager.Get_Order_Items_By_Order_Id(iViewModel.Order.Order_Id);
+                    if (iViewModel.Order.OrderItems != null)
+                    { 
+                        foreach(var item in iViewModel.Order.OrderItems)
+                        {
+                            item.Product = _invoiceManager.Get_Product_By_Id(item.Product_Id);
+                        }
+                    }
+                }
+                iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);                
             }
             catch (Exception ex)
             {
@@ -118,8 +126,12 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 iViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(iViewModel.Invoice.Invoice_Id);
-                iViewModel.Order = _OrdersManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
-                //iViewModel.Dealer = _dealerManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+                iViewModel.Order = _invoiceManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
+                if (iViewModel.Order.Order_Id != 0)
+                {
+                    iViewModel.Order.OrderItems = _invoiceManager.Get_Order_Items_By_Order_Id(iViewModel.Order.Order_Id);
+                }
+                iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
                _invoiceManager.Send_Invoice_Email(iViewModel.Dealer.Email, iViewModel.Invoice, iViewModel.Order,iViewModel.Dealer);
                 
             }
@@ -130,5 +142,6 @@ namespace SMSPortal.Controllers.PostLogin
             return View(iViewModel);
         
         }
+
     }
 }

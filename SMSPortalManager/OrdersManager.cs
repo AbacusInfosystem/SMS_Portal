@@ -21,18 +21,7 @@ namespace SMSPortalManager
         public List<OrdersInfo> Get_Orders(ref PaginationInfo Pager)
         {
             return _ordersRepo.Get_Orders(ref Pager);
-        }
-
-        public OrdersInfo Get_Orders_By_Id(int Order_Id)
-        {
-            ProductManager _productManager= new ProductManager();
-            OrdersInfo Order = _ordersRepo.Get_Orders_By_Id(Order_Id);
-            foreach (OrderItemInfo OrderItemInfo in Order.OrderItems)
-            {
-                OrderItemInfo.Product = _productManager.Get_Product_By_Id(OrderItemInfo.Product_Id);
-            }
-            return Order;
-        }
+        }       
 
         public OrdersInfo Get_Order_Data_By_Id(int order_Id)
         {

@@ -135,7 +135,7 @@ namespace SMSPortal.Common
             FriendlyMessage PO004 = new FriendlyMessage("PO004", MessageType.Success, "Error occur while uploading data.");
             hash.Add("PO004", PO004);
 
-            FriendlyMessage PO005 = new FriendlyMessage("PO005", MessageType.Success, "Data uploaded successfully.");
+            FriendlyMessage PO005 = new FriendlyMessage("PO005", MessageType.Success, "Product excel uploaded successfully.");
             hash.Add("PO005", PO005);
 
             #endregion

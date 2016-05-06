@@ -14,16 +14,14 @@ function Search_Purchase_Order_Items() {
     CallAjax("/PurchaseOrder/Get_Purchase_Orders_Items/", "json", JSON.stringify(pViewModel), "POST", "application/json", false, Bind_Purchase_Order_Items, "", null);
 }
 
-function Bind_Purchase_Order_Items(data)
-{
+function Bind_Purchase_Order_Items(data) {
     $("#tblPurchaseOrderItems").html("");
     var htmlText = "";
 
     $("#hdnPurchase_Order_Id").val(data.PurchaseOrder.Purchase_Order_Id);
 
     var htmlText = "";
-    if (data.PurchaseOrderItems.length > 0)
-    {
+    if (data.PurchaseOrderItems.length > 0) {
         htmlText += "<tr>";
         htmlText += "<th>Product Name</th>"
         htmlText += "<th>Product Quantity</th>"
@@ -31,8 +29,7 @@ function Bind_Purchase_Order_Items(data)
         htmlText += "<th>Shipping Date</th>"
         htmlText += "</tr>";
 
-        for (i = 0; i < data.PurchaseOrderItems.length; i++)
-        {
+        for (i = 0; i < data.PurchaseOrderItems.length; i++) {
             htmlText += "<tr id='PItem" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + "' >";
 
             htmlText += "<td>";
@@ -45,8 +42,8 @@ function Bind_Purchase_Order_Items(data)
 
             htmlText += data.PurchaseOrderItems[i].Product_Quantity == null ? "" : data.PurchaseOrderItems[i].Product_Quantity;
 
-            htmlText += "</td>";           
-            
+            htmlText += "</td>";
+
             htmlText += "<td>";
 
             htmlText += data.PurchaseOrderItems[i].Product_Price == null ? "" : data.PurchaseOrderItems[i].Product_Price;
@@ -62,9 +59,12 @@ function Bind_Purchase_Order_Items(data)
 
             htmlText += "</td>";
 
-            htmlText += "<td>" + "<button type='button' id='btnEdit' class='btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o' onclick='Edit_Purchase_Order_Item(" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + ")'></button>" + "</td>";
+            htmlText += "<td>";
 
-            htmlText += "<td>" + "<button type='button' id='btnRemove' class='btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times' onclick='Delete_Purchase_Order_Item(" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + ")'></button>" + "</td>";
+            htmlText += "<button type='button' id='btnEdit' class='btn btn-box-tool btn-tel-edit' onclick='Edit_Purchase_Order_Item(" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + ")'><i class='fa fa-pencil'></i></button>";
+            htmlText += "<button type='button' id='btnRemove' class='btn btn-box-tool btn-tel-delete' onclick='Delete_Purchase_Order_Item(" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + ")'><i class='fa fa-remove'></i></button>";
+
+            htmlText += "</td>";
 
             htmlText += "<input type='hidden' class='ItmId' value='" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + "'>";
             htmlText += "<input type='hidden' class='ItmPOrderId' value='" + data.PurchaseOrderItems[i].Purchase_Order_Id + "'>";
@@ -79,15 +79,15 @@ function Bind_Purchase_Order_Items(data)
     else {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='6'> No Record found.";
+        htmlText += "<td colspan='5'> No Record found.";
 
         htmlText += "</td>";
 
         htmlText += "</tr>";
     }
-       
+
     $('#txtTotalPrice').val(data.PurchaseOrder.Gross_Amount);
-     
+
     $('#tblPurchaseOrderItems').html(htmlText);
 
     $('.iradio-list').iCheck({
@@ -97,17 +97,6 @@ function Bind_Purchase_Order_Items(data)
 
     Reset_Purchase_Order();
     Friendly_Message(data);
-    //if (data.Products.length > 0) {
-    //    $('#hdfCurrentPage').val(data.Pager.CurrentPage);
-    //    if (data.Pager.PageHtmlString != null || data.Pager.PageHtmlString != "") {
-    //        $('.pagination').html(data.Pager.PageHtmlString);
-    //    }
-    //}
-    //else {
-    //    $('.pagination').html("");
-    //}
-
-    //$("#divSearchGridOverlay").hide();
 
     $('[name="r1"]').on('ifChanged', function () {
         if ($(this).prop('checked')) {
@@ -133,7 +122,7 @@ function Set_Purchase_Order_Items() {
             PurchaseOrderItem:
                 {
                     Purchase_Order_Item_Id: $('#hdnPurchase_Order_Item_Id').val(),
-                    Purchase_Order_Id: $('#hdnPurchase_Order_Id').val(),                     
+                    Purchase_Order_Id: $('#hdnPurchase_Order_Id').val(),
                     Product_Name: $('#txtProductName').val(),
                     Product_Id: $('#hdnProductId').val(),
                     Product_Quantity: $('#txtProductQuantity').val(),
@@ -145,21 +134,15 @@ function Set_Purchase_Order_Items() {
     return pViewModel;
 }
 
-function Save_Purchase_Order_Items()
-{
+function Save_Purchase_Order_Items() {
+
     var pViewModel = Set_Purchase_Order_Items();
 
-    //if ($("#hdnPurchase_Order_Id").val() == 0)
-    //{
     CallAjax("/purchaseorder/insert-update-purchase-order/", "json", JSON.stringify(pViewModel), "POST", "application/json", false, Bind_Purchase_Order_Items, "", null);
-    //}
-    //else {
-    //    CallAjax("/purchaseorder/update-purchase-order/", "json", JSON.stringify(pViewModel), "POST", "application/json", false, Bind_Purchase_Order_Items, "", null);
-    //}
+
 }
 
-function Edit_Purchase_Order_Item(id)
-{
+function Edit_Purchase_Order_Item(id) {
     var product_total_price = $("#PItem" + id).find(".ItmProductPrice").val();
     var product_qty = $("#PItem" + id).find(".ItmProductQty").val();
     var product_unit_price = (product_total_price / product_qty);
@@ -170,10 +153,10 @@ function Edit_Purchase_Order_Item(id)
 
     $("#txtShipping_Address").val($("#PItem" + id).find(".ItmShipAdd").val());
     $("#txtShippingDate").val($("#PItem" + id).find(".ItmShipDate").val());
-    
+
     $("#txtProductName").val($("#PItem" + id).find(".ItmProductId").val());
     //$("#hdnProductId").val($("#PItem" + id).find(".ItmProductId").val());
-     
+
     if ($('#txtProductName').val() != 0)
         $("#divProduct").find(".autocomplete-text").trigger("focusout");
 
@@ -181,8 +164,7 @@ function Edit_Purchase_Order_Item(id)
     $("#hdnPurchase_Order_Item_Id").val($("#PItem" + id).find(".ItmId").val());
 }
 
-function Delete_Purchase_Order_Item(id)
-{
+function Delete_Purchase_Order_Item(id) {
     if (confirm("Are you sure you want to delete this item ?") == true) {
         $("#hdnPurchase_Order_Id").val($("#PItem" + id).find(".ItmPOrderId").val());
         var Purchase_Order_Id = $("#hdnPurchase_Order_Id").val();
@@ -200,8 +182,7 @@ function Delete_Purchase_Order_Item(id)
             }
         });
     }
-    else
-    {
+    else {
         $('#frmPurchaseOrderMaster').validate().cancelSubmit = true;
         //$("#frmPurchaseOrderMaster").submit(function (e) {
         //   return false;
@@ -209,8 +190,7 @@ function Delete_Purchase_Order_Item(id)
     }
 }
 
-function Reset_Purchase_Order()
-{
+function Reset_Purchase_Order() {
     $("#txtProductPrice").val("0");
     $("#txtProductQuantity").val("");
     $("#txtShipping_Address").val("");
@@ -219,14 +199,13 @@ function Reset_Purchase_Order()
     $("#divProduct").find(".autocomplete-text").trigger("focusout");
 }
 
-function Get_Date(date)
-{
-    
+function Get_Date(date) {
+
     var dateString = date.substr(6);
     var currentTime = new Date(parseInt(dateString));
     var month = currentTime.getMonth() + 1;
     var day = currentTime.getDate();
     var year = currentTime.getFullYear();
-    var date = day + "/" + month + "/" + year;   
+    var date = day + "/" + month + "/" + year;
     return date;
 }
