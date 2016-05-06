@@ -180,12 +180,6 @@ namespace SMSPortalRepo
 
             dealer.Email = Convert.ToString(dr["Email"]);
 
-            if (!dr.IsNull("Dealer_Percentage_Share"))
-                dealer.Dealer_Percentage_Share = Convert.ToInt32(dr["Dealer_Percentage_Share"]);
-
-            if (!dr.IsNull("Brand_Percentage_Share"))
-                dealer.Brand_Percentage_Share = Convert.ToInt32(dr["Brand_Percentage_Share"]);
-
             dealer.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
 
             dealer.Created_On = Convert.ToDateTime(dr["Created_On"]);

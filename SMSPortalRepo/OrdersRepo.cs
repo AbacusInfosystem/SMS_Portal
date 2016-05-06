@@ -85,7 +85,7 @@ namespace SMSPortalRepo
                 order = Get_Orders_Values(dr);
             }
 
-            return orders;
+            return order;
         }
 
         public List<OrdersInfo> Get_Orders_Data_By_Id(int order_Id, ref PaginationInfo pager)
