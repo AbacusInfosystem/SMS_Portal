@@ -77,13 +77,12 @@ namespace SMSPortalRepo
             List<SqlParameter> sqlParam = new List<SqlParameter>();
             sqlParam.Add(new SqlParameter("@Order_Id", order_Id));
 
-            OrdersInfo orders = new OrdersInfo();
-            OrderItemInfo orderitem = new OrderItemInfo();
+            OrdersInfo order = new OrdersInfo();             
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Order_By_Id.ToString(), CommandType.StoredProcedure);
 
             foreach (DataRow dr in dt.Rows)
             {
-                orders = Get_Orders_Values(dr);
+                order = Get_Orders_Values(dr);
             }
 
             return orders;
@@ -95,7 +94,6 @@ namespace SMSPortalRepo
             sqlParam.Add(new SqlParameter("@Order_Id", order_Id));
 
             List<OrdersInfo> orders = new List<OrdersInfo>();
-            OrderItemInfo orderitem = new OrderItemInfo();
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Order_By_Id.ToString(), CommandType.StoredProcedure);
 
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))

@@ -78,26 +78,27 @@
                                 <div class="col-md-4">
 
                                     <div class="form-group auto-complete">
+                                     
+                                            <label for="Purchase_Order_No" class="lookup-title">Purchase Order No</label>
+                                        <div class="input-group">
+                                            @*<input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order no" value="@Model.Filter.Purchase_Order_No" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">*@
+                                            <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Payable.Purchase_Order_No" id="txtPurchase_Order_Number" placeholder="Enter purchase order No" value="@(Model.Filter.Purchase_Order_Id == 0 ? "" : Model.Filter.Purchase_Order_Id.ToString())" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">
+                                            @*<input type="hidden" id="hdnPurchase_Order_Number" value="@Model.Filter.Purchase_Order_Number" name="Filter.Purchase_Order_Number" class="auto-complete-value" />*@
 
-                                        <label style="color: #333">Purchase Order No</label>
+                                            <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
 
-                                        <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order no" value="@Model.Filter.Purchase_Order_No" maxlength="20">
-                                        @*<input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Payable.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order No" value="@(Model.Filter.Purchase_Order_Id == 0 ? "" : Model.Filter.Purchase_Order_Id.ToString())" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">*@
-                                        @*<input type="hidden" id="hdnPurchase_Order_Number" value="@Model.Filter.Purchase_Order_Number" name="Filter.Purchase_Order_Number" class="auto-complete-value" />*@
-                                        
-                                        <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
-                                        
-                                        <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
-                                        
-                                        @*<div class="input-group-addon">
+                                            <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
 
-                    <a href="#" class="text-muted" id="hrefInvoice_No" role="button"><i class="fa fa-search"></i></a>
+                                            <div class="input-group-addon">
 
-                </div>*@
+                                                <a href="#" class="text-muted lookup-btn" id="hrefPurchase_Order_No" role="button"><i class="fa fa-search"></i></a>
 
-                                    </div>
+                                            </div>
+
+                                        </div>
 
                                 </div>
+                                    </div>
 
                             </div>
 
@@ -117,7 +118,7 @@
 
                                         <div class="btn-group pull-right">
 
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
+                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
 
                                             <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
 

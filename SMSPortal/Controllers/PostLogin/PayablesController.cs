@@ -204,7 +204,7 @@ namespace SMSPortal.Controllers.PostLogin
         //    return Json(pViewModel, JsonRequestBehavior.AllowGet);
         //}
 
-        public JsonResult Get_Payable_Purchase_Order_Autocomplete(string purchaseorder)
+        public JsonResult Get_Payable_Purchase_Order_Autocomplete(string Purchaseorder)
        
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
@@ -212,7 +212,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
            
             {
-                autoList = _payableManager.Get_Payable_Purchase_Order_Autocomplete(purchaseorder);
+                autoList = _payableManager.Get_Payable_Purchase_Order_Autocomplete(Purchaseorder);
             }
 
             catch (Exception ex)

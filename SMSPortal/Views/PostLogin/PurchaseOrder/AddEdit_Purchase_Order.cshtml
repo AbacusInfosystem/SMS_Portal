@@ -46,7 +46,7 @@
                                 <div class="col-md-3" id="dvSubc">
                                     <div class="form-group auto-complete">
                                         <label for="Vendor" class="lookup-title">Vendor Name</label>
-                                        <div class="input-group">
+                                        <div class="input-group" id="vendor_look">
                                             <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="PurchaseOrder.Vendor_Name" id="txtVendor" placeholder="Enter Vendor Name" value="@(Model.PurchaseOrder.Vendor_Id == 0 ? "" : Model.PurchaseOrder.Vendor_Id.ToString())" data-table="Vendors" data-col="Vendor_Id,Vendor_Name" data-headernames="Vendor Name">
                                             <input type="hidden" id="hdnVendorId" value="@(Model.PurchaseOrder.Vendor_Id == 0 ? "" : Model.PurchaseOrder.Vendor_Id.ToString())" name="PurchaseOrder.Vendor_Id" class="auto-complete-value" />
                                             <input type="hidden" id="hdnVendorName" value="@Model.PurchaseOrder.Vendor_Name" name="PurchaseOrder.Vendor_Name" class="auto-complete-label" />
@@ -67,7 +67,7 @@
                                         <div class="col-md-3" id="divProduct">
                                             <div class="form-group auto-complete">
                                                 <label for="Product" class="lookup-title">Product Name</label>
-                                                <div class="input-group">
+                                                <div class="input-group" id="product_look">
                                                     <a href="#" class="input-group-addon text-muted" id="hrefProduct" role="button"><i class="fa fa-search"></i></a>
                                                     <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Product.Product_Name" id="txtProductName" placeholder="Enter Product Name" value="@(Model.PurchaseOrderItem.Product_Id == 0 ? "" : Model.PurchaseOrderItem.Product_Id.ToString())" data-table="product" data-param="hdnVendorId" data-col="Product_Id,Product_Name" data-headernames="Product Name">
                                                     <input type="hidden" id="hdnProductId" value="@(Model.Product.Product_Id == 0 ? "" : Model.Product.Product_Id.ToString())" name="Product.Product_Id" class="auto-complete-value" />
@@ -178,11 +178,9 @@
 
                                                     <td>  @( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date))</td>
                                                     <td>
-                                                        <button id="btnEdit" type="button" class="btn btn-info btn-sm btn-Edit-SubDept fa fa-pencil-square-o" onclick="Edit_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"></button>
-                                                    </td>
-                                                    <td>
-                                                        <button id="btnRemove" type="button" class="btn btn-danger btn-Edit-SubRemove btn-sm fa fa-times" onclick="Delete_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"></button>
-                                                    </td>
+                                                        <button id="btnEdit" type="button" class="btn btn-box-tool btn-tel-edit" onclick="Edit_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-pencil'></i></button>
+                                                        <button id="btnRemove" type="button" class="btn btn-box-tool btn-tel-delete" onclick="Delete_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-remove'></i></button>
+                                                    </td>                                                    
 
                                                     <input type="hidden" class="ItmId" value="@item.Purchase_Order_Item_Id">
                                                     <input type="hidden" class="ItmPOrderId" value="@item.Purchase_Order_Id">

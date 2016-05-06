@@ -2,7 +2,7 @@
 {
     //alert(1);
 
-    InitializeAutoComplete($('#txtPurchase_Order_No'));
+    InitializeAutoComplete($('#txtPurchase_Order_Number'));
 
     Search_Payable();
 
