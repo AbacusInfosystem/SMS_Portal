@@ -21,6 +21,8 @@ function Save_Receivable_Data() {
 
              Bank_Name: $("#txtBankName").val(),
 
+             Balance_Amount: $("#txtBalance_Amount").val(),
+
              IFSC_Code: $("#txtIFSCCode").val(),
 
              NEFT: $("#txtNEFT").val(),
@@ -126,7 +128,7 @@ function Bind_Receivable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            htmlText += showChequeDate == "01/01/1999" ? "" : showChequeDate;
+            htmlText += showChequeDate == "1/1/1999" ? "NA" : showChequeDate;
 
             htmlText += "</td>";
 
@@ -321,7 +323,11 @@ function Bind_Receivable_Grid_Items(data) {
 
 
 function EditReceivableData(id) {
-    
+    var Total_Bal = 0;
+    var Balance_amount = 0;
+    var Item_amount = 0;
+    var Previous_Item_Amount = $("#hdnReceivable_Item_Amount").val();
+
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
 
     $('#drpTransaction').trigger('change');
@@ -336,7 +342,17 @@ function EditReceivableData(id) {
     $("#txtCredit_Debit").val($("#hdnCredit_Debit_Card" + id).val());
     $("#hdnReceivable_Item_Id").val($("#hdnReceivable_Item_Id" + id).val());
     $("#hdnReceivable_Id").val($("#hdnReceivable_Id" + id).val());
-   
+
+    Balance_amount = $("#txtBalance_Amount").val();
+    Item_amount = $("#hdnReceivable_Item_Amount" + id).val();
+
+    Total_Bal = parseFloat(Balance_amount) + parseFloat(Item_amount);
+
+    Total_Bal = parseFloat(Total_Bal) - parseFloat(Previous_Item_Amount);
+
+    $("#txtBalance_Amount").val(Total_Bal); 
+
+    $("#hdnReceivable_Item_Amount").val(Item_amount);
 
 }
 

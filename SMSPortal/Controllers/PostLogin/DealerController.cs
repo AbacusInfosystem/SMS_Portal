@@ -47,11 +47,13 @@ namespace SMSPortal.Controllers.PostLogin
                 if (dViewModel.Cookies.Role_Id == 1)
                 {
                     dViewModel.Filter.Brand_Id = 0;
+                    dViewModel.Is_Brand = "False";
                 }
 
                 else
                 {
                     dViewModel.Filter.Brand_Id = dViewModel.Cookies.Entity_Id;
+                    dViewModel.Is_Brand = "True";
                 }
 
             }
