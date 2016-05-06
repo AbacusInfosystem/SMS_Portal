@@ -32,6 +32,7 @@ namespace SMSPortalManager
         {
             return _subcategoryRepo.Get_SubCategories_By_CategoryId(Category_Id);
         }
+
         public void Insert_Sub_Category(SubCategoryInfo subcategory,int user_Id)
         {
             _subcategoryRepo.Insert_Sub_Category(subcategory, user_Id);

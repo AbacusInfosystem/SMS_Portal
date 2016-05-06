@@ -47,7 +47,7 @@ namespace SMSPortal.Models.PostLogin
 
         public CookiesInfo Cookies { get; set; }
 
-
+        public string Is_Brand { get; set; }
 
     }
 

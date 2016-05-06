@@ -87,12 +87,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                cViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                cViewModel.Category.Created_By = cViewModel.Cookies.User_Id;
-                cViewModel.Category.Created_On = DateTime.Now;
-                cViewModel.Category.Updated_By = cViewModel.Cookies.User_Id;
-                cViewModel.Category.Updated_On = DateTime.Now;
-                cViewModel.Category.Category_Id = _categoryManager.Insert_Category(cViewModel.Category);
+                cViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");                
+                cViewModel.Category.Category_Id = _categoryManager.Insert_Category(cViewModel.Category,cViewModel.Cookies.User_Id);
                 cViewModel.Friendly_Message.Add(MessageStore.Get("CO001"));
             }
             catch (Exception ex)
@@ -108,10 +104,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                cViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                cViewModel.Category.Updated_By = cViewModel.Cookies.User_Id;
-                cViewModel.Category.Updated_On = DateTime.Now;
-                _categoryManager.Update_Category(cViewModel.Category);
+                cViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");                 
+                _categoryManager.Update_Category(cViewModel.Category,cViewModel.Cookies.User_Id);
                 cViewModel.Friendly_Message.Add(MessageStore.Get("CO002"));
             }
             catch (Exception ex)
@@ -145,7 +139,6 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 cViewModel.Category = _categoryManager.Get_Category_By_Id(cViewModel.Category.Category_Id);
-
             }
             catch (Exception ex)
             {

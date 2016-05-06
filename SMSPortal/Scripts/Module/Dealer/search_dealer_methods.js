@@ -115,7 +115,13 @@ function Bind_Dealers_Grid(data)
 
             $("#btnDelete").show();
 
-            $("#btnView").show();
+            var check = $('#hdnIs_Brand').val();
+
+            if ($('#hdnIs_Brand').val() == "True")
+            {
+                $("#btnView").show();
+            }
+            
 
         }
     });

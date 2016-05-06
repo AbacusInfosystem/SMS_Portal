@@ -12,7 +12,7 @@
             "PurchaseOrderItem.Product_Quantity":
                 {
                     required: true,
-                    digits: true
+                    digits: true 
                 },
             "PurchaseOrderItem.Shipping_Address":
                {
@@ -24,7 +24,8 @@
              },
             "Product.Product_Id":
                 {
-                    required: true
+                    required: true,
+                    validate_Product_Exist:true
                 }
         },
         messages: {
@@ -37,7 +38,7 @@
             "PurchaseOrderItem.Product_Quantity":
             {
                 required: "Quantity is required.",
-                digits: "Only numbers "
+                digits: "Only numbers " 
             },
             "PurchaseOrderItem.Shipping_Address":
                {
@@ -52,7 +53,17 @@
                 required: "Product is required"
             }
             
-        },
+        }
+        //,
+        //errorPlacement: function (error, element)
+        //{
+        //    if (element.attr("name") == "PurchaseOrder.Vendor_Id") {
+        //        error.insertAfter("#vendor_look");
+        //    }
+        //    if (element.attr("name") == "Product.Product_Id") {
+        //        error.insertAfter("#product_look");
+        //    }
+        //}
     });
 });
 jQuery.validator.addMethod("validate_Product_Exist", function (value, element) {

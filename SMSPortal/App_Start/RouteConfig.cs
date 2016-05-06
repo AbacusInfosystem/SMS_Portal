@@ -136,7 +136,7 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Category-3",
-            url: "category/edit-category",
+            url: "category/update-category",
             defaults: new { controller = "Category", action = "Update_Category", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 

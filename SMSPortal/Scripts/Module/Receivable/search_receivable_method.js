@@ -49,7 +49,7 @@ function Bind_Receivable_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Status == "" ? "Pending" : data.Receivables[i].Status;
+            htmlText += data.Receivables[i].Status == null ? "Pending" : data.Receivables[i].Status;
 
             htmlText += "</td>";
          
@@ -94,10 +94,10 @@ function Bind_Receivable_Grid(data) {
             $("#hdnInvoice_Amount").val(String[1]);
             $("#btnEdit").show();
             $("#btnAddProductMapping").show();
-            $("#btnDelete").show();
-
         }
     });
+
+    $("#btnEdit").hide();
 
 }
 
