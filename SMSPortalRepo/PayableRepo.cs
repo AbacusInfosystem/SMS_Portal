@@ -490,7 +490,7 @@ namespace SMSPortalRepo
 
             sqlparam.Add(new SqlParameter("@Description", purchase_order_no == null ? System.String.Empty : purchase_order_no.Trim()));
 
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Purchase_Order_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Payable_Purchase_Order_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
 
             if (dt != null && dt.Rows.Count > 0)
 

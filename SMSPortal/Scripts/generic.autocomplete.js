@@ -55,9 +55,9 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/receivable/receivable-autocomplete/" + $('txtOrderNo').val();
             }
 
-            //if ($(elementObject).attr("id") == 'txtPurchase_Order_No') {
-            //    urlString = "/payable/payable-autocomplete/" + $('txtPurchase_Order_No').val();
-            //}
+            if ($(elementObject).attr("id") == 'txtPurchase_Order_Number') {
+                urlString = "/Payable/Payable-autocomplete/" + $('txtPurchase_Order_Number').val();
+            }
 
             $.ajax({
 

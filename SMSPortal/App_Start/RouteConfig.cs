@@ -441,14 +441,14 @@ namespace SMSPortal
             defaults: new { controller = "Payables", action = "Get_Payables_By_Id", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
-             //   routes.MapRoute(
-             //name: "payable-3",
-             //url: "payable/payable-autocomplete/{purchaseorder}",
-             //defaults: new { controller = "Payables", action = "Get_Payable_Purchase_Order_Autocomplete", id = UrlParameter.Optional },
-             //namespaces: new string[] { "SMSPortal.Controllers" });
+                routes.MapRoute(
+             name: "Payable-3",
+             url: "Payable/Payable-autocomplete/{Purchaseorder}",
+             defaults: new { controller = "Payables", action = "Get_Payable_Purchase_Order_Autocomplete", id = UrlParameter.Optional },
+             namespaces: new string[] { "SMSPortal.Controllers" });
 
                 routes.MapRoute(
-                name: "Payable-3",
+                name: "Payable-4",
                 url: "Payable/Get-Payable",
                 defaults: new { controller = "Payable", action = "Get_Payable", id = UrlParameter.Optional },
                 namespaces: new string[] { "SMSPortal.Controllers" });

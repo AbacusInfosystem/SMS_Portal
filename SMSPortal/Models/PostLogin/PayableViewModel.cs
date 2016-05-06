@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace SMSPortal.Models.PostLogin
 {
 
-    public class PayableViewModel
+    public class  PayableViewModel
 
     {
 
