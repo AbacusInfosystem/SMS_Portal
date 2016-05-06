@@ -22,7 +22,7 @@ namespace SMSPortal.Controllers
             _autocompleteLookupManager = new AutocompleteLookupManager();
         }
 
-        public PartialViewResult Load_Modal_Data(string table_Name, string columns, string headerNames, string page, string editValue)
+        public PartialViewResult Load_Modal_Data(string table_Name, string columns, string headerNames, string page, string editValue, string filter)
         {
             LookupViewModel LookupVM = new LookupViewModel();
 
@@ -44,7 +44,7 @@ namespace SMSPortal.Controllers
             try
             {
 
-                LookupVM.PartialDt = _autocompleteLookupManager.Get_Lookup_Data(table_Name, cols, ref pager);
+                LookupVM.PartialDt = _autocompleteLookupManager.Get_Lookup_Data(table_Name, cols, ref pager, filter);
 
                 LookupVM.EditLookupValue = editValue;
 

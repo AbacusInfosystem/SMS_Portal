@@ -77,5 +77,15 @@ namespace SMSPortalManager
         {
             return _purchaseorderRepo.Generate_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName);
         }
+
+        public void Update_Purchase_Order_Gross_Amount(int Purchaser_Order_Id, decimal Gross_Amount)
+        {
+            _purchaseorderRepo.Update_Purchase_Order_Gross_Amount(Purchaser_Order_Id, Gross_Amount);
+        }
+
+        public ProductInfo Get_Vendor_Product_Price_Id(int Product_Id, int Vendor_Id)
+        {
+            return _purchaseorderRepo.Get_Vendor_Product_Price_Id(Product_Id, Vendor_Id);
+        }
     }
 }

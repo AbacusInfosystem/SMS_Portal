@@ -85,7 +85,8 @@ function Bind_Purchase_Order_Items(data)
 
         htmlText += "</tr>";
     }
-
+       
+    $('#txtTotalPrice').val(data.PurchaseOrder.Gross_Amount);
      
     $('#tblPurchaseOrderItems').html(htmlText);
 
@@ -159,8 +160,14 @@ function Save_Purchase_Order_Items()
 
 function Edit_Purchase_Order_Item(id)
 {
-    $("#txtProductPrice").val($("#PItem" + id).find(".ItmProductPrice").val());
+    var product_total_price = $("#PItem" + id).find(".ItmProductPrice").val();
+    var product_qty = $("#PItem" + id).find(".ItmProductQty").val();
+    var product_unit_price = (product_total_price / product_qty);
+
+    $("#txtProductPrice").val(product_unit_price);
+    //$("#txtProductPrice").val($("#PItem" + id).find(".ItmProductPrice").val());
     $("#txtProductQuantity").val($("#PItem" + id).find(".ItmProductQty").val());
+
     $("#txtShipping_Address").val($("#PItem" + id).find(".ItmShipAdd").val());
     $("#txtShippingDate").val($("#PItem" + id).find(".ItmShipDate").val());
     

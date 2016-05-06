@@ -143,7 +143,9 @@ namespace SMSPortalInfo.Common
         Insert_Purchase_Order_Item_Sp,
         Update_Purchase_Order_Item_Sp,
         Delete_Purchase_Order_Item_By_Id_Sp,
-        Check_DuplicateProduct_PurchaseOrder,         
+        Check_DuplicateProduct_PurchaseOrder,  
+        Update_Purchase_Order_Gross_Amount,
+        Get_Vendor_Product_Price_Id_Sp,
 
         //Payables
        Insert_Payable_Item_Data_Sp,

@@ -32,7 +32,7 @@ namespace SMSPortal.Models.PostLogin
         public CookiesInfo Cookies { get; set; }
         public PurchaseOrderItemInfo PurchaseOrderItem { get; set; }
         public List<PurchaseOrderItemInfo> PurchaseOrderItems { get; set; }
-        public ProductInfo Product { get; set; }
+        public ProductInfo Product { get; set; }         
     }
 
     public class PurchaseOrder_Filter

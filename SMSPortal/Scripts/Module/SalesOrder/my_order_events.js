@@ -9,23 +9,12 @@
 
         $("form").validate().cancelSubmit = true;
 
-        $("#frmOrderDetails").attr("action", "/SalesOrder/Search/");
+        $("#frmOrderDetails").attr("action", "/Dealer/My_Orders/");
 
         $("#frmOrderDetails").attr("method", "POST");
 
         $("#frmOrderDetails").submit();
 
     });
-
-    $("#btnSave").click(function () {
-
-        $("#frmOrderDetails").attr("action", "/salesorder/update-salesorder-status/");
-
-        $("#frmOrderDetails").attr("method", "POST");
-
-        $("#frmOrderDetails").submit();
-
-    });
-
 
 });
