@@ -220,10 +220,13 @@ namespace SMSPortalRepo
         private ProductInfo Get_Product_Values(DataRow dr)
         {
             ProductInfo product = new ProductInfo();
-
+            if (!dr.IsNull("Product_Id"))
             product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            if (!dr.IsNull("Product_Name"))
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
+             if (!dr.IsNull("Image_Code"))
             product.Product_Image = Convert.ToString(dr["Image_Code"]);
+            if (!dr.IsNull("Product_Price"))
             product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
             return product;
         }
@@ -269,6 +272,7 @@ namespace SMSPortalRepo
                 sqlparamnew.Add(new SqlParameter("@Vendor_Id", vendor_Id));
                 sqlparamnew.Add(new SqlParameter("@Brand_Id", brand_Id));
                 sqlparamnew.Add(new SqlParameter("@Product_Id", Convert.ToInt32(item.Product_Id)));
+                sqlparamnew.Add(new SqlParameter("@Product_Price", Convert.ToDecimal(item.Product_Price)));
 
                 sqlparamnew.Add(new SqlParameter("@Created_On", DateTime.Now));
                 sqlparamnew.Add(new SqlParameter("@Created_By", user_Id));
@@ -308,7 +312,8 @@ namespace SMSPortalRepo
                         list.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
                     if (!dr.IsNull("Brand_Id"))
                         list.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
-
+                    //if (!dr.IsNull("Product_Price"))
+                        list.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
                     list.Product_Ids = list.Product_Id + ",";
 
                     productlist.Add(list);
