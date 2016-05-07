@@ -40,7 +40,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Purchase Order No</label><br />
-                                        <label style="color: #808080">@Model.PurchaseOrder.Purchase_Order_No</label>
+                                        <label style="color: #808080" id="OrdNo">@Model.PurchaseOrder.Purchase_Order_No</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3" id="dvSubc">
@@ -83,21 +83,23 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label style="color: #333">Product Price</label>
-                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@(Model.PurchaseOrderItem.Product_Price == 0 ? "" : Model.PurchaseOrderItem.Product_Price.ToString())" maxlength="20" readonly="readonly">
+                                                <input type="text" class="form-control input-sm" name="UnitPrice" id="txtUnitPrice" name="PurchaseOrderItem.Product_Unit_Price" value="@Model.PurchaseOrderItem.Product_Unit_Price" readonly="readonly"> 
+                                                @*<input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@(Model.PurchaseOrderItem.Product_Price == 0 ? "" : Model.PurchaseOrderItem.Product_Price.ToString())" maxlength="20" readonly="readonly">*@
                                             </div>
                                         </div>
 
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label style="color: #333">Product Quantity</label>
-                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" placeholder="Enter product quantity" value="@(Model.PurchaseOrderItem.Product_Quantity == 0 ? "" : @Model.PurchaseOrderItem.Product_Quantity.ToString())" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" onchange="Calculate_Total(this);" placeholder="Enter product quantity" value="@(Model.PurchaseOrderItem.Product_Quantity == 0 ? "" : @Model.PurchaseOrderItem.Product_Quantity.ToString())" maxlength="20">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            @*<div class="form-group">
-                                                    <label style="color: #333">Shipping Address</label>
-                                                    <textarea class="form-control input-sm" name="" id="txtShipping_Address" placeholder="Enter Shipping Address"></textarea>
-                                                </div>*@
+                                            <div class="form-group">
+                                                  <label style="color: #333">Total Price</label>
+                                                
+                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@(Model.PurchaseOrderItem.Product_Price == 0 ? "" : Model.PurchaseOrderItem.Product_Price.ToString())" maxlength="20" readonly="readonly">
+                                                </div>
                                         </div>
 
                                         <div class="col-md-2">
@@ -127,10 +129,11 @@
                                         </div>
 
                                         <div class="col-md-2">
-                                            @*<div class="form-group">
-                                                    <label style="color: #333">Product Quantity</label>
-                                                    <input type="text" class="form-control input-sm" name="" id="txtProductQuantity" placeholder="Enter product quantity" value="" maxlength="20">
-                                                </div>*@
+                                            <div class="form-group">
+                                                    <label style="color: #333">Received Quantity</label>
+                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Received_Quantity" id="txtReceived_Quantity" placeholder="Enter received quantity" value="@Model.PurchaseOrderItem.Received_Quantity" maxlength="20" readonly="readonly">
+                                                  
+                                                </div>
                                         </div>
                                         <div class="col-md-2">
                                             @*<div class="form-group">
@@ -158,10 +161,14 @@
                                     <div class="box-body">
                                         <table class="table table-responsive" id="tblPurchaseOrderItems">
                                             <tr id="subhead">
-                                                <th>Product</th>
-                                                <th>Product Quantity</th>
-                                                <th>Product Price</th>
                                                 <th>Shipping Date</th>
+                                                <th>Address</th>
+                                                <th>Product</th>
+                                                <th>Quantity</th>
+                                                <th>Balance Qty</th>
+                                                <th>Price</th>
+                                                 <th>Status</th>
+                                                <th></th>
 
                                             </tr>
 
@@ -169,40 +176,45 @@
                                             {
                                                 <tr id=@("PItem"+item.Purchase_Order_Item_Id.ToString())>
 
+                                                    <td>  @( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date))</td>
+
+                                                    <td>@item.Shipping_Address</td>
+
                                                     <td>@item.Product_Name</td>
 
                                                     <td>@item.Product_Quantity.ToString()</td>
 
+                                                    <td>@item.Balance_Quantity.ToString()</td>
+
                                                     <td>@item.Product_Price.ToString()</td>
-
-
-                                                    <td>  @( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date))</td>
+                                                   
+                                                    <td>@item.Status_Text</td>
+                                                    
                                                     <td>
                                                         <button id="btnEdit" type="button" class="btn btn-box-tool btn-tel-edit" onclick="Edit_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-pencil'></i></button>
                                                         <button id="btnRemove" type="button" class="btn btn-box-tool btn-tel-delete" onclick="Delete_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-remove'></i></button>
-                                                    </td>                                                    
+                                                    </td>
 
                                                     <input type="hidden" class="ItmId" value="@item.Purchase_Order_Item_Id">
                                                     <input type="hidden" class="ItmPOrderId" value="@item.Purchase_Order_Id">
                                                     <input type="hidden" class="ItmProductId" value="@item.Product_Id">
                                                     <input type="hidden" class="ItmProductPrice" value="@item.Product_Price">
                                                     <input type="hidden" class="ItmProductQty" value="@item.Product_Quantity">
-                                                    <input type="hidden" class="ItmShipDate" value="@( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date) )">
+                                                    <input type="hidden" class="ItmShipDate" value="@( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date) )">                                                    
                                                     <input type="hidden" class="ItmShipAdd" value="@item.Shipping_Address">
+                                                    <input type="hidden" class="ItmRecQty" value="@item.Received_Quantity">
 
                                                 </tr>
                                             }
 
+                                            <tr style="background-color:#eee">
+                                                <td colspan="6"><b>Total :</b> </td>
+                                                <td colspan="2"> <input type="text" class="form-control input-sm valid" name="PurchaseOrder.Gross_Amount" id="txtTotalAmount" value="@Model.PurchaseOrder.Gross_Amount" maxlength="20" readonly="readonly"></td>
+                                            </tr>
+                                             
                                         </table>
                                     </div><!-- /.box-body -->
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label style="color: #333">Total</label>                                                
-                                                    <input type="text" class="form-control input-sm" name="PurchaseOrder.Gross_Amount" id="txtTotalPrice" value="@Model.PurchaseOrder.Gross_Amount" maxlength="20" readonly="readonly">                                                 
-                                            </div>
-                                        </div>
-                                    </div>
+                                     
                                     <div class="box-footer">
                                         <div class="btn-group">
                                             @*<button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>

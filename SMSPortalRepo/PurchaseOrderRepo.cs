@@ -123,17 +123,17 @@ namespace SMSPortalRepo
             if (!dr.IsNull("Status"))
             purchaseorder.Status = Convert.ToInt32(dr["Status"]);
 
-            if (purchaseorder.Status == (int)PurchaseOrderStatus.Confirmed)
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Ordered)
             {
-                purchaseorder.Status_Text = PurchaseOrderStatus.Confirmed.ToString();
+                purchaseorder.Status_Text = PurchaseOrderStatus.Ordered.ToString();
             }
-            if (purchaseorder.Status == (int)PurchaseOrderStatus.Dispatched)
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Patially_Received)
             {
-                purchaseorder.Status_Text = PurchaseOrderStatus.Dispatched.ToString();
+                purchaseorder.Status_Text = PurchaseOrderStatus.Patially_Received.ToString().Replace('_',' ');
             }
-            if (purchaseorder.Status == (int)PurchaseOrderStatus.Pending)
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Received)
             {
-                purchaseorder.Status_Text = PurchaseOrderStatus.Pending.ToString();
+                purchaseorder.Status_Text = PurchaseOrderStatus.Received.ToString();
             }             
 
             purchaseorder.Created_On = Convert.ToDateTime(dr["Created_On"]);
@@ -189,6 +189,9 @@ namespace SMSPortalRepo
             if (!dr.IsNull("Product_Quantity")) 
             orderitem.Product_Quantity = Convert.ToInt32(dr["Product_Quantity"]);
 
+            if (!dr.IsNull("Received_Quantity"))
+                orderitem.Received_Quantity  = Convert.ToInt32(dr["Received_Quantity"]);
+
             if (!dr.IsNull("Product_Price")) 
             orderitem.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
 
@@ -196,6 +199,22 @@ namespace SMSPortalRepo
 
             if (!dr.IsNull("Shipping_Date")) 
             orderitem.Shipping_Date = Convert.ToDateTime(dr["Shipping_Date"]);
+
+            if (!dr.IsNull("Status"))
+                orderitem.Status = Convert.ToInt32(dr["Status"]);
+
+            if (orderitem.Status == (int)PurchaseOrderStatus.Ordered)
+            {
+                orderitem.Status_Text = PurchaseOrderStatus.Ordered.ToString();
+            }
+            if (orderitem.Status == (int)PurchaseOrderStatus.Patially_Received)
+            {
+                orderitem.Status_Text = PurchaseOrderStatus.Patially_Received.ToString().Replace('_', ' ');
+            }
+            if (orderitem.Status == (int)PurchaseOrderStatus.Received)
+            {
+                orderitem.Status_Text = PurchaseOrderStatus.Received.ToString();
+            } 
 
             orderitem.Created_On = Convert.ToDateTime(dr["Created_On"]);
             orderitem.Created_By = Convert.ToInt32(dr["Created_By"]);
@@ -225,9 +244,11 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Purchase_Order_Id", purchaseorderitem.Purchase_Order_Id));
             sqlParams.Add(new SqlParameter("@Product_Id", purchaseorderitem.Product_Id));
             sqlParams.Add(new SqlParameter("@Product_Quantity", purchaseorderitem.Product_Quantity));
+            sqlParams.Add(new SqlParameter("@Received_Quantity", purchaseorderitem.Received_Quantity));
             sqlParams.Add(new SqlParameter("@Product_Price", purchaseorderitem.Product_Price));
             sqlParams.Add(new SqlParameter("@Shipping_Address", purchaseorderitem.Shipping_Address));
             sqlParams.Add(new SqlParameter("@Shipping_Date", purchaseorderitem.Shipping_Date));
+            sqlParams.Add(new SqlParameter("@Status", purchaseorderitem.Status));            
             if (purchaseorderitem.Purchase_Order_Item_Id == 0)
             {
                 sqlParams.Add(new SqlParameter("@Created_On", purchaseorderitem.Created_On));

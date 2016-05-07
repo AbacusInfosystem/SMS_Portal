@@ -45,7 +45,7 @@ $(document).ready(function () {
                     if (data != null)
                     {
                         if (data.Product != null)
-                            $('#txtProductPrice').val(data.Product.Product_Price);
+                            $('#txtUnitPrice').val(data.Product.Product_Price);
                     }
                 }
             });

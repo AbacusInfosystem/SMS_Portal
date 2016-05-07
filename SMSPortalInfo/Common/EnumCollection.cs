@@ -55,9 +55,9 @@ namespace SMSPortalInfo.Common
     }
     public enum PurchaseOrderStatus
     { 
-        Pending =1,
-        Confirmed=2,
-        Dispatched=3
+        Ordered =1,
+        Patially_Received=2,
+        Received=3
     }
 
     public enum Roles

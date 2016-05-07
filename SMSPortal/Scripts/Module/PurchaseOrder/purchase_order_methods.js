@@ -23,14 +23,32 @@ function Bind_Purchase_Order_Items(data) {
     var htmlText = "";
     if (data.PurchaseOrderItems.length > 0) {
         htmlText += "<tr>";
-        htmlText += "<th>Product Name</th>"
-        htmlText += "<th>Product Quantity</th>"
-        htmlText += "<th>Product Price</th>"
-        htmlText += "<th>Shipping Date</th>"
+        htmlText += "<th>Shipping Date</th>";
+        htmlText += "<th>Address</th>";
+        htmlText += "<th>Product Name</th>";
+        htmlText += "<th>Quantity</th>";
+        htmlText += "<th>Balance Qty</th>";
+        htmlText += "<th>Price</th>";
+        htmlText += "<th>Status</th>";
+        htmlText += "<th> </th>";        
         htmlText += "</tr>";
 
         for (i = 0; i < data.PurchaseOrderItems.length; i++) {
             htmlText += "<tr id='PItem" + data.PurchaseOrderItems[i].Purchase_Order_Item_Id + "' >";
+
+            htmlText += "<td>";
+
+            //htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : new Date(parseInt(data.PurchaseOrderItems[i].Shipping_Date.replace('/Date(', ''))).toLocaleDateString();
+
+            htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : Get_Date(data.PurchaseOrderItems[i].Shipping_Date);
+
+            htmlText += "</td>";
+
+            htmlText += "<td>";
+
+            htmlText += data.PurchaseOrderItems[i].Shipping_Address == null ? "" : data.PurchaseOrderItems[i].Shipping_Address;
+
+            htmlText += "</td>";
 
             htmlText += "<td>";
 
@@ -46,16 +64,19 @@ function Bind_Purchase_Order_Items(data) {
 
             htmlText += "<td>";
 
+            htmlText += data.PurchaseOrderItems[i].Balance_Quantity == null ? "" : data.PurchaseOrderItems[i].Balance_Quantity;
+
+            htmlText += "</td>";
+
+            htmlText += "<td>";
+
             htmlText += data.PurchaseOrderItems[i].Product_Price == null ? "" : data.PurchaseOrderItems[i].Product_Price;
 
             htmlText += "</td>";
 
             htmlText += "<td>";
 
-            //htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : new Date(parseInt(data.PurchaseOrderItems[i].Shipping_Date.replace('/Date(', ''))).toLocaleDateString();
-
-            htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : Get_Date(data.PurchaseOrderItems[i].Shipping_Date);
-
+            htmlText += data.PurchaseOrderItems[i].Status_Text == null ? "" : data.PurchaseOrderItems[i].Status_Text;
 
             htmlText += "</td>";
 
@@ -73,20 +94,33 @@ function Bind_Purchase_Order_Items(data) {
             htmlText += "<input type='hidden' class='ItmProductQty' value='" + data.PurchaseOrderItems[i].Product_Quantity + "'>";
             htmlText += "<input type='hidden' class='ItmShipAdd' value='" + data.PurchaseOrderItems[i].Shipping_Address + "'>";
 
+            htmlText += "<input type='hidden' class='ItmShipDate' value='"+data.Shipping_Date+"' > ";
+            
+            htmlText += "<input type='hidden' class='ItmRecQty' value='" + data.PurchaseOrderItems[i].Received_Quantity + "'>";
+
             htmlText += "</tr>";
+
+
         }
+        htmlText += "<tr style='background-color:#eee'>";
+        htmlText += "<td colspan='6'><b>Total :</b></td> ";
+        htmlText += "<td colspan='2'><input type='text' class='form-control input-sm valid' name='PurchaseOrder.Gross_Amount' id='txtTotalAmount' value='" + data.PurchaseOrder.Gross_Amount + "' maxlength='20' readonly='readonly'>";
+        htmlText += "</td>";
+        htmlText += "</tr>";
+
+
     }
     else {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='5'> No Record found.";
+        htmlText += "<td colspan='6'> No Record found.";
 
         htmlText += "</td>";
 
         htmlText += "</tr>";
     }
 
-    $('#txtTotalPrice').val(data.PurchaseOrder.Gross_Amount);
+    $('#OrdNo').text(data.PurchaseOrder.Purchase_Order_No);
 
     $('#tblPurchaseOrderItems').html(htmlText);
 
@@ -107,7 +141,6 @@ function Bind_Purchase_Order_Items(data) {
 
         }
     });
-
 }
 
 function Set_Purchase_Order_Items() {
@@ -127,6 +160,7 @@ function Set_Purchase_Order_Items() {
                     Product_Id: $('#hdnProductId').val(),
                     Product_Quantity: $('#txtProductQuantity').val(),
                     Product_Price: $('#txtProductPrice').val(),
+                    Received_Quantity: $('#txtReceived_Quantity').val(),
                     Shipping_Address: $('#txtShipping_Address').val(),
                     Shipping_Date: $('#txtShippingDate').val()
                 }
@@ -145,17 +179,21 @@ function Save_Purchase_Order_Items() {
 function Edit_Purchase_Order_Item(id) {
     var product_total_price = $("#PItem" + id).find(".ItmProductPrice").val();
     var product_qty = $("#PItem" + id).find(".ItmProductQty").val();
-    var product_unit_price = (product_total_price / product_qty);
 
-    $("#txtProductPrice").val(product_unit_price);
-    //$("#txtProductPrice").val($("#PItem" + id).find(".ItmProductPrice").val());
+    if (product_qty != 0) {
+        var product_unit_price = (product_total_price / product_qty);
+    }
+
+    $("#txtProductPrice").val($("#PItem" + id).find(".ItmProductPrice").val());
+    $("#txtUnitPrice").val(product_unit_price);    
     $("#txtProductQuantity").val($("#PItem" + id).find(".ItmProductQty").val());
-
     $("#txtShipping_Address").val($("#PItem" + id).find(".ItmShipAdd").val());
     $("#txtShippingDate").val($("#PItem" + id).find(".ItmShipDate").val());
-
     $("#txtProductName").val($("#PItem" + id).find(".ItmProductId").val());
-    //$("#hdnProductId").val($("#PItem" + id).find(".ItmProductId").val());
+
+    $("#txtReceived_Quantity").attr("readonly", false);
+    $("#txtReceived_Quantity").val($("#PItem" + id).find(".ItmRecQty").val());
+     
 
     if ($('#txtProductName').val() != 0)
         $("#divProduct").find(".autocomplete-text").trigger("focusout");
@@ -192,10 +230,14 @@ function Delete_Purchase_Order_Item(id) {
 
 function Reset_Purchase_Order() {
     $("#txtProductPrice").val("0");
+    $("#txtUnitPrice").val("0");
     $("#txtProductQuantity").val("");
+    $("#txtReceived_Quantity").attr("readonly", true);
+    $("#txtReceived_Quantity").val("0");
     $("#txtShipping_Address").val("");
     $("#txtShippingDate").val("");
     $("#hdnProductId").val("0");
+    $("#hdnPurchase_Order_Item_Id").val("0");
     $("#divProduct").find(".autocomplete-text").trigger("focusout");
 }
 
@@ -208,4 +250,11 @@ function Get_Date(date) {
     var year = currentTime.getFullYear();
     var date = day + "/" + month + "/" + year;
     return date;
+}
+
+function Calculate_Total(obj)
+{
+    var qty = $('#txtProductQuantity').val();
+    var unit_price = $('#txtUnitPrice').val();
+    $('#txtProductPrice').val(qty * unit_price);
 }
