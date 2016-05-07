@@ -369,5 +369,154 @@ namespace SMSPortalRepo
 
             return sqlParams;
         }
+
+        #region Vendor Sales Orders
+
+        public List<PurchaseOrderInfo> Get_Sales_Orders(int Vendor_Id, ref PaginationInfo Pager)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@VendorId", Vendor_Id));
+
+            List<PurchaseOrderInfo> purchaseorders = new List<PurchaseOrderInfo>();
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Sales_Orders_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            {
+                purchaseorders.Add(Get_Sales_Order_Values(dr));
+            }
+            return purchaseorders;
+        }
+
+        public List<PurchaseOrderInfo> Get_Vendor_Sales_Order_By_Id(int Sales_Order_Id, int Vendor_Id, ref PaginationInfo Pager)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Purchase_Order_Id", Sales_Order_Id));
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+
+            List<PurchaseOrderInfo> purchaseOrders = new List<PurchaseOrderInfo>();
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendors_Sales_Order_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            {
+                purchaseOrders.Add(Get_Sales_Order_Values(dr));
+            }
+            return purchaseOrders;
+        }
+
+        private PurchaseOrderInfo Get_Sales_Order_Values(DataRow dr)
+        {
+            PurchaseOrderInfo purchaseorder = new PurchaseOrderInfo();
+
+            purchaseorder.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
+
+            if (!dr.IsNull("Purchase_Order_No"))
+                purchaseorder.Purchase_Order_No = Convert.ToString(dr["Purchase_Order_No"]);
+
+            if (!dr.IsNull("Vendor_Id"))
+                purchaseorder.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+
+            if (!dr.IsNull("Gross_Amount"))
+                purchaseorder.Gross_Amount = Convert.ToDecimal(dr["Gross_Amount"]);
+
+            if (!dr.IsNull("Status"))
+                purchaseorder.Status = Convert.ToInt32(dr["Status"]);
+
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Ordered)
+            {
+                purchaseorder.Status_Text = PurchaseOrderStatus.Ordered.ToString();
+            }
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Patially_Received)
+            {
+                purchaseorder.Status_Text = PurchaseOrderStatus.Patially_Received.ToString().Replace('_', ' ');
+            }
+            if (purchaseorder.Status == (int)PurchaseOrderStatus.Received)
+            {
+                purchaseorder.Status_Text = PurchaseOrderStatus.Received.ToString();
+            }
+
+            purchaseorder.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            purchaseorder.Created_By = Convert.ToInt32(dr["Created_By"]);
+            purchaseorder.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            purchaseorder.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return purchaseorder;
+        }
+
+        public List<PurchaseOrderItemInfo> Get_Sales_Order_Items_By_Id(int Purchase_Order_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Purchase_Order_Id", Purchase_Order_Id));
+
+            List<PurchaseOrderItemInfo> purchaseOrders = new List<PurchaseOrderItemInfo>();
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Sales_Order_Items_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                purchaseOrders.Add(Get_Sales_Order_Items_Values(dr));
+            }
+            return purchaseOrders;
+        }
+
+        private PurchaseOrderItemInfo Get_Sales_Order_Items_Values(DataRow dr)
+        {
+            PurchaseOrderItemInfo orderitem = new PurchaseOrderItemInfo();
+
+            orderitem.Purchase_Order_Item_Id = Convert.ToInt32(dr["Purchase_Order_Item_Id"]);
+            orderitem.Purchase_Order_Id = Convert.ToInt32(dr["Purchase_Order_Id"]);
+            orderitem.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            orderitem.Product_Name = Convert.ToString(dr["Product_Name"]);
+
+            if (!dr.IsNull("Product_Quantity"))
+                orderitem.Product_Quantity = Convert.ToInt32(dr["Product_Quantity"]);
+
+            if (!dr.IsNull("Received_Quantity"))
+                orderitem.Received_Quantity = Convert.ToInt32(dr["Received_Quantity"]);
+
+            if (!dr.IsNull("Product_Price"))
+                orderitem.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+
+            orderitem.Shipping_Address = Convert.ToString(dr["Shipping_Address"]);
+
+            if (!dr.IsNull("Shipping_Date"))
+                orderitem.Shipping_Date = Convert.ToDateTime(dr["Shipping_Date"]);
+
+            if (!dr.IsNull("Status"))
+                orderitem.Status = Convert.ToInt32(dr["Status"]);
+
+            if (orderitem.Status == (int)PurchaseOrderStatus.Ordered)
+            {
+                orderitem.Status_Text = PurchaseOrderStatus.Ordered.ToString();
+            }
+            if (orderitem.Status == (int)PurchaseOrderStatus.Patially_Received)
+            {
+                orderitem.Status_Text = PurchaseOrderStatus.Patially_Received.ToString().Replace('_', ' ');
+            }
+            if (orderitem.Status == (int)PurchaseOrderStatus.Received)
+            {
+                orderitem.Status_Text = PurchaseOrderStatus.Received.ToString();
+            }
+
+            orderitem.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            orderitem.Created_By = Convert.ToInt32(dr["Created_By"]);
+            orderitem.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            orderitem.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return orderitem;
+        }
+
+        public PurchaseOrderInfo Get_Vendor_Sales_Order_By_Id(int Purchase_Order_Id,int Vendor_Id)
+        {
+            List<SqlParameter> paramList = new List<SqlParameter>();
+            paramList.Add(new SqlParameter("@Purchase_Order_Id", Purchase_Order_Id));
+            paramList.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+
+            PurchaseOrderInfo purchaseorder = new PurchaseOrderInfo();
+            DataTable dt = _sqlHelper.ExecuteDataTable(paramList, StoreProcedures.Get_Vendors_Sales_Order_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                purchaseorder = Get_Sales_Order_Values(dr);
+            }
+            return purchaseorder;
+        }
+
+         
+        #endregion
     }
 }

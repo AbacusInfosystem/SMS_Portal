@@ -1,14 +1,8 @@
-﻿ <script type="text/javascript">
-    $(document).ready(function () {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%',
-            toggle: true// optional
-        });
-
-    });
-</script>
+﻿@model SMSPortal.Models.PostLogin.PurchaseOrderViewModel
+@using SMSPortal.Common;
+ 
+<script src="~/Scripts/Module/Vendor/search_order_vendor_events.js"></script>
+<script src="~/Scripts/Module/Vendor/search_order_vendor_methods.js"></script>
 
 <form id="frmVendorSalesOrder" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
@@ -36,11 +30,20 @@
                             <h3 class="box-title">Sales Orders</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdn_PurchaseOrderId" name="PurchaseOrder.Purchase_Order_Id" value="@Model.PurchaseOrder.Purchase_Order_Id">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color: #333">Order No</label>
-                                        <input type="text" class="form-control input-sm" name="" id="txtOrder_No" placeholder="Enter Order No" value="" maxlength="20">
+                                    <div class="form-group auto-complete">
+                                        <label for="Purchase_Order" class="lookup-title">Purchase Order</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter Order No" value="@Model.Filter.Purchase_Order_No" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="PurchaseOrder">
+                                            <input type="hidden" id="hdnPurchaseOrderId" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnPurchaseOrderNo" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefPurchaseOrder" role="button"><i class="fa fa-server"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -54,11 +57,8 @@
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
                                         </div>
                                         <div class="btn-group pull-right">
-
-                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("OrderDetails", "Vendor")">Details </a>
-                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("CreateInvoice", "Vendor")">Create Invoice</a>
-                                            @*<button type="button" id="btnOrderDetails" class="btn btn-warning btn-sm ">Create Inovice</button>
-                                                <button type="button" id="btnGenerateInvoice" class="btn btn-warning btn-sm ">Create Inovice </button>*@
+                                            <button type="button" id="btnDetails" class="btn btn-warning btn-sm" style="display:none;">Details</button>                                             
+                                            <a class="btn btn-warning btn-sm" role="button" href="@Url.Action("CreateInvoice", "Vendor")">Create Invoice</a>                                             
                                         </div>
                                     </div>
                                 </div>
@@ -78,51 +78,20 @@
                             <table class="table table-striped" id="tblSalesOrder">
                                 <tr id="subhead">
                                     <th></th>
-                                    <th>Order No</th>
-                                    <th>Dealer Name</th>
+                                    <th>Purchase Order No</th>                                    
                                     <th>Amount</th>
-                                    <th>Date</th>
                                     <th>Status</th>
-
                                 </tr>
-
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId1" name="SalesOrder" class="iradio-list " /></td>
-                                    <td>O123</td>
-                                    <td>Dealer 1</td>
-                                    <td>4000</td>
-                                    <td>04/01/2016</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId1" name="SalesOrder" class="iradio-list " /></td>
-                                    <td>O123</td>
-                                    <td>Dealer 1</td>
-                                    <td>4000</td>
-                                    <td>04/01/2016</td>
-                                    <td>Active</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="radio" id="rdo_BrandId1" name="SalesOrder" class="iradio-list " /></td>
-                                    <td>O123</td>
-                                    <td>Dealer 1</td>
-                                    <td>4000</td>
-                                    <td>04/01/2016</td>
-                                    <td>Active</td>
-
-                                </tr>
-
-
                             </table>
 
-                            @*<div class="box-footer clearfix">
+                            <div class="box-footer clearfix">
                                     <div class="pagination pagination-sm no-margin pull-right">
                                         <ul></ul>
                                     </div>
                                     <div id="divSearchGridOverlay" class="overlay">
                                         <i class="fa fa-refresh fa-spin"></i>
                                     </div>
-                                </div>*@
+                                </div>
                         </div>
                     </div>
                 </div>
