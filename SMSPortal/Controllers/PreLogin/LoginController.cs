@@ -28,10 +28,6 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                if (TempData["FriendlyMessage"] != null)
-                {
-                    lViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
-                } 
                 if (Request.Cookies["UserInfo"] != null)
                 {
                     lViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
@@ -51,7 +47,7 @@ namespace SMSPortal.Controllers.PreLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("Error at Home : " + ex.Message);
+                Logger.Error("Error at Index : " + ex.Message);
                 lViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 return View("Index", lViewModel);
             }
