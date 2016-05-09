@@ -14,8 +14,9 @@
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Dashboard
-           
+        <h1>
+            Dashboard
+
             <small>Control panel</small>
         </h1>
         <ol class="breadcrumb">
@@ -26,20 +27,21 @@
 
 
     <!-- Main content -->
-    <section class="content">        
-      @if (Model.Cookies.Role_Name == "Admin")
-      {
-          Html.RenderAction("Get_Admin_Widgets", "Dashboard");
-      }
-      else if (Model.Cookies.Role_Name == "Vendor")
-      {
-          Html.RenderAction("Get_Vendor_Widgets", "Dashboard");
-      }
-
+    <section class="content">
+        @if (Model.Cookies.Role_Name == "Admin")
+        {
+            Html.RenderAction("Get_Admin_Widgets", "Dashboard");
+        }
+        else if (Model.Cookies.Role_Name == "Vendor")
+        {
+            Html.RenderAction("Get_Vendor_Widgets", "Dashboard");
+        }
+        else if (Model.Cookies.Role_Name == "Dealer")
+        {
+            Html.RenderAction("Index", "Product");
+        }
     </section>
     <!-- /.content -->
-    
+
 </div>
 <!-- /.content-wrapper -->
-
-    

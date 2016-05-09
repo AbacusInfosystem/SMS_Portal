@@ -77,11 +77,13 @@ namespace SMSPortalInfo.Common
 
         //State
         Get_State_Sp,
+        Get_State_By_Id_Sp,
 
         //Product
         Check_Existing_Product,
         Get_Product_By_Name_Sp,
         Get_Product_By_Id_Sp,
+        Get_Product_By_Ids_Sp,
         Get_Product_Sp,
         Update_Product_Sp,
         Insert_Product_Sp,
@@ -89,8 +91,12 @@ namespace SMSPortalInfo.Common
         Insert_Product_Image_Sp,
         Delete_Product_Image_Sp,
         Get_Product_Autocomplete_Sp,
+        Get_Products_By_Dealer_Id_Sp,
+        Get_Categories_With_Product_Count_Sp,
+        Get_Sub_Categories_With_Product_Count_Sp,
+        Get_Products_By_Ids_sp,
         Set_Default_Product_Image,         
-        
+         
         //Vendor
         Insert_Vendor_Sp,
         Get_Vendor_Sp,
@@ -146,7 +152,7 @@ namespace SMSPortalInfo.Common
         Insert_Purchase_Order_Item_Sp,
         Update_Purchase_Order_Item_Sp,
         Delete_Purchase_Order_Item_By_Id_Sp,
-        Check_DuplicateProduct_PurchaseOrder,  
+        Check_DuplicateProduct_PurchaseOrder,         
         Update_Purchase_Order_Gross_Amount,
         Get_Vendor_Product_Price_Id_Sp,
 
@@ -171,6 +177,8 @@ namespace SMSPortalInfo.Common
         Get_Invoice_Autocomplete_Sp,
         
         //Orders
+        Insert_Orders_Sp,
+        Insert_Order_Item_Sp,
         Get_Order_By_Id,
         Get_Order_Items_By_Order_Id,
         Get_Orders,

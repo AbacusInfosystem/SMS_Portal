@@ -10,7 +10,7 @@ namespace SMSPortalInfo
     {
         public int Order_Id { get; set; }
 
-        public string Order_No { get; set; } 
+        public string Order_No { get; set; }
 
         public int Dealer_Id { get; set; }
 
@@ -42,6 +42,10 @@ namespace SMSPortalInfo
 
         public DateTime Shipping_Date { get; set; }
 
+        public int Status { get; set; }
+
+        public DateTime Shipping_Date { get; set; }
+
         public DateTime Created_On { get; set; }
 
         public int Created_By { get; set; }
@@ -50,8 +54,7 @@ namespace SMSPortalInfo
 
         public int Updated_By { get; set; }
 
-        public List<OrderItemInfo> OrderItems { get; set; }      
-
+        public List<OrderItemInfo> OrderItems { get; set; }
     }
 
     public class OrderItemInfo

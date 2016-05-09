@@ -187,6 +187,58 @@ namespace SMSPortalHelper
             }
         }
 
+        public int ExecuteNonQuery(List<SqlParameter> sqlParams, string sqlQuery, CommandType cmdType, string outputParameter)
+        {
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                using (con = new SqlConnection(_sqlCon))
+                {
+                    con.Open();
+                    using (SqlCommand sqlCmd = new SqlCommand(sqlQuery, con))
+                    {
+
+                        //SqlCommand sqlCmd = new SqlCommand(sqlQuery, con);
+                        sqlCmd.CommandType = cmdType;
+
+                        if (sqlParams != null)
+                        {
+                            foreach (SqlParameter sqlPrm in sqlParams)
+                            {
+                                if (sqlPrm.Value == null)
+                                    sqlPrm.Value = DBNull.Value;
+                            }
+                            sqlCmd.Parameters.AddRange(sqlParams.ToArray());
+                        }
+
+                        sqlCmd.Parameters.Add(outputParameter, SqlDbType.Int, 10);
+
+                        sqlCmd.Parameters[outputParameter].Direction = ParameterDirection.Output;
+
+                        sqlCmd.ExecuteNonQuery();
+                        int outputParameterValue = Convert.ToInt32(sqlCmd.Parameters[outputParameter].Value);
+                        con.Close();
+
+                        return outputParameterValue;
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                if (con != null)
+                    con.Close();
+
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                if (con != null)
+                    con.Close();
+
+                throw ex;
+            }
+        }
+
         public object ExecuteScalerObj(List<SqlParameter> sqlParams, string sqlQuery, CommandType cmdType)
         {
             SqlConnection con = new SqlConnection();

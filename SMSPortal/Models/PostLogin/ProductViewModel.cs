@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SMSPortalRepo;
 
 namespace SMSPortal.Models.PostLogin
 {
@@ -22,6 +23,10 @@ namespace SMSPortal.Models.PostLogin
             ProductImage = new ProductImageInfo();
             Filter = new ProductFilter();
             Cookies = new CookiesInfo();
+            tax = new TaxInfo();
+            dealer = new DealerInfo();
+            state = new StateInfo();
+            order = new OrdersInfo();
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
@@ -36,6 +41,11 @@ namespace SMSPortal.Models.PostLogin
         public HttpPostedFileBase UploadProductExcel { get; set; }
         public ProductImageInfo ProductImage { get; set; }
         public CookiesInfo Cookies { get; set; }
+        public string ProductIds { get; set; }
+        public TaxInfo tax { get; set; }
+        public DealerInfo dealer { get; set; }
+        public StateInfo state { get; set; }
+        public OrdersInfo order { get; set; }
     }
     public class ProductFilter
     {
