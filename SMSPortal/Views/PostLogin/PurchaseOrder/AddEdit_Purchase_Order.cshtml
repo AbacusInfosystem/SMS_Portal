@@ -91,7 +91,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label style="color: #333">Product Quantity</label>
-                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" onchange="Calculate_Total(this);" placeholder="Enter product quantity" value="@(Model.PurchaseOrderItem.Product_Quantity == 0 ? "" : @Model.PurchaseOrderItem.Product_Quantity.ToString())" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" placeholder="Enter product quantity" value="@(Model.PurchaseOrderItem.Product_Quantity == 0 ? "" : @Model.PurchaseOrderItem.Product_Quantity.ToString())" maxlength="10">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -99,7 +99,7 @@
                                                   <label style="color: #333">Total Price</label>
                                                 
                                                 <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@(Model.PurchaseOrderItem.Product_Price == 0 ? "" : Model.PurchaseOrderItem.Product_Price.ToString())" maxlength="20" readonly="readonly">
-                                                </div>
+                                        </div>
                                         </div>
 
                                         <div class="col-md-2">
@@ -111,7 +111,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label style="color: #333">Shipping Address</label>
-                                                <textarea class="form-control input-sm" name="PurchaseOrderItem.Shipping_Address" id="txtShipping_Address" placeholder="Enter Shipping Address">@Model.PurchaseOrderItem.Shipping_Address</textarea>
+                                                <textarea class="form-control input-sm" name="PurchaseOrderItem.Shipping_Address" id="txtShipping_Address" placeholder="Enter Shipping Address" maxlength="200">@Model.PurchaseOrderItem.Shipping_Address</textarea>
                                             </div>
                                         </div>
 
@@ -133,7 +133,7 @@
                                                     <label style="color: #333">Received Quantity</label>
                                                 <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Received_Quantity" id="txtReceived_Quantity" placeholder="Enter received quantity" value="@Model.PurchaseOrderItem.Received_Quantity" maxlength="20" readonly="readonly">
                                                   
-                                                </div>
+                                        </div>
                                         </div>
                                         <div class="col-md-2">
                                             @*<div class="form-group">
@@ -187,20 +187,20 @@
                                                     <td>@item.Balance_Quantity.ToString()</td>
 
                                                     <td>@item.Product_Price.ToString()</td>
-                                                   
+
                                                     <td>@item.Status_Text</td>
-                                                    
+
                                                     <td>
                                                         <button id="btnEdit" type="button" class="btn btn-box-tool btn-tel-edit" onclick="Edit_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-pencil'></i></button>
                                                         <button id="btnRemove" type="button" class="btn btn-box-tool btn-tel-delete" onclick="Delete_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-remove'></i></button>
-                                                    </td>
+                                                    </td>                                                    
 
                                                     <input type="hidden" class="ItmId" value="@item.Purchase_Order_Item_Id">
                                                     <input type="hidden" class="ItmPOrderId" value="@item.Purchase_Order_Id">
                                                     <input type="hidden" class="ItmProductId" value="@item.Product_Id">
                                                     <input type="hidden" class="ItmProductPrice" value="@item.Product_Price">
                                                     <input type="hidden" class="ItmProductQty" value="@item.Product_Quantity">
-                                                    <input type="hidden" class="ItmShipDate" value="@( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date) )">                                                    
+                                                    <input type="hidden" class="ItmShipDate" value="@( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date) )">
                                                     <input type="hidden" class="ItmShipAdd" value="@item.Shipping_Address">
                                                     <input type="hidden" class="ItmRecQty" value="@item.Received_Quantity">
 

@@ -127,7 +127,7 @@ namespace SMSPortal.Controllers.PostLogin
 
             TempData["userViewMessage"] = uViewModel;
 
-            if(uViewModel.User.Role_Id==Convert.ToInt32(RolesIds.Vendor))
+            if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
             {
                 return RedirectToAction("Search", "Vendor");
             }
@@ -164,7 +164,23 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             TempData["userViewMessage"] = uViewModel;
-            return RedirectToAction("Search");
+
+            if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+            {
+                return RedirectToAction("Search", "Vendor");
+            }
+            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Brand))
+            {
+                return RedirectToAction("Search", "Brand");
+            }
+            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+            {
+                return RedirectToAction("Search", "Dealer");
+            }
+            else
+            {
+                return RedirectToAction("Search");
+            }
         }
 
         public JsonResult Check_Existing_User(string user_Name)

@@ -23,7 +23,7 @@ namespace SMSPortal.Controllers.PostLogin
 
         public CookiesInfo _cookies;
 
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"]; 
 
         public VendorController()
         {

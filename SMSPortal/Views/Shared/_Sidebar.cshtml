@@ -8,8 +8,11 @@
             CookiesInfo cookies = new CookiesInfo();
 
             cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+            if (cookies!=null)
+            { 
                
-       <ul class="sidebar-menu">
+           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             
                 <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Main Header</a></li>
@@ -19,25 +22,59 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-link"></i>
-                        <span>Admin</span>
+                        <span>Registration</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">          
+                                      
+                        <li><a href="@Url.Action("Search","Brand")"><i class="fa fa-circle-o text-info"></i> Brand </a></li>                        
+                        <li><a href="@Url.Action("Search","Dealer")"><i class="fa fa-circle-o text-info"></i> Dealer </a></li>
+                        <li><a href="@Url.Action("Search","Vendor")"><i class=" fa fa-circle-o text-info"></i> Vendor </a></li>
+
+                  </ul>
+            </li>
+               
+               <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>Masters</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">                        
-                        <li><a href="@Url.Action("Search","Brand")"><i class="fa fa-circle-o text-info"></i> Brand </a></li>                        
-                        <li><a href="@Url.Action("Search","Dealer")"><i class="fa fa-circle-o text-info"></i> Dealer </a></li>
                         <li><a href="@Url.Action("Search","Product")"><i class="fa fa-circle-o text-info"></i> Product </a></li>
-                        <li><a href="@Url.Action("Search","Vendor")"><i class=" fa fa-circle-o text-info"></i> Vendor </a></li>
-                        <li><a href="@Url.Action("Search","Invoice")"><i class=" fa fa-circle-o text-info"></i> Invoice </a></li>
                         <li><a href="@Url.Action("Search","User")"><i class=" fa fa-circle-o text-info"></i> User </a></li>
-                        <li><a href="@Url.Action("Search","purchaseOrder")"><i class=" fa fa-circle-o text-info"></i> Purchase Order </a></li>
-                        <li><a href="@Url.Action("Search","Receivable")"><i class=" fa fa-circle-o text-info"></i> Receivable </a></li>
-                        <li><a href="@Url.Action("Search","Enquiry")"><i class=" fa fa-circle-o text-info"></i> Enquiry </a></li>
-                        <li><a href="@Url.Action("Search","Payables")"><i class=" fa fa-circle-o text-info"></i> Payables </a></li>
-                        <li><a href="@Url.Action("Search","SalesOrder")"><i class=" fa fa-circle-o text-info"></i> Sales Orders </a></li>
                         <li><a href="@Url.Action("Search","Category")"><i class=" fa fa-circle-o text-info"></i> Category</a></li>
                         <li><a href="@Url.Action("Search","SubCategory")"><i class="fa fa-circle-o text-info"></i> SubCategory </a></li> 
                         <li><a href="@Url.Action("Index","Tax")"><i class="fa fa-circle-o text-info"></i> Add Tax </a></li> 
-                        @*<li><a href="@Url.Action("Search","Dealer_Payables")"><i class="fa fa-circle-o text-info"></i> Dealer Payables </a></li>*@
+                  </ul>
+            </li>
+               
+               <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>Order</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">                        
+
+                        <li><a href="@Url.Action("Search","SalesOrder")"><i class=" fa fa-circle-o text-info"></i> Sales Orders </a></li>
+                        <li><a href="@Url.Action("Search","Receivable")"><i class=" fa fa-circle-o text-info"></i> Receivable </a></li>
+                        <li><a href="@Url.Action("Search","Invoice")"><i class=" fa fa-circle-o text-info"></i> Invoice </a></li>
+
+                  </ul>
+            </li>
+               
+               <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>Purchase Order</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">                        
+      
+                        <li><a href="@Url.Action("Search","purchaseOrder")"><i class=" fa fa-circle-o text-info"></i> Purchase Order </a></li>
+                        <li><a href="@Url.Action("Search","Payables")"><i class=" fa fa-circle-o text-info"></i> Payables </a></li>
+
                   </ul>
             </li>
            }      
@@ -100,6 +137,12 @@
            }     
 
       </ul>
+            
+           }
+           else
+            {
+                Html.Action("Anauthorize_Token", "Login");
+            }
             
         }
 

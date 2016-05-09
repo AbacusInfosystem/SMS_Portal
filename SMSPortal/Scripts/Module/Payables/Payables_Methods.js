@@ -147,7 +147,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            htmlText += showChequeDate == "01/01/1999" ? "" : showChequeDate;
+            htmlText += showChequeDate == "01/01/1999" ? "NA" : showChequeDate;
 
             htmlText += "</td>";
 
@@ -177,7 +177,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<input type='hidden' id='hdnCheque_Number" + data.Payables[i].Payable_Item_Id + "' value='" + data.Payables[i].Cheque_Number + "'/>";
 
-            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Payables[i].Payable_Item_Id + "' value='" + data.Payables[i].showChequeDate + "'/>";
+            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Payables[i].Payable_Item_Id + "' value='" + showChequeDate + "'/>";
 
             htmlText += "<input type='hidden' id='hdnNEFT" + data.Payables[i].Payable_Item_Id + "' value='" + data.Payables[i].NEFT + "'/>";
 
@@ -237,7 +237,7 @@ function Bind_Payable_Grid_Items(data) {
 }
 
 function EditPayableData(id) {
-    alert(143);
+
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
 
     $('#drpTransaction').trigger('change');

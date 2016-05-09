@@ -98,7 +98,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO000", "Purchase_Order_No", "3", "15", "Purchase_Order");
+                    pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO-", "Purchase_Order_No", "3", "15", "Purchase_Order");
                     pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Ordered;
                     pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder,pViewModel.Cookies.User_Id);
                     pViewModel.Friendly_Message.Add(MessageStore.Get("POR001"));

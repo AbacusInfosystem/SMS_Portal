@@ -6,7 +6,7 @@
             "Vendor.Vendor_Name":
                {
                    required: true,
-                   validate_Vendor_Exist: true
+                  // validate_Vendor_Exist: true
                },
             "Vendor.Address":
                 {

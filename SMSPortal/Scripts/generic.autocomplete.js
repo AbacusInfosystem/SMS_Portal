@@ -94,7 +94,7 @@ var InitializeAutoComplete = function (elementObject) {
                 $(this).parents('.form-group').find('.todo-list').remove();
             }
 
-            var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + ui.item.label + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+            var htmlText = "<ul id='lookupUlAuto' class='todo-list ui-sortable'><li ><span class='text'>" + ui.item.label + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
             if ($(this).parents('.form-group').find(".ui-menu")[0]) {
 
