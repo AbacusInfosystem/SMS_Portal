@@ -20,11 +20,11 @@ $(document).ready(function () {
     $("#btnOK").click(function () {
 
         $('.ui-sortable').each(function () {
-            $('#lookupUl' + hiddenTextValue).remove()
+            $('#lookupUlAuto').remove()
         });
 
         $('.ui-sortable').each(function () {
-            $('#lookupUlAuto').remove()
+            $('#lookupUlLookup').remove()
         });
 
         var hiddenTextValue = $("#hdnValue").val();
@@ -32,7 +32,7 @@ $(document).ready(function () {
         var id = $("#hdnId").val();
 
         var Textboxname = "#" + $("#hdnLookupLabelId").val();
-
+        
 
         // Get ProductInfo for Purchase order items
         var vendor_id = $('#hdnVendorId').val();
