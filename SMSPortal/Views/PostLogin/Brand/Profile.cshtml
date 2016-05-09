@@ -38,7 +38,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-10">
                                                 <div class="form-group">
                                                     
                                                     @foreach (var item in LookupInfo.Get_Brand_Categories())
@@ -48,6 +48,7 @@
                                                             <label>Brand Category :@item.Value</label>
                                                         }
                                                     }
+                                                    <input type="hidden" id="hdnBrand_Category" name="Brand.Brand_Category" value="@Model.Brand.Brand_Category">
                                                 </div>
                                             </div>
                                         </div>
