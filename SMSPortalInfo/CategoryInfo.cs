@@ -22,5 +22,7 @@ namespace SMSPortalInfo
 
         public int Updated_By { get; set; }
 
+        public int Product_Count { get; set; }
+
     }
 }

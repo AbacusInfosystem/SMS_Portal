@@ -136,7 +136,7 @@ namespace SMSPortalRepo
 
             return dealer;
         }
-       
+
         private DealerInfo Get_Dealer_Values(DataRow dr)
         {
          
@@ -273,7 +273,7 @@ namespace SMSPortalRepo
 
             return autoList;
         }
-
+         
         public void Update_Dealer_Profile(DealerInfo dealer, int user_Id)
         {
             _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer_Profile(dealer, user_Id), StoreProcedures.Update_Dealer_Profile_Sp.ToString(), CommandType.StoredProcedure);

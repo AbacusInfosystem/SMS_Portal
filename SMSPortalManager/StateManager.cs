@@ -14,6 +14,12 @@ namespace SMSPortalManager
         {
             _stateRepo = new StateRepo();
         }
+
+        public StateInfo Get_State_By_Id(int stateId)
+        {
+            return _stateRepo.Get_State_By_Id(stateId);
+        }
+
         public List<StateInfo> Get_States()
         {
             return _stateRepo.Get_States();
