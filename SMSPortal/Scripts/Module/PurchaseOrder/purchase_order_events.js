@@ -2,6 +2,7 @@
 
     $("#btnAdd").click(function ()
     {
+       
         if ($("#frmPurchaseOrderMaster").valid())
         {
             Save_Purchase_Order_Items();

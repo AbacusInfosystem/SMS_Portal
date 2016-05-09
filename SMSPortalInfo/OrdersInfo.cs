@@ -42,10 +42,6 @@ namespace SMSPortalInfo
 
         public DateTime Shipping_Date { get; set; }
 
-        public int Status { get; set; }
-
-        public DateTime Shipping_Date { get; set; }
-
         public DateTime Created_On { get; set; }
 
         public int Created_By { get; set; }

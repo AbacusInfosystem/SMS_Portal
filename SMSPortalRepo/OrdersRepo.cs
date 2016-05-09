@@ -81,7 +81,7 @@ namespace SMSPortalRepo
             return sqlParams;
         }
 
-        public List<OrdersInfo> Get_Orders(ref PaginationInfo Pager)
+        public List<OrdersInfo> Get_Orders(ref PaginationInfo Pager, int dealer_Id)
         {
             List<SqlParameter> sqlParam = new List<SqlParameter>();
             sqlParam.Add(new SqlParameter("@Dealer_Id", dealer_Id));
