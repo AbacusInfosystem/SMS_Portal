@@ -44,6 +44,8 @@ namespace SMSPortalRepo
                         cookie.First_Name = Convert.ToString(dr["First_Name"]);
                         cookie.Last_Name = Convert.ToString(dr["Last_Name"]);
                         cookie.User_Email = Convert.ToString(dr["Email_Id"]);
+                        if(dr["Entity_Id"]!=DBNull.Value)
+                            cookie.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
                     }
                 }
             }

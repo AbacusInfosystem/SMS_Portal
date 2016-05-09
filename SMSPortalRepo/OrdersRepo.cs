@@ -22,10 +22,20 @@ namespace SMSPortalRepo
 
         }
 
-        //public void Insert_Orders(OrdersInfo orders)
-        //{
-        //    _sqlRepo.ExecuteNonQuery(Set_Values_In_Orders(orders), StoreProcedures.Insert_Orders_Sp.ToString(), CommandType.StoredProcedure);
-        //}
+        public void Insert_Orders(OrdersInfo orders)
+        {
+            int orderId = _sqlRepo.ExecuteNonQuery(Set_Values_In_Orders(orders), StoreProcedures.Insert_Orders_Sp.ToString(), CommandType.StoredProcedure, "@Order_Id");
+
+            foreach (var orderItem in orders.OrderItems)
+            {
+                orderItem.Order_Id = orderId;
+                orderItem.Created_By = orders.Created_By;
+                orderItem.Created_On = orders.Created_On;
+                orderItem.Updated_By = orders.Updated_By;
+                orderItem.Updated_On = orders.Updated_On;                
+                _sqlRepo.ExecuteNonQuery(Set_Values_In_Order_Item(orderItem), StoreProcedures.Insert_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
+            }
+        }
 
         //public void Update_Orders(OrdersInfo orders)
         //{
@@ -35,7 +45,6 @@ namespace SMSPortalRepo
         private List<SqlParameter> Set_Values_In_Orders(OrdersInfo orders)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Order_Id", orders.Order_Id));
             sqlParams.Add(new SqlParameter("@Order_No", orders.Order_No));
             sqlParams.Add(new SqlParameter("@Dealer_Id", orders.Dealer_Id));
             sqlParams.Add(new SqlParameter("@Order_Date", orders.Order_Date));
@@ -46,10 +55,27 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Vat", orders.Vat));
             sqlParams.Add(new SqlParameter("@Swatch_Bharat_Tax", orders.Swatch_Bharat_Tax));
             sqlParams.Add(new SqlParameter("@Net_Amount", orders.Net_Amount));
+            sqlParams.Add(new SqlParameter("@Status", orders.Status));
+            sqlParams.Add(new SqlParameter("@Shipping_Date", orders.Shipping_Date));
             sqlParams.Add(new SqlParameter("@Created_On", orders.Created_On));
             sqlParams.Add(new SqlParameter("@Created_By", orders.Created_By));
             sqlParams.Add(new SqlParameter("@Updated_On", orders.Updated_On));
             sqlParams.Add(new SqlParameter("@Updated_By", orders.Updated_By));
+            return sqlParams;
+        }
+
+        private List<SqlParameter> Set_Values_In_Order_Item(OrderItemInfo orderItem)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@Order_Id", orderItem.Order_Id));
+            sqlParams.Add(new SqlParameter("@Product_Id", orderItem.Product_Id));
+            sqlParams.Add(new SqlParameter("@Product_Quantity", orderItem.Product_Quantity));
+            sqlParams.Add(new SqlParameter("@Product_Price", orderItem.Product_Price));
+            sqlParams.Add(new SqlParameter("@Order_Status", orderItem.Order_Status));
+            sqlParams.Add(new SqlParameter("@Created_On", orderItem.Created_On));
+            sqlParams.Add(new SqlParameter("@Created_By", orderItem.Created_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", orderItem.Updated_On));
+            sqlParams.Add(new SqlParameter("@Updated_By", orderItem.Updated_By));
             return sqlParams;
         }
 

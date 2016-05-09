@@ -209,7 +209,6 @@
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -954,6 +953,8 @@
     <Content Include="Scripts\jquery-ui-1.11.2.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.number.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -986,6 +987,14 @@
     <Content Include="Scripts\Module\Payables\payable_validation.js" />
     <Content Include="Scripts\Module\Payables\search_payable_event.js" />
     <Content Include="Scripts\Module\Payables\search_payable_method.js" />
+    <Content Include="Scripts\Module\Product\Category\category-events.js" />
+    <Content Include="Scripts\Module\Product\index_events.js" />
+    <Content Include="Scripts\Module\Product\index_methods.js" />
+    <Content Include="Scripts\Module\Product\PlaceOrder\place-order-events.js" />
+    <Content Include="Scripts\Module\Product\PlaceOrder\place-order-methods.js" />
+    <Content Include="Scripts\Module\Product\PlaceOrder\place-order-validations.js" />
+    <Content Include="Scripts\Module\Product\ProductList\product-list-events.js" />
+    <Content Include="Scripts\Module\Product\ProductList\product-list-methods.js" />
     <Content Include="Scripts\Module\Product\product_image_methods.js" />
     <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
@@ -993,6 +1002,7 @@
     <Content Include="Scripts\Module\Product\search_product_events.js" />
     <Content Include="Scripts\Module\Product\search_product_methods.js" />
     <Content Include="Scripts\Module\Product\Product_method.js" />
+    <Content Include="Scripts\Module\Product\SubCategory\sub-category-events.js" />
     <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_events.js" />
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_methods.js" />
@@ -1137,6 +1147,11 @@
     <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
     <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
     <Content Include="Views\PostLogin\Tax\Index.cshtml" />
+    <Content Include="Views\PostLogin\Product\Index.cshtml" />
+    <Content Include="Views\PostLogin\Product\_Categories.cshtml" />
+    <Content Include="Views\PostLogin\Product\_ProductList.cshtml" />
+    <Content Include="Views\PostLogin\Product\_SubCategories.cshtml" />
+    <Content Include="Views\PostLogin\Product\PlaceOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

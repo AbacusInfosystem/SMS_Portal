@@ -67,6 +67,47 @@ namespace SMSPortalRepo
             return products;
         }
 
+        public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id)
+        {
+            List<ProductInfo> products = new List<ProductInfo>();
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+            sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
+            sqlParamList.Add(new SqlParameter("@Category_Id", Category_Id));
+            sqlParamList.Add(new SqlParameter("@Sub_Category_Id", Sub_Category_Id));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Products_By_Dealer_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                products.Add(Get_Products_By_Dealer_Id_Values(dr));
+            }
+            return products;
+        }
+
+        private ProductInfo Get_Products_By_Dealer_Id_Values(DataRow dr)
+        {
+            ProductInfo product = new ProductInfo();
+
+            product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            product.Product_Name = Convert.ToString(dr["Product_Name"]);
+            product.Product_Description = Convert.ToString(dr["Product_Description"]);
+            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            product.Product_Image = Convert.ToString(dr["Image_Code"]);
+            product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+            product.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+            product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+            product.Category_Name = Convert.ToString(dr["Category_Name"]);
+            product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
+            product.SubCategory_Name = Convert.ToString(dr["SubCategory_Name"]);
+            product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
+            product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+            product.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            product.Created_By = Convert.ToInt32(dr["Created_By"]);
+            product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return product;
+        }
+
         public List<ProductInfo> Get_Products_By_Id(int Product_Id, ref PaginationInfo Pager)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
@@ -79,6 +120,41 @@ namespace SMSPortalRepo
                 products.Add(Get_Product_Values(dr));
             }
             return products;
+        }
+
+        public List<ProductInfo> Get_Products_By_Ids(string ProductIds)
+        {
+            List<ProductInfo> products = new List<ProductInfo>();
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+            sqlParamList.Add(new SqlParameter("@ProductIds", ProductIds));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Products_By_Ids_sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                products.Add(Get_Products_By_Ids_Values(dr));
+            }
+            return products;
+        }
+
+        private ProductInfo Get_Products_By_Ids_Values(DataRow dr)
+        {
+            ProductInfo product = new ProductInfo();
+
+            product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            product.Product_Name = Convert.ToString(dr["Product_Name"]);
+            product.Product_Description = Convert.ToString(dr["Product_Description"]);
+            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+            product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+            product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
+            product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
+            product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+            product.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            product.Created_By = Convert.ToInt32(dr["Created_By"]);
+            product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return product;
         }
 
         public ProductInfo Get_Product_By_Id(int Product_Id)
@@ -217,6 +293,80 @@ namespace SMSPortalRepo
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@Product_Image_Id", Product_Image_Id));
             _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Delete_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
+        }
+
+        public List<CategoryInfo> Get_Categories_With_Product_Count(int Dealer_Id)
+        {
+            List<CategoryInfo> Categories = new List<CategoryInfo>();
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Categories_With_Product_Count_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                Categories.Add(Get_Categories_With_Product_Count_Values(dr));
+            }
+            return Categories;
+        }
+
+        private CategoryInfo Get_Categories_With_Product_Count_Values(DataRow dr)
+        {
+            CategoryInfo category = new CategoryInfo();
+
+            category.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+
+            if (!dr.IsNull("Category_Name"))
+                category.Category_Name = Convert.ToString(dr["Category_Name"]);
+            category.IsActive = Convert.ToBoolean(dr["IsActive"]);
+            category.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            category.Created_By = Convert.ToInt32(dr["Created_By"]);
+            category.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            category.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            category.Product_Count = Convert.ToInt32(dr["Product_Count"]);
+            return category;
+        }
+
+        public List<SubCategoryInfo> Get_Sub_Categories_With_Product_Count(int Category_Id, int Dealer_Id)
+        {
+            List<SubCategoryInfo> subcategories = new List<SubCategoryInfo>();
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@Category_Id", Category_Id));
+            sqlParams.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Sub_Categories_With_Product_Count_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                subcategories.Add(Get_Product_Sub_Categories_With_Product_Count_Values(dr));
+            }
+
+            return subcategories;
+        }
+
+        private SubCategoryInfo Get_Product_Sub_Categories_With_Product_Count_Values(DataRow dr)
+        {
+            SubCategoryInfo subcategory = new SubCategoryInfo();
+
+            subcategory.Subcategory_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
+            subcategory.Subcategory_Name = Convert.ToString(dr["Sub_Category_Name"]);
+            subcategory.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+            subcategory.IsActive = Convert.ToBoolean(dr["IsActive"]);
+            if (subcategory.IsActive == true)
+            {
+                subcategory.Status = "Active";
+            }
+            else
+            {
+                subcategory.Status = "InActive";
+            }
+            subcategory.Created_Date = Convert.ToDateTime(dr["Created_On"]);
+            subcategory.Created_By = Convert.ToInt32(dr["Created_By"]);
+            subcategory.Updated_Date = Convert.ToDateTime(dr["Updated_On"]);
+            subcategory.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            subcategory.Product_Count = Convert.ToInt32(dr["Product_Count"]);
+
+            return subcategory;
         }
     }
 }

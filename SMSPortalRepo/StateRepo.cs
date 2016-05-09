@@ -28,7 +28,22 @@ namespace SMSPortalRepo
                 states.Add(Get_State_Values(dr));
             }
             return states;
-        }         
+        }
+
+        public StateInfo Get_State_By_Id(int stateId)
+        {
+            StateInfo state = new StateInfo();
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+
+            sqlParam.Add(new SqlParameter("@stateId", stateId));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_State_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                state = Get_State_Values(dr);
+            }
+            return state;
+        }
 
         private StateInfo Get_State_Values(DataRow dr)
         {
@@ -39,6 +54,8 @@ namespace SMSPortalRepo
             state.Country_Id = Convert.ToInt32(dr["Country_Id"]);
             return state;
         }
+
+
          
     }
 }

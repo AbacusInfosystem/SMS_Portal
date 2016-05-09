@@ -27,5 +27,7 @@ namespace SMSPortalInfo
         public DateTime Created_Date { get; set; }
 
         public DateTime Updated_Date { get; set; }
+
+        public int Product_Count { get; set; }  
     }
 }

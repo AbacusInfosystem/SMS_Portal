@@ -116,8 +116,8 @@ namespace SMSPortalRepo
             dealer.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
             dealer.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
             dealer.Email = Convert.ToString(dr["Email"]);
-            dealer.Dealer_Percentage_Share = Convert.ToInt32(dr["Dealer_Percentage_Share"]);
-            dealer.Brand_Percentage_Share = Convert.ToInt32(dr["Brand_Percentage_Share"]);
+            //dealer.Dealer_Percentage_Share = Convert.ToInt32(dr["Dealer_Percentage_Share"]);
+            //dealer.Brand_Percentage_Share = Convert.ToInt32(dr["Brand_Percentage_Share"]);
             dealer.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
             dealer.Created_On = Convert.ToDateTime(dr["Created_On"]);
             dealer.Created_By = Convert.ToInt32(dr["Created_By"]);

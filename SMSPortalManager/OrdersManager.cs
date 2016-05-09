@@ -18,10 +18,10 @@ namespace SMSPortalManager
             _ordersRepo = new OrdersRepo();
         }
 
-        //public void Insert_Orders(OrdersInfo orders)
-        //{
-        //    _ordersRepo.Insert_Orders(orders);
-        //}
+        public void Insert_Orders(OrdersInfo orders)
+        {
+            _ordersRepo.Insert_Orders(orders);
+        }
 
         //public void Update_Orders(OrdersInfo orders)
         //{
