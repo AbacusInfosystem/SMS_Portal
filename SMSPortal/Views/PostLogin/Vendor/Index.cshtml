@@ -9,7 +9,7 @@
             Vendor Master
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>    
+            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
             <li class="active">Admin</li>
             <li class="active">Vendor</li>
         </ol>
@@ -98,56 +98,66 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <div class="box-body">
-                                    <div class="box-header">
-                                        <h3 class="box-title">Bank Details</h3>
-                                    </div>
-                                    <table class="table table-striped" id="tblBankDetails">
-                                        <tr id="subhead">
-                                            <th>Bank Name</th>
-                                            <th>Account No.</th>
-                                            <th>IFSC Code</th>
-                                            <th>Active</th>
-                                        </tr>
-                                        @if (Model.Vendor.BankDetailsList != null && Model.Vendor.BankDetailsList.Count() > 0)
-                                        {
-                                            int i = 1;
-                                            foreach (var itm in Model.Vendor.BankDetailsList)
+                            @if ( Model.Vendor.BankDetailsList.Count() == 0)
+                            {
+                                <div></div>
+                            }
+                            else
+                            {
+                                <div @*style="display:none"*@ id="Bankdetails" class="col-md-8">
+                                    <div class="box-body">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Bank Details</h3>
+                                        </div>
+                                        @*<input type="hidden" name="Vendor.BankDetailsList" id="hdf_BankDetailsList" value="@Model.Vendor.BankDetailsList">*@
+                                        <table class="table table-striped" id="tblBankDetails">
+                                            <tr id="subhead">
+                                                <th>Bank Name</th>
+                                                <th>Account No.</th>
+                                                <th>IFSC Code</th>
+                                                <th>Active</th>
+                                            </tr>
+                                            @if (Model.Vendor.BankDetailsList != null && Model.Vendor.BankDetailsList.Count() > 0)
                                             {
-                                                <tr id="tr@(i)">
-                                                    <td>
-                                                        <span id="trBankName@(i)"> @itm.Bank_Name</span>
-                                                        <input type="hidden" id="hdnbank_Name@(i)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
-                                                    </td>
-                                                    <td>
-                                                        <span id="trAccount_No@(i)"> @itm.Account_No</span>
-                                                        <input type="hidden" id="hdnaccount_No@(i)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Account_No">
-                                                    </td>
-                                                    <td>
-                                                        <span id="trIfsc_Code@(i)"> @itm.Ifsc_Code</span>
-                                                        <input type="hidden" id="hdnifsc_Code@(i)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Ifsc_Code">
-                                                    </td>
-                                                    <td>
-                                                        @if (itm.Status.ToString() == "True")
-                                                        {
-                                                            <span id="trStatus@(i)"> Active</span>
-                                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="true">
-                                                        }
-                                                        else
-                                                        {
-                                                            <span id="trStatus@(i)"> InActive</span>
-                                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="false">
-                                                        }
+                                                int i = 1;
+                                                foreach (var itm in Model.Vendor.BankDetailsList)
+                                                {
+                                                    <tr id="tr@(i)">
+                                                        <td>
+                                                            <span id="trBankName@(i)"> @itm.Bank_Name</span>
+                                                            <input type="hidden" id="hdnbank_Name@(i)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
+                                                        </td>
+                                                        <td>
+                                                            <span id="trAccount_No@(i)"> @itm.Account_No</span>
+                                                            <input type="hidden" id="hdnaccount_No@(i)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Account_No">
+                                                        </td>
+                                                        <td>
+                                                            <span id="trIfsc_Code@(i)"> @itm.Ifsc_Code</span>
+                                                            <input type="hidden" id="hdnifsc_Code@(i)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Ifsc_Code">
+                                                        </td>
+                                                        <td>
+                                                            @if (itm.Status.ToString() == "True")
+                                                            {
+                                                                <span id="trStatus@(i)"> Active</span>
+                                                                <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="true">
+                                                            }
+                                                            else
+                                                            {
+                                                                <span id="trStatus@(i)"> InActive</span>
+                                                                <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="false">
+                                                            }
 
-                                                    </td>
-                                                </tr>
-                                                        i = i + 1;
+                                                        </td>
+                                                    </tr>
+                                                            i = i + 1;
+                                                }
                                             }
-                                        }
-                                    </table>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+
+                            }
+
                         </div>
                     </div>
                 </div>
