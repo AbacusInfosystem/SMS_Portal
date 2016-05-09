@@ -94,7 +94,7 @@ function Bind_Purchase_Order_Items(data) {
             htmlText += "<input type='hidden' class='ItmProductQty' value='" + data.PurchaseOrderItems[i].Product_Quantity + "'>";
             htmlText += "<input type='hidden' class='ItmShipAdd' value='" + data.PurchaseOrderItems[i].Shipping_Address + "'>";
 
-            htmlText += "<input type='hidden' class='ItmShipDate' value='"+data.Shipping_Date+"' > ";
+            htmlText += "<input type='hidden' class='ItmShipDate' value='" + data.PurchaseOrderItems[i].Shipping_Date + "' > ";
             
             htmlText += "<input type='hidden' class='ItmRecQty' value='" + data.PurchaseOrderItems[i].Received_Quantity + "'>";
 
@@ -171,7 +171,7 @@ function Set_Purchase_Order_Items() {
 function Save_Purchase_Order_Items() {
 
     var pViewModel = Set_Purchase_Order_Items();
-
+   // $("[name='" + Product.Product_Id + "']").rules("remove", "validate_Product_Exist");
     CallAjax("/purchaseorder/insert-update-purchase-order/", "json", JSON.stringify(pViewModel), "POST", "application/json", false, Bind_Purchase_Order_Items, "", null);
 
 }
