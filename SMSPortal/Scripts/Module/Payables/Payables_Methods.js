@@ -139,7 +139,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            htmlText += showChequeDate == "01/01/1999" ? "NA" : showChequeDate;
+            htmlText += showChequeDate == "1/1/1999" ? "NA" : showChequeDate;
 
             htmlText += "</td>";
 
