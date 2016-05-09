@@ -367,7 +367,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
                 pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "4", "15", "Orders");
                 pViewModel.order.Order_Date = DateTime.Now;
-                pViewModel.order.Status = Convert.ToInt32(OrderStatus.Order_Received);
+                pViewModel.order.Status = Convert.ToString(Convert.ToInt32(OrderStatus.Order_Received));
                 pViewModel.order.Shipping_Date = DateTime.Now.AddDays(7);
                 pViewModel.order.Created_By = pViewModel.Cookies.User_Id;
                 pViewModel.order.Created_On = DateTime.Now;
@@ -382,6 +382,28 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return RedirectToAction("Index", "Dashboard");
         }
+
+        public ActionResult Bulk_Excel_Product_Upload(ProductViewModel pViewModel)
+        {
+            // Code to Upload Excel File 
+            var fileName = "";
+            var path = "";
+            bool is_Error = false;
+
+            try
+            {
+                ExcelReader _excel = new ExcelReader();
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                if (pViewModel.UploadProductExcel.ContentLength > 0)
+                {
+
+                    fileName = Path.GetFileName(pViewModel.UploadProductExcel.FileName);
+
+                    path = Path.Combine(Server.MapPath(ConfigurationManager.AppSettings["BrandLogoPath"].ToString()), fileName);
+
+                    Logger.Debug("*************************** " + path.ToString());
+
+                    pViewModel.UploadProductExcel.SaveAs(path);
 
                     DataSet ds = _excel.ExecuteDataSet(path);
 
@@ -411,7 +433,7 @@ namespace SMSPortal.Controllers.PostLogin
             TempData["Message"] = pViewModel.Friendly_Message;
 
             return RedirectToAction("Search");
-        }
+        }                    
 
         public PartialViewResult Upload_Product_Excel()
         {
