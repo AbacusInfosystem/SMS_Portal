@@ -18,14 +18,14 @@ namespace SMSPortalManager
             _categoryRepo = new CategoryRepo();
         }
 
-        public int Insert_Category(CategoryInfo category)
+        public int Insert_Category(CategoryInfo category,int user_id)
         {
-            return _categoryRepo.Insert_Category(category);
+            return _categoryRepo.Insert_Category(category, user_id);
         }
 
-        public void Update_Category(CategoryInfo category)
+        public void Update_Category(CategoryInfo category,int user_id)
         {
-            _categoryRepo.Update_Category(category);
+            _categoryRepo.Update_Category(category,user_id);
         }
 
         public List<CategoryInfo> Get_Categorys(ref PaginationInfo Pager)
@@ -57,5 +57,7 @@ namespace SMSPortalManager
         {
             return _categoryRepo.Get_Category_Autocomplete(Category);
         }
+
+       
     }
 }

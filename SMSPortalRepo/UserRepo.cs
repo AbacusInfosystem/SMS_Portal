@@ -11,6 +11,7 @@ using System.Configuration;
 using SMSPortalHelper;
 using SMSPortalHelper.Logging;
 using SMSPortalRepo.Common;
+using System.Net.Mail;
 namespace SMSPortalRepo
 {
     
@@ -100,9 +101,10 @@ namespace SMSPortalRepo
              sqlParams.Add(new SqlParameter("@Email_Id", users.Email_Id));
              sqlParams.Add(new SqlParameter("@Gender", users.Gender));
              sqlParams.Add(new SqlParameter("@User_Name", users.User_Name));
-             sqlParams.Add(new SqlParameter("@Password", "admin"));
+             sqlParams.Add(new SqlParameter("@Password", "ABCD"));
              sqlParams.Add(new SqlParameter("@Entity_Id", users.Entity_Id));
              sqlParams.Add(new SqlParameter("@Role_Id", users.Role_Id));
+             sqlParams.Add(new SqlParameter("@Pass_Token", users.Pass_Token));
              sqlParams.Add(new SqlParameter("@Is_Active", users.Is_Active));
              if (users.User_Id == 0)
              {
@@ -293,5 +295,108 @@ namespace SMSPortalRepo
              }
              return autoList;
          }
+
+         public UserInfo Get_User_By_Entity_Id(int Entity_Id)
+         {
+             List<SqlParameter> parameters = new List<SqlParameter>();
+             parameters.Add(new SqlParameter("@Entity_Id", Entity_Id));
+             UserInfo user = new UserInfo();
+             DataTable dt = _sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Users_By_Entity_Id_Sp.ToString(), CommandType.StoredProcedure);
+             foreach (DataRow dr in dt.Rows)
+             {
+                 user = Get_Users_Values(dr);
+             }
+
+             return user;
+         }
+
+         public UserInfo Get_User_By_Password_Token(string Password_Token)
+         {
+             List<SqlParameter> parameters = new List<SqlParameter>();
+             parameters.Add(new SqlParameter("@Password_Token", Password_Token));
+             UserInfo user = new UserInfo();
+             DataTable dt = _sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_User_By_Password_Token.ToString(), CommandType.StoredProcedure);
+             foreach (DataRow dr in dt.Rows)
+             {
+                 user = Get_Users_Values(dr);
+             }
+             return user;
+         }
+
+         public void Send_Reset_Password_Email(string Email_Id,string link, UserInfo User)
+         {
+             StringBuilder html = new StringBuilder();
+             string subject = "Reset Password ";
+
+             #region Main Table
+
+             html.Append("<table cellspacing='0' cellpadding='0' style='width:700px;border:2px solid #ccc;' >");
+             
+             html.Append("<tr>");
+             html.Append("<td>Please click on below link to reset you password</td>");              
+             html.Append("</tr>");
+
+             html.Append("<tr>");
+             html.Append("<td><a href='" + link + "'>Click here</a></td>");              
+             html.Append("</tr>");
+             html.Append("</table");
+
+             #endregion
+
+             MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
+             MailMessage message = new MailMessage();
+             message.From = fromMail;
+             message.Subject = subject;
+             message.IsBodyHtml = true;
+             message.Body = html.ToString();
+             MailAddress To = new MailAddress(Email_Id);
+             message.To.Add(To);
+             SmtpClient client = new SmtpClient();
+             client.Send(message);
+         }
+
+         public void Reset_Password(string New_Password, int User_Id,string Password_Token)
+         {              
+             try
+             {
+                 List<SqlParameter> sqlParam = new List<SqlParameter>();
+                 sqlParam.Add(new SqlParameter("@NewPassword", New_Password));
+                 sqlParam.Add(new SqlParameter("@UserId", User_Id));
+                 sqlParam.Add(new SqlParameter("@PasswordToken", Password_Token));                 
+                 _sqlHelper.ExecuteNonQuery(sqlParam, StoreProcedures.Reset_Password.ToString(), CommandType.StoredProcedure);
+             }
+             catch (Exception ex)
+             {
+                 Logger.Error("UserRepo - Reset_Password: " + ex.ToString());
+             }              
+         }
+         
+         public UserInfo Get_User_By_Email(string Email_Id)
+         {
+             List<SqlParameter> parameters = new List<SqlParameter>();
+             parameters.Add(new SqlParameter("@Email_Id",Email_Id));
+             UserInfo user = new UserInfo();
+             DataTable dt = _sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_User_By_Email.ToString(), CommandType.StoredProcedure);
+             foreach (DataRow dr in dt.Rows)
+             {
+                 user = Get_Users_Email_Values(dr);
+             }
+
+             return user;
+         }
+
+         private UserInfo Get_Users_Email_Values(DataRow dr)
+         {
+             UserInfo user = new UserInfo();
+
+             user.User_Id = Convert.ToInt32(dr["User_Id"]);
+             if (!dr.IsNull("Email_Id"))
+                 user.Email_Id = Convert.ToString(dr["Email_Id"]);
+         
+                 user.Pass_Token = Convert.ToString(dr["Pass_Token"]);
+        
+             return user;
+         }
+         
 	}
 }

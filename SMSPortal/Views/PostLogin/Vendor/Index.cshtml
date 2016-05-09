@@ -29,17 +29,16 @@
                                     <input type="hidden" class="form-control input-sm" name="Vendor.Vendor_Id" id="hdf_VendorId" value="@Model.Vendor.Vendor_Id">
                                     <div class="form-group">
                                         <label style="color: #333">Vendor Name</label>
-                                        <input type="text" class="form-control input-sm" name="Vendor.Vendor_Name" id="txtVendor_Name" placeholder="Enter your name" value="@Model.Vendor.Vendor_Name" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Vendor.Vendor_Name" id="txtVendor_Name" placeholder="Enter your name" value="@Model.Vendor.Vendor_Name" maxlength="15">
                                         <input type="hidden" id="hdnVendorName" value="@Model.Vendor.Vendor_Name">
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">Address</label>
-                                        <input type="text" class="form-control input-sm" name="Vendor.Address" id="txtAddress" placeholder="Address" value="@Model.Vendor.Address" maxlength="20">
-                                        @*<textarea class="form-control"></textarea>*@
+                                        <input type="text" class="form-control input-sm" name="Vendor.Address" id="txtAddress" placeholder="Address" value="@Model.Vendor.Address" maxlength="50">
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">Email</label>
-                                        <input type="text" class="form-control input-sm" name="Vendor.Email" id="txtEmail" placeholder="Enter your email here" value="@Model.Vendor.Email" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Vendor.Email" id="txtEmail" placeholder="Enter your email here" value="@Model.Vendor.Email" maxlength="40">
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">State</label>
@@ -60,11 +59,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">City</label>
-                                        <input type="text" class="form-control input-sm" name="Vendor.City" id="txtCity" placeholder="Enter city" value="@Model.Vendor.City" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Vendor.City" id="txtCity" placeholder="Enter city" value="@Model.Vendor.City" maxlength="15">
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">Pincode</label>
-                                        <input type="text" class="form-control input-sm" name="Vendor.Pincode" id="txtPincode" placeholder="Enter pincode" value="@Model.Vendor.Pincode" maxlength="6">
+                                        <input type="text" class="form-control input-sm" name="Vendor.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Vendor.Pincode == 0 ? "" : Model.Vendor.Pincode.ToString())" maxlength="6">
                                     </div>
                                     <div class="form-group">
                                         <label style="color: #333">Contact No 1</label>
@@ -99,56 +98,66 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <div class="box-body">
-                                    <div class="box-header">
-                                        <h3 class="box-title">Bank Details</h3>
-                                    </div>
-                                    <table class="table table-striped" id="tblBankDetails">
-                                        <tr id="subhead">
-                                            <th>Bank Name</th>
-                                            <th>Account No.</th>
-                                            <th>IFSC Code</th>
-                                            <th>Active</th>
-                                        </tr>
-                                        @if (Model.Vendor.BankDetailsList != null && Model.Vendor.BankDetailsList.Count() > 0)
-                                        {
-                                            int i = 1;
-                                            foreach (var itm in Model.Vendor.BankDetailsList)
+                            @if ( Model.Vendor.BankDetailsList.Count() == 0)
+                            {
+                                <div></div>
+                            }
+                            else
+                            {
+                                <div @*style="display:none"*@ id="Bankdetails" class="col-md-8">
+                                    <div class="box-body">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Bank Details</h3>
+                                        </div>
+                                        @*<input type="hidden" name="Vendor.BankDetailsList" id="hdf_BankDetailsList" value="@Model.Vendor.BankDetailsList">*@
+                                        <table class="table table-striped" id="tblBankDetails">
+                                            <tr id="subhead">
+                                                <th>Bank Name</th>
+                                                <th>Account No.</th>
+                                                <th>IFSC Code</th>
+                                                <th>Active</th>
+                                            </tr>
+                                            @if (Model.Vendor.BankDetailsList != null && Model.Vendor.BankDetailsList.Count() > 0)
                                             {
-                                                <tr id="tr@(i)">
-                                                    <td>
-                                                        <span id="trBankName@(i)"> @itm.Bank_Name</span>
-                                                        <input type="hidden" id="hdnbank_Name@(i)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
-                                                    </td>
-                                                    <td>
-                                                        <span id="trAccount_No@(i)"> @itm.Account_No</span>
-                                                        <input type="hidden" id="hdnaccount_No@(i)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Account_No">
-                                                    </td>
-                                                    <td>
-                                                        <span id="trIfsc_Code@(i)"> @itm.Ifsc_Code</span>
-                                                        <input type="hidden" id="hdnifsc_Code@(i)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Ifsc_Code">
-                                                    </td>
-                                                    <td>
-                                                        @if (itm.Status.ToString() == "True")
-                                                        {
-                                                            <span id="trStatus@(i)"> Active</span>
-                                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="true">
-                                                        }
-                                                        else
-                                                        {
-                                                            <span id="trStatus@(i)"> InActive</span>
-                                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="false">
-                                                        }
+                                                int i = 1;
+                                                foreach (var itm in Model.Vendor.BankDetailsList)
+                                                {
+                                                    <tr id="tr@(i)">
+                                                        <td>
+                                                            <span id="trBankName@(i)"> @itm.Bank_Name</span>
+                                                            <input type="hidden" id="hdnbank_Name@(i)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
+                                                        </td>
+                                                        <td>
+                                                            <span id="trAccount_No@(i)"> @itm.Account_No</span>
+                                                            <input type="hidden" id="hdnaccount_No@(i)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Account_No">
+                                                        </td>
+                                                        <td>
+                                                            <span id="trIfsc_Code@(i)"> @itm.Ifsc_Code</span>
+                                                            <input type="hidden" id="hdnifsc_Code@(i)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Ifsc_Code">
+                                                        </td>
+                                                        <td>
+                                                            @if (itm.Status.ToString() == "True")
+                                                            {
+                                                                <span id="trStatus@(i)"> Active</span>
+                                                                <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="true">
+                                                            }
+                                                            else
+                                                            {
+                                                                <span id="trStatus@(i)"> InActive</span>
+                                                                <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="false">
+                                                            }
 
-                                                    </td>
-                                                </tr>
-                                                        i = i + 1;
+                                                        </td>
+                                                    </tr>
+                                                            i = i + 1;
+                                                }
                                             }
-                                        }
-                                    </table>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+
+                            }
+
                         </div>
                     </div>
                 </div>

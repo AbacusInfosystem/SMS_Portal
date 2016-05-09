@@ -32,10 +32,6 @@ namespace SMSPortalInfo
 
         public string Email { get; set; }
 
-        public int Dealer_Percentage_Share { get; set; }
-
-        public int Brand_Percentage_Share { get; set; }
-
         public bool Is_Active { get; set; }
 
         public DateTime Created_On { get; set; }

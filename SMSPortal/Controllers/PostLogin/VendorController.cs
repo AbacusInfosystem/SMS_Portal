@@ -23,7 +23,7 @@ namespace SMSPortal.Controllers.PostLogin
 
         public CookiesInfo _cookies;
 
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"]; 
 
         public VendorController()
         {
@@ -228,16 +228,6 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_AddBankDetails", vViewModel);
         }
 
-        public ActionResult SearchOrders()
-        {
-            return View("SearchOrders");
-        }
-         
-        public ActionResult OrderDetails()
-        {
-            return View("OrderDetails");
-        }
-
         public ActionResult CreateInvoice()
         {
             return View("CreateInvoice");
@@ -248,6 +238,11 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
+                if (TempData["vViewModel"] != null)
+                {
+                    vViewModel = (VendorViewModel)TempData["vViewModel"];
+                }
+
                 vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
@@ -325,5 +320,134 @@ namespace SMSPortal.Controllers.PostLogin
 
             return Json(autoList, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Add_Vendor_User(VendorViewModel vViewModel)
+        {
+            TempData["Entity_Id"] = vViewModel.Vendor.Vendor_Id;
+
+            TempData["Role_Id"] = RolesIds.Vendor;
+
+            return RedirectToAction("Index", "User");
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Edit_Vendor_Profile(VendorViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
+
+                vViewModel.States = _stateManager.Get_States(); 
+
+                vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);
+
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Vendor controller - Profile " + ex);
+            }
+
+            return View("Update_Profile", vViewModel);
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Update_Vendor_Profile(VendorViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _vendorManager.Update_Vendor_Profile(vViewModel.Vendor, vViewModel.Cookies.User_Id);
+
+                vViewModel.Friendly_Message.Add(MessageStore.Get("VO004"));
+
+                TempData["vViewModel"] = vViewModel;
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Vendor Controller - Update_Vendor_Profile " + ex);
+            }
+            
+            return RedirectToAction("Profile");
+        }
+
+        #region Vendor Sales Orders
+
+        public ActionResult SearchOrders(PurchaseOrderViewModel pViewModel)
+        {
+            try
+            {
+                if (TempData["vViewModel"] != null)
+                {
+                    pViewModel = (PurchaseOrderViewModel)TempData["vViewModel"];
+                }
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("VendorController Search " + ex);
+            }
+            return View("SearchOrders", pViewModel);             
+        }
+
+        public ActionResult OrderDetails(PurchaseOrderViewModel pViewModel)
+        {
+
+            return View("OrderDetails",pViewModel);
+        }
+
+        public JsonResult Get_Sales_Orders(PurchaseOrderViewModel pViewModel)
+        {
+            PaginationInfo pager = new PaginationInfo();
+            try
+            {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                pager = pViewModel.Pager;
+                if (pViewModel.Filter.Purchase_Order_Id != 0)
+                {
+                    pViewModel.PurchaseOrders = _vendorManager.Get_Vendor_Sales_Order_By_Id(pViewModel.Filter.Purchase_Order_Id, pViewModel.Cookies.Entity_Id, ref pager);
+                }
+                else
+                {
+                    pViewModel.PurchaseOrders = _vendorManager.Get_Sales_Orders(pViewModel.Cookies.Entity_Id, ref pager);
+                }
+                pViewModel.Pager = pager;
+                pViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", pViewModel.Pager.TotalRecords, pViewModel.Pager.CurrentPage + 1, pViewModel.Pager.PageSize, 10, true);
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("PurchaseOrderController Get_Sales_Orders " + ex);
+            }
+            return Json(pViewModel);
+        }
+
+        public ActionResult Get_Sales_Order_By_Id(PurchaseOrderViewModel pViewModel)
+        {
+            PaginationInfo Pager = new PaginationInfo();
+            try
+            {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                pViewModel.PurchaseOrder = _vendorManager.Get_Vendor_Sales_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.Cookies.Entity_Id);
+                pViewModel.PurchaseOrderItems = _vendorManager.Get_Sales_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+                 
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("PurchaseOrderController Get_Sales_Order_By_Id " + ex);
+            }
+
+            return OrderDetails(pViewModel);
+        }
+
+        #endregion
+       
     }
 }

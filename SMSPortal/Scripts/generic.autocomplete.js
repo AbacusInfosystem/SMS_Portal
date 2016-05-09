@@ -51,6 +51,14 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/receivable/receivable-autocomplete/" + $('txtInvoiceNo').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtOrderNo') {
+                urlString = "/receivable/receivable-autocomplete/" + $('txtOrderNo').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtPurchase_Order_Number') {
+                urlString = "/Payable/Payable-autocomplete/" + $('txtPurchase_Order_Number').val();
+            }
+
             $.ajax({
 
                 url: urlString,
@@ -86,7 +94,7 @@ var InitializeAutoComplete = function (elementObject) {
                 $(this).parents('.form-group').find('.todo-list').remove();
             }
 
-            var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + ui.item.label + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+            var htmlText = "<ul id='lookupUlAuto' class='todo-list ui-sortable'><li ><span class='text'>" + ui.item.label + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
             if ($(this).parents('.form-group').find(".ui-menu")[0]) {
 

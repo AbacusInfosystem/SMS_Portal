@@ -18,6 +18,12 @@
         $("#frmBrand").submit();
     });
 
+    $("#btnAddUser").click(function () {
+        $("#frmBrand").attr("action", "/brand/add-brand-user/");
+        $("#frmBrand").attr("method", "post");
+        $("#frmBrand").submit();
+    });
+
     $("#btnSearch").click(function () {
         Search_Brands();
     });

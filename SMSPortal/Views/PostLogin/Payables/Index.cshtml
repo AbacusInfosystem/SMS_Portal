@@ -1,16 +1,13 @@
 ﻿@model SMSPortal.Models.PostLogin.PayableViewModel
 @using SMSPortalInfo.Common
-@*<link href="~/Content/AdminLTE/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
-<script src="~/Content/AdminLTE/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<script src="~/Content/AdminLTE/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-<script src="~/Content/AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
-<script src="~/Content/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js" type="text/javascript"></script>*@
 <script src="~/Scripts/Module/Payables/Payables_events.js"></script>
 <script src="~/Scripts/Module/Payables/Payables_Methods.js"></script>
 <script src="~/Scripts/Module/Payables/payable_validation.js"></script>
+
 <script type="text/javascript">
 
-    $(document).ready(function () {
+    $(document).ready(function ()
+    {
 
         $('.iradio-list').iCheck({
             radioClass: 'iradio_square-green',
@@ -18,14 +15,22 @@
         });
 
     });
+
 </script>
+
+
 <div class="content-wrapper">
+
     @*@{Html.RenderPartial("_ServerMessage");}*@
+
     <section class="content-header">
+
         <h1>
             Payable Master
         </h1>
+
         <ol class="breadcrumb">
+
             <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
 
             <li class="active">Admin</li>
@@ -36,8 +41,10 @@
     </section>
 
     <form id="frmPayableMaster">
-        <input type="hidden" id="hdnPayable_Id" value="@Model.Payable.Payable_Id" name="Payable.Payable_Id" />
+        <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Payable.Purchase_Order_Id" name="Payable.Purchase_Order_Id" />
+        <input type="hidden" id="hdnPurchase_Order_Amount" value="@Model.Payable.Purchase_Order_Amount" name="Payable.Purchase_Order_Amount" />
         <input type="hidden" id="hdnPayable_Item_Id" value="" name="" />
+        <input type="hidden" id="hdnPayable_Id" value="" name="" />
 
         <section class="content">
             <div class="box box-primary">
@@ -46,54 +53,44 @@
 
                         <div class="box-header with-border">
                             <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            <h3 class="box-title">Payables </h3>
+                            <h3 class="box-title">Payable </h3>
                         </div>
 
                         <div class="box-body">
 
                             <div id="dvPurchase_Order" class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group auto-complete">
-                                        <label for="Purchase_Order_No" class="lookup-title">Purchase Order No</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Payable.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order No" value="@(Model.Payable.Purchase_Order_Id == 0 ? "" : Model.Payable.Purchase_Order_Id.ToString())" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order No">
-                                            <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Payable.Purchase_Order_Id" name="Payable.Purchase_Order_Id" class="auto-complete-value" />
-                                            <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Payable.Purchase_Order_No" name="Payable.Purchase_Order_No" class="auto-complete-label" />
-                                            <div class="input-group-addon">
-                                                <a href="#" class="text-muted lookup-btn" id="hrefPurchase_Order" role="button"><i class="fa fa-server"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label style="color: #333">Total Amount</label>
-                                        <input type="text" class="form-control input-sm" name="Payable.Purchase_Order_Amount" id="txtPurchase_Order_Amount" placeholder="Enter Purcase Order Amount" value="@Model.Payable.Purchase_Order_Amount" maxlength="20">
-                                    </div>
-                                </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="txtPayDate" style="color: #333">Payable Date</label>
                                         <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
                                             <input type="text" class="form-control  input-sm" id="txtPayDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Payable.Payable_Date" placeholder="Enter Payable Date" value="@((Model.Payable.Payable_Date == DateTime.MinValue ? "" : Model.Payable.Payable_Date.ToString("dd-MM-yyyy")))" />
-                                            @*<input type="text" class="form-control  input-sm" id="txtBirthDate" name="candidateshortlist.Candidate_DOB" placeholder="Enter Birth Date" value="@((Model.candidateshortlist.Candidate_DOB == DateTime.MinValue ? "" : Model.candidateshortlist.Candidate_DOB.ToString("dd-mm-yyyy")))" />*@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Total Amount</label>
+                                        <input readonly type="text" class="form-control input-sm" name="Payable.Purchase_Order_Amount" id="txtPurchase_Order_Amount" placeholder="Enter IFSC Code" value="@Model.Payable.Purchase_Order_Amount" maxlength="20">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Balance Amount</label>
+                                        <input readonly type="text" class="form-control input-sm" name="Payable.Balance_Amount" id="txtBalance_Amount" placeholder="Enter IFSC Code" value="@Model.Payable.Balance_Amount" maxlength="20">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="row">
-
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Transaction Type</label>
                                         <select id="drpTransaction" class="form-control" name="Payable.Transaction_Type">
-                                            <option value="">-Select Transaction Type-</option>
+                                            <option value="0">-Select Transaction Type-</option>
                                             @foreach (var item in LookupInfo.Get_Transaction_Types())
                                             {
                                                 if (Model.Payable.Transaction_Type == item.Key)
@@ -108,121 +105,31 @@
                                         </select>
                                     </div>
                                 </div>
-
                             </div>
 
-                            <div class="box-body" style="display:none" id="divCheque">
-                                <div class="row">
-                                    <div class="row">
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label style="color: #333">Amount</label>
-                                                <input type="text" class="form-control input-sm" name="Payable.Payable_Item_Amount" id="txtPayable_Item_Amount2" placeholder="Enter IFSC Code" value="@(Model.Payable.Payable_Item_Amount == 0 ? "" : Model.Payable.Payable_Item_Amount.ToString())" maxlength="20">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="txtPayDate" style="color: #333">Cheque Date</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-calendar"></i>
-                                                </div>
-                                                <input type="text" class="form-control  input-sm" id="txtChequeDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Payable.ChequeDate" placeholder="Enter Cheque Date" value="@((Model.Payable.Cheque_Date == DateTime.MinValue ? "" : Model.Payable.Cheque_Date.ToString("dd-MM-yyyy")))" " />
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label style="color: #333">Cheque No</label>
-                                            <input type="text" class="form-control input-sm" name="Payable.Cheque_Number" id="txtChequeNo" placeholder="Enter Cheque No" value="@Model.Payable.Cheque_Number" maxlength="20">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label style="color: #333">Bank Name</label>
-                                            <input type="text" class="form-control input-sm" name="Payable.BankName" id="txtBankName" placeholder="Enter Bank Name" value="@Model.Payable.Bank_Name" maxlength="20">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label style="color: #333">IFSC Code</label>
-                                            <input type="text" class="form-control input-sm" name="Payable.IFSC_Code" id="txtIFSCCode" placeholder="Enter IFSC Code" value="@Model.Payable.IFSC_Code" maxlength="20">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <br />
-                                        <div class="btn-group">
-                                            <button type="button" id="btnSave1" class="btn btn-success btn-sm">Save</button>
-                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Amount</label>
+                                        <input type="text" class="form-control input-sm" name="Payable.Payable_Item_Amount" id="txtPayable_Item_Amount" placeholder="Enter Amount" value="@(Model.Payable.Payable_Item_Amount == 0 ? "" : Model.Payable.Payable_Item_Amount.ToString())"  maxlength="20">
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="box-body" style="display:none" id="divNEFT">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label style="color: #333">NEFT</label>
-                                            <input type="text" class="form-control input-sm" name="Payable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Payable.NEFT" maxlength="20">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label style="color: #333">Amount</label>
-                                                <input type="text" class="form-control input-sm" name="Payable.Payable_Item_Amount" id="txtPayable_Item_Amount" placeholder="Enter IFSC Code" value="@Model.Payable.Payable_Item_Amount" maxlength="20">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <br />
-                                        <div class="btn-group">
-                                            <button type="button" id="btnNEFTSave" class="btn btn-success btn-sm">Save</button>
-                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                        </div>
+                            <div id="dvMain">
 
-                                    </div>
-                                </div>
                             </div>
 
-                            <div class="box-body" style="display:none" id="divCredit_Debit">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label style="color: #333">Amount</label>
-                                            <input type="text" class="form-control input-sm" name="Payable.Payable_Item_Amount" id="txtPayable_Item_Amount1" placeholder="Enter IFSC Code" value="@Model.Payable.Payable_Item_Amount" maxlength="20">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label style="color: #333">Credit/Debit Card</label>
-                                            <input type="text" class="form-control input-sm" name="Payable.Credit_Debit_Card" id="txtCredit_Debit" placeholder="Enter Credit Debit Card Details" value="@Model.Payable.Credit_Debit_Card" maxlength="20">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <br />
+                                    @if (Model.Payable.Status != "Payment Done")
+                                    {
                                         <div class="btn-group">
-                                            <button type="button" id="btnSave2" class="btn btn-success btn-sm">Save</button>
+                                            <button type="button" id="btnNEFTSave" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDelete">Save</button>
                                             <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit </button>
-                                            <button type="button" id="btnDelete" style="display:none;" class="btn btn-warning btn-sm">Delete </button>
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
 
@@ -247,8 +154,11 @@
                                     <th>Cheque Date</th>
                                     <th>NEFT Details</th>
                                     <th>Credit/Debit Card Details</th>
-                                    <th>Receivable Date</th>
-                                    <th>Action</th>
+                                    <th>Payable Date</th>
+                                    @if (Model.Payable.Status != "Payment Done")
+                                    {
+                                        <th>Action</th>
+                                    }
                                 </tr>
 
                                 @if (Model.Payables != null && Model.Payables.Count() > 0)
@@ -258,49 +168,53 @@
                                     {
                                         <tr id="tr(@itm.Payable_Item_Id)">
                                             <td>
-                                                <span id="trBankName@(itm.Payable_Item_Id)"> @itm.Transaction_Type</span>
+                                                <span> @itm.Transaction_Type_Name</span>
                                                 <input type="hidden" id="hdnTransaction_Type@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Transaction_Type">
                                                 <input type="hidden" id="hdnPayable_Item_Id@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Payable_Item_Id">
                                                 <input type="hidden" id="hdnPayable_Id@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Payable_Id">
                                             </td>
                                             <td>
-                                                <span id="trAccount_No@(itm.Payable_Item_Id)"> @itm.Payable_Item_Amount</span>
+                                                <span> @itm.Payable_Item_Amount</span>
                                                 <input type="hidden" id="hdnPayable_Item_Amount@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Payable_Item_Amount">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Payable_Item_Id)"> @itm.Bank_Name</span>
-                                                <input type="hidden" id="hdnBank_Name@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Bank_Name">
+                                                <span> @itm.Bank_Name</span>
+                                                <input type="hidden" id="hdnBank_Name@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
                                             </td>
                                             <td>
-                                                <span id="trBankName@(itm.Payable_Item_Id)"> @itm.IFSC_Code</span>
+                                                <span> @itm.IFSC_Code</span>
                                                 <input type="hidden" id="hdnIFSC_Code@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.IFSC_Code">
                                             </td>
                                             <td>
-                                                <span id="trAccount_No@(itm.Payable_Item_Id)"> @itm.Cheque_Number</span>
+                                                <span> @itm.Cheque_Number</span>
                                                 <input type="hidden" id="hdnCheque_Number@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Payable_Item_Id)"> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
-                                                <input type="hidden" id="hdnCheque_Date@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date">
+                                                <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
+                                                <input type="hidden" id="hdnCheque_Date@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
-                                                <span id="trAccount_No@(itm.Payable_Item_Id)"> @itm.NEFT</span>
+                                                <span> @itm.NEFT</span>
                                                 <input type="hidden" id="hdnNEFT@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.NEFT">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Payable_Item_Id)"> @itm.Credit_Debit_Card</span>
+                                                <span> @itm.Credit_Debit_Card</span>
                                                 <input type="hidden" id="hdnCredit_Debit_Card@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Credit_Debit_Card">
                                             </td>
                                             <td>
-                                                <span id="trIfsc_Code@(itm.Payable_Item_Id)"> @itm.Payable_Date.ToString("MM/dd/yyyy")</span>
-                                                <input type="hidden" id="hdnPayable_Date@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Payable_Date">
+                                                <span> @itm.Payable_Date.ToString("MM/dd/yyyy")</span>
+                                                <input type="hidden" id="hdnPayable_Date@(itm.Payable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Payable_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
-                                                <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditPayableData(@itm.Payable_Item_Id)"><i class='fa fa-pencil'></i></button>
-                                                <button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletPayableData(@itm.Payable_Item_Id)"><i class='fa fa-times'></i></button>
+                                                @if (Model.Payable.Status != "Payment Done")
+                                                {
+                                                    <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditPayableData(@itm.Payable_Item_Id)"><i class='fa fa-pencil'></i></button>
+                                                    @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletPayableData(@itm.Payable_Item_Id)"><i class='fa fa-times'></i></button>*@
+                                                }
+
                                             </td>
                                         </tr>
-                                        i = i + 1;
+                                                i = i + 1;
                                     }
                                 }
 
@@ -310,14 +224,111 @@
                             <div class="pagination pagination-sm no-margin pull-right">
                                 <ul></ul>
                             </div>
-                            @*<div id="divSearchGridOverlay" class="overlay">
-                            <i class="fa fa-refresh fa-spin"></i>
-                        </div>*@
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>
     </form>
+</div>
+
+
+<div class="box-body" style="display:none" id="divCheque">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtPayDate" style="color: #333">Cheque Date</label>
+                <div class="input-group">
+                    <input type="text" class="form-control  input-sm" id="txtChequeDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Payable.Cheque_Date" placeholder="Enter Cheque Date" value="@((Model.Payable.Cheque_Date == DateTime.MinValue ? "" : Model.Payable.Cheque_Date.ToString("dd-MM-yyyy")))" />
+  
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label style="color: #333">Cheque No</label>
+                <input type="text" class="form-control input-sm" name="Payable.Cheque_Number" id="txtChequeNo" placeholder="Enter Cheque No" value="@Model.Payable.Cheque_Number" maxlength="20">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label style="color: #333">Bank Name</label>
+                <input type="text" class="form-control input-sm" name="Payable.Bank_Name" id="txtBankName" placeholder="Enter Bank Name" value="@Model.Payable.Bank_Name" maxlength="20">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label style="color: #333">IFSC Code</label>
+                <input type="text" class="form-control input-sm" name="Payable.IFSC_Code" id="txtIFSCCode" placeholder="Enter IFSC Code" value="@Model.Payable.IFSC_Code"  maxlength="15">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="box-body" style="display:none" id="divNEFT">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color: #333">NEFT</label>
+                <input type="text" class="form-control input-sm" name="Payable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Payable.NEFT"  maxlength="15">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="box-body" style="display:none" id="divCredit_Debit">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color: #333">Credit/Debit Card</label>
+                <input type="text" class="form-control input-sm" name="Payable.Credit_Debit_Card" id="txtCredit_Debit" placeholder="Enter Credit Debit Card Details" value="@Model.Payable.Credit_Debit_Card" maxlength="20">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="DeleteRecordLabel">Insert Payable Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center ">
+                        <h5 class="">Are you sure you want to insert that record?</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center ">
+                        <button type="button" id="btnYes" class="btn btn-success btn-sm" data-dismiss="modal">Yes </button>
+                        <button type="button" id="btnNo" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

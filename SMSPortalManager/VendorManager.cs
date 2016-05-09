@@ -87,6 +87,39 @@ namespace SMSPortalManager
         {
             return _vendorRepo.Get_Vendor_Autocomplete(vendor);
         }
+
+        public void Update_Vendor_Profile(VendorInfo vendor, int user_Id)
+        {
+            _vendorRepo.Update_Vendor_Profile(vendor, user_Id);
+        }
+
+        #region Vendor Sales Orders
+
+        public List<PurchaseOrderInfo> Get_Sales_Orders(int Vendor_Id, ref PaginationInfo Pager)
+        {
+            return _vendorRepo.Get_Sales_Orders(Vendor_Id, ref Pager);
+        }
+
+        public List<PurchaseOrderInfo> Get_Vendor_Sales_Order_By_Id(int Sales_Order_Id, int Vendor_Id, ref PaginationInfo Pager)
+        {
+            return _vendorRepo.Get_Vendor_Sales_Order_By_Id(Sales_Order_Id, Vendor_Id, ref Pager);
+        }
+
+        public List<PurchaseOrderItemInfo> Get_Sales_Order_Items_By_Id(int Purchase_Order_Id)
+        {
+            return _vendorRepo.Get_Sales_Order_Items_By_Id(Purchase_Order_Id);
+        }
+
+        public PurchaseOrderInfo Get_Vendor_Sales_Order_By_Id(int Purchase_Order_Id,int Vendor_Id)
+        {
+            return _vendorRepo.Get_Vendor_Sales_Order_By_Id(Purchase_Order_Id,Vendor_Id);
+        }
+
+        public ProductInfo Get_Product_By_Id(int Product_Id)
+        {
+            return _vendorRepo.Get_Product_By_Id(Product_Id);
+        }
+        #endregion
         
     }
 }

@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace SMSPortalInfo.Common
 {
-    public enum MessageType
-    {
-        Information = 1,
-        Error = 2,
-        Success = 3,
-        Warning = 4,
-    }
+	public enum MessageType
+	{
+		Information = 1,
+		Error = 2,
+		Success = 3,
+		Warning = 4,
+	}
 
-    public enum RefType
-    {
+	public enum RefType
+	{
 
-    }
+	}
 
     public enum BrandCategory
     {
@@ -54,10 +54,10 @@ namespace SMSPortalInfo.Common
         Order_Delivered = 4
     }
     public enum PurchaseOrderStatus
-    {
-        Ordered = 1,
-        Patially_Received = 2,
-        Received = 3
+    { 
+        Ordered =1,
+        Patially_Received=2,
+        Received=3
     }
 
     public enum Roles

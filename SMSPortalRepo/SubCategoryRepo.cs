@@ -169,9 +169,7 @@ namespace SMSPortalRepo
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Subcateory_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
             if (dt != null && dt.Rows.Count > 0)
             {
-                List<DataRow> drList = new List<DataRow>();
-                drList = dt.AsEnumerable().ToList();
-                foreach (DataRow dr in drList)
+                foreach (DataRow dr in dt.Rows)
                 {
                     AutocompleteInfo auto = new AutocompleteInfo();
                     auto.Label = Convert.ToString(dr["Label"]);
@@ -201,6 +199,7 @@ namespace SMSPortalRepo
 
             return check;
         }
+
         
     }
 }

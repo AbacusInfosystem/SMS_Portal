@@ -1,20 +1,28 @@
-﻿$(function () {
-    alert(1);
-    InitializeAutoComplete($('#txtPurchase_Order_No'));
+﻿$(function ()
+{
+    //alert(1);
+
+    InitializeAutoComplete($('#txtPurchase_Order_Number'));
 
     Search_Payable();
 
-    $("#btnSearch").click(function () {
+    $("#btnSearch").click(function ()
+
+    {
         Search_Payable();
     });
 
-    $("#btnEdit").click(function () {
+    $("#btnEdit").click(function ()
 
-        $("#frmPayables").attr("action", "/Payables/Get_Payables_By_Id");
+    {
+        $("#hdnMode").val("Edit");
 
-        $("#frmPayables").attr("method", "POST");
+        $("#frmPayable").attr("action", "/Payable/edit-payable");
 
-        $("#frmPayables").submit();
+        $("#frmPayable").attr("method", "POST");
+
+        $("#frmPayable").submit();
+
     });
 
 });

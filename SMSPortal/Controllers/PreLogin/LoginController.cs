@@ -11,6 +11,7 @@ using SMSPortalInfo.Common;
 using SMSPortalManager;
 using SMSPortalHelper.Logging;
 using System.Configuration;
+using SMSPortal.Models.PostLogin;
 namespace SMSPortal.Controllers.PreLogin
 {
     public class LoginController : Controller
@@ -22,7 +23,7 @@ namespace SMSPortal.Controllers.PreLogin
         {
             _userManager = new UserManager();
         }
-
+        
         public ActionResult Index(LoginViewModel lViewModel)
         {
             try
@@ -46,17 +47,43 @@ namespace SMSPortal.Controllers.PreLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("Error at Home : " + ex.Message);
+                Logger.Error("Error at Index : " + ex.Message);
                 lViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 return View("Index", lViewModel);
             }
 
             return View("Index", lViewModel);
         }
-        
-        public ActionResult ForgotPassword()
+
+        public ActionResult ForgotPassword(UserViewModel uViewModel)
         {
-            return View("ForgotPassword");
+            return View("ForgotPassword", uViewModel);
+        }
+
+        public ActionResult Send_Reset_Password(UserViewModel uViewModel)
+        {
+            string link = string.Empty;
+            //UserViewModel uViewModel = new UserViewModel();
+            UserInfo User = new UserInfo();
+        
+            try
+            {
+
+                uViewModel.User = _userManager.Get_User_By_Email(uViewModel.User.Email_Id);
+                link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken=" + uViewModel.User.Pass_Token;
+
+                _userManager.Send_Reset_Password_Email(uViewModel.User.Email_Id, link, uViewModel.User);
+                uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
+            }
+            catch (Exception ex)
+            {
+                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error At User Controller - Insert " + ex);
+            }
+
+            TempData["userViewMessage"] = uViewModel;
+            return RedirectToAction("Index");
         }
 
         public ActionResult Authenticate(LoginViewModel lViewModel)
@@ -165,6 +192,44 @@ namespace SMSPortal.Controllers.PreLogin
             Response.Cache.SetNoStore();
 
             Response.AddHeader("Pragma", "no-cache");
+        }
+
+        public ActionResult Reset_Password()
+        {
+            string passtoken = String.Empty;
+            UserViewModel uViewModel = new UserViewModel();
+            UserInfo user = new UserInfo();
+            if (!String.IsNullOrEmpty(Request.QueryString["passtoken"].ToString()))
+            {
+                 passtoken = Request.QueryString["passtoken"].ToString();
+                 user = _userManager.Get_User_By_Password_Token(passtoken);
+                 uViewModel = new UserViewModel();
+                 uViewModel.User = user;
+                 if (user.User_Id == 0)
+                 {
+                     TempData["FriendlyMessage"] = MessageStore.Get("SYS09");
+                     return RedirectToAction("Index", "login");
+                 }
+            }
+              
+            return View(uViewModel);
+        }
+
+        public ActionResult Update_Password(UserViewModel uViewModel )
+        {
+            try
+            {
+                if (uViewModel.User.User_Id != 0)
+                {
+                    _userManager.Reset_Password(uViewModel.User.New_Password, uViewModel.User.User_Id,Utility.Generate_Token());
+                    TempData["FriendlyMessage"] = MessageStore.Get("SYS05");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error at Login Controller - Logout: " + ex.ToString());
+            }
+            return RedirectToAction("Index", "login");
         }
 
         public ActionResult Anauthorize_Token(LoginViewModel lViewModel)

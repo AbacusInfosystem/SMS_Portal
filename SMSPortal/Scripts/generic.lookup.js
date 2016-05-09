@@ -19,9 +19,13 @@ $(document).ready(function () {
 
     $("#btnOK").click(function () {
 
-        //$('.ui-sortable').each(function () {
-        //    $('#lookupUl').remove()
-        //});
+        $('.ui-sortable').each(function () {
+            $('#lookupUl' + hiddenTextValue).remove()
+        });
+
+        $('.ui-sortable').each(function () {
+            $('#lookupUlAuto').remove()
+        });
 
         var hiddenTextValue = $("#hdnValue").val();
 
@@ -29,19 +33,23 @@ $(document).ready(function () {
 
         var Textboxname = "#" + $("#hdnLookupLabelId").val();
 
+
         // Get ProductInfo for Purchase order items
+        var vendor_id = $('#hdnVendorId').val();
+
         if ($("#hdnLookupLabelId").val() == "txtProductName");
         {
             $.ajax({
                 url: '/purchaseorder/Get_Product/',
-                data: { Product_Id: id },
+                data: { Product_Id: id, Vendor_Id: vendor_id },
                 method: 'GET',
                 async: false,
                 success: function (data) {
 
-                    if (data != null) {
-                        if(data.Product != null)
-                        $('#txtProductPrice').val(data.Product.Product_Price);
+                    if (data != null)
+                    {
+                        if (data.Product != null)
+                            $('#txtUnitPrice').val(data.Product.Product_Price);
                     }
                 }
             });
@@ -70,7 +78,7 @@ $(document).ready(function () {
 
         $("#" + $("#hdnLookupHiddenId").val()).val(id);
 
-        var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        var htmlText = "<ul id='lookupUl" + hiddenTextValue + "' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
         $(Textboxname).parents('.form-group').append(htmlText);
 

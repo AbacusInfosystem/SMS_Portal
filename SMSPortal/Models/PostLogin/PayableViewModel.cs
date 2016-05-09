@@ -10,9 +10,13 @@ using System.Web.Mvc;
 
 namespace SMSPortal.Models.PostLogin
 {
-    public class PayableViewModel
+
+    public class  PayableViewModel
+
     {
+
         public PayableViewModel()
+
         {
             Friendly_Message = new List<FriendlyMessage>();
 
@@ -25,6 +29,8 @@ namespace SMSPortal.Models.PostLogin
             Payable = new PayableInfo();
 
             Payables = new List<PayableInfo>();
+
+            Vendor = new VendorInfo();
         }
 
         public List<FriendlyMessage> Friendly_Message { get; set; }
@@ -38,8 +44,12 @@ namespace SMSPortal.Models.PostLogin
         public PayableFilter Filter { get; set; }
 
         public CookiesInfo Cookies { get; set; }
+
+        public VendorInfo Vendor { get; set; }
     }
+
     public class PayableFilter
+
     {
         public int Payable_Id { get; set; }
 
@@ -49,7 +59,10 @@ namespace SMSPortal.Models.PostLogin
 
         public string Purchase_Order_No { get; set; }
 
-
         public int Purchase_Order_Number { get; set; }
+
+        public int Vendor_Id { get; set; }
+
+        public string Mode { get; set; }
     }
 }

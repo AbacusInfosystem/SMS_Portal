@@ -5,14 +5,17 @@ using SMSPortalHelper.Logging;
 using SMSPortalHelper.PageHelper;
 using SMSPortalInfo;
 using SMSPortalInfo.Common;
+using SMSPortalRepo;
 using SMSPortalManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SMSPortalRepo.Common;
 
 namespace SMSPortal.Controllers.PostLogin
 {
@@ -21,19 +24,15 @@ namespace SMSPortal.Controllers.PostLogin
         //
         // GET: /Product/
         public ProductManager _productManager;
-        public BrandManager _brandManager;
-        public CategoryManager _categoryManager;
         public DealerManager _dealerManager;
         public SubCategoryManager _subCategoryManager;
         public TaxManager _taxManager;
         public StateManager _stateManager;
         public OrdersManager _OrdersManager;
-
+         
         public ProductController()
         {
             _productManager = new ProductManager();
-            _brandManager = new BrandManager();
-            _categoryManager = new CategoryManager();
             _dealerManager = new DealerManager();
             _subCategoryManager = new SubCategoryManager();
             _taxManager = new TaxManager();
@@ -77,11 +76,9 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo Pager = new PaginationInfo();
             try
             {
-
-                pViewModel.Brands = _dealerManager.Get_Brands();
+                pViewModel.Brands = _productManager.Get_Brands();
                 //pViewModel.Categories = _subCategoryManager.Get_Categories();
-                pViewModel.Categories = _categoryManager.Get_Categorys(ref Pager);
-
+                pViewModel.Categories = _productManager.Get_Categorys();
             }
             catch (Exception ex)
             {
@@ -95,11 +92,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                pViewModel.Product.Created_By = pViewModel.Cookies.User_Id;
-                pViewModel.Product.Created_On = DateTime.Now;
-                pViewModel.Product.Updated_By = pViewModel.Cookies.User_Id;
-                pViewModel.Product.Updated_On = DateTime.Now;
-                _productManager.Insert_Product(pViewModel.Product);
+                _productManager.Insert_Product(pViewModel.Product,pViewModel.Cookies.User_Id);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO001"));
             }
             catch (Exception ex)
@@ -116,9 +109,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                pViewModel.Product.Updated_By = pViewModel.Cookies.User_Id;
-                pViewModel.Product.Updated_On = DateTime.Now;
-                _productManager.Update_Product(pViewModel.Product);
+                _productManager.Update_Product(pViewModel.Product, pViewModel.Cookies.User_Id);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO002"));
             }
             catch (Exception ex)
@@ -140,7 +131,7 @@ namespace SMSPortal.Controllers.PostLogin
                 if (pViewModel.Filter.Product_Id != 0)
                 {
                     pViewModel.Products = _productManager.Get_Products_By_Id(pViewModel.Filter.Product_Id, ref pager);
-
+                     
                 }
                 else
                 {
@@ -190,7 +181,7 @@ namespace SMSPortal.Controllers.PostLogin
             ProductViewModel pViewModel = new ProductViewModel();
             try
             {
-                pViewModel.SubCategories = _subCategoryManager.Get_SubCategories_By_CategoryId(Category_Id);
+                pViewModel.SubCategories = _productManager.Get_SubCategories_By_CategoryId(Category_Id);
             }
             catch (Exception ex)
             {
@@ -213,12 +204,10 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return PartialView("_Product_Images", p1ViewModel);
-
         }
 
         public ActionResult Product_Image_Upload(ProductViewModel pViewModel)
         {
-
             pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
             HttpPostedFileBase fileBase = null;
             var actualFileName = "";
@@ -233,6 +222,10 @@ namespace SMSPortal.Controllers.PostLogin
 
             string Product_Id = Request.Form.Get("Product_Id");
             bool Is_Default = Convert.ToBoolean(Request.Form.Get("Is_Default"));
+            if (pViewModel.ImagesList.Count == 0)
+            {
+                Is_Default = true;
+            }
 
             pViewModel.ProductImage.File = fileBase;
 
@@ -251,11 +244,7 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.ProductImage.Product_Id = Convert.ToInt32(Product_Id);
                     pViewModel.ProductImage.Image_Code = actualFileName;
                     pViewModel.ProductImage.Is_Default = Is_Default;
-                    pViewModel.ProductImage.Created_On = DateTime.Now;
-                    pViewModel.ProductImage.Updated_By = pViewModel.Cookies.User_Id;
-                    pViewModel.ProductImage.Updated_On = DateTime.Now;
-
-                    _productManager.Insert_Product_Image(pViewModel.ProductImage);
+                    _productManager.Insert_Product_Image(pViewModel.ProductImage,pViewModel.Cookies.User_Id);
 
                     pViewModel.ImagesList = _productManager.Get_Product_Images(Convert.ToInt32(Product_Id));
                     pViewModel.Product.Product_Id = Convert.ToInt32(Product_Id);
@@ -267,7 +256,24 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("Error uploading Product Images  " + ex.Message);
             }
-            TempData["pViewModel"] = pViewModel;
+            TempData["pViewModel"] = pViewModel;             
+            return PartialView("_Product_Images", pViewModel);
+        }
+
+        public ActionResult Set_Image_Default(int Product_Id,int Product_Image_Id)
+        {
+            ProductViewModel pViewModel = new ProductViewModel();
+            try
+            {
+                _productManager.Set_Default_Image(Product_Id, Product_Image_Id);
+                pViewModel.ImagesList = _productManager.Get_Product_Images(Product_Id);
+                pViewModel.Product.Product_Id = Product_Id;
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Product Controller Set_Image_Default " + ex.Message);
+            }
             return PartialView("_Product_Images", pViewModel);
         }
 
@@ -294,7 +300,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return PartialView("_Product_Images", pViewModel);
         }
-
+        
         public JsonResult Get_Product_Autocomplete(string Product)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
@@ -377,5 +383,39 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Index", "Dashboard");
         }
 
+                    DataSet ds = _excel.ExecuteDataSet(path);
+
+                    is_Error = _productManager.Bulk_Excel_Upload_Default(ds.Tables[0], pViewModel.Cookies.User_Id);
+
+                    if (is_Error == true)
+                    {
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("PO004"));
+                    }
+                    else
+                    {
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("PO005"));
+                    }
+
+                    System.IO.File.Delete(path);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.Delete(path);
+
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error At Product Controller Bulk_Excel_Product_Upload  " + ex.Message);
+            }
+
+            TempData["Message"] = pViewModel.Friendly_Message;
+
+            return RedirectToAction("Search");
+        }
+
+        public PartialViewResult Upload_Product_Excel()
+        {
+            return PartialView("_Product_Excel_Upload");
+        }
     }
 }

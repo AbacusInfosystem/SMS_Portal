@@ -31,7 +31,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Brand Name</label>
-                                        <input type="text" class="form-control input-sm" name="Brand.Brand_Name" id="txtBrand_Name" placeholder="Enter brand name" value="@Model.Brand.Brand_Name" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="Brand.Brand_Name" id="txtBrand_Name" placeholder="Enter brand name" value="@Model.Brand.Brand_Name" maxlength="15">
                                         <input type="hidden" id="hdnBrandName" value="@Model.Brand.Brand_Name">
                                     </div>
                                 </div>
@@ -55,6 +55,15 @@
                                             }
                                         </select>
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Website Url</label>
+                                        <input type="text" class="form-control input-sm" name="Brand.Website_Url" id="txtWebsite_Name" placeholder="Enter website url" value="@Model.Brand.Website_Url">
+                                         
                                     </div>
                                 </div>
                             </div>

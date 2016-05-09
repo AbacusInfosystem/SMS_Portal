@@ -3,6 +3,7 @@ using SMSPortalInfo.Common;
 using SMSPortalRepo;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +19,14 @@ namespace SMSPortalManager
             _productRepo = new ProductRepo();
         }
 
-        public void Insert_Product(ProductInfo product)
+        public void Insert_Product(ProductInfo product, int user_id)
         {
-            _productRepo.Insert_Product(product);
+            _productRepo.Insert_Product(product,user_id);
         }
 
-        public void Update_Product(ProductInfo product)
+        public void Update_Product(ProductInfo product,int user_id)
         {
-            _productRepo.Update_Product(product);
+            _productRepo.Update_Product(product, user_id);
         }
 
         public List<ProductInfo> Get_Products(ref PaginationInfo Pager)
@@ -62,9 +63,9 @@ namespace SMSPortalManager
             return _productRepo.Get_Product_Images(Product_Id);
         }
 
-        public void Insert_Product_Image(ProductImageInfo productImageInfo)
+        public void Insert_Product_Image(ProductImageInfo productImageInfo,int user_id)
         {
-            _productRepo.Insert_Product_Image(productImageInfo);
+            _productRepo.Insert_Product_Image(productImageInfo, user_id);
         }
 
         public void Delete_Product_Image(int Product_Image_Id)
@@ -72,9 +73,34 @@ namespace SMSPortalManager
             _productRepo.Delete_Product_Image(Product_Image_Id);
         }
 
+        public void Set_Default_Image(int Product_Id, int Product_Image_Id)
+        {
+            _productRepo.Set_Default_Image(Product_Id, Product_Image_Id);
+        }
+
         public List<AutocompleteInfo> Get_Product_Autocomplete(string ProductName)
         {
             return _productRepo.Get_Product_Autocomplete(ProductName);
+        }
+
+        public List<BrandInfo> Get_Brands()
+        {
+            return _productRepo.Get_Brands();
+        }
+
+        public List<CategoryInfo> Get_Categorys()
+        {
+            return _productRepo.Get_Categorys();
+        }
+
+        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int category_Id)
+        {
+            return _productRepo.Get_SubCategories_By_CategoryId(category_Id);
+        }
+
+        public bool Bulk_Excel_Upload_Default(DataTable dt,int user_id)
+        {
+            return _productRepo.Bulk_Excel_Upload_Default(dt,user_id);
         }
 
         public List<CategoryInfo> Get_Categories_With_Product_Count(int Dealer_Id)

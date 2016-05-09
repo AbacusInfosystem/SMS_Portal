@@ -38,6 +38,7 @@ namespace SMSPortal.Models.PostLogin
         public List<SubCategoryInfo> SubCategories { get; set; }
         public List<ProductImageInfo> ImagesList { get; set; }
         public HttpPostedFileBase UploadImage { get; set; }
+        public HttpPostedFileBase UploadProductExcel { get; set; }
         public ProductImageInfo ProductImage { get; set; }
         public CookiesInfo Cookies { get; set; }
         public string ProductIds { get; set; }

@@ -3,7 +3,7 @@ $(function () {
 
     $("#btnEdit").click(function () {
 
-        $("#frmVendorProfileMaster").attr("action", "/vendor/get-vendor-profile-details/");
+        $("#frmVendorProfileMaster").attr("action", "/vendor/edit-vendor-profile-details/");
 
         $("#frmVendorProfileMaster").attr("method", "post");
 

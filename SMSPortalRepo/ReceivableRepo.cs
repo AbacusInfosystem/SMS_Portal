@@ -26,14 +26,19 @@ namespace SMSPortalRepo
        public List<ReceivableInfo> Get_Receivable_By_Id(int invoice_Id, ref PaginationInfo pager)
        {
            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
            sqlParamList.Add(new SqlParameter("@Invoice_Id", invoice_Id));
 
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
+
            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_Data_By_Invoice_Id_Sp.ToString(), CommandType.StoredProcedure);
+
            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+
            {
                Receivables.Add(Get_Receivable_Values(dr));
            }
+
            return Receivables;
        }
 
@@ -90,35 +95,55 @@ namespace SMSPortalRepo
            ReceivableInfo receivable = new ReceivableInfo();
 
            receivable.Receivable_Item_Id = Convert.ToInt32(dr["Receivable_Item_Id"]);
-           receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);           
+
+           receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);    
+       
            receivable.Receivable_Date = Convert.ToDateTime(dr["Receivable_Date"]);
+
            receivable.Receivable_Item_Amount = Convert.ToDecimal(dr["Receivable_Item_Amount"]);
+
            receivable.Transaction_Type = Convert.ToInt32(dr["Transaction_Type"]);
 
            if (receivable.Transaction_Type==1)
+
            {
                receivable.Transaction_Type_Name = "Cheque";
            }
+
            else if (receivable.Transaction_Type == 2)
+
            {
                receivable.Transaction_Type_Name = "NEFT";
            }
+
            else
+
            {
                receivable.Transaction_Type_Name = "Credit/Debit Card";
            }
 
            if (!dr.IsNull("Cheque_Number"))
+
            receivable.Cheque_Number = Convert.ToString(dr["Cheque_Number"]);
+
            if (!dr.IsNull("Cheque_Date"))
+
            receivable.Cheque_Date = Convert.ToDateTime(dr["Cheque_Date"]);
+
            if (!dr.IsNull("IFSC_Code"))
+
            receivable.IFSC_Code = Convert.ToString(dr["IFSC_Code"]);
+
            if (!dr.IsNull("Bank_Name"))
+
            receivable.Bank_Name = Convert.ToString(dr["Bank_Name"]);
+
            if (!dr.IsNull("NEFT"))
+
            receivable.NEFT = Convert.ToString(dr["NEFT"]);
+
            if (!dr.IsNull("Credit_Debit_Card"))
+
            receivable.Credit_Debit_Card = Convert.ToString(dr["Credit_Debit_Card"]);
 
            return receivable;
@@ -128,22 +153,44 @@ namespace SMSPortalRepo
        {
            ReceivableInfo receivable = new ReceivableInfo();
 
+           if (!dr.IsNull("Status"))
+
            receivable.Status = Convert.ToString(dr["Status"]);
+
+           if (!dr.IsNull("Amount"))
+
            receivable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
+
+           if (!dr.IsNull("Invoice_No"))
+
            receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+
+           if (!dr.IsNull("Invoice_Id"))
+
            receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
 
            return receivable;
        }
 
-       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager)
+       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int dealer_Id)
+
        {
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
-           DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Receivable_Sp.ToString(), CommandType.StoredProcedure);
+
+           List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+           sqlParamList.Add(new SqlParameter("@Dealer_Id", dealer_Id));
+
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Receivable_Sp.ToString(), CommandType.StoredProcedure);
+
            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+
            {
                Receivables.Add(Get_Receivable_Values(dr));
            }
+
            return Receivables;
        }
 
@@ -160,9 +207,11 @@ namespace SMSPortalRepo
            if (dt != null && dt.Rows.Count > 0)
            {
                foreach (DataRow dr in dt.Rows)
+
                {
                    if (!dr.IsNull("Order_Id"))
-                       Order_Id = Convert.ToInt32(dr["Order_Id"]);
+
+                    Order_Id = Convert.ToInt32(dr["Order_Id"]);
                }
            }
 
@@ -183,7 +232,9 @@ namespace SMSPortalRepo
            {
                foreach (DataRow dr in dt.Rows)
                {
+
                    if (!dr.IsNull("Balance_Amount"))
+
                        Balance_Amount = Convert.ToDecimal(dr["Balance_Amount"]);
                }
            }
@@ -195,9 +246,9 @@ namespace SMSPortalRepo
        {
            int Receivable_Id = 0;
 
-           Receivable_Id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));         
+           Receivable_Id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));
 
-           if(receivableInfo.Receivable_Item_Id!=0)
+           if (receivableInfo.Receivable_Item_Id != 0)
            {
                Receivable_Id = receivableInfo.Receivable_Id;
            }
@@ -270,66 +321,77 @@ namespace SMSPortalRepo
        private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id)
        {
            decimal Total_Balance_Amount = 0;
-          // decimal Amount = 0;
+           decimal Status_Amount = 0;
 
            List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-           decimal Balance_Amount = Get_Balance_Amount(receivableInfo.Invoice_Id);
+           //decimal Balance_Amount = Get_Balance_Amount(receivableInfo.Invoice_Id);
 
            sqlParams.Add(new SqlParameter("@Receivable_Id", receivableInfo.Receivable_Id));
 
            sqlParams.Add(new SqlParameter("@Invoice_Id", receivableInfo.Invoice_Id));
+           
            sqlParams.Add(new SqlParameter("@Amount", receivableInfo.Invoice_Amount));
 
-           if(Balance_Amount>0)
+           if (receivableInfo.Balance_Amount > 0)
+
            {
-               Total_Balance_Amount = Balance_Amount - receivableInfo.Receivable_Item_Amount;              
+               Total_Balance_Amount = receivableInfo.Balance_Amount - receivableInfo.Receivable_Item_Amount;              
            }
+
            else
+
            {
                Total_Balance_Amount = receivableInfo.Invoice_Amount-receivableInfo.Receivable_Item_Amount;
            }
+
+           Status_Amount = (receivableInfo.Invoice_Amount * 50) / 100;          
 
            receivableInfo.Balance_Amount = Total_Balance_Amount;
 
            sqlParams.Add(new SqlParameter("@Balance_Amount", receivableInfo.Balance_Amount));
 
-           if (receivableInfo.Balance_Amount!=0)
+           if (Total_Balance_Amount > Status_Amount)
            {
                sqlParams.Add(new SqlParameter("@Status", "Partially Paid")); 
            }
            else
            {
-               sqlParams.Add(new SqlParameter("@Status", "Payment Done")); 
+               sqlParams.Add(new SqlParameter("@Status", "Payment Done"));
+               Update_Sales_Order_Status(receivableInfo.Invoice_Id);
            }
 
 
            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+
            sqlParams.Add(new SqlParameter("@Created_By", user_Id));
 
            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+
            sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
 
            return sqlParams;
        }
 
        private List<SqlParameter> Set_Values_In_Receivable_Receipt(ReceivableInfo receivableInfo, int user_Id)
-       {           
+       {  
+         
            List<SqlParameter> sqlParams = new List<SqlParameter>();
 
            sqlParams.Add(new SqlParameter("@Receivable_Id", receivableInfo.Receivable_Id));
 
            return sqlParams;
+
        }
 
-       public void Delete_Receivable_Data_Item_By_Id(int receivable_Item_Id)
-       {
-           List<SqlParameter> sqlparam = new List<SqlParameter>();
+       //public void Delete_Receivable_Data_Item_By_Id(int receivable_Item_Id)
+       //{
+       //    List<SqlParameter> sqlparam = new List<SqlParameter>();
 
-           sqlparam.Add(new SqlParameter("@Receivable_Item_Id", receivable_Item_Id));
+       //    sqlparam.Add(new SqlParameter("@Receivable_Item_Id", receivable_Item_Id));
 
-           _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Receivable_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
-       }
+       //    _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Receivable_Item_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+       //}
 
        public List<AutocompleteInfo> Get_Invoice_Autocomplete(string invoice_No)
        {
@@ -339,9 +401,7 @@ namespace SMSPortalRepo
            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Invoice_No_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
            if (dt != null && dt.Rows.Count > 0)
            {
-               List<DataRow> drList = new List<DataRow>();
-               drList = dt.AsEnumerable().ToList();
-               foreach (DataRow dr in drList)
+               foreach (DataRow dr in dt.Rows)
                {
                    AutocompleteInfo auto = new AutocompleteInfo();
                    auto.Label = Convert.ToString(dr["Label"]);
@@ -358,19 +418,35 @@ namespace SMSPortalRepo
 
            string subject = " Payment receipt for invoice no : " + receivableInfo.Invoice_No;
 
-           html.Append("<h4> Hello, </h4> \n");
+           html.Append("<table width=1000px border=1 cellspacing=2 cellpadding=2 align=center bgcolor=White dir=ltr rules=all style=border-width: thin; line-height: normal; vertical-align: baseline; text-align: center; font-family: Calibri; font-size: medium; font-weight: normal; font-style: normal; font-variant: normal>");
 
-           html.Append("<h4> This is a payment receipt against invoice No : " + receivableInfo.Invoice_No + "</h4>");
-
-           html.Append("<br/>");
-
-           html.Append("<h4> Following are transaction details.</h4>");
-
-           html.Append("<br/>");
-
-           html.Append("<table width=600px border=1 cellspacing=2 cellpadding=2 align=center bgcolor=White dir=ltr rules=all style=border-width: thin; border-style: solid; line-height: normal; vertical-align: baseline; text-align: center; font-family: Calibri; font-size: medium; font-weight: normal; font-style: normal; font-variant: normal; color: #000000; list-style-type: none;>");
- 
            html.Append("<tr>");
+
+           html.Append("<td align='center' colspan='8'>");
+
+           html.Append("<h1><center>SMS</center></h1>\n");
+
+           html.Append("<h2><center>Payment Receipt</center></h2>");
+
+           html.Append("</td>");
+
+           html.Append("</tr>");
+
+           html.Append("<tr>");
+
+           html.Append("<td align='left' colspan='8'>");
+
+           html.Append("<p> Payment receipt for Invoice No : " + receivableInfo.Invoice_No + " of amount " + receivables[receivables.Count() - 1].Receivable_Item_Amount +"<br> Receipt Date : " + DateTime.Now.ToShortDateString()+" </p>");
+
+           html.Append("</td>");
+
+           html.Append("</tr>");
+
+           html.Append("<tr>");
+
+           html.Append("<td align='left' colspan='8'>");
+
+           html.Append("<table width=800px border=1 cellspacing=5 cellpadding=5 align=center bgcolor=White style=border-width: thin; line-height: normal; vertical-align: baseline; text-align: center>");
 
            html.Append("<td width='40px'>");
 
@@ -479,6 +555,12 @@ namespace SMSPortalRepo
 
            html.Append("</table>");
 
+           html.Append("</td>");
+
+           html.Append("</tr>");
+ 
+           html.Append("</table>");
+
            MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
 
 
@@ -502,27 +584,27 @@ namespace SMSPortalRepo
 
        }
 
-       public string Get_Receivable_Status(int invoice_Id)
-       {
-           string Status = "";
+       //public string Get_Receivable_Status(int invoice_Id)
+       //{
+       //    string Status = "";
 
-           List<SqlParameter> sqlParams = new List<SqlParameter>();
+       //    List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-           sqlParams.Add(new SqlParameter("@Invoice_Id", invoice_Id));
+       //    sqlParams.Add(new SqlParameter("@Invoice_Id", invoice_Id));
 
-           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Receivable_Status_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+       //    DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Receivable_Status_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
-           if (dt != null && dt.Rows.Count > 0)
-           {
-               foreach (DataRow dr in dt.Rows)
-               {
-                   if (!dr.IsNull("Status"))
-                       Status = Convert.ToString(dr["Status"]);
-               }
-           }
+       //    if (dt != null && dt.Rows.Count > 0)
+       //    {
+       //        foreach (DataRow dr in dt.Rows)
+       //        {
+       //            if (!dr.IsNull("Status"))
+       //                Status = Convert.ToString(dr["Status"]);
+       //        }
+       //    }
 
-           return Status;
-       }
+       //    return Status;
+       //}
 
        public decimal Get_Invoice_Amount(int invoice_Id)
        {
@@ -554,7 +636,8 @@ namespace SMSPortalRepo
 
            sqlParams.Add(new SqlParameter("@Order_Id", Order_Id));
 
-          _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Receivable_Status_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+           _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Update_Sales_Order_Status_Sp.ToString(), CommandType.StoredProcedure);
        }
+
     }
 }

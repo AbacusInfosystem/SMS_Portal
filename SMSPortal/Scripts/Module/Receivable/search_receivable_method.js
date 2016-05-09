@@ -1,11 +1,15 @@
-﻿function Search_Receivable() {
+﻿function Search_Receivable()
+{
     var rViewModel =
+
         {
             Filter:
+
                 {
                     Invoice_Id: $('#hdnInvoiceId').val(),
                 },
             Pager:
+
                 {
                     CurrentPage: $('#hdfCurrentPage').val(),
                 },
@@ -19,8 +23,10 @@ function Bind_Receivable_Grid(data) {
 
     var htmlText = "";
 
-    if (data.Receivables.length > 0) {
-        for (i = 0; i < data.Receivables.length; i++) {
+    if (data.Receivables.length > 0)
+    {
+        for (i = 0; i < data.Receivables.length; i++)
+        {
             htmlText += "<tr>";
 
             htmlText += "<td>";
@@ -43,7 +49,7 @@ function Bind_Receivable_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Receivables[i].Status == "" ? "Pending" : data.Receivables[i].Status;
+            htmlText += data.Receivables[i].Status == null ? "Pending" : data.Receivables[i].Status;
 
             htmlText += "</td>";
          
@@ -88,10 +94,10 @@ function Bind_Receivable_Grid(data) {
             $("#hdnInvoice_Amount").val(String[1]);
             $("#btnEdit").show();
             $("#btnAddProductMapping").show();
-            $("#btnDelete").show();
-
         }
     });
+
+    $("#btnEdit").hide();
 
 }
 

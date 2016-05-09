@@ -16,22 +16,24 @@ namespace SMSPortalRepo
     {
         SQLHelper _sqlRepo;
 
+        ExcelReader _excelRepo = null;
+
         public ProductRepo()
         {
             _sqlRepo = new SQLHelper();
         }
 
-        public void Insert_Product(ProductInfo product)
+        public void Insert_Product(ProductInfo product,int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product(product), StoreProcedures.Insert_Product_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product(product,user_id), StoreProcedures.Insert_Product_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        public void Update_Product(ProductInfo product)
+        public void Update_Product(ProductInfo product,int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product(product), StoreProcedures.Update_Product_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product(product,user_id), StoreProcedures.Update_Product_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Product(ProductInfo product)
+        private List<SqlParameter> Set_Values_In_Product(ProductInfo product, int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             if (product.Product_Id != 0)
@@ -48,11 +50,11 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Is_Active", product.Is_Active));
             if (product.Product_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", product.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", product.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
             }
-            sqlParams.Add(new SqlParameter("@Updated_On", product.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", product.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
             return sqlParams;
         }
 
@@ -243,7 +245,7 @@ namespace SMSPortalRepo
             return productImages;
         }
 
-        private List<SqlParameter> Set_Values_In_Product_Image(ProductImageInfo productImageInfo)
+        private List<SqlParameter> Set_Values_In_Product_Image(ProductImageInfo productImageInfo,int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             if (productImageInfo.Product_Image_Id != 0)
@@ -255,17 +257,17 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Is_Default", productImageInfo.Is_Default));
             if (productImageInfo.Product_Image_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", productImageInfo.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", productImageInfo.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
             }
-            sqlParams.Add(new SqlParameter("@Updated_On", productImageInfo.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", productImageInfo.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
             return sqlParams;
         }
 
-        public void Insert_Product_Image(ProductImageInfo productImageInfo )
+        public void Insert_Product_Image(ProductImageInfo productImageInfo,int user_id)
         {             
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_Image(productImageInfo), StoreProcedures.Insert_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_Image(productImageInfo,user_id), StoreProcedures.Insert_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
 
         }
 
@@ -286,6 +288,114 @@ namespace SMSPortalRepo
                 }
             }
             return autoList;
+        }
+
+        public List<BrandInfo> Get_Brands()
+        {
+            List<BrandInfo> brandList = new List<BrandInfo>();
+
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Brand_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BrandInfo list = new BrandInfo();
+
+                    if (!dr.IsNull("Brand_Id"))
+
+                        list.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+
+                    if (!dr.IsNull("Brand_Name"))
+
+                        list.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+
+                    brandList.Add(list);
+                }
+            }
+
+            return brandList;
+        }
+
+        public List<CategoryInfo> Get_Categorys()
+        {
+            List<CategoryInfo> categorys = new List<CategoryInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Category_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                categorys.Add(Get_Category_Values(dr));
+            }
+            return categorys;
+        }
+
+        private CategoryInfo Get_Category_Values(DataRow dr)
+        {
+            CategoryInfo category = new CategoryInfo();
+
+            category.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+
+            if (!dr.IsNull("Category_Name"))
+                category.Category_Name = Convert.ToString(dr["Category_Name"]);
+            category.IsActive = Convert.ToBoolean(dr["IsActive"]);
+            category.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            category.Created_By = Convert.ToInt32(dr["Created_By"]);
+            category.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            category.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return category;
+        }
+
+        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int category_Id)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+
+            sqlParam.Add(new SqlParameter("@Category_Id", category_Id));
+
+            List<SubCategoryInfo> subcategories = new List<SubCategoryInfo>();
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Sub_Category_By_Category_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                subcategories.Add(Get_SubCategory_Values(dr));
+            }
+
+            return subcategories;
+        }
+
+        private SubCategoryInfo Get_SubCategory_Values(DataRow dr)
+        {
+            SubCategoryInfo subcategory = new SubCategoryInfo();
+
+            subcategory.Subcategory_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
+            subcategory.Subcategory_Name = Convert.ToString(dr["Sub_Category_Name"]);
+            subcategory.Category_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
+            subcategory.Category_Name = Convert.ToString(dr["Category_Name"]);
+            subcategory.IsActive = Convert.ToBoolean(dr["IsActive"]);
+            if (subcategory.IsActive == true)
+            {
+                subcategory.Status = "Active";
+            }
+            else
+            {
+                subcategory.Status = "InActive";
+            }
+            subcategory.Created_Date = Convert.ToDateTime(dr["Created_On"]);
+            subcategory.Created_By = Convert.ToInt32(dr["Created_By"]);
+            subcategory.Updated_Date = Convert.ToDateTime(dr["Updated_On"]);
+            subcategory.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            return subcategory;
+        }
+
+        public void Set_Default_Image(int Product_Id, int Product_Image_Id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@Product_Id", Product_Id));
+            sqlParams.Add(new SqlParameter("@Product_Image_Id", Product_Image_Id));
+
+            _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Set_Default_Product_Image.ToString(), CommandType.StoredProcedure);
         }
 
         public void Delete_Product_Image(int Product_Image_Id)
@@ -368,5 +478,161 @@ namespace SMSPortalRepo
 
             return subcategory;
         }
+
+        public bool Bulk_Excel_Upload_Default(DataTable dt,int user_id)
+        {
+
+            bool Is_Error = false;
+
+            int i = 1;
+
+            List<ProductInfo> products = new List<ProductInfo>();
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+
+            List<ExceptionInfo> exceptionList = new List<ExceptionInfo>();
+
+            PaginationInfo pager = new PaginationInfo();
+
+            pager.IsPagingRequired = false;
+
+            try
+            {
+                if (dt != null && dt.Rows.Count > 0)
+                {
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        ProductInfo _product = new ProductInfo();
+
+                        _product.Product_Name = Convert.ToString(dr["Product Name"]);
+
+                        _product.Product_Description = Convert.ToString(dr["Product Description"]);
+
+                        _product.Product_Price = Convert.ToDecimal(dr["Product Price"]);
+
+                        _product.Brand_Id = Get_Brand_Id_By_Name(dr["Brand"].ToString());
+
+                        _product.Category_Id = Get_Category_Id_By_Name(dr["Category"].ToString());
+
+                        _product.SubCategory_Id = Get_SubCategory_Id_By_Name(_product.Category_Id, dr["SubCategory"].ToString());
+
+                        if (dr["Is Biddable"].ToString().ToLower() == "yes")
+                        {
+                            _product.Is_Biddable = true;
+                        }
+                        else 
+                        {
+                            _product.Is_Biddable = false;
+                        }                        
+
+                        if (Valid_Default_Row(_product)) // To check if row get all ids 
+                        {
+
+                                    _product.Is_Active = true;
+
+                                    _product.Created_By = 1;
+
+                                    _product.Updated_By = 1;
+
+                                    _product.Created_On = DateTime.Now;
+
+                                    _product.Updated_On = DateTime.Now;
+
+                            if (Check_Existing_Product(_product.Product_Name))
+                            {
+                                Update_Product(_product,user_id);
+                            }
+                            else 
+                            {
+                                    Insert_Product(_product,user_id);
+                            }
+                        }
+                        else
+                        {
+                            // return Error
+                            Is_Error = true;
+
+                            ExceptionInfo exception = new ExceptionInfo();
+
+                            exception.FileName = "Default Validation";
+
+                            exception.UploadedDate = DateTime.Now;
+
+                            exception.RowNo = i;
+
+                            exception.ErrorMessage = exception.FileName + " : " + exception.UploadedDate + " : " + "Invalid Entry at row " + i;
+
+                            exceptionList.Add(exception);
+                        }
+
+                        i++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Is_Error = true;
+
+                ExceptionInfo exception = new ExceptionInfo();
+
+                exception.UploadedDate = DateTime.Now;
+
+                exception.ErrorMessage = "Replacebale Validation : " + exception.UploadedDate + " : " + ex.Message;
+            }
+
+            _excelRepo.LogExceptions(exceptionList);
+
+            return Is_Error;
+        }
+
+        public bool Valid_Default_Row(ProductInfo _product)
+        {
+            bool valid = true;
+
+            if (_product.Brand_Id == 0)
+            {
+                valid = false;
+            }
+
+            if (_product.Category_Id == 0)
+            {
+                valid = false;
+            }
+
+            if (_product.SubCategory_Id == 0)
+            {
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        public int Get_SubCategory_Id_By_Name(int Category_Id, string SubCategory_Name)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@CategoryId", Category_Id));
+            sqlparam.Add(new SqlParameter("@SubCategoryName", SubCategory_Name));
+
+            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_SubCategory_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        }
+
+        public int Get_Category_Id_By_Name(string Category_Name)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@CategoryName", Category_Name));
+
+            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Category_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        }
+
+        public int Get_Brand_Id_By_Name(string Brand_Name)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@BrandName", Brand_Name));
+
+            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Brand_Id_By_Name.ToString(), CommandType.StoredProcedure));
+        }
+
+         
     }
 }

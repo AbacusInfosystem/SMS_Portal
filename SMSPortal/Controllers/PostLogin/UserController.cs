@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace SMSPortal.Controllers.PostLogin
 {
@@ -20,7 +21,9 @@ namespace SMSPortal.Controllers.PostLogin
 
         public CookiesInfo _cookies;
 
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+
+        //public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
+
 
         public UserController()
         {
@@ -78,7 +81,15 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                uViewModel.Roles = _userMan.Get_Roles();            
+                if (TempData["Entity_Id"] != null)
+                {
+                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"]);
+                    if (uViewModel.User.User_Id == 0)
+                    {
+                        uViewModel.User.Role_Id = (int)TempData["Role_Id"];
+                        uViewModel.User.Entity_Id = (int)TempData["Entity_Id"];
+                    }
+                }          
             }
             catch (Exception ex)
             {
@@ -92,11 +103,18 @@ namespace SMSPortal.Controllers.PostLogin
         [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Insert(UserViewModel uViewModel)
         {
+            string link=string.Empty;
             try
             {
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
+                uViewModel.User.Pass_Token = Utility.Generate_Token();
+
                 _userMan.Insert_Users(uViewModel.User , uViewModel.Cookies.User_Id);
+
+                link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken="+ uViewModel.User.Pass_Token;
+
+                _userMan.Send_Reset_Password_Email(uViewModel.User.Email_Id, link, uViewModel.User);
 
                 uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
             }
@@ -108,7 +126,23 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             TempData["userViewMessage"] = uViewModel;
-            return RedirectToAction("Search");
+
+            if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+            {
+                return RedirectToAction("Search", "Vendor");
+            }
+            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Brand))
+            {
+                return RedirectToAction("Search", "Brand");
+            }
+            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+            {
+                return RedirectToAction("Search", "Dealer");
+            }
+            else 
+            {
+                return RedirectToAction("Search");
+            }
         }
 
         [AuthorizeUserAttribute(AppFunction.Token)]
@@ -130,7 +164,23 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             TempData["userViewMessage"] = uViewModel;
-            return RedirectToAction("Search");
+
+            if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+            {
+                return RedirectToAction("Search", "Vendor");
+            }
+            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Brand))
+            {
+                return RedirectToAction("Search", "Brand");
+            }
+            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+            {
+                return RedirectToAction("Search", "Dealer");
+            }
+            else
+            {
+                return RedirectToAction("Search");
+            }
         }
 
         public JsonResult Check_Existing_User(string user_Name)

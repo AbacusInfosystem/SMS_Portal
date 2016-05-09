@@ -214,5 +214,82 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(autoList, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Add_Brand_User(BrandViewModel bViewModel)
+        {
+            TempData["Entity_Id"] = bViewModel.Brand.Brand_Id;
+
+            TempData["Role_Id"] = RolesIds.Brand;
+
+            return RedirectToAction("Index", "User");
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Profile(BrandViewModel bViewModel)
+        {
+            try
+            {
+                if (TempData["bViewModel"] != null)
+                {
+                    bViewModel = (BrandViewModel)TempData["bViewModel"];
+                }
+
+                bViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                bViewModel.Brand = _brandManager.Get_Brand_By_Id(bViewModel.Cookies.Entity_Id);
+
+            }
+            catch (Exception ex)
+            {
+                bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Brand controller - Profile " + ex);
+            }
+
+            return View("Profile", bViewModel);
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Edit_Brand_Profile(BrandViewModel bViewModel)
+        {
+            try
+            {
+                bViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                bViewModel.Brand = _brandManager.Get_Brand_By_Id(bViewModel.Brand.Brand_Id);
+
+            }
+            catch (Exception ex)
+            {
+                bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Brand controller - Edit_Brand_Profile " + ex);
+            }
+
+            return View("Update_Profile", bViewModel);
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Update_Brand_Profile(BrandViewModel bViewModel)
+        {
+            try
+            {
+                bViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                _brandManager.Update_Brand_Profile(bViewModel.Brand, bViewModel.Cookies.User_Id);
+
+                bViewModel.Friendly_Message.Add(MessageStore.Get("BO006"));
+
+                TempData["bViewModel"] = bViewModel;
+            }
+            catch (Exception ex)
+            {
+                bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Brand Controller - Update_Brand_Profile " + ex);
+            }
+
+            return RedirectToAction("Profile");
+        }
     }
 }

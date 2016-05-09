@@ -43,6 +43,18 @@ function Bind_Purchase_Order_Grid(data)
         htmlText += data.PurchaseOrders[i].Vendor_Name;
 
         htmlText += "</td>";
+        
+        htmlText += "<td>";
+
+        htmlText += data.PurchaseOrders[i].Gross_Amount;
+
+        htmlText += "</td>";
+
+        htmlText += "<td>";
+
+        htmlText += data.PurchaseOrders[i].Status_Text == null ? "" : data.PurchaseOrders[i].Status_Text;
+
+        htmlText += "</td>";
 
         htmlText += "</tr>";
         }
@@ -51,7 +63,7 @@ function Bind_Purchase_Order_Grid(data)
     {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='3'>";
+        htmlText += "<td colspan='5'>";
 
         htmlText += "No record found.";
 

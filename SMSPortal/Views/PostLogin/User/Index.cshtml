@@ -26,12 +26,13 @@
                         </div>
                         <div class="box-body">
                             <input type="hidden" class="form-control input-sm" name="User.User_Id" id="hdf_UserId" placeholder="" value="@Model.User.User_Id">
-                            <input type="hidden" class="form-control input-sm" name="User.Entity_Id" id="hdf_EntityId" placeholder="" value="0">
+                            <input type="hidden" class="form-control input-sm" name="User.Entity_Id" id="hdf_EntityId" placeholder="" value="@Model.User.Entity_Id">
+                            <input type="hidden" class="form-control input-sm" name="User.Role_Id" id="hdf_RoleId" placeholder="" value="@Model.User.Role_Id">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">User Name</label>
-                                        <input type="text" class="form-control input-sm" name="User.User_Name" id="txtUser_Name" placeholder="Enter user name" value="@Model.User.User_Name" maxlength=" 20">
+                                        <input type="text" class="form-control input-sm" name="User.User_Name" id="txtUser_Name" placeholder="Enter user name" value="@Model.User.User_Name" maxlength="15">
                                         <input type="hidden" id="hdnUserName" value="@Model.User.User_Name">
                                     </div>
                                 </div>
@@ -40,7 +41,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">First Name</label>
-                                        <input type="text" class="form-control input-sm" name="User.First_Name" id="txtFirst_Name" placeholder="Enter first name" value="@Model.User.First_Name" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="User.First_Name" id="txtFirst_Name" placeholder="Enter first name" value="@Model.User.First_Name" maxlength="15">
                                     </div>
                                 </div>
                             </div>
@@ -48,18 +49,19 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Last Name</label>
-                                        <input type="text" class="form-control input-sm" name="User.Last_Name" id="txtLast_Name" placeholder="Enter last name" value="@Model.User.Last_Name" maxlength="20">
+                                        <input type="text" class="form-control input-sm" name="User.Last_Name" id="txtLast_Name" placeholder="Enter last name" value="@Model.User.Last_Name" maxlength="15">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label style="color: #333">Role</label>
                                         <select id="drpRole" class="form-control" name="User.Role_Id">
-                                            @*<option value="">-Select Role-</option>*@
+                                            @*<option value="">-Select Role-</option>
+
                                             <option value="1" selected>Admin</option>
-                                            @*@foreach (var item in Model.Roles)
+                                            @foreach (var item in Model.Roles)
                                                 {
                                                     if (Model.User.Role_Id == item.Role_Id)
                                                     {
@@ -70,11 +72,11 @@
                                                     {
                                                         <option value="@item.Role_Id">@item.Role_Name</option>
                                                     }
-                                                }*@
+                                                }
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                             @*<div class="row" style="display:none" id="div_Entity">
                                     <div class="col-md-3">
                                         <div class="form-group">
