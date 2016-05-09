@@ -169,7 +169,7 @@ namespace SMSPortalRepo
             return productImages;
         }
 
-        private List<SqlParameter> Set_Values_In_Product_Image(ProductImageInfo productImageInfo)
+        private List<SqlParameter> Set_Values_In_Product_Image(ProductImageInfo productImageInfo,int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             if (productImageInfo.Product_Image_Id != 0)
@@ -181,17 +181,17 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Is_Default", productImageInfo.Is_Default));
             if (productImageInfo.Product_Image_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", productImageInfo.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", productImageInfo.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
             }
-            sqlParams.Add(new SqlParameter("@Updated_On", productImageInfo.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", productImageInfo.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
             return sqlParams;
         }
 
-        public void Insert_Product_Image(ProductImageInfo productImageInfo)
+        public void Insert_Product_Image(ProductImageInfo productImageInfo,int user_id)
         {             
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_Image(productImageInfo), StoreProcedures.Insert_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_Image(productImageInfo,user_id), StoreProcedures.Insert_Product_Image_Sp.ToString(), CommandType.StoredProcedure);
 
         }
 
@@ -311,6 +311,15 @@ namespace SMSPortalRepo
             subcategory.Updated_By = Convert.ToInt32(dr["Updated_By"]);
 
             return subcategory;
+        }
+
+        public void Set_Default_Image(int Product_Id, int Product_Image_Id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@Product_Id", Product_Id));
+            sqlParams.Add(new SqlParameter("@Product_Image_Id", Product_Image_Id));
+
+            _sqlRepo.ExecuteNonQuery(sqlParams, StoreProcedures.Set_Default_Product_Image.ToString(), CommandType.StoredProcedure);
         }
 
         public void Delete_Product_Image(int Product_Image_Id)

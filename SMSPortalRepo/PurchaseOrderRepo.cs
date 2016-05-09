@@ -21,19 +21,19 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id)
         {
             int purchase_order_item_id = 0;
-            purchase_order_item_id=Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Purchase_Order(purchaseorder), StoreProcedures.Insert_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure));
+            purchase_order_item_id=Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Purchase_Order(purchaseorder,user_id), StoreProcedures.Insert_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure));
             return purchase_order_item_id;
         }
 
-        public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order(purchaseorder), StoreProcedures.Update_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order(purchaseorder,user_id), StoreProcedures.Update_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        private List<SqlParameter> Set_Values_In_Purchase_Order(PurchaseOrderInfo purchaseorder,int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
@@ -55,11 +55,11 @@ namespace SMSPortalRepo
 
             if (purchaseorder.Purchase_Order_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", purchaseorder.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", purchaseorder.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
             }
-            sqlParams.Add(new SqlParameter("@Updated_On", purchaseorder.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", purchaseorder.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
             return sqlParams;
         }
 
@@ -223,17 +223,17 @@ namespace SMSPortalRepo
             return orderitem;
         }
 
-        public void Insert_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem)
+        public void Insert_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem,int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order_Item(purchaseorderitem), StoreProcedures.Insert_Purchase_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order_Item(purchaseorderitem,user_id), StoreProcedures.Insert_Purchase_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        public void Update_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem)
+        public void Update_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem, int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order_Item(purchaseorderitem), StoreProcedures.Update_Purchase_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order_Item(purchaseorderitem, user_id), StoreProcedures.Update_Purchase_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem)
+        private List<SqlParameter> Set_Values_In_Purchase_Order_Item(PurchaseOrderItemInfo purchaseorderitem,int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
@@ -251,11 +251,11 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Status", purchaseorderitem.Status));            
             if (purchaseorderitem.Purchase_Order_Item_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", purchaseorderitem.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", purchaseorderitem.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
             }
-            sqlParams.Add(new SqlParameter("@Updated_On", purchaseorderitem.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", purchaseorderitem.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
 
             return sqlParams;
         }

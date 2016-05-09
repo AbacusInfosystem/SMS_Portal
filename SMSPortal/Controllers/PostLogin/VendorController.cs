@@ -398,7 +398,8 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult OrderDetails(PurchaseOrderViewModel pViewModel)
         {
-            return View("OrderDetails");
+
+            return View("OrderDetails",pViewModel);
         }
 
         public JsonResult Get_Sales_Orders(PurchaseOrderViewModel pViewModel)
@@ -435,6 +436,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
                 pViewModel.PurchaseOrder = _vendorManager.Get_Vendor_Sales_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.Cookies.Entity_Id);
                 pViewModel.PurchaseOrderItems = _vendorManager.Get_Sales_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+                 
             }
             catch (Exception ex)
             {

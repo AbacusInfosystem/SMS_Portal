@@ -1063,6 +1063,7 @@
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_validation.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_order_details_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_validation.js" />

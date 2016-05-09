@@ -52,14 +52,19 @@ namespace SMSPortalManager
             return _productRepo.Get_Product_Images(Product_Id);
         }
 
-        public void Insert_Product_Image(ProductImageInfo productImageInfo)
+        public void Insert_Product_Image(ProductImageInfo productImageInfo,int user_id)
         {
-            _productRepo.Insert_Product_Image(productImageInfo);
+            _productRepo.Insert_Product_Image(productImageInfo, user_id);
         }
 
         public void Delete_Product_Image(int Product_Image_Id)
         {
             _productRepo.Delete_Product_Image(Product_Image_Id);
+        }
+
+        public void Set_Default_Image(int Product_Id, int Product_Image_Id)
+        {
+            _productRepo.Set_Default_Image(Product_Id, Product_Image_Id);
         }
 
         public List<AutocompleteInfo> Get_Product_Autocomplete(string ProductName)
