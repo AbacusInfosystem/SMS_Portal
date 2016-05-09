@@ -10,7 +10,6 @@
 
     $("#txtShippingDate").datepicker({
         autoclose: true,
-        startDate: '-6m',
         enddate: null,
     });
 

@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#frmPurchaseOrderMaster").validate({
+    var validator=$("#frmPurchaseOrderMaster").validate({
         errorClass: 'login-error',
         ignore: [],
         rules: {
@@ -24,8 +24,13 @@
              },
             "Product.Product_Id":
                 {
-                    required: true,
-                    validate_Product_Exist:true
+                    required: true
+                    //,
+                    //validate_Product_Exist:true
+                },
+            "PurchaseOrderItem.Shipping_Date":
+                {
+                    required: true
                 }
         },
         messages: {
@@ -51,7 +56,11 @@
             "Product.Product_Id":
             {
                 required: "Product is required"
-            }
+            },
+            "PurchaseOrderItem.Shipping_Date":
+                {
+                    required: "Shipping date is required"
+                }
             
         }
         //,

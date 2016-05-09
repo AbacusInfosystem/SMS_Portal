@@ -108,6 +108,9 @@ namespace SMSPortalInfo.Common
         Delete_Vendor_Product_Mapping_By_Id_Sp,
         Update_Vendor_Profile_Sp,
         Get_Vendor_Autocomplete_Sp,
+        Get_Vendor_Sales_Orders_Sp,
+        Get_Vendors_Sales_Order_By_Id_Sp,
+        Get_Vendor_Sales_Order_Items_By_Id_Sp,
 
         //Cookies
         Insert_Token_In_User_Table_Sp,

@@ -1038,6 +1038,7 @@
     <Content Include="Scripts\Module\SubCategory\subcategory_events.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_methods.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_validation.js" />
+    <Content Include="Scripts\Module\Tax\tax_validation.js" />
     <Content Include="Scripts\Module\Tax\Tax_events.js" />
     <Content Include="Scripts\Module\Tax\Tax_mthod.js" />
     <Content Include="Scripts\Module\User\reset_password.js" />
@@ -1046,7 +1047,9 @@
     <Content Include="Scripts\Module\User\user_events.js" />
     <Content Include="Scripts\Module\User\user_method.js" />
     <Content Include="Scripts\Module\User\user_validation.js" />
+    <Content Include="Scripts\Module\Vendor\search_order_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
+    <Content Include="Scripts\Module\Vendor\search_order_vendor_methods.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
     <Content Include="Scripts\Module\Receivable\search_receivable_event.js" />
     <Content Include="Scripts\Module\Receivable\search_receivable_method.js" />
