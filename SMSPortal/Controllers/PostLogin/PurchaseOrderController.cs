@@ -71,12 +71,12 @@ namespace SMSPortal.Controllers.PostLogin
                         if (pViewModel.PurchaseOrderItem.Received_Quantity > 0)
                         {
                             pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Patially_Received;
+                             
                         }
                         if (pViewModel.PurchaseOrderItem.Received_Quantity == pViewModel.PurchaseOrderItem.Product_Quantity)
                         {
                             pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Received;
                         }
-
                         _purchaseOrderManager.Update_Purchase_Order_Item(pViewModel.PurchaseOrderItem,pViewModel.Cookies.User_Id);
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR004"));
                     }
@@ -94,6 +94,23 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.PurchaseOrder.Gross_Amount = pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
 
                     _purchaseOrderManager.Update_Purchase_Order_Gross_Amount(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.PurchaseOrder.Gross_Amount);
+                    
+                    foreach (var item in pViewModel.PurchaseOrderItems)
+                    {
+                        if (item.Status == (int)PurchaseOrderStatus.Ordered)
+                        {
+                            pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Ordered;
+                        }
+                        if (item.Status == (int)PurchaseOrderStatus.Patially_Received)
+                        {
+                            pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Patially_Received;
+                        }
+                        if (item.Status == (int)PurchaseOrderStatus.Received)
+                        {
+                            pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Received;
+                        }
+                    }
+
                     _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder,pViewModel.Cookies.User_Id);
                 }
                 else

@@ -137,13 +137,13 @@ function Bind_Selected_Item(data) {
 
         $("#" + $("#hdnLookupHiddenId").val()).val($("#" + $("#hdnLookupLabelId").val()).val());
 
-        htmltext = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + data + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        htmltext = "<ul id='lookupUlLookup' class='todo-list ui-sortable'><li ><span class='text'>" + data + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
     }
     else {
 
         $("#" + $("#hdnLookupHiddenId").val()).val("");
 
-        htmltext = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " does not exist</span><div class='tools'><i class='fa fa-remove'></i>";
+        htmltext = "<ul id='lookupUlLookup' class='todo-list ui-sortable'><li ><span class='text'>" + $("#" + $("#hdnLookupLabelId").val()).parents('.form-group').find(".lookup-title").text() + " does not exist</span><div class='tools'><i class='fa fa-remove'></i>";
     }
 
     $("#" + $("#hdnLookupLabelId").val()).val("");

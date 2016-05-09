@@ -1,5 +1,6 @@
 ﻿@model SMSPortal.Models.PostLogin.InvoiceViewModel
 @using SMSPortal.Common;
+@using System.Configuration;
 
 <script src="~/Scripts/Module/Invoice/Invoice_events.js"></script>
 <script src="~/Scripts/Module/Invoice/invoice_methods.js"></script>
@@ -49,17 +50,15 @@
                                     <div class="col-sm-4 invoice-col col-border-right">
                                         <b> From</b>
                                         <address>
-                                            Admin, Inc.<br>
-                                            795 Folsom Ave, Suite 600<br>
-                                            San Francisco, CA 94107<br>
-                                            Phone: (804) 123-5432<br>
-                                            Email: info@almasaeedstudio.com
+                                            @ConfigurationManager.AppSettings["CompanyName"].ToString()<br>
+                                            @ConfigurationManager.AppSettings["CompanyAddress"].ToString()<br>
+                                            Phone : @ConfigurationManager.AppSettings["CompanyTelephone"].ToString()<br>
+                                            Email : @ConfigurationManager.AppSettings["fromMailAddress"].ToString()<br>
                                         </address>
                                     </div><!-- /.col -->
                                     <div class="col-sm-4 invoice-col col-border-right">
                                         <b> To</b>
                                         <address>
-
                                             @Model.Dealer.Dealer_Name<br>
                                             @Model.Dealer.Address ,<br />
                                             @Model.Dealer.City , @Model.Dealer.State_Name ,<br />
@@ -98,54 +97,51 @@
                                                     foreach (var item in Model.Order.OrderItems)
                                                     {
                                                         count++;
-                                                        <tr>
-                                                            <td>@count</td>
-                                                            <td>@item.Product.Product_Name</td>
-                                                            <td>@item.Product_Quantity</td>
-                                                            <td>@item.Product.Product_Price</td>
-                                                            <td>@item.Product_Price</td>
+                                                <tr>
+                                                    <td>@count</td>
+                                                    <td>@item.Product.Product_Name</td>
+                                                    <td>@item.Product_Quantity</td>
+                                                    <td>@item.Product.Product_Price</td>
+                                                    <td>@item.Product_Price</td>
 
-                                                        </tr>
+                                                </tr>
                                                     }
                                                     }
-                                                    <tr>
-                                                        <td colspan="4"><b> Total:</b></td>
-                                                        <td> @Model.Order.Net_Amount</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4"><b> VAT(%):</b></td>
-                                                        <td>@Model.Order.Vat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4"><b> Service Tax(%):</b></td>
-                                                        <td>@Model.Order.Service_Tax</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4"><b> Swatch Bharat Tax:</b></td>
-                                                        <td>@Model.Order.Swatch_Bharat_Tax</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4"><b> Grand Total:</b></td>
-                                                        <td>@Model.Order.Gross_Amount</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td colspan="4"><b> Total:</b></td>
+                                                    <td> @Model.Order.Net_Amount</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"><b> VAT(%):</b></td>
+                                                    <td>@Model.Order.Vat</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"><b> Service Tax(%):</b></td>
+                                                    <td>@Model.Order.Service_Tax</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"><b> Swatch Bharat Tax:</b></td>
+                                                    <td>@Model.Order.Swatch_Bharat_Tax</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"><b> Grand Total:</b></td>
+                                                    <td>@Model.Order.Gross_Amount</td>
+                                                </tr>
                                                 }
                                             </tbody>
                                         </table>
                                     </div><!-- /.col -->
                                 </div><!-- /.row -->
-                                <!-- this row will not appear when printing -->
-                                <div class="row no-print">
-                                    <div class="col-md-10">                                         
-                                        <a class="btn btn-default" target="_blank" id="btnPrint" ><i class="fa fa-print"></i> Print</a>
-                                        <button type="button" id="btnSendEmail" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i>Email</button>
-                                        @*<button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                                            <button style="margin-right: 5px;" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Generate PDF</button>*@
-
-                                    </div>
-
-                                </div>
+                                <!-- this row will not appear when printing -->                                
                             </section>
-
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <a class="btn btn-default" target="_blank" id="btnPrint"><i class="fa fa-print"></i> Print</a>
+                                <button type="button" id="btnSendEmail" class="btn btn-success pull-right">Send Invoice</button>
+                            </div>
+                            <div class="col-md-1"></div>
                         </div>
 
                     </div>
