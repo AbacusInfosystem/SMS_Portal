@@ -103,8 +103,8 @@ function Bind_Purchase_Order_Items(data) {
 
         }
         htmlText += "<tr style='background-color:#eee'>";
-        htmlText += "<td colspan='6'><b>Total :</b></td> ";
-        htmlText += "<td colspan='2'><input type='text' class='form-control input-sm valid' name='PurchaseOrder.Gross_Amount' id='txtTotalAmount' value='" + data.PurchaseOrder.Gross_Amount + "' maxlength='20' readonly='readonly'>";
+        htmlText += "<td colspan='5'><b>Total :</b></td> ";
+        htmlText += "<td colspan='3'><input type='text' class='form-control input-sm valid' name='PurchaseOrder.Gross_Amount' id='txtTotalAmount' value='" + data.PurchaseOrder.Gross_Amount + "' maxlength='20' readonly='readonly'>";
         htmlText += "</td>";
         htmlText += "</tr>";
 

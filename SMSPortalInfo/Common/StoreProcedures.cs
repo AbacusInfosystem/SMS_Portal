@@ -89,7 +89,7 @@ namespace SMSPortalInfo.Common
         Insert_Product_Image_Sp,
         Delete_Product_Image_Sp,
         Get_Product_Autocomplete_Sp,
-         
+        Set_Default_Product_Image,         
         
         //Vendor
         Insert_Vendor_Sp,

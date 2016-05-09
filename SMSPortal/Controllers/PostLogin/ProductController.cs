@@ -186,7 +186,6 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Product_Image_Upload(ProductViewModel pViewModel)
         {
-
             pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
             HttpPostedFileBase fileBase = null;
             var actualFileName = "";
@@ -223,11 +222,7 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.ProductImage.Product_Id = Convert.ToInt32(Product_Id);
                     pViewModel.ProductImage.Image_Code = actualFileName;
                     pViewModel.ProductImage.Is_Default = Is_Default;
-                    pViewModel.ProductImage.Created_On = DateTime.Now;
-                    pViewModel.ProductImage.Updated_By = pViewModel.Cookies.User_Id;
-                    pViewModel.ProductImage.Updated_On = DateTime.Now;
-
-                    _productManager.Insert_Product_Image(pViewModel.ProductImage);
+                    _productManager.Insert_Product_Image(pViewModel.ProductImage,pViewModel.Cookies.User_Id);
 
                     pViewModel.ImagesList = _productManager.Get_Product_Images(Convert.ToInt32(Product_Id));
                     pViewModel.Product.Product_Id = Convert.ToInt32(Product_Id);
@@ -240,6 +235,23 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error uploading Product Images  " + ex.Message);
             }
             TempData["pViewModel"] = pViewModel;             
+            return PartialView("_Product_Images", pViewModel);
+        }
+
+        public ActionResult Set_Image_Default(int Product_Id,int Product_Image_Id)
+        {
+            ProductViewModel pViewModel = new ProductViewModel();
+            try
+            {
+                _productManager.Set_Default_Image(Product_Id, Product_Image_Id);
+                pViewModel.ImagesList = _productManager.Get_Product_Images(Product_Id);
+                pViewModel.Product.Product_Id = Product_Id;
+            }
+            catch (Exception ex)
+            {
+                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Product Controller Set_Image_Default " + ex.Message);
+            }
             return PartialView("_Product_Images", pViewModel);
         }
 

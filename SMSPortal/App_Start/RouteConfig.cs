@@ -271,11 +271,16 @@ namespace SMSPortal
            namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
-          name: "Product-8",
-          url: "product/product-excel-upload/",
-          defaults: new { controller = "Product", action = "Bulk_Excel_Product_Upload", id = UrlParameter.Optional },
-          namespaces: new string[] { "SMSPortal.Controllers" });
+            name: "Product-8",
+           url: "product/product-excel-upload/",
+           defaults: new { controller = "Product", action = "Bulk_Excel_Product_Upload", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+           name: "Product-9",
+          url: "product/set-default-image/",
+          defaults: new { controller = "Product", action = "Set_Image_Default", id = UrlParameter.Optional },
+          namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
             #region Autocomplete
