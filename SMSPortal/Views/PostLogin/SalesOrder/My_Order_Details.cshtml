@@ -127,44 +127,45 @@
                                         </table>
                                     </div><!-- /.col -->
                                 </div><!-- /.row -->
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label style="color: #333">Order Status</label>
+                                            <select disabled id="drpOrderStatus" class="form-control" name="Sales_Order.Status_Id">
+                                                <option value="0">-Select Transaction Type-</option>
+                                                @foreach (var item in LookupInfo.Get_Order_Status())
+                                                {
+                                                    if (Model.Sales_Order.Status_Id == item.Key)
+                                                    {
+                                                        <option value="@item.Key" selected="selected">@item.Value</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.Key">@item.Value</option>
+                                                    }
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="txtRecDate" style="color: #333">Shipping Date</label>
+                                            <div class="input-group">
+                                                <input readonly type="text" class="form-control  input-sm" id="txtRecDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Sales_Order.Shipping_Date" value="@((Model.Sales_Order.Shipping_Date == DateTime.MinValue ? "" : Model.Sales_Order.Shipping_Date.ToString("dd-MM-yyy ")))" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </section>
 
                         </div>
 
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label style="color: #333">Order Status</label>
-                                <select disabled id="drpOrderStatus" class="form-control" name="Sales_Order.Status_Id">
-                                    <option value="0">-Select Transaction Type-</option>
-                                    @foreach (var item in LookupInfo.Get_Order_Status())
-                                    {
-                                        if (Model.Sales_Order.Status_Id == item.Key)
-                                        {
-                                            <option value="@item.Key" selected="selected">@item.Value</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@item.Key">@item.Value</option>
-                                        }
-                                    }
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="txtRecDate" style="color: #333">Shipping Date</label>
-                                <div class="input-group">
-                                    <input readonly type="text" class="form-control  input-sm" id="txtRecDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Sales_Order.Shipping_Date" value="@((Model.Sales_Order.Shipping_Date == DateTime.MinValue ? "" : Model.Sales_Order.Shipping_Date.ToString("dd-MM-yyy ")))" />
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    
                 </div>
             </div>
 

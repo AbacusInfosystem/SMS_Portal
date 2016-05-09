@@ -33,7 +33,7 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <label style="color: #333">Dealer Name</label>
-                                                <input type="text" class="form-control input-sm" name="Dealer.Dealer_Name" id="txtDealer_Name" placeholder="Enter your name" value="@Model.Dealer.Dealer_Name" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="Dealer.Dealer_Name" id="txtDealer_Name" placeholder="Enter your name" value="@Model.Dealer.Dealer_Name" maxlength="15">
                                                 <input type="hidden" id="hdnDealerName" value="@Model.Dealer.Dealer_Name">
                                             </div>
                                         </div>
@@ -65,7 +65,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label style="color: #333">Address</label>
-                                                <textarea class="form-control" name="Dealer.Address" id="txtAddress">@Model.Dealer.Address</textarea>
+                                                <textarea class="form-control" name="Dealer.Address" id="txtAddress" maxlength="200">@Model.Dealer.Address</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label style="color: #333">City</label>
-                                                <input type="text" class="form-control input-sm" name="Dealer.City" id="txtcity" placeholder="Enter city" value="@Model.Dealer.City" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="Dealer.City" id="txtcity" placeholder="Enter city" value="@Model.Dealer.City" maxlength="15">
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label style="color: #333">Pincode</label>
-                                                <input type="text" class="form-control input-sm" name="Dealer.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Dealer.Pincode == 0 ? "" : Model.Dealer.Pincode.ToString())" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="Dealer.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Dealer.Pincode == 0 ? "" : Model.Dealer.Pincode.ToString())" maxlength="6">
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label style="color: #333">Contact No 1</label>
-                                                <input type="text" class="form-control input-sm" name="Dealer.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Dealer.Contact_No_1" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="Dealer.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Dealer.Contact_No_1" maxlength="10">
                                             </div>
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label style="color: #333">Contact No 2</label>
-                                                <input type="text" class="form-control input-sm" name="Dealer.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Dealer.Contact_No_2" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="Dealer.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Dealer.Contact_No_2" maxlength="10">
 
                                             </div>
                                         </div>
@@ -127,7 +127,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label style="color: #333">Email</label>
-                                                <input type="text" class="form-control input-sm" name="Dealer.Email" id="txtEmail" placeholder="Enter email " value="@Model.Dealer.Email" maxlength="20">
+                                                <input type="text" class="form-control input-sm" name="Dealer.Email" id="txtEmail" placeholder="Enter email " value="@Model.Dealer.Email" maxlength="40">
                                             </div>
                                         </div>
                                     </div>
