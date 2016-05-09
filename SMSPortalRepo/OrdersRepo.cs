@@ -24,7 +24,7 @@ namespace SMSPortalRepo
 
         }
 
-        public void Insert_Orders(OrdersInfo orders)
+        public int Insert_Orders(OrdersInfo orders)
         {
             int orderId = _sqlRepo.ExecuteNonQuery(Set_Values_In_Orders(orders), StoreProcedures.Insert_Orders_Sp.ToString(), CommandType.StoredProcedure, "@Order_Id");
 
@@ -37,6 +37,8 @@ namespace SMSPortalRepo
                 orderItem.Updated_On = orders.Updated_On;                
                 _sqlRepo.ExecuteNonQuery(Set_Values_In_Order_Item(orderItem), StoreProcedures.Insert_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
             }
+
+            return orderId;
         }
 
         //public void Update_Orders(OrdersInfo orders)

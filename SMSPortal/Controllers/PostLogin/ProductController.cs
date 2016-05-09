@@ -362,10 +362,11 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult SaveOrder(ProductViewModel pViewModel)
         {
+            InvoiceManager _invoiceManager = new InvoiceManager();
             try
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "4", "15", "Orders");
+                pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "5", "15", "Orders");
                 pViewModel.order.Order_Date = DateTime.Now;
                 pViewModel.order.Status = Convert.ToString(Convert.ToInt32(OrderStatus.Order_Received));
                 pViewModel.order.Shipping_Date = DateTime.Now.AddDays(7);
@@ -373,14 +374,23 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.order.Created_On = DateTime.Now;
                 pViewModel.order.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.order.Updated_On = DateTime.Now;
-                _OrdersManager.Insert_Orders(pViewModel.order);
+                pViewModel.order.Order_Id=_OrdersManager.Insert_Orders(pViewModel.order);
+               
+                pViewModel.dealer=_dealerManager.Get_Dealer_By_Id(pViewModel.order.Dealer_Id);
+
+                InvoiceViewModel iViewModel = new InvoiceViewModel();
+                iViewModel.Invoice.Order_Id = pViewModel.order.Order_Id;
+                iViewModel.Invoice.Invoice_No = Utility.Generate_Ref_No("INV-", "Invoice_No", "5", "15", "Invoice");
+                iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Invoice(iViewModel.Invoice,pViewModel.Cookies.User_Id);
+                _invoiceManager.Send_Invoice_Email(pViewModel.dealer.Email, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
+
             }
             catch (Exception ex)
             {
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("ProductController SaveOrder " + ex);
             }
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Get_Invoice_By_Id", "Invoice");
         }
 
         public ActionResult Bulk_Excel_Product_Upload(ProductViewModel pViewModel)
