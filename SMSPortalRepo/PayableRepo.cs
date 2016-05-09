@@ -47,7 +47,7 @@ namespace SMSPortalRepo
 
             PayableInfo payable = new PayableInfo();
 
-            payable.Status = Convert.ToString(dr["Status"]);
+            payable.Status = Convert.ToString(dr["PayablesStatus"]);
 
             payable.Purchase_Order_Amount = Convert.ToDecimal(dr["Gross_Amount"]);
 

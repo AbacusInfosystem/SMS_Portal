@@ -343,10 +343,10 @@ namespace SMSPortal
            namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
-         name: "Vendor-8",
-         url: "vendor/vendor-autocomplete/{vendor}",
-         defaults: new { controller = "Vendor", action = "Get_Vendor_Autocomplete", id = UrlParameter.Optional },
-         namespaces: new string[] { "SMSPortal.Controllers" });
+            name: "Vendor-8",
+            url: "vendor/vendor-autocomplete/{vendor}",
+            defaults: new { controller = "Vendor", action = "Get_Vendor_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Vendor-9",
@@ -504,6 +504,23 @@ namespace SMSPortal
             url: "purchaseorder/check-duplicate-products-purchase-order/",
             defaults: new { controller = "PurchaseOrder", action = "Check_Duplicate_ProductItems", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+            #endregion
+
+            #region Vendor Sales Order
+
+            routes.MapRoute(
+            name: "Vendor-Sales-Order-1",
+            url: "vendor/get-vendor-sales_orders",
+            defaults: new { controller = "Vendor", action = "Get_Sales_Orders", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Vendor-Sales-Order-2",
+            url: "vendor/view-vendor-sales_orders",
+            defaults: new { controller = "Vendor", action = "Get_Sales_Order_By_Id", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            
             #endregion
 
             #region Invoice

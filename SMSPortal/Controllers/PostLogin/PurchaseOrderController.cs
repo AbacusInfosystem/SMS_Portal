@@ -75,13 +75,25 @@ namespace SMSPortal.Controllers.PostLogin
                 {                    
                     if (pViewModel.PurchaseOrderItem.Purchase_Order_Item_Id != 0)
                     {
-                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Price;
+                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Unit_Price;
+
+                        if (pViewModel.PurchaseOrderItem.Received_Quantity > 0)
+                        {
+                            pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Patially_Received;
+                        }
+                        if (pViewModel.PurchaseOrderItem.Received_Quantity == pViewModel.PurchaseOrderItem.Product_Quantity)
+                        {
+                            pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Received;
+                        }
+
                         _purchaseOrderManager.Update_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR004"));
                     }
                     else
                     {
-                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Price;
+                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Unit_Price;
+
+                        pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Ordered;
                         _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
                         pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);                         
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
@@ -89,22 +101,27 @@ namespace SMSPortal.Controllers.PostLogin
 
                     pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
                     pViewModel.PurchaseOrder.Gross_Amount = pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
+
                     _purchaseOrderManager.Update_Purchase_Order_Gross_Amount(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.PurchaseOrder.Gross_Amount);
                     _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder);
                 }
                 else
                 {
                     pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO000", "Purchase_Order_No", "3", "15", "Purchase_Order");
-                    pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Pending;
+                    pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Ordered;
                     pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder);
                     pViewModel.Friendly_Message.Add(MessageStore.Get("POR001"));
                     if (pViewModel.PurchaseOrder.Purchase_Order_Id != 0)
                     {
                         pViewModel.PurchaseOrderItem.Purchase_Order_Id = pViewModel.PurchaseOrder.Purchase_Order_Id;
-                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Price;
+                        pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Unit_Price;
+
+                        pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Ordered;
                         _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+
                         pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
                         pViewModel.PurchaseOrder.Gross_Amount = pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
+
                         _purchaseOrderManager.Update_Purchase_Order_Gross_Amount(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.PurchaseOrder.Gross_Amount);
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
                     }
@@ -271,5 +288,8 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return Json(vModel, JsonRequestBehavior.AllowGet);
         }
+
+
+       
     }
 }

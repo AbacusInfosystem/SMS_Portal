@@ -19,14 +19,14 @@ namespace SMSPortalManager
             _productRepo = new ProductRepo();
         }
 
-        public void Insert_Product(ProductInfo product)
+        public void Insert_Product(ProductInfo product, int user_id)
         {
-            _productRepo.Insert_Product(product);
+            _productRepo.Insert_Product(product,user_id);
         }
 
-        public void Update_Product(ProductInfo product)
+        public void Update_Product(ProductInfo product,int user_id)
         {
-            _productRepo.Update_Product(product);
+            _productRepo.Update_Product(product, user_id);
         }
 
         public List<ProductInfo> Get_Products(ref PaginationInfo Pager)
@@ -67,9 +67,24 @@ namespace SMSPortalManager
             return _productRepo.Get_Product_Autocomplete(ProductName);
         }
 
-        public bool Bulk_Excel_Upload_Default(DataTable dt)
+        public List<BrandInfo> Get_Brands()
         {
-            return _productRepo.Bulk_Excel_Upload_Default(dt);
+            return _productRepo.Get_Brands();
+        }
+
+        public List<CategoryInfo> Get_Categorys()
+        {
+            return _productRepo.Get_Categorys();
+        }
+
+        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int category_Id)
+        {
+            return _productRepo.Get_SubCategories_By_CategoryId(category_Id);
+        }
+
+        public bool Bulk_Excel_Upload_Default(DataTable dt,int user_id)
+        {
+            return _productRepo.Bulk_Excel_Upload_Default(dt,user_id);
         }
     }
 }
