@@ -60,16 +60,7 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 ProductManager _productManager = new ProductManager();
 
-                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                pViewModel.PurchaseOrder.Created_By = pViewModel.Cookies.User_Id;
-                pViewModel.PurchaseOrder.Created_On = DateTime.Now;
-                pViewModel.PurchaseOrder.Updated_By = pViewModel.Cookies.User_Id;
-                pViewModel.PurchaseOrder.Updated_On = DateTime.Now;
-               
-                pViewModel.PurchaseOrderItem.Created_By = pViewModel.Cookies.User_Id;
-                pViewModel.PurchaseOrderItem.Created_On = DateTime.Now;
-                pViewModel.PurchaseOrderItem.Updated_By = pViewModel.Cookies.User_Id;
-                pViewModel.PurchaseOrderItem.Updated_On = DateTime.Now;
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");                
 
                 if (pViewModel.PurchaseOrder.Purchase_Order_Id != 0)
                 {                    
@@ -86,7 +77,7 @@ namespace SMSPortal.Controllers.PostLogin
                             pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Received;
                         }
 
-                        _purchaseOrderManager.Update_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+                        _purchaseOrderManager.Update_Purchase_Order_Item(pViewModel.PurchaseOrderItem,pViewModel.Cookies.User_Id);
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR004"));
                     }
                     else
@@ -94,7 +85,7 @@ namespace SMSPortal.Controllers.PostLogin
                         pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Unit_Price;
 
                         pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Ordered;
-                        _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+                        _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem, pViewModel.Cookies.User_Id);
                         pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);                         
                         pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
                     }
@@ -103,13 +94,13 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.PurchaseOrder.Gross_Amount = pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
 
                     _purchaseOrderManager.Update_Purchase_Order_Gross_Amount(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.PurchaseOrder.Gross_Amount);
-                    _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder);
+                    _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder,pViewModel.Cookies.User_Id);
                 }
                 else
                 {
                     pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO-", "Purchase_Order_No", "3", "15", "Purchase_Order");
                     pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Ordered;
-                    pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder);
+                    pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder,pViewModel.Cookies.User_Id);
                     pViewModel.Friendly_Message.Add(MessageStore.Get("POR001"));
                     if (pViewModel.PurchaseOrder.Purchase_Order_Id != 0)
                     {
@@ -117,7 +108,7 @@ namespace SMSPortal.Controllers.PostLogin
                         pViewModel.PurchaseOrderItem.Product_Price = pViewModel.PurchaseOrderItem.Product_Quantity * pViewModel.PurchaseOrderItem.Product_Unit_Price;
 
                         pViewModel.PurchaseOrderItem.Status = (int)PurchaseOrderStatus.Ordered;
-                        _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem);
+                        _purchaseOrderManager.Insert_Purchase_Order_Item(pViewModel.PurchaseOrderItem, pViewModel.Cookies.User_Id);
 
                         pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
                         pViewModel.PurchaseOrder.Gross_Amount = pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
@@ -145,9 +136,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                pViewModel.PurchaseOrder.Updated_By = pViewModel.Cookies.User_Id;
-                pViewModel.PurchaseOrder.Updated_On = DateTime.Now;
-                _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder);
+                _purchaseOrderManager.Update_Purchase_Order(pViewModel.PurchaseOrder, pViewModel.Cookies.User_Id);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("DO002"));
             }
             catch (Exception ex)

@@ -516,6 +516,43 @@ namespace SMSPortalRepo
             return purchaseorder;
         }
 
+        public ProductInfo Get_Product_By_Id(int Product_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Product_Id", Product_Id));
+
+            ProductInfo product = new ProductInfo();
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                product = Get_ProductInfo_Values(dr);
+            }
+            return product;
+        }
+
+        private ProductInfo Get_ProductInfo_Values(DataRow dr)
+        {
+            ProductInfo product = new ProductInfo();
+
+            product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            product.Product_Name = Convert.ToString(dr["Product_Name"]);
+            product.Product_Description = Convert.ToString(dr["Product_Description"]);
+            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+            product.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+            product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+            product.Category_Name = Convert.ToString(dr["Category_Name"]);
+            product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
+            product.SubCategory_Name = Convert.ToString(dr["SubCategory_Name"]);
+            product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
+            product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+            product.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            product.Created_By = Convert.ToInt32(dr["Created_By"]);
+            product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return product;
+        }
          
         #endregion
     }

@@ -18,14 +18,14 @@ namespace SMSPortalManager
             _purchaseorderRepo = new PurchaseOrderRepo();
         }
 
-        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder,int user_id)
         {
-            return _purchaseorderRepo.Insert_Purchase_Order(purchaseorder);
+            return _purchaseorderRepo.Insert_Purchase_Order(purchaseorder,user_id);
         }
 
-        public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder)
+        public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id)
         {
-            _purchaseorderRepo.Update_Purchase_Order(purchaseorder);
+            _purchaseorderRepo.Update_Purchase_Order(purchaseorder,user_id);
         }
 
         public List<PurchaseOrderInfo> Get_Purchase_Orders(ref PaginationInfo Pager)
@@ -53,14 +53,14 @@ namespace SMSPortalManager
             return _purchaseorderRepo.Get_Purchase_Order_Items_By_Id(Purchase_Order_Id);
         }
 
-        public void Insert_Purchase_Order_Item(PurchaseOrderItemInfo purchaseOrderItemInfo)
+        public void Insert_Purchase_Order_Item(PurchaseOrderItemInfo purchaseOrderItemInfo, int user_id)
         {
-             _purchaseorderRepo.Insert_Purchase_Order_Item(purchaseOrderItemInfo);
+             _purchaseorderRepo.Insert_Purchase_Order_Item(purchaseOrderItemInfo, user_id);
         }
 
-        public void Update_Purchase_Order_Item(PurchaseOrderItemInfo purchaseOrderItemInfo)
+        public void Update_Purchase_Order_Item(PurchaseOrderItemInfo purchaseOrderItemInfo, int user_id)
         {
-            _purchaseorderRepo.Update_Purchase_Order_Item(purchaseOrderItemInfo);
+            _purchaseorderRepo.Update_Purchase_Order_Item(purchaseOrderItemInfo ,user_id);
         }
 
         public void Delete_Purchase_Order_Item_By_Id(int purchase_order_item_id)

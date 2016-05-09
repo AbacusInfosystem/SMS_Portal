@@ -115,6 +115,10 @@ namespace SMSPortalManager
             return _vendorRepo.Get_Vendor_Sales_Order_By_Id(Purchase_Order_Id,Vendor_Id);
         }
 
+        public ProductInfo Get_Product_By_Id(int Product_Id)
+        {
+            return _vendorRepo.Get_Product_By_Id(Product_Id);
+        }
         #endregion
         
     }

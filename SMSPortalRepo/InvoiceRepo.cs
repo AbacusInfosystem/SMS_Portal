@@ -228,19 +228,19 @@ namespace SMSPortalRepo
                 orders.Shipping_Date = Convert.ToDateTime(dr["Shipping_Date"]);
             if (orders.Status_Id == 1)
             {
-                orders.Status = "Order Received";
+                //orders.Status = "Order Received";
             }
             else if (orders.Status_Id == 2)
             {
-                orders.Status = "Order Confirmed";
+                //orders.Status = "Order Confirmed";
             }
             else if (orders.Status_Id == 3)
             {
-                orders.Status = "Order Dispatched";
+                //orders.Status = "Order Dispatched";
             }
             else
             {
-                orders.Status = "Order Delivered";
+                //orders.Status = "Order Delivered";
             }
             if (!dr.IsNull("Invoice_Id"))
                 orders.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);

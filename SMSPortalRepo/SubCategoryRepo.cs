@@ -108,7 +108,7 @@ namespace SMSPortalRepo
 
             subcategory.Subcategory_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
             subcategory.Subcategory_Name = Convert.ToString(dr["Sub_Category_Name"]);
-            subcategory.Category_Id = Convert.ToInt32(dr["Sub_Category_Id"]);
+            subcategory.Category_Id = Convert.ToInt32(dr["Category_Id"]);
             subcategory.Category_Name = Convert.ToString(dr["Category_Name"]);
             subcategory.IsActive = Convert.ToBoolean(dr["IsActive"]);
             if (subcategory.IsActive==true)

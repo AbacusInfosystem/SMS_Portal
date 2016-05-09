@@ -27,6 +27,10 @@ namespace SMSPortalManager
         {
             return _ordersRepo.Get_Orders_By_Id(order_Id);
         }
+        public void Insert_Orders(OrdersInfo orders)
+        {
+            _ordersRepo.Insert_Orders(orders);
+        }
 
         public List<OrdersInfo> Get_Orders_Data_By_Id(int order_Id,ref PaginationInfo Pager)
         {
@@ -44,15 +48,15 @@ namespace SMSPortalManager
         }
 
         public void Update_Order_Status(OrdersInfo order)
-        {
+            {
             _ordersRepo.Update_Order_Status(order);
-        }
+            }
 
         public void Send_Order_Status_Notification(string email_Id,OrdersInfo order)
         {
             _ordersRepo.Send_Order_Status_Notification(email_Id,order);
         }
-
+         
         public List<AutocompleteInfo> Get_Order_No_Autocomplete(string order_No)
         {
             return _ordersRepo.Get_Order_No_Autocomplete(order_No);
