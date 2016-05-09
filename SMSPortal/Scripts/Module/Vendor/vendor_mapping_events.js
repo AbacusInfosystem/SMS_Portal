@@ -7,6 +7,7 @@
 
     });
 
+
     $("#btnSave").click(function () {
 
         var strStates = "";
@@ -23,7 +24,18 @@
         $("#frmAddProductMapping").attr("action", "/Vendor/insert-vendor-product-mapping-details/");
         $('#frmAddProductMapping').attr("method", "POST");
         $('#frmAddProductMapping').submit();
-    });  
+    });
+
+    $(".fa-chevron-left").click(function () {
+        $("#frmAddProductMapping").validate().cancelSubmit = true;
+
+        $("#frmAddProductMapping").attr("action", "/Vendor/Search/");
+
+        $("#frmAddProductMapping").attr("method", "POST");
+
+        $("#frmAddProductMapping").submit();
+
+    });
 });
  
 
