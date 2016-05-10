@@ -100,6 +100,7 @@ namespace SMSPortalManager
         {
             _usersRepo.Reset_Password(New_Password, User_Id, Password_Token);
         }
+
         public UserInfo Get_User_By_Email(string Email_Id)
         {
             return _usersRepo.Get_User_By_Email(Email_Id);
