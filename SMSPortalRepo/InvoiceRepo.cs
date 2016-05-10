@@ -23,9 +23,11 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public void Insert_Invoice(InvoiceInfo invoice)
+        public int Insert_Invoice(InvoiceInfo invoice,int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Invoice(invoice), StoreProcedures.Insert_Invoice_Sp.ToString(), CommandType.StoredProcedure);
+            int invoiceid = 0;
+            invoiceid= Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Invoice(invoice,user_id), StoreProcedures.Insert_Invoice_Sp.ToString(), CommandType.StoredProcedure));
+            return invoiceid;
         }
 
         //public void Update_Invoice(InvoiceInfo invoice)
@@ -33,18 +35,21 @@ namespace SMSPortalRepo
         //    _sqlRepo.ExecuteNonQuery(Set_Values_In_Invoice(invoice), StoreProcedures.Update_Invoice_Sp.ToString(), CommandType.StoredProcedure);
         //}
 
-        private List<SqlParameter> Set_Values_In_Invoice(InvoiceInfo invoice)
+        private List<SqlParameter> Set_Values_In_Invoice(InvoiceInfo invoice,int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-            sqlParams.Add(new SqlParameter("@Invoice_Id", invoice.Invoice_Id));
+            if (invoice.Invoice_Id != 0)
+            {
+                sqlParams.Add(new SqlParameter("@Invoice_Id", invoice.Invoice_Id));
+            }
             sqlParams.Add(new SqlParameter("@Order_Id", invoice.Order_Id));
             sqlParams.Add(new SqlParameter("@Invoice_No", invoice.Invoice_No));
-            sqlParams.Add(new SqlParameter("@Invoice_Date", invoice.Invoice_Date));
-            sqlParams.Add(new SqlParameter("@Created_On", invoice.Created_On));
-            sqlParams.Add(new SqlParameter("@Created_By", invoice.Created_By));
-            sqlParams.Add(new SqlParameter("@Updated_On", invoice.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", invoice.Updated_By));
+            sqlParams.Add(new SqlParameter("@Invoice_Date", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Created_By", user_id));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
 
             return sqlParams;
         }
