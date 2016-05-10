@@ -29,8 +29,7 @@
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <h2 class="page-header div-border-bottom">
-                                            <i class="fa fa-globe"></i> SMS
-                                            <small class="pull-right"><b>Date:</b> @string.Format("{0:d}", Model.PurchaseOrder.Created_On)</small>
+                                            <i class="fa fa-globe"></i> SMS                                             
                                         </h2>
                                     </div><!-- /.col -->
                                 </div>
@@ -48,6 +47,7 @@
                                     <div class="col-sm-4 invoice-col">
                                         <b>Order No : </b>@Model.PurchaseOrder.Purchase_Order_No <br />
                                         <b>Order Status :</b>@Model.PurchaseOrder.Status_Text
+                                        <b>Order Date :</b> @string.Format("{0:d}", Model.PurchaseOrder.Created_On)
                                     </div><!-- /.col -->
                                 </div><!-- /.row -->
 
@@ -82,7 +82,7 @@
                                                             <tr>
                                                                 <td>@count</td>
                                                                 <td>@(string.Format("{0:d}",item.Shipping_Date))</td>
-                                                                <td>@item.Shipping_Address</td>
+                                                                <td style="word-wrap:break-word;">@item.Shipping_Address</td>
                                                                 <td>@item.Product_Name</td>
                                                                 <td>@item.Product_Quantity</td>
                                                                 <td>@item.Received_Quantity</td>

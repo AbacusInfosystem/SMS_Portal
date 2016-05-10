@@ -295,7 +295,18 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(vModel, JsonRequestBehavior.AllowGet);
         }
 
-
+        public PartialViewResult Confirm_Delete(int id)
+        {
+            try
+            {
+                TempData["Id"] = id;
+            }
+            catch (Exception ex)
+            {                 
+                Logger.Error("Error at PurchaseOrder-Controller - Confirm_Delete method " + ex.ToString());
+            }
+             return PartialView("_ConfirmDelete");
+        }
        
     }
 }
