@@ -27,9 +27,10 @@ namespace SMSPortalManager
         {
             return _ordersRepo.Get_Orders_By_Id(order_Id);
         }
-        public void Insert_Orders(OrdersInfo orders)
+
+        public int Insert_Orders(OrdersInfo orders)
         {
-            _ordersRepo.Insert_Orders(orders);
+            return _ordersRepo.Insert_Orders(orders);
         }
 
         public List<OrdersInfo> Get_Orders_Data_By_Id(int order_Id,ref PaginationInfo Pager)

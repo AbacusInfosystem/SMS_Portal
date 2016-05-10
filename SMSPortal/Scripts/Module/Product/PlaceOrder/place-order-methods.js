@@ -21,11 +21,11 @@ function calculateProductPrice(rowIndex) {
 }
 
 function changeGrossTaxNetAmount() {
-    var amountPayable = 0, tax = 0, netAmount=0;
+    var amountPayable = 0, tax = 0, netAmount = 0;
     var noOfProducts = $("[id^='trCartItemDetails_']").size();
     for (var i = 0; i < noOfProducts; i++) {
         amountPayable += calculateProductPrice(i);
-    }    
+    }
 
     if ($("#hdnStateName").val() == "MAHARASHTRA") {
         tax = (amountPayable * $("#hdnLocalTax").val()) / 100;
@@ -34,41 +34,38 @@ function changeGrossTaxNetAmount() {
     netAmount = amountPayable + tax;
 
     $("#spanAmountPayable").html($.number(amountPayable, 2));
-    $("[name='order.Gross_Amount']").val(newProductPrice);
+    $("[name='order.Gross_Amount']").val(amountPayable);
 
     $("#spanTaxes").html($.number(tax, 2));
-    $("[name='order.Service_Tax']").val(newProductPrice);
+    $("[name='order.Service_Tax']").val(tax);
 
     $("#spanNetPayableAmount").html($.number(netAmount, 2));
-    $("[name='order.Net_Amount']").val(newProductPrice);
+    $("[name='order.Net_Amount']").val(netAmount);
 }
 
 function deleteCartItem(rowIndex) {
-    //removeFromCookie(rowIndex);
+    removeFromCookie(rowIndex);
     $("#trCartItemDetails_" + rowIndex).remove();
     changeElementsId();
     changeGrossTaxNetAmount();
 }
 
-//function removeFromCookie(rowIndex) {    
-//    var productId = $("#hdnProductId_" + rowIndex).val();
-//    alert(productId);
-//    $.cookie.json = true;
-//    var cart = $.cookie('cart');
-//    alert(cart);
-//    if (cart != undefined) {
-//        var index = cart.indexOf(parseInt(productId));
-//        alert(index);
-//        if (index > -1) {
-//            cart.splice(index, 1);
-//            $.cookie('cart', cart, { expires: 2 });
-//        }
-//    }   
-//}
+function removeFromCookie(rowIndex) {
+    var productId = $("[name='order.OrderItems[" + rowIndex + "].Product_Id']").val();
+    $.cookie.json = true;
+    var cart = $.cookie('cart');
+    if (cart != undefined) {
+        var index = cart.indexOf(parseInt(productId));
+        if (index > -1) {
+            cart.splice(index, 1);
+            $.cookie('cart', cart, { expires: 2 });
+        }
+    }
+}
 
 function changeElementsId() {
-    var noOfProducts = $("[name^='txtQTY_']").each(function (i) {
-        currentRowIndex = $(this).attr("name").replace("txtQTY_", "");
+    $("[id^='trCartItemDetails_']").each(function (i) {
+        currentRowIndex = $(this).attr("id").replace("trCartItemDetails_", "");
 
         $("#trCartItemDetails_" + currentRowIndex).attr("id", "trCartItemDetails_" + i);
 
@@ -92,16 +89,27 @@ function placeOrder() {
 
     var noOfProducts = $("[id^='trCartItemDetails_']").size();
 
-    alert(noOfProducts);
+    //alert(noOfProducts);
 
     if (noOfProducts > 0) {
 
-        $("#frmPlaceOrder").attr("action", "/Product/SaveOrder");
+        if ($("#frmPlaceOrder").valid()) {
 
-        $("#frmPlaceOrder").attr("method", "POST");
+            $("#frmPlaceOrder").attr("action", "/Product/SaveOrder");
 
-        $("#frmPlaceOrder").submit();
+            $("#frmPlaceOrder").attr("method", "POST");
+
+            $("#frmPlaceOrder").submit();
+        }
 
     }
 }
 
+function continueShopping() {
+
+    $("#frmPlaceOrder").attr("action", "/Dashboard/Index");
+
+    $("#frmPlaceOrder").attr("method", "POST");
+
+    $("#frmPlaceOrder").submit();
+}

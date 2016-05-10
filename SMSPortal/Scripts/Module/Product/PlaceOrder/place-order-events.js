@@ -1,14 +1,12 @@
 ﻿$(document).ready(function () {
 
-    //$("[name^='txtQTY_']").each(function () {
-    //    alert($(this).attr("name"));
-    //    $("[name='" + $(this).attr("name") + "']").rules("add", "required");
-    //    $("[name='" + $(this).attr("name") + "']").rules("add", "number");
-    //});
+    $("[id^='trCartItemDetails_']").each(function (i) {
 
-    //$(".quantity").change(function () {
-    //    alert($(this).closest(".product-price").val());
-    //    $(this).hasClass("")
-    //});
+        $("[name='order.OrderItems[" + i + "].Product_Quantity']").rules("add", "required");
+        $("[name='order.OrderItems[" + i + "].Product_Quantity']").rules("add", "number");
+        $("[name='order.OrderItems[" + i + "].Product_Quantity']").rules("add", { noDecimal: true });
+
+        i++;
+    });
 
 });

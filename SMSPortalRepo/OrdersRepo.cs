@@ -24,7 +24,7 @@ namespace SMSPortalRepo
 
         }
 
-        public void Insert_Orders(OrdersInfo orders)
+        public int Insert_Orders(OrdersInfo orders)
         {
             int orderId = _sqlRepo.ExecuteNonQuery(Set_Values_In_Orders(orders), StoreProcedures.Insert_Orders_Sp.ToString(), CommandType.StoredProcedure, "@Order_Id");
 
@@ -37,6 +37,8 @@ namespace SMSPortalRepo
                 orderItem.Updated_On = orders.Updated_On;                
                 _sqlRepo.ExecuteNonQuery(Set_Values_In_Order_Item(orderItem), StoreProcedures.Insert_Order_Item_Sp.ToString(), CommandType.StoredProcedure);
             }
+
+            return orderId;
         }
 
         //public void Update_Orders(OrdersInfo orders)
@@ -57,7 +59,7 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Vat", orders.Vat));
             sqlParams.Add(new SqlParameter("@Swatch_Bharat_Tax", orders.Swatch_Bharat_Tax));
             sqlParams.Add(new SqlParameter("@Net_Amount", orders.Net_Amount));
-            sqlParams.Add(new SqlParameter("@Status", orders.Status));
+            sqlParams.Add(new SqlParameter("@Status", Convert.ToString(orders.Status)));
             sqlParams.Add(new SqlParameter("@Shipping_Date", orders.Shipping_Date));
             sqlParams.Add(new SqlParameter("@Created_On", orders.Created_On));
             sqlParams.Add(new SqlParameter("@Created_By", orders.Created_By));

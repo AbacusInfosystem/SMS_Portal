@@ -365,7 +365,8 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "4", "15", "Orders");
+
+                pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "5", "15", "Orders");
                 pViewModel.order.Order_Date = DateTime.Now;
                 pViewModel.order.Status = Convert.ToString(Convert.ToInt32(OrderStatus.Order_Received));
                 pViewModel.order.Shipping_Date = DateTime.Now.AddDays(7);
@@ -373,7 +374,11 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.order.Created_On = DateTime.Now;
                 pViewModel.order.Updated_By = pViewModel.Cookies.User_Id;
                 pViewModel.order.Updated_On = DateTime.Now;
-                _OrdersManager.Insert_Orders(pViewModel.order);
+
+
+                int orderId = _OrdersManager.Insert_Orders(pViewModel.order);
+
+
             }
             catch (Exception ex)
             {

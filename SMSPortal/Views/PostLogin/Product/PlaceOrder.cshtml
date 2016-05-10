@@ -1,8 +1,8 @@
 ﻿@model SMSPortal.Models.PostLogin.ProductViewModel
 
-<script src="~/Scripts/Module/Product/PlaceOrder/place-order-events.js"></script>
 <script src="~/Scripts/Module/Product/PlaceOrder/place-order-methods.js"></script>
 <script src="~/Scripts/Module/Product/PlaceOrder/place-order-validations.js"></script>
+<script src="~/Scripts/Module/Product/PlaceOrder/place-order-events.js"></script>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -81,21 +81,21 @@
                                             <tr>
                                                 <td colspan="3" align="right">
                                                     <b>Gross Payable Amount: ₹ <span id="spanAmountPayable">@Html.Raw(string.Format("{0:#,#.00}", totalProductPrice))</span></b>
-                                                    <input type="hidden" id="hdnGrossPayableAmount" name="order.Gross_Amount" />
+                                                    <input type="hidden" id="hdnGrossPayableAmount" name="order.Gross_Amount" value="@totalProductPrice" />
                                                 </td>
                                                 <td></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" align="right">
                                                     <b>Taxes: ₹ <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", tax))</span></b>
-                                                    <input type="hidden" id="hdnTaxes" name="order.Service_Tax" />
+                                                    <input type="hidden" id="hdnTaxes" name="order.Service_Tax" value="@tax" />
                                                 </td>
                                                 <td></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" align="right">
                                                     <b>Net Payable Amount: ₹ <span id="spanNetPayableAmount">@Html.Raw(string.Format("{0:#,#.00}", netAmount))</span></b>
-                                                    <input type="hidden" id="hdnNetPayableAmount" name="order.Net_Amount" />
+                                                    <input type="hidden" id="hdnNetPayableAmount" name="order.Net_Amount" value="@netAmount" />
                                                 </td>
                                                 <td></td>
                                             </tr>
