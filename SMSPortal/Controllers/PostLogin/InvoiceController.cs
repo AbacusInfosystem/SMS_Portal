@@ -44,7 +44,20 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult ViewInvoice(InvoiceViewModel iViewModel)
         {
+            try
+            {
+                if (TempData["iViewModel"] != null)
+                {
+                    iViewModel = (InvoiceViewModel)TempData["iViewModel"];
+                }
+            }
+            catch (Exception ex)
+            {
+                iViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Error at InvoiceController at method ViewInvoice " + ex);
+            }
             return View("ViewInvoice", iViewModel);
+
         }
 
         public ActionResult Get_Invoice_By_Id(InvoiceViewModel iViewModel)
@@ -133,13 +146,14 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
                _invoiceManager.Send_Invoice_Email(iViewModel.Dealer.Email, iViewModel.Invoice, iViewModel.Order,iViewModel.Dealer);
-                
+               iViewModel.Friendly_Message.Add(MessageStore.Get("IO001"));
             }
             catch (Exception ex)
             {
                 Logger.Error("Error At Invoice_Controller - Send_Mail " + ex.ToString());
             }
-            return View(iViewModel);
+            TempData["iViewModel"] = iViewModel;
+            return RedirectToAction("Search", iViewModel);
         
         }
 
