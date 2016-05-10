@@ -101,7 +101,7 @@ namespace SMSPortalRepo
              sqlParams.Add(new SqlParameter("@Email_Id", users.Email_Id));
              sqlParams.Add(new SqlParameter("@Gender", users.Gender));
              sqlParams.Add(new SqlParameter("@User_Name", users.User_Name));
-             sqlParams.Add(new SqlParameter("@Password", "ABCD"));
+             sqlParams.Add(new SqlParameter("@Password", users.Password));
              sqlParams.Add(new SqlParameter("@Entity_Id", users.Entity_Id));
              sqlParams.Add(new SqlParameter("@Role_Id", users.Role_Id));
              sqlParams.Add(new SqlParameter("@Pass_Token", users.Pass_Token));
@@ -296,10 +296,11 @@ namespace SMSPortalRepo
              return autoList;
          }
 
-         public UserInfo Get_User_By_Entity_Id(int Entity_Id)
+         public UserInfo Get_User_By_Entity_Id(int entity_Id,int role_Id)
          {
              List<SqlParameter> parameters = new List<SqlParameter>();
-             parameters.Add(new SqlParameter("@Entity_Id", Entity_Id));
+             parameters.Add(new SqlParameter("@Entity_Id", entity_Id));
+             parameters.Add(new SqlParameter("@Role_Id", role_Id));
              UserInfo user = new UserInfo();
              DataTable dt = _sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Users_By_Entity_Id_Sp.ToString(), CommandType.StoredProcedure);
              foreach (DataRow dr in dt.Rows)

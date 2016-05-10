@@ -91,9 +91,6 @@
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
@@ -209,7 +206,6 @@
     <Compile Include="Controllers\PostLogin\UserController.cs" />
     <Compile Include="Controllers\PostLogin\VendorController.cs" />
     <Compile Include="Controllers\PreLogin\LoginController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -947,6 +943,8 @@
     <Content Include="Content\fonts\FontAwesome.otf" />
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.woff" />
+    <Content Include="Log4Net.config" />
+    <None Include="Properties\PublishProfiles\SMS.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\logo.png" />
     <Content Include="Scripts\additional-methods.min.js" />
@@ -962,6 +960,8 @@
     <Content Include="Scripts\jquery-ui-1.11.2.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.number.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -1009,6 +1009,14 @@
     <Content Include="Scripts\Module\Payables\payable_validation.js" />
     <Content Include="Scripts\Module\Payables\search_payable_event.js" />
     <Content Include="Scripts\Module\Payables\search_payable_method.js" />
+    <Content Include="Scripts\Module\Product\Category\category-events.js" />
+    <Content Include="Scripts\Module\Product\index_events.js" />
+    <Content Include="Scripts\Module\Product\index_methods.js" />
+    <Content Include="Scripts\Module\Product\PlaceOrder\place-order-events.js" />
+    <Content Include="Scripts\Module\Product\PlaceOrder\place-order-methods.js" />
+    <Content Include="Scripts\Module\Product\PlaceOrder\place-order-validations.js" />
+    <Content Include="Scripts\Module\Product\ProductList\product-list-events.js" />
+    <Content Include="Scripts\Module\Product\ProductList\product-list-methods.js" />
     <Content Include="Scripts\Module\Product\product_image_methods.js" />
     <Content Include="Scripts\Module\Product\Product_validation.js" />
     <Content Include="Scripts\Module\Product\Product_events.js" />
@@ -1016,7 +1024,7 @@
     <Content Include="Scripts\Module\Product\search_product_events.js" />
     <Content Include="Scripts\Module\Product\search_product_methods.js" />
     <Content Include="Scripts\Module\Product\Product_method.js" />
-    <Content Include="Scripts\Module\PurchaseOrder\PurchaseOrder_events.js" />
+    <Content Include="Scripts\Module\Product\SubCategory\sub-category-events.js" />
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_events.js" />
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_methods.js" />
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_validation.js" />
@@ -1026,6 +1034,9 @@
     <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
     <Content Include="Scripts\Module\SalesOrder\Invoice_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\my_order_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\sales_my_order_events.js" />
+    <Content Include="Scripts\Module\SalesOrder\sales_my_order_methods.js" />
     <Content Include="Scripts\Module\SalesOrder\sales_order_events.js" />
     <Content Include="Scripts\Module\SalesOrder\sales_order_methods.js" />
     <Content Include="Scripts\Module\SalesOrder\search_sales_order_events.js" />
@@ -1035,6 +1046,7 @@
     <Content Include="Scripts\Module\SubCategory\subcategory_events.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_methods.js" />
     <Content Include="Scripts\Module\SubCategory\subcategory_validation.js" />
+    <Content Include="Scripts\Module\Tax\tax_validation.js" />
     <Content Include="Scripts\Module\Tax\Tax_events.js" />
     <Content Include="Scripts\Module\Tax\Tax_mthod.js" />
     <Content Include="Scripts\Module\User\reset_password.js" />
@@ -1043,7 +1055,9 @@
     <Content Include="Scripts\Module\User\user_events.js" />
     <Content Include="Scripts\Module\User\user_method.js" />
     <Content Include="Scripts\Module\User\user_validation.js" />
+    <Content Include="Scripts\Module\Vendor\search_order_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_events.js" />
+    <Content Include="Scripts\Module\Vendor\search_order_vendor_methods.js" />
     <Content Include="Scripts\Module\Vendor\search_vendor_methods.js" />
     <Content Include="Scripts\Module\Receivable\search_receivable_event.js" />
     <Content Include="Scripts\Module\Receivable\search_receivable_method.js" />
@@ -1057,6 +1071,7 @@
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_validation.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_order_details_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_receivable_method.js" />
     <Content Include="Scripts\Module\Vendor\vendor_validation.js" />
@@ -1069,12 +1084,10 @@
     <Content Include="UploadedFiles\0_Penguins.jpg" />
     <Content Include="UploadedFiles\1_Penguins.jpg" />
     <Content Include="UploadedFiles\Chrysanthemum.jpeg" />
-    <Content Include="UploadedFiles\Desert.jpg" />
     <Content Include="UploadedFiles\Jellyfish.jpg" />
     <Content Include="UploadedFiles\Lighthouse.jpg" />
     <Content Include="UploadedFiles\no-image.png" />
     <Content Include="UploadedFiles\P1_Desert.jpg" />
-    <Content Include="UploadedFiles\P1_Hydrangeas.jpg" />
     <Content Include="UploadedFiles\P1_Koala.jpg" />
     <Content Include="UploadedFiles\P1_Penguins.jpg" />
     <Content Include="UploadedFiles\P1_Tulips.jpg" />
@@ -1134,7 +1147,6 @@
     <Content Include="Views\PostLogin\Vendor\AddProductMapping.cshtml" />
     <Content Include="Views\PostLogin\User\Index.cshtml" />
     <Content Include="Views\PostLogin\User\Search.cshtml" />
-    <Content Include="Views\PostLogin\PurchaseOrder\Index.cshtml" />
     <Content Include="Views\PostLogin\PurchaseOrder\Search.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\Index.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\Search.cshtml" />
@@ -1172,6 +1184,11 @@
     <Content Include="Views\PostLogin\Dashboard\_VendorWidgets.cshtml" />
     <Content Include="Views\PostLogin\PurchaseOrder\AddEdit_Purchase_Order.cshtml" />
     <Content Include="Views\PostLogin\Tax\Index.cshtml" />
+    <Content Include="Views\PostLogin\Product\Index.cshtml" />
+    <Content Include="Views\PostLogin\Product\_Categories.cshtml" />
+    <Content Include="Views\PostLogin\Product\_ProductList.cshtml" />
+    <Content Include="Views\PostLogin\Product\_SubCategories.cshtml" />
+    <Content Include="Views\PostLogin\Product\PlaceOrder.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Dealer_Detail.cshtml" />
     <Content Include="Views\PostLogin\Product\_Product_Excel_Upload.cshtml" />
     <Content Include="Views\PreLogin\Login\Reset_Password.cshtml" />
@@ -1182,6 +1199,9 @@
     <Content Include="Views\PostLogin\Vendor\Update_Profile.cshtml" />
     <Content Include="Views\PostLogin\Brand\Update_Profile.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Update_Profile.cshtml" />
+    <Content Include="Views\PostLogin\Dealer\My_Orders.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\My_Order_Details.cshtml" />
+    <Content Include="Views\Shared\_ConfirmDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

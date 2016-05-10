@@ -23,9 +23,11 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public void Insert_Invoice(InvoiceInfo invoice)
+        public int Insert_Invoice(InvoiceInfo invoice,int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Invoice(invoice), StoreProcedures.Insert_Invoice_Sp.ToString(), CommandType.StoredProcedure);
+            int invoiceid = 0;
+            invoiceid= Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Invoice(invoice,user_id), StoreProcedures.Insert_Invoice_Sp.ToString(), CommandType.StoredProcedure));
+            return invoiceid;
         }
 
         //public void Update_Invoice(InvoiceInfo invoice)
@@ -33,18 +35,21 @@ namespace SMSPortalRepo
         //    _sqlRepo.ExecuteNonQuery(Set_Values_In_Invoice(invoice), StoreProcedures.Update_Invoice_Sp.ToString(), CommandType.StoredProcedure);
         //}
 
-        private List<SqlParameter> Set_Values_In_Invoice(InvoiceInfo invoice)
+        private List<SqlParameter> Set_Values_In_Invoice(InvoiceInfo invoice,int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-            sqlParams.Add(new SqlParameter("@Invoice_Id", invoice.Invoice_Id));
+            if (invoice.Invoice_Id != 0)
+            {
+                sqlParams.Add(new SqlParameter("@Invoice_Id", invoice.Invoice_Id));
+            }
             sqlParams.Add(new SqlParameter("@Order_Id", invoice.Order_Id));
             sqlParams.Add(new SqlParameter("@Invoice_No", invoice.Invoice_No));
-            sqlParams.Add(new SqlParameter("@Invoice_Date", invoice.Invoice_Date));
-            sqlParams.Add(new SqlParameter("@Created_On", invoice.Created_On));
-            sqlParams.Add(new SqlParameter("@Created_By", invoice.Created_By));
-            sqlParams.Add(new SqlParameter("@Updated_On", invoice.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", invoice.Updated_By));
+            sqlParams.Add(new SqlParameter("@Invoice_Date", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Created_By", user_id));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
 
             return sqlParams;
         }
@@ -73,7 +78,6 @@ namespace SMSPortalRepo
             }
             return invoices;
         }
-
 
         public InvoiceInfo Get_Invoice_By_Id(int Invoice_Id)
         {
@@ -122,6 +126,206 @@ namespace SMSPortalRepo
                 }
             }
             return autoList;
+        }
+
+        public DealerInfo Get_Dealer_By_Id(int Dealer_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+            sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
+
+            DealerInfo dealer = new DealerInfo();
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Dealer_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                dealer = Get_Dealer_Values(dr);
+            }
+
+            return dealer;
+        }
+
+        private DealerInfo Get_Dealer_Values(DataRow dr)
+        {
+
+            DealerInfo dealer = new DealerInfo();
+
+            if (!dr.IsNull("Dealer_Id"))
+                dealer.Dealer_Id = Convert.ToInt32(dr["Dealer_Id"]);
+
+            if (!dr.IsNull("Dealer_Name"))
+                dealer.Dealer_Name = Convert.ToString(dr["Dealer_Name"]);
+
+            if (!dr.IsNull("Brand_Id"))
+                dealer.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+
+            if (!dr.IsNull("Brand_Name"))
+                dealer.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+
+            if (!dr.IsNull("Address"))
+                dealer.Address = Convert.ToString(dr["Address"]);
+
+            if (!dr.IsNull("City"))
+                dealer.City = Convert.ToString(dr["City"]);
+
+            if (!dr.IsNull("State"))
+                dealer.State = Convert.ToInt32(dr["State"]);
+
+            dealer.State_Name = Convert.ToString(dr["State_Name"]);
+
+            if (!dr.IsNull("Pincode"))
+                dealer.Pincode = Convert.ToInt32(dr["Pincode"]);
+
+            if (!dr.IsNull("Contact_No_1"))
+                dealer.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
+
+            if (!dr.IsNull("Contact_No_2"))
+                dealer.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
+
+            dealer.Email = Convert.ToString(dr["Email"]);
+
+            dealer.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+
+            dealer.Created_On = Convert.ToDateTime(dr["Created_On"]);
+
+            dealer.Created_By = Convert.ToInt32(dr["Created_By"]);
+
+            dealer.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+
+            dealer.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            return dealer;
+        }
+
+        public OrdersInfo Get_Orders_By_Id(int Order_Id)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Order_Id", Order_Id));
+
+            OrdersInfo order = new OrdersInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Order_By_Id.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                order = Get_Orders_Values(dr);
+            }
+            return order;
+        }
+
+        private OrdersInfo Get_Orders_Values(DataRow dr)
+        {
+            OrdersInfo orders = new OrdersInfo();
+            orders.Order_Id = Convert.ToInt32(dr["Order_Id"]);
+            orders.Order_No = Convert.ToString(dr["Order_No"]);
+            orders.Dealer_Id = Convert.ToInt32(dr["Dealer_Id"]);
+            orders.Dealer_Name = Convert.ToString(dr["Dealer_Name"]);
+            orders.Order_Date = Convert.ToDateTime(dr["Order_Date"]);
+            orders.Shipping_Address = Convert.ToString(dr["Shipping_Address"]);
+            orders.Discount = Convert.ToDecimal(dr["Discount"]);
+            orders.Gross_Amount = Convert.ToDecimal(dr["Gross_Amount"]);
+            orders.Service_Tax = Convert.ToDecimal(dr["Service_Tax"]);
+            orders.Vat = Convert.ToDecimal(dr["Vat"]);
+            orders.Swatch_Bharat_Tax = Convert.ToDecimal(dr["Swatch_Bharat_Tax"]);
+            orders.Net_Amount = Convert.ToDecimal(dr["Net_Amount"]);
+            orders.Status_Id = Convert.ToInt32(dr["Status"]);
+            if (!dr.IsNull("Shipping_Date"))
+                orders.Shipping_Date = Convert.ToDateTime(dr["Shipping_Date"]);
+            if (orders.Status_Id == 1)
+            {
+                //orders.Status = "Order Received";
+            }
+            else if (orders.Status_Id == 2)
+            {
+                //orders.Status = "Order Confirmed";
+            }
+            else if (orders.Status_Id == 3)
+            {
+                //orders.Status = "Order Dispatched";
+            }
+            else
+            {
+                //orders.Status = "Order Delivered";
+            }
+            if (!dr.IsNull("Invoice_Id"))
+                orders.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+            if (!dr.IsNull("Invoice_No"))
+                orders.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+            orders.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            orders.Created_By = Convert.ToInt32(dr["Created_By"]);
+            orders.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            orders.Updated_By = Convert.ToInt32(dr["Updated_By"]);             
+            return orders;
+        }
+
+        public List<OrderItemInfo> Get_Order_Items_By_Order_Id(int Order_Id)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Order_Id", Order_Id));
+
+            List<OrderItemInfo> orderitems = new List<OrderItemInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Order_Items_By_Order_Id.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                orderitems.Add(Get_Order_Item_Values(dr));
+            }
+            return orderitems;
+        }
+
+        private OrderItemInfo Get_Order_Item_Values(DataRow dr)
+        {
+            OrderItemInfo orderitem = new OrderItemInfo();
+            orderitem.Order_Item_Id = Convert.ToInt32(dr["Order_Item_Id"]);
+            orderitem.Order_Id = Convert.ToInt32(dr["Order_Id"]);
+            orderitem.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            orderitem.Product_Name = Convert.ToString(dr["Product_Name"]);
+            orderitem.Product_Quantity = Convert.ToInt32(dr["Product_Quantity"]);
+            orderitem.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            orderitem.Order_Status = Convert.ToString(dr["Order_Status"]);
+            orderitem.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            orderitem.Created_By = Convert.ToInt32(dr["Created_By"]);
+            orderitem.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            orderitem.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            return orderitem;
+        }
+
+        public ProductInfo Get_Product_By_Id(int Product_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Product_Id", Product_Id));
+
+            ProductInfo product = new ProductInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                product = Get_Product_Values(dr);
+            }
+            return product;
+        }
+
+        private ProductInfo Get_Product_Values(DataRow dr)
+        {
+            ProductInfo product = new ProductInfo();
+
+            product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            product.Product_Name = Convert.ToString(dr["Product_Name"]);
+            product.Product_Description = Convert.ToString(dr["Product_Description"]);
+            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+            product.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+            product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+            product.Category_Name = Convert.ToString(dr["Category_Name"]);
+            product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
+            product.SubCategory_Name = Convert.ToString(dr["SubCategory_Name"]);
+            product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
+            product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+            product.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            product.Created_By = Convert.ToInt32(dr["Created_By"]);
+            product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return product;
         }
 
         public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order, DealerInfo Dealer)
@@ -258,19 +462,20 @@ namespace SMSPortalRepo
             int count = 0;
             if (Order != null)
             {
-                foreach (var item in Order.OrderItems)
+                if (Order.OrderItems != null)
                 {
-                    ProductRepo _productRepo = new ProductRepo();
-                    ProductInfo ProductInfo = _productRepo.Get_Product_By_Id(item.Product_Id);
-
-                    count++;
-                    html.Append("<tr style='background-color:#fff'>");
-                    html.Append("<td>" + count + "</td>");
-                    html.Append("<td style='text-align:center'>" + ProductInfo.Product_Name + "</td>");
-                    html.Append("<td style='text-align:right'>" + item.Product_Quantity + "</td>");
-                    html.Append("<td style='text-align:right'>" + ProductInfo.Product_Price + "</td>");
-                    html.Append("<td style='text-align:right'>" + item.Product_Price + "</td>");
-                    html.Append("</tr>");
+                    foreach (var item in Order.OrderItems)
+                    {
+                        ProductInfo ProductInfo = Get_Product_By_Id(item.Product_Id);
+                        count++;
+                        html.Append("<tr style='background-color:#fff'>");
+                        html.Append("<td>" + count + "</td>");
+                        html.Append("<td style='text-align:center'>" + ProductInfo.Product_Name + "</td>");
+                        html.Append("<td style='text-align:right'>" + item.Product_Quantity + "</td>");
+                        html.Append("<td style='text-align:right'>" + ProductInfo.Product_Price + "</td>");
+                        html.Append("<td style='text-align:right'>" + item.Product_Price + "</td>");
+                        html.Append("</tr>");
+                    }
                 }
             }
 

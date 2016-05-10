@@ -17,7 +17,7 @@
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Purchase Order</li>
+                <li class="active">Purchase Order</li> 
             </ol>
         </section>
 
@@ -41,7 +41,7 @@
                                             <input type="hidden" id="hdnPurchaseOrderId" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
                                             <input type="hidden" id="hdnPurchaseOrderNo" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
                                             <div class="input-group-addon">
-                                                <a href="#" class="text-muted" id="hrefPurchaseOrder" role="button"><i class="fa fa-search"></i></a>
+                                                <a href="#" class="text-muted" id="hrefPurchaseOrder" role="button"><i class="fa fa-server"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -80,6 +80,9 @@
                                     <th></th>
                                     <th>Purchase Order No</th>
                                     <th>Vendor</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    
                                 </tr>                                 
                             </table>
                         </div>

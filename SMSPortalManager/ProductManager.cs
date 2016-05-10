@@ -19,23 +19,34 @@ namespace SMSPortalManager
             _productRepo = new ProductRepo();
         }
 
-        public void Insert_Product(ProductInfo product)
+        public void Insert_Product(ProductInfo product, int user_id)
         {
-            _productRepo.Insert_Product(product);
+            _productRepo.Insert_Product(product,user_id);
         }
 
-        public void Update_Product(ProductInfo product)
+        public void Update_Product(ProductInfo product,int user_id)
         {
-            _productRepo.Update_Product(product);
+            _productRepo.Update_Product(product, user_id);
         }
 
         public List<ProductInfo> Get_Products(ref PaginationInfo Pager)
         {
             return _productRepo.Get_Products(ref Pager);
         }
+
+        public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id)
+        {
+            return _productRepo.Get_Products_By_Dealer_Id(Dealer_Id, Category_Id, Sub_Category_Id);
+        }
+
         public List<ProductInfo> Get_Products_By_Id(int Product_Id,ref PaginationInfo Pager)
         {
             return _productRepo.Get_Products_By_Id(Product_Id, ref Pager);
+        }
+
+        public List<ProductInfo> Get_Products_By_Ids(string ProductIds)
+        {
+            return _productRepo.Get_Products_By_Ids(ProductIds);
         }
 
         public ProductInfo Get_Product_By_Id(int Product_Id)
@@ -52,9 +63,9 @@ namespace SMSPortalManager
             return _productRepo.Get_Product_Images(Product_Id);
         }
 
-        public void Insert_Product_Image(ProductImageInfo productImageInfo)
+        public void Insert_Product_Image(ProductImageInfo productImageInfo,int user_id)
         {
-            _productRepo.Insert_Product_Image(productImageInfo);
+            _productRepo.Insert_Product_Image(productImageInfo, user_id);
         }
 
         public void Delete_Product_Image(int Product_Image_Id)
@@ -62,14 +73,45 @@ namespace SMSPortalManager
             _productRepo.Delete_Product_Image(Product_Image_Id);
         }
 
+        public void Set_Default_Image(int Product_Id, int Product_Image_Id)
+        {
+            _productRepo.Set_Default_Image(Product_Id, Product_Image_Id);
+        }
+
         public List<AutocompleteInfo> Get_Product_Autocomplete(string ProductName)
         {
             return _productRepo.Get_Product_Autocomplete(ProductName);
         }
 
-        public bool Bulk_Excel_Upload_Default(DataTable dt)
+        public List<BrandInfo> Get_Brands()
         {
-            return _productRepo.Bulk_Excel_Upload_Default(dt);
+            return _productRepo.Get_Brands();
         }
+
+        public List<CategoryInfo> Get_Categorys()
+        {
+            return _productRepo.Get_Categorys();
+        }
+
+        public List<SubCategoryInfo> Get_SubCategories_By_CategoryId(int category_Id)
+        {
+            return _productRepo.Get_SubCategories_By_CategoryId(category_Id);
+        }
+
+        public bool Bulk_Excel_Upload_Default(DataTable dt,int user_id)
+        {
+            return _productRepo.Bulk_Excel_Upload_Default(dt,user_id);
+        }
+
+        public List<CategoryInfo> Get_Categories_With_Product_Count(int Dealer_Id)
+        {
+            return _productRepo.Get_Categories_With_Product_Count(Dealer_Id);
+        }
+
+        public List<SubCategoryInfo> Get_Sub_Categories_With_Product_Count(int Category_Id, int Dealer_Id)
+        {
+            return _productRepo.Get_Sub_Categories_With_Product_Count(Category_Id, Dealer_Id);
+        }
+
     }
 }

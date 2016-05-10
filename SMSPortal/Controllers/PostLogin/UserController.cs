@@ -33,11 +33,13 @@ namespace SMSPortal.Controllers.PostLogin
         [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(UserViewModel uViewModel)
         {
+            FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
+            uViewModel.Friendly_Message.Add(ms);
             try
             {
-                if (TempData["userViewMessage"] != null)
+                if (TempData["Freindly_Message"] != null)
                 {
-                    uViewModel = (UserViewModel)TempData["userViewMessage"];
+                    uViewModel = (UserViewModel)TempData["Freindly_Message"];
                 }
             }
             catch (Exception ex)
@@ -55,6 +57,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pager = uViewModel.Pager;
+
                 if (uViewModel.Filter.User_Id != 0)
                 {
                     uViewModel.Users = _userMan.Get_Users_By_User_Id_List(uViewModel.Filter.User_Id, ref pager);
@@ -63,7 +66,9 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     uViewModel.Users = _userMan.Get_Users(ref pager);
                 }
+
                 uViewModel.Pager = pager;
+
                 uViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", uViewModel.Pager.TotalRecords, uViewModel.Pager.CurrentPage + 1, uViewModel.Pager.PageSize, 10, true);
 
             }
@@ -81,19 +86,29 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                if (TempData["Entity_Id"] != null)
+                if (TempData["Entity_Id"] != null && TempData["Role_Id"] != null)
                 {
-                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"]);
+                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"], (int)TempData["Role_Id"]);
+
                     if (uViewModel.User.User_Id == 0)
                     {
                         uViewModel.User.Role_Id = (int)TempData["Role_Id"];
+
                         uViewModel.User.Entity_Id = (int)TempData["Entity_Id"];
                     }
-                }          
+                   
+                } 
+                else
+                  {
+                       uViewModel.User.Role_Id = 1;
+
+                       uViewModel.User.Entity_Id = 0;
+                  }
+         
             }
             catch (Exception ex)
             {
-                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
                 Logger.Error("Error At User Controller - Index " + ex);
             }
 
@@ -109,7 +124,8 @@ namespace SMSPortal.Controllers.PostLogin
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 uViewModel.User.Pass_Token = Utility.Generate_Token();
-
+                uViewModel.User.Password = "ABCD";
+                uViewModel.User.Password = Utility.Encrypt(uViewModel.User.Password);
                 _userMan.Insert_Users(uViewModel.User , uViewModel.Cookies.User_Id);
 
                 link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken="+ uViewModel.User.Pass_Token;
@@ -125,9 +141,9 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error At User Controller - Insert " + ex);
             }
 
-            TempData["userViewMessage"] = uViewModel;
+            TempData["Friendly_Message"] = MessageStore.Get("UM001");
 
-            if(uViewModel.User.Role_Id==Convert.ToInt32(RolesIds.Vendor))
+            if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
             {
                 return RedirectToAction("Search", "Vendor");
             }
@@ -163,8 +179,25 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error At User_Controller - Update_User " + ex);
             }
 
-            TempData["userViewMessage"] = uViewModel;
-            return RedirectToAction("Search");
+
+            TempData["Friendly_Message"] = MessageStore.Get("UM002");
+           
+            if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+            {
+                return RedirectToAction("Search", "Vendor");
+            }
+            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Brand))
+            {
+                return RedirectToAction("Search", "Brand");
+            }
+            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+            {
+                return RedirectToAction("Search", "Dealer");
+            }
+            else
+            {
+                return RedirectToAction("Search");
+            }
         }
 
         public JsonResult Check_Existing_User(string user_Name)
@@ -189,11 +222,13 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 uViewModel.User = _userMan.Get_User_By_Id(uViewModel.User.User_Id);
+
                 uViewModel.Roles = _userMan.Get_Roles();              
             }
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error At User Controller - Get_User_By_Id " + ex);
             }
 

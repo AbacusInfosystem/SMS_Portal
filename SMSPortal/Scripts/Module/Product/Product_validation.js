@@ -38,7 +38,7 @@
             },
             "Product.SubCategory_Id":
             {
-                required: "Product Percentage Share is required"
+                required: "SubCategory is required"
                  
             },
             "Product.Brand_Id":

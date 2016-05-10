@@ -2,6 +2,7 @@
 
     $("#btnAdd").click(function ()
     {
+       
         if ($("#frmPurchaseOrderMaster").valid())
         {
             Save_Purchase_Order_Items();
@@ -10,7 +11,6 @@
 
     $("#txtShippingDate").datepicker({
         autoclose: true,
-        startDate: '-6m',
         enddate: null,
     });
 

@@ -32,6 +32,7 @@ namespace SMSPortalManager
         {
             return _subcategoryRepo.Get_SubCategories_By_CategoryId(Category_Id);
         }
+
         public void Insert_Sub_Category(SubCategoryInfo subcategory,int user_Id)
         {
             _subcategoryRepo.Insert_Sub_Category(subcategory, user_Id);
@@ -57,9 +58,6 @@ namespace SMSPortalManager
             return _subcategoryRepo.Check_Existing_SubCategory(subcategory);
         }
 
-        public int Get_SubCategory_Id_By_Name(int Category_Id, string Subcategory_Name)
-        {
-            return _subcategoryRepo.Get_SubCategory_Id_By_Name(Category_Id, Subcategory_Name);
-        }
+         
     }
 }

@@ -6,7 +6,7 @@
             "Vendor.Vendor_Name":
                {
                    required: true,
-                   validate_Vendor_Exist: true
+                  // validate_Vendor_Exist: true
                },
             "Vendor.Address":
                 {
@@ -23,14 +23,17 @@
             "Vendor.Pincode":
                 {
                     required: true,
+                    digits : true
                 },
             "Vendor.Contact_No_1":
                 {
                     required: true,
+                    digits : true
                 },
             "Vendor.Contact_No_2":
                 {
                     required: true,
+                    digits : true
                 },
             "Vendor.Email":
                 {
@@ -60,14 +63,17 @@
             "Vendor.Pincode":
                 {
                     required: "Pincode is required",
+                    digits : "Enter digits"
                 },
             "Vendor.Contact_No_1":
                 {
                     required: "Contact no 1 is required",
+                    digits : "Enter digits"
                 },
             "Vendor.Contact_No_2":
                 {
                     required: "Contact no 2 required",
+                    digits : "Enter digits"
                 },
             "Vendor.Email":
                 {

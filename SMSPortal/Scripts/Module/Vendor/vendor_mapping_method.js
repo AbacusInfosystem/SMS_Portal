@@ -18,7 +18,17 @@
           }
       });
 }
+
+
 function Bind_Vendor_Product_Grid(data) {
+
+    $('.form-control_new').hide(); // on default, hide textbox
+    $('.chkstatus').click(function () {
+        var checked_status = this.checked;
+        if (checked_status == true) {
+            $(".form-control_new").show();
+        }
+    });
 
     var product_Ids = "";
     if (data.Products.length > 0)
@@ -42,9 +52,13 @@ function Bind_Vendor_Product_Grid(data) {
 
             htmlText += "<img width='100' height='100' id='ProductImg1' src='/UploadedFiles/" + data.Products[i].Product_Image + "'/></br>";
 
-            htmlText += "< label  " + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + " </br>";
+            //htmlText += "< label  " + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + " </br>";
 
-            htmlText += "< label  " + data.Products[i].Product_Price == null ? "" : data.Products[i].Product_Price + " </br>";
+            htmlText += "<label style='text-align:center'>" + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + "</label></br>";
+
+            //htmlText += "< label  " + data.Products[i].Product_Price == null ? "" : data.Products[i].Product_Price + " </br>";
+
+            htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.Products[i].Product_Price == 0 ? '' : data.Products[i].Product_Price) + "'>";
         
             
             var id = data.Products[i].Product_Id;
@@ -57,8 +71,10 @@ function Bind_Vendor_Product_Grid(data) {
             {
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
             }
-         
+            
             htmlText += "<input type='hidden' id='hd_Productid" + i + "' name='Products[" + i + "].Product_id' value='" + data.Products[i].Product_Id + "'>";
+           
+
            
             htmlText += "</td>";
  
@@ -90,8 +106,10 @@ function Bind_Vendor_Product_Grid(data) {
     $('input:not(.non-iCheck input:checkbox)').iCheck({
         checkboxClass: 'icheckbox_square-green_new',
         radioClass: 'iradio_square-green_new',
-        increaseArea: '20%' // optional
+        increaseArea: '20%', // optional
     });
+
+
 
     if (data.Products.length > 0) {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);

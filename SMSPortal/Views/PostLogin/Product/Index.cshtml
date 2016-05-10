@@ -1,0 +1,55 @@
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel
+@using SMSPortal.Common;
+
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/Module/Product/index_methods.js"></script>
+<script src="~/Scripts/Module/Product/index_events.js"></script>
+
+<form id="frmProductIndex" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-primary" id="Categories">
+                </div>
+                <div class="panel panel-primary" id="SubCategories">
+                </div>
+            </div>
+            <div class="col-md-9">
+
+                <div class="row">
+
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-addon input-sm">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </span>
+                            <input class="form-control" type="text" placeholder="Search Product" id="txtProductName" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        @*<button type="button" class="btn btn-primary pull-left">Search</button>*@
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-info pull-right" id="btnViewCart">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Cart
+                            <span id="CartItemCount" class="badge"></span>
+                        </button>
+                        <input type="hidden" id="hdnProductIds" name="ProductIds" />
+                    </div>
+
+                </div>
+
+                <br />
+
+                <div class="panel panel-primary" id="ProductList">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

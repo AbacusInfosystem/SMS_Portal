@@ -83,6 +83,32 @@
 
     });
 
+    $('[name="productimage"]').on('ifChanged', function () {
+        if ($(this).prop('checked'))
+        {
+            var Product_Id = $('#hdProduct_Id').val();
+            var product_image_id = this.id.replace("r1_", "");
+            var param = { Product_Image_Id: product_image_id, Product_Id: Product_Id }
+
+            $.ajax({
+                url: '/product/set-default-image',
+                type: "Post",
+                data: param,
+                success: function (response) {
+
+                    $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: Product_Id }, call_back);
+                },
+                error: function (err) {
+
+                    alert(err.statusText);
+                }
+            });
+        }
+    });
+
+
+
+
     InitializeAutoComplete($('#txtProduct_Name'));
     $('#hdfCurrentPage').val(0);
     Search_Products();
@@ -92,6 +118,7 @@
         $("#frmProduct").attr("method", "post");
         $("#frmProduct").submit();
     });
+
 
     $("#btnSearch").click(function () {
         Search_Products();

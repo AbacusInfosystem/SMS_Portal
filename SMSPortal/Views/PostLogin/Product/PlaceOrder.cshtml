@@ -1,0 +1,130 @@
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel
+
+<script src="~/Scripts/Module/Product/PlaceOrder/place-order-methods.js"></script>
+<script src="~/Scripts/Module/Product/PlaceOrder/place-order-validations.js"></script>
+<script src="~/Scripts/Module/Product/PlaceOrder/place-order-events.js"></script>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Cart
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li class="active">Admin</li>
+                <li class="active">Brand</li>
+            </ol>*@
+    </section>
+    <form id="frmPlaceOrder">
+        <section class="content">
+            <div class="box box-primary">
+                <div class="container">
+                    <div id="dvHiddenElements">
+                        <input type="hidden" id="hdnDealerId" name="order.Dealer_Id" value="@Model.dealer.Dealer_Id" />
+                        <input type="hidden" id="hdnDealerAddress" name="order.Shipping_Address" value="@Model.dealer.Address" />
+                        <input type="hidden" id="hdnLocalTax" value="@Model.tax.Local_Tax" />
+                        <input type="hidden" id="hdnExportTax" value="@Model.tax.Export_Tax" />
+                        <input type="hidden" id="hdnStateName" value="@Model.state.State_Name" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-solid">
+                                <div class="box-body table-responsive no-padding">
+                                    <table class="table table-striped" id="tblCartItemDetails">
+                                        <thead>
+                                            <tr id="subhead">
+                                                <th width="40%">ITEM</th>
+                                                <th width="10%">QUANTITY</th>
+                                                <th width="30%" style="text-align:right">PRICE</th>
+                                                <th width="20%" style="text-align:center">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int i = 0;
+                                                decimal totalProductPrice = 0, tax = 0, netAmount = 0;
+
+                                                foreach (var item in Model.Products)
+                                                {
+                                                    <tr class="bd-row" id="trCartItemDetails_@i">
+                                                        <td>
+                                                            @item.Product_Name <br />
+                                                            @item.Product_Description
+                                                            <input type="hidden" name="order.OrderItems[@i].Product_Id" value="@item.Product_Id" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="order.OrderItems[@i].Product_Quantity" onchange="changeProductPrice(@i)" class="form-control" value="1" />
+                                                        </td>
+                                                        <td align="right">
+                                                            <span id="spanProduct_Price_@i">@Html.Raw(string.Format("{0:#,#.00}", item.Product_Price))</span>
+                                                            <input type="hidden" name="order.OrderItems[@i].Product_Price" value="@item.Product_Price" />
+                                                            <input type="hidden" id="hdnSingle_Product_Price_@i" value="@item.Product_Price" />
+                                                        </td>
+                                                        <td align="center">
+                                                            <button type="button" id="btnDelete_Cart_Item_@i" onclick="deleteCartItem(@i)" class="btn btn-box-tool btn-bd-delete">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    totalProductPrice = totalProductPrice + item.Product_Price;
+                                                    i = i + 1;
+                                                }
+
+                                                if (Model.state.State_Name == "MAHARASHTRA")
+                                                {
+                                                    tax = (totalProductPrice * Model.tax.Local_Tax) / 100;
+                                                }
+
+                                                netAmount = totalProductPrice + tax;
+                                            }
+
+                                            <tr>
+                                                <td colspan="3" align="right">
+                                                    <b>Gross Payable Amount: ₹ <span id="spanAmountPayable">@Html.Raw(string.Format("{0:#,#.00}", totalProductPrice))</span></b>
+                                                    <input type="hidden" id="hdnGrossPayableAmount" name="order.Gross_Amount" value="@totalProductPrice" />
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" align="right">
+                                                    <b>Taxes: ₹ <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", tax))</span></b>
+                                                    <input type="hidden" id="hdnTaxes" name="order.Service_Tax" value="@tax" />
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" align="right">
+                                                    <b>Net Payable Amount: ₹ <span id="spanNetPayableAmount">@Html.Raw(string.Format("{0:#,#.00}", netAmount))</span></b>
+                                                    <input type="hidden" id="hdnNetPayableAmount" name="order.Net_Amount" value="@netAmount" />
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="btnContinueShopping" class="btn btn-primary" onclick="continueShopping()">
+                                Continue Shopping
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="btnPlaceOrder" class="btn btn-primary pull-right" onclick="placeOrder()">
+                                Place Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <br />
+
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

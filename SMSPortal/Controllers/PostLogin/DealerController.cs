@@ -42,16 +42,21 @@ namespace SMSPortal.Controllers.PostLogin
                     dViewModel = (DealerViewModel)TempData["dViewModel"];
                 }
 
+                FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
+                dViewModel.Friendly_Message.Add(ms);
+
                 dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 if (dViewModel.Cookies.Role_Id == 1)
                 {
                     dViewModel.Filter.Brand_Id = 0;
+                    dViewModel.Is_Brand = "False";
                 }
 
                 else
                 {
                     dViewModel.Filter.Brand_Id = dViewModel.Cookies.Entity_Id;
+                    dViewModel.Is_Brand = "True";
                 }
 
             }
@@ -348,6 +353,26 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return RedirectToAction("Profile");
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult My_Orders(SalesOrderViewModel sViewModel)
+        {
+            try
+            {
+                sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                sViewModel.Dealer.Dealer_Id = sViewModel.Cookies.Entity_Id;
+
+            }
+            catch (Exception ex)
+            {
+                sViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Dealer controller - My_Orders " + ex);
+            }
+
+            return View("My_Orders", sViewModel);
         }
     }
 }

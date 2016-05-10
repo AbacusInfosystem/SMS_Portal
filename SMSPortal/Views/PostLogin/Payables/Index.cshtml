@@ -99,7 +99,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <option value="@item.Key">@item.Value</option>
+                                                    <option value="@item.Key">@item.Value</option>  
                                                 }
                                             }
                                         </select>
@@ -112,6 +112,7 @@
                                     <div class="form-group">
                                         <label style="color: #333">Amount</label>
                                         <input type="text" class="form-control input-sm" name="Payable.Payable_Item_Amount" id="txtPayable_Item_Amount" placeholder="Enter Amount" value="@(Model.Payable.Payable_Item_Amount == 0 ? "" : Model.Payable.Payable_Item_Amount.ToString())"  maxlength="20">
+                                        <input type="hidden" class="form-control input-sm" name="" id="hdnPayable_Item_Amount" placeholder="Enter Amount" value="0" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +277,7 @@
         <div class="col-md-2">
             <div class="form-group">
                 <label style="color: #333">IFSC Code</label>
-                <input type="text" class="form-control input-sm" name="Payable.IFSC_Code" id="txtIFSCCode" placeholder="Enter IFSC Code" value="@Model.Payable.IFSC_Code" ma maxlength="20">
+                <input type="text" class="form-control input-sm" name="Payable.IFSC_Code" id="txtIFSCCode" placeholder="Enter IFSC Code" value="@Model.Payable.IFSC_Code"  maxlength="15">
             </div>
         </div>
 
@@ -290,7 +291,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label style="color: #333">NEFT</label>
-                <input type="text" class="form-control input-sm" name="Payable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Payable.NEFT"  maxlength="20">
+                <input type="text" class="form-control input-sm" name="Payable.NEFT" id="txtNEFT" placeholder="Enter NEFT Details" value="@Model.Payable.NEFT"  maxlength="15">
             </div>
         </div>
     </div>

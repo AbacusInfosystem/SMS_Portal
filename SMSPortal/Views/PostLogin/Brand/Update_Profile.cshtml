@@ -42,8 +42,13 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label style="color: #333">Brand Category</label>
-                                                    <select id="drpBrand_Category" class="form-control" name="Brand.Brand_Category">
+                                                    @*<label style="color: #333">brand c</label>
+                                                    <input type="hidden" id="hdnBrand_Category" value="@Model.Brand.Brand_Category">*@
+                                                    <label style="color:#333">Braand Category</label>
+                                                    <label style="color: #333;font-size:12px" value="@Model.Brand.Brand_Category_Name">@Model.Brand.Brand_Category_Name</label>
+                                                    <input type="hidden" id="hdnBrand_Category" name="Brand.Brand_Category" value="@Model.Brand.Brand_Category">
+
+                                                    @*<select disabled id="drpBrand_Category" class="form-control" name="Brand.Brand_Category">
                                                         <option value="">-Select Brand Category-</option>
                                                         @foreach (var item in LookupInfo.Get_Brand_Categories())
                                                         {
@@ -56,7 +61,7 @@
                                                                 <option value="@item.Key">@item.Value</option>
                                                             }
                                                         }
-                                                    </select>
+                                                    </select>*@
 
                                                 </div>
                                             </div>
@@ -65,7 +70,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label style="color: #333">Website Url</label>
-                                                    <input type="text" class="form-control input-sm" name="Brand.Website_Url" id="txtWebsite_Name" placeholder="Enter website url" value="@Model.Brand.Website_Url" maxlength="20">
+                                                    <input type="text" class="form-control input-sm" name="Brand.Website_Url" id="txtWebsite_Name" placeholder="Enter website url" value="@Model.Brand.Website_Url" maxlength="40">
 
                                                 </div>
                                             </div>

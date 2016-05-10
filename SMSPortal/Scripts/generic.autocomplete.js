@@ -55,9 +55,13 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/receivable/receivable-autocomplete/" + $('txtOrderNo').val();
             }
 
-            //if ($(elementObject).attr("id") == 'txtPurchase_Order_No') {
-            //    urlString = "/payable/payable-autocomplete/" + $('txtPurchase_Order_No').val();
-            //}
+            if ($(elementObject).attr("id") == 'txtPurchase_Order_Number') {
+                urlString = "/Payable/Payable-autocomplete/" + $('txtPurchase_Order_Number').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtVendorSales_Order_No') {
+                urlString = "/vendor/get-vendor-sales-orders-autocomplete/" + $('txtVendorSales_Order_No').val();
+            }
 
             $.ajax({
 
@@ -94,7 +98,7 @@ var InitializeAutoComplete = function (elementObject) {
                 $(this).parents('.form-group').find('.todo-list').remove();
             }
 
-            var htmlText = "<ul id='lookupUl' class='todo-list ui-sortable'><li ><span class='text'>" + ui.item.label + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+            var htmlText = "<ul id='lookupUlAuto' class='todo-list ui-sortable'><li ><span class='text'>" + ui.item.label + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
             if ($(this).parents('.form-group').find(".ui-menu")[0]) {
 

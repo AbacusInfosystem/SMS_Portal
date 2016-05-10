@@ -59,10 +59,6 @@ namespace SMSPortalRepo
 
             sqlParams.Add(new SqlParameter("@Email", dealer.Email));
 
-            sqlParams.Add(new SqlParameter("@Dealer_Percentage_Share", dealer.Dealer_Percentage_Share));
-
-            sqlParams.Add(new SqlParameter("@Brand_Percentage_Share", dealer.Brand_Percentage_Share));
-
             sqlParams.Add(new SqlParameter("@Is_Active", dealer.Is_Active));
 
             if (dealer.Dealer_Id == 0)
@@ -140,7 +136,7 @@ namespace SMSPortalRepo
 
             return dealer;
         }
-       
+
         private DealerInfo Get_Dealer_Values(DataRow dr)
         {
          
@@ -179,12 +175,6 @@ namespace SMSPortalRepo
             dealer.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
 
             dealer.Email = Convert.ToString(dr["Email"]);
-
-            if (!dr.IsNull("Dealer_Percentage_Share"))
-            dealer.Dealer_Percentage_Share = Convert.ToInt32(dr["Dealer_Percentage_Share"]);
-
-            if (!dr.IsNull("Brand_Percentage_Share"))
-            dealer.Brand_Percentage_Share = Convert.ToInt32(dr["Brand_Percentage_Share"]);
 
             dealer.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
 
@@ -283,7 +273,7 @@ namespace SMSPortalRepo
 
             return autoList;
         }
-
+         
         public void Update_Dealer_Profile(DealerInfo dealer, int user_Id)
         {
             _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer_Profile(dealer, user_Id), StoreProcedures.Update_Dealer_Profile_Sp.ToString(), CommandType.StoredProcedure);
@@ -312,10 +302,6 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Contact_No_2", dealer.Contact_No_2));
 
             sqlParams.Add(new SqlParameter("@Email", dealer.Email));
-
-            sqlParams.Add(new SqlParameter("@Dealer_Percentage_Share", dealer.Dealer_Percentage_Share));
-
-            sqlParams.Add(new SqlParameter("@Brand_Percentage_Share", dealer.Brand_Percentage_Share));
 
             sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
 

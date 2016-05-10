@@ -21,9 +21,9 @@ namespace SMSPortalInfo.Common
 
     public enum BrandCategory
     {
-        Elite=1,        
-        Volumn_Based=2,
-        Beyond_Borders=3
+        Elite = 1,
+        Volumn_Based = 2,
+        Beyond_Borders = 3
     }
 
 
@@ -52,6 +52,12 @@ namespace SMSPortalInfo.Common
         Order_Confirmed = 2,
         Order_Dispatched = 3,
         Order_Delivered = 4
+    }
+    public enum PurchaseOrderStatus
+    { 
+        Ordered =1,
+        Patially_Received=2,
+        Received=3
     }
 
     public enum Roles

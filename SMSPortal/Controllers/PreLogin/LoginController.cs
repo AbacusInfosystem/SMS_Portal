@@ -28,10 +28,6 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                if (TempData["FriendlyMessage"] != null)
-                {
-                    lViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
-                } 
                 if (Request.Cookies["UserInfo"] != null)
                 {
                     lViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
@@ -51,7 +47,7 @@ namespace SMSPortal.Controllers.PreLogin
             }
             catch (Exception ex)
             {
-                Logger.Error("Error at Home : " + ex.Message);
+                Logger.Error("Error at Index : " + ex.Message);
                 lViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 return View("Index", lViewModel);
             }
@@ -63,7 +59,7 @@ namespace SMSPortal.Controllers.PreLogin
         {
             return View("ForgotPassword", uViewModel);
         }
-          
+
         public ActionResult Send_Reset_Password(UserViewModel uViewModel)
         {
             string link = string.Empty;
@@ -72,7 +68,7 @@ namespace SMSPortal.Controllers.PreLogin
         
             try
             {
-              
+
                 uViewModel.User = _userManager.Get_User_By_Email(uViewModel.User.Email_Id);
                 link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken=" + uViewModel.User.Pass_Token;
 
@@ -94,7 +90,8 @@ namespace SMSPortal.Controllers.PreLogin
         {
             try
             {
-                CookiesInfo cookies = _userManager.AuthenticateUser(lViewModel.Cookies.User_Name, lViewModel.Cookies.Password);
+                
+                CookiesInfo cookies = _userManager.AuthenticateUser(lViewModel.Cookies.User_Name,Utility.Encrypt(lViewModel.Cookies.Password));
 
                 if (cookies.User_Id != 0 && cookies.Is_Active == true)
                 {
@@ -207,6 +204,8 @@ namespace SMSPortal.Controllers.PreLogin
             {
                  passtoken = Request.QueryString["passtoken"].ToString();
                  user = _userManager.Get_User_By_Password_Token(passtoken);
+                 user.New_Password = "";
+                 user.Confirm_Password = "";
                  uViewModel = new UserViewModel();
                  uViewModel.User = user;
                  if (user.User_Id == 0)
@@ -225,7 +224,8 @@ namespace SMSPortal.Controllers.PreLogin
             {
                 if (uViewModel.User.User_Id != 0)
                 {
-                    _userManager.Reset_Password(uViewModel.User.New_Password, uViewModel.User.User_Id,Utility.Generate_Token());
+
+                    _userManager.Reset_Password(Utility.Encrypt(uViewModel.User.New_Password), uViewModel.User.User_Id,Utility.Generate_Token());
                     TempData["FriendlyMessage"] = MessageStore.Get("SYS05");
                 }
             }

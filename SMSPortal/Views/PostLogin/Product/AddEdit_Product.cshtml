@@ -37,7 +37,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label style="color: #333">Product Name</label>
-                                        <input type="text" class="form-control input-sm" name="Product.Product_Name" id="txtProduct_Name" placeholder="Enter product name" value="@Model.Product.Product_Name">
+                                        <input type="text" class="form-control input-sm" name="Product.Product_Name" id="txtProduct_Name" placeholder="Enter product name" value="@Model.Product.Product_Name" maxlength="40">
                                         <input type="hidden" id="hdnProductName" value="@Model.Product.Product_Name">
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label style="color: #333">Product Description</label>
-                                        <textarea class="form-control" id="txtarea_productdescription" name="Product.Product_Description">@Model.Product.Product_Description</textarea>
+                                        <textarea class="form-control" id="txtarea_productdescription" name="Product.Product_Description" maxlength="100">@Model.Product.Product_Description</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -138,14 +138,14 @@
                                         @if (Model.Product.Is_Biddable == false)
                                         {
                                             <label>
-                                                <input type="checkbox" name="chkBid" class="chkstatus" />
+                                                <input type="checkbox" name="chkBid" class="chkBiddable" />
                                                 &nbsp;&nbsp;&nbsp;&nbsp; Biddable
                                             </label>
                                         }
                                         else
                                         {
                                             <label>
-                                                <input type="checkbox" name="chkBid" checked="checked" class="chkstatus" />
+                                                <input type="checkbox" name="chkBid" checked="checked" class="chkBiddable" />
                                                 &nbsp;&nbsp;&nbsp;&nbsp; Biddable
                                             </label>
                                         }

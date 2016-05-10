@@ -18,9 +18,9 @@ namespace SMSPortalManager
             _invoiceRepo = new InvoiceRepo();
         }
 
-        public void Insert_Invoice(InvoiceInfo invoice)
+        public int Insert_Invoice(InvoiceInfo invoice,int user_id)
         {
-            _invoiceRepo.Insert_Invoice(invoice);
+           return _invoiceRepo.Insert_Invoice(invoice, user_id);
         }
 
         //public void Update_Invoice(InvoiceInfo invoice)
@@ -40,19 +40,35 @@ namespace SMSPortalManager
         {
             return _invoiceRepo.Get_Invoice_By_Id(Invoice_Id);
         }
-        //public void Delete_Invoice_By_Id(int Invoice_Id)
-        //{
-        //    _enquiryRepo.Delete_Invoice_By_Id(Invoice_Id);
-        //}
-
+         
         public List<AutocompleteInfo> Get_Invoice_Autocomplete(string InvoiceNo)
         {
             return _invoiceRepo.Get_Invoice_Autocomplete(InvoiceNo);
         }
 
+        public DealerInfo Get_Dealer_By_Id(int Dealer_Id)
+        {
+            return _invoiceRepo.Get_Dealer_By_Id(Dealer_Id);
+        }
+
+        public ProductInfo Get_Product_By_Id(int Product_Id)
+        {
+            return _invoiceRepo.Get_Product_By_Id(Product_Id);
+        }
+
         public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order,DealerInfo Dealer)
         {
             _invoiceRepo.Send_Invoice_Email(Email_Id, invoice, Order, Dealer);
+        }
+
+        public OrdersInfo Get_Orders_By_Id(int Order_Id)
+        {
+            return _invoiceRepo.Get_Orders_By_Id(Order_Id);
+        }
+
+        public List<OrderItemInfo> Get_Order_Items_By_Order_Id(int Order_Id)
+        {
+            return _invoiceRepo.Get_Order_Items_By_Order_Id(Order_Id);
         }
     }
 }

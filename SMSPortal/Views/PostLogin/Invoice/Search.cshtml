@@ -28,7 +28,7 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">Invoice</h3>
                         </div>
-                        <div class="box-body">
+                        <div class="box-body">                             
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnInvoice_Id" name="Invoice.Invoice_Id" value="@Model.Invoice.Invoice_Id">
                             <div class="row">
@@ -36,11 +36,11 @@
                                     <div class="form-group auto-complete">
                                         <label for="Invoice" class="lookup-title">Invoices</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Invoice_No" id="txtInvoice_Number" placeholder="Enter Invoice No" value="@Model.Filter.Invoice_No" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Invoice_No" id="txtInvoice_Number" placeholder="Enter Invoice No" value="@Model.Filter.Invoice_No" data-param="hdnVendorId" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice">
                                             <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Filter.Invoice_Id" class="auto-complete-value" />
                                             <input type="hidden" id="hdnInvoiceNo" value="@Model.Filter.Invoice_No" name="Filter.Invoice_No" class="auto-complete-label" />
                                             <div class="input-group-addon">
-                                                <a href="#" class="text-muted" id="hrefInvoice" role="button"><i class="fa fa-search"></i></a>
+                                                <a href="#" class="text-muted" id="hrefInvoice" role="button"><i class="fa fa-server"></i></a>
                                             </div>
                                         </div>
                                     </div>

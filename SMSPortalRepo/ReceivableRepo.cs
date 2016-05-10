@@ -172,14 +172,14 @@ namespace SMSPortalRepo
            return receivable;
        }
 
-       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int Dealer_Id)
+       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int dealer_Id)
 
        {
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
 
            List<SqlParameter> sqlParamList = new List<SqlParameter>();
 
-           sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
+           sqlParamList.Add(new SqlParameter("@Dealer_Id", dealer_Id));
 
            ReceivableInfo receivable = new ReceivableInfo();
 
@@ -246,16 +246,11 @@ namespace SMSPortalRepo
        {
            int Receivable_Id = 0;
 
-           Receivable_Id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));         
+           Receivable_Id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));
 
-           if(receivableInfo.Receivable_Item_Id!=0)
+           if (receivableInfo.Receivable_Item_Id != 0)
            {
                Receivable_Id = receivableInfo.Receivable_Id;
-           }
-
-           if (receivableInfo.Balance_Amount == 0)
-           {
-               Update_Sales_Order_Status(receivableInfo.Invoice_Id);
            }
 
            return Receivable_Id;
@@ -326,10 +321,11 @@ namespace SMSPortalRepo
        private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id)
        {
            decimal Total_Balance_Amount = 0;
+           decimal Status_Amount = 0;
 
            List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-           decimal Balance_Amount = Get_Balance_Amount(receivableInfo.Invoice_Id);
+           //decimal Balance_Amount = Get_Balance_Amount(receivableInfo.Invoice_Id);
 
            sqlParams.Add(new SqlParameter("@Receivable_Id", receivableInfo.Receivable_Id));
 
@@ -337,10 +333,10 @@ namespace SMSPortalRepo
            
            sqlParams.Add(new SqlParameter("@Amount", receivableInfo.Invoice_Amount));
 
-           if(Balance_Amount>0)
+           if (receivableInfo.Balance_Amount > 0)
 
            {
-               Total_Balance_Amount = Balance_Amount - receivableInfo.Receivable_Item_Amount;              
+               Total_Balance_Amount = receivableInfo.Balance_Amount - receivableInfo.Receivable_Item_Amount;              
            }
 
            else
@@ -349,20 +345,20 @@ namespace SMSPortalRepo
                Total_Balance_Amount = receivableInfo.Invoice_Amount-receivableInfo.Receivable_Item_Amount;
            }
 
+           Status_Amount = (receivableInfo.Invoice_Amount * 50) / 100;          
+
            receivableInfo.Balance_Amount = Total_Balance_Amount;
 
            sqlParams.Add(new SqlParameter("@Balance_Amount", receivableInfo.Balance_Amount));
 
-           if (receivableInfo.Balance_Amount!=0)
-
+           if (Total_Balance_Amount > Status_Amount)
            {
                sqlParams.Add(new SqlParameter("@Status", "Partially Paid")); 
            }
-
            else
-
            {
-               sqlParams.Add(new SqlParameter("@Status", "Payment Done")); 
+               sqlParams.Add(new SqlParameter("@Status", "Payment Done"));
+               Update_Sales_Order_Status(receivableInfo.Invoice_Id);
            }
 
 
@@ -405,9 +401,7 @@ namespace SMSPortalRepo
            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Invoice_No_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
            if (dt != null && dt.Rows.Count > 0)
            {
-               List<DataRow> drList = new List<DataRow>();
-               drList = dt.AsEnumerable().ToList();
-               foreach (DataRow dr in drList)
+               foreach (DataRow dr in dt.Rows)
                {
                    AutocompleteInfo auto = new AutocompleteInfo();
                    auto.Label = Convert.ToString(dr["Label"]);

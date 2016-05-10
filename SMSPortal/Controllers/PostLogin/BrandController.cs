@@ -32,13 +32,23 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     bViewModel = (BrandViewModel)TempData["bViewModel"];
                 }
+                //if (TempData["uViewModel"] != null)
+                //{
+                //    uViewModel = (UserViewModel)TempData["uViewModel"];
+                //    bViewModel.Friendly_Message = uViewModel.Friendly_Message;
+                //}
+                FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
+                bViewModel.Friendly_Message.Add(ms);
             }
             catch (Exception ex)
             {
                 bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("BrandController Search " + ex);
             }
-            return View("Search", bViewModel);
+          
+                return View("Search", bViewModel);
+          
+          
         }
 
         public ActionResult AddEdit_Brand(BrandViewModel bViewModel)
@@ -100,7 +110,6 @@ namespace SMSPortal.Controllers.PostLogin
                 bViewModel.Brand.Updated_On = DateTime.Now;
                 _brandManager.Insert_Brand(bViewModel.Brand);
                 bViewModel.Friendly_Message.Add(MessageStore.Get("BO001"));
-
             }
             catch (Exception ex)
             {

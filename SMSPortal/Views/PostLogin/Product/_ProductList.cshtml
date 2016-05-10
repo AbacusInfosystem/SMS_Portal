@@ -1,0 +1,50 @@
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel
+
+<script src="~/Scripts/Module/Product/ProductList/product-list-methods.js"></script>
+<script src="~/Scripts/Module/Product/ProductList/product-list-events.js"></script>
+
+<div class="row">
+    @if (Model.Products.Count > 0)
+    {
+        <input type="hidden" id="hdnProductListCount" name="" value="@Model.Products.Count" />
+        foreach (var item in Model.Products)
+        {
+            <input type="hidden" id="hdnpName_@item.Product_Id" name="ProductName" value="@item.Product_Name" />
+            <input type="hidden" id="hdnMRPPrice_@item.Product_Id" name="MRPPrice" value="@item.Product_Price" />
+            <input type="hidden" id="hdnMedicineURL_@item.Product_Id" name="MedicineURL" value="@item.Product_Image" />
+
+            <div class="col-md-4">
+                <div class="thumbnail panel panel-success margin">
+                    <img src="~/UploadedFiles/@item.Product_Image" style="height:180px; width:180px;">
+                    <div class="caption">
+                        @if (item.Product_Name.Length > 24)
+                        {
+                            string newName = item.Product_Name.Substring(0, 21);
+                            newName = newName + "...";
+                            <h4 style="text-align:center" title="@item.Product_Name">@newName</h4>
+                        }
+                        else
+                        {
+                            <h4 style="text-align:center" title="@item.Product_Name">@item.Product_Name</h4>
+                        }
+                        <h4>
+                            @item.Product_Price
+                        </h4>
+
+                        <div class="input-group">
+                            <button type="button" id="btnAddToCart_@item.Product_Id" class="btn btn-primary" onclick="javascript:AddToCart(@item.Product_Id)">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
+                            </button>
+                        </div>
+
+                        <p style="text-align:center">
+                            <a href="#" class="btn btn-link dvClickable" id="dvProduct_@item.Product_Id">
+                                View More...
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

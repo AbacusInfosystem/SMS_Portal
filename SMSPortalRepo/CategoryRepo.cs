@@ -21,21 +21,21 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public int Insert_Category(CategoryInfo category)
+        public int Insert_Category(CategoryInfo category,int user_id)
         {
             int category_id = 0;
 
-            category_id=Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Category(category), StoreProcedures.Insert_Category_Sp.ToString(), CommandType.StoredProcedure));
+            category_id=Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Category(category,user_id), StoreProcedures.Insert_Category_Sp.ToString(), CommandType.StoredProcedure));
 
             return category_id;
         }
 
-        public void Update_Category(CategoryInfo category)
+        public void Update_Category(CategoryInfo category,int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Category(category), StoreProcedures.Update_Category_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Category(category, user_id), StoreProcedures.Update_Category_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Category(CategoryInfo category)
+        private List<SqlParameter> Set_Values_In_Category(CategoryInfo category, int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             if (category.Category_Id != 0)
@@ -47,12 +47,12 @@ namespace SMSPortalRepo
 
             if (category.Category_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", category.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", category.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
             }
 
-            sqlParams.Add(new SqlParameter("@Updated_On", category.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", category.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
             return sqlParams;
         }
 
@@ -166,12 +166,6 @@ namespace SMSPortalRepo
             return autoList;
         }
 
-        public int Get_Category_Id_By_Name(string Category_Name)
-        {
-            List<SqlParameter> sqlparam = new List<SqlParameter>();
-            sqlparam.Add(new SqlParameter("@CategoryName", Category_Name));
-
-            return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Category_Id_By_Name.ToString(), CommandType.StoredProcedure));
-        }
+        
     }
 }

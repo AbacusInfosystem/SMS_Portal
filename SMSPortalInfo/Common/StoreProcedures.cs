@@ -77,11 +77,13 @@ namespace SMSPortalInfo.Common
 
         //State
         Get_State_Sp,
+        Get_State_By_Id_Sp,
 
         //Product
         Check_Existing_Product,
         Get_Product_By_Name_Sp,
         Get_Product_By_Id_Sp,
+        Get_Product_By_Ids_Sp,
         Get_Product_Sp,
         Update_Product_Sp,
         Insert_Product_Sp,
@@ -89,8 +91,12 @@ namespace SMSPortalInfo.Common
         Insert_Product_Image_Sp,
         Delete_Product_Image_Sp,
         Get_Product_Autocomplete_Sp,
+        Get_Products_By_Dealer_Id_Sp,
+        Get_Categories_With_Product_Count_Sp,
+        Get_Sub_Categories_With_Product_Count_Sp,
+        Get_Products_By_Ids_sp,
+        Set_Default_Product_Image,         
          
-        
         //Vendor
         Insert_Vendor_Sp,
         Get_Vendor_Sp,
@@ -108,6 +114,10 @@ namespace SMSPortalInfo.Common
         Delete_Vendor_Product_Mapping_By_Id_Sp,
         Update_Vendor_Profile_Sp,
         Get_Vendor_Autocomplete_Sp,
+        Get_Vendor_Sales_Orders_Sp,
+        Get_Vendors_Sales_Order_By_Id_Sp,
+        Get_Vendor_Sales_Order_Items_By_Id_Sp,
+        Get_Vendor_Sales_Order_Autocomplete_Sp,
 
         //Cookies
         Insert_Token_In_User_Table_Sp,
@@ -144,6 +154,8 @@ namespace SMSPortalInfo.Common
         Update_Purchase_Order_Item_Sp,
         Delete_Purchase_Order_Item_By_Id_Sp,
         Check_DuplicateProduct_PurchaseOrder,         
+        Update_Purchase_Order_Gross_Amount,
+        Get_Vendor_Product_Price_Id_Sp,
 
         //Payables
        Insert_Payable_Item_Data_Sp,
@@ -157,6 +169,7 @@ namespace SMSPortalInfo.Common
         Get_Receivable_Data_By_Purchase_Order_By_Id_Sp,
         Get_Purchase_Order_Amount_By_Id_Sp,
         Get_Payable_Status_By_Id_Sp,
+        Get_Payable_Purchase_Order_Autocomplete_Sp,
 
         //Invoice
         Insert_Invoice_Sp,
@@ -165,6 +178,8 @@ namespace SMSPortalInfo.Common
         Get_Invoice_Autocomplete_Sp,
         
         //Orders
+        Insert_Orders_Sp,
+        Insert_Order_Item_Sp,
         Get_Order_By_Id,
         Get_Order_Items_By_Order_Id,
         Get_Orders,

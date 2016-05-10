@@ -38,7 +38,7 @@
                 $("#frmCategoryMaster").attr("action", "/category/insert-category");
             }
             else {
-                $("#frmCategoryMaster").attr("action", "/category/edit-category/");
+                $("#frmCategoryMaster").attr("action", "/category/update-category/");
             }
             $('#frmCategoryMaster').attr("method", "POST");
             $('#frmCategoryMaster').submit();

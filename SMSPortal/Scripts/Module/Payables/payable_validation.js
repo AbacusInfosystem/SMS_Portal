@@ -1,6 +1,6 @@
 ﻿$(document).ready(function ()
 {
-    alert("validation")
+
 
     $("#frmPayableMaster").validate(
         {
@@ -89,10 +89,15 @@ jQuery.validator.addMethod("check_balance_amount_validation", function (value, e
             Balance_Amount = $("#txtPurchase_Order_Amount").val();
         }
 
-        if (Entered_Amount > Balance_Amount)
+        if (parseFloat(Entered_Amount) > parseFloat(Balance_Amount))
         {
             result = false;
         }
+
+        //if (Entered_Amount > Balance_Amount)
+        //{
+        //    result = false;
+        //}
 
     }
 

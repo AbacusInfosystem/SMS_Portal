@@ -1,6 +1,6 @@
 ﻿function Save_Payable_Data()
 {
-    //alert(3);
+
 
     var pViewModel =
 
@@ -22,6 +22,8 @@
                  Cheque_Date: $("#txtChequeDate").val(),
 
                  Cheque_Number: $("#txtChequeNo").val(),
+
+                 Balance_Amount: $("#txtBalance_Amount").val(),
 
                  Bank_Name: $("#txtBankName").val(),
 
@@ -105,17 +107,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            //if (data.Payables[i].Transaction_Type == 1) {
-            //    data.Payables[i].Transaction_Type = 'Cheque'
-            //}
-
-            //if (data.Payables[i].Transaction_Type == 2) {
-            //    data.Payables[i].Transaction_Type = 'Neft'
-            //}
-
-            //if (data.Payables[i].Transaction_Type == 3) {
-            //    data.Payables[i].Transaction_Type = 'Credit-Debit Card'
-            //}
+       
 
             htmlText += data.Payables[i].Transaction_Type_Name == null ? "" : data.Payables[i].Transaction_Type_Name;
 
@@ -147,7 +139,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<td>";
 
-            htmlText += showChequeDate == "01/01/1999" ? "" : showChequeDate;
+            htmlText += showChequeDate == "1/1/1999" ? "NA" : showChequeDate;
 
             htmlText += "</td>";
 
@@ -177,7 +169,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "<input type='hidden' id='hdnCheque_Number" + data.Payables[i].Payable_Item_Id + "' value='" + data.Payables[i].Cheque_Number + "'/>";
 
-            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Payables[i].Payable_Item_Id + "' value='" + data.Payables[i].showChequeDate + "'/>";
+            htmlText += "<input type='hidden' id='hdnCheque_Date" + data.Payables[i].Payable_Item_Id + "' value='" + showChequeDate + "'/>";
 
             htmlText += "<input type='hidden' id='hdnNEFT" + data.Payables[i].Payable_Item_Id + "' value='" + data.Payables[i].NEFT + "'/>";
 
@@ -191,13 +183,16 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "</td>";
 
-            htmlText += "<td>";
+            if (data.Payable.Status != "Payment Done") {
+                htmlText += "<td>";
 
-            htmlText += "<button type='button' id='edit-Payable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditPayableData(" + data.Payables[i].Payable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
 
-            //htmlText += "<button type='button' id='delete-Payable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeletPayableData(" + data.Payables[i].Payable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
+                htmlText += "<button type='button' id='edit-Payable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditPayableData(" + data.Payables[i].Payable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
 
-            htmlText += "</td>";
+                //htmlText += "<button type='button' id='delete-Payable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeletPayableData(" + data.Payables[i].Payable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
+
+                htmlText += "</td>";
+            }
 
             htmlText += "</tr>";
         }
@@ -237,7 +232,12 @@ function Bind_Payable_Grid_Items(data) {
 }
 
 function EditPayableData(id) {
-    alert(143);
+
+    var Total_Bal = 0;
+    var Balance_amount = 0;
+    var Item_amount = 0;
+    var Previous_Item_Amount = $("#hdnPayable_Item_Amount").val();
+
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
 
     $('#drpTransaction').trigger('change');
@@ -261,6 +261,17 @@ function EditPayableData(id) {
     $("#hdnPayable_Item_Id").val($("#hdnPayable_Item_Id" + id).val());
 
     $("#hdnPayable_Id").val($("#hdnPayable_Id" + id).val());
+
+    Balance_amount = $("#txtBalance_Amount").val();
+    Item_amount = $("#hdnPayable_Item_Amount" + id).val();
+
+    Total_Bal = parseFloat(Balance_amount) + parseFloat(Item_amount);
+
+    Total_Bal = parseFloat(Total_Bal) - parseFloat(Previous_Item_Amount);
+
+    $("#txtBalance_Amount").val(Total_Bal);
+
+    $("#hdnPayable_Item_Amount").val(Item_amount);
    
 
 }

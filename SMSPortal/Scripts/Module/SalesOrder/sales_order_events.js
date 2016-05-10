@@ -9,11 +9,11 @@
 
         $("form").validate().cancelSubmit = true;
 
-        $("#frmSubCategory").attr("action", "/SubCategory/Search/");
+        $("#frmOrderDetails").attr("action", "/SalesOrder/Search/");
 
-        $("#frmSubCategory").attr("method", "POST");
+        $("#frmOrderDetails").attr("method", "POST");
 
-        $("#frmSubCategory").submit();
+        $("#frmOrderDetails").submit();
 
     });
 

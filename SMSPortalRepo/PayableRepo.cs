@@ -47,7 +47,7 @@ namespace SMSPortalRepo
 
             PayableInfo payable = new PayableInfo();
 
-            payable.Status = Convert.ToString(dr["Status"]);
+            payable.Status = Convert.ToString(dr["PayablesStatus"]);
 
             payable.Purchase_Order_Amount = Convert.ToDecimal(dr["Gross_Amount"]);
 
@@ -80,14 +80,14 @@ namespace SMSPortalRepo
             return payables;
         }
 
-        public decimal Get_Balance_Amount(int payable_Id)
+        public decimal Get_Balance_Amount(int Purchase_order_id)
         {
             
             decimal Balance_Amount = 0;
 
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-            sqlParams.Add(new SqlParameter("@Payable_Id", payable_Id));
+            sqlParams.Add(new SqlParameter("@Purchase_Order_Id", Purchase_order_id));
 
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoreProcedures.Get_Payable_Balance_Amount_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
@@ -146,25 +146,18 @@ namespace SMSPortalRepo
             if (Balance_Amount > 0)
 
             {
-                Total_Balance_Amount = Balance_Amount - payableInfo.Payable_Item_Amount;
 
-                //Total_Balance_Amount = payableInfo.Purchase_Order_Amount - payableInfo.Payable_Item_Amount;
+                Total_Balance_Amount = payableInfo.Balance_Amount - payableInfo.Payable_Item_Amount;
+
             }
 
             else
 
             {
-                //Total_Balance_Amount = payableInfo.Payable_Item_Amount;
-
+          
                 Total_Balance_Amount = payableInfo.Purchase_Order_Amount - payableInfo.Payable_Item_Amount;
             }
-
-            //Amount = payableInfo.Purchase_Order_Amount - Balance_Amount;
-
-            //decimal Total_Amount = (payableInfo.Purchase_Order_Amount - (Amount + payableInfo.Payable_Item_Amount));
-
-            //payableInfo.Balance_Amount = (Total_Amount - Total_Balance_Amount);
-
+       
             payableInfo.Balance_Amount = Total_Balance_Amount;
 
             sqlParams.Add(new SqlParameter("@Balance_Amount", payableInfo.Balance_Amount));
@@ -458,28 +451,6 @@ namespace SMSPortalRepo
             return Amount;
         }
 
-        //public string Get_Payable_Status(int purchase_order_id)
-        //{
-        //    string Status = "";
-
-        //    List<SqlParameter> sqlParams = new List<SqlParameter>();
-
-        //    sqlParams.Add(new SqlParameter("@Purchase_Order_Id", purchase_order_id));
-
-        //    DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoreProcedures.Get_Payable_Status_By_Id_Sp.ToString(), CommandType.StoredProcedure);
-
-        //    if (dt != null && dt.Rows.Count > 0)
-        //    {
-        //        foreach (DataRow dr in dt.Rows)
-        //        {
-        //            if (!dr.IsNull("Status"))
-        //                Status = Convert.ToString(dr["Status"]);
-        //        }
-        //    }
-
-        //    return Status;
-        //}
-
         public List<AutocompleteInfo> Get_Payable_Purchase_Order_Autocomplete(string purchase_order_no)
 
         {
@@ -490,7 +461,7 @@ namespace SMSPortalRepo
 
             sqlparam.Add(new SqlParameter("@Description", purchase_order_no == null ? System.String.Empty : purchase_order_no.Trim()));
 
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Purchase_Order_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Payable_Purchase_Order_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
 
             if (dt != null && dt.Rows.Count > 0)
 

@@ -21,7 +21,7 @@ namespace SMSPortalRepo
             _sqlHelper = new SQLHelper();
         }
 
-        public DataTable Get_Lookup_Data(string table_Name, string[] cols, ref PaginationInfo pager)
+        public DataTable Get_Lookup_Data(string table_Name, string[] cols, ref PaginationInfo pager,string filter)
         {
             string strquery = "";
 
@@ -38,7 +38,23 @@ namespace SMSPortalRepo
 
            strquery += " from " + table_Name;
 
-            DataTable dt = _sqlHelper.ExecuteDataTable(null, strquery, CommandType.Text);
+
+           List<SqlParameter> paramList = new List<SqlParameter>();
+           if (!string.IsNullOrEmpty(filter) )
+           {
+               if (table_Name == "purchase_order")
+               {
+                   strquery +=  " Where Vendor_Id= @Vendor_Id";
+                   paramList.Add(new SqlParameter("@Vendor_Id", filter));     
+               }
+               if (table_Name =="product")
+               {
+                   strquery = " Select P.Product_Id,P.Product_Name from  Product_Vendor_Mapping Pv  inner join Product P on Pv.Product_Id=P.Product_Id  where Pv.Vendor_Id=@Vendor_Id ";
+                   paramList.Add(new SqlParameter("@Vendor_Id",filter));                   
+               }               
+           }                      
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(paramList, strquery, CommandType.Text);
 
             return dt;
         }
