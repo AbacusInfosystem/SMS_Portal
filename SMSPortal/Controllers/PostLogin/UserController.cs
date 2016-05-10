@@ -124,9 +124,8 @@ namespace SMSPortal.Controllers.PostLogin
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 uViewModel.User.Pass_Token = Utility.Generate_Token();
-            
-              
-
+                uViewModel.User.Password = "ABCD";
+                uViewModel.User.Password = Utility.Encrypt(uViewModel.User.Password);
                 _userMan.Insert_Users(uViewModel.User , uViewModel.Cookies.User_Id);
 
                 link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken="+ uViewModel.User.Pass_Token;
