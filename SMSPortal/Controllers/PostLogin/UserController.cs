@@ -84,9 +84,9 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                if (TempData["Entity_Id"] != null)
+                if (TempData["Entity_Id"] != null && TempData["Role_Id"] != null)
                 {
-                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"]);
+                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"], (int)TempData["Role_Id"]);
 
                     if (uViewModel.User.User_Id == 0)
                     {

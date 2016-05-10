@@ -100,7 +100,6 @@ namespace SMSPortal.Controllers.PostLogin
                 bViewModel.Brand.Updated_On = DateTime.Now;
                 _brandManager.Insert_Brand(bViewModel.Brand);
                 bViewModel.Friendly_Message.Add(MessageStore.Get("BO001"));
-
             }
             catch (Exception ex)
             {

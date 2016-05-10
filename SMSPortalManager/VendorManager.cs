@@ -119,6 +119,12 @@ namespace SMSPortalManager
         {
             return _vendorRepo.Get_Product_By_Id(Product_Id);
         }
+
+        public List<AutocompleteInfo> Get_Vendor_Sales_Order_Autocomplete(string Purchase_Order_No, int Vendor_Id)
+        {
+            return _vendorRepo.Get_Vendor_Sales_Order_Autocomplete(Purchase_Order_No, Vendor_Id);
+        }
+
         #endregion
         
     }
