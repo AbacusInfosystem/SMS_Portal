@@ -138,6 +138,9 @@ namespace SMSPortal.Common
             FriendlyMessage PO005 = new FriendlyMessage("PO005", MessageType.Success, "Product excel uploaded successfully.");
             hash.Add("PO005", PO005);
 
+            FriendlyMessage PO006 = new FriendlyMessage("PO006", MessageType.Success, "Products order placed successfully.");
+            hash.Add("PO006", PO006);
+
             #endregion
 			
             #region Vendors

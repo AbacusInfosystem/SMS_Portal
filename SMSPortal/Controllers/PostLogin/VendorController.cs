@@ -40,6 +40,9 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     vViewModel = (VendorViewModel)TempData["vViewModel"];
                 }
+
+                FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
+                vViewModel.Friendly_Message.Add(ms);
             }
             catch (Exception ex)
             {
