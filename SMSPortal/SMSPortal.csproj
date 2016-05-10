@@ -1201,6 +1201,7 @@
     <Content Include="Views\PostLogin\Dealer\Update_Profile.cshtml" />
     <Content Include="Views\PostLogin\Dealer\My_Orders.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\My_Order_Details.cshtml" />
+    <Content Include="Views\Shared\_ConfirmDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

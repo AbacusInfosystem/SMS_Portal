@@ -1,0 +1,26 @@
+﻿
+
+<form id="frmConnfirmDelete">    
+        <div class="modal-content">            
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center ">
+                        <h5 class="">Are you sure you want to insert that record?</h5>
+
+                        @{if( TempData["Id"] != null)
+                           {
+                               <input type="hidden" id="hdn_Id" name="deleteid" value="@((int)TempData["Id"])"  />                               
+                           }
+                        }
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center ">
+                        <button type="button" id="btnYes" class="btn btn-success btn-sm" data-dismiss="modal">Yes </button>
+                        <button type="button" id="btnNo" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+</form>
