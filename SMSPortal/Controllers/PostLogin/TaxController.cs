@@ -23,18 +23,14 @@ namespace SMSPortal.Controllers.PostLogin
             _taxManager = new TaxManager();
         }
 
-        public ActionResult Index(TaxViewModel tViewModel)
-        
+        public ActionResult Index(TaxViewModel tViewModel)        
         {
-
-            //if (TempData["tViewModel"] != null)
-            //{
-            //    tViewModel = (TaxViewModel)TempData["tViewModel"];
-            //}
-
-
             try
             {
+                if (TempData["tViewModel"] != null)
+                {
+                    tViewModel = (TaxViewModel)TempData["tViewModel"];
+                }
                 tViewModel.Tax = _taxManager.Get_Tax_By_Id();
 
             }
@@ -51,9 +47,10 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Insert_Tax(TaxViewModel tViewModel)
         {
-            try
-            
+            try            
             {
+
+
                 tViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 tViewModel.Tax.Created_By = tViewModel.Cookies.User_Id;
