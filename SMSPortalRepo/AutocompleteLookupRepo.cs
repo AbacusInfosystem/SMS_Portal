@@ -42,6 +42,11 @@ namespace SMSPortalRepo
            List<SqlParameter> paramList = new List<SqlParameter>();
            if (!string.IsNullOrEmpty(filter) )
            {
+               if (table_Name == "purchase_order")
+               {
+                   strquery +=  " Where Vendor_Id= @Vendor_Id";
+                   paramList.Add(new SqlParameter("@Vendor_Id", filter));     
+               }
                if (table_Name =="product")
                {
                    strquery = " Select P.Product_Id,P.Product_Name from  Product_Vendor_Mapping Pv  inner join Product P on Pv.Product_Id=P.Product_Id  where Pv.Vendor_Id=@Vendor_Id ";

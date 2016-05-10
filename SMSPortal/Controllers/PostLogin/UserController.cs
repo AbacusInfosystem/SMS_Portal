@@ -55,6 +55,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pager = uViewModel.Pager;
+
                 if (uViewModel.Filter.User_Id != 0)
                 {
                     uViewModel.Users = _userMan.Get_Users_By_User_Id_List(uViewModel.Filter.User_Id, ref pager);
@@ -63,7 +64,9 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     uViewModel.Users = _userMan.Get_Users(ref pager);
                 }
+
                 uViewModel.Pager = pager;
+
                 uViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", uViewModel.Pager.TotalRecords, uViewModel.Pager.CurrentPage + 1, uViewModel.Pager.PageSize, 10, true);
 
             }
@@ -81,15 +84,25 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                if (TempData["Entity_Id"] != null)
+                if (TempData["Entity_Id"] != null && TempData["Role_Id"] != null)
                 {
-                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"]);
+                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"], (int)TempData["Role_Id"]);
+
                     if (uViewModel.User.User_Id == 0)
                     {
                         uViewModel.User.Role_Id = (int)TempData["Role_Id"];
+
                         uViewModel.User.Entity_Id = (int)TempData["Entity_Id"];
                     }
-                }          
+                   
+                } 
+                else
+                  {
+                       uViewModel.User.Role_Id = 1;
+
+                       uViewModel.User.Entity_Id = 0;
+                  }
+         
             }
             catch (Exception ex)
             {
@@ -109,6 +122,8 @@ namespace SMSPortal.Controllers.PostLogin
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 uViewModel.User.Pass_Token = Utility.Generate_Token();
+            
+              
 
                 _userMan.Insert_Users(uViewModel.User , uViewModel.Cookies.User_Id);
 
@@ -205,11 +220,13 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 uViewModel.User = _userMan.Get_User_By_Id(uViewModel.User.User_Id);
+
                 uViewModel.Roles = _userMan.Get_Roles();              
             }
             catch (Exception ex)
             {
                 uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                 Logger.Error("Error At User Controller - Get_User_By_Id " + ex);
             }
 

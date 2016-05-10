@@ -18,9 +18,9 @@ namespace SMSPortalManager
             _invoiceRepo = new InvoiceRepo();
         }
 
-        public void Insert_Invoice(InvoiceInfo invoice)
+        public int Insert_Invoice(InvoiceInfo invoice,int user_id)
         {
-            _invoiceRepo.Insert_Invoice(invoice);
+           return _invoiceRepo.Insert_Invoice(invoice, user_id);
         }
 
         //public void Update_Invoice(InvoiceInfo invoice)

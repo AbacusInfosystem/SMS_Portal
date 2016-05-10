@@ -165,8 +165,6 @@ namespace SMSPortal.Controllers.PostLogin
 
                 pViewModel.Payables = _payableManager.Get_Payable_Items_By_Id(pViewModel.Payable.Payable_Id);
 
-                //pViewModel.Payable.Status = _payableManager.Get_Payable_Status(pViewModel.Payable.Purchase_Order_Id);
-
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PA001"));
 
             }

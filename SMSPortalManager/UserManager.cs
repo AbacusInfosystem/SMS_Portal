@@ -81,9 +81,9 @@ namespace SMSPortalManager
             return _usersRepo.Get_User_Autocomplete(user);
         }
 
-        public UserInfo Get_User_By_Entity_Id(int Entity_Id)
+        public UserInfo Get_User_By_Entity_Id(int entity_Id,int role_Id)
         {
-            return _usersRepo.Get_User_By_Entity_Id(Entity_Id);
+            return _usersRepo.Get_User_By_Entity_Id(entity_Id, role_Id);
         }
 
         public UserInfo Get_User_By_Password_Token(string Password_Token)
@@ -100,6 +100,7 @@ namespace SMSPortalManager
         {
             _usersRepo.Reset_Password(New_Password, User_Id, Password_Token);
         }
+
         public UserInfo Get_User_By_Email(string Email_Id)
         {
             return _usersRepo.Get_User_By_Email(Email_Id);

@@ -59,6 +59,10 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/Payable/Payable-autocomplete/" + $('txtPurchase_Order_Number').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtVendorSales_Order_No') {
+                urlString = "/vendor/get-vendor-sales-orders-autocomplete/" + $('txtVendorSales_Order_No').val();
+            }
+
             $.ajax({
 
                 url: urlString,

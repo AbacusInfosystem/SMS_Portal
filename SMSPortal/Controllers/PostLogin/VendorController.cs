@@ -387,6 +387,7 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     pViewModel = (PurchaseOrderViewModel)TempData["vViewModel"];
                 }
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
             }
             catch (Exception ex)
             {
@@ -445,6 +446,15 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return OrderDetails(pViewModel);
+        }
+
+        public JsonResult Get_Vendor_Sale_Order_Autocomplete(string Purchase_Order_No)
+        {
+            CookiesInfo cookie=Utility.Get_Login_User("UserInfo", "Token");
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            autoList = _vendorManager.Get_Vendor_Sales_Order_Autocomplete(Purchase_Order_No, cookie.Entity_Id);
+
+            return Json(autoList, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

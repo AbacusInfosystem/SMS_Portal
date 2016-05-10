@@ -30,6 +30,7 @@
                             <h3 class="box-title">Sales Orders</h3>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" id="hdf_Vendor_Id" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id" />
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdn_PurchaseOrderId" name="PurchaseOrder.Purchase_Order_Id" value="@Model.PurchaseOrder.Purchase_Order_Id">
                             <div class="row">
@@ -37,7 +38,7 @@
                                     <div class="form-group auto-complete">
                                         <label for="Purchase_Order" class="lookup-title">Purchase Order</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter Order No" value="@Model.Filter.Purchase_Order_No" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="PurchaseOrder">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtVendorSales_Order_No" placeholder="Enter Order No" data-param="hdf_Vendor_Id" value="@Model.Filter.Purchase_Order_No" data-table="purchase_order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="PurchaseOrder">
                                             <input type="hidden" id="hdnPurchaseOrderId" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
                                             <input type="hidden" id="hdnPurchaseOrderNo" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
                                             <div class="input-group-addon">
