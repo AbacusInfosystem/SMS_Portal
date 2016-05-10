@@ -20,6 +20,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSPortalHelper", "SMSPortalHelper\SMSPortalHelper.csproj", "{3DAF3E14-120C-4CF1-8553-E62717579B6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSPortal", "SMSPortal\SMSPortal.csproj", "{0ED4D5E6-0F00-42F6-856E-FDB659D86FC1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3DAF3E14-120C-4CF1-8553-E62717579B6A} = {3DAF3E14-120C-4CF1-8553-E62717579B6A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
