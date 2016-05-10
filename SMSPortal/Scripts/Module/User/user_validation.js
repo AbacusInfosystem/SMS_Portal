@@ -12,7 +12,6 @@
             "User.First_Name":
                 {
                     required: true
-
                 },
             "User.Last_Name":
                 {
@@ -28,8 +27,16 @@
                 },
             "User.Contact_No_1":
                 {
-                    required: true
+                    required: true,
+                    digits:true
+
                 },
+            "User.Contact_No_2":
+              {
+                  required: true,
+                  digits : true
+
+              },
             "User.Email_Id":
                 {
                     required: true,
@@ -64,8 +71,14 @@
               },
             "User.Contact_No_1":
               {
-                  required: "Enter Contact."
+                  required: "Enter Contact.",
+                  digits : "Enter digits"
               },
+            "User.Contact_No_2":
+                {
+                    required: "Enter contact",
+                    digits: "Enter digits"
+                },       
             "User.Email_Id":
              {
                  required: "Enter Email.",
