@@ -553,6 +553,27 @@ namespace SMSPortalRepo
             product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
             return product;
         }
+
+        public List<AutocompleteInfo> Get_Vendor_Sales_Order_Autocomplete(string Purchase_Order_No, int Vendor_Id)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", Purchase_Order_No == null ? System.String.Empty : Purchase_Order_No.Trim()));
+            sqlparam.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Vendor_Sales_Order_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
          
         #endregion
     }

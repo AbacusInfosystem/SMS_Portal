@@ -525,6 +525,13 @@ namespace SMSPortal
             defaults: new { controller = "Vendor", action = "Get_Sales_Order_By_Id", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+
+            routes.MapRoute(
+            name: "Vendor-Sales-Order-3",
+            url: "vendor/get-vendor-sales-orders-autocomplete/{vendor}",
+            defaults: new { controller = "Vendor", action = "Get_Vendor_Sale_Order_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             
             #endregion
 
