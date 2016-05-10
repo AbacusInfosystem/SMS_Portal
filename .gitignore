@@ -156,3 +156,7 @@ $RECYCLE.BIN/
 .DS_Store
 /SMSPortal/Views/PostLogin/Brand/Profile.cshtml
 /Logs/Log-20160509.txt.0
+/Libraries/SMSPortalHelper.dll
+/Libraries/SMSPortalInfo.dll
+/Libraries/SMSPortalManager.dll
+/Libraries/SMSPortalRepo.dll
