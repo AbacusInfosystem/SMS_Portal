@@ -95,6 +95,8 @@ function placeOrder() {
 
         if ($("#frmPlaceOrder").valid()) {
 
+            $.removeCookie('cart', { path: '/' });
+
             $("#frmPlaceOrder").attr("action", "/Product/SaveOrder");
 
             $("#frmPlaceOrder").attr("method", "POST");

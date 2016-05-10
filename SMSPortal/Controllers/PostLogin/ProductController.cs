@@ -16,11 +16,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SMSPortalRepo.Common;
+using System.Data.SqlClient;
 
 namespace SMSPortal.Controllers.PostLogin
 {
     public class ProductController : Controller
     {
+        private string _sqlCon = "";
         //
         // GET: /Product/
         public ProductManager _productManager;
@@ -29,7 +31,7 @@ namespace SMSPortal.Controllers.PostLogin
         public TaxManager _taxManager;
         public StateManager _stateManager;
         public OrdersManager _OrdersManager;
-         
+
         public ProductController()
         {
             _productManager = new ProductManager();
@@ -92,7 +94,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                _productManager.Insert_Product(pViewModel.Product,pViewModel.Cookies.User_Id);
+                _productManager.Insert_Product(pViewModel.Product, pViewModel.Cookies.User_Id);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO001"));
             }
             catch (Exception ex)
@@ -131,7 +133,7 @@ namespace SMSPortal.Controllers.PostLogin
                 if (pViewModel.Filter.Product_Id != 0)
                 {
                     pViewModel.Products = _productManager.Get_Products_By_Id(pViewModel.Filter.Product_Id, ref pager);
-                     
+
                 }
                 else
                 {
@@ -244,7 +246,7 @@ namespace SMSPortal.Controllers.PostLogin
                     pViewModel.ProductImage.Product_Id = Convert.ToInt32(Product_Id);
                     pViewModel.ProductImage.Image_Code = actualFileName;
                     pViewModel.ProductImage.Is_Default = Is_Default;
-                    _productManager.Insert_Product_Image(pViewModel.ProductImage,pViewModel.Cookies.User_Id);
+                    _productManager.Insert_Product_Image(pViewModel.ProductImage, pViewModel.Cookies.User_Id);
 
                     pViewModel.ImagesList = _productManager.Get_Product_Images(Convert.ToInt32(Product_Id));
                     pViewModel.Product.Product_Id = Convert.ToInt32(Product_Id);
@@ -256,11 +258,11 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("Error uploading Product Images  " + ex.Message);
             }
-            TempData["pViewModel"] = pViewModel;             
+            TempData["pViewModel"] = pViewModel;
             return PartialView("_Product_Images", pViewModel);
         }
 
-        public ActionResult Set_Image_Default(int Product_Id,int Product_Image_Id)
+        public ActionResult Set_Image_Default(int Product_Id, int Product_Image_Id)
         {
             ProductViewModel pViewModel = new ProductViewModel();
             try
@@ -300,7 +302,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             return PartialView("_Product_Images", pViewModel);
         }
-        
+
         public JsonResult Get_Product_Autocomplete(string Product)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
@@ -362,36 +364,57 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult SaveOrder(ProductViewModel pViewModel)
         {
-            InvoiceManager _invoiceManager = new InvoiceManager();
-            try
+
+            _sqlCon = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+
+            using (SqlConnection con = new SqlConnection(_sqlCon))
             {
-                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                con.Open();
+                using (SqlTransaction trans = con.BeginTransaction())
+                {
+                    try
+                    {
+                        InvoiceManager _invoiceManager = new InvoiceManager();
 
-                pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "5", "15", "Orders");
-                pViewModel.order.Order_Date = DateTime.Now;
-                pViewModel.order.Status = Convert.ToString(Convert.ToInt32(OrderStatus.Order_Received));
-                pViewModel.order.Shipping_Date = DateTime.Now.AddDays(7);
-                pViewModel.order.Created_By = pViewModel.Cookies.User_Id;
-                pViewModel.order.Created_On = DateTime.Now;
-                pViewModel.order.Updated_By = pViewModel.Cookies.User_Id;
-                pViewModel.order.Updated_On = DateTime.Now;
-                pViewModel.order.Order_Id=_OrdersManager.Insert_Orders(pViewModel.order);
-               
-                pViewModel.dealer=_dealerManager.Get_Dealer_By_Id(pViewModel.order.Dealer_Id);
+                        pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                InvoiceViewModel iViewModel = new InvoiceViewModel();
-                iViewModel.Invoice.Order_Id = pViewModel.order.Order_Id;
-                iViewModel.Invoice.Invoice_No = Utility.Generate_Ref_No("INV-", "Invoice_No", "5", "15", "Invoice");
-                iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Invoice(iViewModel.Invoice,pViewModel.Cookies.User_Id);
-                _invoiceManager.Send_Invoice_Email(pViewModel.dealer.Email, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
+                        pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "5", "15", "Orders");
+                        pViewModel.order.Order_Date = DateTime.Now;
+                        pViewModel.order.Status = Convert.ToString(Convert.ToInt32(OrderStatus.Order_Received));
+                        pViewModel.order.Shipping_Date = DateTime.Now.AddDays(7);
+                        pViewModel.order.Created_By = pViewModel.Cookies.User_Id;
+                        pViewModel.order.Created_On = DateTime.Now;
+                        pViewModel.order.Updated_By = pViewModel.Cookies.User_Id;
+                        pViewModel.order.Updated_On = DateTime.Now;
+                        pViewModel.order.Order_Id = _OrdersManager.Insert_Orders(pViewModel.order);
 
+                        pViewModel.dealer = _dealerManager.Get_Dealer_By_Id(pViewModel.order.Dealer_Id);
+
+                        InvoiceViewModel iViewModel = new InvoiceViewModel();
+                        iViewModel.Invoice.Order_Id = pViewModel.order.Order_Id;
+                        iViewModel.Invoice.Invoice_No = Utility.Generate_Ref_No("INV-", "Invoice_No", "5", "15", "Invoice");
+                        iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Invoice(iViewModel.Invoice, pViewModel.Cookies.User_Id);
+                        _invoiceManager.Send_Invoice_Email(pViewModel.dealer.Email, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
+
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                        Logger.Error("ProductController SaveOrder " + ex);
+                    }
+                    finally
+                    {
+                        con.Close();
+
+                        pViewModel.Friendly_Message.Add(MessageStore.Get("PO006"));
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("ProductController SaveOrder " + ex);
-            }
-            return RedirectToAction("Get_Invoice_By_Id", "Invoice");
+
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public ActionResult Bulk_Excel_Product_Upload(ProductViewModel pViewModel)
@@ -444,7 +467,7 @@ namespace SMSPortal.Controllers.PostLogin
             TempData["Message"] = pViewModel.Friendly_Message;
 
             return RedirectToAction("Search");
-        }                    
+        }
 
         public PartialViewResult Upload_Product_Excel()
         {
