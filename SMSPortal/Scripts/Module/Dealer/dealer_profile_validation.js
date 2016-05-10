@@ -37,14 +37,17 @@
             "Dealer.Pincode":
                 {
                     required: true,
+                    digits : true
                 },
             "Dealer.Contact_No_1":
                 {
                     required: true,
+                    digits : true
                 },
             "Dealer.Contact_No_2":
                 {
                     required: true,
+                    digits : true
                 },
             "Dealer.Email":
                 {
@@ -88,14 +91,17 @@
         "Dealer.Pincode":
             {
                 required: "Pincode is required",
+                digits : "Enter digits"
             },
         "Dealer.Contact_No_1":
             {
                 required: "Contact no 1 is required",
+                digits : "Enter digits"
             },
         "Dealer.Contact_No_2":
             {
                 required: "Contact no 2 required",
+                digits : "Enter digits"
             },
         "Dealer.Email":
             {

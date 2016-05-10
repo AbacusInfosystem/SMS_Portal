@@ -33,11 +33,13 @@ namespace SMSPortal.Controllers.PostLogin
         [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(UserViewModel uViewModel)
         {
+            FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
+            uViewModel.Friendly_Message.Add(ms);
             try
             {
-                if (TempData["userViewMessage"] != null)
+                if (TempData["Freindly_Message"] != null)
                 {
-                    uViewModel = (UserViewModel)TempData["userViewMessage"];
+                    uViewModel = (UserViewModel)TempData["Freindly_Message"];
                 }
             }
             catch (Exception ex)
@@ -106,7 +108,7 @@ namespace SMSPortal.Controllers.PostLogin
             }
             catch (Exception ex)
             {
-                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                uViewModel.Friendly_Message.Add(MessageStore.Get("UM001"));
                 Logger.Error("Error At User Controller - Index " + ex);
             }
 
@@ -122,9 +124,8 @@ namespace SMSPortal.Controllers.PostLogin
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 uViewModel.User.Pass_Token = Utility.Generate_Token();
-            
-              
-
+                uViewModel.User.Password = "ABCD";
+                uViewModel.User.Password = Utility.Encrypt(uViewModel.User.Password);
                 _userMan.Insert_Users(uViewModel.User , uViewModel.Cookies.User_Id);
 
                 link = ConfigurationManager.AppSettings["DomainName"].ToString() + "Login/Reset_Password?passtoken="+ uViewModel.User.Pass_Token;
@@ -140,7 +141,7 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error At User Controller - Insert " + ex);
             }
 
-            TempData["userViewMessage"] = uViewModel;
+            TempData["Friendly_Message"] = MessageStore.Get("UM001");
 
             if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
             {
@@ -178,8 +179,9 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error At User_Controller - Update_User " + ex);
             }
 
-            TempData["userViewMessage"] = uViewModel;
 
+            TempData["Friendly_Message"] = MessageStore.Get("UM002");
+           
             if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
             {
                 return RedirectToAction("Search", "Vendor");

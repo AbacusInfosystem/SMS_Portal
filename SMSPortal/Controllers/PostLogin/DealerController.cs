@@ -42,6 +42,9 @@ namespace SMSPortal.Controllers.PostLogin
                     dViewModel = (DealerViewModel)TempData["dViewModel"];
                 }
 
+                FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
+                dViewModel.Friendly_Message.Add(ms);
+
                 dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 if (dViewModel.Cookies.Role_Id == 1)
