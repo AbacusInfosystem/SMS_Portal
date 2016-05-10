@@ -8,15 +8,24 @@
     $(".chkstatus").on("ifChanged", function () {
 
         if ($(this).parents().prop("class").indexOf("checked") != -1) {
-            $("#hdnIs_Active").val(false);
-            $("#hdnIs_Biddable").val(false);
+            $("#hdnIs_Active").val(false);             
         }
         else {
-            $("#hdnIs_Active").val(true);
+            $("#hdnIs_Active").val(true);            
+        }
+    });
+
+    $(".chkBiddable").on("ifChanged", function () {
+
+        if ($(this).parents().prop("class").indexOf("checked") != -1)
+        {            
+            $("#hdnIs_Biddable").val(false);
+        }
+        else {             
             $("#hdnIs_Biddable").val(true);
         }
 
-    });
+    });    
 
     $(".fa-chevron-left").click(function () {
         $("#frmProductMaster").validate().cancelSubmit = true;

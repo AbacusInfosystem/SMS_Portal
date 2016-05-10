@@ -205,32 +205,7 @@ function Edit_Purchase_Order_Item(id) {
 function Delete_Purchase_Order_Item(id) {
 
     var purchase_order_item_id = id;   
-    $("#div_Parent_Modal_Fade").find(".modal-body").load("/purchaseOrder/Confirm_Delete", { id: purchase_order_item_id }, Mycallback);
-
-    //if (confirm("Are you sure you want to delete this item ?") == true) {
-
-       // $("#hdnPurchase_Order_Id").val($("#PItem" + id).find(".ItmPOrderId").val());
-        //var Purchase_Order_Id = $("#hdnPurchase_Order_Id").val();
-
-        //$.ajax({
-        //    url: '/purchaseorder/delete-purchase-order',
-        //    data: { Purchase_Order_Item_Id: id, Purchase_Order_Id: Purchase_Order_Id },
-        //    method: 'GET',
-        //    async: false,
-        //    success: function (data) {
-
-        //        Bind_Purchase_Order_Items(data);
-        //        Friendly_Message(data);
-
-        //    }
-        //});
-    //}
-    //else {
-    //    $('#frmPurchaseOrderMaster').validate().cancelSubmit = true;
-    //    //$("#frmPurchaseOrderMaster").submit(function (e) {
-    //    //   return false;
-    //    //});        
-    //}
+    $("#div_Parent_Modal_Fade").find(".modal-body").load("/purchaseOrder/Confirm_Delete", { id: purchase_order_item_id }, Mycallback);    
 }
 
 function Mycallback()
