@@ -18,14 +18,14 @@ namespace SMSPortalManager
             _brandRepo = new BrandRepo();
         }
 
-        public void Insert_Brand(BrandInfo brand)
+        public void Insert_Brand(BrandInfo brand, int user_id)
         {
-            _brandRepo.Insert_Brand(brand);
+            _brandRepo.Insert_Brand(brand,user_id);
         }
 
-        public void Update_Brand(BrandInfo brand)
+        public void Update_Brand(BrandInfo brand,int user_id)
         {
-            _brandRepo.Update_Brand(brand);
+            _brandRepo.Update_Brand(brand, user_id);
         }
 
         public List<BrandInfo> Get_Brands(ref PaginationInfo Pager)
