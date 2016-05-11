@@ -352,7 +352,7 @@ namespace SMSPortalRepo
             html.Append("<td colspan='2'>");
 
             #region From-to address & Order Details
-            html.Append("<table cellspacing='0' cellpadding='0' style='width:600px'>");
+            html.Append("<table cellspacing='0' cellpadding='0' style='width:700px'>");
             html.Append("<tbody>");
             html.Append("<tr>");
 

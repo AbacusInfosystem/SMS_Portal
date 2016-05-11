@@ -102,16 +102,8 @@ namespace SMSPortal.Controllers.PostLogin
 
             {
                 dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-
-                dViewModel.Dealer.Created_By = dViewModel.Cookies.User_Id; 
-
-                dViewModel.Dealer.Created_On = DateTime.Now;
-
-                dViewModel.Dealer.Updated_By = dViewModel.Cookies.User_Id; 
-
-                dViewModel.Dealer.Updated_On = DateTime.Now;
-
-                _dealerManager.Insert_Dealer(dViewModel.Dealer);
+                
+                _dealerManager.Insert_Dealer(dViewModel.Dealer,dViewModel.Cookies.User_Id);
 
                 dViewModel.Friendly_Message.Add(MessageStore.Get("DO001"));
 
@@ -135,13 +127,9 @@ namespace SMSPortal.Controllers.PostLogin
             try
            
             {
-                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");                
 
-                dViewModel.Dealer.Updated_By = dViewModel.Cookies.User_Id; 
-
-                dViewModel.Dealer.Updated_On = DateTime.Now;
-
-                _dealerManager.Update_Dealer(dViewModel.Dealer);
+                _dealerManager.Update_Dealer(dViewModel.Dealer,dViewModel.Cookies.User_Id);
 
                 dViewModel.Friendly_Message.Add(MessageStore.Get("DO002"));
             }

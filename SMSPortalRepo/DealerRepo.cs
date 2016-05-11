@@ -21,17 +21,17 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public void Insert_Dealer(DealerInfo dealer)
+        public void Insert_Dealer(DealerInfo dealer,int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer(dealer), StoreProcedures.Insert_Dealer_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer(dealer,user_id), StoreProcedures.Insert_Dealer_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        public void Update_Dealer(DealerInfo dealer)
+        public void Update_Dealer(DealerInfo dealer, int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer(dealer), StoreProcedures.Update_Dealer_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer(dealer,user_id), StoreProcedures.Update_Dealer_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Dealer(DealerInfo dealer)
+        private List<SqlParameter> Set_Values_In_Dealer(DealerInfo dealer,int user_id)
         {
            
             List<SqlParameter> sqlParams = new List<SqlParameter>();
@@ -64,14 +64,14 @@ namespace SMSPortalRepo
             if (dealer.Dealer_Id == 0)
             
             {
-                sqlParams.Add(new SqlParameter("@Created_On", dealer.Created_On));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
 
-                sqlParams.Add(new SqlParameter("@Created_By", dealer.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
             }
 
-            sqlParams.Add(new SqlParameter("@Updated_On", dealer.Updated_On));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
 
-            sqlParams.Add(new SqlParameter("@Updated_By", dealer.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
 
             return sqlParams;
         }
