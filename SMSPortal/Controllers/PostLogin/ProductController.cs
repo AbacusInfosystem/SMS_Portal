@@ -417,6 +417,21 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Index", "Dashboard");
         }
 
+        public PartialViewResult GetProductDetails(int Product_Id)
+        {
+            ProductViewModel pViewModel = new ProductViewModel();
+            try
+            {                
+                pViewModel.Product = _productManager.Get_Product_By_Id(Product_Id);
+                pViewModel.Product.ProductImages = _productManager.Get_Product_Images(Product_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("ProductController GetProductDetails " + ex);
+            }           
+            return PartialView("_ProductDetails", pViewModel);
+        }
+
         public ActionResult Bulk_Excel_Product_Upload(ProductViewModel pViewModel)
         {
             // Code to Upload Excel File 

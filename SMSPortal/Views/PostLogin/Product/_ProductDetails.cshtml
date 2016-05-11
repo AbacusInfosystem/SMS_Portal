@@ -1,0 +1,84 @@
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel
+
+<script src="~/Scripts/Module/Product/ProductDetails/product-details-methods.js"></script>
+<script src="~/Scripts/Module/Product/ProductDetails/product-details-events.js"></script>
+
+<div class="container">
+    <input type="hidden" id="hdnPD_ProductId" value="@Model.Product.Product_Id" />
+    <div class="row">
+        <div class="col-md-5">
+            <div class="thumbnail margin">
+                <img id="imgCurrentProductImage" src="~/UploadedFiles/@Model.Product.Product_Image" style="height:250px; width:400px;">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>@Model.Product.Product_Name - @Model.Product.Product_Description</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>Brand</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h4><b>@Model.Product.Brand_Name</b></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>Category</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h4><b>@Model.Product.Category_Name</b></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>Sub-category</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h4><b>@Model.Product.SubCategory_Name</b></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>Price</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h4><b>@Html.Raw(string.Format("{0:#,#.00}", Model.Product.Product_Price))</b> ₹</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var item in Model.Product.ProductImages)
+        {
+            string imageFileName = item.Image_Code;
+            <div class="col-md-1">
+                <div class="thumbnail margin">
+                    <img src="~/UploadedFiles/@item.Image_Code" onclick="changeImage(this);" style="height:30px; width:30px;">
+                </div>
+            </div>
+        }
+
+        <div class="col-md-1">
+            <a href="" class="thumbnail margin">
+                <img src="~/UploadedFiles/@Model.Product.Product_Image" style="height:30px; width:30px;">
+            </a>
+        </div>
+
+        <div class="col-md-2">
+            <button type="button" id="btnPD_AddToCart" class="btn btn-primary" onclick="AddToCart(this, @Model.Product.Product_Id, true);">
+                <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
+            </button>
+        </div>
+
+        <div class="col-md-2">
+            <button type="button" id="btnPD_Proceed" class="btn btn-primary">Proceed</button>
+        </div>
+
+    </div>
+</div>

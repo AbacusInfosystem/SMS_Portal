@@ -28,6 +28,9 @@
 
     $('#div_Parent_Modal_Fade').on('hidden.bs.modal', function (e) {
 
+        if ($("#div_Parent_Modal_Fade").find(".modal-dialog").hasClass("modal-lg"))
+            $("#div_Parent_Modal_Fade").find(".modal-dialog").removeClass("modal-lg");
+
         if ($("#" + $('#div_Parent_Modal_Fade').find(".modal-title").attr("data-obj")).length) {
 
             Close_Pop_Up(true,this);
