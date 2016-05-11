@@ -208,6 +208,13 @@ namespace SMSPortal.Common
             hash.Add("TO002", TO002);
 
             #endregion
+
+            #region Invoice
+
+            FriendlyMessage IO001 = new FriendlyMessage("IO001", MessageType.Success, "Email has been sent successfully.");
+            hash.Add("IO001", IO001);
+
+            #endregion
 		}
 
 		public static FriendlyMessage Get(string code)
