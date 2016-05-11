@@ -69,7 +69,7 @@ namespace SMSPortalRepo
             return products;
         }
 
-        public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id)
+        public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id, string Product_Name)
         {
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
@@ -77,6 +77,7 @@ namespace SMSPortalRepo
             sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
             sqlParamList.Add(new SqlParameter("@Category_Id", Category_Id));
             sqlParamList.Add(new SqlParameter("@Sub_Category_Id", Sub_Category_Id));
+            sqlParamList.Add(new SqlParameter("@Product_Name", Product_Name));
 
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Products_By_Dealer_Id_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in dt.Rows)

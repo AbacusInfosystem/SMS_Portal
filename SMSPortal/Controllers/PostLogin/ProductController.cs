@@ -325,12 +325,12 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_Categories", pViewModel);
         }
 
-        public PartialViewResult GetProductList(int? Category_Id, int? Sub_Category_Id)
+        public PartialViewResult GetProductList(int? Category_Id, int? Sub_Category_Id, string Product_Name)
         {
             ProductViewModel pViewModel = new ProductViewModel();
 
             pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-            pViewModel.Products = _productManager.Get_Products_By_Dealer_Id(pViewModel.Cookies.Entity_Id, Category_Id, Sub_Category_Id);
+            pViewModel.Products = _productManager.Get_Products_By_Dealer_Id(pViewModel.Cookies.Entity_Id, Category_Id, Sub_Category_Id, Product_Name);
 
             return PartialView("_ProductList", pViewModel);
         }
