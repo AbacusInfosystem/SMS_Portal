@@ -217,6 +217,8 @@ function Bind_Payable_Grid_Items(data) {
 
     $("#divSearchGridOverlay").hide();
 
+    Friendly_Message(data);
+
     ClearPayableData();
 
     //$('[name="r1"]').on('ifChanged', function (event) {
