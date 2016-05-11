@@ -1,11 +1,25 @@
 ﻿$(function () {
-
+    //alert(1);
     $(".fa-chevron-left").click(function () {
 
         $("#frmUserMaster").validate().cancelSubmit = true;
+        if ($("#hdf_RoleId").val() == 1) {
 
-        $("#frmUserMaster").attr("action", "/User/Search/");
+            $("#frmUserMaster").attr("action", "/User/Search/");
+        }
 
+        else if ($("#hdf_RoleId").val() == 2) {
+            $("#frmUserMaster").attr("action", "/Brand/Search/");
+        }
+        else if ($("#hdf_RoleId").val() == 3) {
+            $("#frmUserMaster").attr("action", "/Dealer/Search/");
+        }
+        else  {
+            $("#frmUserMaster").attr("action", "/Vendor/Search/");
+        }
+
+            
+     
         $("#frmUserMaster").attr("method", "POST");
 
         $("#frmUserMaster").submit();
