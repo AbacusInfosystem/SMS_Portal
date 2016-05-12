@@ -554,6 +554,7 @@ namespace SMSPortalRepo
             product.Category_Name = Convert.ToString(dr["Category_Name"]);
             product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
             product.SubCategory_Name = Convert.ToString(dr["SubCategory_Name"]);
+            product.Product_Image = Convert.ToString(dr["Image_Code"]);
             product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
             product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
             product.Created_On = Convert.ToDateTime(dr["Created_On"]);

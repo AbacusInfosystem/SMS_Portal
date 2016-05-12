@@ -47,7 +47,7 @@
 
                         <div class="box-header with-border">
                             <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            <h3 class="box-title">Receivable </h3>
+
                         </div>
 
                         <div class="box-body">
@@ -56,10 +56,9 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="txtRecDate" style="color: #333">Receivable Date</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control  input-sm" id="txtRecDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Receivable.Receivable_Date" placeholder="Enter Receivable Date" value="@((Model.Receivable.Receivable_Date == DateTime.MinValue ? "" : Model.Receivable.Receivable_Date.ToString("dd-MM-yyyy")))" />
-                                        </div>
+                                        <label for="txtRecDate" style="color: #333">Receivable Date</label>                                        
+                                            <input type="text" class="form-control input-sm" id="txtRecDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Receivable.Receivable_Date" placeholder="Enter Receivable Date" value="@((Model.Receivable.Receivable_Date == DateTime.MinValue ? "" : Model.Receivable.Receivable_Date.ToString("dd-MM-yyyy")))" />
+                                        
                                     </div>
                                 </div>
 
@@ -70,12 +69,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Balance Amount</label>
-                                        <input readonly type="text" class="form-control input-sm" name="Receivable.Balance_Amount" id="txtBalance_Amount" placeholder="Enter IFSC Code" value="@Model.Receivable.Balance_Amount" maxlength="20">
-                                    </div>
-                                </div>
+                                
 
                             </div>
 
@@ -99,6 +93,13 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Balance Amount</label>
+                                        <input readonly type="text" class="form-control input-sm" name="Receivable.Balance_Amount" id="txtBalance_Amount" placeholder="Enter IFSC Code" value="@Model.Receivable.Balance_Amount" maxlength="20">
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row">
@@ -109,26 +110,26 @@
                                         <input type="hidden" class="form-control input-sm" name="" id="hdnReceivable_Item_Amount" placeholder="Enter Amount" value="0" maxlength="20">
                                     </div>
                                 </div>
-                                </div>
+                            </div>
 
-                                <div id="dvMain">
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <br />
-                                                @*@if(Model.Receivable.Status!="Payment Done")
-                                                {*@
-                                        <div class="btn-group">
-                                            <button type="button" id="btnNEFTSave" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDelete">Save</button>
-                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                        </div>
-                                                @*}*@
-                                    </div>
-                                </div>
+                            <div id="dvMain">
 
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <br />
+                                    @*@if(Model.Receivable.Status!="Payment Done")
+                                        {*@
+                                    <div class="btn-group">
+                                        <button type="button" id="btnNEFTSave" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDelete">Save</button>
+                                        <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
+                                    </div>
+                                    @*}*@
+                                </div>
+                            </div>
+
+                        </div>
 
                     </div>
                 </div>
@@ -140,7 +141,7 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-striped" id="tblReceivableItems">
                                 <tr id="subhead">
-                                                                       
+
                                     <th>Transaction Type</th>
                                     <th>Amount</th>
                                     <th>Bank Name</th>
@@ -149,11 +150,11 @@
                                     <th>Cheque Date</th>
                                     <th>NEFT Details</th>
                                     <th>Credit/Debit Card Details</th>
-                                    <th>Receivable Date</th> 
-                                    @if(Model.Receivable.Status!="Payment Done")
+                                    <th>Receivable Date</th>
+                                    @if (Model.Receivable.Status != "Payment Done")
                                     {
-                                    <th>Action</th>   
-                                    }                                
+                                        <th>Action</th>
+                                    }
                                 </tr>
 
                                 @if (Model.Receivables != null && Model.Receivables.Count() > 0)
@@ -185,7 +186,7 @@
                                                 <input type="hidden" id="hdnCheque_Number@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
                                             </td>
                                             <td>
-                                                @if (itm.Cheque_Date.ToString()=="1/1/1999 12:00:00 AM")
+                                                @if (itm.Cheque_Date.ToString() == "1/1/1999 12:00:00 AM")
                                                 {
                                                     <span> NA </span>
                                                 }
@@ -193,7 +194,7 @@
                                                 {
                                                     <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
                                                 }
-                                                
+
                                                 <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
@@ -210,11 +211,11 @@
                                             </td>
                                             <td>
                                                 @*@if(Model.Receivable.Status!="Payment Done")
-                                                {*@
-                                                    <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-pencil'></i></button>
-                                                   @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>*@
+                                                    {*@
+                                                <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-pencil'></i></button>
+                                                @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>*@
                                                 @*}*@
-                                                
+
                                             </td>
                                         </tr>
                                                 i = i + 1;

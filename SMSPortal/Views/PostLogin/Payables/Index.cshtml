@@ -53,7 +53,7 @@
 
                         <div class="box-header with-border">
                             <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            <h3 class="box-title">Payable </h3>
+                            
                         </div>
 
                         <div class="box-body">
@@ -63,9 +63,9 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="txtPayDate" style="color: #333">Payable Date</label>
-                                        <div class="input-group">
+                                        
                                             <input type="text" class="form-control  input-sm" id="txtPayDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Payable.Payable_Date" placeholder="Enter Payable Date" value="@((Model.Payable.Payable_Date == DateTime.MinValue ? "" : Model.Payable.Payable_Date.ToString("dd-MM-yyyy")))" />
-                                        </div>
+                                         
                                     </div>
                                 </div>
 
@@ -76,12 +76,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Balance Amount</label>
-                                        <input readonly type="text" class="form-control input-sm" name="Payable.Balance_Amount" id="txtBalance_Amount" placeholder="Enter IFSC Code" value="@Model.Payable.Balance_Amount" maxlength="20">
-                                    </div>
-                                </div>
+                                
 
                             </div>
 
@@ -103,6 +98,12 @@
                                                 }
                                             }
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: #333">Balance Amount</label>
+                                        <input readonly type="text" class="form-control input-sm" name="Payable.Balance_Amount" id="txtBalance_Amount" placeholder="Enter IFSC Code" value="@Model.Payable.Balance_Amount" maxlength="20">
                                     </div>
                                 </div>
                             </div>
