@@ -228,6 +228,9 @@ namespace SMSPortalRepo
             product.Product_Image = Convert.ToString(dr["Image_Code"]);
             if (!dr.IsNull("Product_Price"))
             product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            if (!dr.IsNull("MasterProductPrice"))
+                product.MasterProductPrice = Convert.ToDecimal(dr["MasterProductPrice"]);
+
             return product;
         }
 
@@ -308,13 +311,18 @@ namespace SMSPortalRepo
 
                     if (!dr.IsNull("Product_Id"))
                         list.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+
                     if (!dr.IsNull("Vendor_Id"))
                         list.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+
                     if (!dr.IsNull("Brand_Id"))
                         list.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+
                     //if (!dr.IsNull("Product_Price"))
-                        list.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+
+                    list.Product_Price = Convert.ToDecimal(dr["Product_Price"]);    
                     list.Product_Ids = list.Product_Id + ",";
+
 
                     productlist.Add(list);
                 }

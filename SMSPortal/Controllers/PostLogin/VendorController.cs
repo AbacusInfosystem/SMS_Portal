@@ -194,12 +194,14 @@ namespace SMSPortal.Controllers.PostLogin
         {
 
             VendorViewModel vViewModel = new VendorViewModel();
+
             PaginationInfo pager = new PaginationInfo();
             
             try
             {
                
                 vViewModel.Products = _vendorManager.Get_Productmapping(brand_Id);
+
                 vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id, brand_Id);               
               
             }
