@@ -75,20 +75,16 @@ function Bind_Vendor_Product_Grid(data) {
             var id = data.Products[i].Product_Id;
 
             if (product_Ids.indexOf(id) >= 0)
-
             {
                 for (j = 0 ; j < data.MappedProducts.length; j++) {
                     if (data.MappedProducts[j].Product_Id == id) {
 
-                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
+                        htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
                         htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.MappedProducts[j].Product_Price == 0 ? '' : data.MappedProducts[j].Product_Price) + "'>";
                     }
-
                 }
             }
-
             else
-
             {
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
                 htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value=''>";
