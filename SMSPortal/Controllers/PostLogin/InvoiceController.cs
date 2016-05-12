@@ -18,6 +18,7 @@ namespace SMSPortal.Controllers.PostLogin
         public InvoiceManager _invoiceManager;         
         public OrdersManager _ordersManager;
         public UserManager _userManager;
+
         public InvoiceController()
         {
             _invoiceManager = new InvoiceManager();            

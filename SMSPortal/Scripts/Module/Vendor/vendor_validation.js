@@ -1,8 +1,11 @@
 ﻿$(document).ready(function () {
 
-    $("#frmVendorMaster").validate({
-        errorClass: 'login-error',
-        rules: {
+    $("#frmVendorMaster").validate(
+        {
+            errorClass: 'login-error',
+
+        rules:
+            {
             "Vendor.Vendor_Name":
                {
                    required: true,
@@ -84,6 +87,7 @@
         },
     });
 });
+
 jQuery.validator.addMethod("validate_Vendor_Exist", function (value, element) {
     var result = true;
 
@@ -103,3 +107,5 @@ jQuery.validator.addMethod("validate_Vendor_Exist", function (value, element) {
     return result;
 
 }, "Vendor Name already exists.");
+
+

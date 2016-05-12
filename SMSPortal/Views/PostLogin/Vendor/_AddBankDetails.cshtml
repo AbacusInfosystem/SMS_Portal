@@ -12,21 +12,21 @@
                     <div class="col-md-3">
                         <div id="dvBankName" class="form-group">
                             <label style="color: #333">Bank Name<small class="required-label"></small></label>
-                            <input type="text" maxlength="20" value="" placeholder="Enter Bank name" id="txtBank_Name" name="" class="form-control input-sm custom-mandatory">
+                            <input type="text" maxlength="20" value="" placeholder="Enter Bank name" id="txtBank_Name" name="txtBank_Name" class="form-control input-sm custom-mandatory">
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div id="dvAccountNo" class="form-group">
                             <label style="color: #333">Account No<small class="required-label"></small></label>
-                            <input type="text" maxlength="20" value="" placeholder="Enter Account No" id="txtAccount_No" name="" class="form-control input-sm custom-mandatory">
+                            <input type="text" maxlength="20" value="" placeholder="Enter Account No" id="txtAccount_No" name="txtAccount_No" class="form-control input-sm custom-mandatory">
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div id="dvIfscCode" class="form-group">
                             <label style="color: #333">IFSC Code<small class="required-label"></small></label>
-                            <input type="text" maxlength="15" value="" placeholder="Enter IFSC Code" id="txtIFSC_Code" name="" class="form-control input-sm custom-mandatory">
+                            <input type="text" maxlength="15" value="" placeholder="Enter IFSC Code" id="txtIFSC_Code" name="txtIFSC_Code" class="form-control input-sm custom-mandatory">
                         </div>
                     </div>
 
@@ -70,32 +70,32 @@
                         </thead>
                         @if (Model.Vendor.BankDetailsList != null && Model.Vendor.BankDetailsList.Count() > 0)
                         {
-                            int i = 1;
+                            int i = 0;
                             foreach (var itm in Model.Vendor.BankDetailsList)
                             {
                                 <tr id="tr@(i)">
                                     <td>
                                         <span id="trBankName@(i)"> @itm.Bank_Name</span>                                        
-                                        <input type="hidden" id="hdnbank_Name@(i)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
-                                    </td>
+                                        <input type="hidden" id="hdnbank_Name@(i)" name="Vendor.BankDetailsList[@i].Bank_Name" value="@itm.Bank_Name">
+                                        <input type="hidden" id="hdnVendor_Bank_Detail_Id@(i)" name="Vendor.BankDetailsList[@i].Vendor_Bank_Detail_Id" value="@itm.Vendor_Bank_Detail_Id"></td>
                                     <td>
                                         <span id="trAccount_No@(i)"> @itm.Account_No</span>
-                                        <input type="hidden" id="hdnaccount_No@(i)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Account_No">
+                                        <input type="hidden" id="hdnaccount_No@(i)" name="Vendor.BankDetailsList[@i].Account_No" value="@itm.Account_No">
                                     </td>
                                     <td>
                                         <span id="trIfsc_Code@(i)"> @itm.Ifsc_Code</span>
-                                        <input type="hidden" id="hdnifsc_Code@(i)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Ifsc_Code">
+                                        <input type="hidden" id="hdnifsc_Code@(i)" name="Vendor.BankDetailsList[@i].Ifsc_Code" value="@itm.Ifsc_Code">
                                     </td>
                                     <td>
                                         @if (itm.Status.ToString() == "True")
                                         {
                                             <span id="trStatus@(i)"> Active</span>
-                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="true">
+                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@i].Status" value="true">
                                         }        
                                         else
                                         {
                                             <span id="trStatus@(i)"> InActive</span>
-                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="false">
+                                            <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@i].Status" value="false">
                                         }
                                         
                                     </td>

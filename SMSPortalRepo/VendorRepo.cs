@@ -157,6 +157,7 @@ namespace SMSPortalRepo
             {
                 List<SqlParameter> sqlparam = new List<SqlParameter>();
 
+                sqlparam.Add(new SqlParameter("@Vendor_Bank_Detail_Id", item.Vendor_Bank_Detail_Id));
                 sqlparam.Add(new SqlParameter("@Vendor_Id", vendor.Vendor_Id));
                 sqlparam.Add(new SqlParameter("@Bank_Name", item.Bank_Name));
                 sqlparam.Add(new SqlParameter("@Account_No", item.Account_No));
@@ -186,7 +187,7 @@ namespace SMSPortalRepo
                 foreach (DataRow dr in dt.Rows)
                 {
                     Bank_Details list = new Bank_Details();
-
+                    list.Vendor_Bank_Detail_Id = Convert.ToInt32(dr["Vendor_Bank_Detail_Id"]);
                     if (!dr.IsNull("Bank_Name"))
                         list.Bank_Name = Convert.ToString(dr["Bank_Name"]);
                     if (!dr.IsNull("Account_No"))
@@ -226,8 +227,11 @@ namespace SMSPortalRepo
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
              if (!dr.IsNull("Image_Code"))
             product.Product_Image = Convert.ToString(dr["Image_Code"]);
-            if (!dr.IsNull("Product_Price"))
-            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            //if (!dr.IsNull("Product_Price"))
+            //product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            if (!dr.IsNull("MasterProductPrice"))
+                product.MasterProductPrice = Convert.ToDecimal(dr["MasterProductPrice"]);
+
             return product;
         }
 
@@ -308,13 +312,18 @@ namespace SMSPortalRepo
 
                     if (!dr.IsNull("Product_Id"))
                         list.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+
                     if (!dr.IsNull("Vendor_Id"))
                         list.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+
                     if (!dr.IsNull("Brand_Id"))
                         list.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+
                     //if (!dr.IsNull("Product_Price"))
-                        list.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+
+                    list.Product_Price = Convert.ToDecimal(dr["Product_Price"]);    
                     list.Product_Ids = list.Product_Id + ",";
+
 
                     productlist.Add(list);
                 }

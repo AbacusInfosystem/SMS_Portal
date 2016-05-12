@@ -172,9 +172,9 @@ function Bind_Receivable_Grid_Items(data) {
 
             htmlText += "</td>";
 
-            if (data.Receivable.Status != "Payment Done")
+            //if (data.Receivable.Status != "Payment Done")
 
-            {
+            //{
                 htmlText += "<td>";
 
                 htmlText += "<button type='button' id='edit-receivable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
@@ -182,7 +182,7 @@ function Bind_Receivable_Grid_Items(data) {
                 //htmlText += "<button type='button' id='delete-receivable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeletReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
 
                 htmlText += "</td>";
-            }
+            //}
           
             htmlText += "</tr>";
         }
