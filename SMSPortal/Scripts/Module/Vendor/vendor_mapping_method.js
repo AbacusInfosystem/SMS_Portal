@@ -83,6 +83,7 @@ function Bind_Vendor_Product_Grid(data) {
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
                         htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.MappedProducts[j].Product_Price == 0 ? '' : data.MappedProducts[j].Product_Price) + "'>";
                     }
+
                 }
             }
 
