@@ -31,27 +31,24 @@
 
 function Bind_Vendor_Product_Grid(data) {
 
-    $('.form-control_new').hide(); // on default, hide textbox
-
-    $('.chkstatus').click(function ()
-    {
-        var checked_status = this.checked;
-
-        if (checked_status == true)
-        {
-            $(".form-control_new").show();
-        }
-    });
+    //$('.form-control_new').hide(); // on default, hide textbox
+    //$('.chkstatus').click(function () {
+    //    var checked_status = this.checked;
+    //    if (checked_status == true) {
+    //        $(".form-control_new").show();
+    //    }
+    //});
 
     var product_Ids = "";
-
+    var product_price = "";
     if (data.Products.length > 0)
 
     {
         for (i = 0; i < data.MappedProducts.length; i++)
 
         {
-            product_Ids+= data.MappedProducts[i].Product_Id + ",";
+            product_Ids += data.MappedProducts[i].Product_Id + ",";
+            product_price += data.MappedProducts[i].Product_Price + ",";
         }
     }
 
@@ -73,32 +70,32 @@ function Bind_Vendor_Product_Grid(data) {
 
             htmlText += "<img width='100' height='100' id='ProductImg1' src='/UploadedFiles/" + data.Products[i].Product_Image + "'/></br>";
 
-            //htmlText += "< label  " + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + " </br>";
-
             htmlText += "<label style='text-align:center'>" + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + "</label></br>";
 
-            //htmlText += "< label  " + data.Products[i].Product_Price == null ? "" : data.Products[i].Product_Price + " </br>";
-
-            htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price_" + i + "' placeholder='product price' value='" + (data.Products[i].Product_Price == 0 ? '' : data.Products[i].Product_Price) + "'>";
-        
             var id = data.Products[i].Product_Id;
 
             if (product_Ids.indexOf(id) >= 0)
 
             {
+                for (j = 0 ; j < data.MappedProducts.length; j++) {
+                    if (data.MappedProducts[j].Product_Id == id) {
+
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
+                        htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.MappedProducts[j].Product_Price == 0 ? '' : data.MappedProducts[j].Product_Price) + "'>";
+                    }
+
+                }
             }
 
             else
 
             {
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
+                htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value=''>";
             }
             
             htmlText += "<input type='hidden' id='hd_Productid" + i + "' name='Products[" + i + "].Product_id' value='" + data.Products[i].Product_Id + "'>";
            
-            //htmlText += "<label id= 'lblerror' class='login-error' for='txtProduct_Price' generated='true' style=''display: inline-block'></label></br>";
-
             htmlText += "</td>";
  
             count++;
@@ -136,9 +133,9 @@ function Bind_Vendor_Product_Grid(data) {
 
     $('input:not(.non-iCheck input:checkbox)').iCheck(
         {
-            checkboxClass: 'icheckbox_square-green_new',
-            radioClass: 'iradio_square-green_new',
-            increaseArea: '20%', // optional
+        checkboxClass: 'icheckbox_square-green_new',
+        radioClass: 'iradio_square-green_new',
+        increaseArea: '20%', // optional
     });
 
 
@@ -157,7 +154,7 @@ function Bind_Vendor_Product_Grid(data) {
 
     {
         $('.pagination').html("");
-    }
+    }   
 
     $(".form-control_new").each(function ()
     {
