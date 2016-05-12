@@ -481,7 +481,7 @@ namespace SMSPortalRepo
 
             html.Append("<tr>");
             html.Append("<td colspan='4'>Total: </td>");
-            html.Append("<td>" + Order.Net_Amount + "</td>");
+            html.Append("<td>" + Order.Gross_Amount + "</td>");
             html.Append("</tr>");
 
             html.Append("<tr>");
@@ -501,7 +501,7 @@ namespace SMSPortalRepo
 
             html.Append("<tr>");
             html.Append("<td colspan='4'>Grand Total:</td>");
-            html.Append("<td>" + Order.Gross_Amount + "</td>");
+            html.Append("<td>" + Order.Net_Amount + "</td>");
             html.Append("</tr>");
 
             html.Append("</tbody>");

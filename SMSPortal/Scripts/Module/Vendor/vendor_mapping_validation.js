@@ -65,7 +65,7 @@
 jQuery.validator.addMethod("validate_product_price", function (value, element)
 
 {
-    alert(element.id);
+    //alert(element.id);
 
     var MasterProductPrice = parseInt($(element).closest("td").find("#hdn_MasterProductPrice").val());
 

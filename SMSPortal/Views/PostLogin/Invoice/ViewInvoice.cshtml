@@ -109,7 +109,7 @@
                                                     }
                                                 <tr>
                                                     <td colspan="4"><b> Total:</b></td>
-                                                    <td> @Model.Order.Net_Amount</td>
+                                                    <td> @Model.Order.Gross_Amount</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="4"><b> VAT(%):</b></td>
@@ -125,7 +125,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="4"><b> Grand Total:</b></td>
-                                                    <td>@Model.Order.Gross_Amount</td>
+                                                    <td>@Model.Order.Net_Amount</td>
                                                 </tr>
                                                 }
                                             </tbody>
@@ -134,16 +134,16 @@
                                 </div><!-- /.row -->
                                 <!-- this row will not appear when printing -->                                
                             </section>
-
-                            <footer class="row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-10">
-                                    <a class="btn btn-default" target="_blank" id="btnPrint"><i class="fa fa-print"></i> Print</a>
-                                    <button type="button" id="btnSendEmail" class="btn btn-success pull-right">Send Invoice</button>
-                                </div>
-                                <div class="col-md-1"></div>
-                            </footer>
-                        </div>                        
+                        </div>      
+                        <footer class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <a class="btn btn-default" target="_blank" id="btnPrint"><i class="fa fa-print"></i> Print</a>
+                                <button type="button" id="btnSendEmail" class="btn btn-success pull-right">Send Invoice</button>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <br />
+                        </footer>                  
                     </div>
                      
                 </div>

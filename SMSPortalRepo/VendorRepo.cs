@@ -226,8 +226,8 @@ namespace SMSPortalRepo
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
              if (!dr.IsNull("Image_Code"))
             product.Product_Image = Convert.ToString(dr["Image_Code"]);
-            if (!dr.IsNull("Product_Price"))
-            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            //if (!dr.IsNull("Product_Price"))
+            //product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
             if (!dr.IsNull("MasterProductPrice"))
                 product.MasterProductPrice = Convert.ToDecimal(dr["MasterProductPrice"]);
 
