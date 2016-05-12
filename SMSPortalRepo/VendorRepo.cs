@@ -157,6 +157,7 @@ namespace SMSPortalRepo
             {
                 List<SqlParameter> sqlparam = new List<SqlParameter>();
 
+                sqlparam.Add(new SqlParameter("@Vendor_Bank_Detail_Id", item.Vendor_Bank_Detail_Id));
                 sqlparam.Add(new SqlParameter("@Vendor_Id", vendor.Vendor_Id));
                 sqlparam.Add(new SqlParameter("@Bank_Name", item.Bank_Name));
                 sqlparam.Add(new SqlParameter("@Account_No", item.Account_No));
@@ -186,7 +187,7 @@ namespace SMSPortalRepo
                 foreach (DataRow dr in dt.Rows)
                 {
                     Bank_Details list = new Bank_Details();
-
+                    list.Vendor_Bank_Detail_Id = Convert.ToInt32(dr["Vendor_Bank_Detail_Id"]);
                     if (!dr.IsNull("Bank_Name"))
                         list.Bank_Name = Convert.ToString(dr["Bank_Name"]);
                     if (!dr.IsNull("Account_No"))

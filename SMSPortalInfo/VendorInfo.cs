@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SMSPortalRepo;
 
 namespace SMSPortalInfo
 {
@@ -44,15 +45,21 @@ namespace SMSPortalInfo
 
         public List<Bank_Details> BankDetailsList { get; set; }
 
+        public StateInfo stateInfo { get; set; }
+
         public VendorInfo()
         {
             BankDetailsList = new List<Bank_Details>();
+
+            stateInfo = new StateInfo();
         }
 
     }
 
     public class Bank_Details
     {
+        public int Vendor_Bank_Detail_Id { get; set; }
+
         public string Bank_Name { get; set; }
 
         public string Account_No { get; set; }
