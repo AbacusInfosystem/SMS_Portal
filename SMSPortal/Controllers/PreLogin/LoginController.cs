@@ -168,7 +168,7 @@ namespace SMSPortal.Controllers.PreLogin
             {
                 LogoutUser();
 
-                TempData["FriendlyMessage"] = MessageStore.Get("SYS02");
+                TempData["FriendlyMessage"] = MessageStore.Get("SYS010");
             }
             catch (Exception ex)
             {

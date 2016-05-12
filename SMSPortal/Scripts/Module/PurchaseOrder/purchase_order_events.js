@@ -16,6 +16,7 @@
 
     if ($("#hdnPurchase_Order_Id").val() != 0) {
         $("#dvSubc").find(".autocomplete-text").trigger("focusout");
+        $("#dvSubc").addClass('disabled-div ');        
     }
     
     $(".fa-chevron-left").click(function () {

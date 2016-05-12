@@ -94,7 +94,7 @@ function Bind_Purchase_Order_Items(data) {
             htmlText += "<input type='hidden' class='ItmProductQty' value='" + data.PurchaseOrderItems[i].Product_Quantity + "'>";
             htmlText += "<input type='hidden' class='ItmShipAdd' value='" + data.PurchaseOrderItems[i].Shipping_Address + "'>";
 
-            htmlText += "<input type='hidden' class='ItmShipDate' value='" + data.PurchaseOrderItems[i].Shipping_Date + "' > ";
+            htmlText += "<input type='hidden' class='ItmShipDate' value='" + data.PurchaseOrderItems[i].Shipping_Date == null ? "" : Get_Date(data.PurchaseOrderItems[i].Shipping_Date) + "' > ";
             
             htmlText += "<input type='hidden' class='ItmRecQty' value='" + data.PurchaseOrderItems[i].Received_Quantity + "'>";
 
@@ -128,6 +128,8 @@ function Bind_Purchase_Order_Items(data) {
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
+
+    $("#dvSubc").addClass('disabled-div ');
 
     Reset_Purchase_Order();
     Friendly_Message(data);
@@ -231,10 +233,6 @@ function Mycallback()
 
     });
 } 
-
-
-
-
 
 function Reset_Purchase_Order() {
     $("#txtProductPrice").val("0");
