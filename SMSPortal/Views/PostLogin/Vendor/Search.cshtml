@@ -23,14 +23,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Vendor</h3>
-                        </div>
+                         
                         <div class="box-body">
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id">
                             <div class="row">                             
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group auto-complete">
                                         <label for="vendor" class="lookup-title">Vendor Name</label>
                                         <div class="input-group">
@@ -74,9 +72,9 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-striped" id="tblVendorMaster">
                                 <tr id="subhead">
-                                    <th></th>
-                                    <th>Vendor Name</th>
-                                    <th>Address</th>
+                                    <th width="5%"></th>
+                                    <th width="15%">Vendor Name</th>
+                                    <th width="20%">Address</th>
                                     <th>Status</th>
                                 </tr>                            
                             </table>

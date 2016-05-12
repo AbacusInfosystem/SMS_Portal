@@ -22,8 +22,7 @@
                 },
             "Product.Product_Price":
                 {
-                    required: true,
-                    validate_product_price: true
+                    required: true
                 }
         },
         messages: {

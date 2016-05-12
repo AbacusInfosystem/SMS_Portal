@@ -89,7 +89,7 @@ namespace SMSPortal.Controllers.PostLogin
                     bViewModel.Brands = _brandManager.Get_Brands(ref pager);
                 }
                 bViewModel.Pager = pager;
-                bViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", bViewModel.Pager.TotalRecords, bViewModel.Pager.CurrentPage + 1, bViewModel.Pager.PageSize, 10, true);
+                bViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", bViewModel.Pager.TotalRecords, bViewModel.Pager.CurrentPage + 1, bViewModel.Pager.PageSize, 5, true);
             }
             catch (Exception ex)
             {
