@@ -1202,6 +1202,7 @@
     <Content Include="Views\PostLogin\Dealer\My_Orders.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\My_Order_Details.cshtml" />
     <Content Include="Views\Shared\_ConfirmDelete.cshtml" />
+    <Content Include="Views\PostLogin\Vendor\Vendor_Mapping.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

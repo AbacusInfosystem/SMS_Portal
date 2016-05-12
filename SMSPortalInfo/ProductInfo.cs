@@ -50,6 +50,8 @@ namespace SMSPortalInfo
         public bool Check { get; set; }
 
         public string Product_Ids { get; set; }
+
+        //public string Product_Prices { get; set; }
         
     }
 
