@@ -105,6 +105,7 @@ jQuery.validator.addMethod("check_balance_amount_validation", function (value, e
 
 }, "Please enter amount less than balance amount.");
 
+
 jQuery.validator.addMethod("number_validation", function (value, element)
 
 {

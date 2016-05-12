@@ -1,7 +1,11 @@
 ﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+@*@model SMSPortal.Models.PostLogin.ProductViewModel*@
+
 @using SMSPortal.Common;
 <script src="~/Scripts/Module/Vendor/vendor_mapping_method.js"></script>
 <script src="~/Scripts/Module/Vendor/vendor_mapping_events.js"></script>
+<script src="~/Scripts/Module/Vendor/vendor_mapping_validation.js"></script>
+
 <form id="frmAddProductMapping" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -44,7 +48,7 @@
                         <div class="box-body table-responsive no-padding">
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdfProductState" name="Active_Products" value="" />
-                      
+                   
                    
                             <table class="table table-striped" id="tblVendorProductMappingMaster">
                                 <tr></tr>

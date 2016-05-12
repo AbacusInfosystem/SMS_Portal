@@ -16,6 +16,7 @@
 
     if ($("#hdnPurchase_Order_Id").val() != 0) {
         $("#dvSubc").find(".autocomplete-text").trigger("focusout");
+        $("#dvSubc").addClass('disabled-div ');        
     }
     
     $(".fa-chevron-left").click(function () {
@@ -33,4 +34,16 @@
         radioClass: 'iradio_square-green',
         increaseArea: '20%' // optional
     });
+
+    $("#btnSendEmail").click(function ()
+    {
+        $('#frmPurchaseOrderMaster').validate().cancelSubmit = true;
+
+        $("#frmPurchaseOrderMaster").attr("action", "/purchaseorder/send-purchase-order-email/");
+
+        $("#frmPurchaseOrderMaster").attr("method", "POST");
+
+        $("#frmPurchaseOrderMaster").submit();
+    });
+
 });

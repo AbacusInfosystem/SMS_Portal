@@ -88,6 +88,15 @@ namespace SMSPortalManager
             return _purchaseorderRepo.Get_Vendor_Product_Price_Id(Product_Id, Vendor_Id);
         }
 
+        public void Send_Purchase_Order_Email(string Vendor_Email_Id, PurchaseOrderInfo PurchaseOrder, List<PurchaseOrderItemInfo> purchaseOrderItems)
+        {
+             _purchaseorderRepo.Send_Purchase_Order_Email(Vendor_Email_Id, PurchaseOrder, purchaseOrderItems);
+        }
+
+        public VendorInfo Get_Vendor_By_Id(int Vendor_Id)
+        {
+            return _purchaseorderRepo.Get_Vendor_By_Id(Vendor_Id);
+        }
         
     }
 }

@@ -51,5 +51,9 @@ namespace SMSPortal.Models.PostLogin
         public int Order_Id { get; set; }
 
         public string Order_No { get; set; }
+
+        public int Status { get; set; }
+
+        public string OrderSlot { get; set; }
     }
 }

@@ -18,6 +18,8 @@ namespace SMSPortalInfo
 
         public decimal Product_Price { get; set; }
 
+        public decimal MasterProductPrice { get; set; }
+
         public int Brand_Id { get; set; }
 
         public string Brand_Name { get; set; }

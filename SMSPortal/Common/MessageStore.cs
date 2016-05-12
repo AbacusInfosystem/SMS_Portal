@@ -39,8 +39,11 @@ namespace SMSPortal.Common
             FriendlyMessage SYS08 = new FriendlyMessage("SYS08", MessageType.Error, "File not found, Please contact administrator.");
             hash.Add("SYS08", SYS08);
 
-            FriendlyMessage SYS09 = new FriendlyMessage("SYS09", MessageType.Error, "Link has expired.");
+            FriendlyMessage SYS09 = new FriendlyMessage("SYS09", MessageType.Information, "Link has expired.");
             hash.Add("SYS09", SYS09);
+
+            FriendlyMessage SYS010 = new FriendlyMessage("SYS010", MessageType.Information, "You have successfully logged out!");
+            hash.Add("SYS010", SYS010);
 
 			#endregion
 
@@ -185,6 +188,9 @@ namespace SMSPortal.Common
 
             FriendlyMessage POR005 = new FriendlyMessage("POR005", MessageType.Success, "Product item deleted successfully");
             hash.Add("POR005", POR005);
+
+            FriendlyMessage POR006 = new FriendlyMessage("POR006", MessageType.Success, "Email has been sent successfully.");
+            hash.Add("POR006", POR006);
 
             #endregion
 

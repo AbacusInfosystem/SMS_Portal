@@ -215,12 +215,14 @@ namespace SMSPortal.Controllers.PostLogin
         {
 
             VendorViewModel vViewModel = new VendorViewModel();
+
             PaginationInfo pager = new PaginationInfo();
             
             try
             {
                
                 vViewModel.Products = _vendorManager.Get_Productmapping(brand_Id);
+
                 vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id, brand_Id);               
               
             }
@@ -271,6 +273,8 @@ namespace SMSPortal.Controllers.PostLogin
 
                 vViewModel.Vendor = _vendorManager.Get_Vendor_Profile_Data_By_User_Id(vViewModel.Cookies.User_Id);
 
+                vViewModel.Vendor.stateInfo = _stateManager.Get_State_By_Id(vViewModel.Vendor.State);
+
                 vViewModel.Vendor.BankDetailsList = _vendorManager.Get_Vendor_Bank_Details(vViewModel.Vendor.Vendor_Id);               
                 
             }
@@ -299,7 +303,7 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error at Vendor controller - Insert_Bank_Details " + ex);
             }
 
-            return View("Profile", vViewModel);
+            return RedirectToAction("Profile", "Vendor");
         }
 
         public ActionResult VendorReceivables()

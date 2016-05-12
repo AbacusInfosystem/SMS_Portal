@@ -42,6 +42,14 @@ namespace SMSPortalManager
             return _ordersRepo.Get_Order_Items_By_Order_Id(order_Id);
         }
 
+        public List<OrdersInfo> Get_Orders_Data_By_Dates(DateTime fromDate, DateTime toDate, ref PaginationInfo pager)
+        {
+            return _ordersRepo.Get_Orders_Data_By_Dates(fromDate, toDate,ref pager);
+        }
+        public List<OrdersInfo> Get_Orders_Data_By_Status(int Status, ref PaginationInfo pager)
+        {
+            return _ordersRepo.Get_Orders_Data_By_Status(Status,ref pager);
+        }
         public DealerInfo Get_Dealer_Data_By_Id(int dealer_Id)
         {
             return _ordersRepo.Get_Dealer_Data(dealer_Id);

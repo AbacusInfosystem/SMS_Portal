@@ -5,6 +5,7 @@
         $("[name='order.OrderItems[" + i + "].Product_Quantity']").rules("add", "required");
         $("[name='order.OrderItems[" + i + "].Product_Quantity']").rules("add", "number");
         $("[name='order.OrderItems[" + i + "].Product_Quantity']").rules("add", { noDecimal: true });
+        $("[name='order.OrderItems[" + i + "].Product_Quantity']").rules("add", { min: 1 });
 
         i++;
     });
