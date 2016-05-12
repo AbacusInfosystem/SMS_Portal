@@ -232,6 +232,8 @@ namespace SMSPortalRepo
             if (!dr.IsNull("MasterProductPrice"))
                 product.MasterProductPrice = Convert.ToDecimal(dr["MasterProductPrice"]);
 
+             //if (!dr.IsNull("Product_Price"))
+             //    product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
             return product;
         }
 
@@ -321,7 +323,8 @@ namespace SMSPortalRepo
 
                     //if (!dr.IsNull("Product_Price"))
 
-                    list.Product_Price = Convert.ToDecimal(dr["Product_Price"]);    
+                        list.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+                    
                     list.Product_Ids = list.Product_Id + ",";
 
 

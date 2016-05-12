@@ -18,11 +18,11 @@
 
     $("#btnAddProductMapping").click(function () {
 
-        $("#frmVendor").attr("action", "/Vendor/get-product-list-omchange-brands/");
+        $("#frmVendor_mapping").attr("action", "/Vendor/get-product-list-omchange-brands/");
 
-        $("#frmVendor").attr("method", "post");
+        $("#frmVendor_mapping").attr("method", "post");
 
-        $("#frmVendor").submit();
+        $("#frmVendor_mapping").submit();
 
     });
 
