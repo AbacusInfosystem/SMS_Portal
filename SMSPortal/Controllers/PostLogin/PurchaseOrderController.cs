@@ -316,7 +316,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
                 pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
                 pViewModel.Vendor = _purchaseOrderManager.Get_Vendor_By_Id(pViewModel.PurchaseOrder.Vendor_Id);
-                _purchaseOrderManager.Send_Purchase_Order_Email("Patilsudhakar.m@gmail.com", pViewModel.PurchaseOrder, pViewModel.PurchaseOrderItems);
+                _purchaseOrderManager.Send_Purchase_Order_Email(pViewModel.Vendor.Email, pViewModel.PurchaseOrder, pViewModel.PurchaseOrderItems);
 
                 pViewModel.Friendly_Message.Add(MessageStore.Get("POR006"));
             }
