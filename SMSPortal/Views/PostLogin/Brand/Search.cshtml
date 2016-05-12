@@ -26,15 +26,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-primary">
-                        <div class="box-header with-border">
+                        @*<div class="box-header with-border">
                             <h3 class="box-title">Brand</h3>
-                        </div>
+                        </div>*@
                         <div class="box-body">
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnBrand_Id" name="Brand.Brand_Id" value="@Model.Brand.Brand_Id">
                             <input type="hidden" id="hdnBrand_Logo" name="Brand.Brand_Logo" value="@Model.Brand.Brand_Logo">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group auto-complete">
                                         <label for="Brand" class="lookup-title">Brand Name</label>
                                         <div class="input-group">
@@ -73,9 +73,9 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-striped" id="tblBrandMaster">
                                 <tr id="subhead">
-                                    <th></th>
-                                    <th>Brand Name</th>
-                                    <th>Brand Category</th>
+                                    <th width="5%"></th>
+                                    <th width="15%">Brand Name</th>
+                                    <th width="15%">Brand Category</th>
                                     <th>Status</th>
                                 </tr>
                             </table>
