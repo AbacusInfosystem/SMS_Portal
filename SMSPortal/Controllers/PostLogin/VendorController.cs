@@ -53,6 +53,27 @@ namespace SMSPortal.Controllers.PostLogin
         }
 
         [AuthorizeUserAttribute(AppFunction.Token)]
+        public ActionResult Vendor_Mapping(VendorViewModel vViewModel)
+        {
+            try
+            {
+                if (TempData["vViewModel"] != null)
+                {
+                    vViewModel = (VendorViewModel)TempData["vViewModel"];
+                }
+
+                FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
+                vViewModel.Friendly_Message.Add(ms);
+            }
+            catch (Exception ex)
+            {
+                vViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("VendorController Search " + ex);
+            }
+            return View("Vendor_Mapping", vViewModel);
+        }
+
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Index(VendorViewModel vViewModel)
         {
             PaginationInfo Pager = new PaginationInfo();
@@ -308,6 +329,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
 
                 _vendorManager.Insert_Vendor_Product_Mapping_Details(vViewModel.Products, vViewModel.Cookies.User_Id, vViewModel.Vendor.Vendor_Id, vViewModel.Vendor.Brand_Id);
+                vViewModel.Friendly_Message.Add(MessageStore.Get("VO005"));
             }
             catch (Exception ex)
             {
@@ -315,8 +337,8 @@ namespace SMSPortal.Controllers.PostLogin
 
                 Logger.Error("Vendor Profile " + ex);
             }
-
-            return View("Search", vViewModel);
+            TempData["vViewModel"] = vViewModel;
+            return View("Vendor_Mapping", vViewModel);
         }
 
         public JsonResult Get_Vendor_Autocomplete(string vendor)

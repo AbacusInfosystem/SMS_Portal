@@ -509,6 +509,13 @@ namespace SMSPortal
             url: "purchaseorder/check-duplicate-products-purchase-order/",
             defaults: new { controller = "PurchaseOrder", action = "Check_Duplicate_ProductItems", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Purchase-Order-8",
+            url: "purchaseorder/send-purchase-order-email/",
+            defaults: new { controller = "PurchaseOrder", action = "Send_Order_Email", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #region Vendor Sales Order

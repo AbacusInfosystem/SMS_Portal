@@ -451,13 +451,13 @@ namespace SMSPortalRepo
             html.Append("<table cellspacing='1' cellpadding='6' width='700px' style='background-color:#e2e2e2'>");
             html.Append("<tbody>");
 
-            html.Append("<th");
+            html.Append("<tr>");
             html.Append("<th style='width:20px;text-align:center;height:30px'>Sr.No</th>");
             html.Append("<th style='width:250px'>Product name</th>");
             html.Append("<th style='width:100px;text-align:center'>Qty</th>");
             html.Append("<th style='width:110px;text-align:right'>Unit Price</th>");
             html.Append("<th style='text-align:center;width:45px'>Price</th>");
-            html.Append("</th>");
+            html.Append("</tr>");
 
             int count = 0;
             if (Order != null)
@@ -513,7 +513,7 @@ namespace SMSPortalRepo
             #endregion
 
             html.Append("</tbody>");
-            html.Append("</table");
+            html.Append("</table>");
 
             #endregion
 

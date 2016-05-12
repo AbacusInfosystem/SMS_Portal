@@ -4,9 +4,11 @@ using SMSPortalInfo.Common;
 using SMSPortalRepo.Common;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -328,9 +330,209 @@ namespace SMSPortalRepo
             return product;
         }
 
+        public ProductInfo Get_Product_By_Id(int Product_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Product_Id", Product_Id));
 
+            ProductInfo product = new ProductInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
+            foreach (DataRow dr in dt.Rows)
+            {
+                product = Get_Product_Values(dr);
+            }
+            return product;
+        }
 
+        private ProductInfo Get_Product_Values(DataRow dr)
+        {
+            ProductInfo product = new ProductInfo();
+
+            product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+            product.Product_Name = Convert.ToString(dr["Product_Name"]);
+            product.Product_Description = Convert.ToString(dr["Product_Description"]);
+            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+            product.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+            product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
+            product.Category_Name = Convert.ToString(dr["Category_Name"]);
+            product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
+            product.SubCategory_Name = Convert.ToString(dr["SubCategory_Name"]);
+            product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
+            product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+            product.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            product.Created_By = Convert.ToInt32(dr["Created_By"]);
+            product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return product;
+        }
+
+        public VendorInfo Get_Vendor_By_Id(int vendor_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", vendor_Id));
+
+            VendorInfo Vendor = new VendorInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                Vendor = Get_Vendor_Values(dr);
+            }
+            return Vendor;
+        }
+
+        private VendorInfo Get_Vendor_Values(DataRow dr)
+        {
+            VendorInfo Vendor = new VendorInfo();
+
+            Vendor.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+            Vendor.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+            Vendor.Address = Convert.ToString(dr["Address"]);
+            Vendor.City = Convert.ToString(dr["City"]);
+            Vendor.State = Convert.ToInt32(dr["State"]);
+            Vendor.Pincode = Convert.ToInt32(dr["Pincode"]);
+            Vendor.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
+            Vendor.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
+            Vendor.Email = Convert.ToString(dr["Email"]);
+            Vendor.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+            Vendor.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            Vendor.Created_By = Convert.ToInt32(dr["Created_By"]);
+            Vendor.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            Vendor.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            return Vendor;
+        }
+
+        public void Send_Purchase_Order_Email(string Vendor_Email_Id, PurchaseOrderInfo PurchaseOrder, List<PurchaseOrderItemInfo> purchaseOrderItems)
+        {
+
+            StringBuilder html = new StringBuilder();
+            string subject = "Order : " + PurchaseOrder.Purchase_Order_No;
+
+            #region Main Table
+
+            html.Append("<table cellspacing='0' cellpadding='0' style='width:700px;border:1px solid #ccc;padding:5px;' >");            
+
+            #region header dates first tr
+            html.Append("<tr>");
+            html.Append("<td style='width:60%;'>");
+            html.Append("<img src='/UploadedFiles/logo.png' width:100px;> </td>");
+            html.Append("<td style='width:40%;text-align:right;'><b>Date :</b> " + string.Format("{0:dd/MM/yyy}", DateTime.Now) + "</td>");
+            html.Append("</tr>");
+            #endregion
+
+            #region sencode tr
+
+            html.Append("<tr>");
+            html.Append("<td colspan='2'>");
+
+            #region From-to address & Order Details
+            html.Append("<table cellspacing='0' cellpadding='0' style='width:100%'>");             
+            html.Append("<tr>");
+
+            #region Sms Address
+            html.Append("<td width='70%' style='border-bottom:1px solid #ccc'>");
+            html.Append("<table cellpadding='5' width='99%' style='margin:10px 0'>");            
+            html.Append("<tr>");
+            html.Append(" <td><b><span>From</span>: </b>");
+            html.Append("<br>" + ConfigurationManager.AppSettings["CompanyName"].ToString());
+            html.Append("<br>" + ConfigurationManager.AppSettings["CompanyAddress"].ToString());
+            html.Append("<br>" + ConfigurationManager.AppSettings["CompanyTelephone"].ToString());
+            html.Append("<br>" + ConfigurationManager.AppSettings["fromMailAddress"].ToString());
+            html.Append("</td>");
+            html.Append("</tr>");             
+            html.Append("</table>");
+            html.Append("</td>");
+            #endregion
+
+            #region Purchaes Order Details
+            html.Append(" <td width='30%' style='border-bottom:1px solid #ccc;border-left:1px solid #ccc'>");
+            html.Append("<table cellspacing='0' cellpadding='15'>");             
+            html.Append("<tr>");
+            html.Append("<td>");
+            html.Append("<br><b>Order No :</b> " + PurchaseOrder.Purchase_Order_No);
+            html.Append("<br><b>Order Date :</b> " + string.Format("{0:d}", PurchaseOrder.Created_On));
+            html.Append("<br>");
+            html.Append("</td>");
+            html.Append("</tr>");            
+            html.Append("</table>");
+            html.Append(" </td>");
+            #endregion
+
+            html.Append("</tr>");             
+            html.Append("</table>");
+            #endregion
+
+            html.Append("</td>");
+            html.Append("</tr>");
+            #endregion
+
+            #region third tr
+            html.Append("<tr>");
+            html.Append("<td colspan='2'>");
+
+            html.Append("<table  width='100%' cellpadding='0' cellspacing='0' style='background-color:#e2e2e2'>");
+
+            html.Append("<tr>");
+            html.Append("<th>Sr.No</th>");
+            html.Append("<th>Product name</th>");
+            html.Append("<th>Qty</th>");
+            html.Append("<th>Unit Price</th>");
+            html.Append("<th>Price</th>");
+            html.Append("<th>Shipping Date</th>");
+            html.Append("<th>Shipping Address</th>");
+            html.Append("</tr>");
+
+            int count = 0;
+            if (PurchaseOrder != null)
+            {
+                if (purchaseOrderItems != null)
+                {
+                    foreach (var item in purchaseOrderItems)
+                    {
+                        ProductInfo ProductInfo = Get_Product_By_Id(item.Product_Id);
+                        count++;
+                        html.Append("<tr style='background-color:#fff'>");
+                        html.Append("<td>" + count + "</td>");
+                        html.Append("<td >" + ProductInfo.Product_Name + "</td>");
+                        html.Append("<td >" + item.Product_Quantity + "</td>");
+                        html.Append("<td >" + item.Product_Unit_Price + "</td>");
+                        html.Append("<td >" + item.Product_Price + "</td>");
+                        html.Append("<td >" + item.Shipping_Date + "</td>");
+                        html.Append("<td >" + item.Shipping_Address + "</td>");
+                        html.Append("</tr>");
+                    }
+                }
+            }
+
+            html.Append("<tr>");
+            html.Append("<td colspan='6'>Total: </td>");
+            html.Append("<td>" + PurchaseOrder.Gross_Amount + "</td>");
+            html.Append("</tr>");
+
+            html.Append("</table>");
+
+            html.Append("</td>");
+            html.Append("</tr>");
+            #endregion
+
+             
+            html.Append("</table>");
+
+            #endregion
+
+            MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
+            MailMessage message = new MailMessage();
+            message.From = fromMail;
+            message.Subject = subject;
+            message.IsBodyHtml = true;
+            message.Body = html.ToString();
+            MailAddress To = new MailAddress(Vendor_Email_Id);
+            message.To.Add(To);
+            SmtpClient client = new SmtpClient();
+            client.Send(message);
+        }
 
     }
 }

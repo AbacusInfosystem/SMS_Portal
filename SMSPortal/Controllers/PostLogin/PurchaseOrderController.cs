@@ -307,6 +307,25 @@ namespace SMSPortal.Controllers.PostLogin
             }
              return PartialView("_ConfirmDelete");
         }
-       
+
+        public ActionResult Send_Order_Email(PurchaseOrderViewModel pViewModel)
+        {            
+            try
+            {        
+                
+                pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+                pViewModel.PurchaseOrderItems = _purchaseOrderManager.Get_Purchase_Order_Items_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
+                pViewModel.Vendor = _purchaseOrderManager.Get_Vendor_By_Id(pViewModel.PurchaseOrder.Vendor_Id);
+                _purchaseOrderManager.Send_Purchase_Order_Email(pViewModel.Vendor.Email, pViewModel.PurchaseOrder, pViewModel.PurchaseOrderItems);
+
+                pViewModel.Friendly_Message.Add(MessageStore.Get("POR006"));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Errot at PurchaseOrder Controller - at method Send_Order_Email " + ex.ToString());
+            }
+            TempData["pViewModel"] = pViewModel;
+            return RedirectToAction("Search");
+        }       
     }
 }

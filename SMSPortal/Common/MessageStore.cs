@@ -160,6 +160,9 @@ namespace SMSPortal.Common
             FriendlyMessage VO004 = new FriendlyMessage("VO004", MessageType.Success, "Vendor profile updated successfully");
             hash.Add("VO004", VO004);
 
+            FriendlyMessage VO005 = new FriendlyMessage("VO005", MessageType.Success, "Vendor product mapped successfully");
+            hash.Add("VO005", VO005);
+             
             #endregion
 			
             #region Receivable
@@ -185,6 +188,9 @@ namespace SMSPortal.Common
 
             FriendlyMessage POR005 = new FriendlyMessage("POR005", MessageType.Success, "Product item deleted successfully");
             hash.Add("POR005", POR005);
+
+            FriendlyMessage POR006 = new FriendlyMessage("POR006", MessageType.Success, "Email has been sent successfully.");
+            hash.Add("POR006", POR006);
 
             #endregion
 
