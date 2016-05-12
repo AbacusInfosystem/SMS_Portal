@@ -21,9 +21,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-primary">
-                        <div class="box-header with-border">
+                        @*<div class="box-header with-border">
                             <h3 class="box-title">User</h3>
-                        </div>
+                        </div>*@
                         <div class="box-body">
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnUser_Id" name="User.User_Id" value="@Model.User.User_Id">
@@ -66,8 +66,8 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-striped" id="tblUser">
                                 <tr id="subhead">
-                                    <th></th>
-                                    <th>User Name</th>
+                                    <th width="5%"></th>
+                                    <th width="20%">User Name</th>
                                     <th>Status</th>
                                 </tr>
                             </table>
