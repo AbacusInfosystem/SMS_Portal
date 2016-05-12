@@ -186,6 +186,9 @@ namespace SMSPortal.Common
             FriendlyMessage POR005 = new FriendlyMessage("POR005", MessageType.Success, "Product item deleted successfully");
             hash.Add("POR005", POR005);
 
+            FriendlyMessage POR006 = new FriendlyMessage("POR006", MessageType.Success, "Email has been sent successfully.");
+            hash.Add("POR006", POR006);
+
             #endregion
 
             #region Receivables

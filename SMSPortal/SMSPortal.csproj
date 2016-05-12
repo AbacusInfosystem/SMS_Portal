@@ -1088,6 +1088,7 @@
     <Content Include="UploadedFiles\Chrysanthemum.jpeg" />
     <Content Include="UploadedFiles\Jellyfish.jpg" />
     <Content Include="UploadedFiles\Lighthouse.jpg" />
+    <Content Include="UploadedFiles\logo.png" />
     <Content Include="UploadedFiles\no-image.png" />
     <Content Include="UploadedFiles\P1_Desert.jpg" />
     <Content Include="UploadedFiles\P1_Koala.jpg" />
