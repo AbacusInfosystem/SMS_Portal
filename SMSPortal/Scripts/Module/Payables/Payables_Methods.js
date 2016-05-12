@@ -183,7 +183,7 @@ function Bind_Payable_Grid_Items(data) {
 
             htmlText += "</td>";
 
-            if (data.Payable.Status != "Payment Done") {
+            //if (data.Payable.Status != "Payment Done") {
                 htmlText += "<td>";
 
 
@@ -192,7 +192,7 @@ function Bind_Payable_Grid_Items(data) {
                 //htmlText += "<button type='button' id='delete-Payable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeletPayableData(" + data.Payables[i].Payable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
 
                 htmlText += "</td>";
-            }
+            //}
 
             htmlText += "</tr>";
         }
