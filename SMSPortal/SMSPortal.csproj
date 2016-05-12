@@ -1071,6 +1071,7 @@
     <Content Include="Scripts\Module\Vendor\vendor_mapping_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_mapping_method.js" />
     <Content Include="Scripts\Module\Vendor\Vendor_events.js" />
+    <Content Include="Scripts\Module\Vendor\vendor_mapping_validation.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_events.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_methods.js" />
     <Content Include="Scripts\Module\Vendor\vendor_profile_validation.js" />

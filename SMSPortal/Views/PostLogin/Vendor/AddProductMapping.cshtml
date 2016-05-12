@@ -1,7 +1,11 @@
 ﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+@*@model SMSPortal.Models.PostLogin.ProductViewModel*@
+
 @using SMSPortal.Common;
 <script src="~/Scripts/Module/Vendor/vendor_mapping_method.js"></script>
 <script src="~/Scripts/Module/Vendor/vendor_mapping_events.js"></script>
+<script src="~/Scripts/Module/Vendor/vendor_mapping_validation.js"></script>
+
 <form id="frmAddProductMapping" enctype="multipart/form-data">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -22,7 +26,10 @@
         </section>
         <!-- Main content -->
         <section class="content">
-            <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id">
+
+            <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id" >
+
+            
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">

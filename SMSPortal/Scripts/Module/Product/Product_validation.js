@@ -23,7 +23,7 @@
             "Product.Product_Price":
                 {
                     required: true,
-                    number:true
+                    validate_product_price: true
                 }
         },
         messages: {
@@ -53,6 +53,7 @@
         },
     });
 });
+
 jQuery.validator.addMethod("validate_Product_Exist", function (value, element) {
     var result = true;
 
@@ -72,3 +73,5 @@ jQuery.validator.addMethod("validate_Product_Exist", function (value, element) {
     return result;
 
 }, "Product Name already exists.");
+
+

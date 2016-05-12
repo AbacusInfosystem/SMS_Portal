@@ -6,7 +6,7 @@
             @if (Model.Brand.Brand_Logo != null)
             {
                 string strPath = System.Configuration.ConfigurationManager.AppSettings["BrandLogoPath"].ToString() + @Model.Brand.Brand_Logo.ToString();
-                <img width="100" height="100" id="BrandImg" src="@strPath" style="border:2px solid #ddd;" />
+                <img width="100" height="100" id="BrandImg" src="@strPath" style="border:2px solid #ddd;" class="brandimg" />
             }
         </div>
         <div class="col-md-8" style="text-align:center ">
@@ -24,7 +24,25 @@
         </div>
         <div class="col-md-2"> </div>
     </div>
+    <div class="row" id="ImgPreview" style="display:none;">
+        <div class="col-md-12" style="-webkit-transition: height 2s; ">
+            <img src="" id="imgpreview" style="width:100%;"  />
+        </div>
+    </div>
 </form>
+<script type="text/javascript">
+    $(document).ready(function () { 
+        $(".brandimg").hover(function ()
+        {
+            $('#ImgPreview').css("display", "block").fadeIn("slow");
+            $("#imgpreview").attr("src", this.src);
+        }, function ()
+        {
+            $('#ImgPreview').css("display", "none").fadeOut("slow");
+        });
+    });
+
+</script>
 <script>
     $(function () {
         $("#frmUploadBrandLogo").validate({

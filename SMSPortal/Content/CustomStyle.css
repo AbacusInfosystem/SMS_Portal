@@ -41,3 +41,9 @@
             color:red;
             font-family:sans-serif; 
         }
+/*--------------------disable div---------------------------------*/
+.disabled-div 
+{
+    pointer-events: none;
+    opacity: 2.4;
+}

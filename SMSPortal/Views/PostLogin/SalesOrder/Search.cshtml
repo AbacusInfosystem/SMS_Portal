@@ -1,8 +1,10 @@
 ﻿@model SMSPortal.Models.PostLogin.SalesOrderViewModel
 @using SMSPortalInfo.Common
 
+
 <script src="~/Scripts/Module/SalesOrder/search_sales_order_methods.js"></script>
 <script src="~/Scripts/Module/SalesOrder/search_sales_order_events.js"></script>
+
 
 <form id="frmSalesOrder" enctype="multipart/form-data">
     <input type="hidden" id="hdnOrder_Id" name="Sales_Order.Order_Id" value="@Model.Sales_Order.Order_Id">
@@ -13,7 +15,7 @@
         @*@{Html.RenderPartial("_ServerMessage");}*@
         <section class="content-header">
             <h1>
-               Sales Orders
+                Sales Orders
                 <small></small>
             </h1>
             <ol class="breadcrumb">
@@ -46,44 +48,79 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-md-3">
 
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-md-12">
+                                    <label style="color: #333">Status</label>
+                                    <input type="hidden" id="hdnStatus" value="@Model.Filter.Status" name="Filter.Status" />
+                                    <select id="drpOrderStatus" class="form-control input-sm" name="Filter.Status">
+                                        <option value="">-Select Status-</option>
+                                        @foreach (var item in LookupInfo.Get_Order_Status())
+                                        {
+                                            if (Model.Filter.Status == item.Key)
+                                            {
+                                                <option value="@item.Key" selected="selected">@item.Value</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Key">@item.Value</option>
+                                            }
+                                        }
+                                    </select>
 
-                                        <div class="btn-group pull-left">
-                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
-                                        </div>
-                                        <div class="btn-group pull-right">
-                                            <button type="button" id="btnOrderDetails" style="display:none;" class="btn btn-warning btn-sm ">Order Details</button>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="hidden" id="hdnOrderSlot" value="@Model.Filter.OrderSlot" name="Filter.OrderSlot" />
+                                    <br />
+                                    <div class="input-group">
+                                        <a class="btn btn-primary btn-sm" id="btnFirstSlot" role="button">First Slot </a>&nbsp;
+                                        <a class="btn btn-primary btn-sm" id="btnSecondSlot" role="button">Second Slot </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <br />
+                                    <div class="input-group">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+
+                                </div>
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-group pull-left">
+                                                <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                            </div>
+                                            <div class="btn-group pull-right">
+                                                <button type="button" id="btnOrderDetails" style="display:none;" class="btn btn-warning btn-sm ">Order Details</button>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-solid">
-                        <div class="box-body table-responsive no-padding">
-                            
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <div class="box-body table-responsive no-padding">
+
                                 <table class="table table-striped" id="tblSalesOrder">
                                     <tr id="subhead">
                                         <th></th>
                                         <th>Order No</th>
+                                        <th>Date</th>
                                         <th>Dealer Name</th>
                                         <th>Amount</th>
-                                        <th>Status</th>                                    
+                                        <th>Status</th>
                                     </tr>
                                 </table>
-                           
-                            <div class="box-footer clearfix">
+
+                                <div class="box-footer clearfix">
                                     <div class="pagination pagination-sm no-margin pull-right">
                                         <ul></ul>
                                     </div>
@@ -91,17 +128,11 @@
                                         <i class="fa fa-refresh fa-spin"></i>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
         </section>
     </div>
     <!-- /.content-wrapper -->
 </form>
-
-
-
-
-
-
