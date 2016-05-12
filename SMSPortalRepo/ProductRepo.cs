@@ -69,7 +69,7 @@ namespace SMSPortalRepo
             return products;
         }
 
-        public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id)
+        public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id, string Product_Name)
         {
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
@@ -77,6 +77,7 @@ namespace SMSPortalRepo
             sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
             sqlParamList.Add(new SqlParameter("@Category_Id", Category_Id));
             sqlParamList.Add(new SqlParameter("@Sub_Category_Id", Sub_Category_Id));
+            sqlParamList.Add(new SqlParameter("@Product_Name", Product_Name));
 
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Products_By_Dealer_Id_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in dt.Rows)
@@ -188,6 +189,7 @@ namespace SMSPortalRepo
             product.Category_Name = Convert.ToString(dr["Category_Name"]);
             product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
             product.SubCategory_Name = Convert.ToString(dr["SubCategory_Name"]);
+            product.Product_Image = Convert.ToString(dr["Image_Code"]);
             product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
             product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
             product.Created_On = Convert.ToDateTime(dr["Created_On"]);

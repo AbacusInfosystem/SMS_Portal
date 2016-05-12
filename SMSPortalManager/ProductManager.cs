@@ -34,9 +34,9 @@ namespace SMSPortalManager
             return _productRepo.Get_Products(ref Pager);
         }
 
-        public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id)
+        public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id, string Product_Name)
         {
-            return _productRepo.Get_Products_By_Dealer_Id(Dealer_Id, Category_Id, Sub_Category_Id);
+            return _productRepo.Get_Products_By_Dealer_Id(Dealer_Id, Category_Id, Sub_Category_Id, Product_Name);
         }
 
         public List<ProductInfo> Get_Products_By_Id(int Product_Id,ref PaginationInfo Pager)

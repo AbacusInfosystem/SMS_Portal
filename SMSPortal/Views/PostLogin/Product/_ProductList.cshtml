@@ -6,12 +6,12 @@
 <div class="row">
     @if (Model.Products.Count > 0)
     {
-        <input type="hidden" id="hdnProductListCount" name="" value="@Model.Products.Count" />
+        <input type="hidden" id="hdnProductListCount" value="@Model.Products.Count" />
         foreach (var item in Model.Products)
         {
-            <input type="hidden" id="hdnpName_@item.Product_Id" name="ProductName" value="@item.Product_Name" />
-            <input type="hidden" id="hdnMRPPrice_@item.Product_Id" name="MRPPrice" value="@item.Product_Price" />
-            <input type="hidden" id="hdnMedicineURL_@item.Product_Id" name="MedicineURL" value="@item.Product_Image" />
+            <input type="hidden" id="hdnpName_@item.Product_Id" value="@item.Product_Name" />
+            <input type="hidden" id="hdnMRPPrice_@item.Product_Id" value="@item.Product_Price" />
+            <input type="hidden" id="hdnMedicineURL_@item.Product_Id" value="@item.Product_Image" />
 
             <div class="col-md-4">
                 <div class="thumbnail panel panel-success margin">
@@ -28,17 +28,17 @@
                             <h4 style="text-align:center" title="@item.Product_Name">@item.Product_Name</h4>
                         }
                         <h4>
-                            @item.Product_Price
+                            @Html.Raw(string.Format("{0:#,#.00}", item.Product_Price)) ₹
                         </h4>
 
                         <div class="input-group">
-                            <button type="button" id="btnAddToCart_@item.Product_Id" class="btn btn-primary" onclick="javascript:AddToCart(@item.Product_Id)">
+                            <button type="button" id="btnAddToCart_@item.Product_Id" class="btn btn-primary" onclick="AddToCart(this, @item.Product_Id, false)">
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
                             </button>
                         </div>
 
                         <p style="text-align:center">
-                            <a href="#" class="btn btn-link dvClickable" id="dvProduct_@item.Product_Id">
+                            <a href="#" id="anchorViewMore_@item.Product_Id" class="btn btn-link dvClickable" onclick="viewMore(@item.Product_Id)">
                                 View More...
                             </a>
                         </p>

@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    document.querySelector('form').onkeypress = checkEnter;
+
     $('#Categories').append().load("/Product/GetCategories");
     $('#ProductList').append().load("/Product/GetProductList");
 
@@ -25,6 +27,10 @@
                
         }        
 
+    });
+
+    $("#btnSearchProductByName").click(function () {
+        $('#ProductList').append().load("/Product/GetProductList?Product_Name=" + $.trim($("#txtProductName").val()));
     });
 
 });

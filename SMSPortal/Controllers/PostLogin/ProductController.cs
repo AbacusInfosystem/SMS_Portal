@@ -325,12 +325,12 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_Categories", pViewModel);
         }
 
-        public PartialViewResult GetProductList(int? Category_Id, int? Sub_Category_Id)
+        public PartialViewResult GetProductList(int? Category_Id, int? Sub_Category_Id, string Product_Name)
         {
             ProductViewModel pViewModel = new ProductViewModel();
 
             pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-            pViewModel.Products = _productManager.Get_Products_By_Dealer_Id(pViewModel.Cookies.Entity_Id, Category_Id, Sub_Category_Id);
+            pViewModel.Products = _productManager.Get_Products_By_Dealer_Id(pViewModel.Cookies.Entity_Id, Category_Id, Sub_Category_Id, Product_Name);
 
             return PartialView("_ProductList", pViewModel);
         }
@@ -415,6 +415,21 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return RedirectToAction("Index", "Dashboard");
+        }
+
+        public PartialViewResult GetProductDetails(int Product_Id)
+        {
+            ProductViewModel pViewModel = new ProductViewModel();
+            try
+            {                
+                pViewModel.Product = _productManager.Get_Product_By_Id(Product_Id);
+                pViewModel.Product.ProductImages = _productManager.Get_Product_Images(Product_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("ProductController GetProductDetails " + ex);
+            }           
+            return PartialView("_ProductDetails", pViewModel);
         }
 
         public ActionResult Bulk_Excel_Product_Upload(ProductViewModel pViewModel)
