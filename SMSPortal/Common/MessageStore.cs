@@ -18,7 +18,7 @@ namespace SMSPortal.Common
 			FriendlyMessage SYS01 = new FriendlyMessage("SYS01", MessageType.Error, "We are currently unable to process your request, Please try again later or contact system administrator.");
 			hash.Add("SYS01", SYS01);
 
-			FriendlyMessage SYS02 = new FriendlyMessage("SYS02", MessageType.Information, "Your session has expired. Please login again.");
+            FriendlyMessage SYS02 = new FriendlyMessage("SYS02", MessageType.Error, "Your session has expired. Please login again.");
 			hash.Add("SYS02", SYS02);
 
 			FriendlyMessage SYS03 = new FriendlyMessage("SYS03", MessageType.Error, "Please login with valid Username & Password to view this page.");

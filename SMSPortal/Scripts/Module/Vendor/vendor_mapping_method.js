@@ -41,16 +41,16 @@ function Bind_Vendor_Product_Grid(data) {
 
     var product_Ids = "";
     var product_price = "";
-    if (data.Products.length > 0)
+    //if (data.Products.length > 0)
 
-    {
-        for (i = 0; i < data.MappedProducts.length; i++)
+    //{
+    //    for (i = 0; i < data.MappedProducts.length; i++)
 
-        {
-            product_Ids += data.MappedProducts[i].Product_Id + ",";
-            product_price += data.MappedProducts[i].Product_Price + ",";
-        }
-    }
+    //    {
+    //        product_Ids += data.MappedProducts[i].Product_Id + ",";
+    //        product_price += data.MappedProducts[i].Product_Price + ",";
+    //    }
+    //}
 
     var htmlText = "";
 
@@ -72,27 +72,29 @@ function Bind_Vendor_Product_Grid(data) {
 
             htmlText += "<label style='text-align:center'>" + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + "</label></br>";
 
-            var id = data.Products[i].Product_Id;
-
-            if (product_Ids.indexOf(id) >= 0)
-
+            if (data.Products[i].Product_Price != "")
             {
-                for (j = 0 ; j < data.MappedProducts.length; j++) {
-                    if (data.MappedProducts[j].Product_Id == id) {
-
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
-                        htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.MappedProducts[j].Product_Price == 0 ? '' : data.MappedProducts[j].Product_Price) + "'>";
-                    }
-
-                }
             }
-
             else
-
             {
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
-                htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value=''>";
             }
+            
+            htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.Products[i].Product_Price == 0 ? '' : data.Products[i].Product_Price) + "'>";
+
+            //var id = data.Products[i].Product_Id;
+
+            //if (data.Products[i].Product_Id == id) {
+
+            //    htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
+            //    htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.MappedProducts[j].Product_Price == 0 ? '' : data.MappedProducts[j].Product_Price) + "'>";
+            //}
+            //else
+            //{
+            //    htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
+            //    htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value=''>";
+            //}
             
             htmlText += "<input type='hidden' id='hd_Productid" + i + "' name='Products[" + i + "].Product_id' value='" + data.Products[i].Product_Id + "'>";
            
@@ -169,7 +171,17 @@ function PageMore(Id)
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
     Get_Product_Image_Data();
-  
 
 }
+
+function arrHasValue(A,B) {
+    var i, j, n;
+    n = A.length;
+
+    for (i = 0; i < n; i++) {
+        if (A[i] == B) return true;
+    }
+    return false;
+}
+
 

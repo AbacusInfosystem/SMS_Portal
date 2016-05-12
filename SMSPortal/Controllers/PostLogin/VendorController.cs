@@ -220,10 +220,10 @@ namespace SMSPortal.Controllers.PostLogin
             
             try
             {
-               
-                vViewModel.Products = _vendorManager.Get_Productmapping(brand_Id);
 
-                vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id, brand_Id);               
+                vViewModel.Products = _vendorManager.Get_Productmapping(brand_Id, vendor_Id);
+
+                //vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id, brand_Id);               
               
             }
             catch (Exception ex)
