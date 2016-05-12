@@ -21,18 +21,18 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public void Insert_Brand(BrandInfo brand)
+        public void Insert_Brand(BrandInfo brand, int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Brand(brand), StoreProcedures.Insert_Brand_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Brand(brand, user_id), StoreProcedures.Insert_Brand_Sp.ToString(), CommandType.StoredProcedure);
 
         }
 
-        public void Update_Brand(BrandInfo brand)
+        public void Update_Brand(BrandInfo brand, int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Brand(brand), StoreProcedures.Update_Brand_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Brand(brand,user_id), StoreProcedures.Update_Brand_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Brand(BrandInfo brand)
+        private List<SqlParameter> Set_Values_In_Brand(BrandInfo brand, int user_id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             if (brand.Brand_Id != 0)
@@ -47,12 +47,12 @@ namespace SMSPortalRepo
 
             if (brand.Brand_Id == 0)
             {
-                sqlParams.Add(new SqlParameter("@Created_On", brand.Created_On));
-                sqlParams.Add(new SqlParameter("@Created_By", brand.Created_By));
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
             }
 
-            sqlParams.Add(new SqlParameter("@Updated_On", brand.Updated_On));
-            sqlParams.Add(new SqlParameter("@Updated_By", brand.Updated_By));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
             return sqlParams;
         }
 

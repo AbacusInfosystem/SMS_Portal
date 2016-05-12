@@ -1,12 +1,12 @@
 ﻿@model SMSPortal.Models.PostLogin.BrandViewModel
 
 <form id="frmUploadBrandLogo" enctype="multipart/form-data">
-    <div class="row">        
+    <div class="row">
         <div class="col-md-2">
             @if (Model.Brand.Brand_Logo != null)
             {
-                string strPath=System.Configuration.ConfigurationManager.AppSettings["BrandLogoPath"].ToString()+ @Model.Brand.Brand_Logo.ToString();
-                <img width="100" height="100" id="BrandImg" src="@strPath" />
+                string strPath = System.Configuration.ConfigurationManager.AppSettings["BrandLogoPath"].ToString() + @Model.Brand.Brand_Logo.ToString();
+                <img width="100" height="100" id="BrandImg" src="@strPath" style="border:2px solid #ddd;" class="brandimg" />
             }
         </div>
         <div class="col-md-8" style="text-align:center ">
@@ -15,7 +15,7 @@
                     <input type="file" class="btn" name="Upload_Logo" id="uploadFile">
                     <input type="hidden" name="Brand.Brand_Id" id="hd_BrandId" value="@Model.Brand.Brand_Id">
                     <input type="hidden" name="Brand.Brand_Logo" id="hd_BrandLogo" value="@Model.Brand.Brand_Logo">
-                    <span class="pull-left pad" >Brand Logo Upload(.jpeg/.png) <span style="color: red;">*</span> </span> 
+                    <span class="pull-left pad">Brand Logo Upload(.jpeg/.png) <span style="color: red;">*</span> </span>
                     <span class="input-group-btn">
                         <button type="button" id="btnUpload" class="btn btn-success btn-sm">Upload </button>
                     </span>
@@ -24,7 +24,25 @@
         </div>
         <div class="col-md-2"> </div>
     </div>
+    <div class="row" id="ImgPreview" style="display:none;">
+        <div class="col-md-12" style="-webkit-transition: height 2s; ">
+            <img src="" id="imgpreview" style="width:100%;"  />
+        </div>
+    </div>
 </form>
+<script type="text/javascript">
+    $(document).ready(function () { 
+        $(".brandimg").hover(function ()
+        {
+            $('#ImgPreview').css("display", "block").fadeIn("slow");
+            $("#imgpreview").attr("src", this.src);
+        }, function ()
+        {
+            $('#ImgPreview').css("display", "none").fadeOut("slow");
+        });
+    });
+
+</script>
 <script>
     $(function () {
         $("#frmUploadBrandLogo").validate({

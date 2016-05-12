@@ -18,14 +18,14 @@ namespace SMSPortalManager
             _dealerRepo = new DealerRepo();
         }
 
-        public void Insert_Dealer(DealerInfo dealer)
+        public void Insert_Dealer(DealerInfo dealer, int user_id)
         {
-            _dealerRepo.Insert_Dealer(dealer);
+            _dealerRepo.Insert_Dealer(dealer, user_id );
         }
 
-        public void Update_Dealer(DealerInfo dealer)
+        public void Update_Dealer(DealerInfo dealer,int user_id)
         {
-            _dealerRepo.Update_Dealer(dealer);
+            _dealerRepo.Update_Dealer(dealer, user_id);
         }
 
         public List<DealerInfo> Get_Dealers(ref PaginationInfo Pager, int Brand_Id)

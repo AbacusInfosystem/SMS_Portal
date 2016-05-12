@@ -80,21 +80,21 @@
 
                                             <tr>
                                                 <td colspan="3" align="right">
-                                                    <b>Gross Payable Amount: ₹ <span id="spanAmountPayable">@Html.Raw(string.Format("{0:#,#.00}", totalProductPrice))</span></b>
+                                                    <b>Gross Payable Amount: <span id="spanAmountPayable">@Html.Raw(string.Format("{0:#,#.00}", totalProductPrice))</span></b> ₹
                                                     <input type="hidden" id="hdnGrossPayableAmount" name="order.Gross_Amount" value="@totalProductPrice" />
                                                 </td>
                                                 <td></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" align="right">
-                                                    <b>Taxes: ₹ <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", tax))</span></b>
+                                                    <b>Taxes: <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", tax))</span></b> ₹
                                                     <input type="hidden" id="hdnTaxes" name="order.Service_Tax" value="@tax" />
                                                 </td>
                                                 <td></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" align="right">
-                                                    <b>Net Payable Amount: ₹ <span id="spanNetPayableAmount">@Html.Raw(string.Format("{0:#,#.00}", netAmount))</span></b>
+                                                    <b>Net Payable Amount: <span id="spanNetPayableAmount">@Html.Raw(string.Format("{0:#,#.00}", netAmount))</span></b> ₹
                                                     <input type="hidden" id="hdnNetPayableAmount" name="order.Net_Amount" value="@netAmount" />
                                                 </td>
                                                 <td></td>
@@ -115,7 +115,7 @@
                             </button>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" id="btnPlaceOrder" class="btn btn-primary pull-right" onclick="placeOrder()">
+                            <button type="button" id="btnPlaceOrder" class="btn btn-primary" onclick="placeOrder()">
                                 Place Order
                             </button>
                         </div>

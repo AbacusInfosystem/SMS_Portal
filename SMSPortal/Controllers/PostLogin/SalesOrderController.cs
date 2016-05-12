@@ -76,6 +76,25 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     sViewModel.Sales_Orders = _orderManager.Get_Orders_Data_By_Id(sViewModel.Filter.Order_Id, ref pager);
                 }
+                else if (sViewModel.Filter.Status != 0)
+                {
+                    sViewModel.Sales_Orders = _orderManager.Get_Orders_Data_By_Status(sViewModel.Filter.Status, ref pager);
+                }
+                else if (!string.IsNullOrEmpty(sViewModel.Filter.OrderSlot))
+                {
+                    if (sViewModel.Filter.OrderSlot == "FirstSlot")
+                    {
+                        DateTime todt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 07);
+                        DateTime frmdt = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, 21);
+                        sViewModel.Sales_Orders = _orderManager.Get_Orders_Data_By_Dates(frmdt, todt, ref pager);
+                    }
+                    if (sViewModel.Filter.OrderSlot == "SecondSlot")
+                    {
+                        DateTime frmdt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 08);
+                        DateTime todt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 21);
+                        sViewModel.Sales_Orders = _orderManager.Get_Orders_Data_By_Dates(frmdt, todt, ref pager);
+                    }
+                }
                 else
                 {
                     sViewModel.Sales_Orders = _orderManager.Get_Orders(ref pager, sViewModel.Dealer.Dealer_Id);
@@ -90,7 +109,7 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("Error At Sales Order Controller - Get_Orders" + ex.Message);
             }
 
-            return Json(sViewModel);
+            return Json(sViewModel, JsonRequestBehavior.AllowGet);
         }
 
         [AuthorizeUserAttribute(AppFunction.Token)]
@@ -113,7 +132,7 @@ namespace SMSPortal.Controllers.PostLogin
 
             return View("Search", sViewModel);
         }
-        
+
         public ActionResult OrderDetails()
         {
             return View("OrderDetails");

@@ -130,6 +130,39 @@ namespace SMSPortalRepo
             return orders;
         }
 
+        public List<OrdersInfo> Get_Orders_Data_By_Dates(DateTime fromDate,DateTime toDate, ref PaginationInfo pager)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@FromDate", fromDate));
+            sqlParam.Add(new SqlParameter("@ToDate", toDate));
+
+            List<OrdersInfo> orders = new List<OrdersInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Orders_By_Dates.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+            {
+                orders.Add(Get_Orders_Values(dr));
+            }
+
+            return orders;
+        }
+
+        public List<OrdersInfo> Get_Orders_Data_By_Status(int Status, ref PaginationInfo pager)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Status", Status));             
+
+            List<OrdersInfo> orders = new List<OrdersInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Orders_By_Status.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+            {
+                orders.Add(Get_Orders_Values(dr));
+            }
+
+            return orders;
+        }
+
         private OrdersInfo Get_Orders_Values(DataRow dr)
         {
             OrdersInfo orders = new OrdersInfo();

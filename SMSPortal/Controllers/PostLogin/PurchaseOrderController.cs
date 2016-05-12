@@ -43,6 +43,7 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo Pager = new PaginationInfo();
             try
             {
+                pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO-", "Purchase_Order_No", "4", "15", "Purchase_Order");
                 pViewModel.PurchaseOrders = _purchaseOrderManager.Get_Purchase_Orders(ref Pager);
             }
             catch (Exception ex)
@@ -115,7 +116,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO-", "Purchase_Order_No", "3", "15", "Purchase_Order");
+                    pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO-", "Purchase_Order_No", "4", "15", "Purchase_Order");
                     pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Ordered;
                     pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder,pViewModel.Cookies.User_Id);
                     pViewModel.Friendly_Message.Add(MessageStore.Get("POR001"));
@@ -131,7 +132,7 @@ namespace SMSPortal.Controllers.PostLogin
                         pViewModel.PurchaseOrder.Gross_Amount = pViewModel.PurchaseOrderItems.Sum(item => item.Product_Price);
 
                         _purchaseOrderManager.Update_Purchase_Order_Gross_Amount(pViewModel.PurchaseOrder.Purchase_Order_Id, pViewModel.PurchaseOrder.Gross_Amount);
-                        pViewModel.Friendly_Message.Add(MessageStore.Get("POR003"));
+                         
                     }
                 }
                 pViewModel.PurchaseOrder = _purchaseOrderManager.Get_Purchase_Order_By_Id(pViewModel.PurchaseOrder.Purchase_Order_Id);
@@ -143,8 +144,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("PurchaseOrderController Insert " + ex);
             }
-            TempData["pViewModel"] = pViewModel;
-            //return RedirectToAction("Search");
+            TempData["pViewModel"] = pViewModel;           
             return Json(pViewModel, JsonRequestBehavior.AllowGet);
         }
 

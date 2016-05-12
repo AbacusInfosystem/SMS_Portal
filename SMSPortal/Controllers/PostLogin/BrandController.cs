@@ -103,12 +103,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                bViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                bViewModel.Brand.Created_By = bViewModel.Cookies.User_Id;
-                bViewModel.Brand.Created_On = DateTime.Now;
-                bViewModel.Brand.Updated_By = bViewModel.Cookies.User_Id;
-                bViewModel.Brand.Updated_On = DateTime.Now;
-                _brandManager.Insert_Brand(bViewModel.Brand);
+                bViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");                 
+                _brandManager.Insert_Brand(bViewModel.Brand,bViewModel.Cookies.User_Id);
                 bViewModel.Friendly_Message.Add(MessageStore.Get("BO001"));
             }
             catch (Exception ex)
@@ -124,17 +120,15 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                bViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                bViewModel.Brand.Updated_By = bViewModel.Cookies.User_Id;
-                bViewModel.Brand.Updated_On = DateTime.Now;
-                _brandManager.Update_Brand(bViewModel.Brand);
+                bViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");                 
+                _brandManager.Update_Brand(bViewModel.Brand,bViewModel.Cookies.User_Id);
                 bViewModel.Friendly_Message.Add(MessageStore.Get("BO002"));
 
             }
             catch (Exception ex)
             {
                 bViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
-                Logger.Error("BrandController Update  " + ex.Message);
+                Logger.Error("Error at BrandController - Update_Brand  " + ex.Message);
             }
             TempData["bViewModel"] = bViewModel;
             return RedirectToAction("Search");

@@ -1015,6 +1015,8 @@
     <Content Include="Scripts\Module\Product\PlaceOrder\place-order-events.js" />
     <Content Include="Scripts\Module\Product\PlaceOrder\place-order-methods.js" />
     <Content Include="Scripts\Module\Product\PlaceOrder\place-order-validations.js" />
+    <Content Include="Scripts\Module\Product\ProductDetails\product-details-events.js" />
+    <Content Include="Scripts\Module\Product\ProductDetails\product-details-methods.js" />
     <Content Include="Scripts\Module\Product\ProductList\product-list-events.js" />
     <Content Include="Scripts\Module\Product\ProductList\product-list-methods.js" />
     <Content Include="Scripts\Module\Product\product_image_methods.js" />
@@ -1203,6 +1205,7 @@
     <Content Include="Views\PostLogin\Dealer\My_Orders.cshtml" />
     <Content Include="Views\PostLogin\SalesOrder\My_Order_Details.cshtml" />
     <Content Include="Views\Shared\_ConfirmDelete.cshtml" />
+    <Content Include="Views\PostLogin\Product\_ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
