@@ -23,4 +23,17 @@
 
     });
 
+
+    $(".fa-chevron-left").click(function () {
+
+        $("form").validate().cancelSubmit = true;
+
+        $("#frmdealerpayable").attr("action", "/Receivable/Searches/");
+
+        $("#frmdealerpayable").attr("method", "POST");
+
+        $("#frmdealerpayable").submit();
+
+    });
+
 });
