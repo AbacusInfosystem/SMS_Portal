@@ -107,11 +107,7 @@ function Bind_Dealers_Grid(data)
         if ($(this).prop('checked'))
 
         {
-            $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
-
-            $("#btnEdit").show();
-
-            $("#btnAddUser").show();
+            $("#hdnDealer_Id").val(this.id.replace("r1_", ""));           
 
             $("#btnDelete").show();
 
@@ -121,8 +117,11 @@ function Bind_Dealers_Grid(data)
             {
                 $("#btnView").show();
             }
-            
+            else {
+                $("#btnEdit").show();
 
+                $("#btnAddUser").show();
+            }
         }
     });
 

@@ -1088,7 +1088,6 @@
     <Content Include="UploadedFiles\0_Penguins.jpg" />
     <Content Include="UploadedFiles\1_Penguins.jpg" />
     <Content Include="UploadedFiles\Chrysanthemum.jpeg" />
-    <Content Include="UploadedFiles\Jellyfish.jpg" />
     <Content Include="UploadedFiles\Lighthouse.jpg" />
     <Content Include="UploadedFiles\logo.png" />
     <Content Include="UploadedFiles\P1_Desert.jpg" />
@@ -1208,6 +1207,8 @@
     <Content Include="Views\Shared\_ConfirmDelete.cshtml" />
     <Content Include="Views\PostLogin\Vendor\Vendor_Mapping.cshtml" />
     <Content Include="Views\PostLogin\Product\_ProductDetails.cshtml" />
+    <Content Include="Views\PostLogin\Payables\Searches.cshtml" />
+    <Content Include="Views\PostLogin\Payables\Vendor_Receivable_Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
