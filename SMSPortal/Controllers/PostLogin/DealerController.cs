@@ -364,14 +364,14 @@ namespace SMSPortal.Controllers.PostLogin
             return View("My_Orders", sViewModel);
         }
 
-        public JsonResult Get_Dealer_Invoices_Autocomplete(string Invoice_No)
+        public JsonResult Get_Dealer_Invoices_Autocomplete(string dealer)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
             CookiesInfo Cookies = new CookiesInfo();
             try
             {
                 Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                autoList = _dealerManager.Get_Dealer_Invoices_Autocomplete(Invoice_No,Cookies.Entity_Id);
+                autoList = _dealerManager.Get_Dealer_Invoices_Autocomplete(dealer, Cookies.Entity_Id);
             }
             catch (Exception ex)
             {
