@@ -161,7 +161,8 @@ namespace SMSPortal.Controllers.PostLogin
                 if (dViewModel.Filter.Dealer_Id != 0)
 
                 {
-                    dViewModel.Dealers = _dealerManager.Get_Dealer_By_Id(dViewModel.Filter.Dealer_Id, dViewModel.Dealer.Brand_Id, ref pager);
+                    dViewModel.Dealers = _dealerManager.Get_Dealer_By_Id(dViewModel.Filter.Dealer_Id, ref pager);
+               
                 }
 
                 else

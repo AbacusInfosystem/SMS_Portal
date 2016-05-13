@@ -116,14 +116,14 @@ namespace SMSPortalRepo
             return dealer;
         }
 
-        public List<DealerInfo> Get_Dealer_By_Id(int Dealer_Id, int Brand_Id, ref PaginationInfo Pager)
+        public List<DealerInfo> Get_Dealer_By_Id(int Dealer_Id,  ref PaginationInfo Pager)
         {
            
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
 
             sqlParamList.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
 
-            sqlParamList.Add(new SqlParameter("@Brand_Id", Brand_Id));
+    
 
             List<DealerInfo> dealer = new List<DealerInfo>();
 
