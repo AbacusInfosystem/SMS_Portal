@@ -160,7 +160,6 @@
                                         <input type="text" class="form-control input-sm" name="Dealer.Email" id="txtEmail" placeholder="Enter email " value="@Model.Dealer.Email" maxlength="40">
                                     </div>
                                 </div>
-
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         @if (Model.Dealer.Is_Active == false)
@@ -180,20 +179,19 @@
                                         <input type="hidden" id="hdnIs_Active" name="Dealer.Is_Active" value="@Model.Dealer.Is_Active.ToString()">
                                     </div>
                                 </div>
+
+
                             </div>
-
+                            <div>
+                                <center>
+                                    <div class="btn-group">
+                                        <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
+                                        <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
+                                    </div>
+                                </center>
+                            </div>
                         </div>
-
-                        <div class="box-footer">
-                            <center>
-                                <div class="btn-group">
-                                    <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                    <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                </div>
-                            </center>
-                        </div>
-
-                    </div>
+                       
 
                 </section>
             </form>
