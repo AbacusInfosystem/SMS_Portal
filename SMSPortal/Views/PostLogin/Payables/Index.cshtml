@@ -250,19 +250,16 @@
 
         <div class="col-md-3">
             <div class="form-group">
-                <label for="txtPayDate" style="color: #333">Cheque Date</label>
-                <div class="input-group">
+                <label for="txtPayDate" style="color: #333">Cheque Date</label>                
                     <input type="text" class="form-control  input-sm" id="txtChequeDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Payable.Cheque_Date" placeholder="Enter Cheque Date" value="@((Model.Payable.Cheque_Date == DateTime.MinValue ? "" : Model.Payable.Cheque_Date.ToString("dd-MM-yyyy")))" />
-  
-                </div>
-            </div>
+  </div>
         </div>
 
     </div>
 
     <div class="row">
 
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="form-group">
                 <label style="color: #333">Cheque No</label>
                 <input type="text" class="form-control input-sm" name="Payable.Cheque_Number" id="txtChequeNo" placeholder="Enter Cheque No" value="@Model.Payable.Cheque_Number" maxlength="20">
@@ -273,7 +270,7 @@
 
     <div class="row">
 
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="form-group">
                 <label style="color: #333">Bank Name</label>
                 <input type="text" class="form-control input-sm" name="Payable.Bank_Name" id="txtBankName" placeholder="Enter Bank Name" value="@Model.Payable.Bank_Name" maxlength="20">
@@ -284,7 +281,7 @@
 
     <div class="row">
 
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="form-group">
                 <label style="color: #333">IFSC Code</label>
                 <input type="text" class="form-control input-sm" name="Payable.IFSC_Code" id="txtIFSCCode" placeholder="Enter IFSC Code" value="@Model.Payable.IFSC_Code"  maxlength="15">
