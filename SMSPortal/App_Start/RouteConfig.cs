@@ -224,6 +224,13 @@ namespace SMSPortal
             defaults: new { controller = "Dealer", action = "Index", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+
+            routes.MapRoute(
+            name: "Dealer-12",
+            url: "dealer/get-dealer-invoices-autocomplete/{dealer}",
+            defaults: new { controller = "Dealer", action = "Get_Dealer_Invoices_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #region Product

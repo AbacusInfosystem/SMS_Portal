@@ -1,6 +1,6 @@
 ﻿$(function () {
 
-    InitializeAutoComplete($('#txtInvoice_No'));
+    InitializeAutoComplete($('#txtDealerInvoice'));
 
     Search_Receivable();
 
