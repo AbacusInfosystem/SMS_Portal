@@ -48,9 +48,9 @@ namespace SMSPortalManager
             return _vendorRepo.Check_Existing_Vendor(vendor_Name);
         }
 
-        public VendorInfo Get_Vendor_Profile_Data_By_User_Id(int user_Id)
+        public VendorInfo Get_Vendor_Profile_Data_By_User_Id(int vendor_Id)
         {
-            return _vendorRepo.Get_Vendor_Profile_Data_By_User_Id(user_Id);
+            return _vendorRepo.Get_Vendor_Profile_Data_By_User_Id(vendor_Id);
         }
 
         public void Insert_Vendor_Bank_Details(VendorInfo vendor,int user_Id)
