@@ -322,6 +322,7 @@ namespace SMSPortalRepo
        {
            decimal Total_Balance_Amount = 0;
            decimal Status_Amount = 0;
+           decimal Amount = 0;
 
            List<SqlParameter> sqlParams = new List<SqlParameter>();
 
@@ -345,22 +346,30 @@ namespace SMSPortalRepo
                Total_Balance_Amount = receivableInfo.Invoice_Amount-receivableInfo.Receivable_Item_Amount;
            }
 
-           Status_Amount = (receivableInfo.Invoice_Amount * 50) / 100;          
+           Status_Amount = (receivableInfo.Invoice_Amount * 50) / 100;
+
 
            receivableInfo.Balance_Amount = Total_Balance_Amount;
 
+           Amount = receivableInfo.Receivable_Item_Amount + receivableInfo.Balance_Amount;
+
+         
+
            sqlParams.Add(new SqlParameter("@Balance_Amount", receivableInfo.Balance_Amount));
 
-           if (Total_Balance_Amount > Status_Amount)
+           if (Total_Balance_Amount > 0)
            {
                sqlParams.Add(new SqlParameter("@Status", "Partially Paid")); 
            }
            else
            {
-               sqlParams.Add(new SqlParameter("@Status", "Payment Done"));
-               Update_Sales_Order_Status(receivableInfo.Invoice_Id);
+               sqlParams.Add(new SqlParameter("@Status", "Payment Done"));             
            }
 
+           if (Amount > Status_Amount)
+           {
+               Update_Sales_Order_Status(receivableInfo.Invoice_Id);
+           }
 
            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
 
