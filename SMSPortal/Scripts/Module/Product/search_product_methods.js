@@ -50,11 +50,20 @@ function Bind_Products_Grid(data)
 
             htmlText += "</td>";
 
+
             htmlText += "<td>";
 
             htmlText += data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name;
 
             htmlText += "</td>";
+
+
+            htmlText += "<td>";
+
+            htmlText += data.Products[i].Product_Name == null ? "" : $.number(data.Products[i].Product_Price, 2);
+
+            htmlText += "</td>";
+
 
             htmlText += "<td>";
 
@@ -78,22 +87,21 @@ function Bind_Products_Grid(data)
 
             htmlText += "<td>";
 
-            if (data.Products[i].Is_Active.toString() == 'true')
-                htmlText += 'Active';
-            else
-                htmlText += 'InActive';
-
-            htmlText += "</td>";
-
-
-            htmlText += "<td>";
-
             if (data.Products[i].Is_Biddable.toString() == 'true')
                 htmlText += 'Biddable';
             else
                 htmlText += 'Non-Biddable';
 
             htmlText += "</td>";
+
+            //htmlText += "<td>";
+
+            //if (data.Products[i].Is_Active.toString() == 'true')
+            //    htmlText += 'Active';
+            //else
+            //    htmlText += 'Inactive';
+
+            //htmlText += "</td>";
 
             htmlText += "</tr>";
         }
