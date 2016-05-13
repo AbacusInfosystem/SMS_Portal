@@ -24,9 +24,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-primary">
-                        <div class="box-header with-border">
+                        @*<div class="box-header with-border">
                             <h3 class="box-title">Category</h3>
-                        </div>
+                        </div>*@
                         <div class="box-body">
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
                             <input type="hidden" id="hdnCategory_Id" name="Category.Category_Id" value="@Model.Category.Category_Id">
@@ -77,8 +77,8 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-striped" id="tblCategory">
                                 <tr id="subhead">
-                                    <th></th>
-                                    <th>Category Name</th>
+                                    <th width="5%"></th>
+                                    <th width="20%">Category Name</th>
                                     <th>Status</th>
                                 </tr>
                             </table>

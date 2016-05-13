@@ -204,12 +204,13 @@ namespace SMSPortalRepo
             return bankdetailslist;
         }
 
-        public List<ProductInfo> Get_Productmapping(int brand_Id)
+        public List<ProductInfo> Get_Productmapping(int brand_Id, int vendor_Id)
         {
             //Pager.PageSize = 20;
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@Brand_Id", brand_Id));
+            sqlParams.Add(new SqlParameter("@Vendor_Id", vendor_Id));
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoreProcedures.Get_Productmapping.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt))
             {
@@ -227,13 +228,11 @@ namespace SMSPortalRepo
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
              if (!dr.IsNull("Image_Code"))
             product.Product_Image = Convert.ToString(dr["Image_Code"]);
-            //if (!dr.IsNull("Product_Price"))
-            //product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
-            if (!dr.IsNull("MasterProductPrice"))
-                product.MasterProductPrice = Convert.ToDecimal(dr["MasterProductPrice"]);
+             if (!dr.IsNull("Master_Price"))
+                 product.MasterProductPrice = Convert.ToDecimal(dr["Master_Price"]);
+             if (!dr.IsNull("Mapping_Price"))
+                 product.Product_Price = Convert.ToDecimal(dr["Mapping_Price"]);
 
-             //if (!dr.IsNull("Product_Price"))
-             //    product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
             return product;
         }
 
