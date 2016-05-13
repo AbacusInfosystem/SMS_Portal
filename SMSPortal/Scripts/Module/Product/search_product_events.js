@@ -90,19 +90,23 @@
             var product_image_id = this.id.replace("r1_", "");
             var param = { Product_Image_Id: product_image_id, Product_Id: Product_Id }
 
-            $.ajax({
-                url: '/product/set-default-image',
-                type: "Post",
-                data: param,
-                success: function (response) {
+            if (product_image_id != 'rdefault') {
+                 
+                $.ajax({
+                    url: '/product/set-default-image',
+                    type: "Post",
+                    data: param,
+                    success: function (response) {
 
-                    $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: Product_Id }, call_back);
-                },
-                error: function (err) {
+                        $("#div_Parent_Modal_Fade").find(".modal-body").load("/product/Upload_Product_Image", { Product_Id: Product_Id }, call_back);
+                    },
+                    error: function (err) {
 
-                    alert(err.statusText);
-                }
-            });
+                        alert(err.statusText);
+                        
+                    }
+                });
+            }
         }
     });
 
