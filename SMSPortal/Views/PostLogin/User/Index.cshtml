@@ -7,8 +7,8 @@
     @{Html.RenderPartial("_ServerMessage");}
 
     <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
             <section class="content-header">
                 <h1>
                     User Master
@@ -22,58 +22,56 @@
             <form id="frmUserMaster">
                 <section class="content">
                     <div class="box box-primary">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
+                                    @*<h3 class="box-title">User</h3>*@
+                                </div>
 
-                        <div class="box-header with-border">
-                            <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            @*<h3 class="box-title">User</h3>*@
-                        </div>
+                                <div class="box-body">
+                                    <input type="hidden" class="form-control input-sm" name="User.User_Id" id="hdf_UserId" placeholder="" value="@Model.User.User_Id">
+                                    <input type="hidden" class="form-control input-sm" name="User.Entity_Id" id="hdf_EntityId" placeholder="" value="@Model.User.Entity_Id">
+                                    <input type="hidden" class="form-control input-sm" name="User.Role_Id" id="hdf_RoleId" placeholder="" value="@Model.User.Role_Id">
+                                
+                                      
+                                    
+                                          
+                                 
+                                
+                                  
+                                        <div class="form-group">
+                                            <label style="color: #333">User Name</label>
+                                            <input type="text" class="form-control input-sm" name="User.User_Name" id="txtUser_Name" placeholder="Enter user name" value="@Model.User.User_Name" maxlength="15">
+                                            <input type="hidden" id="hdnUserName" value="@Model.User.User_Name">
+                                        </div>
+                                    
+                                  
+                                          
+                              
+                                 
+                                        <div class="form-group">
+                                            <label style="color: #333">First Name</label>
+                                            <input type="text" class="form-control input-sm" name="User.First_Name" id="txtFirst_Name" placeholder="Enter first name" value="@Model.User.First_Name" maxlength="15">
+                                        </div>
+                                     
+                                   
+                                        
+                            
+                                     
+                                        <div class="form-group">
+                                            <label style="color: #333">Last Name</label>
+                                            <input type="text" class="form-control input-sm" name="User.Last_Name" id="txtLast_Name" placeholder="Enter last name" value="@Model.User.Last_Name" maxlength="15">
+                                        </div>
+                                 
+                                     
+                                   
+                                        <div class="form-group">
 
-                        <div class="box-body">
-                            <input type="hidden" class="form-control input-sm" name="User.User_Id" id="hdf_UserId" placeholder="" value="@Model.User.User_Id">
-                            <input type="hidden" class="form-control input-sm" name="User.Entity_Id" id="hdf_EntityId" placeholder="" value="@Model.User.Entity_Id">
-                            <input type="hidden" class="form-control input-sm" name="User.Role_Id" id="hdf_RoleId" placeholder="" value="@Model.User.Role_Id">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">User Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control input-sm" name="User.User_Name" id="txtUser_Name" placeholder="Enter user name" value="@Model.User.User_Name" maxlength="15">
-                                        <input type="hidden" id="hdnUserName" value="@Model.User.User_Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">First Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control input-sm" name="User.First_Name" id="txtFirst_Name" placeholder="Enter first name" value="@Model.User.First_Name" maxlength="15">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Last Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control input-sm" name="User.Last_Name" id="txtLast_Name" placeholder="Enter last name" value="@Model.User.Last_Name" maxlength="15">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Gender</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <select id="drpGender" class="form-control input-sm" name="User.Gender">
-                                            <option value="">Select Gender</option>
-                                            @foreach (var item in LookupInfo.Get_Gender_Types())
+                                            <label style="color: #333">Gender</label>
+                                            <select id="drpGender" class="form-control input-sm" name="User.Gender">
+                                                <option value="">Select Gender</option>
+                                                @foreach (var item in LookupInfo.Get_Gender_Types())
                                             {
                                                 if (Model.User.Gender == item.Key)
                                                 {
@@ -84,76 +82,72 @@
                                                     <option value="@item.Key">@item.Value</option>
                                                 }
                                             }
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Contact No 1</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control input-sm" name="User.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.User.Contact_No_1" maxlength="10">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Contact No 2</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control input-sm" name="User.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.User.Contact_No_2" maxlength="10">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Email</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control input-sm" name="User.Email_Id" id="txtEmail_Id" placeholder="Enter your email" value="@Model.User.Email_Id" maxlength="40">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        @if (Model.User.Is_Active == false)
+                                            </select>
+                                        </div>
+                                      
+                                    
+                                        
+                                     
+                                   
+                                        <div class="form-group">
+                                            <label style="color: #333">Contact No 1</label>
+                                            <input type="text" class="form-control input-sm" name="User.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.User.Contact_No_1" maxlength="10">
+                                        </div>
+                                     
+                                      
+                               
+                                        <div class="form-group">
+
+                                            <label style="color: #333">Contact No 2</label>
+                                            <input type="text" class="form-control input-sm" name="User.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.User.Contact_No_2" maxlength="10">
+                                        </div>
+                                   
+                                        
+                                
+                                    
+                                        <div class="form-group">
+
+                                            <label style="color: #333">Email</label>
+                                            <input type="text" class="form-control input-sm" name="User.Email_Id" id="txtEmail_Id" placeholder="Enter your email" value="@Model.User.Email_Id" maxlength="40">
+                                        </div>
+                                     
+                                        <div class="form-group">
+                                            @if (Model.User.Is_Active == false)
                                         {
-                                            <label>
-                                                <input type="checkbox" class="chkstatus" />
-                                                &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                            </label>
+                                                <label>
+                                                    <input type="checkbox" class="chkstatus" />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                                </label>
                                         }
                                         else
                                         {
-                                            <label>
-                                                <input type="checkbox" checked="checked" class="chkstatus" />
-                                                &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                            </label>
+                                                <label>
+                                                    <input type="checkbox" checked="checked" class="chkstatus" />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp; Active
+                                                </label>
                                         }
-                                        <input type="hidden" id="hdnIs_Active" name="User.Is_Active" value="@Model.User.Is_Active.ToString()">
+                                            <input type="hidden" id="hdnIs_Active" name="User.Is_Active" value="@Model.User.Is_Active.ToString()">
+                                        </div>
+                                     
                                     </div>
+
+                               
+
+                                <div class="box-footer">
+                                    <center>
+                                        <div class="btn-group">
+                                            <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
+                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
+                                        </div>
+                                    </center>
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="box-footer">
-                            <center>
-                                <div class="btn-group">
-                                    <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                    <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                </div>
-                            </center>
-                        </div>
-
                     </div>
                 </section>
             </form>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-3"></div>
     </div>
 
 </div>
