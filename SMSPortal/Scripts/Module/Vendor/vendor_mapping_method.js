@@ -75,26 +75,13 @@ function Bind_Vendor_Product_Grid(data) {
             if (data.Products[i].Product_Price != "")
             {
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
-                    }
+            }
             else
             {
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
             }
             
-            htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.Products[i].Product_Price == 0 ? '' : data.Products[i].Product_Price) + "'>";
-
-            //var id = data.Products[i].Product_Id;
-
-            //if (data.Products[i].Product_Id == id) {
-
-            //    htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
-            //    htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value='" + (data.MappedProducts[j].Product_Price == 0 ? '' : data.MappedProducts[j].Product_Price) + "'>";
-            //}
-            //else
-            //{
-            //    htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
-            //    htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price' placeholder='product price' value=''>";
-            //}
+            htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price_" + i + "' placeholder='product price' value='" + (data.Products[i].Product_Price == 0 ? '' : data.Products[i].Product_Price) + "'>";
             
             htmlText += "<input type='hidden' id='hd_Productid" + i + "' name='Products[" + i + "].Product_id' value='" + data.Products[i].Product_Id + "'>";
            
