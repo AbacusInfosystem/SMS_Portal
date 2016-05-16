@@ -26,43 +26,48 @@
         </section>
         <!-- Main content -->
         <section class="content">
-            <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id">
-        
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label style="color: #333">Brand</label>
-                        <select id="drpBrand" class="form-control" name="Vendor.Brand_Id">
-                            <option value="">-Select Brand-</option>
-                            @foreach (var item in Model.Brands)
-                            {
-                                <option value="@item.Brand_Id">@item.Brand_Name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-solid">
-                        <div class="box-body table-responsive no-padding">
-                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
-                            <input type="hidden" id="hdfProductState" name="Active_Products" value="" />
-                   
-                   
-                            <table class="table table-striped" id="tblVendorProductMappingMaster">
-                                <tr></tr>
-                            </table>
-                        </div>
-                        <div class="box-footer">
-                            <div class="btn-group">
-                                <button type="button" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
+            <div class="box box-primary">
+                <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id">
+                <div class="box-header with-border">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label style="color: #333">Brand</label>
+                                <select id="drpBrand" class="form-control" name="Vendor.Brand_Id">
+                                    <option value="">-Select Brand-</option>
+                                    @foreach (var item in Model.Brands)
+                                    {
+                                        <option value="@item.Brand_Id">@item.Brand_Name</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="box-body with-border" style="border-color:red">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body table-responsive no-padding">
+                    <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                    <input type="hidden" id="hdfProductState" name="Active_Products" value="" />
+
+
+                    <table class="table table-striped" id="tblVendorProductMappingMaster">
+                        <tr></tr>
+                    </table>
+                </div>
+                <div class="box-footer">
+                    <div class="btn-group">
+                        <button type="button" id="btnSave" class="btn btn-success btn-sm">Save</button>
+                        <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+                    </div>
+</div>
         </section>
     </div>
     <!-- /.content-wrapper -->

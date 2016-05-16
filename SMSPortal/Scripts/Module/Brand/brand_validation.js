@@ -14,7 +14,6 @@
                 },
             "Brand.Website_Url":
                 {
-                    required: true,
                     Website_Url: true
                 }
 
@@ -31,11 +30,15 @@
             },
             "Brand.Website_Url":
                 {
-                    required: "Website Url is required",
-                    Website_Url:"Invalid url",
+                    Website_Url:"Invalid url"
                 }
-
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "Brand.Brand_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "Brand.Brand_Name") return;
+        }
     });
 });
 jQuery.validator.addMethod("validate_Brand_Exist", function (value, element) {

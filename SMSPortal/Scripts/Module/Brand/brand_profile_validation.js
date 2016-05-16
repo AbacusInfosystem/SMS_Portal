@@ -14,7 +14,6 @@
                 },
             "Brand.Website_Url":
                 {
-                    required: true,
                     Website_Url:true
                 }
 
@@ -31,8 +30,7 @@
             },
             "Brand.Website_Url":
                 {
-                    required: "Website Url is required",
-                    Website_Url:"Invalid Email",
+                    Website_Url:"Invalid Email"
                 }
 
         },

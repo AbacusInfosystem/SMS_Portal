@@ -51,5 +51,10 @@ namespace SMSPortalInfo
         public decimal Purchase_Order_Amount { get; set; }
 
         public string Transaction_Type_Name { get; set; }
+
+        public string Vendor_Name { get; set; }
+
+        public DateTime Purchase_Order_Date { get; set; }
+
     }
 }

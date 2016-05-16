@@ -23,4 +23,16 @@
 
     });
 
+    $(".fa-chevron-left").click(function () {
+
+        $("form").validate().cancelSubmit = true;
+
+        $("#frmvendorreceivable").attr("action", "/Payables/Searches/");
+
+        $("#frmvendorreceivable").attr("method", "POST");
+
+        $("#frmvendorreceivable").submit();
+
+    });
+
 });

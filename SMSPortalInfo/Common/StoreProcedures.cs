@@ -74,6 +74,8 @@ namespace SMSPortalInfo.Common
         Check_Existing_Dealer,
         Get_Dealer_Autocomplete_Sp,
         Update_Dealer_Profile_Sp,
+        Get_Invoice_Autocomplete_Sp_By_DealerId,
+        Get_Order_No_Autocomplete_By_Dealer_Id,
 
         //State
         Get_State_Sp,

@@ -179,5 +179,20 @@ namespace SMSPortal.Controllers.PostLogin
             return View("My_Order_Details", sViewModel);
         }
 
+        public JsonResult Get_Orders_Autocomplete_By_Dealer(string orderno)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            CookiesInfo Cookies = new CookiesInfo();
+            try
+            {
+                Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                autoList = _orderManager.Get_Orders_No_Autocomplete_By_Dealer(orderno, Cookies.Entity_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Order_Controller - Get_Orders_Autocomplete_By_Dealer " + ex.ToString());
+            }
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

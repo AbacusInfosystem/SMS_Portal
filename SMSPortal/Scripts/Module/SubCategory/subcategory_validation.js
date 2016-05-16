@@ -27,6 +27,12 @@
                }
 
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "SubCategory.Subcategory_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "SubCategory.Subcategory_Name") return;
+        }
     });
 });
 

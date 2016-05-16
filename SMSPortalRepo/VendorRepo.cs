@@ -232,6 +232,8 @@ namespace SMSPortalRepo
                  product.MasterProductPrice = Convert.ToDecimal(dr["Master_Price"]);
              if (!dr.IsNull("Mapping_Price"))
                  product.Product_Price = Convert.ToDecimal(dr["Mapping_Price"]);
+             if (!dr.IsNull("Is_Mapped"))
+                 product.Is_Mapped = Convert.ToBoolean(dr["Is_Mapped"]);
 
             return product;
         }

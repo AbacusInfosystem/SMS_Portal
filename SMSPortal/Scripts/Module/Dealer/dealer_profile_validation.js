@@ -44,11 +44,11 @@
                     required: true,
                     digits : true
                 },
-            "Dealer.Contact_No_2":
-                {
-                    required: true,
-                    digits : true
-                },
+            //"Dealer.Contact_No_2":
+            //    {
+            //        required: true,
+            //        digits : true
+            //    },
             "Dealer.Email":
                 {
                     required: true,
@@ -98,11 +98,11 @@
                 required: "Contact no 1 is required",
                 digits : "Enter digits"
             },
-        "Dealer.Contact_No_2":
-            {
-                required: "Contact no 2 required",
-                digits : "Enter digits"
-            },
+        //"Dealer.Contact_No_2":
+        //    {
+        //        required: "Contact no 2 required",
+        //        digits : "Enter digits"
+        //    },
         "Dealer.Email":
             {
                 required: "Email is required",

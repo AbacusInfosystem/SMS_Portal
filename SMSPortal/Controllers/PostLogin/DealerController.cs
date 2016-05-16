@@ -363,5 +363,23 @@ namespace SMSPortal.Controllers.PostLogin
 
             return View("My_Orders", sViewModel);
         }
+
+        public JsonResult Get_Dealer_Invoices_Autocomplete(string dealer)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            CookiesInfo Cookies = new CookiesInfo();
+            try
+            {
+                Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                autoList = _dealerManager.Get_Dealer_Invoices_Autocomplete(dealer, Cookies.Entity_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Invoice_Controller - Get_Invoice_Autocomplete " + ex.ToString());
+            }
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

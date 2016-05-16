@@ -31,12 +31,12 @@
                     digits:true
 
                 },
-            "User.Contact_No_2":
-              {
-                  required: true,
-                  digits : true
+            //"User.Contact_No_2":
+            //  {
+            //      required: true,
+            //      digits : true
 
-              },
+            //  },
             "User.Email_Id":
                 {
                     required: true,
@@ -75,17 +75,23 @@
                   required: "Enter Contact.",
                   digits : "Enter digits"
               },
-            "User.Contact_No_2":
-                {
-                    required: "Enter contact",
-                    digits: "Enter digits"
-                },       
+            //"User.Contact_No_2":
+            //    {
+            //        required: "Enter contact",
+            //        digits: "Enter digits"
+            //    },       
             "User.Email_Id":
              {
                  required: "Enter Email.",
                  email: "Invalid Email"
              }
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "User.User_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "User.User_Name") return;
+        }
     });
 });
 
