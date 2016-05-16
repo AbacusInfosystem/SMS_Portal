@@ -53,5 +53,12 @@ namespace SMSPortalInfo
         public int Role_Id { get; set; }
 
         public string Transaction_Type_Name { get; set; }
+
+        public string Order_No { get; set; }
+
+        public string Dealer_Name { get; set; }
+        
+        public DateTime Order_Date { get; set; }
+
     }
 }

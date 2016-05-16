@@ -31,12 +31,12 @@
                     digits:true
 
                 },
-            "User.Contact_No_2":
-              {
-                  required: true,
-                  digits : true
+            //"User.Contact_No_2":
+            //  {
+            //      required: true,
+            //      digits : true
 
-              },
+            //  },
             "User.Email_Id":
                 {
                     required: true,
@@ -74,11 +74,11 @@
                   required: "Enter Contact.",
                   digits : "Enter digits"
               },
-            "User.Contact_No_2":
-                {
-                    required: "Enter contact",
-                    digits: "Enter digits"
-                },       
+            //"User.Contact_No_2":
+            //    {
+            //        required: "Enter contact",
+            //        digits: "Enter digits"
+            //    },       
             "User.Email_Id":
              {
                  required: "Enter Email.",

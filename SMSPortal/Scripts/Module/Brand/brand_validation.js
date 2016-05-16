@@ -14,7 +14,6 @@
                 },
             "Brand.Website_Url":
                 {
-                    required: true,
                     Website_Url: true
                 }
 
@@ -30,9 +29,8 @@
                required: "Brand Category is required."
             },
             "Brand.Website_Url":
-                {
-                    required: "Website Url is required",
-                    Website_Url:"Invalid url",
+                {                
+                    Website_Url:"Invalid url"
                 }
 
         },

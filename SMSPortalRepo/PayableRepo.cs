@@ -313,6 +313,14 @@ namespace SMSPortalRepo
 
                         payable.Balance_Amount = Convert.ToDecimal(dr["Balance_Amount"]);
 
+                    if (!dr.IsNull("Vendor_Name"))
+
+                        payable.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+
+                    if (!dr.IsNull("Purchase_Order_Date"))
+
+                        payable.Purchase_Order_Date = Convert.ToDateTime(dr["Purchase_Order_Date"]);
+
                 }
             }
 
