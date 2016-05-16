@@ -151,10 +151,7 @@
                                     <th>NEFT Details</th>
                                     <th>Credit/Debit Card Details</th>
                                     <th>Receivable Date</th>
-                                    @if (Model.Receivable.Status != "Payment Done")
-                                    {
-                                        <th>Action</th>
-                                    }
+                                    <th>Action</th>
                                 </tr>
 
                                 @if (Model.Receivables != null && Model.Receivables.Count() > 0)
@@ -213,7 +210,8 @@
                                                 @*@if(Model.Receivable.Status!="Payment Done")
                                                     {*@
                                                 <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-pencil'></i></button>
-                                                @*<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>*@
+                                                <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-github" onclick="javascript:SendReceivableData(@itm.Receivable_Item_Id)">Send Email</button>
+                                                @*@<button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>*@
                                                 @*}*@
 
                                             </td>

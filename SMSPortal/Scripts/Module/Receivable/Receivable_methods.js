@@ -179,6 +179,8 @@ function Bind_Receivable_Grid_Items(data) {
 
                 htmlText += "<button type='button' id='edit-receivable-details' class='btn btn-box-tool btn-tel-edit' onclick='javascript:EditReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-pencil' ></i></button>";
 
+                htmlText += "<button type='button' id='edit-receivable-details' class='btn btn-box-tool btn-github' onclick='javascript:SendReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'>Send Email</button>";
+
                 //htmlText += "<button type='button' id='delete-receivable-details' class='btn btn-box-tool btn-tel-delete' onclick='javascript:DeletReceivableData(" + data.Receivables[i].Receivable_Item_Id + ")'><i class='fa fa-times' ></i></button>";
 
                 htmlText += "</td>";
@@ -388,6 +390,28 @@ function DeletReceivableData(id) {
         success: function (data) {
 
             Bind_Receivable_Grid_Items(data);
+            Friendly_Message(data);
+
+        }
+    });
+}
+
+function SendReceivableData(id) {
+
+    $("#hdnReceivable_Id").val($("#hdnReceivable_Id" + id).val());
+
+
+    var Invoice_Id = $("#hdnInvoice_Id").val();
+    var Receivable_Id = $("#hdnReceivable_Id").val();
+
+    $.ajax({
+        url: '/Receivable/Send_Receivable_Payment_Receipt',
+        data: { invoice_Id: Invoice_Id, receivable_Id: Receivable_Id },
+        method: 'GET',
+        async: false,
+        success: function (data) {
+            alert(data);
+            //Bind_Receivable_Grid_Items(data);
             Friendly_Message(data);
 
         }
