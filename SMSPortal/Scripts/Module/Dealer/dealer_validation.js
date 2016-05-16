@@ -15,7 +15,7 @@
             "Dealer.Dealer_Percentage_Share":
                 {
                     required: true,
-                    digits:true
+                    digits: true
                 },
             "Dealer.Brand_Percentage_Share":
                 {
@@ -37,22 +37,22 @@
             "Dealer.Pincode":
                 {
                     required: true,
-                    digits : true
+                    digits: true
                 },
             "Dealer.Contact_No_1":
                 {
                     required: true,
-                    digits : true
+                    digits: true
                 },
             "Dealer.Contact_No_2":
                 {
                     required: true,
-                    digits:true
+                    digits: true
                 },
             "Dealer.Email":
                 {
                     required: true,
-                    email:true
+                    email: true
                 }
 
         },
@@ -71,45 +71,51 @@
                 required: "Dealer Percentage Share is required",
                 digits: "Enter only digits"
             },
-        "Dealer.Brand_Percentage_Share":
-            {
-                required: "Brand Percentage Share is required",
-                digits: "Enter only digits"
-            },
-        "Dealer.Address":
-            {
-                required: "Address is required",
-            },
-        "Dealer.City":
-            {
-                required: "City is required",
-            },
-        "Dealer.State":
-            {
-                required: "State is required",
-            },
-        "Dealer.Pincode":
-            {
-                required: "Pincode is required",
-                digits: "Enter only digits"
-            },
-        "Dealer.Contact_No_1":
-            {
-                required: "Contact no 1 is required",
-                digits: "Enter only digits"
-            },
-        "Dealer.Contact_No_2":
-            {
-                required: "Contact no 2 required",
-                digits: "Enter only digits"
-            },
-        "Dealer.Email":
-            {
-                required: "Email is required",
-                email: "Invalide e-mail"
-            }
+            "Dealer.Brand_Percentage_Share":
+                {
+                    required: "Brand Percentage Share is required",
+                    digits: "Enter only digits"
+                },
+            "Dealer.Address":
+                {
+                    required: "Address is required",
+                },
+            "Dealer.City":
+                {
+                    required: "City is required",
+                },
+            "Dealer.State":
+                {
+                    required: "State is required",
+                },
+            "Dealer.Pincode":
+                {
+                    required: "Pincode is required",
+                    digits: "Enter only digits"
+                },
+            "Dealer.Contact_No_1":
+                {
+                    required: "Contact no 1 is required",
+                    digits: "Enter only digits"
+                },
+            "Dealer.Contact_No_2":
+                {
+                    required: "Contact no 2 required",
+                    digits: "Enter only digits"
+                },
+            "Dealer.Email":
+                {
+                    required: "Email is required",
+                    email: "Invalide e-mail"
+                }
 
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "Dealer.Dealer_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "Dealer.Dealer_Name") return;
+        }
     });
 });
 jQuery.validator.addMethod("validate_Dealer_Exist", function (value, element) {

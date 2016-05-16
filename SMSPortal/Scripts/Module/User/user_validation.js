@@ -85,6 +85,12 @@
                  email: "Invalid Email"
              }
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "User.User_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "User.User_Name") return;
+        }
     });
 });
 jQuery.validator.addMethod("validate_User_Exist", function (value, element) {
