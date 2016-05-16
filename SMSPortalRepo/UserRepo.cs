@@ -340,7 +340,7 @@ namespace SMSPortalRepo
              html.Append("<tr>");
              html.Append("<td><a href='" + link + "'>Click here</a></td>");              
              html.Append("</tr>");
-             html.Append("</table");
+             html.Append("</table>");
 
              #endregion
 
