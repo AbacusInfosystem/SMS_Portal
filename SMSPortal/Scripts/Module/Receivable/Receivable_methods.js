@@ -407,7 +407,7 @@ function SendReceivableData(id) {
     $.ajax({
         url: '/Receivable/Send_Receivable_Payment_Receipt',
         data: { invoice_Id: Invoice_Id, receivable_Id: Receivable_Id },
-        method: 'GET',
+        method: 'POST',
         async: false,
         success: function (data) {
             alert(data);
