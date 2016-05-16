@@ -40,7 +40,8 @@
             "User.Email_Id":
                 {
                     required: true,
-                    email: true
+                    email: true,
+                    is_value_already_exist: true
                 }
         },
         messages: {
@@ -87,6 +88,7 @@
         },
     });
 });
+
 jQuery.validator.addMethod("validate_User_Exist", function (value, element) {
     var result = true;
     if ($("#txtUser_Name").val() != "" && $("#hdnUserName").val() != $("#txtUser_Name").val()) {
@@ -105,3 +107,21 @@ jQuery.validator.addMethod("validate_User_Exist", function (value, element) {
     return result;
 
 }, "User Name already exists.");
+
+jQuery.validator.addMethod("is_value_already_exist", function (value, element) {
+    var result = true;
+    $.ajax({
+        url: '/Common/Is_Value_Already_Exist/',
+        data: { Tbl_Name: "Users", Fld_Name: "Email_Id", Value: value },
+        method: 'GET',
+        async: false,
+        success: function (data) {
+            if (data == true) {
+                result = false;
+            }
+        }
+    });
+
+    return result;
+
+}, "This email-id already used by another user.");

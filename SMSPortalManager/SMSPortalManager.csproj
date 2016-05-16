@@ -47,6 +47,7 @@
     <Compile Include="AutocompleteLookupManager.cs" />
     <Compile Include="BrandManager.cs" />
     <Compile Include="CategoryManager.cs" />
+    <Compile Include="CommonManager.cs" />
     <Compile Include="CookiesManager.cs" />
     <Compile Include="DashboardManager.cs" />
     <Compile Include="DealerManager.cs" />
