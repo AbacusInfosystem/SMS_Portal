@@ -15,7 +15,7 @@
             "Dealer.Dealer_Percentage_Share":
                 {
                     required: true,
-                    digits:true
+                    digits: true
                 },
             "Dealer.Brand_Percentage_Share":
                 {
@@ -37,12 +37,12 @@
             "Dealer.Pincode":
                 {
                     required: true,
-                    digits : true
+                    digits: true
                 },
             "Dealer.Contact_No_1":
                 {
                     required: true,
-                    digits : true
+                    digits: true
                 },
             //"Dealer.Contact_No_2":
             //    {
@@ -52,7 +52,7 @@
             "Dealer.Email":
                 {
                     required: true,
-                    email:true
+                    email: true
                 }
 
         },
@@ -110,6 +110,12 @@
             }
 
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "Dealer.Dealer_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "Dealer.Dealer_Name") return;
+        }
     });
 });
 jQuery.validator.addMethod("validate_Dealer_Exist", function (value, element) {

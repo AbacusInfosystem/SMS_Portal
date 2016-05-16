@@ -18,6 +18,12 @@
                    required: "Category Name is required."
                }
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "Category.Category_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "Category.Category_Name") return;
+        }
     });
 });
 jQuery.validator.addMethod("validate_Category_Exist", function (value, element) {

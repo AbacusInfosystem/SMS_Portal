@@ -69,5 +69,10 @@ namespace SMSPortalManager
         {
             return _ordersRepo.Get_Order_No_Autocomplete(order_No);
         }
+
+        public List<AutocompleteInfo> Get_Orders_No_Autocomplete_By_Dealer(string order_No, int Dealer_Id)
+        {
+            return _ordersRepo.Get_Orders_No_Autocomplete_By_Dealer(order_No, Dealer_Id);
+        }
     }
 }

@@ -29,11 +29,16 @@
                required: "Brand Category is required."
             },
             "Brand.Website_Url":
-                {                
+                {
                     Website_Url:"Invalid url"
                 }
-
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "Brand.Brand_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "Brand.Brand_Name") return;
+        }
     });
 });
 jQuery.validator.addMethod("validate_Brand_Exist", function (value, element) {

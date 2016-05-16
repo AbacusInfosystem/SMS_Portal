@@ -50,6 +50,12 @@
                 number: "Numbers only"
             }
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "Product.Product_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "Product.Product_Name") return;
+        }
     });
 });
 

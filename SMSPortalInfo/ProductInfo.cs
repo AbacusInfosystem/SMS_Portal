@@ -46,6 +46,8 @@ namespace SMSPortalInfo
 
         public List<ProductImageInfo> ProductImages { get; set; }
 
+        public bool Is_Mapped { get; set; }
+
 
         public string Product_Image { get; set; }
 

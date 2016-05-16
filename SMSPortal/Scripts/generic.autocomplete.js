@@ -48,25 +48,29 @@ var InitializeAutoComplete = function (elementObject) {
             }
 
             if ($(elementObject).attr("id") == 'txtInvoiceNo') {
-                urlString = "/receivable/receivable-autocomplete/" + $('txtInvoiceNo').val();
+                urlString = "/receivable/receivable-autocomplete/" + $('#txtInvoiceNo').val();
             }
 
             if ($(elementObject).attr("id") == 'txtOrderNo') {
-                urlString = "/receivable/receivable-autocomplete/" + $('txtOrderNo').val();
+                urlString = "/receivable/receivable-autocomplete/" + $('#txtOrderNo').val();
             }
 
             if ($(elementObject).attr("id") == 'txtPurchase_Order_Number') {
-                urlString = "/Payable/Payable-autocomplete/" + $('txtPurchase_Order_Number').val();
+                urlString = "/Payable/Payable-autocomplete/" + $('#txtPurchase_Order_Number').val();
             }
 
             if ($(elementObject).attr("id") == 'txtVendorSales_Order_No') {
-                urlString = "/vendor/get-vendor-sales-orders-autocomplete/" + $('txtVendorSales_Order_No').val();
+                urlString = "/vendor/get-vendor-sales-orders-autocomplete/" + $('#txtVendorSales_Order_No').val();
             }
 
-            if ($(elementObject).attr("id") == 'txtDealerInvoice') {               
-                urlString = "/dealer/get-dealer-invoices-autocomplete/" + $('txtDealerInvoice').val();
+            if ($(elementObject).attr("id") == 'txtDealerInvoice') {                
+                urlString = "/dealer/get-dealer-invoices-autocomplete/" + $('#txtDealerInvoice').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtDealerOrderNo') {
+                urlString = "/dealer/get-dealer-orders-autocomplete/" + $('#txtDealerOrderNo').val();
+            }
+            
 
             $.ajax({
 

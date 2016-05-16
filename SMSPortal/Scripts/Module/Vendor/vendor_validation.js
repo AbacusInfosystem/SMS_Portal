@@ -85,6 +85,12 @@
                 }
 
         },
+        onfocusout: function (element, event) {
+            if ($(element).name == "Vendor.Vendor_Name") return;
+        },
+        onkeyup: function (element, event) {
+            if ($(element).name == "Vendor.Vendor_Name") return;
+        }
     });
 });
 
