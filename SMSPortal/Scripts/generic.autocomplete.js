@@ -67,6 +67,10 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/dealer/get-dealer-invoices-autocomplete/" + $('#txtDealerInvoice').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtDealerOrderNo') {
+                urlString = "/dealer/get-dealer-orders-autocomplete/" + $('#txtDealerOrderNo').val();
+            }
+            
 
             $.ajax({
 

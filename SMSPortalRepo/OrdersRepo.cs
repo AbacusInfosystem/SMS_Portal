@@ -450,6 +450,25 @@ namespace SMSPortalRepo
             }
             return autoList;
         }
+        public List<AutocompleteInfo> Get_Orders_No_Autocomplete_By_Dealer(string order_No,int Dealer_Id)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", order_No == null ? System.String.Empty : order_No.Trim()));
+            sqlparam.Add(new SqlParameter("@Dealer_Id", Dealer_Id));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Order_No_Autocomplete_By_Dealer_Id.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
          
     }
 }
