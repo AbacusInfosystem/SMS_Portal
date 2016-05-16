@@ -191,6 +191,7 @@
     <Compile Include="Controllers\PostLogin\AccountsController.cs" />
     <Compile Include="Controllers\PostLogin\BrandController.cs" />
     <Compile Include="Controllers\PostLogin\CategoryController.cs" />
+    <Compile Include="Controllers\PostLogin\CommonController.cs" />
     <Compile Include="Controllers\PostLogin\DashboardController.cs" />
     <Compile Include="Controllers\PostLogin\DealerController.cs" />
     <Compile Include="Controllers\PostLogin\EnquiryController.cs" />

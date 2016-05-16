@@ -52,7 +52,8 @@
             "Dealer.Email":
                 {
                     required: true,
-                    email: true
+                    email: true,
+                    is_value_already_exist: true
                 }
 
         },
@@ -137,3 +138,22 @@ jQuery.validator.addMethod("validate_Dealer_Exist", function (value, element) {
     return result;
 
 }, "Dealer Name already exists.");
+
+jQuery.validator.addMethod("is_value_already_exist", function (value, element) {
+    var result = true;
+
+    $.ajax({
+        url: '/Common/Is_Value_Already_Exist/',
+        data: { Tbl_Name: "Dealer", Fld_Name: "Email", Value: value},
+        method: 'GET',
+        async: false,
+        success: function (data) {
+            if (data == true) {
+                result = false;
+            }
+        }
+    });
+
+    return result;
+
+}, "This email-id already used by another dealer.");
