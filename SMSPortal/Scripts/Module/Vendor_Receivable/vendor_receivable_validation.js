@@ -6,7 +6,7 @@
 
         {
 
-            errorClass: 'login-error',
+             
 
             rules:
 
