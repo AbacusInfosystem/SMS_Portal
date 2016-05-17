@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $("#frmDealerMaster").validate({
-
+         
         rules: {
             "Dealer.Dealer_Name":
                {

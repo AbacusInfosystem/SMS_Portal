@@ -2,8 +2,6 @@
 
     $("#frmReceivableMaster").validate(
         {
-            errorClass: 'login-error',
-
         rules: {
 
             "Receivable.Receivable_Date":

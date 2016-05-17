@@ -1033,7 +1033,7 @@
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_methods.js" />
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_validation.js" />
     <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_events.js" />
-    <Content Include="Scripts\Module\PurchaseOrder\serach_purchase_order_methods.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_methods.js" />
     <Content Include="Scripts\Module\Receivable\Receivable_methods.js" />
     <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />
@@ -1054,6 +1054,7 @@
     <Content Include="Scripts\Module\Tax\Tax_events.js" />
     <Content Include="Scripts\Module\Tax\Tax_mthod.js" />
     <Content Include="Scripts\Module\User\reset_password.js" />
+    <Content Include="Scripts\Module\User\reset_password_validation.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
     <Content Include="Scripts\Module\User\user_events.js" />
