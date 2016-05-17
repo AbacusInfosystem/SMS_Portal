@@ -36,10 +36,20 @@
 	font-size:1.4em;
 }
 /*-----------------validation error---------------*/
+label.login-error-product-mapping {
+            font-size:12px;
+            color:red;
+            font-family:sans-serif;
+            margin-bottom:0px;
+            display: inline-block;
+           font-weight:bold;
+        }
+
 label.login-error {
             font-size:12px;
             color:red;
             font-family:sans-serif;
+
            
         }
 /*--------------------disable div---------------------------------*/
