@@ -560,6 +560,7 @@ namespace SMSPortalRepo
             invoice.Order_No = Convert.ToString(dr["Order_No"]);
             invoice.Invoice_No = Convert.ToString(dr["Invoice_No"]);
             invoice.Invoice_Date = Convert.ToDateTime(dr["Invoice_Date"]);
+            invoice.Amount = Convert.ToDecimal(dr["Amount"]);           
             invoice.Created_On = Convert.ToDateTime(dr["Created_On"]);
             invoice.Created_By = Convert.ToInt32(dr["Created_By"]);
             invoice.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
