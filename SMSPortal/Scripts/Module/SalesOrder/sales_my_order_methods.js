@@ -11,8 +11,8 @@
                 CurrentPage: $('#hdfCurrentPage').val(),
             },
 
-            Dealer: {
-                Dealer_Id: $('#hdnDealer_Id').val(),
+            Cookies: {
+                Entity_Id: $('#hdnDealer_Id').val(),
             },
         }
 
@@ -43,11 +43,11 @@ function Bind_Sales_Order_Grid(data) {
 
             htmlText += "</td>";
 
-            htmlText += "<td>";
+            //htmlText += "<td>";
 
-            htmlText += data.Sales_Orders[i].Dealer_Name;
+            //htmlText += data.Sales_Orders[i].Dealer_Name;
 
-            htmlText += "</td>";
+            //htmlText += "</td>";
 
             htmlText += "<td>";
 
@@ -67,7 +67,7 @@ function Bind_Sales_Order_Grid(data) {
     else {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='5'>";
+        htmlText += "<td colspan='4'>";
 
         htmlText += "No record found.";
 

@@ -194,10 +194,12 @@ namespace SMSPortalInfo.Common
         Get_Orders_By_Status,         
 
         //Tax
-
         Insert_Tax_Sp,
         Update_Tax_Sp,
         Get_Tax_By_Id_Sp,
+
+        //Common
+        Is_Value_Already_Exist_sp,
       
 	}
 }

@@ -53,9 +53,9 @@ namespace SMSPortalManager
             return _dealerRepo.Get_Brands();
         }
 
-        public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName)
+        public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName, int Brand_Id)
         {
-            return _dealerRepo.Get_Dealer_Autocomplete(DealerName);
+            return _dealerRepo.Get_Dealer_Autocomplete(DealerName, Brand_Id);
         }
 
         public void Update_Dealer_Profile(DealerInfo dealer,int user_Id)

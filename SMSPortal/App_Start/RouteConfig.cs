@@ -190,7 +190,7 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Dealer-6",
-            url: "dealer/dealer-autocomplete/{dealer}",
+            url: "dealer/dealer-autocomplete/{dealer}/{brand}",
             defaults: new { controller = "Dealer", action = "Get_Dealer_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
@@ -229,12 +229,6 @@ namespace SMSPortal
             name: "Dealer-12",
             url: "dealer/get-dealer-invoices-autocomplete/{dealer}",
             defaults: new { controller = "Dealer", action = "Get_Dealer_Invoices_Autocomplete", id = UrlParameter.Optional },
-            namespaces: new string[] { "SMSPortal.Controllers" });
-
-            routes.MapRoute(
-            name: "Dealer-13",
-            url: "dealer/get-dealer-orders-autocomplete/{orderno}",
-            defaults: new { controller = "Dealer", action = "Get_Orders_Autocomplete_By_Dealer", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
                         
             #endregion
@@ -467,7 +461,7 @@ namespace SMSPortal
 
                 routes.MapRoute(
              name: "Payable-3",
-             url: "Payable/Payable-autocomplete/{Purchaseorder}",
+             url: "Payable/Payable-autocomplete/{Purchaseorder}/{Vendor_Id}",
              defaults: new { controller = "Payables", action = "Get_Payable_Purchase_Order_Autocomplete", id = UrlParameter.Optional },
              namespaces: new string[] { "SMSPortal.Controllers" });
 
@@ -513,7 +507,7 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Purchase-Order-6",
-            url: "purchaseorder/purchase_order_autocomplete-autocomplete/{purchaseorder}",
+            url: "purchaseorder/purchase_order_autocomplete-autocomplete/{Purchase_Order_No}",
             defaults: new { controller = "PurchaseOrder", action = "Get_Purchase_Order_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
@@ -548,7 +542,7 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Vendor-Sales-Order-3",
-            url: "vendor/get-vendor-sales-orders-autocomplete/{vendor}",
+            url: "vendor/get-vendor-sales-orders-autocomplete/{Purchase_Order_No}",
             defaults: new { controller = "Vendor", action = "Get_Vendor_Sale_Order_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
@@ -571,7 +565,7 @@ namespace SMSPortal
 
             routes.MapRoute(
             name: "Invoice-3",
-            url: "invoice/get-invoice-autocomplete/{invoice}",
+            url: "invoice/get-invoice-autocomplete/{Invoice_No}",
             defaults: new { controller = "Invoice", action = "Get_Invoice_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
@@ -607,6 +601,12 @@ namespace SMSPortal
            name: "Sales_Order-5",
            url: "salesorder/display-dealer-salesorder",
            defaults: new { controller = "SalesOrder", action = "Display_Dealer_Sales_Order_Details", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+           name: "Sales_Order-6",
+           url: "salesorder/get-orders-autocomplete-by_dealer/{dealer}",
+           defaults: new { controller = "SalesOrder", action = "Get_Orders_Autocomplete_By_Dealer", id = UrlParameter.Optional },
            namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion

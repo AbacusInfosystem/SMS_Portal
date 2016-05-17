@@ -244,7 +244,7 @@ namespace SMSPortalRepo
             return brandList;
         }
 
-        public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName)
+        public List<AutocompleteInfo> Get_Dealer_Autocomplete(string DealerName,int Brand_Id)
 
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
@@ -252,6 +252,7 @@ namespace SMSPortalRepo
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
             sqlparam.Add(new SqlParameter("@Description", DealerName == null ? System.String.Empty : DealerName.Trim()));
+            sqlparam.Add(new SqlParameter("@Brand_Id", Brand_Id));
 
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Dealer_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
             

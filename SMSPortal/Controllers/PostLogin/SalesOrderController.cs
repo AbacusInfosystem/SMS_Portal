@@ -97,7 +97,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    sViewModel.Sales_Orders = _orderManager.Get_Orders(ref pager, sViewModel.Dealer.Dealer_Id);
+                    sViewModel.Sales_Orders = _orderManager.Get_Orders(ref pager, sViewModel.Cookies.Entity_Id);
                 }
 
                 sViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", sViewModel.Pager.TotalRecords, sViewModel.Pager.CurrentPage + 1, sViewModel.Pager.PageSize, 10, true);
@@ -179,14 +179,14 @@ namespace SMSPortal.Controllers.PostLogin
             return View("My_Order_Details", sViewModel);
         }
 
-        public JsonResult Get_Orders_Autocomplete_By_Dealer(string orderno)
+        public JsonResult Get_Orders_Autocomplete_By_Dealer(string dealer)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
             CookiesInfo Cookies = new CookiesInfo();
             try
             {
                 Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                autoList = _orderManager.Get_Orders_No_Autocomplete_By_Dealer(orderno, Cookies.Entity_Id);
+                autoList = _orderManager.Get_Orders_No_Autocomplete_By_Dealer(dealer, Cookies.Entity_Id);
             }
             catch (Exception ex)
             {
