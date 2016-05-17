@@ -13,15 +13,24 @@
                 },
             "Product.SubCategory_Id":
                 {
-                    required: true  
+                    required: true
                 },
             "Product.Brand_Id":
                 {
-                    required: true 
+                    required: true
                 },
+            "Product.Local_Tax":
+               {
+                   number: true
+               },
+            "Product.Export_Tax":
+             {
+                 number: true
+             },
             "Product.Product_Price":
                 {
-                    required: true
+                    required: true,
+                    number:true
                 }
         },
         messages: {
@@ -37,12 +46,20 @@
             "Product.SubCategory_Id":
             {
                 required: "SubCategory is required"
-                 
+
             },
             "Product.Brand_Id":
             {
-                required: "Brand  is required" 
+                required: "Brand  is required"
             },
+            "Product.Local_Tax":
+          {
+              number: "Numbers only"
+          },
+            "Product.Export_Tax":
+             {
+                 number: "Numbers only"
+             },
             "Product.Product_Price":
             {
                 required: "Price is required",

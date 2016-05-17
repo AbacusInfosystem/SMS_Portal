@@ -43,6 +43,8 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Product_Name", product.Product_Name));
             sqlParams.Add(new SqlParameter("@Product_Description", product.Product_Description));
             sqlParams.Add(new SqlParameter("@Product_Price", product.Product_Price));
+            sqlParams.Add(new SqlParameter("@Local_Tax", product.Local_Tax));
+            sqlParams.Add(new SqlParameter("@Export_Tax", product.Export_Tax));
             sqlParams.Add(new SqlParameter("@Brand_Id", product.Brand_Id));
             sqlParams.Add(new SqlParameter("@Category_Id", product.Category_Id));
             sqlParams.Add(new SqlParameter("@SubCategory_Id", product.SubCategory_Id));
@@ -183,6 +185,8 @@ namespace SMSPortalRepo
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
             product.Product_Description = Convert.ToString(dr["Product_Description"]);
             product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            product.Local_Tax=Convert.ToDecimal(dr["Local_Tax"]);
+            product.Export_Tax = Convert.ToDecimal(dr["Export_Tax"]);
             product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
             product.Brand_Name = Convert.ToString(dr["Brand_Name"]);
             product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
