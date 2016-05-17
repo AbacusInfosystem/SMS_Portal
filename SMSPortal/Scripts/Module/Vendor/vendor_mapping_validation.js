@@ -2,7 +2,7 @@
 
     $("#frmAddProductMapping").validate(
         {
-            errorClass: 'login-error',
+            errorClass: 'login-error-product-mapping',
 
             rules:
                 {
@@ -67,7 +67,7 @@ jQuery.validator.addMethod("validate_product_price", function (value, element)
 {
     //alert(element.id);
 
-    var MasterProductPrice = parseInt($(element).closest("td").find("#hdn_MasterProductPrice").val());
+    var MasterProductPrice = parseInt($(element).closest("div").find("#hdn_MasterProductPrice").val());
 
     //alert($(element).val());
 
@@ -91,6 +91,7 @@ jQuery.validator.addMethod("validate_product_price", function (value, element)
 
     //return result;
 
-}, "Invalid Product Price");
+},"Invalid Price"
+);
 
 
