@@ -1001,8 +1001,11 @@
     <Content Include="Scripts\Module\Dealer\update_dealer_profile_events.js" />
     <Content Include="Scripts\Module\Dealer\update_dealer_profile_methods.js" />
     <Content Include="Scripts\Module\Enquiry\Enquiry_events.js" />
+    <Content Include="Scripts\Module\Invoice\brand_invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\Invoice_events.js" />
+    <Content Include="Scripts\Module\Invoice\search_brand_invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
+    <Content Include="Scripts\Module\Invoice\search_brand_invoice_methods.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_methods.js" />
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-event.js" />
     <Content Include="Scripts\Module\Partial Autocomplete\partial-page-method.js" />
@@ -1211,6 +1214,8 @@
     <Content Include="Views\PostLogin\Product\_ProductDetails.cshtml" />
     <Content Include="Views\PostLogin\Payables\Searches.cshtml" />
     <Content Include="Views\PostLogin\Payables\Vendor_Receivable_Detail.cshtml" />
+    <Content Include="Views\PostLogin\Invoice\View_Brand_Invoice.cshtml" />
+    <Content Include="Views\PostLogin\Invoice\Search_Brand_Invoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

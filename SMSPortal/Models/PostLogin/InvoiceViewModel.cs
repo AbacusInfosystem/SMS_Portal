@@ -21,6 +21,7 @@ namespace SMSPortal.Models.PostLogin
             Filter = new Invoice_Filter();
             Order = new OrdersInfo();
             Dealer = new DealerInfo();
+            Cookies = new CookiesInfo();
         }
 
         public InvoiceInfo Invoice { get; set; }
@@ -30,6 +31,7 @@ namespace SMSPortal.Models.PostLogin
         public Invoice_Filter Filter { get; set; }
         public OrdersInfo Order { get; set; }
         public DealerInfo Dealer { get; set; }
+        public CookiesInfo Cookies { get; set; }
     }
     public class Invoice_Filter
     {

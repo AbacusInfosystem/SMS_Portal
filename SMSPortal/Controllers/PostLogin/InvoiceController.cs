@@ -65,7 +65,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             string dealer_Address = String.Empty;
             try
-            {                
+            {
+                iViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
                 iViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(iViewModel.Invoice.Invoice_Id);
                 iViewModel.Order = _invoiceManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
                 if (iViewModel.Order.Order_Id != 0)
@@ -85,6 +86,11 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 iViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
                 Logger.Error("InvoiceController Get_Invoice_By_Id " + ex);
+            }
+
+            if(iViewModel.Cookies.Role_Id == (int)Roles.Brand)
+            {
+                return View("View_Brand_Invoice", iViewModel);
             }
 
             return View("ViewInvoice", iViewModel);
@@ -158,5 +164,60 @@ namespace SMSPortal.Controllers.PostLogin
         
         }
 
+        #region Brand Invoice
+
+        public ActionResult Search_Brand_Invoice(InvoiceViewModel iViewModel)
+        {
+            try
+            {
+                if (TempData["iViewModel"] != null)
+                {
+                    iViewModel = (InvoiceViewModel)TempData["iViewModel"];
+                }
+                FriendlyMessage friendlyMessage = (FriendlyMessage)TempData["Friendly_Message"];
+                iViewModel.Friendly_Message.Add(friendlyMessage);
+                iViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+            }
+            catch (Exception ex)
+            {
+                iViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Error in BrandController at method Search_Invoice " + ex);
+            }
+
+            return View("Search_Brand_Invoice", iViewModel);
+        }
+
+        public JsonResult Get_Brand_Invoices(InvoiceViewModel iViewModel)
+        {
+            PaginationInfo pager = new PaginationInfo();
+            try
+            {
+                pager = iViewModel.Pager;
+                iViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                iViewModel.Invoices = _invoiceManager.Get_Brand_Invoices(iViewModel.Cookies.Entity_Id, ref pager);
+            }
+            catch (Exception ex)
+            {
+                iViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Error at BrandController at method - Get_Brand_Invoices " + ex);
+            }
+            return Json(iViewModel);
+        }
+
+        public JsonResult Get_Brand_Invoice_Autocomplete(string Invoice_No, int Brand_Id)
+        {            
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            try
+            {
+                autoList = _invoiceManager.Get_Brand_Invoice_Autocomplete(Invoice_No, Brand_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At Invoice_Controller - Get_Brand_Invoice_Autocomplete " + ex.ToString());
+            }
+            return Json(autoList, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
     }
 }

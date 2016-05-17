@@ -67,5 +67,7 @@ namespace SMSPortalManager
         {
             _brandRepo.Update_Brand_Profile(brand, user_Id);
         }
+
+       
     }
 }

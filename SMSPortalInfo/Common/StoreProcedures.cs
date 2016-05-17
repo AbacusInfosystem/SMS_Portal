@@ -60,6 +60,7 @@ namespace SMSPortalInfo.Common
         Get_Brand_Autocomplete_Sp,
         Get_Brand_Id_By_Name,
         Update_Brand_Profile_Sp,
+        
 
         //Roles
         Get_Roles_Sp,
@@ -97,7 +98,8 @@ namespace SMSPortalInfo.Common
         Get_Categories_With_Product_Count_Sp,
         Get_Sub_Categories_With_Product_Count_Sp,
         Get_Products_By_Ids_sp,
-        Set_Default_Product_Image,         
+        Set_Default_Product_Image, 
+        Update_Product_By_Name_Sp,
          
         //Vendor
         Insert_Vendor_Sp,
@@ -178,6 +180,8 @@ namespace SMSPortalInfo.Common
         Get_Invoice_Sp,
         Get_Invoice_By_Id_Sp,
         Get_Invoice_Autocomplete_Sp,
+        Get_Brand_Invoice_Autocomplete_Sp,
+        Get_Brand_Invoices_Sp,
         
         //Orders
         Insert_Orders_Sp,

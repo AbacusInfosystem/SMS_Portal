@@ -516,6 +516,10 @@ namespace SMSPortalRepo
 
                         _product.Product_Price = Convert.ToDecimal(dr["Product Price"]);
 
+                        _product.Local_Tax = Convert.ToDecimal(dr["Local Tax"]);
+
+                        _product.Export_Tax = Convert.ToDecimal(dr["Export Tax"]);
+
                         _product.Brand_Id = Get_Brand_Id_By_Name(dr["Brand"].ToString());
 
                         _product.Category_Id = Get_Category_Id_By_Name(dr["Category"].ToString());
@@ -546,7 +550,7 @@ namespace SMSPortalRepo
 
                             if (Check_Existing_Product(_product.Product_Name))
                             {
-                                Update_Product(_product,user_id);
+                                Update_Product_Excel(_product, user_id);
                             }
                             else 
                             {
@@ -586,8 +590,11 @@ namespace SMSPortalRepo
 
                 exception.ErrorMessage = "Replacebale Validation : " + exception.UploadedDate + " : " + ex.Message;
             }
-
-            _excelRepo.LogExceptions(exceptionList);
+            if(exceptionList.Count()>0)
+            {
+                _excelRepo.LogExceptions(exceptionList);
+            }
+          
 
             return Is_Error;
         }
@@ -639,6 +646,29 @@ namespace SMSPortalRepo
             return Convert.ToInt32(_sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Get_Brand_Id_By_Name.ToString(), CommandType.StoredProcedure));
         }
 
+        public void Update_Product_Excel(ProductInfo product, int user_id)
+        {
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product_excel(product, user_id), StoreProcedures.Update_Product_By_Name_Sp.ToString(), CommandType.StoredProcedure);
+        }
+        private List<SqlParameter> Set_Values_In_Product_excel(ProductInfo product, int user_id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+          
+            sqlParams.Add(new SqlParameter("@Product_Name", product.Product_Name));
+            sqlParams.Add(new SqlParameter("@Product_Description", product.Product_Description));
+            sqlParams.Add(new SqlParameter("@Product_Price", product.Product_Price));
+            sqlParams.Add(new SqlParameter("@Local_Tax", product.Local_Tax));
+            sqlParams.Add(new SqlParameter("@Export_Tax", product.Export_Tax));
+            sqlParams.Add(new SqlParameter("@Brand_Id", product.Brand_Id));
+            sqlParams.Add(new SqlParameter("@Category_Id", product.Category_Id));
+            sqlParams.Add(new SqlParameter("@SubCategory_Id", product.SubCategory_Id));
+            sqlParams.Add(new SqlParameter("@Is_Biddable", product.Is_Biddable));
+            sqlParams.Add(new SqlParameter("@Is_Active", product.Is_Active));
+           
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
+            return sqlParams;
+        }
          
     }
 }

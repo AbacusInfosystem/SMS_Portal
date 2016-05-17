@@ -40,12 +40,12 @@ namespace SMSPortalRepo
 
 
             List<SqlParameter> paramList = new List<SqlParameter>();
-            if (!string.IsNullOrEmpty(fieldValue) )
+            if (!string.IsNullOrEmpty(fieldValue))
             {
                 if (table_Name == "purchase_order")
                 {
                     strquery += " Where Vendor_Id= @Vendor_Id";
-                    paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));                    
+                    paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));
 
                 }
                 if (table_Name == "Purchase_Order")
@@ -66,9 +66,17 @@ namespace SMSPortalRepo
 
                 if (table_Name == "Invoice")
                 {
-                    strquery = " Select Invoice.Invoice_Id , Invoice.Invoice_No  from Invoice INNER JOIN orders on Invoice.Order_Id=Orders.Order_Id inner join Receivables on Invoice.Invoice_Id=Receivables.Invoice_Id ";
-                    strquery += "  Where Orders.Dealer_Id=@Dealer_Id";
-                    paramList.Add(new SqlParameter("@Dealer_Id", fieldValue));
+                    if (fieldName == "Entity_Id")
+                    {
+                        strquery = "Select Invoice_Id , Invoice_No from Invoice Where Entity_Id=@Brand_Id  ";
+                        paramList.Add(new SqlParameter("@Brand_Id", fieldValue));
+                    }
+                    if (fieldName == "Dealer_Id")                   
+                    {
+                        strquery = " Select Invoice.Invoice_Id , Invoice.Invoice_No  from Invoice inner join Receivables on Invoice.Invoice_Id=Receivables.Invoice_Id ";
+                        strquery += "  Where Invoice.Entity_Id=@Dealer_Id";
+                        paramList.Add(new SqlParameter("@Dealer_Id", fieldValue));
+                    }
                 }
                 if (table_Name == "Dealer")
                 {
@@ -84,7 +92,7 @@ namespace SMSPortalRepo
                 //    {
                 //        strquery += cols[i] + ",";
                 //    }
-                   
+
                 //    strquery = strquery.TrimEnd(removeCh);
 
                 //    strquery += " from " + table_Name;
@@ -92,7 +100,7 @@ namespace SMSPortalRepo
                 //    strquery += " Where " + fieldName + "="+ fieldValue;
 
                 //}
-            }             
+            }
 
             DataTable dt = _sqlHelper.ExecuteDataTable(paramList, strquery, CommandType.Text);
 

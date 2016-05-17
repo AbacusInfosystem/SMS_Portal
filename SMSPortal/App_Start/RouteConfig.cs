@@ -117,7 +117,7 @@ namespace SMSPortal
             url: "brand/update-brand-profile-details",
             defaults: new { controller = "Brand", action = "Update_Brand_Profile", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
-
+            
             #endregion
 
             #region Category
@@ -569,6 +569,17 @@ namespace SMSPortal
             defaults: new { controller = "Invoice", action = "Get_Invoice_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+            name: "Invoice-4",
+            url: "invoice/get-brand-invoice/",
+            defaults: new { controller = "Invoice", action = "Get_Brand_Invoices", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "Invoice-5",
+            url: "invoice/get-brand-invoice-autocomplete/{Invoice_No}/{Brand_Id}",
+            defaults: new { controller = "Invoice", action = "Get_Brand_Invoice_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
             #region Sales Order
