@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     var validator=$("#frmPurchaseOrderMaster").validate({
-        errorClass: 'login-error',
+       
         ignore: [],
         rules: {
             "PurchaseOrderItem.Product_Price":

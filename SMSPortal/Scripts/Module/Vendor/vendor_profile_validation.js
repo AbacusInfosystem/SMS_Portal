@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $("#frmUpdateVendorProfile").validate({
-        errorClass: 'login-error',
+         
         rules: {
             "Vendor.Vendor_Name":
                {

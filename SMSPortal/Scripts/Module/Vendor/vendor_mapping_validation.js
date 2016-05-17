@@ -2,7 +2,7 @@
 
     $("#frmAddProductMapping").validate(
         {
-            errorClass: 'login-error',
+            
 
             rules:
                 {
