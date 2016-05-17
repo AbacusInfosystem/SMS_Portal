@@ -238,16 +238,13 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(check, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Get_Dealer_Autocomplete(string Dealer)
-
-        {
-            
+        public JsonResult Get_Dealer_Autocomplete(string Dealer,int Brand)
+        {            
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
 
             try
-
             {
-                autoList = _dealerManager.Get_Dealer_Autocomplete(Dealer);
+                autoList = _dealerManager.Get_Dealer_Autocomplete(Dealer, Brand);
             }
 
             catch (Exception ex)

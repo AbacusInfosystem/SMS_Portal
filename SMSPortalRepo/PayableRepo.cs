@@ -451,7 +451,7 @@ namespace SMSPortalRepo
             return Amount;
         }
 
-        public List<AutocompleteInfo> Get_Payable_Purchase_Order_Autocomplete(string purchase_order_no)
+        public List<AutocompleteInfo> Get_Payable_Purchase_Order_Autocomplete(string purchase_order_no,int Vendor_Id)
 
         {
 
@@ -460,7 +460,8 @@ namespace SMSPortalRepo
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
             sqlparam.Add(new SqlParameter("@Description", purchase_order_no == null ? System.String.Empty : purchase_order_no.Trim()));
-
+            sqlparam.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+            
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Payable_Purchase_Order_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
 
             if (dt != null && dt.Rows.Count > 0)

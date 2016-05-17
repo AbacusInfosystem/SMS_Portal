@@ -14,45 +14,85 @@ namespace SMSPortalRepo
 {
     public class AutocompleteLookupRepo
     {
-         SQLHelper _sqlHelper = null;
+        SQLHelper _sqlHelper = null;
 
         public AutocompleteLookupRepo()
         {
             _sqlHelper = new SQLHelper();
         }
 
-        public DataTable Get_Lookup_Data(string table_Name, string[] cols, ref PaginationInfo pager,string filter)
+        public DataTable Get_Lookup_Data(string table_Name, string[] cols, ref PaginationInfo pager, string fieldValue, string fieldName)
         {
             string strquery = "";
 
-           strquery = "select ";
+            strquery = "select ";
 
-           for (int i = 0; i < cols.Length; i++)
-           {
-               strquery += cols[i] + ",";
-           }
+            for (int i = 0; i < cols.Length; i++)
+            {
+                strquery += cols[i] + ",";
+            }
 
-           char[] removeCh = { ',', ' ' };
+            char[] removeCh = { ',', ' ' };
 
-           strquery = strquery.TrimEnd(removeCh);
+            strquery = strquery.TrimEnd(removeCh);
 
-           strquery += " from " + table_Name;
+            strquery += " from " + table_Name;
 
 
-           List<SqlParameter> paramList = new List<SqlParameter>();
-           if (!string.IsNullOrEmpty(filter) )
-           {
-               if (table_Name == "purchase_order")
-               {
-                   strquery +=  " Where Vendor_Id= @Vendor_Id";
-                   paramList.Add(new SqlParameter("@Vendor_Id", filter));     
-               }
-               if (table_Name =="product")
-               {
-                   strquery = " Select P.Product_Id,P.Product_Name from  Product_Vendor_Mapping Pv  inner join Product P on Pv.Product_Id=P.Product_Id  where Pv.Vendor_Id=@Vendor_Id ";
-                   paramList.Add(new SqlParameter("@Vendor_Id",filter));                   
-               }               
-           }                      
+            List<SqlParameter> paramList = new List<SqlParameter>();
+            if (!string.IsNullOrEmpty(fieldValue) )
+            {
+                if (table_Name == "purchase_order")
+                {
+                    strquery += " Where Vendor_Id= @Vendor_Id";
+                    paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));                    
+
+                }
+                if (table_Name == "Purchase_Order")
+                {
+                    if (fieldName == "Vendor_Id")
+                    {
+                        strquery = " Select Purchase_Order.Purchase_Order_ID , Purchase_Order.Purchase_Order_No  ";
+                        strquery += "from Purchase_Order inner join Payables on Purchase_Order.Purchase_Order_Id=Payables.Purchase_Order_Id ";
+                        strquery += "where Vendor_Id= @Vendor_Id";
+                        paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));
+                    }
+                }
+                if (table_Name == "product")
+                {
+                    strquery = " Select P.Product_Id,P.Product_Name from  Product_Vendor_Mapping Pv  inner join Product P on Pv.Product_Id=P.Product_Id  where Pv.Vendor_Id=@Vendor_Id ";
+                    paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));
+                }
+
+                if (table_Name == "Invoice")
+                {
+                    strquery = " Select Invoice.Invoice_Id , Invoice.Invoice_No  from Invoice INNER JOIN orders on Invoice.Order_Id=Orders.Order_Id inner join Receivables on Invoice.Invoice_Id=Receivables.Invoice_Id ";
+                    strquery += "  Where Orders.Dealer_Id=@Dealer_Id";
+                    paramList.Add(new SqlParameter("@Dealer_Id", fieldValue));
+                }
+                if (table_Name == "Dealer")
+                {
+                    strquery = "select Dealer_Id,Dealer_Name from Dealer ";
+                    strquery += "  Where Brand_Id=@Brand_Id";
+                    paramList.Add(new SqlParameter("@Brand_Id", fieldValue));
+                }
+                //if (!string.IsNullOrEmpty(fieldName))
+                //{
+                //    strquery = "select ";
+
+                //    for (int i = 0; i < cols.Length; i++)
+                //    {
+                //        strquery += cols[i] + ",";
+                //    }
+                   
+                //    strquery = strquery.TrimEnd(removeCh);
+
+                //    strquery += " from " + table_Name;
+
+                //    strquery += " Where " + fieldName + "="+ fieldValue;
+
+                //}
+            }             
 
             DataTable dt = _sqlHelper.ExecuteDataTable(paramList, strquery, CommandType.Text);
 
@@ -65,7 +105,7 @@ namespace SMSPortalRepo
 
             string strquery = "";
 
-            string col_Id="";
+            string col_Id = "";
 
             string col_Value = "";
 

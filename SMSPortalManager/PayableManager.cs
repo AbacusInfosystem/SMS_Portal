@@ -64,9 +64,9 @@ namespace SMSPortalManager
         //    return _payableRepo.Get_Payable_Status(purchase_order_id);
         //}
 
-        public List<AutocompleteInfo> Get_Payable_Purchase_Order_Autocomplete(string purchase_order_no)
+        public List<AutocompleteInfo> Get_Payable_Purchase_Order_Autocomplete(string purchase_order_no,int Vendor_Id)
         {
-            return _payableRepo.Get_Payable_Purchase_Order_Autocomplete(purchase_order_no);
+            return _payableRepo.Get_Payable_Purchase_Order_Autocomplete(purchase_order_no, Vendor_Id);
         }
 
     }

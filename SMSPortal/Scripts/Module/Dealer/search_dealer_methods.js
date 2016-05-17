@@ -13,6 +13,10 @@ function Search_Dealers()
                 {
                     CurrentPage: $('#hdfCurrentPage').val(),
                 },
+            Cookies:
+                {
+                    Entity_Id: $('#hdnBrandId').val()
+                 }
         }
 
     $('#divSearchGridOverlay').show();
