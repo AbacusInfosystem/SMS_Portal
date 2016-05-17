@@ -24,6 +24,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             _brandManager = new BrandManager();             
         }
+
         public ActionResult Search(BrandViewModel bViewModel)
         {
             try
@@ -294,5 +295,8 @@ namespace SMSPortal.Controllers.PostLogin
 
             return RedirectToAction("Profile");
         }
+
+        
+
     }
 }

@@ -70,5 +70,18 @@ namespace SMSPortalManager
         {
             return _invoiceRepo.Get_Order_Items_By_Order_Id(Order_Id);
         }
+
+        #region Brand Invoice
+
+        public List<InvoiceInfo> Get_Brand_Invoices(int Entity_Id, ref PaginationInfo Pager)
+        {
+            return _invoiceRepo.Get_Brand_Invoices(Entity_Id, ref Pager);
+        }
+
+        public List<AutocompleteInfo> Get_Brand_Invoice_Autocomplete(string InvoiceNo, int Brand_Id)
+        {
+            return _invoiceRepo.Get_Brand_Invoice_Autocomplete(InvoiceNo, Brand_Id);
+        }
+        #endregion
     }
 }

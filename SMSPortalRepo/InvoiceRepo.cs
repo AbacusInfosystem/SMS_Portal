@@ -102,6 +102,10 @@ namespace SMSPortalRepo
             invoice.Order_No = Convert.ToString(dr["Order_No"]);
             invoice.Invoice_No = Convert.ToString(dr["Invoice_No"]);
             invoice.Invoice_Date = Convert.ToDateTime(dr["Invoice_Date"]);
+
+            if (!dr.IsNull("Amount"))
+            invoice.Amount = Convert.ToDecimal(dr["Amount"]);
+
             invoice.Created_On = Convert.ToDateTime(dr["Created_On"]);
             invoice.Created_By = Convert.ToInt32(dr["Created_By"]);
             invoice.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
@@ -530,5 +534,58 @@ namespace SMSPortalRepo
             client.Send(message);
         }
 
+
+        #region Brand Invoice
+
+        public List<InvoiceInfo> Get_Brand_Invoices(int Entity_Id, ref PaginationInfo Pager)
+        {
+            List<SqlParameter> paramList = new List<SqlParameter>();
+            paramList.Add(new SqlParameter("@Entity_Id", Entity_Id));
+
+            List<InvoiceInfo> invoices = new List<InvoiceInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(paramList, StoreProcedures.Get_Brand_Invoices_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            {
+                invoices.Add(Get_Brand_Invoice_Values(dr));
+            }
+            return invoices;
+        }
+
+        private InvoiceInfo Get_Brand_Invoice_Values(DataRow dr)
+        {
+            InvoiceInfo invoice = new InvoiceInfo();
+
+            invoice.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+            invoice.Order_Id = Convert.ToInt32(dr["Order_Id"]);
+            invoice.Order_No = Convert.ToString(dr["Order_No"]);
+            invoice.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+            invoice.Invoice_Date = Convert.ToDateTime(dr["Invoice_Date"]);
+            invoice.Created_On = Convert.ToDateTime(dr["Created_On"]);
+            invoice.Created_By = Convert.ToInt32(dr["Created_By"]);
+            invoice.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+            invoice.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            return invoice;
+        }
+
+        public List<AutocompleteInfo> Get_Brand_Invoice_Autocomplete(string InvoiceNo, int Brand_Id)
+        {
+            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Description", InvoiceNo == null ? System.String.Empty : InvoiceNo.Trim()));
+            sqlparam.Add(new SqlParameter("@Brand_Id", Brand_Id));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Brand_Invoice_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AutocompleteInfo auto = new AutocompleteInfo();
+                    auto.Label = Convert.ToString(dr["Label"]);
+                    auto.Value = Convert.ToInt32(dr["Value"]);
+                    autoList.Add(auto);
+                }
+            }
+            return autoList;
+        }
+        #endregion
     }
 }
