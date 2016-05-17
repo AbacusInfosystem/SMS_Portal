@@ -18,6 +18,10 @@ namespace SMSPortalInfo
 
         public decimal Product_Price { get; set; }
 
+        public decimal Local_Tax { get; set; }
+
+        public decimal Export_Tax { get; set; }
+
         public decimal MasterProductPrice { get; set; }
 
         public int Brand_Id { get; set; }
