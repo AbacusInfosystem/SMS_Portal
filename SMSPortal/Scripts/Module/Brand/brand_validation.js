@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $("#frmBrandMaster").validate({
-        errorClass: 'login-error',
+       
         rules: {
             "Brand.Brand_Name":
                {
@@ -14,7 +14,6 @@
                 },
             "Brand.Website_Url":
                 {
-                    required: true,
                     Website_Url: true
                 }
 
@@ -27,12 +26,11 @@
             },
             "Brand.Brand_Category":
             {
-                required: "Brand Category is required."
+               required: "Brand Category is required."
             },
             "Brand.Website_Url":
                 {
-                    required: "Website Url is required",
-                    Website_Url: "Invalid url",
+                    Website_Url:"Invalid url"
                 }
         },
         onfocusout: function (element, event) {

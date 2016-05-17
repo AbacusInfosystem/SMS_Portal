@@ -72,7 +72,7 @@ function Bind_Vendor_Product_Grid(data) {
 
             htmlText += "<label style='text-align:center'>" + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + "</label></br>";
 
-            if (data.Products[i].Product_Price != "")
+            if (data.Products[i].Is_Mapped == true)
             {
                 htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
             }

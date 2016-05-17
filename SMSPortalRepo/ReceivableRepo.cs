@@ -68,6 +68,12 @@ namespace SMSPortalRepo
                        receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
                    if (!dr.IsNull("Balance_Amount"))
                        receivable.Balance_Amount = Convert.ToDecimal(dr["Balance_Amount"]);
+                   if (!dr.IsNull("Dealer_Name"))
+                       receivable.Dealer_Name = Convert.ToString(dr["Dealer_Name"]);
+                   if (!dr.IsNull("Order_No"))
+                       receivable.Order_No = Convert.ToString(dr["Order_No"]);
+                   if (!dr.IsNull("Order_Date"))
+                       receivable.Order_Date = Convert.ToDateTime(dr["Order_Date"]);
                }
            }
            return receivable;

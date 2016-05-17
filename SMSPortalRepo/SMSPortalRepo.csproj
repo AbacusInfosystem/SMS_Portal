@@ -48,6 +48,7 @@
     <Compile Include="AutocompleteLookupRepo.cs" />
     <Compile Include="BrandRepo.cs" />
     <Compile Include="CategoryRepo.cs" />
+    <Compile Include="CommonRepo.cs" />
     <Compile Include="Common\CommonMethods.cs" />
     <Compile Include="CookiesRepo.cs" />
     <Compile Include="DashboardRepo.cs" />

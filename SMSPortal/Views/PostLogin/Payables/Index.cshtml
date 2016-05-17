@@ -57,6 +57,21 @@
                         </div>
 
                         <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label style="color:#333">Purchase Order No :</label>
+                                    <label style="font-size:12px" value="@Model.Payable.Purchase_Order_No">@Model.Payable.Purchase_Order_No</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color:#333">Purchase order Date :</label>
+                                    <label style="font-size:12px" value="@Model.Payable.Purchase_Order_Date">@Model.Payable.Purchase_Order_Date.ToString("MM/dd/yyyy")</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label style="color:#333">Vendor Name :</label>
+                                    <label style="font-size:12px" value="@Model.Payable.Vendor_Name">@Model.Payable.Vendor_Name</label>
+                                </div>
+                            </div>
+
 
                             <div id="dvPurchase_Order" class="row">
 

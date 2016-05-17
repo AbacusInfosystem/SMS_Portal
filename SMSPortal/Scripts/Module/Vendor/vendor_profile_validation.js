@@ -30,11 +30,11 @@
                     required: true,
                     digits : true
                 },
-            "Vendor.Contact_No_2":
-                {
-                    required: true,
-                    digits : true
-                },
+            //"Vendor.Contact_No_2":
+            //    {
+            //        required: true,
+            //        digits : true
+            //    },
             "Vendor.Email":
                 {
                     required: true,
@@ -70,11 +70,11 @@
                     required: "Contact no 1 is required",
                     digits : "Enter digits"
                 },
-            "Vendor.Contact_No_2":
-                {
-                    required: "Contact no 2 required",
-                    digits : "Enter digits"
-                },
+            //"Vendor.Contact_No_2":
+            //    {
+            //        required: "Contact no 2 required",
+            //        digits : "Enter digits"
+            //    },
             "Vendor.Email":
                 {
                     required: "Email is required",

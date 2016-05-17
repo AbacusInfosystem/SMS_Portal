@@ -196,5 +196,32 @@ namespace SMSPortal.Controllers.PostLogin
 
         }
 
+        public JsonResult Send_Receivable_Payment_Receipt(int invoice_Id, int receivable_Id)
+        {
+            ReceivableViewModel rViewModel = new ReceivableViewModel();
+
+            try
+            {
+                rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(invoice_Id);
+
+                rViewModel.Receivables = _receivableManager.Get_Receivable_Items(receivable_Id);
+
+                _receivableManager.Send_Payment_Receipt(rViewModel.Cookies.User_Email, rViewModel.Receivable, rViewModel.Receivables);
+
+                rViewModel.Friendly_Message.Add(MessageStore.Get("RC002"));
+            }
+
+            catch (Exception ex)
+            {
+                rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Error at Receivable Controller - Send_Receivable_Payment_Receipt " + ex);
+            }
+
+            return Json(rViewModel);
+        }
+
     }
 }
