@@ -3,10 +3,7 @@
 
 
     $("#frmPayableMaster").validate(
-        {
-
-            errorClass: 'login-error',
-
+        { 
             rules:
                 {
           

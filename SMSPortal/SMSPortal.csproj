@@ -1033,7 +1033,7 @@
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_methods.js" />
     <Content Include="Scripts\Module\PurchaseOrder\purchase_order_validation.js" />
     <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_events.js" />
-    <Content Include="Scripts\Module\PurchaseOrder\serach_purchase_order_methods.js" />
+    <Content Include="Scripts\Module\PurchaseOrder\search_purchase_order_methods.js" />
     <Content Include="Scripts\Module\Receivable\Receivable_methods.js" />
     <Content Include="Scripts\Module\Receivable\receivable_validation.js" />
     <Content Include="Scripts\Module\Receivable\Receviable_events.js" />

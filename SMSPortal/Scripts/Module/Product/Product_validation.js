@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#frmProductMaster").validate({
-        errorClass: 'login-error',
+    $("#frmProductMaster").validate({        
         rules: {
             "Product.Product_Name":
                {

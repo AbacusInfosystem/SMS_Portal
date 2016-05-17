@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#frmTax").validate({
-        errorClass: 'login-error',
+    $("#frmTax").validate({        
         rules: {
 
             "Tax.Local_Tax":

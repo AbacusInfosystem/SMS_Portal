@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $("#frmCategoryMaster").validate({
-        errorClass: 'login-error',
+        
         rules: {
 
             "Category.Category_Name":

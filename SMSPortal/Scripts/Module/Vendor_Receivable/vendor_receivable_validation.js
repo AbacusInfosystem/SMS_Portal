@@ -1,12 +1,12 @@
 ﻿$(document).ready(function ()
 {
-    alert("validation")
+    
 
     $("#frmPayableMaster").validate(
 
         {
 
-            errorClass: 'login-error',
+             
 
             rules:
 
