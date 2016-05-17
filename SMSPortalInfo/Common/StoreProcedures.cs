@@ -98,7 +98,8 @@ namespace SMSPortalInfo.Common
         Get_Categories_With_Product_Count_Sp,
         Get_Sub_Categories_With_Product_Count_Sp,
         Get_Products_By_Ids_sp,
-        Set_Default_Product_Image,         
+        Set_Default_Product_Image, 
+        Update_Product_By_Name_Sp,
          
         //Vendor
         Insert_Vendor_Sp,
