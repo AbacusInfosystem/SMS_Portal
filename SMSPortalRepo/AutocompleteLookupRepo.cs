@@ -71,11 +71,11 @@ namespace SMSPortalRepo
                         strquery = "Select Invoice_Id , Invoice_No from Invoice Where Entity_Id=@Brand_Id  ";
                         paramList.Add(new SqlParameter("@Brand_Id", fieldValue));
                     }
-                    if (fieldName == "Dealer_Id")                   
+                    if (fieldName == "Dealer_Id" || fieldName == "Brand_Id")                   
                     {
                         strquery = " Select Invoice.Invoice_Id , Invoice.Invoice_No  from Invoice inner join Receivables on Invoice.Invoice_Id=Receivables.Invoice_Id ";
-                        strquery += "  Where Invoice.Entity_Id=@Dealer_Id";
-                        paramList.Add(new SqlParameter("@Dealer_Id", fieldValue));
+                        strquery += "  Where Invoice.Entity_Id=@Entity_Id";
+                        paramList.Add(new SqlParameter("@Entity_Id", fieldValue));
                     }
                 }
                 if (table_Name == "Dealer")

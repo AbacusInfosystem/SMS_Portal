@@ -368,7 +368,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                autoList = _dealerManager.Get_Dealer_Invoices_Autocomplete(dealer, Cookies.Entity_Id);
+                autoList = _dealerManager.Get_Dealer_Invoices_Autocomplete(dealer, Cookies.Entity_Id, Cookies.Role_Id);
             }
             catch (Exception ex)
             {
