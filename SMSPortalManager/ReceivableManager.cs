@@ -23,9 +23,9 @@ namespace SMSPortalManager
            return _receivableRepo.Get_Receivable_By_Id(invoice_Id, ref pager);
        }
 
-       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int dealer_Id)
+       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int entity_Id, int role_Id)
        {
-           return _receivableRepo.Get_Receivables(ref pager, dealer_Id);
+           return _receivableRepo.Get_Receivables(ref pager, entity_Id, role_Id);
        }
 
        public int Insert_Receivable(ReceivableInfo receivableInfo,int user_Id)

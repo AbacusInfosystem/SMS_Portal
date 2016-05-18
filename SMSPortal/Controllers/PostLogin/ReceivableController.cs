@@ -49,11 +49,12 @@ namespace SMSPortal.Controllers.PostLogin
 
                 if (rViewModel.Cookies.Role_Id == 1)
                 {
-                    rViewModel.Filter.Dealer_Id = 0;
+                    rViewModel.Filter.Entity_Id = 0;
                 }
                 else
                 {
-                    rViewModel.Filter.Dealer_Id = rViewModel.Cookies.Entity_Id;
+                    rViewModel.Filter.Entity_Id = rViewModel.Cookies.Entity_Id;
+                    rViewModel.Filter.Role_Id = rViewModel.Cookies.Role_Id;
                 }
 
             }
@@ -86,7 +87,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    rViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, rViewModel.Filter.Dealer_Id);
+                    rViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, rViewModel.Filter.Entity_Id, rViewModel.Filter.Role_Id);
                 }
 
                 rViewModel.Pager = pager;
@@ -117,6 +118,8 @@ namespace SMSPortal.Controllers.PostLogin
                 rViewModel.Receivable.Invoice_Id = Id;
 
                 rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);
+
+                rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
 
                 //rViewModel.Receivable.Invoice_Amount = _receivableManager.Get_Invoice_Amount(Id);
 

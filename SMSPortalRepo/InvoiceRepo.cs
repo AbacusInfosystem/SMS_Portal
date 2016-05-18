@@ -106,8 +106,9 @@ namespace SMSPortalRepo
             invoice.Invoice_No = Convert.ToString(dr["Invoice_No"]);
             invoice.Invoice_Date = Convert.ToDateTime(dr["Invoice_Date"]);
 
-            if (!dr.IsNull("Amount"))
             invoice.Amount = Convert.ToDecimal(dr["Amount"]);
+            invoice.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+            invoice.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
 
             invoice.Created_On = Convert.ToDateTime(dr["Created_On"]);
             invoice.Created_By = Convert.ToInt32(dr["Created_By"]);

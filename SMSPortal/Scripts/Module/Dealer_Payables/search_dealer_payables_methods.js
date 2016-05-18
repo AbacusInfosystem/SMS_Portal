@@ -8,7 +8,9 @@
                 {
                     Invoice_Id: $('#hdnInvoiceId').val(),
 
-                    Dealer_Id: $('#hdnDealerId').val(),
+                    Entity_Id: $('#hdnEntityId').val(),
+
+                    Role_Id: $('#hdnRoleId').val(),
                 },
 
             Pager:

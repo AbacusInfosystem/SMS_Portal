@@ -178,14 +178,15 @@ namespace SMSPortalRepo
            return receivable;
        }
 
-       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int dealer_Id)
+       public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int entity_Id, int role_Id)
 
        {
            List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
 
            List<SqlParameter> sqlParamList = new List<SqlParameter>();
 
-           sqlParamList.Add(new SqlParameter("@Dealer_Id", dealer_Id));
+           sqlParamList.Add(new SqlParameter("@entity_Id", entity_Id));
+           sqlParamList.Add(new SqlParameter("@role_Id", role_Id));
 
            ReceivableInfo receivable = new ReceivableInfo();
 
