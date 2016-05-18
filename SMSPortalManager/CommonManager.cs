@@ -16,9 +16,9 @@ namespace SMSPortalManager
             _commonRepo = new CommonRepo();
         }
 
-        public int Is_Value_Already_Exist(string Tbl_Name, string Fld_Name, string Value)
+        public int Is_Value_Already_Exist(string Tbl_Name, string Fld_Name, string Value,string Primary_Field_Name, int Id)
         {
-            return _commonRepo.Is_Value_Already_Exist(Tbl_Name, Fld_Name, Value);
+            return _commonRepo.Is_Value_Already_Exist(Tbl_Name, Fld_Name, Value, Primary_Field_Name, Id);
         }
     }
 }

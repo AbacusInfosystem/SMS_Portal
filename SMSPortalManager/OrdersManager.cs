@@ -74,5 +74,15 @@ namespace SMSPortalManager
         {
             return _ordersRepo.Get_Orders_No_Autocomplete_By_Dealer(order_No, Dealer_Id);
         }
+
+        public void Set_Order_Balanace_Amount(int Order_Id, decimal Amount)
+        {
+            _ordersRepo.Set_Order_Balanace_Amount(Order_Id, Amount);
+        }
+
+        public void Set_Order_Status(int Order_Id, int Status)
+        {
+            _ordersRepo.Set_Order_Status(Order_Id, Status);
+        }
     }
 }

@@ -24,12 +24,12 @@ namespace SMSPortal.Controllers.PostLogin
             return View();
         }
 
-        public JsonResult Is_Value_Already_Exist(string Tbl_Name, string Fld_Name, string Value)
+        public JsonResult Is_Value_Already_Exist(string Tbl_Name, string Fld_Name, string Value, string Primary_Field_Name, int Id)
         {
             bool bExist = false;
             try
             {
-                int count = _commonManager.Is_Value_Already_Exist(Tbl_Name, Fld_Name, Value);
+                int count = _commonManager.Is_Value_Already_Exist(Tbl_Name, Fld_Name, Value, Primary_Field_Name, Id);
                 if (count > 0)
                     bExist = true;
             }

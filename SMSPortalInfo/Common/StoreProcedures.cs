@@ -191,7 +191,9 @@ namespace SMSPortalInfo.Common
         Update_Order_Status_Sp,
         Get_Order_No_Autocomplete_Sp,
         Get_Orders_By_Dates,
-        Get_Orders_By_Status,         
+        Get_Orders_By_Status,
+        Set_Order_Balanace_Amount_sp,
+        Set_Order_Status_sp,
 
         //Tax
         Insert_Tax_Sp,

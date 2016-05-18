@@ -28,6 +28,7 @@ namespace SMSPortal.Models.PostLogin
 
             Dealer = new DealerInfo();
 
+            Invoice = new InvoiceInfo();
          }
 
         public List<FriendlyMessage> Friendly_Message { get; set; }
@@ -44,6 +45,7 @@ namespace SMSPortal.Models.PostLogin
 
         public DealerInfo Dealer { get; set; }
 
+        public InvoiceInfo Invoice { get; set; }
     }
 
     public class ReceivableFilter

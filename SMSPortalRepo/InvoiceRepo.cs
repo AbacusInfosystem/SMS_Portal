@@ -46,6 +46,9 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Order_Id", invoice.Order_Id));
             sqlParams.Add(new SqlParameter("@Invoice_No", invoice.Invoice_No));
             sqlParams.Add(new SqlParameter("@Invoice_Date", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Role_Id", invoice.Role_Id));
+            sqlParams.Add(new SqlParameter("@Entity_Id", invoice.Entity_Id));
+            sqlParams.Add(new SqlParameter("@Amount", invoice.Amount));
             sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
             sqlParams.Add(new SqlParameter("@Created_By", user_id));
             sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
@@ -102,6 +105,8 @@ namespace SMSPortalRepo
             invoice.Order_No = Convert.ToString(dr["Order_No"]);
             invoice.Invoice_No = Convert.ToString(dr["Invoice_No"]);
             invoice.Invoice_Date = Convert.ToDateTime(dr["Invoice_Date"]);
+            if (!dr.IsNull("Amount"))
+                invoice.Amount = Convert.ToDecimal(dr["Amount"]);
             invoice.Created_On = Convert.ToDateTime(dr["Created_On"]);
             invoice.Created_By = Convert.ToInt32(dr["Created_By"]);
             invoice.Updated_On = Convert.ToDateTime(dr["Updated_On"]);

@@ -18,6 +18,12 @@ namespace SMSPortalInfo
 
         public DateTime Invoice_Date { get; set; }
 
+        public int Role_Id { get; set; }
+
+        public int Entity_Id { get; set; }
+
+        public decimal Amount { get; set; }
+
         public DateTime Created_On { get; set; }
 
         public int Created_By { get; set; }

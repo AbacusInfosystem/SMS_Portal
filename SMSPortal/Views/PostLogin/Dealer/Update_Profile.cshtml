@@ -32,109 +32,133 @@
                             <div class="col-md-12">
                                 <div class="box-body">
                                     <input type="hidden" class="form-control input-sm" name="Dealer.Dealer_Id" id="hdf_DealerId" value="@Model.Dealer.Dealer_Id">
-                     
-                                          
-                                                    <div class="form-group">
-                                                        <label style="color: #333">Dealer Name</label>
-                                                        <input type="text" class="form-control input-sm" name="Dealer.Dealer_Name" id="txtDealer_Name" placeholder="Enter your name" value="@Model.Dealer.Dealer_Name" maxlength="20">
-                                                        <input type="hidden" id="hdnDealerName" value="@Model.Dealer.Dealer_Name">
-                                                    </div>
-                                           
-                                          
-                                       
-                                                    <div class="form-group">
-                                                        <label style="color:#333">Brand :</label>
 
-                                                        <label style="font-size:12px" value="@Model.Dealer.Brand_Name">@Model.Dealer.Brand_Name</label>
-                                                        <input type="hidden" id="hdnBrand_Id" name="Dealer.Brand_Id" value="@Model.Dealer.Brand_Id">
-                                                        @*<select disabled id="drpBrand_Category" class="form-control" name="Dealer.Brand_Id">
-                                                            <option value="">-Select Brand-</option>
-                                                            @foreach (var item in Model.Brands)
-                                                            {
-                                                                if (Model.Dealer.Brand_Id == item.Brand_Id)
-                                                                {
-                                                                    <option value="@item.Brand_Id" selected="selected">@item.Brand_Name</option>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <option value="@item.Brand_Id">@item.Brand_Name</option>
-                                                                }
-                                                            }
 
-                                                        </select>*@
-                                                    </div>
-                                            
-                                          
-                                                    <div class="form-group">
-                                                        <label style="color: #333">Address</label>
-                                                        <textarea class="form-control" name="Dealer.Address" id="txtAddress">@Model.Dealer.Address</textarea>
-                                                    </div>
-                                           
-                                            
-                                                    <div class="form-group">
-                                                        <label style="color: #333">City</label>
-                                                        <input type="text" class="form-control input-sm" name="Dealer.City" id="txtcity" placeholder="Enter city" value="@Model.Dealer.City" maxlength="15">
-                                                    </div>
-                                           
-                                          
-                                                    <div class="form-group">
-                                                        <label style="color: #333">State</label>
-                                                        <select id="drpState" class="form-control" name="Dealer.State">
-                                                            <option value="">-Select State-</option>
-                                                            @foreach (var item in Model.States)
+                                    <div class="form-group">
+                                        <label style="color: #333">Dealer Name</label>
+                                        <input type="text" class="form-control input-sm" name="Dealer.Dealer_Name" id="txtDealer_Name" placeholder="Enter your name" value="@Model.Dealer.Dealer_Name" maxlength="20">
+                                        <input type="hidden" id="hdnDealerName" value="@Model.Dealer.Dealer_Name">
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label style="color:#333">Brand :</label>
+
+                                        <label style="font-size:12px" value="@Model.Dealer.Brand_Name">@Model.Dealer.Brand_Name</label>
+                                        <input type="hidden" id="hdnBrand_Id" name="Dealer.Brand_Id" value="@Model.Dealer.Brand_Id">
+                                        @*<select disabled id="drpBrand_Category" class="form-control" name="Dealer.Brand_Id">
+                                                <option value="">-Select Brand-</option>
+                                                @foreach (var item in Model.Brands)
+                                                {
+                                                    if (Model.Dealer.Brand_Id == item.Brand_Id)
                                                     {
-                                                        if (Model.Dealer.State == item.State_Id)
-                                                        {
-                                                            <option value="@item.State_Id" selected="selected">@item.State_Name</option>
-                                                        }
-                                                        else
-                                                        {
-                                                            <option value="@item.State_Id">@item.State_Name</option>
-                                                        }
+                                                        <option value="@item.Brand_Id" selected="selected">@item.Brand_Name</option>
                                                     }
-                                                        </select>
-                                                    </div>
-                                             
-                                            
-                                                    <div class="form-group">
-                                                        <label style="color: #333">Pincode</label>
-                                                        <input type="text" class="form-control input-sm" name="Dealer.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Dealer.Pincode == 0 ? "" : Model.Dealer.Pincode.ToString())" maxlength="6">
-                                                    </div>
-                                             
-                                        
-                                                    <div class="form-group">
-                                                        <label style="color: #333">Contact No 1</label>
-                                                        <input type="text" class="form-control input-sm" name="Dealer.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Dealer.Contact_No_1" maxlength="10">
-                                                    </div>
-                                           
-                                            
-                                                    <div class="form-group">
-                                                        <label style="color: #333">Contact No 2</label>
-                                                        <input type="text" class="form-control input-sm" name="Dealer.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Dealer.Contact_No_2" maxlength="10">
+                                                    else
+                                                    {
+                                                        <option value="@item.Brand_Id">@item.Brand_Name</option>
+                                                    }
+                                                }
 
-                                                    </div>
-                                            
-                                      
-                                                    <div class="form-group">
-                                                        <label style="color: #333">Email</label>
-                                                        <input type="text" class="form-control input-sm" name="Dealer.Email" id="txtEmail" placeholder="Enter email " value="@Model.Dealer.Email" maxlength="40">
-                                                    </div>
-                                              
-                                        </div>
-                                  
+                                            </select>*@
+                                    </div>
 
-                                    <div class="box-footer">
-                                        <center>
-                                            <div class="btn-group">
-                                                <button type="button" id="btnUpdate" class="btn btn-warning btn-sm">Update</button>
-                                            </div>
-                                        </center>
+                                    <div class="form-group">
+                                        <label style="color: #333">Dealer Percentage</label>
+                                        @if (Model.Dealer.Dealer_Percentage == 0 || Model.Dealer.Dealer_Percentage == null)
+                                        {
+                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" maxlength="5">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5">
+                                        }
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label style="color: #333">Brand Percentage</label>
+                                        @if (Model.Dealer.Brand_Percentage == 0 || Model.Dealer.Brand_Percentage == null)
+                                        {
+                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" maxlength="5">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5">
+                                        }
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label style="color: #333">Address</label>
+                                        <textarea class="form-control" name="Dealer.Address" id="txtAddress">@Model.Dealer.Address</textarea>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label style="color: #333">City</label>
+                                        <input type="text" class="form-control input-sm" name="Dealer.City" id="txtcity" placeholder="Enter city" value="@Model.Dealer.City" maxlength="15">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label style="color: #333">State</label>
+                                        <select id="drpState" class="form-control" name="Dealer.State">
+                                            <option value="">-Select State-</option>
+                                            @foreach (var item in Model.States)
+                                            {
+                                                if (Model.Dealer.State == item.State_Id)
+                                                {
+                                                    <option value="@item.State_Id" selected="selected">@item.State_Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.State_Id">@item.State_Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label style="color: #333">Pincode</label>
+                                        <input type="text" class="form-control input-sm" name="Dealer.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Dealer.Pincode == 0 ? "" : Model.Dealer.Pincode.ToString())" maxlength="6">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label style="color: #333">Contact No 1</label>
+                                        <input type="text" class="form-control input-sm" name="Dealer.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Dealer.Contact_No_1" maxlength="10">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label style="color: #333">Contact No 2</label>
+                                        <input type="text" class="form-control input-sm" name="Dealer.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Dealer.Contact_No_2" maxlength="10">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label style="color: #333">Email</label>
+                                        <input type="text" class="form-control input-sm" name="Dealer.Email" id="txtEmail" placeholder="Enter email " value="@Model.Dealer.Email" maxlength="40">
                                     </div>
 
                                 </div>
+
+
+                                <div class="box-footer">
+                                    <center>
+                                        <div class="btn-group">
+                                            <button type="button" id="btnUpdate" class="btn btn-warning btn-sm">Update</button>
+                                        </div>
+                                    </center>
+                                </div>
+
                             </div>
                         </div>
-               
+                    </div>
+
                 </section>
             </form>
         </div>

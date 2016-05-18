@@ -469,6 +469,26 @@ namespace SMSPortalRepo
             }
             return autoList;
         }
+
+        public void Set_Order_Balanace_Amount(int Order_Id, decimal Amount)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("@Order_Id", Order_Id));
+            sqlparam.Add(new SqlParameter("@Amount", Amount));
+
+            _sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Set_Order_Balanace_Amount_sp.ToString(), CommandType.StoredProcedure);
+        }
+
+        public void Set_Order_Status(int Order_Id, int Status)
+        {
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("@Order_Id", Order_Id));
+            sqlparam.Add(new SqlParameter("@Status", Status));            
+
+            _sqlRepo.ExecuteScalerObj(sqlparam, StoreProcedures.Set_Order_Status_sp.ToString(), CommandType.StoredProcedure);
+        }
          
     }
 }

@@ -120,7 +120,7 @@ jQuery.validator.addMethod("is_value_already_exist", function (value, element) {
 
     $.ajax({
         url: '/Common/Is_Value_Already_Exist/',
-        data: { Tbl_Name: "Vendors", Fld_Name: "Email", Value: value },
+        data: { Tbl_Name: "Vendors", Fld_Name: "Email", Value: value, Primary_Field_Name: "Vendor_Id", Id: parseInt($("#hdf_VendorId").val()) },
         method: 'GET',
         async: false,
         success: function (data) {

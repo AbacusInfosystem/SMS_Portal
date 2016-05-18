@@ -118,7 +118,7 @@ jQuery.validator.addMethod("is_value_already_exist", function (value, element) {
     var result = true;
     $.ajax({
         url: '/Common/Is_Value_Already_Exist/',
-        data: { Tbl_Name: "Users", Fld_Name: "Email_Id", Value: value },
+        data: { Tbl_Name: "Users", Fld_Name: "Email_Id", Value: value, Primary_Field_Name: "User_Id", Id: parseInt($("#hdf_UserId").val()) },
         method: 'GET',
         async: false,
         success: function (data) {

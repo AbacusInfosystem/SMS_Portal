@@ -45,6 +45,10 @@ namespace SMSPortalRepo
 
             sqlParams.Add(new SqlParameter("@Brand_Id", dealer.Brand_Id));
 
+            sqlParams.Add(new SqlParameter("@Dealer_Percentage", dealer.Dealer_Percentage));
+
+            sqlParams.Add(new SqlParameter("@Brand_Percentage", dealer.Brand_Percentage));
+
             sqlParams.Add(new SqlParameter("@Address", dealer.Address));
 
             sqlParams.Add(new SqlParameter("@City", dealer.City));
@@ -139,7 +143,6 @@ namespace SMSPortalRepo
 
         private DealerInfo Get_Dealer_Values(DataRow dr)
         {
-         
             DealerInfo dealer = new DealerInfo();
 
             if (!dr.IsNull("Dealer_Id"))
@@ -153,6 +156,12 @@ namespace SMSPortalRepo
 
             if (!dr.IsNull("Brand_Name"))
             dealer.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+
+            if (!dr.IsNull("Dealer_Percentage"))
+                dealer.Dealer_Percentage = Convert.ToDecimal(dr["Dealer_Percentage"]);
+
+            if (!dr.IsNull("Brand_Percentage"))
+                dealer.Brand_Percentage = Convert.ToDecimal(dr["Brand_Percentage"]);
 
             if (!dr.IsNull("Address"))
             dealer.Address = Convert.ToString(dr["Address"]);
@@ -288,6 +297,10 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Dealer_Name", dealer.Dealer_Name));
 
             sqlParams.Add(new SqlParameter("@Brand_Id", dealer.Brand_Id));
+
+            sqlParams.Add(new SqlParameter("@Dealer_Percentage", dealer.Dealer_Percentage));
+
+            sqlParams.Add(new SqlParameter("@Brand_Percentage", dealer.Brand_Percentage));
 
             sqlParams.Add(new SqlParameter("@Address", dealer.Address));
 

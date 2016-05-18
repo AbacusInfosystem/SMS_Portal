@@ -352,7 +352,7 @@ namespace SMSPortalRepo
                Total_Balance_Amount = receivableInfo.Invoice_Amount-receivableInfo.Receivable_Item_Amount;
            }
 
-           Status_Amount = (receivableInfo.Invoice_Amount * 50) / 100;
+           //Status_Amount = (receivableInfo.Invoice_Amount * 50) / 100;
 
 
            receivableInfo.Balance_Amount = Total_Balance_Amount;
@@ -372,10 +372,10 @@ namespace SMSPortalRepo
                sqlParams.Add(new SqlParameter("@Status", "Payment Done"));             
            }
 
-           if (Amount > Status_Amount)
-           {
-               Update_Sales_Order_Status(receivableInfo.Invoice_Id);
-           }
+           //if (Amount > Status_Amount)
+           //{
+           //    Update_Sales_Order_Status(receivableInfo.Invoice_Id);
+           //}
 
            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
 

@@ -31,6 +31,7 @@ namespace SMSPortal.Controllers.PostLogin
         public TaxManager _taxManager;
         public StateManager _stateManager;
         public OrdersManager _OrdersManager;
+        public UserManager _userManager;
 
         public ProductController()
         {
@@ -40,6 +41,7 @@ namespace SMSPortal.Controllers.PostLogin
             _taxManager = new TaxManager();
             _stateManager = new StateManager();
             _OrdersManager = new OrdersManager();
+            _userManager = new UserManager();
         }
 
         public ActionResult Index(ProductViewModel pViewModel)
@@ -416,23 +418,48 @@ namespace SMSPortal.Controllers.PostLogin
 
                         pViewModel.dealer = _dealerManager.Get_Dealer_By_Id(pViewModel.order.Dealer_Id);
 
+
+                        // Dealer Invoice
                         InvoiceViewModel iViewModel = new InvoiceViewModel();
+
                         iViewModel.Invoice.Order_Id = pViewModel.order.Order_Id;
                         iViewModel.Invoice.Invoice_No = Utility.Generate_Ref_No("INV-", "Invoice_No", "5", "15", "Invoice");
+                        iViewModel.Invoice.Role_Id = Convert.ToInt32(Roles.Dealer);
+                        iViewModel.Invoice.Entity_Id = pViewModel.dealer.Dealer_Id;
+                        iViewModel.Invoice.Amount = (pViewModel.dealer.Dealer_Percentage * pViewModel.order.Net_Amount) / 100; // Calculating Dealer percentage
+
                         iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Invoice(iViewModel.Invoice, pViewModel.Cookies.User_Id);
+
                         _invoiceManager.Send_Invoice_Email(pViewModel.dealer.Email, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
 
-                        trans.Commit();
+
+                        // Brand Invoice
+                        iViewModel = new InvoiceViewModel();
+
+                        iViewModel.Invoice.Order_Id = pViewModel.order.Order_Id;
+                        iViewModel.Invoice.Invoice_No = Utility.Generate_Ref_No("INV-", "Invoice_No", "5", "15", "Invoice");
+                        iViewModel.Invoice.Role_Id = Convert.ToInt32(Roles.Brand);
+                        iViewModel.Invoice.Entity_Id = pViewModel.dealer.Brand_Id;
+                        iViewModel.Invoice.Amount = (pViewModel.dealer.Brand_Percentage * pViewModel.order.Net_Amount) / 100; // Calculating Brand percentage
+
+                        iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Invoice(iViewModel.Invoice, pViewModel.Cookies.User_Id);
+
+                        UserInfo user = _userManager.Get_User_By_Entity_Id(pViewModel.dealer.Brand_Id, Convert.ToInt32(Roles.Brand));
+
+                        _invoiceManager.Send_Invoice_Email(user.Email_Id, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);                        
                     }
                     catch (Exception ex)
                     {
                         trans.Rollback();
 
                         pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
                         Logger.Error("ProductController SaveOrder " + ex);
                     }
                     finally
                     {
+                        trans.Commit();
+
                         con.Close();
 
                         pViewModel.Friendly_Message.Add(MessageStore.Get("PO006"));

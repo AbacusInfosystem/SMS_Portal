@@ -12,15 +12,28 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.SqlClient;
+
 namespace SMSPortal.Controllers.PostLogin
 {
     public class ReceivableController : Controller
     {
+        private string _sqlCon = "";
+
         public ReceivableManager _receivableManager;
+
+        public InvoiceManager _invoiceManager;
+
+        public OrdersManager _ordersManager;
+
+        public UserManager _userManager;
 
         public ReceivableController()
         {
             _receivableManager = new ReceivableManager();
+            _invoiceManager = new InvoiceManager();
+            _userManager = new UserManager();
+            _ordersManager = new OrdersManager();
         }
 
         public ActionResult Search(ReceivableViewModel rViewModel)
@@ -30,18 +43,18 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Searches(ReceivableViewModel rViewModel)
         {
-            try            
+            try
             {
                 rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                   if(rViewModel.Cookies.Role_Id == 1)
-                   {
-                       rViewModel.Filter.Dealer_Id = 0;
-                   }
-                   else
-                   {
-                       rViewModel.Filter.Dealer_Id = rViewModel.Cookies.Entity_Id;
-                   }
+                if (rViewModel.Cookies.Role_Id == 1)
+                {
+                    rViewModel.Filter.Dealer_Id = 0;
+                }
+                else
+                {
+                    rViewModel.Filter.Dealer_Id = rViewModel.Cookies.Entity_Id;
+                }
 
             }
             catch (Exception ex)
@@ -49,15 +62,15 @@ namespace SMSPortal.Controllers.PostLogin
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
                 Logger.Error("Error at Receivable Controller - Searches " + ex);
-            }   
+            }
 
             return View("Searches", rViewModel);
         }
 
-        public ActionResult Index( ReceivableViewModel rViewModel)
-        { 
+        public ActionResult Index(ReceivableViewModel rViewModel)
+        {
             return View("Index", rViewModel);
-        }     
+        }
 
         public JsonResult Get_Recievable(ReceivableViewModel rViewModel)
         {
@@ -80,7 +93,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                 rViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", rViewModel.Pager.TotalRecords, rViewModel.Pager.CurrentPage + 1, rViewModel.Pager.PageSize, 10, true);
             }
-            catch (Exception ex)            
+            catch (Exception ex)
             {
                 rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
@@ -94,7 +107,6 @@ namespace SMSPortal.Controllers.PostLogin
         public ActionResult Get_Receivables_By_Id(ReceivableViewModel rViewModel)
         {
             try
-            
             {
                 int Id = rViewModel.Receivable.Invoice_Id;
 
@@ -104,7 +116,11 @@ namespace SMSPortal.Controllers.PostLogin
 
                 rViewModel.Receivable.Invoice_Id = Id;
 
-                rViewModel.Receivable.Invoice_Amount = _receivableManager.Get_Invoice_Amount(Id);
+                rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);
+
+                //rViewModel.Receivable.Invoice_Amount = _receivableManager.Get_Invoice_Amount(Id);
+
+                rViewModel.Receivable.Invoice_Amount = rViewModel.Invoice.Amount;
             }
 
             catch (Exception ex)
@@ -123,35 +139,60 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 return View("Dealer_Payables_Detail", rViewModel);
             }
- 
+
         }
 
         public JsonResult Insert_Receivable(ReceivableViewModel rViewModel)
         {
-            try
+            _sqlCon = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+
+            using (SqlConnection con = new SqlConnection(_sqlCon))
             {
-                rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                con.Open();
+                using (SqlTransaction trans = con.BeginTransaction())
+                {
+                    try
+                    {
+                        rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                rViewModel.Receivable.Receivable_Id = _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+                        rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);                        
 
-                _receivableManager.Insert_ReceivableItems(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+                        rViewModel.Receivable.Receivable_Id = _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id);
 
-                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id);
+                        _receivableManager.Insert_ReceivableItems(rViewModel.Receivable, rViewModel.Cookies.User_Id);
 
-                rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
+                        _ordersManager.Set_Order_Balanace_Amount(rViewModel.Invoice.Order_Id, rViewModel.Receivable.Receivable_Item_Amount);
 
-                _receivableManager.Insert_Receivable_Receipt(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+                        _ordersManager.Set_Order_Status(rViewModel.Invoice.Order_Id, Convert.ToInt32(OrderStatus.Order_Confirmed));
 
-                _receivableManager.Send_Payment_Receipt(rViewModel.Cookies.User_Email, rViewModel.Receivable, rViewModel.Receivables);               
+                        rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id);
 
-                rViewModel.Friendly_Message.Add(MessageStore.Get("RC001"));
-            }
+                        rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
 
-            catch (Exception ex)            
-            {
-                rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                        _receivableManager.Insert_Receivable_Receipt(rViewModel.Receivable, rViewModel.Cookies.User_Id);
 
-                Logger.Error("Error at Receivable Controller - Insert_Receivable " + ex);
+                        UserInfo user = _userManager.Get_User_By_Entity_Id(rViewModel.Invoice.Entity_Id, rViewModel.Invoice.Role_Id);
+
+                        _receivableManager.Send_Payment_Receipt(user.Email_Id, rViewModel.Receivable, rViewModel.Receivables);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+
+                        rViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+
+                        Logger.Error("Error at Receivable Controller - Insert_Receivable " + ex);
+                    }
+                    finally
+                    {                        
+                        trans.Commit();
+
+                        con.Close();
+
+                        rViewModel.Friendly_Message.Add(MessageStore.Get("RC001"));
+                    }
+                }
             }
 
             return Json(rViewModel);

@@ -34,7 +34,7 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group">
-                                            <label style="color: #333">Dealer Name</label>
+                                        <label style="color: #333">Dealer Name</label>
                                         <input type="text" class="form-control input-sm" name="Dealer.Dealer_Name" id="txtDealer_Name" placeholder="Enter your name" value="@Model.Dealer.Dealer_Name" maxlength="20">
                                         <input type="hidden" id="hdnDealerName" value="@Model.Dealer.Dealer_Name">
                                         <input type="hidden" name="Dealer.Dealer_Id" id="hdf_DealerId" value="@Model.Dealer.Dealer_Id">
@@ -48,15 +48,39 @@
                                             {
                                                 if (Model.Dealer.Brand_Id == item.Brand_Id)
                                                 {
-                                            <option value="@item.Brand_Id" selected="selected">@item.Brand_Name</option>
+                                                    <option value="@item.Brand_Id" selected="selected">@item.Brand_Name</option>
                                                 }
                                                 else
                                                 {
-                                            <option value="@item.Brand_Id">@item.Brand_Name</option>
+                                                    <option value="@item.Brand_Id">@item.Brand_Name</option>
                                                 }
                                             }
 
                                         </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label style="color: #333">Dealer Percentage</label>
+                                        @if (Model.Dealer.Dealer_Percentage == 0 || Model.Dealer.Dealer_Percentage == null)
+                                        {
+                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" maxlength="5">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5">
+                                        }
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label style="color: #333">Brand Percentage</label>
+                                        @if (Model.Dealer.Brand_Percentage == 0 || Model.Dealer.Brand_Percentage == null)
+                                        {
+                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" maxlength="5">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5">
+                                        }
                                     </div>
 
                                     <div class="form-group">
@@ -77,11 +101,11 @@
                                             {
                                                 if (Model.Dealer.State == item.State_Id)
                                                 {
-                                            <option value="@item.State_Id" selected="selected">@item.State_Name</option>
+                                                    <option value="@item.State_Id" selected="selected">@item.State_Name</option>
                                                 }
                                                 else
                                                 {
-                                            <option value="@item.State_Id">@item.State_Name</option>
+                                                    <option value="@item.State_Id">@item.State_Name</option>
                                                 }
                                             }
                                         </select>
@@ -136,7 +160,7 @@
                                 </div>
                             </center>
                         </div>
-                        </div>
+                    </div>
 
 
                 </section>

@@ -16,6 +16,10 @@ namespace SMSPortalInfo
 
         public string Brand_Name { get; set; }
 
+        public decimal Dealer_Percentage { get; set; }
+
+        public decimal Brand_Percentage { get; set; }
+
         public string Address { get; set; }
 
         public string City { get; set; }
