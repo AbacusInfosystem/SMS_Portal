@@ -208,5 +208,7 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Updated_By", user_Id));
             return sqlParams;
         }
+
+        
     }
 }

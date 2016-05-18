@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#frmUserMaster").validate({
-        errorClass: 'login-error',
+    $("#frmUserMaster").validate({        
         rules: {
 
             "User.User_Name":

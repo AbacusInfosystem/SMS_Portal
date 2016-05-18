@@ -2,8 +2,7 @@
 
     $("#frmVendorMaster").validate(
         {
-            errorClass: 'login-error',
-
+             
         rules:
             {
             "Vendor.Vendor_Name":

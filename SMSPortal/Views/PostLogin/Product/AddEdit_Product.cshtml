@@ -82,6 +82,14 @@
                                             <label style="color: #333">Product Price</label>
                                             <input type="text" class="form-control input-sm" name="Product.Product_Price" id="txtProduct_Price" placeholder="Enter price of product" value="@(Model.Product.Product_Price == 0 ? "" : Model.Product.Product_Price.ToString())" maxlength="20">
                                         </div>
+                                    <div class="form-group">
+                                        <label style="color: #333">Local Tax</label>
+                                        <input type="number" class="form-control input-sm" name="Product.Local_Tax" id="txtProduct_LocalTax" placeholder="Enter local tax " value="@(Model.Product.Local_Tax == 0 ? "" : Model.Product.Local_Tax.ToString())"  maxlength="20">
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="color: #333">Export Tax</label>
+                                        <input type="number" class="form-control input-sm" name="Product.Export_Tax" id="txtProduct_ExportTax" placeholder="Enter export tax" value="@(Model.Product.Export_Tax == 0 ? "" : Model.Product.Export_Tax.ToString())"  maxlength="20">
+                                    </div>
                                         <div class="form-group">
                                             <label style="color: #333">Product Description</label>
                                             <textarea class="form-control" id="txtarea_productdescription" name="Product.Product_Description" maxlength="100">@Model.Product.Product_Description</textarea>

@@ -181,13 +181,13 @@
                                         <tr id="tr(@itm.Receivable_Item_Id)">
                                             <td>
                                                 <span> @itm.Transaction_Type_Name</span>
-                                                <input type="hidden" id="hdnTransaction_Type@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Transaction_Type">
-                                                <input type="hidden" id="hdnReceivable_Item_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Item_Id">
-                                                <input type="hidden" id="hdnReceivable_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Id">
+                                                <input type="hidden" id="hdnTransaction_Type@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Transaction_Type" value="@itm.Transaction_Type">
+                                                <input type="hidden" id="hdnReceivable_Item_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Receivable_Item_Id" value="@itm.Receivable_Item_Id">
+                                                <input type="hidden" id="hdnReceivable_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Receivable_Id" value="@itm.Receivable_Id">
                                             </td>
                                             <td>
                                                 <span> @itm.Receivable_Item_Amount</span>
-                                                <input type="hidden" id="hdnReceivable_Item_Amount@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Receivable_Item_Amount">
+                                                <input type="hidden" id="hdnReceivable_Item_Amount@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Receivable_Item_Amount" value="@itm.Receivable_Item_Amount">
                                             </td>
                                             <td>
                                                 <span> @itm.Bank_Name</span>
@@ -195,11 +195,11 @@
                                             </td>
                                             <td>
                                                 <span> @itm.IFSC_Code</span>
-                                                <input type="hidden" id="hdnIFSC_Code@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.IFSC_Code">
+                                                <input type="hidden" id="hdnIFSC_Code@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].IFSC_Code" value="@itm.IFSC_Code">
                                             </td>
                                             <td>
                                                 <span> @itm.Cheque_Number</span>
-                                                <input type="hidden" id="hdnCheque_Number@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
+                                                <input type="hidden" id="hdnCheque_Number@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Cheque_Number" value="@itm.Cheque_Number">
                                             </td>
                                             <td>
                                                 @if (itm.Cheque_Date.ToString() == "1/1/1999 12:00:00 AM")
@@ -211,19 +211,19 @@
                                                     <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
                                                 }
 
-                                                <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
+                                                <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Cheque_Date" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
                                                 <span> @itm.NEFT</span>
-                                                <input type="hidden" id="hdnNEFT@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.NEFT">
+                                                <input type="hidden" id="hdnNEFT@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].NEFT" value="@itm.NEFT">
                                             </td>
                                             <td>
                                                 <span> @itm.Credit_Debit_Card</span>
-                                                <input type="hidden" id="hdnCredit_Debit_Card@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Credit_Debit_Card">
+                                                <input type="hidden" id="hdnCredit_Debit_Card@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Credit_Debit_Card" value="@itm.Credit_Debit_Card">
                                             </td>
                                             <td>
                                                 <span> @itm.Receivable_Date.ToString("MM/dd/yyyy")</span>
-                                                <input type="hidden" id="hdnReceivable_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Receivable_Date.ToString("MM/dd/yyyy")">
+                                                <input type="hidden" id="hdnReceivable_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Receivable_Date" value="@itm.Receivable_Date.ToString("MM/dd/yyyy")">
                                             </td>
                                             <td>
                                                 @*@if(Model.Receivable.Status!="Payment Done")

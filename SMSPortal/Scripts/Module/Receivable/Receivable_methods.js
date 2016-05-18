@@ -1,6 +1,9 @@
 ﻿ 
 function Save_Receivable_Data() {
 
+    
+
+
     var rViewModel =
      {
          Receivable : {
@@ -208,7 +211,7 @@ function Bind_Receivable_Grid_Items(data) {
     //});
 
     $("#divSearchGridOverlay").hide();
-
+    $("#hdnReceivable_Item_Amount").val("0")
     Friendly_Message(data);
 
     ClearReceivableData();
@@ -328,7 +331,8 @@ function EditReceivableData(id) {
     var Total_Bal = 0;
     var Balance_amount = 0;
     var Item_amount = 0;
-    var Previous_Item_Amount = $("#hdnReceivable_Item_Amount").val();
+    var Previous_Item_Amount = $("#hdnReceivable_Item_Amount").val();   
+
 
     $("#drpTransaction").val($("#hdnTransaction_Type" + id).val());
 
@@ -344,7 +348,7 @@ function EditReceivableData(id) {
     $("#txtCredit_Debit").val($("#hdnCredit_Debit_Card" + id).val());
     $("#hdnReceivable_Item_Id").val($("#hdnReceivable_Item_Id" + id).val());
     $("#hdnReceivable_Id").val($("#hdnReceivable_Id" + id).val());
-
+       
     Balance_amount = $("#txtBalance_Amount").val();
     Item_amount = $("#hdnReceivable_Item_Amount" + id).val();
 

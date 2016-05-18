@@ -6,6 +6,8 @@
 
 <form id="frmMyOrders" enctype="multipart/form-data">
     <input type="hidden" id="hdnOrder_Id" name="Sales_Order.Order_Id" value="@Model.Sales_Order.Order_Id">
+    <input type="hidden" id="hdnDealer_Id" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id">
+    <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -36,7 +38,7 @@
                                     <div class="form-group auto-complete">
                                         <label for="Subcategory" class="lookup-title">Order No</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Order_No" id="txtDealerOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-table="Orders" data-col="Order_Id,Order_No" data-headernames="Orders">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Order_No" id="txtDealerOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-param="hdnDealer_Id" data-field="Dealer_Id" data-table="orders" data-col="Order_Id,Order_No" data-headernames="Orders">
                                             <input type="hidden" id="hdnOrderId" value="@Model.Filter.Order_Id" name="Filter.Order_Id" class="auto-complete-value" />
                                             <input type="hidden" id="hdnOrderNo" value="@Model.Filter.Order_No" name="Filter.Order_No" class="auto-complete-label" />
                                             <div class="input-group-addon">
@@ -76,7 +78,7 @@
                                 <tr id="subhead">
                                     <th></th>
                                     <th>Order No</th>
-                                    <th>Dealer Name</th>
+                                    @*<th>Dealer Name</th>*@
                                     <th>Amount</th>
                                     <th>Status</th>
                                 </tr>

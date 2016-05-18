@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $("#frmBrandMaster").validate({
-        errorClass: 'login-error',
+       
         rules: {
             "Brand.Brand_Name":
                {

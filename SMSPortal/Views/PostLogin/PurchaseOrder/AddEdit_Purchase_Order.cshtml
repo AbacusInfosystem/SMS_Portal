@@ -68,11 +68,11 @@
                                             <div class="form-group auto-complete">
                                                 <label for="Product" class="lookup-title">Product Name</label>
                                                 <div class="input-group" id="product_look">
-                                                    <a href="#" class="input-group-addon text-muted" id="hrefProduct" role="button"><i class="fa fa-search"></i></a>
+                                                    
                                                     <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Product.Product_Name" id="txtProductName" placeholder="Enter Product Name" value="@(Model.PurchaseOrderItem.Product_Id == 0 ? "" : Model.PurchaseOrderItem.Product_Id.ToString())" data-table="product" data-param="hdnVendorId" data-col="Product_Id,Product_Name" data-headernames="Product Name">
                                                     <input type="hidden" id="hdnProductId" value="@(Model.Product.Product_Id == 0 ? "" : Model.Product.Product_Id.ToString())" name="Product.Product_Id" class="auto-complete-value" />
                                                     <input type="hidden" id="hdnProductName" value="@Model.Product.Product_Name" name="Product.Product_Name" class="auto-complete-label" />
-
+                                                    <a href="#" class="input-group-addon text-muted" id="hrefProduct" role="button"><i class="fa fa-search"></i></a>
                                                     
                                                 </div>
                                             </div>
@@ -171,7 +171,7 @@
                                             {
                                                 <tr id=@("PItem"+item.Purchase_Order_Item_Id.ToString())>
 
-                                                    <td>  @( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date))</td>
+                                                    <td> @( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date))</td>
 
                                                     <td>@item.Shipping_Address</td>
 

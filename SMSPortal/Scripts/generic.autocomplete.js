@@ -19,7 +19,7 @@ var InitializeAutoComplete = function (elementObject) {
             }
 
             if ($(elementObject).attr("id") == 'txtDealer_Name') {
-                urlString = "/dealer/dealer-autocomplete/" + $('#txtDealer_Name').val();
+                urlString = "/dealer/dealer-autocomplete/" + $('#txtDealer_Name').val()+"/"+$('#hdnBrandId').val();
             }
 
             if ($(elementObject).attr("id") == 'txtProduct_Name') {
@@ -55,10 +55,13 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/receivable/receivable-autocomplete/" + $('#txtOrderNo').val();
             }
 
-            if ($(elementObject).attr("id") == 'txtPurchase_Order_Number') {
-                urlString = "/Payable/Payable-autocomplete/" + $('#txtPurchase_Order_Number').val();
+            if ($(elementObject).attr("id") == 'txtPurchase_Order_Number') {                 
+                urlString = "/Payable/Payable-autocomplete/" + $('#txtPurchase_Order_Number').val() +"/"+$('#hdnEntity_Id').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtPurchase_Order_No') {
+                urlString = "/Payable/Payable-autocomplete/" + $('#txtPurchase_Order_No').val() + "/" + $('#hdnEntity_Id').val();
+            }
             if ($(elementObject).attr("id") == 'txtVendorSales_Order_No') {
                 urlString = "/vendor/get-vendor-sales-orders-autocomplete/" + $('#txtVendorSales_Order_No').val();
             }
@@ -67,8 +70,12 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/dealer/get-dealer-invoices-autocomplete/" + $('#txtDealerInvoice').val();
             }
 
-            if ($(elementObject).attr("id") == 'txtDealerOrderNo') {
-                urlString = "/dealer/get-dealer-orders-autocomplete/" + $('#txtDealerOrderNo').val();
+            if ($(elementObject).attr("id") == 'txtDealerOrderNo') {                 
+                urlString = "/salesorder/get-orders-autocomplete-by_dealer/" + $('#txtDealerOrderNo').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtBrandInvoice_Number') {
+                urlString = "/invoice/get-brand-invoice-autocomplete/" + $('#txtBrandInvoice_Number').val() + "/" + $('#hdnEntity_Id').val();
             }
             
 

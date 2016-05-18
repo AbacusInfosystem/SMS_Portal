@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#frmSubCategory").validate({
-        errorClass: 'login-error',
+    $("#frmSubCategory").validate({        
         rules: {
 
             "SubCategory.Subcategory_Name":

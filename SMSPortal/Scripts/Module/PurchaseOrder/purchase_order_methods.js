@@ -38,9 +38,10 @@ function Bind_Purchase_Order_Items(data) {
 
             htmlText += "<td>";
 
-            //htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : new Date(parseInt(data.PurchaseOrderItems[i].Shipping_Date.replace('/Date(', ''))).toLocaleDateString();
+            var shipDate = new Date(parseInt(data.PurchaseOrderItems[i].Shipping_Date.replace('/Date(', '')));
+            shipDate = (shipDate.getMonth() + 1).toString() + "/" + (shipDate.getDate().toString() + "/" + shipDate.getFullYear());
 
-            htmlText += data.PurchaseOrderItems[i].Shipping_Date == null ? "" : Get_Date(data.PurchaseOrderItems[i].Shipping_Date);
+            htmlText += shipDate == null ? "" : shipDate ;
 
             htmlText += "</td>";
 
@@ -94,7 +95,7 @@ function Bind_Purchase_Order_Items(data) {
             htmlText += "<input type='hidden' class='ItmProductQty' value='" + data.PurchaseOrderItems[i].Product_Quantity + "'>";
             htmlText += "<input type='hidden' class='ItmShipAdd' value='" + data.PurchaseOrderItems[i].Shipping_Address + "'>";
 
-            htmlText += "<input type='hidden' class='ItmShipDate' value='" + data.PurchaseOrderItems[i].Shipping_Date == null ? "" : Get_Date(data.PurchaseOrderItems[i].Shipping_Date) + "' > ";
+            htmlText += "<input type='hidden' class='ItmShipDate' value='" + shipDate + "' > ";
             
             htmlText += "<input type='hidden' class='ItmRecQty' value='" + data.PurchaseOrderItems[i].Received_Quantity + "'>";
 
