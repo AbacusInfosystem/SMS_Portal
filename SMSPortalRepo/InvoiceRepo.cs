@@ -100,20 +100,42 @@ namespace SMSPortalRepo
         {
             InvoiceInfo invoice = new InvoiceInfo();
 
+            if (!dr.IsNull("Invoice_Id"))
             invoice.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+
+            if (!dr.IsNull("Order_Id"))
             invoice.Order_Id = Convert.ToInt32(dr["Order_Id"]);
+
+            if (!dr.IsNull("Order_No"))
             invoice.Order_No = Convert.ToString(dr["Order_No"]);
+
+            if (!dr.IsNull("Invoice_No"))
             invoice.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+
+            if (!dr.IsNull("Invoice_Date"))
             invoice.Invoice_Date = Convert.ToDateTime(dr["Invoice_Date"]);
 
+            if (!dr.IsNull("Amount"))
             invoice.Amount = Convert.ToDecimal(dr["Amount"]);
+
+            if (!dr.IsNull("Role_Id"))
             invoice.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+
+            if (!dr.IsNull("Entity_Id"))
             invoice.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
 
+            if (!dr.IsNull("Created_On"))
             invoice.Created_On = Convert.ToDateTime(dr["Created_On"]);
+
+            if (!dr.IsNull("Created_By"))
             invoice.Created_By = Convert.ToInt32(dr["Created_By"]);
+
+            if (!dr.IsNull("Updated_On"))
             invoice.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+
+            if (!dr.IsNull("Updated_By"))
             invoice.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
             return invoice;
         }
 
