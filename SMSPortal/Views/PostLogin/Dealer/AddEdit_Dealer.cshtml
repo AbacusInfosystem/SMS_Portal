@@ -63,24 +63,26 @@
                                         <label style="color: #333">Dealer Percentage</label>
                                         @if (Model.Dealer.Dealer_Percentage == 0 || Model.Dealer.Dealer_Percentage == null)
                                         {
-                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" maxlength="5">
+                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" maxlength="5" onchange="Calc_Percentage(this);">
                                         }
                                         else
                                         {
-                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5">
+                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5" onchange="Calc_Percentage(this);">
                                         }
+                                        <span id="err_dealer" style="color: #a94442;"></span>
                                     </div>
 
                                     <div class="form-group">
                                         <label style="color: #333">Brand Percentage</label>
                                         @if (Model.Dealer.Brand_Percentage == 0 || Model.Dealer.Brand_Percentage == null)
                                         {
-                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" maxlength="5">
+                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" maxlength="5" onchange="Calc_Percentage(this);">
                                         }
                                         else
                                         {
-                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5">
+                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5" onchange="Calc_Percentage(this);">
                                         }
+                                        <span id="err_brand" style="color: #a94442;"></span>
                                     </div>
 
                                     <div class="form-group">

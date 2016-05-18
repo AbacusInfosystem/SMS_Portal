@@ -12,15 +12,15 @@
                 {
                     required: true,
                 },
-            "Dealer.Dealer_Percentage_Share":
+            "Dealer.Dealer_Percentage":
                 {
                     required: true,
-                    digits: true
+                    number: true
                 },
-            "Dealer.Brand_Percentage_Share":
+            "Dealer.Brand_Percentage":
                 {
                     required: true,
-                    digits: true
+                    number: true
                 },
             "Dealer.Address":
                 {
@@ -67,15 +67,15 @@
             {
                 required: "Brand is required."
             },
-            "Dealer.Dealer_Percentage_Share":
+            "Dealer.Dealer_Percentage":
             {
                 required: "Dealer Percentage Share is required",
-                digits: "Enter only digits"
+                number: "Enter only digits"
             },
-        "Dealer.Brand_Percentage_Share":
+            "Dealer.Brand_Percentage":
             {
                 required: "Brand Percentage Share is required",
-                digits: "Enter only digits"
+                number: "Enter only digits"
             },
         "Dealer.Address":
             {
