@@ -63,9 +63,9 @@ namespace SMSPortalManager
             _dealerRepo.Update_Dealer_Profile(dealer, user_Id);
         }
 
-        public List<AutocompleteInfo> Get_Dealer_Invoices_Autocomplete(string InoviceNo, int Dealer_Id)
+        public List<AutocompleteInfo> Get_Dealer_Invoices_Autocomplete(string InoviceNo, int entityId, int roleId)
         {
-            return _dealerRepo.Get_Dealer_Invoices_Autocomplete(InoviceNo, Dealer_Id);
+            return _dealerRepo.Get_Dealer_Invoices_Autocomplete(InoviceNo, entityId, roleId);
         }
     }
 }

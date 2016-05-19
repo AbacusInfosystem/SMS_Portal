@@ -9,12 +9,12 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
         $('.iradio-list').iCheck({
             radioClass: 'iradio_square-green',
             increaseArea: '20%' // optional
         });
     });
+
 </script>
 
 <form id="frmReceivable" enctype="multipart/form-data">
@@ -83,8 +83,15 @@
                                         <label for="InvoiceNo" class="lookup-title">Invoice No</label>
 
                                         <div class="input-group">
-                                            
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">                                            
+
+                                            @if (Model.Filter.Role_Id == 2)
+                                            {
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                                            }
+                                            else if (Model.Filter.Role_Id == 3)
+                                            {
+                                                <input type="text" class="form-control input-sm autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Brand_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                                            }
 
                                             <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
 

@@ -324,12 +324,13 @@ namespace SMSPortalRepo
             return sqlParams;
         }
 
-        public List<AutocompleteInfo> Get_Dealer_Invoices_Autocomplete(string InoviceNo,int Dealer_Id)
+        public List<AutocompleteInfo> Get_Dealer_Invoices_Autocomplete(string InoviceNo,int entityId, int roleId)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
             List<SqlParameter> sqlparam = new List<SqlParameter>();
             sqlparam.Add(new SqlParameter("@Description", InoviceNo == null ? System.String.Empty : InoviceNo.Trim()));
-            sqlparam.Add(new SqlParameter("@DealerId",Dealer_Id));
+            sqlparam.Add(new SqlParameter("@entityId", entityId));
+            sqlparam.Add(new SqlParameter("@roleId", roleId));
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Invoice_Autocomplete_Sp_By_DealerId.ToString(), CommandType.StoredProcedure);
             if (dt != null && dt.Rows.Count > 0)
             {
