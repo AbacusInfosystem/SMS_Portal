@@ -66,6 +66,11 @@ namespace SMSPortal.Controllers.PostLogin
             string dealer_Address = String.Empty;
             try
             {
+                if (TempData["Invoice"] != null)
+                {
+                    iViewModel=(InvoiceViewModel)TempData["Invoice"];
+                }
+
                 iViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
                 iViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(iViewModel.Invoice.Invoice_Id);
                 iViewModel.Order = _invoiceManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
@@ -73,14 +78,14 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     iViewModel.Order.OrderItems = _invoiceManager.Get_Order_Items_By_Order_Id(iViewModel.Order.Order_Id);
                     if (iViewModel.Order.OrderItems != null)
-                    { 
-                        foreach(var item in iViewModel.Order.OrderItems)
+                    {
+                        foreach (var item in iViewModel.Order.OrderItems)
                         {
                             item.Product = _invoiceManager.Get_Product_By_Id(item.Product_Id);
                         }
                     }
                 }
-                iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);                
+                iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
             }
             catch (Exception ex)
             {
@@ -88,12 +93,14 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("InvoiceController Get_Invoice_By_Id " + ex);
             }
 
-            if(iViewModel.Cookies.Role_Id == (int)Roles.Brand)
+            if (iViewModel.Cookies.Role_Id == (int)Roles.Brand)
             {
                 return View("View_Brand_Invoice", iViewModel);
             }
-
-            return View("ViewInvoice", iViewModel);
+            else
+            {
+                return View("ViewInvoice", iViewModel);
+            }
         }
 
         public JsonResult Get_Invoices(InvoiceViewModel iViewModel)

@@ -9,7 +9,7 @@ $(function () {
 
     $(".fa-chevron-left").click(function () {
 
-        $("#frmBrandInvoice").attr("action", "/Invoice/Search_Brand_Invoice/");
+        $("#frmBrandInvoice").attr("action", "/Receivable/Searches/");
 
         $("#frmBrandInvoice").attr("method", "POST");
 

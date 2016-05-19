@@ -267,5 +267,14 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(rViewModel);
         }
 
+
+        public ActionResult Show_Invoice_Details(int invoice_id)
+        {
+
+            InvoiceViewModel iViewModel = new InvoiceViewModel();
+            iViewModel.Invoice.Invoice_Id = invoice_id;
+            TempData["Invoice"] = iViewModel;
+            return RedirectToAction("Get_Invoice_By_Id","Invoice");
+        }
     }
 }

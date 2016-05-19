@@ -83,8 +83,8 @@
                                         <label for="InvoiceNo" class="lookup-title">Invoice No</label>
 
                                         <div class="input-group">
-
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                                            
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">                                            
 
                                             <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
 
@@ -117,8 +117,7 @@
                                         <div class="btn-group pull-right">
 
                                             <button type="button" id="btnView" style="display:none;" class="btn btn-warning btn-sm">View</button>
-
-
+                                            <button type="button" id="btnViewInvoice" style="display:none;" class="btn btn-warning btn-sm" >View Invoice</button>                                             
                                             <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
 
                                         </div>

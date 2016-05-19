@@ -121,6 +121,9 @@ function Bind_Receivable_Grid(data)
 
             $("#btnView").show();
 
+            $("#btnViewInvoice").show();
+            
+
             $("#btnAddProductMapping").show();
 
             $("#btnDelete").show();
