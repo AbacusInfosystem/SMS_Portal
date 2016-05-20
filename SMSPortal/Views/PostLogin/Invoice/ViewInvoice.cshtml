@@ -127,6 +127,21 @@
                                                     <td colspan="4"><b> Grand Total:</b></td>
                                                     <td>@Model.Order.Net_Amount</td>
                                                 </tr>
+                                                    if (Model.Invoice.Role_Id == 2)
+                                                    {
+                                                         <tr>
+                                                         <td colspan="4"><b> Brand Payable Amount:</b></td>
+                                                         <td>@Model.Invoice.Amount</td>
+                                                         </tr>
+                                                    }
+                                                    if (Model.Invoice.Role_Id == 3)
+                                                    {
+                                                         <tr>
+                                                         <td colspan="4"><b>  Dealer Payable Amount:</b></td>
+                                                         <td>@Model.Invoice.Amount</td>
+                                                         </tr>
+                                                    }
+                                               
                                                 }
                                             </tbody>
                                         </table>

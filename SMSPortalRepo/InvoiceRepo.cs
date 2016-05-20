@@ -535,6 +535,21 @@ namespace SMSPortalRepo
             html.Append("<td>" + Order.Net_Amount + "</td>");
             html.Append("</tr>");
 
+            if (invoice.Role_Id==2)
+            {
+                html.Append("<tr>");
+                html.Append("<td colspan='4'>Brand Payable Amount:</td>");
+                html.Append("<td>" + invoice.Amount + "</td>");
+                html.Append("</tr>");
+            }
+            if (invoice.Role_Id == 3)
+            {
+                html.Append("<tr>");
+                html.Append("<td colspan='4'>Dealer Payable Amount:</td>");
+                html.Append("<td>" + invoice.Amount + "</td>");
+                html.Append("</tr>");
+            }
+
             html.Append("</tbody>");
             html.Append("</table>");
                                           

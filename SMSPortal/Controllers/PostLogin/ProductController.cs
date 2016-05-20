@@ -519,10 +519,12 @@ namespace SMSPortal.Controllers.PostLogin
                     if (is_Error == true)
                     {
                         pViewModel.Friendly_Message.Add(MessageStore.Get("PO004"));
+                        TempData["Message"] = MessageStore.Get("PO004");
                     }
                     else
                     {
                         pViewModel.Friendly_Message.Add(MessageStore.Get("PO005"));
+                        TempData["Message"] = MessageStore.Get("PO005");
                     }
 
                     System.IO.File.Delete(path);
@@ -534,10 +536,12 @@ namespace SMSPortal.Controllers.PostLogin
 
                 pViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
 
+                TempData["Message"] = MessageStore.Get("SYS01");
+
                 Logger.Error("Error At Product Controller Bulk_Excel_Product_Upload  " + ex.Message);
             }
 
-            TempData["Message"] = MessageStore.Get("PO005");
+            
 
             return RedirectToAction("Search");
         }

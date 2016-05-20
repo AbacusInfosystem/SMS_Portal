@@ -40,7 +40,7 @@ namespace SMSPortalRepo
 
 
             List<SqlParameter> paramList = new List<SqlParameter>();
-            if (!string.IsNullOrEmpty(fieldValue))
+            if (fieldValue != "0" && fieldValue != "")
             {
                 if (table_Name == "purchase_order")
                 {

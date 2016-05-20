@@ -30,8 +30,9 @@ namespace SMSPortal.Controllers.PostLogin
 
             _stateManager = new StateManager();
              
-        }   
+        }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Search(DealerViewModel dViewModel) 
 
         {
@@ -42,8 +43,11 @@ namespace SMSPortal.Controllers.PostLogin
                     dViewModel = (DealerViewModel)TempData["dViewModel"];
                 }
 
-                FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
-                dViewModel.Friendly_Message.Add(ms);
+                if (TempData["Friendly_Message"] != null)
+                {
+                    FriendlyMessage ms = (FriendlyMessage)TempData["Friendly_Message"];
+                    dViewModel.Friendly_Message.Add(ms);
+                }
 
                 dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
@@ -51,6 +55,7 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     dViewModel.Filter.Brand_Id = 0;
                     dViewModel.Is_Brand = "False";
+                    dViewModel.Cookies.Entity_Id=0;
                 }
 
                 else
