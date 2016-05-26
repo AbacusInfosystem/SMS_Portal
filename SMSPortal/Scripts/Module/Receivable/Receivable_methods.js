@@ -414,7 +414,6 @@ function SendReceivableData(id) {
         method: 'POST',
         async: false,
         success: function (data) {
-            alert(data);
             //Bind_Receivable_Grid_Items(data);
             Friendly_Message(data);
 

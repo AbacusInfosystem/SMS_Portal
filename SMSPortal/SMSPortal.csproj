@@ -1057,7 +1057,6 @@
     <Content Include="Scripts\Module\Tax\Tax_events.js" />
     <Content Include="Scripts\Module\Tax\Tax_mthod.js" />
     <Content Include="Scripts\Module\User\reset_password.js" />
-    <Content Include="Scripts\Module\User\reset_password_validation.js" />
     <Content Include="Scripts\Module\User\search_user_event.js" />
     <Content Include="Scripts\Module\User\search_user_method.js" />
     <Content Include="Scripts\Module\User\user_events.js" />

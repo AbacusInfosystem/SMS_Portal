@@ -324,6 +324,35 @@ namespace SMSPortalRepo
                 }
             }
 
+            if (dt.Rows.Count==0)
+            {
+                List<SqlParameter> sqlparamnew = new List<SqlParameter>();
+
+                sqlparamnew.Add(new SqlParameter("@Purchase_Order_Id", purchase_order_id));
+
+                DataTable dt1 = _sqlHelper.ExecuteDataTable(sqlparamnew, StoreProcedures.Get_PO_Data_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+                if (dt1 != null && dt1.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt1.Rows)
+                    {
+
+                        if (!dr.IsNull("Purchase_Order_No"))
+
+                            payable.Purchase_Order_No = Convert.ToString(dr["Purchase_Order_No"]);
+
+                        if (!dr.IsNull("Vendor_Name"))
+
+                            payable.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+
+                        if (!dr.IsNull("Purchase_Order_Date"))
+
+                            payable.Purchase_Order_Date = Convert.ToDateTime(dr["Purchase_Order_Date"]);
+
+                    }
+                }
+            }
+
             return payable;
         }
 

@@ -9,7 +9,18 @@ $(function () {
 
     $(".fa-chevron-left").click(function () {
 
-        $("#frmCreateInvoice").attr("action", "/Invoice/Search/");
+        if ($("#hdf_Role_Id").val() == 1)
+        {
+            $("#frmCreateInvoice").attr("action", "/Invoice/Search/");
+        }
+        if ($("#hdf_Role_Id").val() == 3)
+        {
+            $("#frmCreateInvoice").attr("action", "/Receivable/Searches/");
+        }
+        else
+        {
+            $("#frmCreateInvoice").attr("action", "/Invoice/Search/");
+        }
 
         $("#frmCreateInvoice").attr("method", "POST");
 

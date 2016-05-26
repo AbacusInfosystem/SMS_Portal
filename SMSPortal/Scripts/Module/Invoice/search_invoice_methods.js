@@ -51,6 +51,7 @@ function Bind_Invoices_Grid(data)
 
             htmlText += "</td>";
 
+
             htmlText += "</tr>";
         }
     }
