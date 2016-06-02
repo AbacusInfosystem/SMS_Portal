@@ -28,15 +28,19 @@
                             <h4 style="text-align:center" title="@item.Product_Name">@item.Product_Name</h4>
                         }
                         <h4>
-                            @Html.Raw(string.Format("{0:#,#.00}", item.Product_Price)) ₹
+                            <i class="fa fa-inr"></i> @Html.Raw(string.Format("{0:#,#.00}", item.Product_Price)) 
                         </h4>
 
                         <div class="input-group">
+                            
                             <button type="button" id="btnAddToCart_@item.Product_Id" class="btn btn-primary" onclick="AddToCart(this, @item.Product_Id, false)">
                                 <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
                             </button>
+                            <br />
+                            <br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control" placeholder="Enter Quantity" style="width:120px" id="hdnQuantity_@item.Product_Id" value="" />
                         </div>
-
+                        
                         <p style="text-align:center">
                             <a href="#" id="anchorViewMore_@item.Product_Id" class="btn btn-link dvClickable" onclick="viewMore(@item.Product_Id)">
                                 View More...

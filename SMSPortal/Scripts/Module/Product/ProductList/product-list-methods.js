@@ -1,30 +1,48 @@
 ﻿function intialization() {
     $.cookie.json = true;
     var cart = $.cookie('cart');
+
     if (cart != undefined) {
-        $("#CartItemCount").html(cart.length);
-        for (var i = 0; i < cart.length; i++) {
-            $("#btnAddToCart_" + cart[i]).attr("disabled", "disabled");
+
+        for (var i = 0; i <= cart.length - 1; i++) {
+
+            $("#btnAddToCart_" + cart[i].Product_Id).attr("disabled", "disabled");
         }
+        $("#CartItemCount").html(cart.length);
     }
     else {
+
         $("#CartItemCount").html("0");
     }
 }
 
-function AddToCart(obj, Product_Id, bIsCalledByPopup) {
+function AddToCart(obj,Product_Id, bIsCalledByPopup) {
     $.cookie.json = true;
     var cart = $.cookie('cart');
-    if (cart == undefined) 
+
+    var produc_name = $("#hdnpName_" + Product_Id).val();
+
+    var produc_quantity = "";
+
+    if (bIsCalledByPopup==false)
     {
-        // Initializing array
-        cart = [Product_Id];
+        produc_quantity = $("#hdnQuantity_" + Product_Id).val();
     }
-    else 
+    else
     {
-        // Adding element into array
-        cart.push(Product_Id);
+        produc_quantity = $("#hdnQuantity").val();
     }
+    
+    
+    if (cart == undefined) {
+        cart = [{ 'Quantity': produc_name.trim() + "_" + produc_quantity, 'Product_Id': Product_Id }, ];
+    }
+    else {
+        cart.push(
+            { 'Quantity': produc_name.trim() + "_" + produc_quantity, 'Product_Id': Product_Id }
+        );
+    }
+
     $.cookie('cart', cart, { expires: 2 });
 
     $("#btnAddToCart_" + Product_Id).attr("disabled", "disabled"); // Disabling product list "Add To Cart" button

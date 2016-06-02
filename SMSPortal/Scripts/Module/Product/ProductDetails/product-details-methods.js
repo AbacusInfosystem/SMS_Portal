@@ -12,3 +12,28 @@
 function changeImage(obj) {
     $("#imgCurrentProductImage").attr("src", $(obj).attr("src"));
 }
+
+function bigImg(x) {
+
+
+    $(".thumbimage").mouseover(function () {
+
+        $("#imgCurrentProductImage").attr('src', $(this).attr('id'));
+
+    });
+    //x.style.height = "500px";
+    //x.style.width = "500px";
+}
+
+function normalImg(x) {
+
+
+    $(".imgCurrentProductImage").mouseover(function () {
+
+        $("#thumbimage").attr('src', $(this).attr('id'));
+
+    });
+    //x.style.height = "250px";
+    //x.style.width = "400px";
+}
+

@@ -31,6 +31,9 @@ namespace SMSPortal.Models.PostLogin
             Invoice = new InvoiceInfo();
 
             Order = new OrdersInfo();
+
+            User = new UserInfo();
+
          }
 
         public List<FriendlyMessage> Friendly_Message { get; set; }
@@ -50,6 +53,8 @@ namespace SMSPortal.Models.PostLogin
         public InvoiceInfo Invoice { get; set; }
 
         public OrdersInfo Order { get; set; }
+
+        public UserInfo User { get; set; }
     }
 
     public class ReceivableFilter

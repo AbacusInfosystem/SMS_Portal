@@ -35,6 +35,11 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     return RedirectToAction("Index", "Login");
                 }
+
+                if (TempData["FriendlyMessage"] != null)
+                {
+                    dViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
+                } 
             }
             catch (Exception ex)
             {

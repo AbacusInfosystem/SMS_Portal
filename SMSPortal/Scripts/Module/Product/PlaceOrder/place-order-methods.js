@@ -52,15 +52,44 @@ function deleteCartItem(rowIndex) {
 
 function removeFromCookie(rowIndex) {
     var productId = $("[name='order.OrderItems[" + rowIndex + "].Product_Id']").val();
+
     $.cookie.json = true;
+
     var cart = $.cookie('cart');
-    if (cart != undefined) {
-        var index = cart.indexOf(parseInt(productId));
-        if (index > -1) {
-            cart.splice(index, 1);
-            $.cookie('cart', cart, { expires: 2 });
+
+    var productid = productId;
+
+    var current_objs = $.cookie("cart");
+
+    for (var i = 0; i <= current_objs.length - 1; i++) {
+
+        if (current_objs[i].Product_Id == productid)
+        {
+
+            current_objs.splice(current_objs[i], 1);
+
+            $.cookie('cart', current_objs, { expires: 2 });
         }
+
     }
+
+    for (var i = 0; i <= current_objs.length - 1; i++) {
+
+        $("#btnAddToCart_" + current_objs[i].Product_Id).attr("disabled", "disabled");
+
+    }
+
+   
+
+    $("#CartItemCount").html(current_objs.length);
+
+    //if (cart != undefined) {
+    //    var index = cart.indexOf(parseInt(productId));
+    //    if (index > -1) {
+    //        cart.splice(index, 1);
+    //        $.cookie('cart', cart, { expires: 2 });
+    //    }
+    //}
 }
 
 function changeElementsId() {
@@ -88,8 +117,6 @@ function changeElementsId() {
 function placeOrder() {
 
     var noOfProducts = $("[id^='trCartItemDetails_']").size();
-
-    //alert(noOfProducts);
 
     if (noOfProducts > 0) {
 

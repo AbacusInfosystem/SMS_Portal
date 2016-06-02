@@ -321,9 +321,13 @@ namespace SMSPortalRepo
             _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Update_Order_Status_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        public void Send_Order_Status_Notification(string email_Id, OrdersInfo order)
+        public void Send_Order_Status_Notification(string first_Name, string email_Id, OrdersInfo order, bool confirmed_Status)
         {
             if (order.Status_Id == 1)
+            {
+                order.Status = "Received";
+            }
+            if (order.Status_Id == 0)
             {
                 order.Status = "Received";
             }
@@ -344,29 +348,48 @@ namespace SMSPortalRepo
 
             string subject = " Order Status ";
 
-            html.Append("<table width=1000px border=1 cellspacing=2 cellpadding=2 align=center bgcolor=White dir=ltr rules=all style=border-width: thin; line-height: normal; vertical-align: baseline; text-align: center; font-family: Calibri; font-size: medium; font-weight: normal; font-style: normal; font-variant: normal>");
+            if (confirmed_Status==true)
+            {
+                html.Append("<p>Hi " + first_Name + ",</p>");
+                html.Append("<p>Your order of " + order.Order_No + " has been confirmed and will be dispatched in 7 days.</p>");
+                html.Append("<br>");
+                html.Append("<br>");
+                html.Append("<br>");
+                html.Append("<p>Thank you for using the b2bproject.</p>");
+            }
 
-            html.Append("<tr>");
+            if (confirmed_Status == false)
+            {
+                html.Append("<p>Hi " + first_Name + ",</p>");
+                html.Append("<p>Your order has been successfully placed.</p>");
+                html.Append("<p>Your order no is " + order.Order_No + ".</p>");
+                html.Append("<p> Your order status is " + order.Status + ". <br/> We will inform you once the items in your order have been shipped. </p>");
+                html.Append("<br>");
+                html.Append("<br>");
+                html.Append("<br>");
+                html.Append("<p>Thank you for using the b2bproject.</p>");
+            }
 
-            html.Append("<td align='right'>");
+            if (order.Status_Id == 3)
+            {
+                html.Append("<p>Hi " + first_Name + ",</p>");
+                html.Append("<p>Your order of " + order.Order_No + " has been Dispatched.</p>");
+                html.Append("<br>");
+                html.Append("<br>");
+                html.Append("<br>");
+                html.Append("<p>Thank you for using the b2bproject.</p>");
+            }
 
-            html.Append("<h3>Order No : " + order.Order_No + "</h3>\n");
-
-            html.Append("</td>");
-
-            html.Append("</tr>");
-
-            html.Append("<tr>");
-
-            html.Append("<td align='center'>");
-
-            html.Append("<p> Your order is : " + order.Status + ". <br/> We will inform you once the items in your order have been shipped. </p>");
-
-            html.Append("</td>");
-
-            html.Append("</tr>");
-
-            html.Append("</table>");
+            if (order.Status_Id == 4)
+            {
+                html.Append("<p>Hi " + first_Name + ",</p>");
+                html.Append("<p>Your order of " + order.Order_No + " has been successfully delivered.</p>");
+                html.Append("<p>We would appreciate it if you could provide us some feedback. It would help us improve our services further.</p>");
+                html.Append("<br>");
+                html.Append("<br>");
+                html.Append("<br>");
+                html.Append("<p>Thank you for using the b2bproject.</p>");
+            }
 
             MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
 

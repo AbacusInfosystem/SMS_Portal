@@ -1,8 +1,9 @@
 ﻿@model SMSPortal.Models.PostLogin.VendorViewModel
 @using SMSPortal.Common;
+
+<script src="~/Scripts/Module/Vendor/vendor_mapping_validation.js"></script>
 <script src="~/Scripts/Module/Vendor/vendor_mapping_method.js"></script>
 <script src="~/Scripts/Module/Vendor/vendor_mapping_events.js"></script>
-<script src="~/Scripts/Module/Vendor/vendor_mapping_validation.js"></script>
 
 <style type="text/css">
     .list-container {
@@ -41,24 +42,9 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-body">
-
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Brand</label>
-                                        <select id="drpBrand" class="form-control" name="Vendor.Brand_Id">
-                                            <option value="">-Select Brand-</option>
-                                            @foreach (var item in Model.Brands)
-                                            {
-                                                <option value="@item.Brand_Id">@item.Brand_Name</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row" id="tblVendorProductMappingMaster">
 
-                            </div>
+                            </div>                        
                             <div class="footer">
                                 <div class="btn-group">
                                     <button type="button" id="btnSave" class="btn btn-success btn-sm">Save</button>

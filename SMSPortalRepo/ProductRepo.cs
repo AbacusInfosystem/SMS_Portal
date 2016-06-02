@@ -127,7 +127,7 @@ namespace SMSPortalRepo
             return products;
         }
 
-        public List<ProductInfo> Get_Products_By_Ids(string ProductIds)
+        public List<ProductInfo> Get_Products_By_Ids(string ProductIds, string ProductQuantities)
         {
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
@@ -137,19 +137,51 @@ namespace SMSPortalRepo
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Products_By_Ids_sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in dt.Rows)
             {
-                products.Add(Get_Products_By_Ids_Values(dr));
+                products.Add(Get_Products_By_Ids_Values(dr, ProductIds, ProductQuantities));
             }
             return products;
         }
 
-        private ProductInfo Get_Products_By_Ids_Values(DataRow dr)
+        private ProductInfo Get_Products_By_Ids_Values(DataRow dr, string ProductIds, string ProductQuantities)
         {
+
             ProductInfo product = new ProductInfo();
 
             product.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+
             product.Product_Name = Convert.ToString(dr["Product_Name"]);
+
+            string stringToCheck = product.Product_Name.TrimEnd();
+            string[] stringArray = ProductQuantities.Split(',');
+            foreach (string x in stringArray)
+            {
+                string[] data = x.Split('_');
+                if (data[0] == stringToCheck.Trim())
+                {
+                    string Qty = data[1];
+                    if (Qty!="")
+                    {
+                        product.Product_Quantity = Convert.ToInt32(Qty);
+                    }
+                    else
+                    {
+                        product.Product_Quantity = 1;
+                    }
+                    
+                }
+            }
+
             product.Product_Description = Convert.ToString(dr["Product_Description"]);
-            product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+
+            if (product.Product_Quantity>0)
+            {
+                product.Product_Price = product.Product_Quantity * Convert.ToDecimal(dr["Product_Price"]);
+            }
+            else
+            {
+                product.Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+            }
+            
             product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
             product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
             product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);

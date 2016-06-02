@@ -47,8 +47,16 @@ var InitializeAutoComplete = function (elementObject) {
                 urlString = "/purchaseorder/purchase_order_autocomplete-autocomplete/" + $('#txtPurchase_Order_No').val();
             }
 
+            if ($(elementObject).attr("id") == 'txtAdminPurchase_Order_No') {
+                urlString = "/purchaseorder/purchase_order_autocomplete-autocomplete/" + $('#txtAdminPurchase_Order_No').val();
+            }
+
             if ($(elementObject).attr("id") == 'txtInvoiceNo') {
                 urlString = "/receivable/receivable-autocomplete/" + $('#txtInvoiceNo').val();
+            }
+
+            if ($(elementObject).attr("id") == 'txtSalesOrderNo') {
+                urlString = "/salesorder/salesorder-autocomplete/" + $('#txtSalesOrderNo').val();
             }
 
             if ($(elementObject).attr("id") == 'txtOrderNo') {

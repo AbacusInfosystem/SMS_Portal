@@ -149,6 +149,8 @@ namespace SMSPortal.Controllers.PostLogin
         {
             _sqlCon = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
 
+            bool Status=false;
+
             using (SqlConnection con = new SqlConnection(_sqlCon))
             {
                 con.Open();
@@ -160,7 +162,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                         rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);                        
 
-                        rViewModel.Receivable.Receivable_Id = _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id);
+                        rViewModel.Receivable.Receivable_Id = _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id,out Status);
 
                         _receivableManager.Insert_ReceivableItems(rViewModel.Receivable, rViewModel.Cookies.User_Id);
 
@@ -176,8 +178,30 @@ namespace SMSPortal.Controllers.PostLogin
 
                         UserInfo user = _userManager.Get_User_By_Entity_Id(rViewModel.Invoice.Entity_Id, rViewModel.Invoice.Role_Id);
 
-                        _receivableManager.Send_Payment_Receipt(user.Email_Id, rViewModel.Receivable, rViewModel.Receivables);
+                        rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
 
+                        rViewModel.Order.OrderItems = _ordersManager.Get_Orders_Item_By_Id(rViewModel.Invoice.Order_Id);                        
+
+                        if (rViewModel.Invoice.Role_Id==2)
+                        {
+                            rViewModel.User = _userManager.Get_User_By_Entity_Id(rViewModel.Invoice.Entity_Id, rViewModel.Invoice.Role_Id);
+
+                            _receivableManager.Send_Payment_Receipt(rViewModel.User.First_Name, rViewModel.User.Email_Id, rViewModel.Receivable, rViewModel.Receivables, rViewModel.Order);
+                        }
+
+                        if (rViewModel.Invoice.Role_Id == 3)
+                        {
+                            rViewModel.User = _userManager.Get_User_By_Entity_Id(rViewModel.Invoice.Entity_Id, rViewModel.Invoice.Role_Id);
+
+                            _receivableManager.Send_Payment_Receipt(rViewModel.User.First_Name, rViewModel.User.Email_Id, rViewModel.Receivable, rViewModel.Receivables, rViewModel.Order);
+                        }
+                        
+                        if(Status==true)
+                        {
+                            rViewModel.User = _userManager.Get_User_By_Entity_Id(rViewModel.Order.Dealer_Id, 3);
+
+                            _ordersManager.Send_Order_Status_Notification(rViewModel.User.First_Name,  rViewModel.User.Email_Id, rViewModel.Order, true);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -248,11 +272,17 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
+                rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id); 
+
                 rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(invoice_Id);
 
                 rViewModel.Receivables = _receivableManager.Get_Receivable_Items(receivable_Id);
 
-                _receivableManager.Send_Payment_Receipt(rViewModel.Cookies.User_Email, rViewModel.Receivable, rViewModel.Receivables);
+                rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
+
+                rViewModel.Order.OrderItems = _ordersManager.Get_Orders_Item_By_Id(rViewModel.Invoice.Order_Id);
+
+                _receivableManager.Send_Payment_Receipt(rViewModel.Cookies.First_Name, rViewModel.Cookies.User_Email, rViewModel.Receivable, rViewModel.Receivables, rViewModel.Order);
 
                 rViewModel.Friendly_Message.Add(MessageStore.Get("RC002"));
             }

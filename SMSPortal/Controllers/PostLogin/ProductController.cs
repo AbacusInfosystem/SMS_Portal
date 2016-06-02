@@ -383,7 +383,7 @@ namespace SMSPortal.Controllers.PostLogin
                 //string ProductIds = Request.QueryString["ProductIds"];
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
                 pViewModel.dealer = _dealerManager.Get_Dealer_By_Id(pViewModel.Cookies.Entity_Id);
-                pViewModel.Products = _productManager.Get_Products_By_Ids(pViewModel.ProductIds);
+                pViewModel.Products = _productManager.Get_Products_By_Ids(pViewModel.ProductIds, pViewModel.ProductQuantities);
                 pViewModel.state = _stateManager.Get_State_By_Id(pViewModel.dealer.State);
                 pViewModel.tax = _taxManager.Get_Tax_By_Id();
             }
@@ -420,7 +420,7 @@ namespace SMSPortal.Controllers.PostLogin
                         pViewModel.order.Updated_By = pViewModel.Cookies.User_Id;
                         pViewModel.order.Updated_On = DateTime.Now;
                         pViewModel.order.Order_Id = _OrdersManager.Insert_Orders(pViewModel.order);
-
+                        _OrdersManager.Send_Order_Status_Notification(pViewModel.Cookies.First_Name, pViewModel.Cookies.User_Email, pViewModel.order,false);
                         pViewModel.dealer = _dealerManager.Get_Dealer_By_Id(pViewModel.order.Dealer_Id);
 
 
@@ -468,6 +468,8 @@ namespace SMSPortal.Controllers.PostLogin
                         con.Close();
 
                         pViewModel.Friendly_Message.Add(MessageStore.Get("PO006"));
+
+                        TempData["FriendlyMessage"] = MessageStore.Get("PO006");
                     }
                 }
             }

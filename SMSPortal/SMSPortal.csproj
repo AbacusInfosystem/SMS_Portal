@@ -793,6 +793,7 @@
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\ionicons.min.css" />
     <Content Include="Content\CustomStyle.css" />
+    <Content Include="Content\daterangepicker-bs3.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\Login.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -949,6 +950,7 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\logo.png" />
     <Content Include="Scripts\additional-methods.min.js" />
+    <Content Include="Scripts\daterangepicker.js" />
     <Content Include="Scripts\generic-custom-validation.js" />
     <Content Include="Scripts\generic.ajax.js" />
     <Content Include="Scripts\generic.autocomplete.js" />
@@ -963,6 +965,13 @@
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.inputmask.date.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask.js" />
+    <Content Include="Scripts\jquery.inputmask.numeric.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask.phone.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask.regex.extensions.js" />
+    <Content Include="Scripts\jquery.maskedInput1.3.1.js" />
     <Content Include="Scripts\jquery.number.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

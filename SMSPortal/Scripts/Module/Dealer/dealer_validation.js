@@ -42,7 +42,7 @@
             "Dealer.Contact_No_1":
                 {
                     required: true,
-                    digits: true
+                    //digits: true
                 },
             //"Dealer.Contact_No_2":
             //    {
@@ -97,7 +97,7 @@
         "Dealer.Contact_No_1":
             {
                 required: "Contact no 1 is required",
-                digits: "Enter only digits"
+                //digits: "Enter only digits"
             },
         //"Dealer.Contact_No_2":
         //    {

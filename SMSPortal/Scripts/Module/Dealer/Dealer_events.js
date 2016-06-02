@@ -6,6 +6,9 @@
         increaseArea: '20%' // optional
     });
 
+    $("#txtContactNo1").mask("(99) 99999-99999");
+    $("#txtContactNo2").mask("(999) 999-9999");
+
     $(".fa-chevron-left").click(function () {
 
         $("#frmDealerMaster").validate().cancelSubmit = true;

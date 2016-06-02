@@ -15,12 +15,12 @@
             "Dealer.Dealer_Percentage_Share":
                 {
                     required: true,
-                    digits:true
+                    number:true
                 },
             "Dealer.Brand_Percentage_Share":
                 {
                     required: true,
-                    digits: true
+                    number: true
                 },
             "Dealer.Address":
                 {
@@ -42,7 +42,7 @@
             "Dealer.Contact_No_1":
                 {
                     required: true,
-                    digits : true
+                    //digits : true
                 },
             //"Dealer.Contact_No_2":
             //    {
@@ -96,7 +96,7 @@
         "Dealer.Contact_No_1":
             {
                 required: "Contact no 1 is required",
-                digits : "Enter digits"
+                //digits : "Enter digits"
             },
         //"Dealer.Contact_No_2":
         //    {

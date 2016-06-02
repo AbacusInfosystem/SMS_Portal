@@ -60,9 +60,9 @@ namespace SMSPortalManager
             _ordersRepo.Update_Order_Status(order);
             }
 
-        public void Send_Order_Status_Notification(string email_Id,OrdersInfo order)
+        public void Send_Order_Status_Notification(string first_Name, string email_Id, OrdersInfo order,bool confirmed_Status)
         {
-            _ordersRepo.Send_Order_Status_Notification(email_Id,order);
+            _ordersRepo.Send_Order_Status_Notification(first_Name, email_Id, order, confirmed_Status);
         }
          
         public List<AutocompleteInfo> Get_Order_No_Autocomplete(string order_No)
@@ -84,5 +84,6 @@ namespace SMSPortalManager
         {
             _ordersRepo.Set_Order_Status(Order_Id, Status);
         }
+
     }
 }

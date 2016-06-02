@@ -28,9 +28,9 @@ namespace SMSPortalManager
            return _receivableRepo.Get_Receivables(ref pager, entity_Id, role_Id);
        }
 
-       public int Insert_Receivable(ReceivableInfo receivableInfo,int user_Id)
+       public int Insert_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status)
        {
-           return _receivableRepo.Insert_Receivable(receivableInfo, user_Id);
+           return _receivableRepo.Insert_Receivable(receivableInfo, user_Id,out Status);
        }
 
        public void Insert_ReceivableItems(ReceivableInfo receivableInfo, int user_Id)
@@ -63,9 +63,9 @@ namespace SMSPortalManager
            return _receivableRepo.Get_Invoice_Autocomplete(invoice_No);
        }
 
-       public void Send_Payment_Receipt(string email_Id, ReceivableInfo receivableInfo, List<ReceivableInfo> receivables)
+       public void Send_Payment_Receipt(string first_Name,string email_Id, ReceivableInfo receivableInfo, List<ReceivableInfo> receivables,OrdersInfo orderInfo)
        {
-           _receivableRepo.Send_Payment_Receipt(email_Id, receivableInfo, receivables);
+           _receivableRepo.Send_Payment_Receipt(first_Name, email_Id, receivableInfo, receivables, orderInfo);
        }
 
        //public string Get_Receivable_Status(int invoice_Id)

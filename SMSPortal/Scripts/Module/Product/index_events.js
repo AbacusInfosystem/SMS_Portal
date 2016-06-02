@@ -6,18 +6,28 @@
     $('#ProductList').append().load("/Product/GetProductList");
 
     $("#btnViewCart").click(function () {
-        $.cookie.json = true;
-        var cart = $.cookie('cart');
 
-        //alert(cart);
+        $.cookie.json = true;
+
+        var id = "";
+
+        var quantity = "";
+
+        var cart = $.cookie('cart');
 
         if (cart != undefined) {
 
-            $("#hdnProductIds").val(getProductIds(cart));
+            for (var i = 0; i <= cart.length-1; i++)
+            {
+                id = id + cart[i].Product_Id + ",";
 
-            //alert($("#hdnProductIds").val());
+                quantity = quantity + cart[i].Quantity + ",";
+            }
+           
 
-            //window.location.href = "/Product/PlaceOrder?ProductIds=" + $("#hdnProductIds").val();
+            $("#hdnProductIds").val(id);
+
+            $("#hdnProductQuantities").val(quantity);
 
             $("#frmProductIndex").attr("action", "/Product/PlaceOrder");
 

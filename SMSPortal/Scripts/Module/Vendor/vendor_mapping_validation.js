@@ -2,7 +2,7 @@
 
     $("#frmAddProductMapping").validate(
         {
-            errorClass: 'login-error-product-mapping',
+           // errorClass: 'login-error-product-mapping',
 
             rules:
                 {
@@ -62,14 +62,14 @@
 
 
 
-jQuery.validator.addMethod("validate_product_price", function (value, element)
+jQuery.validator.addMethod("validate_product_price", function (val, element)
 
 {
     //alert(element.id);
 
     var MasterProductPrice = parseInt($(element).closest("div").find("#hdn_MasterProductPrice").val());
 
-    //alert($(element).val());
+    //alert(1);
 
     //alert($(element).closest("td").find("#hdn_MasterProductPrice").val());
 

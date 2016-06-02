@@ -19,9 +19,13 @@ namespace SMSPortal.Controllers.PostLogin
     {
         public OrdersManager _orderManager;
 
+        public UserManager _userManager;
+
         public SalesOrderController()
         {
             _orderManager = new OrdersManager();
+
+            _userManager = new UserManager();
         }
 
         [AuthorizeUserAttribute(AppFunction.Token)]
@@ -95,6 +99,13 @@ namespace SMSPortal.Controllers.PostLogin
                         sViewModel.Sales_Orders = _orderManager.Get_Orders_Data_By_Dates(frmdt, todt, ref pager);
                     }
                 }
+                else if (!string.IsNullOrEmpty(sViewModel.Filter.Date_Range))
+                {
+                    string[] dates = sViewModel.Filter.Date_Range.Split('-');
+                    DateTime frmdt = Convert.ToDateTime(dates[0]);
+                    DateTime todt = Convert.ToDateTime(dates[1]);
+                    sViewModel.Sales_Orders = _orderManager.Get_Orders_Data_By_Dates(frmdt, todt, ref pager);
+                }
                 else
                 {
                     sViewModel.Sales_Orders = _orderManager.Get_Orders(ref pager, sViewModel.Cookies.Entity_Id);
@@ -121,7 +132,9 @@ namespace SMSPortal.Controllers.PostLogin
 
                 _orderManager.Update_Order_Status(sViewModel.Sales_Order);
 
-                _orderManager.Send_Order_Status_Notification(sViewModel.Cookies.User_Email, sViewModel.Sales_Order);
+                sViewModel.User = _userManager.Get_User_By_Entity_Id(sViewModel.Sales_Order.Dealer_Id, 3);
+
+                _orderManager.Send_Order_Status_Notification(sViewModel.User.First_Name, sViewModel.User.Email_Id, sViewModel.Sales_Order, false);
             }
             catch (Exception ex)
             {
