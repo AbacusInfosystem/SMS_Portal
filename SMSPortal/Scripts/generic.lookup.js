@@ -2,20 +2,25 @@
 
 $(document).ready(function () {
 
-    $('.lookup-iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.lookup-iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
-    $('[name="r1_Lookup"]').on('ifChanged', function (event) {
+    //$('[name="r1_Lookup"]').on('Changed', function (event) {
 
-        if ($(this).prop('checked')) {
+    //    alert(1);
 
-            $("#hdnId").val(this.id.replace("r1_Lookup_", ""));
+    //    if ($(this).prop('checked')) {
 
-            $("#hdnValue").val($(this).parent().parent().parent().find(".v1").val());
-        }
-    });
+    //        $("#hdnId").val(this.id.replace("r1_Lookup_", ""));
+
+    //        $("#hdnValue").val($(this).parent().parent().parent().find(".v1").val());
+
+    //        alert($("#hdnId").val());
+    //        alert($("#hdnValue").val());
+    //    }
+    //});
 
     $("#btnOK").click(function () {
 
@@ -75,6 +80,7 @@ $(document).ready(function () {
             });
         }
 
+        alert(hiddenTextValue);
 
         $("#" + $("#hdnLookupHiddenId").val()).val(id);
 
