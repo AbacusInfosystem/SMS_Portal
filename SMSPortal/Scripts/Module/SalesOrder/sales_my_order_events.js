@@ -9,7 +9,6 @@
     Search_Sales_Order();
 
     $("#btnDetails").click(function () {
-
         $("#frmMyOrders").attr("action", "/salesorder/display-dealer-salesorder");
 
         $("#frmMyOrders").attr("method", "POST");
