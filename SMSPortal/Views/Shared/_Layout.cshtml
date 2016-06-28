@@ -48,13 +48,7 @@
 
     <!-- Custom style classes -->
     <link href="~/Content/CustomStyle.css" rel="stylesheet" />
-
-
-    <!-- Date Picker -->
-    <link href="~/Content/AdminLTE/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-
-    <!-- jQuery 2.1.3 -->
-    <script src="/Content/AdminLTE/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -63,9 +57,10 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
+    *@
+    @*<link href="~/Content/AdminLTE/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <script src="/Content/AdminLTE/plugins/jQuery/jQuery-2.1.3.min.js"></script>
     <script src="/Scripts/jquery-ui-1.11.2.min.js"></script>*@
-
-
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     @*<script>
             $.widget.bridge('uibutton', $.ui.button);
@@ -91,14 +86,13 @@
     <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" media="all" />
 
     <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/css/ripple.css" rel="stylesheet" />
-    @*<link href="~/Content/css/AdminLTE.css" rel="stylesheet" />*@
     <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/css/ripple.css" rel="stylesheet" />
+    <link href="~/Content/css/AdminLTE.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
-    <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/ripple.js"></script>
     <script src="~/Scripts/jquery-2.2.4.js"></script>
 
@@ -117,7 +111,7 @@
     <script src="/Scripts/jquery.cookie.js"></script>
     <script src="/Scripts/jquery.number.js"></script>
     <script src="/Scripts/generic-custom-validation.js"></script>
-
+    <script src="~/Scripts/bootstrap.js"></script>
 </head>
 
 <body>
@@ -139,13 +133,16 @@
 
     <div class="modal fade" id="div_Parent_Modal_Fade" role="dialog" aria-hidden="true">
         <div class="modal-dialog ">
-            <div class="modal-content">
+            <div class="modal-content edit_modal_content">
                 <div class="modal-header" id="div_Parent_Modal_Header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#fff;">x</button>
                     <h4 class="modal-title">&nbsp;</h4>
                 </div>
                 <div class="modal-body" id="div_Parent_Modal_Body">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnOK" class="btn btn_mer ripple" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

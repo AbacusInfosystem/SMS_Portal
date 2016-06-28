@@ -4,7 +4,7 @@
 <script src="~/Scripts/Module/Brand/brand_profile_events.js"></script>
 <script src="~/Scripts/Module/Brand/brand_profile_methods.js"></script>
 
-@*<div class="content-wrapper">
+<div class="content-wrapper">
     @{Html.RenderPartial("_ServerMessage");}
     <section class="content-header">
         <h1>
@@ -78,51 +78,4 @@
             </div>
         </section>
     </form>
-</div>*@
-
-<form id="frmBrandProfileMaster">
-
-    <input type="hidden" id="hdnBrand_Id" name="Brand.Brand_Id" value="@Model.Brand.Brand_Id" />
-
-    <div class="brand_profile">
-        <div class="container">
-            <h3 class="brand_profile_header">Brand Profile</h3>
-
-            <div class="brand_profile_image">
-
-            </div>
-
-            <div class="info">
-                <div class="col-md-6 col-sm-6">
-                    <img src="~/Images/mercedes-profile.jpg" class="img-responsive" />
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <h5>Brand Name</h5>
-                    <h3>@Model.Brand.Brand_Name</h3>
-                    <br />
-
-                    <h5>Brand Category</h5>
-                    
-                    @foreach (var item in LookupInfo.Get_Brand_Categories())
-                    {
-                        if (Model.Brand.Brand_Category == item.Key)
-                        {
-                            <h3>@item.Value</h3>                       
-                        }
-                    }
-                    <input type="hidden" id="hdnBrand_Category" name="Brand.Brand_Category" value="@Model.Brand.Brand_Category">
-
-                    <br />
-
-                    <h5>Website</h5>
-                    <h3>@Model.Brand.Website_Url</h3>                   
-
-                    <button type="button" id="btnEdit" class="btn btn_mer ripple" style="float:right;">Edit</button>   
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</form>
+</div>

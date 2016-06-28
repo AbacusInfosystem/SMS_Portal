@@ -7,9 +7,11 @@
 <script src="~/Scripts/Module/Dealer_Payables/search_dealer_payables_methods.js"></script>
 
 
-@*<div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
 
-     Content Header (Page header) 
+<div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
 
     @{Html.RenderPartial("_ServerMessage");}
 
@@ -50,6 +52,10 @@
                                 <th>NEFT Details</th>
                                 <th>Credit/Debit Card Details</th>
                                 <th>Receivable Date</th>
+                                @*@if (Model.Receivable.Status != "Payment Done")
+                                    {
+                                        <th>Action</th>
+                                    }*@
                             </tr>
 
                             @if (Model.Receivables != null && Model.Receivables.Count() > 0)
@@ -88,7 +94,8 @@
                                             else
                                             {
                                                 <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
-                                            }                               
+                                            }
+                                            @*<span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>*@
                                             <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
                                         </td>
                                         <td>
@@ -104,6 +111,13 @@
                                             <input type="hidden" id="hdnReceivable_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Receivable_Date.ToString("MM/dd/yyyy")">
                                         </td>
                                         <td>
+                                            @*@if (Model.Receivable.Status != "Payment Done")
+                                                    {
+                                                        <button type="button" id="edit-bank-details" class="btn btn-box-tool btn-tel-edit" onclick="javascript:EditReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-pencil'></i></button>
+                                                        <button type="button" id="delete-bank-details" class="btn btn-box-tool btn-tel-delete" onclick="javascript:DeletReceivableData(@itm.Receivable_Item_Id)"><i class='fa fa-times'></i></button>
+                                                    }
+
+                                                </td>*@
                                     </tr>
                                     i = i + 1;
                                 }
@@ -111,69 +125,18 @@
 
                         </table>
                     </div>
+                    @*<div class="box-footer clearfix">
+                        <div class="pagination pagination-sm no-margin pull-right">
+                            <ul></ul>
+                        </div>
+                    </div>*@
                 </div>
             </div>
         </div>
         </form>
- </div>*@
-
-<form id="frmdealerpayable">
-    <div class="dealer_payable_master_body">
-        <div class="container">
-            <h3 class="dealer_payable_master_body_header">
-                Dealer Payable Master
-                <span> <a href="payables.html"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
-            </h3>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive" style="margin: 20px 0;">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Transaction Type</th>
-                                    <th>Amount</th>
-                                    <th>Bank Name</th>
-                                    <th>IFSC Code</th>
-                                    <th>Cheque No</th>
-                                    <th>Cheque Date</th>
-                                    <th>NEFT Details</th>
-                                    <th>Credit/Debit Card Details</th>
-                                    <th>Receivable Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>NEFT</td>
-                                    <td>500.00</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>sfgg</td>
-                                    <td>NA</td>
-                                    <td>00/00/0000</td>
-                                </tr>
-                                <tr>
-                                    <td>NEFT</td>
-                                    <td>500.00</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>sfgg</td>
-                                    <td>NA</td>
-                                    <td>00/00/0000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</form>
+ </div>
 
 
 
+
+<!-- /.content-wrapper -->

@@ -4,7 +4,7 @@
 <script src="~/Scripts/Module/Dealer/dealer_profile_methods.js"></script>
 <script src="~/Scripts/Module/Dealer/dealer_profile_events.js"></script>
 
-@*<div class="content-wrapper">
+<div class="content-wrapper">
     @{Html.RenderPartial("_ServerMessage");}
 
     <section class="content-header">
@@ -152,106 +152,4 @@
         </section>
     </form>
 
-</div>*@
-
-<form id="frmDealerProfileMaster">
-
-    <input type="hidden" id="hdnDealer_Id" name="Dealer.Dealer_Id" value="@Model.Dealer.Dealer_Id" />
-
-    <div class="dealer_profile">
-        <div class="container">
-            <h3 class="dealer_profile_header">Dealer Profile</h3>
-
-            <div class="info">
-                <div class="col-md-4 col-sm-4">
-                    <img src="~/Images/mercedes-profile.jpg" class="img-responsive" />
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h5>Dealer Name</h5>
-                            <h3>@Model.Dealer.Dealer_Name</h3>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5>Brand Name</h5>
-                            @foreach (var item in Model.Brands)
-                            {
-                                if (Model.Dealer.Brand_Id == item.Brand_Id)
-                                {
-                                    <h3>@item.Brand_Name</h3>                                
-                                }
-                            }
-                            <input type="hidden" id="hdnBrand_Id" value="@Model.Dealer.Brand_Id">
-                            
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h5>Dealer Pecentage</h5>
-                            <h3>@Model.Dealer.Dealer_Percentage</h3>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5>Brand Pecentage</h5>
-                            <h3>@Model.Dealer.Brand_Percentage</h3>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <h5>Address</h5>
-                            <h3>@Model.Dealer.Address</h3>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h5>State</h5>
-                            @foreach (var item in Model.States)
-                            {
-                                if (Model.Dealer.State == item.State_Id)
-                                {
-                                    <h3>@item.State_Name</h3>                               
-                                }
-                            }
-                            
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5>City</h5>
-                            <h3>@Model.Dealer.City</h3>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h5>Pincode</h5>
-                            <h3>@Model.Dealer.Pincode</h3>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5>Email</h5>
-                            <h3>@Model.Dealer.Email</h3>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h5>Contact No. 2</h5>
-                            <h3>@Model.Dealer.Contact_No_1</h3>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5>Contact No. 2</h5>
-                            <h3>@Model.Dealer.Contact_No_2</h3>
-                        </div>
-                    </div>
-
-
-                    @*<a href="edit_dealer_profile.html" role="button" class="btn btn_mer ripple" style="float:right;">Edit</a>*@
-                    <button type="button" id="btnEdit" class="btn btn_mer ripple" style="float:right;">Edit</button>
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</form>
+</div>

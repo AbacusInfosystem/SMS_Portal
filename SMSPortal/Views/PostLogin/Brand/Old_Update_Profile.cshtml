@@ -5,7 +5,7 @@
 <script src="~/Scripts/Module/Brand/update_brand_profile_events.js"></script>
 <script src="~/Scripts/Module/Brand/brand_profile_validation.js"></script>
 
-@*<div class="content-wrapper">
+<div class="content-wrapper">
     @{Html.RenderPartial("_ServerMessage");}
 
     <div class="row">
@@ -44,10 +44,26 @@
                                                         </div>
                                             
                                                         <div class="form-group">
-
+                                                            @*<label style="color: #333">brand c</label>
+                                                            <input type="hidden" id="hdnBrand_Category" value="@Model.Brand.Brand_Category">*@
                                                             <label style="color:#333">Braand Category :</label>
                                                             <label style="color: #333;font-size:12px" value="@Model.Brand.Brand_Category_Name">@Model.Brand.Brand_Category_Name</label>
                                                             <input type="hidden" id="hdnBrand_Category" name="Brand.Brand_Category" value="@Model.Brand.Brand_Category">
+
+                                                            @*<select disabled id="drpBrand_Category" class="form-control" name="Brand.Brand_Category">
+                                                                <option value="">-Select Brand Category-</option>
+                                                                @foreach (var item in LookupInfo.Get_Brand_Categories())
+                                                                {
+                                                                    if (Model.Brand.Brand_Category == item.Key)
+                                                                    {
+                                                                        <option value="@item.Key" selected="selected">@item.Value</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item.Key">@item.Value</option>
+                                                                    }
+                                                                }
+                                                            </select>*@
 
                                                         </div>
                                             
@@ -75,48 +91,4 @@
         </div>
         <div class="col-md-3"></div>
     </div>
-</div>*@
-
-<form id="frmUpdateBrandProfile">
-    <input type="hidden" class="form-control input-sm" name="Brand.Brand_Id" id="hdf_BrandId" placeholder="Country Name" value="@Model.Brand.Brand_Id">
-    <div class="edit_brand_profile">
-        <div class="container">
-            <h3 class="edit_brand_profile_header">
-                Edit Brand Profile
-                <span> <a href="profile.html"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
-            </h3>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Brand Name</label>
-                        <input type="text" class="form-control form_control_mer" name="Brand.Brand_Name" id="txtBrand_Name" placeholder="Enter brand name" value="@Model.Brand.Brand_Name" maxlength="20">
-                        <input type="hidden" id="hdnBrandName" value="@Model.Brand.Brand_Name">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Brand Category</label>
-                        <input type="text" readonly class="form-control form_control_mer" id="" placeholder="Brand Category" value="@Model.Brand.Brand_Category_Name">
-                        <input type="hidden" id="hdnBrand_Category" name="Brand.Brand_Category" value="@Model.Brand.Brand_Category">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Website</label>
-                        <input type="text" class="form-control form_control_mer" name="Brand.Website_Url" id="txtWebsite_Name" placeholder="Enter website url" value="@Model.Brand.Website_Url" maxlength="40">
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button type="button" id="btnUpdate" class="btn btn_mer ripple">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+</div>

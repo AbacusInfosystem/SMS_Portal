@@ -2,39 +2,80 @@
 @using SMSPortal.Common
 
 <div class="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-4">
-                <div class="logo">
-                    <a href="#"><img src="~/Images/star.png" class="img-responsive star" alt="" /></a>
-                    <a href="#"><img src="~/Images/mercedes.png" class="img-responsive mercedes_text" alt="" /></a>
-                </div>
-            </div>
-            <div class="col-md-8 col-ms-8 col-xs-8">
-                <div class="header-menu">
-                    <span class="menu"></span>
-                    <div class="top-menu">
-                        <ul>
-                            <li><a href="dealers.html">Dealers</a></li>
-                            <li><a href="payables.html">Payables</a></li>
-                        </ul>
+    @{
+        CookiesInfo cookies = new CookiesInfo();
+        cookies = Utility.Get_Login_User("UserInfo", "Token");
+        if (cookies != null)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="logo">
+                            <a href="#"><img src="~/Images/star.png" class="img-responsive star" alt="" /></a>
+                            <a href="#"><img src="~/Images/mercedes.png" class="img-responsive mercedes_text" alt="" /></a>
+                        </div>
                     </div>
-                    <!-- script for menu -->
-                    <script>
-                        $("span.menu").click(function () {
-                            $(".top-menu").slideToggle("slow", function () {
-                                // Animation complete.
-                            });
-                        });
-                    </script>
-                    <!-- script for menu -->
+                    <div class="col-md-8 col-ms-8 col-xs-8">
+                        <div class="header-menu">
+                            <span class="menu"></span>
+                            <div class="top-menu">
+                                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Admin))
+                                {
+
+                                }
+
+                                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                                {
+
+                                }
+
+                                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
+                                {
+                                    <ul>
+                                        <li><a href="@Url.Action("Search","Dealer")">Dealers</a></li>
+                                        <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>
+                                    </ul>
+                                }
+
+                                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+                                {
+                                    <ul>
+                                        <li><a href="@Url.Action("My_Orders", "Dealer")">My Orders</a></li>
+                                        <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>
+                                    </ul>
+                                }
+                            </div>
+                            <!-- script for menu -->
+                            <script>
+                                $("span.menu").click(function () {
+                                    $(".top-menu").slideToggle("slow", function () {
+                                        // Animation complete.
+                                    });
+                                });
+                            </script>
+                            <!-- script for menu -->
+
+                        </div>
+                    </div>
 
                 </div>
-            </div>
-        </div>
+                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
+                {
+                    <a href="@Url.Action("Profile", "Brand")" class=" profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
+                }
+                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+                {
+                    <a href="@Url.Action("Profile", "Dealer")" class=" profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
+                }
 
-        <a href="@Url.Action("Profile", "Dealer")" class=" profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
-        <a href="@Url.Action("Logout", "Login")" class="signout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;<span>Sign Out</span></a>
-        
-    </div>
+                <a href="@Url.Action("Logout", "Login")" class="signout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;<span>Sign Out</span></a>
+
+            </div>
+        }
+        else
+        {
+            Html.Action("Anauthorize_Token", "Login");
+        }
+
+    }
 </div>

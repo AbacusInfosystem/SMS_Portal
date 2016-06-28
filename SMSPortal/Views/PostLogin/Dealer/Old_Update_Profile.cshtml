@@ -6,7 +6,7 @@
 <script src="~/Scripts/Module/Dealer/update_dealer_profile_methods.js"></script>
 <script src="~/Scripts/Module/Dealer/dealer_profile_validation.js"></script>
 
-@*<div class="content-wrapper">
+<div class="content-wrapper">
     @{Html.RenderPartial("_ServerMessage");}
 
     <div class="row">
@@ -48,7 +48,21 @@
 
                                         <label style="font-size:12px" value="@Model.Dealer.Brand_Name">@Model.Dealer.Brand_Name</label>
                                         <input type="hidden" id="hdnBrand_Id" name="Dealer.Brand_Id" value="@Model.Dealer.Brand_Id">
+                                        @*<select disabled id="drpBrand_Category" class="form-control" name="Dealer.Brand_Id">
+                                                <option value="">-Select Brand-</option>
+                                                @foreach (var item in Model.Brands)
+                                                {
+                                                    if (Model.Dealer.Brand_Id == item.Brand_Id)
+                                                    {
+                                                        <option value="@item.Brand_Id" selected="selected">@item.Brand_Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.Brand_Id">@item.Brand_Name</option>
+                                                    }
+                                                }
 
+                                            </select>*@
                                     </div>
 
                                     <div class="form-group">
@@ -139,113 +153,4 @@
         </div>
         <div class="col-md-3"></div>
     </div>
-</div>*@
-
-<form id="frmUpdateDealerProfile">
-    <div class="edit_dealer_profile">
-        <div class="container">
-            <h3 class="edit_dealer_profile_header">
-                Edit Dealer Profile
-                @*<span> <a href="profile.html"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>*@
-            </h3>
-            <input type="hidden" class="form-control input-sm" name="Dealer.Dealer_Id" id="hdf_DealerId" value="@Model.Dealer.Dealer_Id">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Dealer Name</label>
-                        <input type="text" class="form-control form_control_mer" name="Dealer.Dealer_Name" id="txtDealer_Name" placeholder="Dealer Name" value="@Model.Dealer.Dealer_Name">
-                        <input type="hidden" id="hdnDealerName" value="@Model.Dealer.Dealer_Name">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Brand </label>
-                        <input type="text" readonly class="form-control form_control_mer" id="hdnBrand_Id" value="@Model.Dealer.Brand_Name">
-                        <input type="hidden" id="hdnBrand_Id" name="Dealer.Brand_Id" value="@Model.Dealer.Brand_Id">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Dealer Percentage</label>
-                        <input type="number" readonly class="form-control form_control_mer" id="txtDealerPercentage1" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5">
-                        <input type="hidden" class="form-control form_control_mer" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Brand Percentage</label>
-                        <input type="number" readonly class="form-control form_control_mer" id="txtBrandPercentage1" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5">
-                        <input type="hidden" class="form-control form_control_mer" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Address</label>                       
-                        <textarea class="form-control form_control_mer" name="Dealer.Address" id="txtAddress">@Model.Dealer.Address</textarea>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label label_mer">City</label>                        
-                        <input type="text" class="form-control form_control_mer" name="Dealer.City" id="txtcity" placeholder="Enter city" value="@Model.Dealer.City" maxlength="15">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label label_mer">State</label>
-                        <select id="drpState" class="form-control form_control_mer" name="Dealer.State">
-                            <option value="">-Select State-</option>
-                            @foreach (var item in Model.States)
-                            {
-                                if (Model.Dealer.State == item.State_Id)
-                                {
-                                    <option value="@item.State_Id" selected="selected">@item.State_Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.State_Id">@item.State_Name</option>
-                                }
-                            }
-                        </select>
-
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Pincode</label>
-                        <input type="text" class="form-control form_control_mer" name="Dealer.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Dealer.Pincode == 0 ? "" : Model.Dealer.Pincode.ToString())" maxlength="6">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Contact No. 1</label>
-                        <input type="text" class="form-control form_control_mer" name="Dealer.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Dealer.Contact_No_1">
-                    </div>
-                    </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Contact No. 2</label>
-                        <input type="text" class="form-control form_control_mer" name="Dealer.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Dealer.Contact_No_2">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label label_mer">Email ID</label>
-                        <input type="text" class="form-control form_control_mer" name="Dealer.Email" id="txtEmail" placeholder="Enter email " value="@Model.Dealer.Email" maxlength="40">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button type="button" id="btnUpdate" class="btn btn_mer ripple">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+</div>
