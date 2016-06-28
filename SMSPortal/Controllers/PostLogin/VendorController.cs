@@ -99,6 +99,8 @@ namespace SMSPortal.Controllers.PostLogin
 
                 _vendorManager.Insert_Vendor(vViewModel.Vendor, vViewModel.Cookies.User_Id);
 
+                _vendorManager.Send_Registration_Email(vViewModel.Vendor.Email, vViewModel.Vendor.Vendor_Name);
+
                 vViewModel.Friendly_Message.Add(MessageStore.Get("VO001"));
             }
             catch (Exception ex)
@@ -211,7 +213,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("AddProductMapping", vViewModel);
         }
 
-        public JsonResult Get_Product_By_Brand(int brand_Id, int CurrentPage, int vendor_Id)
+        public JsonResult Get_Product_By_Brand(int CurrentPage, int vendor_Id)
         {
 
             VendorViewModel vViewModel = new VendorViewModel();
@@ -220,10 +222,8 @@ namespace SMSPortal.Controllers.PostLogin
 
             try
             {
-
-                vViewModel.Products = _vendorManager.Get_Productmapping(brand_Id, vendor_Id);
-
-                //vViewModel.MappedProducts = _vendorManager.Get_Mapped_Product_List(vendor_Id, brand_Id);               
+                vViewModel.Brands = _vendorManager.Get_Brands();
+                vViewModel.Products = _vendorManager.Get_Productmapping(vendor_Id);             
 
             }
             catch (Exception ex)
@@ -337,8 +337,8 @@ namespace SMSPortal.Controllers.PostLogin
 
                 Logger.Error("Vendor Profile " + ex);
             }
-            TempData["vViewModel"] = vViewModel;
-            return View("Vendor_Mapping", vViewModel);
+
+            return View("AddProductMapping", vViewModel);
         }
 
         public JsonResult Get_Vendor_Autocomplete(string vendor)

@@ -82,7 +82,7 @@
                                                     <th width="10%">Sr.No.</th>
                                                     <th width="45%">Product Name</th>
                                                     <th width="15%">Quantity</th>
-                                                    <th width="15%">Price</th>
+                                                    <th width="15%" align="center">Price</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -97,30 +97,30 @@
                                                                 <td>@count</td>
                                                                 <td>@item.Product_Name</td>
                                                                 <td>@item.Product_Quantity</td>
-                                                                <td>@item.Product_Price</td>
+                                                                <td align="right">@item.Product_Price</td>
 
                                                             </tr>
                                                         }
                                                     }
                                                     <tr>
                                                         <td colspan="3"><b> Total:</b></td>
-                                                        <td> @Model.Sales_Order.Net_Amount</td>
+                                                        <td align="right"> @Model.Sales_Order.Gross_Amount</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3"><b> VAT(%):</b></td>
-                                                        <td>@Model.Sales_Order.Vat</td>
+                                                        <td align="right">@Model.Sales_Order.Vat</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3"><b> Service Tax(%):</b></td>
-                                                        <td>@Model.Sales_Order.Service_Tax</td>
+                                                        <td align="right">@Model.Sales_Order.Service_Tax</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3"><b> Swatch Bharat Tax:</b></td>
-                                                        <td>@Model.Sales_Order.Swatch_Bharat_Tax</td>
+                                                        <td align="right">@Model.Sales_Order.Swatch_Bharat_Tax</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3"><b> Grand Total:</b></td>
-                                                        <td>@Model.Sales_Order.Gross_Amount</td>
+                                                        <td align="right">@Model.Sales_Order.Net_Amount</td>
                                                     </tr>
                                                 }
                                             </tbody>

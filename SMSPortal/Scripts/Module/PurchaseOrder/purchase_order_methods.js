@@ -216,7 +216,7 @@ function Mycallback()
     $('#div_Parent_Modal_Fade').modal('show');
     $("#div_Parent_Modal_Fade").find(".modal-title").text("Delete Confirmation");
     $('#btnYes').click(function () {
-        alert('clicked');
+
         var purchase_order_item_id = $("#hdn_Id").val();
         var Purchase_Order_Id = $("#hdnPurchase_Order_Id").val();         
         $.ajax({

@@ -2,6 +2,8 @@
 
     InitializeAutoComplete($('#txtDealerOrderNo'));
 
+    $('#reservation').daterangepicker();
+
     $('#hdfCurrentPage').val(0);
 
     Search_Sales_Order();

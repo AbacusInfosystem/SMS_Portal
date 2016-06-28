@@ -4,9 +4,11 @@ using SMSPortalInfo.Common;
 using SMSPortalRepo.Common;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -204,12 +206,12 @@ namespace SMSPortalRepo
             return bankdetailslist;
         }
 
-        public List<ProductInfo> Get_Productmapping(int brand_Id, int vendor_Id)
+        public List<ProductInfo> Get_Productmapping(int vendor_Id)
         {
             //Pager.PageSize = 20;
             List<ProductInfo> products = new List<ProductInfo>();
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@Brand_Id", brand_Id));
+            //sqlParams.Add(new SqlParameter("@Brand_Id", brand_Id));
             sqlParams.Add(new SqlParameter("@Vendor_Id", vendor_Id));
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoreProcedures.Get_Productmapping.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt))
@@ -234,6 +236,8 @@ namespace SMSPortalRepo
                  product.Product_Price = Convert.ToDecimal(dr["Mapping_Price"]);
              if (!dr.IsNull("Is_Mapped"))
                  product.Is_Mapped = Convert.ToBoolean(dr["Is_Mapped"]);
+             if (!dr.IsNull("Brand_Id"))
+                 product.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
 
             return product;
         }
@@ -264,23 +268,14 @@ namespace SMSPortalRepo
 
         public void Insert_Vendor_Product_Mapping_Details(List<ProductInfo> product_List, int user_Id, int vendor_Id,int brand_Id)
         {
-            List<SqlParameter> sqlparam = new List<SqlParameter>();
-
-            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
-            sqlparam.Add(new SqlParameter("@Brand_Id", brand_Id));
-
-
-            _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Delete_Vendor_Product_Mapping_By_Id_Sp.ToString(), CommandType.StoredProcedure);
-
             foreach (var item in product_List)
             {
                 List<SqlParameter> sqlparamnew = new List<SqlParameter>();
 
                 sqlparamnew.Add(new SqlParameter("@Vendor_Id", vendor_Id));
-                sqlparamnew.Add(new SqlParameter("@Brand_Id", brand_Id));
+                sqlparamnew.Add(new SqlParameter("@Brand_Id", item.Brand_Id));
                 sqlparamnew.Add(new SqlParameter("@Product_Id", Convert.ToInt32(item.Product_Id)));
                 sqlparamnew.Add(new SqlParameter("@Product_Price", Convert.ToDecimal(item.Product_Price)));
-
                 sqlparamnew.Add(new SqlParameter("@Created_On", DateTime.Now));
                 sqlparamnew.Add(new SqlParameter("@Created_By", user_Id));
                 sqlparamnew.Add(new SqlParameter("@Updated_On", DateTime.Now));
@@ -289,6 +284,16 @@ namespace SMSPortalRepo
                 if(item.Check == true)
                 {
                     _sqlHelper.ExecuteNonQuery(sqlparamnew, StoreProcedures.Insert_Vendor_Product_Mapping_Details.ToString(), CommandType.StoredProcedure);
+                }
+                else
+                {
+                    List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+                    sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
+                    sqlparam.Add(new SqlParameter("@Brand_Id", item.Brand_Id));
+                    sqlparam.Add(new SqlParameter("@Product_Id", Convert.ToInt32(item.Product_Id)));
+
+                    _sqlHelper.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Vendor_Product_Mapping_By_Id_Sp.ToString(), CommandType.StoredProcedure);
                 }
               
             }
@@ -590,5 +595,35 @@ namespace SMSPortalRepo
         }
          
         #endregion
+
+        public void Send_Registration_Email(string vendor_Email_Id,string vendor_Name)
+        {
+
+            StringBuilder html = new StringBuilder();
+            string subject = "Registration Confirmation Message";
+
+            #region Main Table
+
+            html.Append("<p><h1>Registration Successful.</h1></p>");
+            html.Append("<p>Hi " + vendor_Name + ",</p>");
+            html.Append("<p>            Thank you for registering with SMS.</p>");
+            html.Append("<br>");
+            html.Append("<br>");
+            html.Append("<br>");
+            html.Append("<p>This is automated email.Please do not reply to this message.</p>");
+
+            #endregion
+
+            MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
+            MailMessage message = new MailMessage();
+            message.From = fromMail;
+            message.Subject = subject;
+            message.IsBodyHtml = true;
+            message.Body = html.ToString();
+            MailAddress To = new MailAddress(vendor_Email_Id);
+            message.To.Add(To);
+            SmtpClient client = new SmtpClient();
+            client.Send(message);
+        }
     }
 }

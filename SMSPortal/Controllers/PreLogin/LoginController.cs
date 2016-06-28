@@ -98,9 +98,15 @@ namespace SMSPortal.Controllers.PreLogin
                     if (cookies.User_Name == lViewModel.Cookies.User_Name)
                     {
                         SetUsersCookies(lViewModel.Cookies.User_Name, lViewModel.Cookies.Password);
-                    }                    
 
-                    return RedirectToAction("Index", "Dashboard");
+                        return RedirectToAction("Index", "Dashboard");
+                    } 
+                    else
+                    {
+                        lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+
+                        return View("Index", lViewModel);
+                    }                   
                 }
                 else
                 {

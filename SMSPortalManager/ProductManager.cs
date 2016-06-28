@@ -44,9 +44,9 @@ namespace SMSPortalManager
             return _productRepo.Get_Products_By_Id(Product_Id, ref Pager);
         }
 
-        public List<ProductInfo> Get_Products_By_Ids(string ProductIds)
+        public List<ProductInfo> Get_Products_By_Ids(string ProductIds, string ProductQuantities)
         {
-            return _productRepo.Get_Products_By_Ids(ProductIds);
+            return _productRepo.Get_Products_By_Ids(ProductIds, ProductQuantities);
         }
 
         public ProductInfo Get_Product_By_Id(int Product_Id)

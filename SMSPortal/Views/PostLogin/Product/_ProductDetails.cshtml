@@ -7,8 +7,8 @@
     <input type="hidden" id="hdnPD_ProductId" value="@Model.Product.Product_Id" />
     <div class="row">
         <div class="col-md-5">
-            <div class="thumbnail margin">
-                <img id="imgCurrentProductImage" src="~/UploadedFiles/@Model.Product.Product_Image" style="height:250px; width:400px;">
+            <div class="thumbnail margin fullsizeimage">
+                <img id="imgCurrentProductImage" onmouseover="bigImg(this)" onmouseout="normalImg(this)" src="~/UploadedFiles/@Model.Product.Product_Image" style="height:500px; width:300px;">
             </div>
         </div>
         <div class="col-md-5">
@@ -47,7 +47,7 @@
                         <h4>Price</h4>
                     </div>
                     <div class="col-md-3">
-                        <h4><b>@Html.Raw(string.Format("{0:#,#.00}", Model.Product.Product_Price))</b> ₹</h4>
+                        <h4><i class="fa fa-inr"></i> <b>@Html.Raw(string.Format("{0:#,#.00}", Model.Product.Product_Price))</b> </h4>
                     </div>
                 </div>
             </div>
@@ -59,20 +59,24 @@
             string imageFileName = item.Image_Code;
             <div class="col-md-1">
                 <div class="thumbnail margin">
-                    <img src="~/UploadedFiles/@item.Image_Code" onclick="changeImage(this);" style="height:30px; width:30px;">
+                    <img src="~/UploadedFiles/@item.Image_Code" class="thumbimage" onclick="changeImage(this);" id="~/UploadedFiles/@item.Image_Code" style="height:30px; width:30px;">
                 </div>
             </div>
         }
 
+        <div class="col-md-1">
+            <input type="text" class="form-control" placeholder="Enter Quantity" style="width:80px" id="hdnQuantity" value="" /> 
+        </div>
         <div class="col-md-2">
             <button type="button" id="btnPD_AddToCart" class="btn btn-primary" onclick="AddToCart(this, @Model.Product.Product_Id, true);">
                 <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
-            </button>
+            </button>                   
         </div>
-
-        <div class="col-md-2">
+          
+        <div class="col-md-1">
             <button type="button" id="btnPD_Proceed" class="btn btn-primary">Proceed</button>
         </div>
 
     </div>
 </div>
+

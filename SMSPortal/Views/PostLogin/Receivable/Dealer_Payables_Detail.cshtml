@@ -87,7 +87,15 @@
                                             <input type="hidden" id="hdnCheque_Number@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
                                         </td>
                                         <td>
-                                            <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
+                                            @if (itm.Cheque_Date.ToString() == "1/1/1999 12:00:00 AM")
+                                            {
+                                                <span> NA </span>
+                                            }
+                                            else
+                                            {
+                                                <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
+                                            }
+                                            @*<span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>*@
                                             <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
                                         </td>
                                         <td>

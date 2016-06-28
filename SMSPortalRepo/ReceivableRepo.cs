@@ -249,11 +249,11 @@ namespace SMSPortalRepo
            return Balance_Amount;
        }
 
-       public int Insert_Receivable(ReceivableInfo receivableInfo,int user_Id)
+       public int Insert_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status)
        {
            int Receivable_Id = 0;
 
-           Receivable_Id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));
+           Receivable_Id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id,out Status), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));
 
            if (receivableInfo.Receivable_Item_Id != 0)
            {
@@ -325,11 +325,12 @@ namespace SMSPortalRepo
            return sqlParams;
        }
 
-       private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id)
+       private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status)
        {
            decimal Total_Balance_Amount = 0;
            decimal Status_Amount = 0;
            decimal Amount = 0;
+           Status = false;
 
            List<SqlParameter> sqlParams = new List<SqlParameter>();
 
@@ -342,7 +343,6 @@ namespace SMSPortalRepo
            sqlParams.Add(new SqlParameter("@Amount", receivableInfo.Invoice_Amount));
 
            if (receivableInfo.Balance_Amount > 0)
-
            {
                Total_Balance_Amount = receivableInfo.Balance_Amount - receivableInfo.Receivable_Item_Amount;              
            }
@@ -353,14 +353,11 @@ namespace SMSPortalRepo
                Total_Balance_Amount = receivableInfo.Invoice_Amount-receivableInfo.Receivable_Item_Amount;
            }
 
-           //Status_Amount = (receivableInfo.Invoice_Amount * 50) / 100;
-
+           Status_Amount = (receivableInfo.Invoice_Amount * 50) / 100;
 
            receivableInfo.Balance_Amount = Total_Balance_Amount;
 
            Amount = receivableInfo.Receivable_Item_Amount + receivableInfo.Balance_Amount;
-
-         
 
            sqlParams.Add(new SqlParameter("@Balance_Amount", receivableInfo.Balance_Amount));
 
@@ -373,10 +370,10 @@ namespace SMSPortalRepo
                sqlParams.Add(new SqlParameter("@Status", "Payment Done"));             
            }
 
-           //if (Amount > Status_Amount)
-           //{
-           //    Update_Sales_Order_Status(receivableInfo.Invoice_Id);
-           //}
+           if (receivableInfo.Receivable_Item_Amount > Status_Amount)
+           {
+               Status = true;
+           }
 
            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
 
@@ -428,146 +425,74 @@ namespace SMSPortalRepo
            return autoList;
        }
 
-       public void Send_Payment_Receipt(string email_Id, ReceivableInfo receivableInfo, List<ReceivableInfo> receivables)
+       public void Send_Payment_Receipt(string first_Name,string email_Id, ReceivableInfo receivableInfo, List<ReceivableInfo> receivables,OrdersInfo orderInfo)
        {
            StringBuilder html = new StringBuilder();
 
            string subject = " Payment receipt for invoice no : " + receivableInfo.Invoice_No;
 
-           html.Append("<table width=1000px border=1 cellspacing=2 cellpadding=2 align=center bgcolor=White dir=ltr rules=all style=border-width: thin; line-height: normal; vertical-align: baseline; text-align: center; font-family: Calibri; font-size: medium; font-weight: normal; font-style: normal; font-variant: normal>");
+           html.Append("<p>Hi " + first_Name + ",</p>");
+           html.Append("<p>We have received Rs." + receivables[receivables.Count() - 1].Receivable_Item_Amount + " (cheque no." + receivables[receivables.Count() - 1].Cheque_Number + " for your order placed on " + orderInfo.Order_Date.ToShortDateString() + ".</p>");
+           html.Append("<p>Your Order details are.</p>");
+           html.Append("<p>Order No : " + orderInfo.Order_No + "</p>");
+           html.Append("<p>Order item details.</p>");
+
+           html.Append("<table width=800px border=1 align=center bgcolor=White dir=ltr rules=all style=border-width: thin; line-height: normal; vertical-align: baseline; text-align: center; font-family: Calibri; font-size: medium; font-weight: normal; font-style: normal; font-variant: normal>");
 
            html.Append("<tr>");
 
-           html.Append("<td align='center' colspan='8'>");
+           html.Append("<td align='center'> Item Name ");
 
-           html.Append("<h1><center>SMS</center></h1>\n");
+           html.Append("</td>");
 
-           html.Append("<h2><center>Payment Receipt</center></h2>");
+           html.Append("<td align='center'> Item Quantity ");
+
+           html.Append("</td>");
+
+           html.Append("<td align='center'> Price ");
 
            html.Append("</td>");
 
            html.Append("</tr>");
 
-           html.Append("<tr>");
-
-           html.Append("<td align='left' colspan='8'>");
-
-           html.Append("<p> Payment receipt for Invoice No : " + receivableInfo.Invoice_No + " of amount " + receivables[receivables.Count() - 1].Receivable_Item_Amount +"<br> Receipt Date : " + DateTime.Now.ToShortDateString()+" </p>");
-
-           html.Append("</td>");
-
-           html.Append("</tr>");
-
-           html.Append("<tr>");
-
-           html.Append("<td align='left' colspan='8'>");
-
-           html.Append("<table width=800px border=1 cellspacing=5 cellpadding=5 align=center bgcolor=White style=border-width: thin; line-height: normal; vertical-align: baseline; text-align: center>");
-
-           html.Append("<td width='40px'>");
-
-           html.Append("Amount");
-
-           html.Append("</td>");
-
-           html.Append("<td width='60px'>");
-
-           html.Append("Transaction Type");
-
-           html.Append("</td>");
-
-           html.Append("<td width='40px'>");
-
-           html.Append("Bank Name");
-
-           html.Append("</td>");
-
-           html.Append("<td width='60px'>");
-
-           html.Append("Ifsc Code");
-
-           html.Append("</td>");
-
-           html.Append("<td width='40px'>");
-
-           html.Append("Cheque No");
-
-           html.Append("</td>");
-
-           html.Append("<td width='40px'>");
-
-           html.Append("Cheque Date");
-
-           html.Append("</td>");
-
-           html.Append("<td width='60px'>");
-
-           html.Append("NEFT Details");
-
-           html.Append("</td>");
-
-           html.Append("<td width='60px'>");
-
-           html.Append("Credit/Debit Details");
-
-           html.Append("</td>");
-
-           html.Append("</tr>");
-
-           for (int i = receivables.Count() - 1; i < receivables.Count(); i++)
+           for (int i = orderInfo.OrderItems.Count() - 1; i < orderInfo.OrderItems.Count(); i++)
            {
                html.Append("<tr>");
 
-               html.Append("<td>");
+               html.Append("<td align='center'>");
 
-               html.Append(receivables[i].Receivable_Item_Amount);
-
-               html.Append("</td>");
-
-               html.Append("<td>");
-
-               html.Append(receivables[i].Transaction_Type_Name);
+               html.Append(orderInfo.OrderItems[i].Product_Name);
 
                html.Append("</td>");
 
-               html.Append("<td>");
+               html.Append("<td align='center'>");
 
-               html.Append(receivables[i].Bank_Name);
-
-               html.Append("</td>");
-
-               html.Append("<td>");
-
-               html.Append(receivables[i].IFSC_Code);
+               html.Append(orderInfo.OrderItems[i].Product_Quantity);
 
                html.Append("</td>");
 
-               html.Append("<td>");
+               html.Append("<td align='right'>");
 
-               html.Append(receivables[i].Cheque_Number);
-
-               html.Append("</td>");
-
-               html.Append("<td>");
-
-               html.Append(receivables[i].Cheque_Date.ToShortDateString());
-
-               html.Append("</td>");
-
-               html.Append("<td>");
-
-               html.Append(receivables[i].NEFT);
-
-               html.Append("</td>");
-
-               html.Append("<td>");
-
-               html.Append(receivables[i].Credit_Debit_Card);
+               html.Append(orderInfo.OrderItems[i].Product_Price);
 
                html.Append("</td>");
 
                html.Append("</tr>");
            }
+
+           html.Append("<tr>");
+
+           html.Append("<td colspan='2' align='right'>Total Amount ");
+
+           html.Append("</td>");
+
+           html.Append("<td align='right'>");
+
+           html.Append(orderInfo.Net_Amount);
+
+           html.Append("</td>");
+
+           html.Append("</tr>");
 
            html.Append("</table>");
 

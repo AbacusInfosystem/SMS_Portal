@@ -1,8 +1,11 @@
 ﻿@model SMSPortal.Models.PostLogin.SalesOrderViewModel
 @using SMSPortal.Common;
+@using SMSPortalInfo.Common;
 
 <script src="~/Scripts/Module/SalesOrder/sales_my_order_events.js"></script>
 <script src="~/Scripts/Module/SalesOrder/sales_my_order_methods.js"></script>
+<script src="~/Scripts/daterangepicker.js"></script>
+<link href="~/Content/daterangepicker-bs3.css" rel="stylesheet" />
 
 <form id="frmMyOrders" enctype="multipart/form-data">
     <input type="hidden" id="hdnOrder_Id" name="Sales_Order.Order_Id" value="@Model.Sales_Order.Order_Id">
@@ -47,6 +50,38 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+
+                                    <label style="color: #333">Status</label>
+                                    <input type="hidden" id="hdnStatus" value="@Model.Filter.Status" name="Filter.Status" />
+                                    <select id="drpOrderStatus" class="form-control input-sm" name="Filter.Status">
+                                        <option value="">-Select Status-</option>
+                                        @foreach (var item in LookupInfo.Get_Order_Status())
+                                        {
+                                            if (Model.Filter.Status == item.Key)
+                                            {
+                                                <option value="@item.Key" selected="selected">@item.Value</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Key">@item.Value</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Date range:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" id="reservation" />
+                                        </div><!-- /.input group -->
+                                    </div><!-- /.form group -->
+                                </div>
                             </div>
 
                             <div class="box-footer">
@@ -78,7 +113,7 @@
                                 <tr id="subhead">
                                     <th></th>
                                     <th>Order No</th>
-                                    @*<th>Dealer Name</th>*@
+                                    <th>Order Date</th>
                                     <th>Amount</th>
                                     <th>Status</th>
                                 </tr>

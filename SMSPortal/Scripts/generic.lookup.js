@@ -78,7 +78,7 @@ $(document).ready(function () {
 
         $("#" + $("#hdnLookupHiddenId").val()).val(id);
 
-        var htmlText = "<ul id='lookupUl" + hiddenTextValue + "' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
+        var htmlText = "<ul id='lookupUlLookup' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
         $(Textboxname).parents('.form-group').append(htmlText);
 

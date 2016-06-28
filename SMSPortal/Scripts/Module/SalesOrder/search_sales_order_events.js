@@ -1,6 +1,6 @@
 ﻿$(function () {
 
-    InitializeAutoComplete($('#txtOrderNo'));
+    InitializeAutoComplete($('#txtSalesOrderNo'));
 
     $('#hdfCurrentPage').val(0);
 

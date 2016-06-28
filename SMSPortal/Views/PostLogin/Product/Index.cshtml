@@ -8,48 +8,255 @@
 <script src="~/Scripts/Module/Product/index_methods.js"></script>
 <script src="~/Scripts/Module/Product/index_events.js"></script>
 
+
+<style>
+    .carousel {
+        margin-top: 20px;
+    }
+
+    .item .thumb {
+        width: 25%;
+        cursor: pointer;
+        float: left;
+    }
+
+        .item .thumb img {
+            width: 100%;
+            margin: 2px;
+        }
+
+    .item img {
+        width: 100%;
+    }
+
+    .fa-angle-left {
+        top: 38px;
+        position: absolute;
+        left: 10px;
+    }
+
+    .fa-angle-right {
+        top: 38px;
+        position: absolute;
+        right: 10px;
+    }
+</style>
+
 <form id="frmProductIndex" enctype="multipart/form-data">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="panel panel-primary" id="Categories">
-                </div>
-                <div class="panel panel-primary" id="SubCategories">
-                </div>
-            </div>
-            <div class="col-md-9">
+    <div class="products">
+        <div class="container">
+            <h3 class="products_header">Products</h3>
 
-                <div class="row">
+            <div class="row" style="margin: 20px 0;">
 
-                    <div class="col-md-8">
-                        <div class="input-group">
-                            <span class="input-group-addon input-sm">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </span>
-                            <input id="txtProductName" class="form-control" type="text" placeholder="Search Product" />
+                <div class="col-md-3">
+                    <div class="" id="Categories">
+                    </div>
+
+                    <div class="" id="SubCategories">
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-search" aria-hidden="true" style="color: #fff;"></i>
+                                    </span>
+                                    <input id="txtProductName" class="form-control form_control_mer" type="text" placeholder="Search Product">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">                                
+                                <button type="button" id="btnSearchProductByName" class="btn btn_mer_2 ripple">Search</button> 
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type="button" class="btn btn_mer_2" id="btnViewCart">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Cart
+                                    <span id="CartItemCount" class="badge"></span>
+                                </button>
+                                <input type="hidden" id="hdnProductIds" name="ProductIds" />
+                                <input type="hidden" id="hdnProductQuantities" name="ProductQuantities" />
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-1">
-                        <button type="button" id="btnSearchProductByName" class="btn btn-primary pull-left">Search</button>
-                    </div>
-
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-info pull-right" id="btnViewCart">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> Cart
-                            <span id="CartItemCount" class="badge"></span>
-                        </button>
-                        <input type="hidden" id="hdnProductIds" name="ProductIds" />
+                    <div class="" id="ProductList">
                     </div>
 
                 </div>
 
-                <br />
+            </div>
 
-                <div class="panel panel-primary" id="ProductList">
+
+        </div>
+    </div>
+</form>
+
+<div id="viewmore" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content edit_modal_content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Product Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div id="carousel" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img src="http://placehold.it/350x250/e8117f/fff&amp;text=Product+Main">
+                                        </div>
+                                        <div class="item">
+                                            <img src="http://placehold.it/350x250/00ffff/000&amp;text=Product+Image+2">
+                                        </div>
+                                        <div class="item">
+                                            <img src="http://placehold.it/350x250/ff00ff/fff&amp;text=Product+Image+3">
+                                        </div>
+                                        <div class="item">
+                                            <img src="http://placehold.it/350x250/ffff00/000&amp;text=Product+Image+4">
+                                        </div>
+                                        <div class="item">
+                                            <img src="http://placehold.it/350x250/612b65/fff&amp;text=Product+Image+5">
+                                        </div>
+                                        <div class="item">
+                                            <img src="http://placehold.it/350x250/00ffff/000&amp;text=Product+Image+6">
+                                        </div>
+                                        <div class="item">
+                                            <img src="http://placehold.it/350x250/db371b/fff&amp;text=Product+Image+7">
+                                        </div>
+                                        <div class="item">
+                                            <img src="http://placehold.it/350x250/feb8aa/000&amp;text=Product+Image+8">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div id="thumbcarousel" class="carousel slide" data-interval="false">
+                                        <div class="carousel-inner">
+                                            <div class="item active">
+                                                <div data-target="#carousel" data-slide-to="0" class="thumb"><img src="http://placehold.it/100/e8117f/fff&amp;text=Product+Main"></div>
+                                                <div data-target="#carousel" data-slide-to="1" class="thumb"><img src="http://placehold.it/100/00ffff/000&amp;text=Product+Image+2"></div>
+                                                <div data-target="#carousel" data-slide-to="2" class="thumb"><img src="http://placehold.it/100/ff00ff/fff&amp;text=Product+Image+3"></div>
+                                                <div data-target="#carousel" data-slide-to="3" class="thumb"><img src="http://placehold.it/100/ffff00/000&amp;text=Product+Image+4"></div>
+                                            </div>
+                                            <!-- /item -->
+                                            <div class="item">
+                                                <div data-target="#carousel" data-slide-to="4" class="thumb"><img src="http://placehold.it/100/612b65/fff&amp;text=Product+Image+5"></div>
+                                                <div data-target="#carousel" data-slide-to="5" class="thumb"><img src="http://placehold.it/100/00ffcc/000&amp;text=Product+Image+6"></div>
+                                                <div data-target="#carousel" data-slide-to="6" class="thumb"><img src="http://placehold.it/100/db371b/fff&amp;text=Product+Image+7"></div>
+                                                <div data-target="#carousel" data-slide-to="7" class="thumb"><img src="http://placehold.it/100/feb8aa/000&amp;text=Product+Image+8"></div>
+                                            </div>
+                                            <!-- /item -->
+                                        </div>
+                                        <!-- /carousel-inner -->
+                                        <a class="left carousel-control" href="#thumbcarousel" role="button" data-slide="prev">
+                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                        </a>
+                                        <a class="right carousel-control" href="#thumbcarousel" role="button" data-slide="next">
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <!-- /thumbcarousel -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="viewmore_modal_h3">Moto-G</h3>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label viewmore_modal_label_1">Brand</label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label viewmore_modal_label_2">Mercedes</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label viewmore_modal_label_1">Category</label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label viewmore_modal_label_2">Electronics</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label viewmore_modal_label_1">Sub-category</label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label viewmore_modal_label_2">Mobile</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label viewmore_modal_label_1">Price</label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label viewmore_modal_label_2">1,000.00   </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon input-sm qty_modal" id="qty">Qty.:</span>
+                                        <input type="text" class="form-control input-sm valtxt qty_text qty_text_modal" id="txtqty_807" name="Quantity_807" placeholder="0" aria-describedby="qty" style="width:62px">
+                                        &nbsp;
+                                        <a class="btn btn_mer_2 btn-sm ripple" data-toggle="modal" onclick="javascript:AddToCart(807)" id="add_807">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Add To Cart
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <a href="#" class="btn btn_mer_2 ripple">Proceed</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_mer ripple" data-dismiss="modal">Close</button>
             </div>
         </div>
 
     </div>
-</form>
+</div>

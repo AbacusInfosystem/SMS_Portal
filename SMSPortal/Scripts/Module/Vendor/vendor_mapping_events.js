@@ -1,11 +1,7 @@
 ﻿$(function () {
     
 
-    $("#drpBrand").change(function () {
-
-        Get_Product_Image_Data();
-
-    });
+    Get_Product_Image_Data();
 
 
     $("#btnSave").click(function () {

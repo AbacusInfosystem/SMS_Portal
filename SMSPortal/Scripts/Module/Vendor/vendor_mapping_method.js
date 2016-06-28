@@ -1,7 +1,5 @@
 ﻿function Get_Product_Image_Data() {
 
-    var Brand_Id = $("#drpBrand").val();
-
     var CurrentPage = $("#hdfCurrentPage").val();
 
     var Vendor_Id = $("#hdnVendor_Id").val();
@@ -11,7 +9,7 @@
       {
           url: '/Vendor/Get_Product_By_Brand',
 
-          data: { Brand_Id: Brand_Id, CurrentPage: CurrentPage, Vendor_Id: Vendor_Id },
+          data: { CurrentPage: CurrentPage, Vendor_Id: Vendor_Id },
 
           method: 'GET',
 
@@ -55,49 +53,68 @@ function Bind_Vendor_Product_Grid(data) {
 
     if (data.Products.length > 0) {
 
-      
+        var Brand_Id = "";
 
-        for (i = 0; i < data.Products.length; i++) {
+        for (i = 0; i < data.Brands.length; i++) {
 
+            Brand_Id = data.Brands[i].Brand_Id
 
-            htmlText += "<div class='col-md-3'>";
+            htmlText += "<div class='col-md-12'>";
 
-            htmlText += "<input type='hidden' id='hdn_MasterProductPrice' name='Products[" + i + "].MasterProductPrice' value='" + data.Products[i].MasterProductPrice + "' />";
+            htmlText += "<div class='form-group'>";
 
-            htmlText += "<img width='100' height='100' id='ProductImg1' src='/UploadedFiles/" + data.Products[i].Product_Image + "'/></br>";
+            htmlText += "<div class='box-header with-border'>";
 
-            htmlText += "<label style='text-align:center'>" + data.Products[i].Product_Name == null ? "" : data.Products[i].Product_Name + "</label></br>";
-
-            if (data.Products[i].Is_Mapped == true) {
-                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
-            }
-            else {
-                htmlText += "<input type='checkbox' name='Products[" + i + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
-            }
-
-            htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + i + "].Product_Price' id='txtProduct_Price_" + i + "' placeholder='product price' value='" + (data.Products[i].Product_Price == 0 ? '' : data.Products[i].Product_Price) + "'></br>";
-
-            htmlText += "<input type='hidden' id='hd_Productid" + i + "' name='Products[" + i + "].Product_id' value='" + data.Products[i].Product_Id + "'>";
-          
-            htmlText += "</br>";
+            htmlText += "<label style='text-align:center'>" + data.Brands[i].Brand_Name + "</label>";
 
             htmlText += "</div>";
 
-           
+            htmlText += "</div>";
 
-            //count++;
+            htmlText += "</div>";
 
-            //if (count == 5) {
-            //    count = 0;
 
-            //    htmlText += '</tr>';
+            for (j = 0; j < data.Products.length; j++) {
 
-            //    htmlText += '<tr>';
-            //}
+                if (Brand_Id == data.Products[j].Brand_Id)
+                {
+                    htmlText += "<div class='col-md-3'>";
+
+                    htmlText += "<input type='hidden' id='hdn_MasterProductPrice' name='Products[" + j + "].MasterProductPrice' value='" + data.Products[j].MasterProductPrice + "' />";
+
+                    htmlText += "<img width='100' height='100' id='ProductImg1' src='/UploadedFiles/" + data.Products[j].Product_Image + "'/></br>";
+
+                    htmlText += "<label style='text-align:center'>" + data.Products[j].Product_Name == null ? "" : data.Products[j].Product_Name + "</label></br>";
+
+                    if (data.Products[j].Is_Mapped == true) {
+                        htmlText += "<input type='checkbox' name='Products[" + j + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
+                    }
+                    else {
+                        htmlText += "<input type='checkbox' name='Products[" + j + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
+                    }
+
+                    htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + j + "].Product_Price' id='txtProduct_Price_" + j + "' placeholder='product price' value='" + (data.Products[j].Product_Price == 0 ? '' : data.Products[j].Product_Price) + "'></br>";
+
+                    htmlText += "<input type='hidden' id='hd_Productid" + j + "' name='Products[" + j + "].Product_id' value='" + data.Products[j].Product_Id + "'>";
+
+                    htmlText += "<input type='hidden' id='hd_Brand_Id" + j + "' name='Products[" + j + "].Brand_Id' value='" + data.Products[j].Brand_Id + "'>";
+
+                    htmlText += "</br>";
+
+                    htmlText += "</div>";
+                }
+                //else
+                //{
+                //    htmlText += "<div class='col-md-6'> No Products Mapped for this brand";
+
+                //    htmlText += "</div>";
+
+                //    break;
+                //}
+            }
 
         }
-  
-      
+
     }
 
     else {

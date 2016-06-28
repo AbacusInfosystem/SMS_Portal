@@ -34,10 +34,10 @@
                         <div class="box-body">
 
                             <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
-
                             <input type="hidden" id="hdnDealer_Id" name="Dealer.Dealer_Id" value="@Model.Dealer.Dealer_Id">
                             <input type="hidden" id="hdnIs_Brand" name="Dealer.Dealer_Id" value="@Model.Is_Brand">                             
                             <input type="hidden" id="hdnBrandId" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id"> 
+
                             <div class="row">
 
                                 <div class="col-md-3">
@@ -51,9 +51,7 @@
                                             <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Dealer_Name" id="txtDealer_Name" placeholder="Enter Dealer Name" value="@Model.Filter.Dealer_Name" data-table="Dealer" data-param="hdnBrandId" data-field="Brand_Id" data-col="Dealer_Id,Dealer_Name" data-headernames="Dealer">
                                             
                                             <input type="hidden" id="hdnDealerId" value="@Model.Filter.Dealer_Id" name="Filter.Dealer_Id" class="auto-complete-value" />
-
                                             <input type="hidden" id="hdnBrandId" value="@Model.Filter.Brand_Id" name="Filter.Brand_Id" />
-
                                             <input type="hidden" id="hdnDealerName" value="@Model.Filter.Dealer_Name" name="Filter.Dealer_Name" class="auto-complete-label" />
                                             
                                             <div class="input-group-addon">

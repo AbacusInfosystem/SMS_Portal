@@ -26,6 +26,8 @@ namespace SMSPortal.Models.PostLogin
 
         public CookiesInfo Cookies { get; set; }
 
+        public UserInfo User { get; set; }
+
         public SalesOrderViewModel()
         {
             Friendly_Message = new List<FriendlyMessage>();
@@ -43,6 +45,8 @@ namespace SMSPortal.Models.PostLogin
             Invoice = new InvoiceInfo();
 
             Cookies = new CookiesInfo();
+
+            User = new UserInfo();
         }
     }
 
@@ -55,5 +59,7 @@ namespace SMSPortal.Models.PostLogin
         public int Status { get; set; }
 
         public string OrderSlot { get; set; }
+
+        public string Date_Range { get; set; }
     }
 }

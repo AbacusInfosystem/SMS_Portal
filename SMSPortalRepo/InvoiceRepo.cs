@@ -373,7 +373,7 @@ namespace SMSPortalRepo
             #region header dates first tr
             html.Append("<tr>");
             html.Append("<td style='width:60%;'>SMS </td>");
-            html.Append("<td style='width:40%;text-align:right;'><b>Invoice Date :</b> " + string.Format("{0:dd/MM/yyy}", invoice.Invoice_Date) + "</td>");
+            html.Append("<td style='width:40%;text-align:right;'><b>Invoice Date :</b> " + string.Format("{0:dd/MM/yyy}", DateTime.Now.ToShortDateString()) + "</td>");
             html.Append("</tr>");
             #endregion            
 
@@ -486,7 +486,7 @@ namespace SMSPortalRepo
             html.Append("<th style='width:20px;text-align:center;height:30px'>Sr.No</th>");
             html.Append("<th style='width:250px'>Product name</th>");
             html.Append("<th style='width:100px;text-align:center'>Qty</th>");
-            html.Append("<th style='width:110px;text-align:right'>Unit Price</th>");
+            html.Append("<th style='width:110px;text-align:center'>Unit Price</th>");
             html.Append("<th style='text-align:center;width:45px'>Price</th>");
             html.Append("</tr>");
 
@@ -502,7 +502,7 @@ namespace SMSPortalRepo
                         html.Append("<tr style='background-color:#fff'>");
                         html.Append("<td>" + count + "</td>");
                         html.Append("<td style='text-align:center'>" + ProductInfo.Product_Name + "</td>");
-                        html.Append("<td style='text-align:right'>" + item.Product_Quantity + "</td>");
+                        html.Append("<td style='text-align:center'>" + item.Product_Quantity + "</td>");
                         html.Append("<td style='text-align:right'>" + ProductInfo.Product_Price + "</td>");
                         html.Append("<td style='text-align:right'>" + item.Product_Price + "</td>");
                         html.Append("</tr>");
@@ -534,6 +534,21 @@ namespace SMSPortalRepo
             html.Append("<td colspan='4'>Grand Total:</td>");
             html.Append("<td>" + Order.Net_Amount + "</td>");
             html.Append("</tr>");
+
+            if (invoice.Role_Id==2)
+            {
+                html.Append("<tr>");
+                html.Append("<td colspan='4'>Brand Payable Amount:</td>");
+                html.Append("<td>" + invoice.Amount + "</td>");
+                html.Append("</tr>");
+            }
+            if (invoice.Role_Id == 3)
+            {
+                html.Append("<tr>");
+                html.Append("<td colspan='4'>Dealer Payable Amount:</td>");
+                html.Append("<td>" + invoice.Amount + "</td>");
+                html.Append("</tr>");
+            }
 
             html.Append("</tbody>");
             html.Append("</table>");

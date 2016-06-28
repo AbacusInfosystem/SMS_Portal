@@ -46,6 +46,7 @@ namespace SMSPortal.Models.PostLogin
         public DealerInfo dealer { get; set; }
         public StateInfo state { get; set; }
         public OrdersInfo order { get; set; }
+        public string ProductQuantities { get; set; }
     }
     public class ProductFilter
     {

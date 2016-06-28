@@ -63,9 +63,9 @@ namespace SMSPortalManager
             return _vendorRepo.Get_Vendor_Bank_Details(vendor_Id);
         }
 
-        public List<ProductInfo> Get_Productmapping(int brand_Id, int vendor_Id)
+        public List<ProductInfo> Get_Productmapping(int vendor_Id)
         {
-            return _vendorRepo.Get_Productmapping(brand_Id, vendor_Id);
+            return _vendorRepo.Get_Productmapping(vendor_Id);
         }
 
         public List<BrandInfo> Get_Brands()
@@ -126,6 +126,11 @@ namespace SMSPortalManager
         }
 
         #endregion
+
+        public void Send_Registration_Email(string vendor_Email_Id,string vendor_Name)
+        {
+            _vendorRepo.Send_Registration_Email(vendor_Email_Id, vendor_Name);
+        }
         
     }
 }

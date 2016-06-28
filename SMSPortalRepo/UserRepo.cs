@@ -334,7 +334,7 @@ namespace SMSPortalRepo
              html.Append("<table cellspacing='0' cellpadding='0' style='width:700px;border:2px solid #ccc;' >");
              
              html.Append("<tr>");
-             html.Append("<td>Please click on below link to reset you password</td>");              
+             html.Append("<td>Please click on below link to reset your password</td>");              
              html.Append("</tr>");
 
              html.Append("<tr>");

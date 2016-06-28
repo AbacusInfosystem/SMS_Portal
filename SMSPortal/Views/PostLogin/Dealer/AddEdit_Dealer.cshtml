@@ -1,8 +1,10 @@
 ﻿@model SMSPortal.Models.PostLogin.DealerViewModel
 @using SMSPortal.Common;
 
+<script src="~/Scripts/jquery.maskedInput1.3.1.js"></script>
 <script src="~/Scripts/Module/Dealer/Dealer_events.js"></script>
 <script src="~/Scripts/Module/Dealer/dealer_validation.js"></script>
+
 
 <div class="content-wrapper">
     @*@{Html.RenderPartial("_ServerMessage");}*@
@@ -63,11 +65,11 @@
                                         <label style="color: #333">Dealer Percentage</label>
                                         @if (Model.Dealer.Dealer_Percentage == 0 || Model.Dealer.Dealer_Percentage == null)
                                         {
-                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" maxlength="5" onchange="Calc_Percentage(this);">
+                                            <input type="number" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" maxlength="5" onchange="Calc_Percentage(this);">
                                         }
                                         else
                                         {
-                                            <input type="text" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5" onchange="Calc_Percentage(this);">
+                                            <input type="number" class="form-control input-sm" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5" onchange="Calc_Percentage(this);">
                                         }
                                         <span id="err_dealer" style="color: #a94442;"></span>
                                     </div>
@@ -76,11 +78,11 @@
                                         <label style="color: #333">Brand Percentage</label>
                                         @if (Model.Dealer.Brand_Percentage == 0 || Model.Dealer.Brand_Percentage == null)
                                         {
-                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" maxlength="5" onchange="Calc_Percentage(this);">
+                                            <input type="number" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" maxlength="5" onchange="Calc_Percentage(this);">
                                         }
                                         else
                                         {
-                                            <input type="text" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5" onchange="Calc_Percentage(this);">
+                                            <input type="number" class="form-control input-sm" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5" onchange="Calc_Percentage(this);">
                                         }
                                         <span id="err_brand" style="color: #a94442;"></span>
                                     </div>
@@ -120,12 +122,12 @@
 
                                     <div class="form-group">
                                         <label style="color: #333">Contact No 1</label>
-                                        <input type="text" class="form-control input-sm" name="Dealer.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Dealer.Contact_No_1" maxlength="10">
+                                        <input type="text" class="form-control input-sm phone" name="Dealer.Contact_No_1" id="txtContactNo1" placeholder="Enter mobile no" value="@Model.Dealer.Contact_No_1">
                                     </div>
 
                                     <div class="form-group">
                                         <label style="color: #333">Contact No 2</label>
-                                        <input type="text" class="form-control input-sm" name="Dealer.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Dealer.Contact_No_2" maxlength="10">
+                                        <input type="text" class="form-control input-sm phone" name="Dealer.Contact_No_2" id="txtContactNo2" placeholder="Enter landline no" value="@Model.Dealer.Contact_No_2">
                                     </div>
 
                                     <div class="form-group">

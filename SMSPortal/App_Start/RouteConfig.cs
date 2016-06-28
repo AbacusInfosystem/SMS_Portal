@@ -443,6 +443,11 @@ namespace SMSPortal
             defaults: new { controller = "Receivable", action = "Get_Receivable_Invoice_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
+            routes.MapRoute(
+            name: "Receivable-6",
+            url: "receivable/show-invoice-details/{invoice_id}",
+            defaults: new { controller = "Receivable", action = "Show_Invoice_Details", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
             #endregion
 
             #region Payable

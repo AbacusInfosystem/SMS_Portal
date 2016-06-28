@@ -1,5 +1,6 @@
 ﻿function getProductIds(cart) {
     var ProductIds = "";
+    alert(cart);
     for (var i = 0; i < cart.length; i++) {
         ProductIds = ProductIds + cart[i] + ",";
     }

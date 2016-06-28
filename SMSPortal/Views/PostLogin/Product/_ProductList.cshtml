@@ -14,8 +14,8 @@
             <input type="hidden" id="hdnMedicineURL_@item.Product_Id" value="@item.Product_Image" />
 
             <div class="col-md-4">
-                <div class="thumbnail panel panel-success margin">
-                    <img src="~/UploadedFiles/@item.Product_Image" style="height:180px; width:180px;">
+                <div class="thumbnail panel">
+                    <img src="~/UploadedFiles/@item.Product_Image" style="height:180px; border: 1px solid">
                     <div class="caption">
                         @if (item.Product_Name.Length > 24)
                         {
@@ -28,20 +28,25 @@
                             <h4 style="text-align:center" title="@item.Product_Name">@item.Product_Name</h4>
                         }
                         <h4>
-                            @Html.Raw(string.Format("{0:#,#.00}", item.Product_Price)) ₹
+                            <i class="fa fa-inr"></i> @Html.Raw(string.Format("{0:#,#.00}", item.Product_Price)) 
                         </h4>
 
-                        <div class="input-group">
-                            <button type="button" id="btnAddToCart_@item.Product_Id" class="btn btn-primary" onclick="AddToCart(this, @item.Product_Id, false)">
-                                <span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart
+                        <div class="input-group" style="padding-bottom: 5px;">
+                            <span class="input-group-addon input-sm qty" id="qty">Qty.:</span>
+                            <input type="text" class="form-control input-sm valtxt qty_text" placeholder="0" style="width:62px" aria-describedby="qty" id="hdnQuantity_@item.Product_Id" value="" />
+                            &nbsp;
+                            <button type="button" id="btnAddToCart_@item.Product_Id" class="btn btn_mer_3 btn-sm" onclick="AddToCart(this, @item.Product_Id, false)">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;  Add To Cart
                             </button>
                         </div>
-
-                        <p style="text-align:center">
-                            <a href="#" id="anchorViewMore_@item.Product_Id" class="btn btn-link dvClickable" onclick="viewMore(@item.Product_Id)">
-                                View More...
-                            </a>
-                        </p>
+                        
+                        <div class="view_more">
+                            <p>
+                                <a href="#" id="anchorViewMore_@item.Product_Id" class="btn btn-link dvClickable" onclick="viewMore(@item.Product_Id)">
+                                    View More...
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

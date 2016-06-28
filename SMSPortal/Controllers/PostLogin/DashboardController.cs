@@ -19,13 +19,12 @@ namespace SMSPortal.Controllers.PostLogin
     {
         public DashboardManager _dashboardManager;
 
-        public string token = System.Web.HttpContext.Current.Request.Cookies["UserInfo"]["Token"];
-
         public DashboardController()
         {
             _dashboardManager = new DashboardManager();           
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Index(DashboardViewModel dViewModel)
         {
             try
@@ -36,6 +35,11 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     return RedirectToAction("Index", "Login");
                 }
+
+                if (TempData["FriendlyMessage"] != null)
+                {
+                    dViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
+                } 
             }
             catch (Exception ex)
             {
@@ -45,6 +49,7 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Index", dViewModel);
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Admin_Widgets()
         {
             DashboardViewModel dViewModel = new DashboardViewModel();
@@ -61,6 +66,7 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_AdminWidgets");
         }
 
+        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Vendor_Widgets()
         {
             DashboardViewModel dViewModel = new DashboardViewModel();

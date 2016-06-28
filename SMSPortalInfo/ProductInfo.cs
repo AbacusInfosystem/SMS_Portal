@@ -60,6 +60,8 @@ namespace SMSPortalInfo
         public string Product_Ids { get; set; }
 
         //public string Product_Prices { get; set; }
+
+        public int Product_Quantity { get; set; }
         
     }
 

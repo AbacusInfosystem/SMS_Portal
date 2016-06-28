@@ -4,7 +4,8 @@
             Filter:
                 {
                     Order_Id: $("#hdnOrderId").val(),
-
+                    Status: $('#drpOrderStatus').val(),
+                    Date_Range: $('#reservation').val(),
                 },
 
             Pager: {
@@ -29,6 +30,9 @@ function Bind_Sales_Order_Grid(data) {
     if (data.Sales_Orders.length > 0) {
         for (i = 0; i < data.Sales_Orders.length; i++) {
 
+            var showOrderDate = new Date(parseInt(data.Sales_Orders[i].Order_Date.replace('/Date(', '')));
+            showOrderDate = (showOrderDate.getMonth() + 1).toString() + "/" + (showOrderDate.getDate().toString() + "/" + showOrderDate.getFullYear());
+
             htmlText += "<tr>";
 
             htmlText += "<td>";
@@ -43,11 +47,11 @@ function Bind_Sales_Order_Grid(data) {
 
             htmlText += "</td>";
 
-            //htmlText += "<td>";
+            htmlText += "<td>";
 
-            //htmlText += data.Sales_Orders[i].Dealer_Name;
+            htmlText += showOrderDate;
 
-            //htmlText += "</td>";
+            htmlText += "</td>";
 
             htmlText += "<td>";
 
