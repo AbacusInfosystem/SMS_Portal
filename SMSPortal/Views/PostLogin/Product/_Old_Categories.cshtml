@@ -1,0 +1,21 @@
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel
+
+<script src="~/Scripts/Module/Product/Category/category-events.js"></script>
+
+<div class="panel-heading" style="background: #3C8DBC; color: #fff;">Categories</div>
+<div class="panel-body test-package-scrollbar" id="CategoryPanel">
+    <ul class="list-group">
+
+        @if (Model.Categories.Count > 0)
+        {
+            foreach (var item in Model.Categories)
+            {
+                <li class="list-group-item" style="cursor:pointer;" id="list_@item.Category_Id">
+                    <input type="hidden" id="hdnCategory_Id_@item.Category_Id" value="@item.Category_Id">
+                    <span class="badge">@item.Product_Count</span>@item.Category_Name
+                </li>
+            }
+        }
+    </ul>
+
+</div>

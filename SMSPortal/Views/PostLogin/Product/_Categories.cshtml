@@ -2,20 +2,25 @@
 
 <script src="~/Scripts/Module/Product/Category/category-events.js"></script>
 
-<div class="panel-heading" style="background: #3C8DBC; color: #fff;">Categories</div>
-<div class="panel-body test-package-scrollbar" id="CategoryPanel">
-    <ul class="list-group">
 
-        @if (Model.Categories.Count > 0)
-        {
-            foreach (var item in Model.Categories)
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Categories</h3>
+    </div>
+    <div class="panel-body test-package-scrollbar" id="CategoryPanel">
+        <div class="list-group">
+
+            @if (Model.Categories.Count > 0)
             {
-                <li class="list-group-item" style="cursor:pointer;" id="list_@item.Category_Id">
-                    <input type="hidden" id="hdnCategory_Id_@item.Category_Id" value="@item.Category_Id">
-                    <span class="badge">@item.Product_Count</span>@item.Category_Name
-                </li>
+                foreach (var item in Model.Categories)
+                {
+                    <a href="#" class="list-group-item" id="list_@item.Category_Id">
+                        <input type="hidden" id="hdnCategory_Id_@item.Category_Id" value="@item.Category_Id">
+                        <span class="badge">@item.Product_Count</span>
+                        @item.Category_Name
+                    </a>
+                }
             }
-        }
-    </ul>
-
+        </div>
+    </div>
 </div>

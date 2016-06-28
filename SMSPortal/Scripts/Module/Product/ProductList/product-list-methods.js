@@ -53,6 +53,7 @@ function AddToCart(obj,Product_Id, bIsCalledByPopup) {
 }
 
 function viewMore(productId) {
+    alert(productId);
 
     $("#div_Parent_Modal_Fade").find(".modal-dialog").addClass("modal-lg");
     

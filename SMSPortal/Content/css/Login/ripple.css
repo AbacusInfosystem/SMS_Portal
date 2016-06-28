@@ -1,0 +1,13 @@
+.ripple {
+  overflow: hidden;
+  position: relative;
+  -webkit-transform: translateZ(0);
+}
+.ripple .rippling {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #FFF;
+  pointer-events: none;
+  opacity: .4;
+  transform: translate3d(-50%, -50%, 0);
+}

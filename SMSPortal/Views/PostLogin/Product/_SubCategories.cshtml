@@ -2,20 +2,25 @@
 
 <script src="~/Scripts/Module/Product/SubCategory/sub-category-events.js"></script>
 
-<div class="panel-heading" style="background: #3C8DBC; color: #fff;">Sub-categories</div>
-<div class="panel-body test-package-scrollbar" id="SubCategoryPanel">
-    <ul class="list-group">
-        @if (Model.SubCategories.Count > 0)
-        {
-            foreach (var item in Model.SubCategories)
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Sub - Categories</h3>
+    </div>
+    <div class="panel-body test-package-scrollbar" id="SubCategoryPanel">
+        <div class="list-group">
+            @if (Model.SubCategories.Count > 0)
             {
-                <li class="list-group-item" style="cursor:pointer;" id="list_@item.Subcategory_Id">
-                    <input type="hidden" id="hdnCategory_Id_@item.Subcategory_Id" class="Category_Id" value="@item.Category_Id">
-                    <input type="hidden" id="hdnSubcategory_Id_@item.Subcategory_Id" class="Sub_Category_Id" value="@item.Subcategory_Id">
-                    <span class="badge">@item.Product_Count</span>@item.Subcategory_Name
-                </li>
+                foreach (var item in Model.SubCategories)
+                {
+                    <a href="#" class="list-group-item" id="list_@item.Subcategory_Id">
+                        <input type="hidden" id="hdnCategory_Id_@item.Subcategory_Id" class="Category_Id" value="@item.Category_Id">
+                        <input type="hidden" id="hdnSubcategory_Id_@item.Subcategory_Id" class="Sub_Category_Id" value="@item.Subcategory_Id">
+                        <span class="badge">@item.Product_Count</span>
+                        @item.Subcategory_Name
+                    </a>
+                }
             }
-        }
-    </ul>
 
+        </div>
+    </div>
 </div>
