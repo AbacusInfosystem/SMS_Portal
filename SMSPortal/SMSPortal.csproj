@@ -625,6 +625,9 @@
     <Content Include="Views\PostLogin\Product\_Old_SubCategories.cshtml" />
     <Content Include="Views\PostLogin\Product\Old_PlaceOrder.cshtml" />
     <Content Include="Views\PostLogin\Product\_Old_ProductDetails.cshtml" />
+    
+    <Content Include="Views\PostLogin\Dealer\Old_My_Orders.cshtml" />
+    <Content Include="Views\PostLogin\SalesOrder\Old_My_Order_Details.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Old_Profile.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Old_Update_Profile.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Old_Searches.cshtml" />

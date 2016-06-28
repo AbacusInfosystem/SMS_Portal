@@ -4,136 +4,215 @@
 
 <script src="~/Scripts/Module/SalesOrder/sales_my_order_events.js"></script>
 <script src="~/Scripts/Module/SalesOrder/sales_my_order_methods.js"></script>
-<script src="~/Scripts/daterangepicker.js"></script>
-<link href="~/Content/daterangepicker-bs3.css" rel="stylesheet" />
 
-<form id="frmMyOrders" enctype="multipart/form-data">
-    <input type="hidden" id="hdnOrder_Id" name="Sales_Order.Order_Id" value="@Model.Sales_Order.Order_Id">
-    <input type="hidden" id="hdnDealer_Id" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id">
-    <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage">
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        @*@{Html.RenderPartial("_ServerMessage");}*@
-        <section class="content-header">
-            <h1>
-                Sales Orders
-                <small></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Sales Orders</li>
-            </ol>
-        </section>
+@*<form id="frmMyOrders" enctype="multipart/form-data">
+        <input type="hidden" id="hdnOrder_Id" name="Sales_Order.Order_Id" value="@Model.Sales_Order.Order_Id">
+        <input type="hidden" id="hdnDealer_Id" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id">
+        <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            @{Html.RenderPartial("_ServerMessage");}
+            <section class="content-header">
+                <h1>
+                    Sales Orders
+                    <small></small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                    <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                    <li class="active">Sales Orders</li>
+                </ol>
+            </section>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Sales Orders</h3>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group auto-complete">
-                                        <label for="Subcategory" class="lookup-title">Order No</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Order_No" id="txtDealerOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-param="hdnDealer_Id" data-field="Dealer_Id" data-table="orders" data-col="Order_Id,Order_No" data-headernames="Orders">
-                                            <input type="hidden" id="hdnOrderId" value="@Model.Filter.Order_Id" name="Filter.Order_Id" class="auto-complete-value" />
-                                            <input type="hidden" id="hdnOrderNo" value="@Model.Filter.Order_No" name="Filter.Order_No" class="auto-complete-label" />
-                                            <div class="input-group-addon">
-                                                <a href="#" class="text-muted" id="hrefOrder" role="button"><i class="fa fa-server"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-
-                                    <label style="color: #333">Status</label>
-                                    <input type="hidden" id="hdnStatus" value="@Model.Filter.Status" name="Filter.Status" />
-                                    <select id="drpOrderStatus" class="form-control input-sm" name="Filter.Status">
-                                        <option value="">-Select Status-</option>
-                                        @foreach (var item in LookupInfo.Get_Order_Status())
-                                        {
-                                            if (Model.Filter.Status == item.Key)
-                                            {
-                                                <option value="@item.Key" selected="selected">@item.Value</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@item.Key">@item.Value</option>
-                                            }
-                                        }
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Date range:</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control pull-right" id="reservation" />
-                                        </div><!-- /.input group -->
-                                    </div><!-- /.form group -->
-                                </div>
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Sales Orders</h3>
                             </div>
-
-                            <div class="box-footer">
+                            <div class="box-body">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-3">
+                                        <div class="form-group auto-complete">
+                                            <label for="Subcategory" class="lookup-title">Order No</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Order_No" id="txtDealerOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-param="hdnDealer_Id" data-field="Dealer_Id" data-table="orders" data-col="Order_Id,Order_No" data-headernames="Orders">
+                                                <input type="hidden" id="hdnOrderId" value="@Model.Filter.Order_Id" name="Filter.Order_Id" class="auto-complete-value" />
+                                                <input type="hidden" id="hdnOrderNo" value="@Model.Filter.Order_No" name="Filter.Order_No" class="auto-complete-label" />
+                                                <div class="input-group-addon">
+                                                    <a href="#" class="text-muted" id="hrefOrder" role="button"><i class="fa fa-server"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
 
-                                        <div class="btn-group pull-left">
-                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
-                                        </div>
-                                        <div class="btn-group pull-right">
-                                            <button type="button" id="btnDetails" style="display:none;" class="btn btn-warning btn-sm ">Order Details</button>
-                                        </div>
+                                        <label style="color: #333">Status</label>
+                                        <input type="hidden" id="hdnStatus" value="@Model.Filter.Status" name="Filter.Status" />
+                                        <select id="drpOrderStatus" class="form-control input-sm" name="Filter.Status">
+                                            <option value="">-Select Status-</option>
+                                            @foreach (var item in LookupInfo.Get_Order_Status())
+                                            {
+                                                if (Model.Filter.Status == item.Key)
+                                                {
+                                                    <option value="@item.Key" selected="selected">@item.Value</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Key">@item.Value</option>
+                                                }
+                                            }
+                                        </select>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Date range:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" class="form-control pull-right" id="reservation" />
+                                            </div><!-- /.input group -->
+                                        </div><!-- /.form group -->
                                     </div>
                                 </div>
 
-                            </div>
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-md-12">
 
-                        </div>
-                    </div>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
+                                            <div class="btn-group pull-left">
+                                                <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                            </div>
+                                            <div class="btn-group pull-right">
+                                                <button type="button" id="btnDetails" style="display:none;" class="btn btn-warning btn-sm ">Order Details</button>
+                                            </div>
+                                        </div>
+                                    </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-solid">
-                        <div class="box-body table-responsive no-padding">
-
-                            <table class="table table-striped" id="tblMyOrders">
-                                <tr id="subhead">
-                                    <th></th>
-                                    <th>Order No</th>
-                                    <th>Order Date</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                </tr>
-                            </table>
-
-                            <div class="box-footer clearfix">
-                                <div class="pagination pagination-sm no-margin pull-right">
-                                    <ul></ul>
                                 </div>
-                                <div id="divSearchGridOverlay" class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
+
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <div class="box-body table-responsive no-padding">
+
+                                <table class="table table-striped" id="tblMyOrders">
+                                    <tr id="subhead">
+                                        <th></th>
+                                        <th>Order No</th>
+                                        <th>Order Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </table>
+
+                                <div class="box-footer clearfix">
+                                    <div class="pagination pagination-sm no-margin pull-right">
+                                        <ul></ul>
+                                    </div>
+                                    <div id="divSearchGridOverlay" class="overlay">
+                                        <i class="fa fa-refresh fa-spin"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+        </div>
+        <!-- /.content-wrapper -->
+    </form>*@
+
+<form id="frmMyOrders" enctype="multipart/form-data">
+    <div class="myorders">
+        <div class="container">
+            <h3 class="myorders_header">My Orders</h3>
+
+            <div class="row" style="margin: 20px 0;">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label label_mer">Order No.</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form_control_mer" id="" placeholder="Enter Order No.">
+                            <span class="input-group-addon"> <a href="#" data-toggle="modal" data-target="#lookup"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label label_mer">Status</label>
+                        <select class="form-control form_control_mer" id="select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label label_mer">Date Range</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar" style="color:#fff;" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control form_control_mer" id="" placeholder="Select Date Range">
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
-        </section>
+
+            <div class="row m0">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <a href="#" class="btn btn_mer ripple">Search</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="margin: 50px 0;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Order No</th>
+                            <th>Order Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
-    <!-- /.content-wrapper -->
 </form>
 
 
