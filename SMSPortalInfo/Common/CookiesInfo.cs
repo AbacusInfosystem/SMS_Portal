@@ -27,5 +27,7 @@ namespace SMSPortalInfo.Common
         public string User_Email { get; set; }
 
         public int Entity_Id { get; set; }
+
+        public string Order_Status { get; set; }
     }
 }

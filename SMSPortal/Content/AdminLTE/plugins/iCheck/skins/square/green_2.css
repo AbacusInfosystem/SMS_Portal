@@ -1,0 +1,89 @@
+/* iCheck plugin Square skin, green
+----------------------------------- */
+.icheckbox_square-green_new,
+.iradio_square-green_new {
+    display: inline-block;
+    *display: inline;
+    vertical-align: middle;
+    margin-left: 40px;
+    /*margin-bottom: 20px;*/
+    padding: 0;
+    width: 22px;
+    height: 22px;
+    background: url(green.png) no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+.icheckbox_square-green_new {
+    background-position: 0 0;
+}
+    .icheckbox_square-green_new.hover {
+        background-position: -24px 0;
+    }
+    .icheckbox_square-green_new.checked {
+        background-position: -48px 0;
+    }
+    .icheckbox_square-green_new.disabled {
+        background-position: -72px 0;
+        cursor: default;
+    }
+    .icheckbox_square-green_new.checked.disabled {
+        background-position: -96px 0;
+    }
+
+.iradio_square-green_new  {
+    background-position: -120px 0;
+}
+    .iradio_square-green_new.hover {
+        background-position: -144px 0;
+    }
+    .iradio_square-green_new.checked {
+        background-position: -168px 0;
+    }
+    .iradio_square-green_new.disabled {
+        background-position: -192px 0;
+        cursor: default;
+    }
+    .iradio_square-green_new.checked.disabled {
+        background-position: -216px 0;
+    }
+    .table_new {
+        margin-left:200px;
+        margin-top:10px;
+        padding-left:20px;
+width: 55%;
+max-width:60%;
+margin-bottom: 20px;
+
+}
+    .form-control_new {
+  display: block;
+  margin-bottom:5px;
+  margin-top:5px;
+  width: 100px;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 12px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    .icheckbox_square-green_new,
+    .iradio_square-green_new {
+        background-image: url(green@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
+}

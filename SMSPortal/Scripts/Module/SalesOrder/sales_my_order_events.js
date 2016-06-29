@@ -2,7 +2,7 @@
 
     //InitializeAutoComplete($('#txtDealerOrderNo'));
 
-    //$('#reservation').daterangepicker();
+    $('#reservation').daterangepicker();
 
     $('#hdfCurrentPage').val(0);
 
