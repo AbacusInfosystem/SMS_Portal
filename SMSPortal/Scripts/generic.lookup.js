@@ -144,7 +144,7 @@ function RadioChanged(ele)
 
             $("#hdnId").val(ele.id.replace("r1_Lookup_", ""));
 
-            $("#hdnValue").val($(ele).parent().parent().parent().find(".v1").val());
+            $("#hdnValue").val($(ele).parent().parent().find(".v1").val());
 
         }
 

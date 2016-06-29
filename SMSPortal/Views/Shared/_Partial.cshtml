@@ -3,23 +3,23 @@
 @using SMSPortalHelper.PageHelper;
 
 @*<script type="text/javascript">
-    $('document').ready(
-        function () {
-            $('input:radio').click(
-                function () {
+        $('document').ready(
+            function () {
+                $('input:radio').click(
+                    function () {
 
-                    if ($(this).prop('checked')) {
+                        if ($(this).prop('checked')) {
 
-                        $("#hdnId").val(this.id.replace("r1_Lookup_", ""));
+                            $("#hdnId").val(this.id.replace("r1_Lookup_", ""));
 
-                        $("#hdnValue").val($(this).parent().parent().parent().find(".v1").val());
+                            $("#hdnValue").val($(this).parent().parent().parent().find(".v1").val());
+                        }
                     }
-                }
-            );
-        }
-    );
+                );
+            }
+        );
 
-</script>*@
+    </script>*@
 
 
 
@@ -52,7 +52,7 @@
                                         <td>
                                             @if (row[1].ToString() == Model.EditLookupValue)
                                             {
-                                                <input type='radio' checked name='r1_Lookup' onchange="javascript: RadioChanged(this);" id='r1_Lookup_@row[0]' class='lookup-iradio-list' />
+                                                <input type='radio' checked name='r1_Lookup' id='r1_Lookup_@row[0]' onchange="javascript: RadioChanged(this);" class='lookup-iradio-list' />
                                             }
                                             else
                                             {
@@ -62,9 +62,9 @@
                                         </td>
                                         <td>
                                             @row[1]
-                                        <input type='hidden' name='v1' value='@row[1]' class="v1" />
-                                    </td>
-                                </tr>
+                                            <input type='hidden' name='v1' value='@row[1]' class="v1" />
+                                        </td>
+                                    </tr>
                                 }
                             }
                             else
