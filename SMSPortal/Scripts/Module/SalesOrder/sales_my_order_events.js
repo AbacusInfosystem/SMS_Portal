@@ -1,8 +1,8 @@
 ﻿$(function () {
 
-    InitializeAutoComplete($('#txtDealerOrderNo'));
+    //InitializeAutoComplete($('#txtDealerOrderNo'));
 
-    $('#reservation').daterangepicker();
+    //$('#reservation').daterangepicker();
 
     $('#hdfCurrentPage').val(0);
 
@@ -16,13 +16,13 @@
         $("#frmMyOrders").submit();
     });
 
-    $("#btnSearch").click(function () {
+    //$("#btnSearch").click(function () {
 
-        $('#hdfCurrentPage').val(0);
+    //    $('#hdfCurrentPage').val(0);
 
-        Search_Sales_Order();
+    //    Search_Sales_Order();
 
-    });
+    //});
 
 
 });
