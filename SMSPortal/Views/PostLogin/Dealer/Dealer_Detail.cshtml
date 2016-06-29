@@ -7,7 +7,7 @@
 
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    @*<div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @{Html.RenderPartial("_ServerMessage");}
         <section class="content-header">
@@ -44,11 +44,7 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtCustomer_Name">@Model.Dealer.Dealer_Name</label>
-
-                                                @*</div>*@
 
                                             </td>
 
@@ -60,11 +56,7 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtCustomer_Address">@Model.Dealer.Brand_Name</label>
-
-                                                @*</div>*@
 
                                             </td>
 
@@ -76,11 +68,8 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtTel_No">@Model.Dealer.Address</label>
 
-                                                @*</div>*@
 
                                             </td>
 
@@ -92,11 +81,7 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtEmail">@Model.Dealer.City</label>
-
-                                                @*</div>*@
 
                                             </td>
 
@@ -108,11 +93,7 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtContact_Person">@Model.Dealer.State</label>
-
-                                                @*</div>*@
 
                                             </td>
 
@@ -124,11 +105,7 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtContact_Person_Tel_No"> @Model.Dealer.Pincode</label>
-
-                                                @*</div>*@
 
                                             </td>
 
@@ -140,11 +117,8 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtContact_Person_Mobile_No"> @Model.Dealer.Contact_No_1</label>
 
-                                                @*</div>*@
 
                                             </td>
 
@@ -156,11 +130,8 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtEnquiry_No"> @Model.Dealer.Contact_No_2</label>
 
-                                                @*</div>*@
 
                                             </td>
 
@@ -172,47 +143,12 @@
 
                                             <td style="padding: 10px; text-align: left; width:85%">
 
-                                                @*<div class="form-group">*@
-
                                                 <label style="color: #333" for="txtEnquiry_Date"> @Model.Dealer.Email</label>
 
-                                                @*</div>*@
 
                                             </td>
 
                                         </tr>
-
-                                        @*<tr>
-
-                                            <th style="padding: 5px; text-align: left; width:15%">Dealer Percentage Share : </th>
-
-                                            <td style="padding: 10px; text-align: left; width:85%">
-
-                                                <div class="form-group">
-
-                                                <label style="color: #333" for="txtProduct_Name"> @Model.Dealer.Dealer_Percentage_Share</label>
-
-                                                </div>
-
-                                            </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <th style="padding: 5px; text-align: left; width:15%">Brand Percentage Share : </th>
-
-                                            <td style="padding: 10px; text-align: left; width:85%">
-
-                                                <div class="form-group">
-
-                                                <label style="color: #333" for="txtQuantity"> @Model.Dealer.Brand_Percentage_Share</label>
-
-                                                </div>
-
-                                            </td>
-
-                                        </tr>*@
 
                                     </table>
 
@@ -241,5 +177,119 @@
 
 
 
-    </div>
+    </div>*@
     <!-- /.content-wrapper -->
+
+<form id="frmDealerMaster">
+    <div class="view_dealers">
+        <div class="container">
+            <h3 class="view_dealers_header">
+                Dealer Master
+                <span> <a href="dealers.html"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
+
+            <div class="view_dealers_body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>Dealer Name</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.Dealer_Name</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>Brand</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.Brand_Name</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>Address</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.Address</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>City</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.City</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>State</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.State</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>Pincode</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.Pincode</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>Contact No. 1</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.Contact_No_1</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>Contact No. 2</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.Contact_No_2</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <h5>Email Id</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>@Model.Dealer.Email</h3>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>

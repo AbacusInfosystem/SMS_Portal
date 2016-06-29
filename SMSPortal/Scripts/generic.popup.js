@@ -2,7 +2,6 @@
 
     $(document).on("click", ".fa-remove", function (event) {
 
-    	
         event.preventDefault();
         
         if (!$(this).parents(".form-group").find(".form-control").is(":disabled"))

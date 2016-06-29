@@ -17,14 +17,13 @@
 
 </script>
 
-<form id="frmReceivable" enctype="multipart/form-data">
+@*<form id="frmReceivable" enctype="multipart/form-data">
 
     <!-- Content Wrapper. Contains page content -->
 
     <div class="content-wrapper">
 
-        <!-- Content Header (Page header) -->
-        @*@{Html.RenderPartial("_ServerMessage");}*@
+
 
         <section class="content-header">
 
@@ -57,12 +56,6 @@
                 <div class="col-md-12">
 
                     <div class="box box-primary">
-
-                        @*<div class="box-header with-border">
-
-                            <h3 class="box-title">Payable</h3>
-
-                        </div>*@
 
                         <div class="box-body">
 
@@ -115,7 +108,7 @@
 
                                         <div class="btn-group pull-left">
 
-                                            @*<a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Receivable")">Create </a>*@
+                                            
 
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
 
@@ -167,8 +160,79 @@
         </section>
     </div>
     <!-- /.content-wrapper -->
-</form>
+</form>*@
 
+<form id="frmReceivable" enctype="multipart/form-data">
+
+    <input type="hidden" id="hdnInvoice_Id" value="@Model.Receivable.Invoice_Id" name="Receivable.Invoice_Id" />
+
+    <input type="hidden" id="hdnInvoice_Amount" value="@Model.Receivable.Invoice_Amount" name="Receivable.Invoice_Amount" />
+
+    <input type="hidden" id="hdnEntityId" value="@Model.Filter.Entity_Id" name="Filter.Entity_Id" />
+
+    <input type="hidden" id="hdnRoleId" value="@Model.Filter.Role_Id" name="Filter.Role_Id" />
+
+    <div class="payables">
+        <div class="container">
+            <h3 class="payables_header">Payable</h3>
+
+            <div class="row" style="margin: 20px 0;">
+                <div class="col-md-2" style="text-align: right;">
+                    <div class="form-group">
+                        <label class="control-label label_mer">Invoice No.</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control form_control_mer" id="" placeholder="Enter Invoice No.">
+                            <span class="input-group-addon"> <a href="#" data-toggle="modal" data-target="#lookup"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group pull-left">
+                        <a href="#" class="btn btn_mer ripple">Search</a>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button type="button" id="btnView" class="btn btn_mer ripple">View</button>
+                        <button type="button" id="btnViewInvoice" class="btn btn_mer ripple">View Invoice</button> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="margin: 50px 0;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Invoice No</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input class="ripple" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                            </td>
+                            <td>INV-2</td>
+                            <td>1200</td>
+                            <td>Partially Paid</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+</form>
 
 
 
