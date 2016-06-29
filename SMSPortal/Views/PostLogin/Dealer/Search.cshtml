@@ -192,7 +192,7 @@
                 <div class="col-md-12">
                     <div class="btn-group pull-left">
 
-                        <a class="btn btn_mer ripple" role="button" href="@Url.Action("AddEdit_Dealer", "Dealer")">Create </a>
+                        <a class="btn btn_mer ripple" style="display:none;" role="button" href="@Url.Action("AddEdit_Dealer", "Dealer")">Create </a>
 
                         <a class="btn btn_mer ripple" id="btnSearch" role="button">Search</a>
 
@@ -203,7 +203,7 @@
 
                         <button type="button" id="btnAddUser" style="display:none;" class="btn btn_mer ripple">Add User</button>
 
-                        <button type="button" id="btnView" class="btn btn_mer ripple">View</button>
+                        <button type="button" id="btnView" style="display:none;" class="btn btn_mer ripple">View</button>
 
                         <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
 
@@ -212,7 +212,7 @@
             </div>
 
             <div class="table-responsive" style="margin: 50px 0;">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="tblDealerMaster">
                     <thead>
                         <tr>
                             <th></th>
@@ -221,17 +221,16 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input class="ripple" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                            </td>
-                            <td>BMW Andheri</td>
-                            <td>BMW</td>
-                            <td>Active</td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
+                <div class="box-footer clearfix">
+                    <div class="pagination pagination-sm no-margin pull-right">
+                        <ul></ul>
+                    </div>
+                    <div id="divSearchGridOverlay" class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
             </div>
 
         </div>
