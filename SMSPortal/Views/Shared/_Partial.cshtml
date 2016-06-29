@@ -2,7 +2,7 @@
 @using System.Data;
 @using SMSPortalHelper.PageHelper;
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     $('document').ready(
         function () {
             $('input:radio').click(
@@ -19,7 +19,7 @@
         }
     );
 
-</script>
+</script>*@
 
 
 
@@ -28,7 +28,7 @@
 <input type="hidden" id="hdnValue" name="Value">
 <input type="hidden" id="hdnEditValue" name="" value="@Model.EditLookupValue">
 
-<div class="row" >
+<div class="row">
     <div class="col-md-12">
         <div class="">
             <div class="table-responsive no-padding">
@@ -39,31 +39,32 @@
                                 @foreach (string item in Model.HeaderNames)
                                 {
                                     <th></th>
-                                    <th>@item</th>                                    
+                                    <th>@item</th>
                                 }
                             </tr>
                         </thead>
                         <tbody>
                             @if (Model.PartialDt != null && Model.PartialDt.Rows.Count > 0)
-                            {                               
+                            {
                                 foreach (DataRow row in Model.PartialDt.Rows)
                                 {
                                     <tr>
                                         <td>
-                                            @if (row[1].ToString()==Model.EditLookupValue)
+                                            @if (row[1].ToString() == Model.EditLookupValue)
                                             {
-                                                <input type='radio' checked name='r1_Lookup' id='r1_Lookup_@row[0]' class='lookup-iradio-list' />
+                                                <input type='radio' checked name='r1_Lookup' onchange="javascript: RadioChanged(this);" id='r1_Lookup_@row[0]' class='lookup-iradio-list' />
                                             }
                                             else
                                             {
-                                                <input type='radio' name='r1_Lookup' id='r1_Lookup_@row[0]' class='lookup-iradio-list' />
+                                                <input type='radio' name='r1_Lookup' id='r1_Lookup_@row[0]' onchange="javascript: RadioChanged(this);" class='lookup-iradio-list' />
                                             }
-                                            
+
                                         </td>
-                                        <td>@row[1]
-                                            <input type='hidden' name='v1' value='@row[1]' class="v1" />
-                                        </td>
-                                    </tr>
+                                        <td>
+                                            @row[1]
+                                        <input type='hidden' name='v1' value='@row[1]' class="v1" />
+                                    </td>
+                                </tr>
                                 }
                             }
                             else
@@ -80,28 +81,28 @@
                             }
                         </tbody>
                     </table>
-                    
+
                 </div>
                 @*<div id="divLookupGridOverlay" class="overlay">
-                    <i class="fa fa-refresh fa-spin"></i>
-                </div>*@
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>*@
             </div>
             @*<div class="box-footer clearfix">
-                @if (Model.PartialDt != null && Model.PartialDt.Rows.Count > 0)
-                {
-                    <div class="pagination pagination-sm no-margin pull-right">
-                        @(Html.Raw(MDMToolHelper.PageHelper.PageHelper.NumericPager("javascript:PageMoreFilter({0})", Model.Pager.TotalRecords, Model.Pager.CurrentPage + 1, Model.Pager.PageSize, Model.Pager.TotalPages, true)))
-                    </div>
-                }
-            </div>*@
+                    @if (Model.PartialDt != null && Model.PartialDt.Rows.Count > 0)
+                    {
+                        <div class="pagination pagination-sm no-margin pull-right">
+                            @(Html.Raw(MDMToolHelper.PageHelper.PageHelper.NumericPager("javascript:PageMoreFilter({0})", Model.Pager.TotalRecords, Model.Pager.CurrentPage + 1, Model.Pager.PageSize, Model.Pager.TotalPages, true)))
+                        </div>
+                    }
+                </div>*@
         </div>
     </div>
 </div>
 
 <br />
 @*<div class="form-group">
-    <button type="button" id="btnOK" class="btn btn-success btn-sm">OK</button>
-</div>*@
+        <button type="button" id="btnOK" class="btn btn-success btn-sm">OK</button>
+    </div>*@
 
 <script>
     $(function () {
@@ -109,7 +110,7 @@
 
         //    $(this).hide();
         //});
-        
+
         $("#divLookupGridOverlay").hide();
     });
 </script>

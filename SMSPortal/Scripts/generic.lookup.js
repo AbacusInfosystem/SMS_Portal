@@ -80,8 +80,6 @@ $(document).ready(function () {
             });
         }
 
-        alert(hiddenTextValue);
-
         $("#" + $("#hdnLookupHiddenId").val()).val(id);
 
         var htmlText = "<ul id='lookupUlLookup' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
@@ -136,6 +134,21 @@ function PageMoreFilter(Id) {
         Get_Look_Up(true, $("#" + $("#hdnLookupLabelId").val()).closest(".form-group").find(".lookup-btn"), true);
     }
 
+}
+
+function RadioChanged(ele)
+{
+   // $('[name="r1_Lookup"]').on('Changed', function (event) {
+
+        if ($(ele).prop('checked')) {
+
+            $("#hdnId").val(ele.id.replace("r1_Lookup_", ""));
+
+            $("#hdnValue").val($(ele).parent().parent().parent().find(".v1").val());
+
+        }
+
+   // });
 }
 
 
