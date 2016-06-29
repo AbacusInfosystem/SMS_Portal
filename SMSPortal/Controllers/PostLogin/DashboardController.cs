@@ -40,6 +40,7 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     dViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
                 } 
+
             }
             catch (Exception ex)
             {

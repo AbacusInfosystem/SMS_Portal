@@ -1,6 +1,6 @@
 ﻿$(function () {
 
-    //InitializeAutoComplete($('#txtDealerOrderNo'));   
+    //InitializeAutoComplete($('#txtDealerOrderNo'));
 
     $('#reservation').daterangepicker();
 

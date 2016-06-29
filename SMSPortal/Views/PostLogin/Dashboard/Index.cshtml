@@ -63,7 +63,11 @@
         }
         else if (Model.Cookies.Role_Name == "Dealer")
         {
-            Html.RenderAction("Index", "Product");
+            if (Model.Friendly_Message.Count()>0)
+            {
+                Model.Cookies.Order_Status = "Placed";
+            }
+            Html.RenderAction("Index", "Product", Model);
             //Html.RenderAction("Get_Dealer_Widgets", "Dashboard");
         }
         else if (Model.Cookies.Role_Name == "Brand")

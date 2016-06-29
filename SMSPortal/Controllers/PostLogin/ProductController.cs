@@ -44,11 +44,16 @@ namespace SMSPortal.Controllers.PostLogin
             _userManager = new UserManager();
         }
 
-        public ActionResult Index(ProductViewModel pViewModel)
+        public ActionResult Index(DashboardViewModel dViewModel)
         {
-            try
-            {
+            ProductViewModel pViewModel = new ProductViewModel();
 
+            try
+            {              
+                if (pViewModel.Friendly_Message.Count() > 0)
+                {
+                    pViewModel.Friendly_Message.Add(MessageStore.Get("PO006"));
+                }
             }
             catch (Exception ex)
             {
@@ -451,7 +456,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                         UserInfo user = _userManager.Get_User_By_Entity_Id(pViewModel.dealer.Brand_Id, Convert.ToInt32(Roles.Brand));
 
-                        _invoiceManager.Send_Invoice_Email(user.Email_Id, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);                        
+                        _invoiceManager.Send_Invoice_Email(user.Email_Id, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
                     }
                     catch (Exception ex)
                     {
