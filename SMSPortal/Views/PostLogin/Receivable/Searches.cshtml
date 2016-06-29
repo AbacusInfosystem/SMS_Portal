@@ -1,166 +1,8 @@
 ﻿@model SMSPortal.Models.PostLogin.ReceivableViewModel
 @using SMSPortalInfo.Common
 
-
-<script src="~/Scripts/Module/Dealer_Payables/search_dealer_payables_events.js"></script>
-
 <script src="~/Scripts/Module/Dealer_Payables/search_dealer_payables_methods.js"></script>
-
-@*<script type="text/javascript">
-
-        $(document).ready(function () {
-            $('.iradio-list').iCheck({
-                radioClass: 'iradio_square-green',
-                increaseArea: '20%' // optional
-            });
-        });
-
-    </script>*@
-
-@*<form id="frmReceivable" enctype="multipart/form-data">
-
-        <!-- Content Wrapper. Contains page content -->
-
-        <div class="content-wrapper">
-
-
-
-            <section class="content-header">
-
-                <h1>
-
-                    Payable
-
-                    <small></small>
-
-                </h1>
-
-                <ol class="breadcrumb">
-
-                    <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-
-                    <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-
-                    <li class="active">Payable</li>
-
-                </ol>
-
-            </section>
-
-            <!-- Main content -->
-
-            <section class="content">
-
-                <div class="row">
-
-                    <div class="col-md-12">
-
-                        <div class="box box-primary">
-
-                            <div class="box-body">
-
-                                <input type="hidden" id="hdnInvoice_Id" value="@Model.Receivable.Invoice_Id" name="Receivable.Invoice_Id" />
-
-                                <input type="hidden" id="hdnInvoice_Amount" value="@Model.Receivable.Invoice_Amount" name="Receivable.Invoice_Amount" />
-
-                                <input type="hidden" id="hdnEntityId" value="@Model.Filter.Entity_Id" name="Filter.Entity_Id" />
-
-                                <input type="hidden" id="hdnRoleId" value="@Model.Filter.Role_Id" name="Filter.Role_Id" />
-
-                                <div class="row">
-
-                                    <div class="col-md-3">
-
-                                        <div class="form-group auto-complete">
-
-                                            <label for="InvoiceNo" class="lookup-title">Invoice No</label>
-
-                                            <div class="input-group">
-
-                                                @if (Model.Filter.Role_Id == 2)
-                                                {
-                                                <input type="text" class="form-control input-sm autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
-                                                }
-                                                else if (Model.Filter.Role_Id == 3)
-                                                {
-                                                    <input type="text" class="form-control input-sm autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Brand_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
-                                                }
-
-                                                <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
-
-                                                <input type="hidden" id="hdnInvoiceNo" value="@Model.Filter.Invoice_No" name="Receivable.Invoice_No" class="auto-complete-label" />
-
-                                                <div class="input-group-addon">
-
-                                                    <a href="#" class="text-muted lookup-btn" id="hrefInvoice" role="button"><i class="fa fa-server"></i></a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="box-footer">
-
-                                    <div class="row">
-
-                                        <div class="col-md-12">
-
-                                            <div class="btn-group pull-left">
-
-
-
-                                                <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
-
-                                            </div>
-
-                                            <div class="btn-group pull-right">
-
-                                                <button type="button" id="btnView" style="display:none;" class="btn btn-warning btn-sm">View</button>
-                                                <button type="button" id="btnViewInvoice" style="display:none;" class="btn btn-warning btn-sm" >View Invoice</button>
-
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="box box-solid">
-                            <div class="box-body table-responsive no-padding">
-                                <table class="table table-striped" id="tblReceivableMaster">
-                                    <tr id="subhead">
-                                        <th></th>
-                                        <th>Invoice No</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="box-footer clearfix">
-                                <div class="pagination pagination-sm no-margin pull-right">
-                                    <ul></ul>
-                                </div>
-                                <div id="divSearchGridOverlay" class="overlay">
-                                    <i class="fa fa-refresh fa-spin"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <!-- /.content-wrapper -->
-    </form>*@
+<script src="~/Scripts/Module/Dealer_Payables/search_dealer_payables_events.js"></script>
 
 <form id="frmReceivable" enctype="multipart/form-data">
 
@@ -172,7 +14,7 @@
 
     <input type="hidden" id="hdnRoleId" value="@Model.Filter.Role_Id" name="Filter.Role_Id" />
 
-    <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
+    <input type="hidden" id="hdfCurrentPage" value="@Model.Pager.CurrentPage" name="Pager.CurrentPage">
 
     <div class="payables">
         <div class="container">
@@ -181,49 +23,37 @@
             <div class="row" style="margin: 20px 0;">
                 <div class="col-md-2" style="text-align: right;">
                     <div class="form-group">
-                        <label class="control-label label_mer">Invoice No.</label>
                     </div>
                 </div>
-                <div class="col-md-5">
 
+                <div class="col-md-3">
                     <div class="form-group auto-complete">
+                        <label class="control-label label_mer">Invoice No.</label>
                         <div class="input-group">
-                            @if (Model.Filter.Role_Id == 2)
-                            {
-                                <input type="text" class="form-control form_control_mer autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
-                            }
-                            else if (Model.Filter.Role_Id == 3)
-                            {
-                                <input type="text" class="form-control form_control_mer autocomplete-text" name="Receivable.Invoice_Id" id="txtDealerInvoice" placeholder="Enter Invoice No" value="@(Model.Filter.Invoice_Id == 0 ? "" : Model.Filter.Invoice_Id.ToString())" data-param="hdnEntityId" data-field="Brand_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
-                            }
-
-                            <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
-
+                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Invoice_No" id="txtDealerInvoice" placeholder="Enter Invoice No." value="@Model.Filter.Invoice_No" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                            <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefInvoice" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
                             <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
-
                             <input type="hidden" id="hdnInvoiceNo" value="@Model.Filter.Invoice_No" name="Receivable.Invoice_No" class="auto-complete-label" />
-                            </div>
                         </div>
-
-
-
+                    </div>
                 </div>
+
             </div>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="btn-group pull-left">
-                        <a class="btn btn_mer ripple" id="btnSearch" role="button">Search</a>
+                        <a id="btnSearch" href="#" class="btn btn_mer ripple">Search</a>
                     </div>
                     <div class="btn-group pull-right">
-                        <button type="button" id="btnView" style="display:none;" class="btn btn_mer ripple">View</button>
-                        <button type="button" id="btnViewInvoice" style="display:none;" class="btn btn_mer ripple">View Invoice</button>
+                        <button type="button" id="btnView" class="btn btn_mer ripple">View</button>
+                        <button type="button" id="btnViewInvoice" class="btn btn_mer ripple">View Invoice</button>
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive" style="margin: 50px 0;">
-                <table class="table table-bordered" id="tblReceivableMaster">
+                <table id="tblReceivableMaster" class="table table-bordered">
                     <thead>
                         <tr>
                             <th></th>
@@ -234,18 +64,13 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-                <div class="box-footer clearfix">
-                    <div class="pagination pagination-sm no-margin pull-right">
-                        <ul></ul>
-                    </div>
-                    <div id="divSearchGridOverlay" class="overlay">
-                        <i class="fa fa-refresh fa-spin"></i>
-                    </div>
-                </div>
             </div>
-
-
 
         </div>
     </div>
 </form>
+
+
+
+
+

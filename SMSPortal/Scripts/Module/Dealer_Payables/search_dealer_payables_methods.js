@@ -103,36 +103,11 @@ function Bind_Receivable_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    //$('[name="r1"]').on('ifChanged', function (event)
+    $('[name="r1"]').on('change', function (event)
 
-    //{
-    //    if ($(this).prop('checked'))
-    //    {
-
-    //        var Id = this.id.replace("r1_", "");
-
-    //        $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
-
-    //        var String = Id.split("_");
-
-    //        $("#hdnInvoice_Id").val(String[0]);
-
-    //        $("#hdnInvoice_Amount").val(String[1]);
-
-    //        $("#btnView").show();
-
-    //        $("#btnViewInvoice").show();
-            
-
-    //        $("#btnAddProductMapping").show();
-
-    //        $("#btnDelete").show();
-
-    //    }
-    //});
-
-    $('[name="r1"]').on('change', function (event) {
-        if ($(this).prop('checked')) {
+    {
+        if ($(this).prop('checked'))
+        {
             var Id = this.id.replace("r1_", "");
 
             $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
@@ -146,11 +121,12 @@ function Bind_Receivable_Grid(data)
             $("#btnView").show();
 
             $("#btnViewInvoice").show();
-
+            
 
             $("#btnAddProductMapping").show();
 
             $("#btnDelete").show();
+
         }
     });
 
@@ -158,9 +134,7 @@ function Bind_Receivable_Grid(data)
 
 function PageMore(Id)
 {
-
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
     Search_Receivable();
-
 }
