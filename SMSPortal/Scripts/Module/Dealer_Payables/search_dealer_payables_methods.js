@@ -79,13 +79,13 @@ function Bind_Receivable_Grid(data)
 
     $('#tblReceivableMaster tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck(
-        {
-            radioClass: 'iradio_square-green',
+    //$('.iradio-list').iCheck(
+    //    {
+    //        radioClass: 'iradio_square-green',
 
-            increaseArea: '20%' // optional
+    //        increaseArea: '20%' // optional
 
-    });
+    //});
 
     if (data.Receivables.length > 0)
     {
@@ -103,12 +103,11 @@ function Bind_Receivable_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event)
+    $('[name="r1"]').on('change', function (event)
 
     {
         if ($(this).prop('checked'))
         {
-
             var Id = this.id.replace("r1_", "");
 
             $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
@@ -135,9 +134,7 @@ function Bind_Receivable_Grid(data)
 
 function PageMore(Id)
 {
-
     $('#hdfCurrentPage').val((parseInt(Id) - 1));
 
     Search_Receivable();
-
 }
