@@ -121,14 +121,14 @@
     <div class="dealer_payable_master_body">
         <div class="container">
             <h3 class="dealer_payable_master_body_header">
-                Dealer Payable Master
-                <span> <a href="payables.html"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+                Payables
+                <span> <a href="@Url.Action("Searches", "Receivable")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
             </h3>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive" style="margin: 20px 0;">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="tblReceivableItems">
                             <thead>
                                 <tr>
                                     <th>Transaction Type</th>
@@ -143,28 +143,61 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>NEFT</td>
-                                    <td>500.00</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>sfgg</td>
-                                    <td>NA</td>
-                                    <td>00/00/0000</td>
-                                </tr>
-                                <tr>
-                                    <td>NEFT</td>
-                                    <td>500.00</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>NA</td>
-                                    <td>sfgg</td>
-                                    <td>NA</td>
-                                    <td>00/00/0000</td>
-                                </tr>
+                                @if (Model.Receivables != null && Model.Receivables.Count() > 0)
+                                {
+                                    int i = 1;
+                                    foreach (var itm in Model.Receivables)
+                                    {
+                                        <tr id="tr(@itm.Receivable_Item_Id)">
+                                            <td>
+                                                <span> @itm.Transaction_Type_Name</span>
+                                                <input type="hidden" id="hdnTransaction_Type@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Transaction_Type">
+                                                <input type="hidden" id="hdnReceivable_Item_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Item_Id">
+                                                <input type="hidden" id="hdnReceivable_Id@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Receivable_Id">
+                                            </td>
+                                            <td>
+                                                <span> @itm.Receivable_Item_Amount</span>
+                                                <input type="hidden" id="hdnReceivable_Item_Amount@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Receivable_Item_Amount">
+                                            </td>
+                                            <td>
+                                                <span> @itm.Bank_Name</span>
+                                                <input type="hidden" id="hdnBank_Name@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
+                                            </td>
+                                            <td>
+                                                <span> @itm.IFSC_Code</span>
+                                                <input type="hidden" id="hdnIFSC_Code@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.IFSC_Code">
+                                            </td>
+                                            <td>
+                                                <span> @itm.Cheque_Number</span>
+                                                <input type="hidden" id="hdnCheque_Number@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Cheque_Number">
+                                            </td>
+                                            <td>
+                                                @if (itm.Cheque_Date.ToString() == "1/1/1999 12:00:00 AM")
+                                                {
+                                                    <span> NA </span>
+                                                }
+                                                else
+                                                {
+                                                    <span> @itm.Cheque_Date.ToString("MM/dd/yyyy")</span>
+                                                }
+                                                <input type="hidden" id="hdnCheque_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Cheque_Date.ToString("MM/dd/yyyy")">
+                                            </td>
+                                            <td>
+                                                <span> @itm.NEFT</span>
+                                                <input type="hidden" id="hdnNEFT@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.NEFT">
+                                            </td>
+                                            <td>
+                                                <span> @itm.Credit_Debit_Card</span>
+                                                <input type="hidden" id="hdnCredit_Debit_Card@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Credit_Debit_Card">
+                                            </td>
+                                            <td>
+                                                <span> @itm.Receivable_Date.ToString("MM/dd/yyyy")</span>
+                                                <input type="hidden" id="hdnReceivable_Date@(itm.Receivable_Item_Id)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Receivable_Date.ToString("MM/dd/yyyy")">
+                                            </td>                                  
+                                        </tr>
+                                                i = i + 1;
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>

@@ -82,12 +82,12 @@ function Bind_Dealers_Grid(data)
 
     $('#tblDealerMaster tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck(
-        {
-        radioClass: 'iradio_square-green',
+    //$('.iradio-list').iCheck(
+    //    {
+    //    radioClass: 'iradio_square-green',
 
-        increaseArea: '20%' // optional
-    });
+    //    increaseArea: '20%' // optional
+    //});
 
     if (data.Dealers.length > 0)
     {
@@ -106,19 +106,38 @@ function Bind_Dealers_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event)
-    {
-        if ($(this).prop('checked'))
+    //$('[name="r1"]').on('ifChanged', function (event)
+    //{
+    //    if ($(this).prop('checked'))
 
-        {
-            $("#hdnDealer_Id").val(this.id.replace("r1_", ""));           
+    //    {
+    //        $("#hdnDealer_Id").val(this.id.replace("r1_", ""));           
+
+    //        $("#btnDelete").show();
+
+    //        var check = $('#hdnIs_Brand').val();
+
+    //        if ($('#hdnIs_Brand').val() == "True")
+    //        {
+    //            $("#btnView").show();
+    //        }
+    //        else {
+    //            $("#btnEdit").show();
+
+    //            $("#btnAddUser").show();
+    //        }
+    //    }
+    //});
+
+    $('[name="r1"]').on('change', function (event) {
+        if ($(this).prop('checked')) {
+            $("#hdnDealer_Id").val(this.id.replace("r1_", ""));
 
             $("#btnDelete").show();
 
             var check = $('#hdnIs_Brand').val();
 
-            if ($('#hdnIs_Brand').val() == "True")
-            {
+            if ($('#hdnIs_Brand').val() == "True") {
                 $("#btnView").show();
             }
             else {

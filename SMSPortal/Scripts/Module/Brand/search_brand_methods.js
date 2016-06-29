@@ -85,10 +85,10 @@ function Bind_Brands_Grid(data)
     $('#tblBrandMaster').find("tr:gt(0)").remove();
     $('#tblBrandMaster tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     if (data.Brands.length > 0)
     {

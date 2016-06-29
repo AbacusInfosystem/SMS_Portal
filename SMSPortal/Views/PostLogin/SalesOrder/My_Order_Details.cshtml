@@ -172,118 +172,153 @@
 
     </div>
 </form>*@
+<form id="frmOrderDetails">
+    <input type="hidden" id="hdnOrder_Id" value="@Model.Sales_Order.Order_Id" name="Sales_Order.Order_Id" />
+    <div class="view_invoice_body">
+        <div class="container">
+            <h3 class="view_invoice_body_header">
+                Orders
+                <span> <a href="@Url.Action("My_Orders", "Dealer")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
 
-<div class="view_invoice_body">
-    <div class="container">
-        <h3 class="view_invoice_body_header">
-            Invoice
-            <span> <a href="payables.html"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
-        </h3>
-
-        <section class="invoice" style="border:1px solid #ddd;">
-            <!-- title row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="page-header div-border-bottom">
-                        <i class="fa fa-globe"></i> SMS
-                        <small class="pull-right"><b>Date:</b> 5/19/2016</small>
-                    </h2>
-                </div><!-- /.col -->
-            </div>
-            <!-- info row -->
-            <div class="row invoice-info ">
-                <div class="col-sm-4 invoice-col col-border-right">
-                    <p> From</p>
-                    <address>
-                        Strategic Marketing Services<br>
-                        23,Link Road<br>
-                        Phone : 022 23456733<br>
-                        Email : smsuser2016@gmail.com<br>
-                    </address>
-                </div><!-- /.col -->
-                <div class="col-sm-4 invoice-col col-border-right" style="border-right: 1px ridge; border-left: 1px ridge;">
-                    <p> To</p>
-                    <address>
-                        BMW Andheri<br>
-                        Andheri ,<br />
-                        Mumbai , MAHARASHTRA ,<br />
-                        Pin : 345345 ,<br />
-                        Phone : 0998989954 ,<br />
-                        Email : sanket.mayekar@yahoo.com
-                    </address>
-                </div><!-- /.col -->
-                <div class="col-sm-4 invoice-col">
-                    <p>Invoice No : INV-2</p>
-                    <p>Order No : ORD-1</p>
-                    <p>Order Date : 5/19/2016</p>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-            <h2 class="page-header div-border-bottom"></h2>
-
-            <!-- Table row -->
-            <div class="row">
-                <div class="col-xs-12 table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="10%">Sr.No.</th>
-                                <th width="45%">Product Name</th>
-                                <th width="15%">Quantity</th>
-                                <th width="15%" align="center">Unit Price</th>
-                                <th width="15%" align="center">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Samsung Galaxy </td>
-                                <td>1</td>
-                                <td align="right">2000.00</td>
-                                <td align="right">2000.00</td>
-
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="text-align:right">Total :</td>
-                                <td align="right"> 2000.00</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="text-align:right">VAT(%) :</td>
-                                <td align="right">0.00</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="text-align:right">Service Tax(%) :</td>
-                                <td align="right">0.00</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="text-align:right">Swatch Bharat Tax :</td>
-                                <td align="right">0.00</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="text-align:right">Grand Total :</td>
-                                <td align="right">2000.00</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="text-align:right">Amount To be Paid :</td>
-                                <td align="right">1200.00</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-            <!-- this row will not appear when printing -->
-
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="#" class="btn btn_mer ripple pull-left">Print</a>
-                    <a href="#" class="btn btn_mer ripple pull-right">Send Invoice</a>
+            <section class="invoice" style="border:1px solid #ddd;">
+                <!-- title row -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2 class="page-header div-border-bottom">
+                            <i class="fa fa-globe"></i> SMS
+                            <small class="pull-right"><b>Date:</b> @(string.Format("{0:d}", Model.Sales_Order.Order_Date))</small>
+                        </h2>
+                    </div><!-- /.col -->
                 </div>
-            </div>
+                <!-- info row -->
+                <div class="row invoice-info ">
+                    <div class="col-sm-4 invoice-col col-border-right">
+                        <p> From</p>
+                        <address>
+                            Admin, Inc.<br>
+                            795 Folsom Ave, Suite 600<br>
+                            San Francisco, CA 94107<br>
+                            Phone: (804) 123-5432<br>
+                            Email: info@almasaeedstudio.com
+                        </address>
+                    </div><!-- /.col -->
+                    <div class="col-sm-4 invoice-col col-border-right" style="border-right: 1px ridge; border-left: 1px ridge;">
+                        <p> To</p>
+                        <address>
+                            @Model.Dealer.Dealer_Name<br>
+                            @Model.Dealer.Address ,<br />
+                            @Model.Dealer.City , @Model.Dealer.State_Name ,<br />
+                            Pin : @Model.Dealer.Pincode ,<br />
+                            Phone : @Model.Dealer.Contact_No_1 ,<br />
+                            Email : @Model.Dealer.Email
+                        </address>
+                    </div><!-- /.col -->
+                    <div class="col-sm-4 invoice-col">
+                        <p>Order No : @Model.Sales_Order.Order_No</p>
+                        <p>Order Date : @Model.Sales_Order.Order_Date.ToShortDateString()</p>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <h2 class="page-header div-border-bottom"></h2>
 
-        </section>
+                <!-- Table row -->
+                <div class="row">
+                    <div class="col-xs-12 table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="10%">Sr.No.</th>
+                                    <th width="45%">Product Name</th>
+                                    <th width="15%">Quantity</th>
+                                    <th width="15%" align="center">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int count = 0;
+                                    if (Model.Sales_Order.OrderItems != null)
+                                    {
+                                        foreach (var item in Model.Sales_Order.OrderItems)
+                                        {
+                                            count++;
+                                            <tr>
+                                                <td>@count</td>
+                                                <td>@item.Product_Name</td>
+                                                <td>@item.Product_Quantity</td>
+                                                <td align="right">@item.Product_Price</td>
+
+                                            </tr>
+                                        }
+                                    }
+                                    <tr>
+                                        <td colspan="3" style="text-align:right">Total:</td>
+                                        <td align="right"> @Model.Sales_Order.Gross_Amount</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align:right">VAT(%):</td>
+                                        <td align="right">@Model.Sales_Order.Vat</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align:right">Service Tax(%):</td>
+                                        <td align="right">@Model.Sales_Order.Service_Tax</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align:right">Swatch Bharat Tax:</td>
+                                        <td align="right">@Model.Sales_Order.Swatch_Bharat_Tax</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align:right">Grand Total:</td>
+                                        <td align="right">@Model.Sales_Order.Net_Amount</td>
+                                    </tr>
+                                }
+                            </tbody>
 
 
 
+                        </table>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <!-- this row will not appear when printing -->
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label label_mer">Order Status</label>
+                            <select disabled id="drpOrderStatus" class="form-control form_control_mer" name="Sales_Order.Status_Id">
+                                <option value="0">-Select Transaction Type-</option>
+                                @foreach (var item in LookupInfo.Get_Order_Status())
+                                {
+                                    if (Model.Sales_Order.Status_Id == item.Key)
+                                    {
+                                        <option value="@item.Key" selected="selected">@item.Value</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Key">@item.Value</option>
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">                            
+                            <label class="control-label label_mer">Shipping Date</label>
+                            <div class="input-group">
+                                <input readonly type="text" class="form-control form_control_mer" id="txtRecDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Sales_Order.Shipping_Date" value="@((Model.Sales_Order.Shipping_Date == DateTime.MinValue ? "" : Model.Sales_Order.Shipping_Date.ToString("dd-MM-yyy ")))" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </section>
+
+
+
+        </div>
     </div>
-</div>
-
+</form>

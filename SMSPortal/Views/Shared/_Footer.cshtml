@@ -1,20 +1,48 @@
-﻿<div class="footer">
+﻿@using SMSPortalInfo.Common
+@using SMSPortal.Common
+<div class="footer">
+
+    @{
+            CookiesInfo cookies = new CookiesInfo();
+            cookies = Utility.Get_Login_User("UserInfo", "Token");
+            if (cookies != null)
+            {
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="copyright">
-                    <p>Copyright © 2016 SMSPortal. All rights reserved.</p>
-                </div>
+       
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="copyright">
+                            <p>Copyright © 2016 SMSPortal. All rights reserved.</p>
+                        </div>
 
-                <div class="quick_links">
+                        <div class="quick_links">
 
-                    <ul class="quick_links_ul">
-                        <li><a href="dealers.html">Dealers</a></li>
-                        <li><a href="payables.html">Payables</a></li>
-                        <li><a href="profile.html">Profile</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                            @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
+                            {
+                                <ul class="quick_links_ul">
+                                <li><a href="@Url.Action("Search","Dealer")">Dealers</a></li>
+                                <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>
+                            </ul>
+                            }
+                            @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+                            {
+                                <ul class="quick_links_ul">
+                                <li><a href="@Url.Action("My_Orders", "Dealer")">My Orders</a></li>
+                                <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>
+                                <li><a href="@Url.Action("Index", "Dashboard")">Products</a></li>
+                            </ul>
+                            }
+
+                            
+
+                        </div>
+                    </div>
+                </div>         
     </div>
+            }
+            else
+            {
+                Html.Action("Anauthorize_Token", "Login");
+            }
+    }
 </div>
