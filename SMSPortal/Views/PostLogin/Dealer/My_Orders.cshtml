@@ -2,8 +2,8 @@
 @using SMSPortal.Common;
 @using SMSPortalInfo.Common;
 
-<script src="~/Scripts/Module/SalesOrder/sales_my_order_events.js"></script>
 <script src="~/Scripts/Module/SalesOrder/sales_my_order_methods.js"></script>
+<script src="~/Scripts/Module/SalesOrder/sales_my_order_events.js"></script>
 
 <form id="frmMyOrders" enctype="multipart/form-data">
     <input type="hidden" id="hdnOrder_Id" name="Sales_Order.Order_Id" value="@Model.Sales_Order.Order_Id">
@@ -14,12 +14,19 @@
             <h3 class="myorders_header">My Orders</h3>
 
             <div class="row" style="margin: 20px 0;">
-                <div class="col-md-3">
+                <div class="col-md-1" style="text-align: right;">
                     <div class="form-group">
-                        <label class="control-label label_mer">Order No.</label>
+                        
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group auto-complete">
+                        <label class="control-label label_mer">Order No</label>
                         <div class="input-group">
-                            <input type="text" class="form-control form_control_mer" id="" placeholder="Enter Order No.">
-                            <span class="input-group-addon"> <a href="" data-toggle="modal" data-target="#lookup"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Order_No" id="txtDealerOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-param="hdnDealer_Id" data-field="Dealer_Id" data-table="orders" data-col="Order_Id,Order_No" data-headernames="Orders">
+                            <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                            <input type="hidden" id="hdnOrderId" value="@Model.Filter.Order_Id" name="Filter.Order_Id" class="auto-complete-value" />
+                            <input type="hidden" id="hdnOrderNo" value="@Model.Filter.Order_No" name="Filter.Order_No" class="auto-complete-label" />
                         </div>
                     </div>
                 </div>
@@ -49,7 +56,7 @@
                         <label class="control-label label_mer">Date Range</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar" style="color:#fff;" aria-hidden="true"></i></span>
-                            <input type="text" id="reservation" class="form-control form_control_mer" placeholder="Select Date Range">
+                            <input type="text" id="reservation" class="form-control form_control_mer" placeholder="Select Date Range" value="">
                         </div>
                     </div>
                 </div>
@@ -60,7 +67,7 @@
             <div class="row m0">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <a href="#" class="btn btn_mer ripple">Search</a>
+                        <a id="btnSearch" href="#" class="btn btn_mer ripple">Search</a>
                     </div>
                 </div>
             </div>
