@@ -5,8 +5,12 @@
     if (cart != undefined) {
 
         for (var i = 0; i <= cart.length - 1; i++) {
-
             $("#btnAddToCart_" + cart[i].Product_Id).attr("disabled", "disabled");
+
+            var str = cart[i].Quantity;
+            var quantity = str.substring(str.lastIndexOf("_") + 1, str.length);
+            $("#hdnQuantity_" + cart[i].Product_Id).val(quantity);
+            $("#hdnQuantity_" + cart[i].Product_Id).attr("disabled", "disabled");
         }
         $("#CartItemCount").html(cart.length);
     }
@@ -46,6 +50,9 @@ function AddToCart(obj,Product_Id, bIsCalledByPopup) {
     $.cookie('cart', cart, { expires: 2 });
 
     $("#btnAddToCart_" + Product_Id).attr("disabled", "disabled"); // Disabling product list "Add To Cart" button
+    $("#hdnQuantity_" + Product_Id).val(produc_quantity);
+    $("#hdnQuantity_" + Product_Id).attr("disabled", "disabled");
+
     if (bIsCalledByPopup) {
         $(obj).attr("disabled", "disabled");    // Disabling product details (Popup) "Add To Cart" button
     }    
@@ -55,7 +62,6 @@ function AddToCart(obj,Product_Id, bIsCalledByPopup) {
 function viewMore(productId) {
 
     $("#div_Parent_Modal_Fade").find(".modal-dialog").addClass("modal-lg");
-    
     $('#div_Parent_Modal_Fade').find(".modal-body").load('/Product/GetProductDetails', { Product_Id: productId }, function () {
         $('#div_Parent_Modal_Fade').find(".modal-title").html("Product Details");
         $('#div_Parent_Modal_Fade').modal("show");

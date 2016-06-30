@@ -3,8 +3,14 @@
     var cart = $.cookie('cart');
     if (cart != undefined) {
         for (var i = 0; i < cart.length; i++) {
-            if (parseInt($("#hdnPD_ProductId").val()) == cart[i].Product_Id)
+            if (parseInt($("#hdnPD_ProductId").val()) == cart[i].Product_Id) {
                 $("#btnPD_AddToCart").attr("disabled", "disabled");
+
+                var str = cart[i].Quantity;
+                var quantity = str.substring(str.lastIndexOf("_") + 1, str.length);
+                $(hdnQuantity).val(quantity);
+                $(hdnQuantity).attr("disabled", "disabled");
+            }
         }
     }
 }

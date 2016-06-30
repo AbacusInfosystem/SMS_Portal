@@ -119,19 +119,19 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label class="control-label viewmore_modal_label_1">brand</label>
+                    <label class="control-label viewmore_modal_label_1">Brand</label>
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="form-group">
-                    <label class="control-label viewmore_modal_label_1">@Model.Product.Brand_Name</b></label>
+                    <label class="control-label viewmore_modal_label_2">@Model.Product.Brand_Name</label>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label class="control-label viewmore_modal_label_2">Category</label>
+                    <label class="control-label viewmore_modal_label_1">Category</label>
                 </div>
             </div>
             <div class="col-md-8">
@@ -143,7 +143,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label class="control-label viewmore_modal_label_2">Sub-category</label>
+                    <label class="control-label viewmore_modal_label_1">Sub-category</label>
                 </div>
             </div>
             <div class="col-md-8">
@@ -155,12 +155,12 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label class="control-label viewmore_modal_label_2">Price</label>
+                    <label class="control-label viewmore_modal_label_1">Price</label>
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="form-group">
-                    <label class="control-label viewmore_modal_label_2"><i class="fa fa-inr"></i>@Html.Raw(string.Format("{0:#,#.00}", Model.Product.Product_Price))</label>
+                    <label class="control-label viewmore_modal_label_2">@Html.Raw(string.Format("{0:#,#.00}", Model.Product.Product_Price))<i class="fa fa-inr"></i></label>
                 </div>
             </div>
         </div>
@@ -172,7 +172,7 @@
                     <div class="input-group" style="padding-bottom: 5px;">
                         <span class="input-group-addon input-sm qty" id="qty">Qty.:</span>
                         <input type="text" class="form-control input-sm valtxt qty_text" placeholder="0" style="width:62px" aria-describedby="qty" id="hdnQuantity" value="" />
-                        &nbsp;                     
+                        &nbsp;
                     </div>
                 </div>
             </div>
@@ -181,9 +181,13 @@
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Add to cart
                 </button>
             </div>
-            <div class="col-md-4">
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
                 <button type="button" id="btnPD_Proceed" class="btn btn_mer_2 btn-sm ripple">Proceed</button>
             </div>
+        </div>
     </div>
 </div>
 
@@ -191,13 +195,13 @@
     @foreach (var item in Model.Product.ProductImages)
     {
         string imageFileName = item.Image_Code;
-    <div class="col-md-1">
-        <div class="thumbnail margin">
-            <img src="~/UploadedFiles/@item.Image_Code" class="thumbimage" onclick="changeImage(this);" id="~/UploadedFiles/@item.Image_Code" style="height:30px; width:30px;">
+        <div class="col-md-1">
+            <div class="thumbnail margin">
+                <img src="~/UploadedFiles/@item.Image_Code" class="thumbimage" onclick="changeImage(this);" id="~/UploadedFiles/@item.Image_Code" style="height:30px; width:30px;">
+            </div>
         </div>
-    </div>
     }
- 
+
 </div>
 
 @*</div>
