@@ -50,6 +50,9 @@ function AddToCart(obj,Product_Id, bIsCalledByPopup) {
     $.cookie('cart', cart, { expires: 2 });
 
     $("#btnAddToCart_" + Product_Id).attr("disabled", "disabled"); // Disabling product list "Add To Cart" button
+    $("#hdnQuantity_" + Product_Id).val(produc_quantity);
+    $("#hdnQuantity_" + Product_Id).attr("disabled", "disabled");
+
     if (bIsCalledByPopup) {
         $(obj).attr("disabled", "disabled");    // Disabling product details (Popup) "Add To Cart" button
     }    
