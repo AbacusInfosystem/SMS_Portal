@@ -12,6 +12,7 @@ using SMSPortalManager;
 using SMSPortalHelper.Logging;
 using System.Configuration;
 using SMSPortal.Models.PostLogin;
+using SMSPortalHelper.PageHelper;
 
 namespace SMSPortal.Controllers.PostLogin
 {
@@ -19,9 +20,17 @@ namespace SMSPortal.Controllers.PostLogin
     {
         public DashboardManager _dashboardManager;
 
+        public DealerManager _dealerManager;
+
+        public ReceivableManager _receivableManager;
+
         public DashboardController()
         {
-            _dashboardManager = new DashboardManager();           
+            _dashboardManager = new DashboardManager();
+
+            _dealerManager = new DealerManager();
+
+            _receivableManager = new ReceivableManager();
         }
 
         [AuthorizeUserAttribute(AppFunction.Token)]
@@ -30,6 +39,12 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 dViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                PaginationInfo pager = new PaginationInfo();
+
+                dViewModel.Dealers = _dealerManager.Get_Dealers(ref pager, 0);
+
+                dViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, 0, 0);
 
                 if (dViewModel.Cookies == null)
                 {

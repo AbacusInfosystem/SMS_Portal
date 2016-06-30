@@ -63,7 +63,7 @@
         }
         else if (Model.Cookies.Role_Name == "Dealer")
         {
-            if (Model.Friendly_Message.Count()>0)
+            if (Model.Friendly_Message.Count() > 0)
             {
                 Model.Cookies.Order_Status = "Placed";
             }
@@ -73,246 +73,163 @@
         else if (Model.Cookies.Role_Name == "Brand")
         {
             //Html.RenderAction("Index", "Product");
-            
-        <div class="row">
-            <div class="col-md-7">
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Payables</h3>
-                        <!--<div class="box-tools pull-right">
-                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>-->
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
-                            <table class="table no-margin">
-                                <thead>
-                                    <tr>
-                                        <th>Invoice No</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>INV-2</td>
-                                        <td>1200</td>
-                                        <td>Partially Paid</td>
-                                        <td>
-                                            <a href="dealers_payable_master.html" class="btn btn-sm btn_mer_3">View</a>
-                                            <a href="view_invoice.html" class="btn btn-sm btn_mer_3">Invoice</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-2</td>
-                                        <td>1200</td>
-                                        <td>Partially Paid</td>
-                                        <td>
-                                            <a href="dealers_payable_master.html" class="btn btn-sm btn_mer_3">View</a>
-                                            <a href="view_invoice.html" class="btn btn-sm btn_mer_3">Invoice</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-2</td>
-                                        <td>1200</td>
-                                        <td>Partially Paid</td>
-                                        <td>
-                                            <a href="dealers_payable_master.html" class="btn btn-sm btn_mer_3">View</a>
-                                            <a href="view_invoice.html" class="btn btn-sm btn_mer_3">Invoice</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-2</td>
-                                        <td>1200</td>
-                                        <td>Partially Paid</td>
-                                        <td>
-                                            <a href="dealers_payable_master.html" class="btn btn-sm btn_mer_3">View</a>
-                                            <a href="view_invoice.html" class="btn btn-sm btn_mer_3">Invoice</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-2</td>
-                                        <td>1200</td>
-                                        <td>Partially Paid</td>
-                                        <td>
-                                            <a href="dealers_payable_master.html" class="btn btn-sm btn_mer_3">View</a>
-                                            <a href="view_invoice.html" class="btn btn-sm btn_mer_3">Invoice</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-2</td>
-                                        <td>1200</td>
-                                        <td>Partially Paid</td>
-                                        <td>
-                                            <a href="dealers_payable_master.html" class="btn btn-sm btn_mer_3">View</a>
-                                            <a href="view_invoice.html" class="btn btn-sm btn_mer_3">Invoice</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-2</td>
-                                        <td>1200</td>
-                                        <td>Partially Paid</td>
-                                        <td>
-                                            <a href="dealers_payable_master.html" class="btn btn-sm btn_mer_3">View</a>
-                                            <a href="view_invoice.html" class="btn btn-sm btn_mer_3">Invoice</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div><!-- /.table-responsive -->
-                    </div><!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <a href="javascript::;" class="btn btn-sm btn_mer_3 pull-right">View All Orders</a>
-                    </div><!-- /.box-footer -->
+            <h3 class="dashboard_header">Dashboard</h3>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Dealers</h3>
+                            <!--<div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>-->
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive" style="margin: 70px 0;">
+                                <table class="table no-margin" id="tblDealerMaster" style="margin:60px">
+                                    <thead>
+                                        <tr>
+                                            <th>Dealer Name</th>
+                                            <th>Associated Brand</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Dealers.Count() > 0)
+                                        {
+                                            foreach (var item in Model.Dealers)
+                                            {
+                                                <tr>
+                                                    <td>@item.Dealer_Name</td>
+
+                                                    <td>@item.Brand_Name</td>
+                                                </tr>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="3">No Records Found</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div><!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            <a href="@Url.Action("Search","Dealer")" class="btn btn-sm btn_mer_3 pull-right">View All Dealers</a>
+                        </div><!-- /.box-footer -->
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Payables</h3>
+                            <!--<div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>-->
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive" style="margin: 50px 0;">
+                                <table class="table no-margin" id="tblDealerMaster">
+                                    <thead>
+                                        <tr>
+                                            <th>Invoice No</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Dealers.Count() > 0)
+                                        {
+                                            foreach (var item in Model.Receivables)
+                                            {
+                                                <tr>
+                                                    <td>@item.Invoice_No</td>
+
+                                                    <td>@item.Invoice_Amount</td>
+
+                                                    <td>@item.Status</td>
+                                                </tr>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="3">No Records Found</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div><!-- /.table-responsive -->
+                        </div><!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            <a href="@Url.Action("Searches", "Receivable")" class="btn btn-sm btn_mer_3 pull-right">View All Payables</a>
+                        </div><!-- /.box-footer -->
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-5">
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Payables</h3>
-                        <!--<div class="box-tools pull-right">
-                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>-->
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
-                            <table class="table no-margin">
-                                <thead>
-                                    <tr>
-                                        <th>Dealer Name</th>
-                                        <th>Associated Brand</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>BMW Andheri</td>
-                                        <td>BMW</td>
-                                        <td>Active</td>
-                                        <td>
-                                            <a href="view_dealers.html" class="btn btn-sm btn_mer_3">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>BMW Andheri</td>
-                                        <td>BMW</td>
-                                        <td>Active</td>
-                                        <td>
-                                            <a href="view_dealers.html" class="btn btn-sm btn_mer_3">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>BMW Andheri</td>
-                                        <td>BMW</td>
-                                        <td>Active</td>
-                                        <td>
-                                            <a href="view_dealers.html" class="btn btn-sm btn_mer_3">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>BMW Andheri</td>
-                                        <td>BMW</td>
-                                        <td>Active</td>
-                                        <td>
-                                            <a href="view_dealers.html" class="btn btn-sm btn_mer_3">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>BMW Andheri</td>
-                                        <td>BMW</td>
-                                        <td>Active</td>
-                                        <td>
-                                            <a href="view_dealers.html" class="btn btn-sm btn_mer_3">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>BMW Andheri</td>
-                                        <td>BMW</td>
-                                        <td>Active</td>
-                                        <td>
-                                            <a href="view_dealers.html" class="btn btn-sm btn_mer_3">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>BMW Andheri</td>
-                                        <td>BMW</td>
-                                        <td>Active</td>
-                                        <td>
-                                            <a href="view_dealers.html" class="btn btn-sm btn_mer_3">View</a>
-                                        </td>
-                                    </tr>
+            @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Latest Orders</h3>
+                                <!--<div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>-->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="table-responsive">
+                                    <table class="table no-margin">
+                                        <thead>
+                                            <tr>
+                                                <th>Dealer Name</th>
+                                                <th>Order ID</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Dealer 1</td>
+                                                <td>55458</td>
+                                                <td>00/00/0000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dealer 2</td>
+                                                <td>5588</td>
+                                                <td>00/00/0000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dealer 3</td>
+                                                <td>458</td>
+                                                <td>00/00/0000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dealer 1</td>
+                                                <td>258</td>
+                                                <td>00/00/0000</td>
+                                            </tr>
 
-                                </tbody>
-                            </table>
-                        </div><!-- /.table-responsive -->
-                    </div><!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <a href="javascript::;" class="btn btn-sm btn_mer_3 pull-right">View All Orders</a>
-                    </div><!-- /.box-footer -->
-                </div>
-            </div>
-        </div>
+                                        </tbody>
+                                    </table>
+                                </div><!-- /.table-responsive -->
+                            </div><!-- /.box-body -->
+                            <div class="box-footer clearfix">
+                                <a href="javascript::;" class="btn btn-sm btn_mer_3 pull-left">Place New Order</a>
+                                <a href="javascript::;" class="btn btn-sm btn_mer_3 pull-right">View All Orders</a>
+                            </div><!-- /.box-footer -->
+                        </div>
+                    </div>
 
-        @*<div class="row">
-            <div class="col-md-12">
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Latest Orders</h3>
-                        <!--<div class="box-tools pull-right">
-                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>-->
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
-                            <table class="table no-margin">
-                                <thead>
-                                    <tr>
-                                        <th>Dealer Name</th>
-                                        <th>Order ID</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Dealer 1</td>
-                                        <td>55458</td>
-                                        <td>00/00/0000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dealer 2</td>
-                                        <td>5588</td>
-                                        <td>00/00/0000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dealer 3</td>
-                                        <td>458</td>
-                                        <td>00/00/0000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dealer 1</td>
-                                        <td>258</td>
-                                        <td>00/00/0000</td>
-                                    </tr>
+                </div>*@
 
-                                </tbody>
-                            </table>
-                        </div><!-- /.table-responsive -->
-                    </div><!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <a href="javascript::;" class="btn btn-sm btn_mer_3 pull-left">Place New Order</a>
-                        <a href="javascript::;" class="btn btn-sm btn_mer_3 pull-right">View All Orders</a>
-                    </div><!-- /.box-footer -->
-                </div>
-            </div>
-
-        </div>*@
-            
         }
 
 

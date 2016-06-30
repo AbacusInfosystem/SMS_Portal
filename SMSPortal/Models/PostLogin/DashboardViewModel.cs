@@ -15,10 +15,22 @@ namespace SMSPortal.Models.PostLogin
             Cookies = new CookiesInfo();
 
             Friendly_Message = new List<FriendlyMessage>();
+
+            Dealers = new List<DealerInfo>();
+
+            Pager = new PaginationInfo();
+
+            Receivables = new List<ReceivableInfo>();
         }
 
         public CookiesInfo Cookies { get; set; }
 
         public List<FriendlyMessage> Friendly_Message { get; set; }
+
+        public List<DealerInfo> Dealers { get; set; }
+
+        public PaginationInfo Pager { get; set; }
+
+        public List<ReceivableInfo> Receivables { get; set; }
     }
 }

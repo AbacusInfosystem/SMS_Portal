@@ -49,8 +49,8 @@ namespace SMSPortal.Controllers.PostLogin
             ProductViewModel pViewModel = new ProductViewModel();
 
             try
-            {              
-                if (pViewModel.Friendly_Message.Count() > 0)
+            {
+                if (dViewModel.Friendly_Message.Count() > 0)
                 {
                     pViewModel.Friendly_Message.Add(MessageStore.Get("PO006"));
                 }

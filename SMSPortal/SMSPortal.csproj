@@ -1157,10 +1157,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_Old_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\_Old_Footer.cshtml" />
-    <Content Include="Views\Shared\_Old_Header.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\PostLogin\Accounts\Index.cshtml" />
@@ -1260,13 +1257,11 @@
     <Content Include="Views\PostLogin\SalesOrder\Old_My_Order_Details.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Old_Profile.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Old_Update_Profile.cshtml" />
-    <Content Include="Views\PostLogin\Receivable\Old_Searches.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Old_ViewInvoice.cshtml" />
     <Content Include="Views\PostLogin\Receivable\Old_Dealer_Payables_Detail.cshtml" />
     <Content Include="Views\PostLogin\Brand\Old_Profile.cshtml" />
     <Content Include="Views\PostLogin\Brand\Old_Update_Profile.cshtml" />
     <Content Include="Views\PostLogin\Invoice\Old_View_Brand_Invoice.cshtml" />
-    <Content Include="Views\PostLogin\Dealer\Old_Dealer_Detail.cshtml" />
     <Content Include="Views\PostLogin\Dealer\Old_Search.cshtml">
       <SubType>Code</SubType>
     </Content>

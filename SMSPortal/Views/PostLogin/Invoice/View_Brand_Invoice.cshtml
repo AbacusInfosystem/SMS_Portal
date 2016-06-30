@@ -19,120 +19,119 @@
                 Invoice
                 <span> <a href="@Url.Action("Searches", "Receivable")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
             </h3>
-
-            <section class="invoice" style="border:1px solid #ddd;">
-                <input type="hidden" id="hdf_Invoice_Id" value="@Model.Invoice.Invoice_Id" name="Invoice.Invoice_Id" />
-                <!-- title row -->
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h2 class="page-header div-border-bottom">
-                            <i class="fa fa-globe"></i> SMS
-                            <small class="pull-right"><b>Date:</b> @(string.Format("{0:d}", Model.Invoice.Invoice_Date))</small>
-                        </h2>
-                    </div><!-- /.col -->
-                </div>
-                <!-- info row -->
-                <div class="row invoice-info ">
-                    <div class="col-sm-4 invoice-col col-border-right">
-                        <p> From</p>
-                        <address>
-                            @ConfigurationManager.AppSettings["CompanyName"].ToString()<br>
-                            @ConfigurationManager.AppSettings["CompanyAddress"].ToString()<br>
-                            Phone : @ConfigurationManager.AppSettings["CompanyTelephone"].ToString()<br>
-                            Email : @ConfigurationManager.AppSettings["fromMailAddress"].ToString()<br>
-                        </address>
-                    </div><!-- /.col -->
-                    <div class="col-sm-4 invoice-col col-border-right" style="border-right: 1px ridge; border-left: 1px ridge;">
-                        <p> To</p>
-                        <address>
-                            @Model.Dealer.Dealer_Name<br>
-                            @Model.Dealer.Address ,<br />
-                            @Model.Dealer.City , @Model.Dealer.State_Name ,<br />
-                            Pin : @Model.Dealer.Pincode ,<br />
-                            Phone : @Model.Dealer.Contact_No_1 ,<br />
-                            Email : @Model.Dealer.Email
-                        </address>
-                    </div><!-- /.col -->
-                    <div class="col-sm-4 invoice-col">
-                        <p>Invoice No : @Model.Invoice.Invoice_No</p>
-                        <p>Order No : @Model.Order.Order_No</p>
-                        <p>Order Date : @(string.Format("{0:d}", Model.Order.Order_Date))</p>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-                <h2 class="page-header div-border-bottom"></h2>
-
-                <!-- Table row -->
-                <div class="row">
-                    <div class="col-xs-12 table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th width="10%">Sr.No.</th>
-                                    <th width="45%">Product Name</th>
-                                    <th width="15%">Quantity</th>
-                                    <th width="15%">Unit Price</th>
-                                    <th width="15%" align="center">Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int count = 0;
-                                    if (Model.Order.OrderItems != null)
-                                    {
-                                        foreach (var item in Model.Order.OrderItems)
-                                        {
-                                            count++;
-                                            <tr>
-                                                <td>@count</td>
-                                                <td>@item.Product.Product_Name</td>
-                                                <td>@item.Product_Quantity</td>
-                                                <td>@item.Product.Product_Price</td>
-                                                <td align="right">@item.Product_Price</td>
-
-                                            </tr>
-                                        }
-                                    }
-                                    <tr>
-                                        <td colspan="4" style="text-align: right;">Total:</td>
-                                        <td> @Model.Order.Gross_Amount</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" style="text-align: right;"> VAT(%):</td>
-                                        <td>@Model.Order.Vat</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" style="text-align: right;"> Service Tax(%):</td>
-                                        <td>@Model.Order.Service_Tax</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" style="text-align: right;"> Swatch Bharat Tax:</td>
-                                        <td>@Model.Order.Swatch_Bharat_Tax</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" style="text-align: right;"> Grand Total:</td>
-                                        <td>@Model.Order.Net_Amount</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" style="text-align: right;"> Amount To be Paid:</td>
-                                        <td>@Model.Invoice.Amount</td>
-                                    </tr>
-
-                                }
-                            </tbody>
-                        </table>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-                <!-- this row will not appear when printing -->
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <a class="btn btn_mer ripple pull-left" id="btnPrint">Print</a>
-                        <button type="button" id="btnSendEmail" class="btn btn_mer ripple pull-right">Send Invoice</button>
+            <div id="Div_Print">
+                <section class="invoice" style="border:1px solid #ddd;">
+                    <input type="hidden" id="hdf_Invoice_Id" value="@Model.Invoice.Invoice_Id" name="Invoice.Invoice_Id" />
+                    <!-- title row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="page-header div-border-bottom">
+                                <i class="fa fa-globe"></i> SMS
+                                <small class="pull-right"><b>Date:</b> @(string.Format("{0:d}", Model.Invoice.Invoice_Date))</small>
+                            </h2>
+                        </div><!-- /.col -->
                     </div>
+                    <!-- info row -->
+                    <div class="row invoice-info ">
+                        <div class="col-sm-4 invoice-col col-border-right">
+                            <p> From</p>
+                            <address>
+                                @ConfigurationManager.AppSettings["CompanyName"].ToString()<br>
+                                @ConfigurationManager.AppSettings["CompanyAddress"].ToString()<br>
+                                Phone : @ConfigurationManager.AppSettings["CompanyTelephone"].ToString()<br>
+                                Email : @ConfigurationManager.AppSettings["fromMailAddress"].ToString()<br>
+                            </address>
+                        </div><!-- /.col -->
+                        <div class="col-sm-4 invoice-col col-border-right" style="border-right: 1px ridge; border-left: 1px ridge;">
+                            <p> To</p>
+                            <address>
+                                @Model.Dealer.Dealer_Name<br>
+                                @Model.Dealer.Address ,<br />
+                                @Model.Dealer.City , @Model.Dealer.State_Name ,<br />
+                                Pin : @Model.Dealer.Pincode ,<br />
+                                Phone : @Model.Dealer.Contact_No_1 ,<br />
+                                Email : @Model.Dealer.Email
+                            </address>
+                        </div><!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                            <p>Invoice No : @Model.Invoice.Invoice_No</p>
+                            <p>Order No : @Model.Order.Order_No</p>
+                            <p>Order Date : @(string.Format("{0:d}", Model.Order.Order_Date))</p>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    <h2 class="page-header div-border-bottom"></h2>
+
+                    <!-- Table row -->
+                    <div class="row">
+                        <div class="col-xs-12 table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="10%">Sr.No.</th>
+                                        <th width="45%">Product Name</th>
+                                        <th width="15%">Quantity</th>
+                                        <th width="15%">Unit Price</th>
+                                        <th width="15%" align="center">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int count = 0;
+                                        if (Model.Order.OrderItems != null)
+                                        {
+                                            foreach (var item in Model.Order.OrderItems)
+                                            {
+                                                count++;
+                                                <tr>
+                                                    <td>@count</td>
+                                                    <td>@item.Product.Product_Name</td>
+                                                    <td>@item.Product_Quantity</td>
+                                                    <td>@item.Product.Product_Price</td>
+                                                    <td align="right">@item.Product_Price</td>
+
+                                                </tr>
+                                            }
+                                        }
+                                        <tr>
+                                            <td colspan="4" style="text-align: right;">Total:</td>
+                                            <td> @Model.Order.Gross_Amount</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align: right;"> VAT(%):</td>
+                                            <td>@Model.Order.Vat</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align: right;"> Service Tax(%):</td>
+                                            <td>@Model.Order.Service_Tax</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align: right;"> Swatch Bharat Tax:</td>
+                                            <td>@Model.Order.Swatch_Bharat_Tax</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align: right;"> Grand Total:</td>
+                                            <td>@Model.Order.Net_Amount</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align: right;"> Amount To be Paid:</td>
+                                            <td>@Model.Invoice.Amount</td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    <!-- this row will not appear when printing -->
+
+                    
+                </section>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn_mer ripple pull-left" id="btnPrint">Print</a>
                 </div>
-            </section>
-
-
+            </div>
         </div>
     </div>
 </form>
