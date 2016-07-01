@@ -277,10 +277,10 @@ namespace SMSPortalRepo
             {
                 //orders.Status = "Order Delivered";
             }
-            if (!dr.IsNull("Invoice_Id"))
-                orders.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
-            if (!dr.IsNull("Invoice_No"))
-                orders.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+            //if (!dr.IsNull("Invoice_Id"))
+            //    orders.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+            //if (!dr.IsNull("Invoice_No"))
+            //    orders.Invoice_No = Convert.ToString(dr["Invoice_No"]);
             orders.Created_On = Convert.ToDateTime(dr["Created_On"]);
             orders.Created_By = Convert.ToInt32(dr["Created_By"]);
             orders.Updated_On = Convert.ToDateTime(dr["Updated_On"]);

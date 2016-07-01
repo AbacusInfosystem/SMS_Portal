@@ -68,7 +68,7 @@ function Bind_Receivable_Grid(data)
     {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='3'> No Record found.";
+        htmlText += "<td colspan='4'> No Record found.";
 
         htmlText += "</td>";
 

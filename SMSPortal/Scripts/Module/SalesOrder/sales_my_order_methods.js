@@ -71,7 +71,7 @@ function Bind_Sales_Order_Grid(data) {
     else {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='4'>";
+        htmlText += "<td colspan='5'>";
 
         htmlText += "No record found.";
 

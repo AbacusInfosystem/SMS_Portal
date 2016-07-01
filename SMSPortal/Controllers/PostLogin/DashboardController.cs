@@ -42,9 +42,9 @@ namespace SMSPortal.Controllers.PostLogin
 
                 PaginationInfo pager = new PaginationInfo();
 
-                dViewModel.Dealers = _dealerManager.Get_Dealers(ref pager, 0);
+                dViewModel.Dealers = _dealerManager.Get_Dealers(ref pager, dViewModel.Cookies.Entity_Id);
 
-                dViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, 0, 0);
+                dViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, dViewModel.Cookies.Entity_Id, 2);
 
                 if (dViewModel.Cookies == null)
                 {
