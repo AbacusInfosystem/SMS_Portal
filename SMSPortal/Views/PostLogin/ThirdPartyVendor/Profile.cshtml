@@ -1,0 +1,100 @@
+﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+@using SMSPortalInfo.Common
+
+<script src="~/Scripts/Module/ThirdPartyVendor/vendor_profile_methods.js"></script>
+<script src="~/Scripts/Module/ThirdPartyVendor/vendor_profile_events.js"></script>
+
+<form id="frmVendorProfileMaster">
+
+    <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id" />
+
+    <div class="brand_profile">
+        
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="brand_profile_header">Third Party Vendor Profile</h3>
+
+            <div class="info">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Name :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Vendor_Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Address :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Address</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Email :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Email</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">state :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.stateInfo.State_Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">City :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.City</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Pincode :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Pincode</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Contact No1 :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Contact_No_1</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Contact No2 :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Contact_No_2</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group pull-left">
+                            <button type="button" id="btnEdit" class="btn btn_mer ripple">Edit</button>
+                            <button type="button" id="btnAddBankDetails" class="btn btn_mer ripple" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Bank Details </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</form>

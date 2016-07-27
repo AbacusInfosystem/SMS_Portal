@@ -1,0 +1,52 @@
+﻿@model SMSPortal.Models.PostLogin.DashboardViewModel
+@using SMSPortalInfo.Common
+
+<form id="frmSalesDetails" enctype="multipart/form-data">
+    <div class="row">
+        <div class="box-body">
+            <div class="table-responsive" style="margin: 50px 0;">
+                <table class="table no-margin" id="tblDealerMaster" style="margin:60px">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Product Quantity</th>
+                            <th>product Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Sales_Order.OrderItems.Count() > 0)
+                        {
+                            foreach (var item in Model.Sales_Order.OrderItems)
+                            {
+                                <tr>
+                                    <td>@item.Product_Name</td>
+
+                                    <td>@item.Product_Quantity</td>
+
+                                    <td>@item.Product_Price</td>
+
+                                    <td>
+                                        <button type="button" id="btnOrderDetails" class="btn btn-box-tool btn-tel-edit" onclick="">Update Status</button>
+                                    </td>
+
+                                </tr>
+
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4">No Records Found</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @*<div class="btn-group pull-right">
+                <a href="@Url.Action("Search","Dealer")" class="btn btn_mer ripple btn_mer_3 pull-right">View All Dealers</a>
+            </div> /.box-footer*@
+        </div>
+    </div>
+</form>

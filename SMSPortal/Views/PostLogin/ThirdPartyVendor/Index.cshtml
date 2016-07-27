@@ -1,0 +1,99 @@
+﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+@using SMSPortalInfo.Common
+<script src="~/Scripts/Module/ThirdPartyVendor/Vendor_events.js"></script>
+<script src="~/Scripts/Module/ThirdPartyVendor/vendor_validation.js"></script>
+
+<form id="frmVendorMaster">
+    <div class="master">
+
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="master_header">
+                Third Party Vendor Master
+                <span> <a href="@Url.Action("Search", "ThirdPartyVendor")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label class="control-label label_mer">Vendor Name</label>
+                        <input type="text" class="form-control form_control_mer" name="Vendor.Vendor_Name" id="txtVendor_Name" placeholder="Enter your name" value="@Model.Vendor.Vendor_Name">
+                        <input type="hidden" id="hdnVendorName" value="@Model.Vendor.Vendor_Name">
+                        <input type="hidden" class="form-control input-sm" name="Vendor.Vendor_Id" id="hdf_VendorId" value="@Model.Vendor.Vendor_Id">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Address</label>
+                        @*<input type="text" class="form-control input-sm" name="Vendor.Address" id="txtAddress" placeholder="Address" value="@Model.Vendor.Address" maxlength="50">*@
+                        <textarea class="form-control form_control_mer" name="Vendor.Address" id="txtAddress" maxlength="200">@Model.Vendor.Address</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Email</label>
+                        <input type="text" class="form-control form_control_mer" name="Vendor.Email" id="txtEmail" placeholder="Enter your email here" value="@Model.Vendor.Email" maxlength="40">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">State</label>
+                        <select id="drpState" class="form-control form_control_mer" name="Vendor.State">
+                            <option value="">-Select State-</option>
+                            @foreach (var item in Model.States)
+                            {
+                                if (Model.Vendor.State == item.State_Id)
+                                {
+                                    <option value="@item.State_Id" selected="selected">@item.State_Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.State_Id">@item.State_Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">City</label>
+                        <input type="text" class="form-control form_control_mer" name="Vendor.City" id="txtCity" placeholder="Enter city" value="@Model.Vendor.City" maxlength="15">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Pincode</label>
+                        <input type="text" class="form-control form_control_mer" name="Vendor.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Vendor.Pincode == 0 ? "" : Model.Vendor.Pincode.ToString())" maxlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Contact No 1</label>
+                        <input type="text" class="form-control form_control_mer" name="Vendor.Contact_No_1" id="txtContactNo1" placeholder="Enter your contact" value="@Model.Vendor.Contact_No_1" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Contact No 2</label>
+                        <input type="text" class="form-control form_control_mer" name="Vendor.Contact_No_2" id="txtContactNo2" placeholder="Enter your alternative contact" value="@Model.Vendor.Contact_No_2" maxlength="10">
+                    </div>
+                    <div class="form-group form_control_mer">
+                        @if (Model.Vendor.Is_Active == false)
+                        {
+                            <label class="control-label label_mer">
+                                <input type="checkbox" class="chkstatus" />
+                                &nbsp;&nbsp;&nbsp;&nbsp; Active
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="control-label label_mer">
+                                <input type="checkbox" checked="checked" class="chkstatus" />
+                                &nbsp;&nbsp;&nbsp;&nbsp; Active
+                            </label>
+                        }
+                        <input type="hidden" id="hdnIs_Active" name="Vendor.Is_Active" value="@Model.Vendor.Is_Active.ToString()">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" id="btnSave" class="btn btn_mer ripple">Save</button>
+                        <button type="reset" id="btnReset" class="btn btn_mer ripple">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

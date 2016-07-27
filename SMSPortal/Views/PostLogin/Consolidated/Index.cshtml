@@ -1,0 +1,116 @@
+﻿@model SMSPortal.Models.PostLogin.ConsolidatedOrderViewModel
+@using SMSPortal.Common;
+
+<script src="~/Scripts/Module/ConsolidatedOrder/consolidated_order_events.js"></script>
+
+<form id="frmConsolidatedOrder">
+    <input type="hidden" name="From_Date" value="@Model.From_Date" />
+    <input type="hidden" name="To_Date" value="@Model.To_Date" />
+    <div class="dealer_master">
+
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="dealer_master_header">
+                Consolidated Sales Order
+            </h3>
+
+            <div class="row" style="margin: 20px 0;">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label class="control-label label_mer">Date range from  @Model.Order.From_Date.ToString("dd/MM/yyyy")  to  @Model.Order.To_Date.ToString("dd/MM/yyyy") for Order Nos : @Model.Order_Nos</label>
+                    </div>
+                </div>
+                <div class="table-responsive" style="margin: 50px 0;">
+                    <table class="table table-bordered" id="tblConsolidatedOrders">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Product Name</th>
+                                <th>Total Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ConsolidatedOrders.Count() > 0)
+                            {
+                                int count = 0;
+                                foreach (var item in Model.ConsolidatedOrders)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (item.Is_Po_Generated == true)
+                                            {
+                                                <input type="checkbox" id="@count" checked="checked" class="chkstatus" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" id="@count" class="chkstatus" />
+                                            }
+
+                                            <input type="hidden" id="Status@(count)" name="ConsolidatedOrders[@count].Is_Po_Generated" value="@item.Is_Po_Generated.ToString()">
+
+                                        </td>
+
+                                        <td>
+                                            @item.Product_Name
+                                            <input type="hidden" name="ConsolidatedOrders[@count].Product_Id" value="@item.Product_Id" />
+                                        </td>
+
+                                        <td>
+                                            @item.Product_Quantity
+                                            <input type="hidden" name="ConsolidatedOrders[@count].Product_Quantity" value="@item.Product_Quantity" />
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
+                                
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4">No Records Found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @if (Model.ConsolidatedOrders.Count() > 0)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @*<button type="submit" id="btnSave" class="btn btn_mer ripple" data-toggle="modal" data-target="#myModalCosolidate">Mark As PO Generated</button>*@
+                            <button type="button" id="btnNEFTSave" class="btn btn_mer ripple" data-toggle="modal" data-target="#myModalCosolidate">Mark As PO Generated</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    <div class="modal fade" id="myModalCosolidate" role="dialog" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" id="div_Parent_Modal_Body">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center ">
+                            <h5 class="">Are you sure you want to mark these rocord as po generated ?</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center ">
+                            <button type="button" id="btnYes" class="btn btn-success btn-sm" data-dismiss="modal">Yes </button>
+                            <button type="button" id="btnNo" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+

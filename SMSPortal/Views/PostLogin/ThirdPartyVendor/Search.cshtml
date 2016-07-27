@@ -1,0 +1,86 @@
+﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+@using SMSPortal.Common;
+<script src="~/Scripts/Module/ThirdPartyVendor/search_vendor_methods.js"></script>
+<script src="~/Scripts/Module/ThirdPartyVendor/search_vendor_events.js"></script>
+
+
+<form id="frmVendor">
+
+    <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+    <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id">
+    <input type="hidden" id="hdnEntity_Id" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id">
+
+    <div class="master">
+
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="master_header">
+               Third Party Vendor Master
+            </h3>
+
+            <div class="row" style="margin: 20px 0;">
+                <div class="col-md-6">
+                    <div class="form-group auto-complete">
+                        <label class="control-label label_mer">Vendor Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Module_Name" id="txtVendorName" placeholder="Enter Vendor Name" value="@Model.Filter.Vendor_Name" data-table="ThirdPartyVendor" data-param="hdnEntity_Id" data-col="Third_Party_Vendor_Id,Third_Party_Vendor_Name" data-headernames="Vendor">
+                            <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                            <input type="hidden" id="hdnVendorId" value="@Model.Filter.Vendor_Id" name="Filter.Vendor_Id" class="auto-complete-value" />
+                            <input type="hidden" id="hdnVendor_Name" value="@Model.Filter.Vendor_Name" name="Filter.Vendor_Name" class="auto-complete-label" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br />
+                    <div class="btn-group">                       
+                        <a class="btn btn_mer ripple" style="margin-top: 5px;" id="btnSearch" role="button">Search </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group pull-left">
+
+                        <a class="btn btn_mer ripple" role="button" id="btnCreate" href="@Url.Action("Index", "ThirdPartyVendor")">Create </a>
+                     
+
+                    </div>
+                    <div class="btn-group pull-right">
+
+                        <button type="button" id="btnEdit" style="display:none;" class="btn btn_mer ripple">Edit </button>                        
+                        @*<button type="button" id="btnAddUser" style="display:none;" class="btn btn_mer ripple">Add User</button>*@
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="margin: 50px 0;">
+                <table class="table table-bordered" id="tblVendorMaster">
+                    <thead>
+                        <tr id="subhead">
+                            <th width="5%"></th>
+                            <th width="15%">Vendor Name</th>
+                            <th width="20%">Address</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="pagination no-margin pull-right">
+                        <ul class="pagination"></ul>
+                    </div>
+                    <div id="divSearchGridOverlay" class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+

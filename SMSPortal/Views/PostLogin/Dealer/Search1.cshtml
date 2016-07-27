@@ -1,0 +1,240 @@
+﻿@model SMSPortal.Models.PostLogin.DealerViewModel
+@using SMSPortal.Common;
+
+<script src="~/Scripts/Module/Dealer/search_dealer_events.js"></script>
+<script src="~/Scripts/Module/Dealer/search_dealer_methods.js"></script>
+
+@*<form id="frmDealer">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        @{Html.RenderPartial("_ServerMessage");}
+        <section class="content-header">
+            <h1>
+                Dealer Master
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">Dealer</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+
+        <section class="content">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="box box-primary">
+
+                        <div class="box-body">
+
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnDealer_Id" name="Dealer.Dealer_Id" value="@Model.Dealer.Dealer_Id">
+                            <input type="hidden" id="hdnIs_Brand" name="Dealer.Dealer_Id" value="@Model.Is_Brand">                             
+                            <input type="hidden" id="hdnBrandId" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id"> 
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group auto-complete">
+
+                                        <label for="Dealer" class="lookup-title">Dealers</label>
+
+                                        <div class="input-group">
+
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Dealer_Name" id="txtDealer_Name" placeholder="Enter Dealer Name" value="@Model.Filter.Dealer_Name" data-table="Dealer" data-param="hdnBrandId" data-field="Brand_Id" data-col="Dealer_Id,Dealer_Name" data-headernames="Dealer">
+                                            
+                                            <input type="hidden" id="hdnDealerId" value="@Model.Filter.Dealer_Id" name="Filter.Dealer_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnBrandId" value="@Model.Filter.Brand_Id" name="Filter.Brand_Id" />
+                                            <input type="hidden" id="hdnDealerName" value="@Model.Filter.Dealer_Name" name="Filter.Dealer_Name" class="auto-complete-label" />
+                                            
+                                            <div class="input-group-addon">
+
+                                                <a href="#" class="text-muted" id="hrefDealer" role="button"><i class="fa fa-server"></i></a>
+                                            
+                                            </div>
+
+                                        </div>
+                                    </div>                                    
+                                </div>
+
+                            </div>
+
+                            <div class="box-footer">
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+
+                                        <div class="btn-group pull-left">
+
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddEdit_Dealer", "Dealer")">Create </a>
+                                            
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
+                                        
+                                        </div>
+
+                                        <div class="btn-group pull-right">
+
+                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
+
+                                            <button type="button" id="btnAddUser" style="display:none;" class="btn btn-warning btn-sm">Add User</button>
+
+                                            <button type="button" id="btnView" style="display:none;" class="btn btn-warning btn-sm">View</button>
+
+                                            <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="box box-solid">
+
+                        <div class="box-body table-responsive no-padding">
+
+                            <table class="table table-striped" id="tblDealerMaster">
+
+                                <tr id="subhead">
+
+                                    <th width="5%"></th>
+
+                                    <th width="20%">Dealer Name</th>
+
+                                    <th width="15%">Associated Brand</th>
+
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                        <div class="box-footer clearfix">
+
+                                <div class="pagination pagination-sm no-margin pull-right">
+
+                                    <ul></ul>
+
+                                </div>
+
+                                <div id="divSearchGridOverlay" class="overlay">
+
+                                    <i class="fa fa-refresh fa-spin"></i>
+
+                                </div>
+
+                            </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- /.content-wrapper -->
+
+</form>*@
+
+<form id="frmDealer">
+
+    <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+    <input type="hidden" id="hdnDealer_Id" name="Dealer.Dealer_Id" value="@Model.Dealer.Dealer_Id">
+    <input type="hidden" id="hdnIs_Brand" name="Dealer.Dealer_Id" value="@Model.Is_Brand">
+    <input type="hidden" id="hdnBrandId" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id"> 
+
+    <div class="dealer_master">
+        <div class="container">
+            <h3 class="dealer_master_header">Dealer Master</h3>
+
+            <div class="row" style="margin: 20px 0;">
+                <div class="col-md-6">
+                    <div class="form-group auto-complete">
+                        <label class="control-label label_mer">Dealers</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form_control_mer autocomplete-text" id="txtDealer_Name" name="Filter.Dealer_Name" placeholder="Enter Dealer Name" value="@Model.Filter.Dealer_Name" data-table="Dealer" data-param="hdnBrandId" data-field="Brand_Id" data-col="Dealer_Id,Dealer_Name" data-headernames="Dealer">
+                            <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+
+                            <input type="hidden" id="hdnDealerId" value="@Model.Filter.Dealer_Id" name="Filter.Dealer_Id" class="auto-complete-value" />
+                            <input type="hidden" id="hdnBrandId" value="@Model.Filter.Brand_Id" name="Filter.Brand_Id" />
+                            <input type="hidden" id="hdnDealerName" value="@Model.Filter.Dealer_Name" name="Filter.Dealer_Name" class="auto-complete-label" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group pull-left">
+
+                        <a class="btn btn_mer ripple" style="display:none;" role="button" href="@Url.Action("AddEdit_Dealer", "Dealer")">Create </a>
+
+                        <a class="btn btn_mer ripple" id="btnSearch" role="button">Search</a>
+
+                    </div>
+                    <div class="btn-group pull-right">
+
+                        <button type="button" id="btnEdit" style="display:none;" class="btn btn_mer ripple">Edit</button>
+
+                        <button type="button" id="btnAddUser" style="display:none;" class="btn btn_mer ripple">Add User</button>
+
+                        <button type="button" id="btnView" style="display:none;" class="btn btn_mer ripple">View</button>
+
+                        <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="margin: 50px 0;">
+                <table class="table table-bordered" id="tblDealerMaster">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Dealer Name</th>
+                            <th>Associated Brand</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="box-footer clearfix">
+                    <div class="pagination pagination-sm no-margin pull-right">
+                        <ul></ul>
+                    </div>
+                    <div id="divSearchGridOverlay" class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+
+

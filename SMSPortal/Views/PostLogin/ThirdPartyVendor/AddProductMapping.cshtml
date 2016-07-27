@@ -1,0 +1,55 @@
+﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+@using SMSPortal.Common;
+
+<script src="~/Scripts/Module/ThirdPartyVendor/vendor_mapping_validation.js"></script>
+<script src="~/Scripts/Module/ThirdPartyVendor/vendor_mapping_method.js"></script>
+<script src="~/Scripts/Module/ThirdPartyVendor/vendor_mapping_events.js"></script>
+
+<style type="text/css">
+    .list-container {
+        background-color: #CDEBC4;
+        color: #6D8B64;
+        text-align: center;
+        margin: 0 auto;
+    }
+</style>
+
+<form id="frmAddProductMapping">
+
+    <div class="master">
+
+        <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id">
+        <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+        <input type="hidden" id="hdfProductState" name="Active_Products" value="" />
+
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="master_header">
+                Vendor Product Mapping Master
+                <span> <a href="@Url.Action("Vendor_Mapping", "ThirdPartyVendor")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
+
+            <div class="row">
+                <div class="col-md-12">
+             
+                    <div class="row" id="tblVendorProductMappingMaster">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" id="btnSave" class="btn btn_mer ripple">Save</button>
+                        <button type="reset" id="btnReset" class="btn btn_mer ripple">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+

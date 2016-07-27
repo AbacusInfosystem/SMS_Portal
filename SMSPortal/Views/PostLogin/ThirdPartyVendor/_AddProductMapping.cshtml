@@ -1,0 +1,50 @@
+﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+@using SMSPortal.Common;
+
+<script src="~/Scripts/Module/ThirdPartyVendor/vendormapping_events.js"></script>
+<script src="~/Scripts/Module/ThirdPartyVendor/vendormapping_method.js"></script>
+<!-- Content Wrapper. Contains page content -->
+@*@{Html.RenderPartial("_ServerMessage");}*@
+
+<form id="frmProductMapping" enctype="multipart/form-data">
+    <!-- Main content -->
+ 
+        <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="" />
+        <table class="table table-striped" id="tblProductMapping">
+            @{
+                int count=0;
+                
+            }
+            <tr>
+                @foreach (var item in Model.Products)
+                {
+
+                    <td>
+                        <img width="100" height="100" id="ProductImg1" src="~/UploadedFiles/@item.Product_Image" />
+
+                        <input type="hidden" name="Products.Product_id" id="hd_Productid1" value="@item.Product_Id">
+
+                        <br />
+                        @item.Product_Name
+                    </td>
+                    count++;
+                    if (count >= 4)
+                    { 
+                        count = 0;
+                        @:</tr>
+                        @:<tr>
+                    }       
+                }
+            </tr>
+        </table>    
+    <div class="box-footer clearfix">
+        <div class="pagination pagination-sm no-margin pull-right">
+            <ul></ul>
+        </div>
+        <div id="divSearchGridOverlay" class="overlay">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+    </div>
+
+
+</form>

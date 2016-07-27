@@ -1,0 +1,304 @@
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel
+
+<script src="~/Scripts/Module/Product/ProductDetails/product-details-methods.js"></script>
+<script src="~/Scripts/Module/Product/ProductDetails/product-details-events.js"></script>
+
+<style>
+    a.morelink {
+        text-decoration: none;
+        outline: none;
+    }
+
+    .morecontent span {
+        display: none;
+    }
+
+    #panel {
+        cursor: crosshair;
+    }
+
+</style>
+
+<script>
+    $(document).ready(function () {
+        var showChar = 100;
+        var ellipsestext = "...";
+        var moretext = "more";
+        var lesstext = "less";
+        $('.more').each(function () {
+            var content = $(this).html();
+
+            if (content.length > showChar) {
+
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar - 1, content.length - showChar);
+
+                var html = c + '<span class="moreelipses">' + ellipsestext + '</span>&nbsp;<span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink" style="color: #05b1f5;">' + moretext + '</a></span>';
+
+                $(this).html(html);
+            }
+
+        });
+
+        $(".morelink").click(function () {
+            if ($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+            }
+            $(this).parent().prev().toggle();
+            $(this).prev().toggle();
+            return false;
+        });
+
+    });
+</script>
+
+<script>
+
+    // variables
+    var canvas, ctx;
+    var image;
+    var iMouseX, iMouseY = 1;
+    var bMouseDown = false;
+    var iZoomRadius = 120;
+    var iZoomPower = 2;
+
+    // drawing functions
+    function clear() { // clear canvas function
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    }
+
+    function drawScene() { // main drawScene function
+        clear(); // clear canvas
+
+        if (bMouseDown) { // drawing zoom area
+            ctx.drawImage(image, 0 - iMouseX * (iZoomPower - 1), 0 - iMouseY * (iZoomPower - 1), ctx.canvas.width * iZoomPower, ctx.canvas.height * iZoomPower);
+            ctx.globalCompositeOperation = 'destination-atop';
+
+            var oGrd = ctx.createRadialGradient(iMouseX, iMouseY, 0, iMouseX, iMouseY, iZoomRadius);
+            oGrd.addColorStop(0.8, "rgba(0, 0, 0, 1.0)");
+            oGrd.addColorStop(1.0, "rgba(0, 0, 0, 0.1)");
+            ctx.fillStyle = oGrd;
+            ctx.beginPath();
+            ctx.arc(iMouseX, iMouseY, iZoomRadius, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // draw source image
+        ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+    }
+
+</script>
+
+<form id="frmProductDetails">
+    <div class="master">
+
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="master_header">
+                Product Details
+                <span> <a href="@Url.Action("Index", "Dashboard")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
+            <div class="col-md-12">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn_mer_2" id="btnViewCart">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Cart
+                        <span id="CartItemCount" class="badge"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+
+                    <input type="hidden" id="hdnPD_ProductId" value="@Model.Product.Product_Id" />
+                    <input type="hidden" id="hdnPD_ProductName" value="@Model.Product.Product_Name" />
+                    <input type="hidden" id="hdnProductIds" name="ProductIds" />
+                    <input type="hidden" id="hdnProductQuantities" name="ProductQuantities" />
+
+                    <div class="row">
+                        @*<div class="col-md-6">
+                            <div class="thumbnail margin fullsizeimage" style="height: 500px;">
+                                <img id="imgCurrentProductImage" onmouseover="bigImg(this)" onmouseout="normalImg(this)" src="~/UploadedFiles/@Model.Product.Product_Image" style="max-height: 500px; max-width: 500px; margin-left: auto; margin-right: auto; display: block;">
+                            </div>
+                        </div>*@
+                        <div class="col-md-6">
+
+                            <canvas id="panel" width="500" height="350"></canvas>
+
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="master_header">@Model.Product.Product_Name</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label label_mer">Brand</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label label_mer">@Model.Product.Brand_Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label label_mer">Category</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label label_mer">@Model.Product.Category_Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label label_mer">Sub-category</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label label_mer">@Model.Product.SubCategory_Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label label_mer">Price</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label label_mer"> <i class="fa fa-inr"></i> @Html.Raw(string.Format("{0:#,#.00}", Model.Product.Product_Price))</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="input-group" style="padding-bottom: 5px;">
+                                            <span class="input-group-addon input-sm qty" id="qty">Qty.:</span>
+                                            <input type="text" class="form-control form_control_mer valtxt qty_text_2" placeholder="0" style="width:62px" aria-describedby="qty" id="hdnQuantity" value="" />
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" id="btnPD_AddToCart" class="btn btn_mer_2 btn-sm ripple" onclick="AddToCart(this, @Model.Product.Product_Id, true);">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Add to cart
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" id="btnPD_Proceed" class="btn btn_mer_2 btn-sm ripple">Proceed</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        @foreach (var item in Model.Product.ProductImages)
+                        {
+                            string imageFileName = item.Image_Code;
+                        <div class="col-md-1">
+                            <div class="thumbnail margin">
+                                <img src="~/UploadedFiles/@item.Image_Code" class="thumbimage" onclick="changeImage(this);" id="~/UploadedFiles/@item.Image_Code" style="height:30px; width:30px;">
+                            </div>
+                        </div>
+                        }   
+                        <input type="hidden" id="hdn_ProductImage" value="@Model.Product.ProductImages[0].Image_Code" />                     
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Product Description</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label label_mer_2 comment more">
+                                    @Model.Product.Product_Description
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Product Specification</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label label_mer_2 comment more">
+                                   @Model.Product.Product_Specification
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Product Maintance</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label label_mer_2 comment more">
+                                   @Model.Product.Product_Maintance
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" id="btnSave" class="btn btn_mer ripple">Save</button>
+                        <button type="reset" id="btnReset" class="btn btn_mer ripple">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+

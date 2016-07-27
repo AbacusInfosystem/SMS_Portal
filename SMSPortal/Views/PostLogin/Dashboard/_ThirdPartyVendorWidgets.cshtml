@@ -1,0 +1,72 @@
+﻿@model SMSPortal.Models.PostLogin.DashboardViewModel
+@using SMSPortalInfo.Common
+
+<script src="~/Scripts/Module/Dashboard/vendor_dashboard_methods.js"></script>
+
+<form id="frmMy_Activity_Dashboard">
+    @{Html.RenderPartial("_ServerMessage");}
+    <h3 class="master_header">
+        Dashboard
+    </h3>
+
+
+    <div class="row">
+
+
+        <div class="col-md-12">
+            <div class="box-header with-border">
+                <h3 class="box-title">Purchase Orders</h3>
+                <!--<div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>-->
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="table-responsive" style="margin: 50px 0;">
+                    <table class="table no-margin" id="tblDealerMaster">
+                        <thead>
+                            <tr>
+                                <th>Purchase Order No</th>
+                                <th>Purchase Order Date</th>
+                                <th>Amount</th>
+                                <th>Vendor Name</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.PurchaseOrders.Count() > 0)
+                            {
+                                foreach (var item in Model.PurchaseOrders)
+                                {
+                                    <tr>
+                                        <td>@item.Purchase_Order_No</td>
+
+                                        <td>@item.Created_On.ToShortDateString()</td>
+
+                                        <td>@item.Gross_Amount</td>
+
+                                        <td>@item.Vendor_Name</td>
+
+                                        <td>@item.Status</td>
+
+                                    </tr>
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5"><center>No Records Found</center></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.table-responsive -->
+                <div class="btn-group pull-right">
+                    <a href="@Url.Action("Search","purchaseOrder")" class="btn btn-sm btn_mer_3 pull-right">View All Orders</a>
+                </div><!-- /.box-footer -->
+            </div><!-- /.box-body -->
+        </div>
+    </div>
+
+</form>
