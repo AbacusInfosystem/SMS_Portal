@@ -18,6 +18,10 @@ body a, button{
     margin: 0;
 }
 
+.fa{
+    /*color: #fff !important;*/
+}
+
 .text_center{
     text-align: center;
 }
@@ -234,11 +238,18 @@ body a, button{
     box-shadow: 0px 0px 10px 5px rgba(255,255,255,1);
 }
 
-.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group > .btn, .input-group-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child), .input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+.input-group-addon{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     border-radius: 0 !important;
     background: #000 !important;
+}
+
+.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group > .btn, .input-group-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child), .input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-radius: 0;
+    background: #000;
 }
 
 .footer{
@@ -304,14 +315,6 @@ body a, button{
     background: #000;
     color: #fff;
 }
-
-.form_control_mer[disabled],
-.form_control_mer[readonly],
-fieldset[disabled] .form_control_mer {
-  background-color: #000;
-  opacity: 1;
-}
-
 .label_mer{
     font-weight: 100;
     text-transform: uppercase;
@@ -319,9 +322,35 @@ fieldset[disabled] .form_control_mer {
     font-size: 15px;
 }
 
+.label_mer_2{
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 2px;
+    word-spacing: 3px;
+    border-bottom: 1px ridge;
+    padding: 0 6px;
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+.master{
+    margin: 10px 0 0 0;
+    /*height: 620px;*/
+}
+
 .dealer_master{
     margin: 10px 0 0 0;
-    height: 520px;
+    /*height: 520px;*/
+}
+
+.master_header{
+    color: #fff;
+    font-weight: 200;
+    text-transform: uppercase;
+    word-spacing: 10px;
+    letter-spacing: 3px;
+    border-bottom: 1px solid #999;
+    padding: 0 0 5px 0;
 }
 
 .dealer_master_header{
@@ -398,6 +427,17 @@ fieldset[disabled] .form_control_mer {
 .dealer_master_header a{
     color: #fff;
     text-decoration: none;
+}
+
+.master_header a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.master_header span{
+    float: right;
+    font-size: 15px;
+    padding: 8px 0 0 0;
 }
 
 .dealer_master_header span{
@@ -554,7 +594,7 @@ font-size: 18px;
 }
 
 .products{
-    margin: 0px 0 0 0;
+    margin: 35px 0 0 0;
 }
 
 .products_header{
@@ -580,6 +620,12 @@ font-size: 18px;
     -webkit-box-shadow: 0px 0px 12px 2px rgba(0,0,0,1);
     -moz-box-shadow: 0px 0px 12px 2px rgba(0,0,0,1);
     box-shadow: 0px 0px 12px 2px rgba(0,0,0,1);
+}
+
+.qty_text_2:focus{
+    -webkit-box-shadow: 0px 0px 12px 2px rgba(255,255,255,1);
+    -moz-box-shadow: 0px 0px 12px 2px rgba(255,255,255,1);
+    box-shadow: 0px 0px 12px 2px rgba(255,255,255,1);
 }
 
 .panel-heading {
@@ -775,6 +821,19 @@ a.list-group-item:hover, button.list-group-item:hover, a.list-group-item:focus, 
 
 }
 
+.no_access p{
+    color: #fff;
+    font-size: 35px;
+    font-weight: 100;
+    word-spacing: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 60px 0;
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(255,255,255,1);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(255,255,255,1);
+    box-shadow: 0px 0px 8px 1px rgba(255,255,255,1);
+}
+
 @media (max-width: 735px){
     .star {
         width: 50px;
@@ -890,49 +949,3 @@ a.list-group-item:hover, button.list-group-item:hover, a.list-group-item:focus, 
         font-size: 18px;
     }
 }
-
-.view_dealers_header{
-    color: #fff;
-    font-weight: 200;
-    text-transform: uppercase;
-    word-spacing: 10px;
-    letter-spacing: 3px;
-    border-bottom: 1px solid #999;
-    padding: 0 0 5px 0;
-}
-
-.view_dealers_header a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.view_dealers_body h5 {
-    color: #fff;
-    text-transform: uppercase;
-    word-spacing: 5px;
-    letter-spacing: 2px;
-    font-weight: 200;
-    font-size: 17px;
-}
-
-.view_dealers_body h3 {
-    color: #fff;
-    font-weight: 200;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    font-size: 30px;
-    margin-top: 0;
-}
-
-.view_dealers_header span {
-    float: right;
-    font-size: 15px;
-    padding: 8px 0 0 0;
-}
-
-.view_dealers {
-    margin: 35px 0 0 0;
-    /* height: 520px; */
-    padding-bottom: 100px;
-}
-

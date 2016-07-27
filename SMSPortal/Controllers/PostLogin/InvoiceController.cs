@@ -18,11 +18,13 @@ namespace SMSPortal.Controllers.PostLogin
         public InvoiceManager _invoiceManager;         
         public OrdersManager _ordersManager;
         public UserManager _userManager;
+        public VendorManager _vManager;
 
         public InvoiceController()
         {
             _invoiceManager = new InvoiceManager();            
             _ordersManager = new OrdersManager();
+            _vManager = new VendorManager();
         }
 
         // GET: /Invoice/
@@ -72,20 +74,112 @@ namespace SMSPortal.Controllers.PostLogin
                 }
 
                 iViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                iViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(iViewModel.Invoice.Invoice_Id);
-                iViewModel.Order = _invoiceManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
-                if (iViewModel.Order.Order_Id != 0)
+
+                if (iViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
                 {
-                    iViewModel.Order.OrderItems = _invoiceManager.Get_Order_Items_By_Order_Id(iViewModel.Order.Order_Id);
-                    if (iViewModel.Order.OrderItems != null)
+                    iViewModel.Invoice = _invoiceManager.Get_Vendor_Invoice_By_Id(iViewModel.Invoice.Invoice_Id, iViewModel.Cookies.Entity_Id);
+                    iViewModel.Order = _ordersManager.Get_Vendor_Order_Data_By_Id(iViewModel.Invoice.Order_Id);
+                    if (iViewModel.Order.Order_Id != 0)
                     {
-                        foreach (var item in iViewModel.Order.OrderItems)
+                        iViewModel.Order.OrderItems = _ordersManager.Get_Vendor_Orders_Item_By_Id(iViewModel.Order.Vendor_Order_Id);
+                        if (iViewModel.Order.OrderItems != null)
                         {
-                            item.Product = _invoiceManager.Get_Product_By_Id(item.Product_Id);
+                            foreach (var item in iViewModel.Order.OrderItems)
+                            {
+                                item.Product = _invoiceManager.Get_Product_By_Id(item.Order_Item_Id);
+                                iViewModel.Tax = _invoiceManager.Get_Tax_By_Product_By_Id(item.Order_Item_Id);
+                                iViewModel.Txes.Add(iViewModel.Tax);
+                                //iViewModel.Txes.Distinct();
+                            }
                         }
                     }
+                    iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+                    iViewModel.Vendor = _vManager.Get_Vendor_By_Id(iViewModel.Order.Vendor_Id);
                 }
-                iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+                else
+                {
+                    iViewModel.Invoice = _invoiceManager.Get_Dealer_Invoice_By_Id(iViewModel.Invoice.Invoice_Id, iViewModel.Cookies.Entity_Id);
+                    iViewModel.Order = _ordersManager.Get_Vendor_Order_Data_By_Id(iViewModel.Invoice.Order_Id);
+                    if (iViewModel.Order.Order_Id != 0)
+                    {
+                        iViewModel.Order.OrderItems = _ordersManager.Get_Vendor_Orders_Item_By_Id(iViewModel.Order.Vendor_Order_Id);
+                        if (iViewModel.Order.OrderItems != null)
+                        {
+                            foreach (var item in iViewModel.Order.OrderItems)
+                            {
+                                item.Product = _invoiceManager.Get_Product_By_Id(item.Order_Item_Id);
+                                iViewModel.Tax = _invoiceManager.Get_Tax_By_Product_By_Id(item.Order_Item_Id);
+                                iViewModel.Txes.Add(iViewModel.Tax);
+                                //iViewModel.Txes.Distinct();
+                            }
+                        }
+                    }
+                    iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+                    iViewModel.Vendor = _vManager.Get_Vendor_By_Id(iViewModel.Order.Vendor_Id);
+                }
+
+                if (iViewModel.Txes.Count()>0)
+                {
+                    if (iViewModel.Dealer.State_Name == "MAHARASHTRA")
+                    {
+                        var uniquePeople = from p in iViewModel.Txes
+                                           group p by new { p.Local_Tax } //or group by new {p.ID, p.Name, p.Whatever}
+                                               into mygroup
+                                               select mygroup.FirstOrDefault();
+
+                        iViewModel.Txes = uniquePeople.ToList();
+                    }
+                    else
+                    {
+                        var uniquePeople = from p in iViewModel.Txes
+                                           group p by new { p.Export_Tax } //or group by new {p.ID, p.Name, p.Whatever}
+                                               into mygroup
+                                               select mygroup.FirstOrDefault();
+
+                        iViewModel.Txes = uniquePeople.ToList();
+                    }
+                }
+               
+                
+                //if (iViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                //{
+                //    iViewModel.Invoice = _invoiceManager.Get_Vendor_Invoice_By_Id(iViewModel.Invoice.Invoice_Id, iViewModel.Cookies.Entity_Id);
+                //    iViewModel.Order = _ordersManager.Get_Vendor_Order_Data_By_Id(iViewModel.Invoice.Order_Id);
+                //    if (iViewModel.Order.Order_Id != 0)
+                //    {
+                //        iViewModel.Order.OrderItems = _ordersManager.Get_Vendor_Orders_Item_By_Id(iViewModel.Order.Vendor_Order_Id);
+                //        if (iViewModel.Order.OrderItems != null)
+                //        {
+                //            foreach (var item in iViewModel.Order.OrderItems)
+                //            {
+                //                item.Product = _invoiceManager.Get_Product_By_Id(item.Order_Item_Id);
+                //                iViewModel.Txes = _invoiceManager.Get_Tax_By_Product_By_Id(item.Order_Item_Id);
+                //            }
+                //        }
+                //    }
+                //    iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+                //}
+                //else
+                //{
+                //    iViewModel.Invoice = _invoiceManager.Get_Dealer_Invoice_By_Id(iViewModel.Invoice.Invoice_Id, iViewModel.Cookies.Entity_Id);
+                //    iViewModel.Order = _invoiceManager.Get_Orders_By_Id(iViewModel.Invoice.Order_Id);
+                //    if (iViewModel.Order.Order_Id != 0)
+                //    {
+                //        iViewModel.Order.OrderItems = _invoiceManager.Get_Order_Items_By_Order_Id(iViewModel.Order.Order_Id);
+                //        if (iViewModel.Order.OrderItems != null)
+                //        {
+                //            foreach (var item in iViewModel.Order.OrderItems)
+                //            {
+                //                item.Product = _invoiceManager.Get_Product_By_Id(item.Product_Id);
+                //                iViewModel.Txes = _invoiceManager.Get_Tax_By_Product_By_Id(item.Order_Item_Id);
+                //            }
+                //        }
+                //    }
+                //    iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
+                //}
+
+
+                
             }
             catch (Exception ex)
             {
@@ -93,14 +187,16 @@ namespace SMSPortal.Controllers.PostLogin
                 Logger.Error("InvoiceController Get_Invoice_By_Id " + ex);
             }
 
-            if (iViewModel.Cookies.Role_Id == (int)Roles.Brand)
-            {
-                return View("View_Brand_Invoice", iViewModel);
-            }
-            else
-            {
-                return View("ViewInvoice", iViewModel);
-            }
+            //if (iViewModel.Cookies.Role_Id == (int)Roles.Brand)
+            //{
+            //    return View("View_Brand_Invoice", iViewModel);
+            //}
+            //else
+            //{
+            //    return View("ViewInvoice", iViewModel);
+            //}
+
+            return View("ViewInvoice", iViewModel);
         }
 
         public JsonResult Get_Invoices(InvoiceViewModel iViewModel)
@@ -108,17 +204,37 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo pager = new PaginationInfo();
             try
             {
-                pager = iViewModel.Pager;
-                if (iViewModel.Filter.Invoice_Id != 0)
+                iViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (iViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
                 {
-                    iViewModel.Invoices = _invoiceManager.Get_Invoices_By_Id(iViewModel.Filter.Invoice_Id, ref pager);
+                    pager = iViewModel.Pager;
+                    if (iViewModel.Filter.Invoice_Id != 0)
+                    {
+                        iViewModel.Invoices = _invoiceManager.Get_Vendor_Invoices_By_Id(iViewModel.Filter.Invoice_Id,iViewModel.Cookies.Entity_Id, ref pager);
+                    }
+                    else
+                    {
+                        iViewModel.Invoices = _invoiceManager.Get_Vendor_Invoices(ref pager, iViewModel.Cookies.Entity_Id);
+                    }
+                    iViewModel.Pager = pager;
+                    iViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", iViewModel.Pager.TotalRecords, iViewModel.Pager.CurrentPage + 1, iViewModel.Pager.PageSize, 10, true);
                 }
                 else
                 {
-                    iViewModel.Invoices = _invoiceManager.Get_Invoices(ref pager);
+                    pager = iViewModel.Pager;
+                    if (iViewModel.Filter.Invoice_Id != 0)
+                    {
+                        iViewModel.Invoices = _invoiceManager.Get_Invoices_By_Id(iViewModel.Filter.Invoice_Id, ref pager);
+                    }
+                    else
+                    {
+                        iViewModel.Invoices = _invoiceManager.Get_Invoices(ref pager);
+                    }
+                    iViewModel.Pager = pager;
+                    iViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", iViewModel.Pager.TotalRecords, iViewModel.Pager.CurrentPage + 1, iViewModel.Pager.PageSize, 10, true);
                 }
-                iViewModel.Pager = pager;
-                iViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", iViewModel.Pager.TotalRecords, iViewModel.Pager.CurrentPage + 1, iViewModel.Pager.PageSize, 10, true);
+               
             }
             catch (Exception ex)
             {
@@ -135,11 +251,12 @@ namespace SMSPortal.Controllers.PostLogin
 
         public JsonResult Get_Invoice_Autocomplete(string Invoice_No)
         {
-            
+            InvoiceViewModel iViewModel = new InvoiceViewModel();
            List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
             try
             {
-                autoList = _invoiceManager.Get_Invoice_Autocomplete(Invoice_No);
+                iViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+                autoList = _invoiceManager.Get_Invoice_Autocomplete(Invoice_No, iViewModel.Cookies.Role_Id, iViewModel.Cookies.Entity_Id);
             }
             catch (Exception ex)
             {

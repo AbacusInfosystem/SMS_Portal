@@ -10,11 +10,17 @@ namespace SMSPortalInfo
     {
         public int Order_Id { get; set; }
 
+        public int Vendor_Order_Id { get; set; }
+
         public string Order_No { get; set; }
 
         public int Dealer_Id { get; set; }
 
         public string Dealer_Name { get; set; }
+
+        public int Vendor_Id { get; set; }
+
+        public string Vendor_Name { get; set; }
 
         public DateTime Order_Date { get; set; }
 
@@ -78,6 +84,18 @@ namespace SMSPortalInfo
         public int Updated_By { get; set; }
 
         public ProductInfo Product { get; set; }
+
+        public int Order_Vendor_Id { get; set; }
+
+        public int Vendor_Id { get; set; }
+
+        public decimal Product_NetPrice { get; set; }
+
+        public decimal Product_GrossPrice { get; set; }
+
+        public decimal Local_Tax { get; set; }
+
+        public decimal Export_Tax { get; set; }
 
     }
 

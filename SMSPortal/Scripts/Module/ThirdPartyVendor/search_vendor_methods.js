@@ -13,7 +13,7 @@
 
     $('#divSearchGridOverlay').show();
 
-    CallAjax("/Vendor/Get_Vendors/", "json", JSON.stringify(vendorViewModel), "POST", "application/json", false, Bind_Vendors_Grid, "", null);
+    CallAjax("/ThirdPartyVendor/Get_Vendors/", "json", JSON.stringify(vendorViewModel), "POST", "application/json", false, Bind_Vendors_Grid, "", null);
 }
 
 function Bind_Vendors_Grid(data) {
@@ -55,7 +55,7 @@ function Bind_Vendors_Grid(data) {
     else {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='3'> No Record found.";
+        htmlText += "<td colspan='4'> No Record found.";
 
         htmlText += "</td>";
 
@@ -65,10 +65,10 @@ function Bind_Vendors_Grid(data) {
     $('#tblVendorMaster').find("tr:gt(0)").remove();
     $('#tblVendorMaster tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     if (data.Vendors.length > 0) {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);
@@ -82,13 +82,13 @@ function Bind_Vendors_Grid(data) {
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event) {
+    $('[name="r1"]').on('change', function (event) {
         if ($(this).prop('checked')) {
             $("#hdnVendor_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnAddProductMapping").show();
             $("#btnDelete").show();
-            $("#btnAddUser").show();
+            //$("#btnAddUser").show();
         }
     });
 

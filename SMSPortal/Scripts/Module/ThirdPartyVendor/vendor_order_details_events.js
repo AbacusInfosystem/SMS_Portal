@@ -2,7 +2,7 @@
 
     $(".fa-chevron-left").click(function () {
 
-        $("#frmOrderDetails").attr("action", "/Vendor/SearchOrders/");
+        $("#frmOrderDetails").attr("action", "/ThirdPartyVendor/SearchOrders/");
 
         $("#frmOrderDetails").attr("method", "POST");
 

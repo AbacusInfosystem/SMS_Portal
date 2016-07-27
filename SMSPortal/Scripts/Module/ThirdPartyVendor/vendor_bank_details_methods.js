@@ -111,13 +111,12 @@ function EditBankDetailsData(rowId) {
     var strStatus = $("#hdnstatus" + rowId).val();
 
     if (strStatus == "true") {
-
-        $("#chkStatus").iCheck('check');
+        $("#chkStatus").prop("checked", true);
         $("#hdnIsActive").val(true);
     }
     else
     {
-        $("#chkStatus").iCheck('uncheck');
+        $("#chkStatus").prop("checked", false);
         $("#hdnIsActive").val(false);
     }
 

@@ -69,10 +69,10 @@ function Bind_Invoices_Grid(data)
     $('#tblInvoices').find("tr:gt(0)").remove();
     $('#tblInvoices tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     if (data.Invoices.length > 0)
     {
@@ -89,9 +89,9 @@ function Bind_Invoices_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event) {
-        if ($(this).prop('checked'))
-        {
+
+    $('[name="r1"]').on('change', function (event) {
+        if ($(this).prop('checked')) {
             $("#hdnInvoice_Id").val(this.id.replace("r1_", ""));
             $("#btnDetails").show();
         }

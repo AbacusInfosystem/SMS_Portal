@@ -83,15 +83,14 @@
 
     });
 
-    $('[name="productimage"]').on('ifChanged', function () {
-        if ($(this).prop('checked'))
-        {
+    $('[name="productimage"]').on('change', function (event) {
+        if ($(this).prop('checked')) {
             var Product_Id = $('#hdProduct_Id').val();
             var product_image_id = this.id.replace("r1_", "");
             var param = { Product_Image_Id: product_image_id, Product_Id: Product_Id }
 
             if (product_image_id != 'rdefault') {
-                 
+
                 $.ajax({
                     url: '/product/set-default-image',
                     type: "Post",
@@ -103,7 +102,7 @@
                     error: function (err) {
 
                         alert(err.statusText);
-                        
+
                     }
                 });
             }

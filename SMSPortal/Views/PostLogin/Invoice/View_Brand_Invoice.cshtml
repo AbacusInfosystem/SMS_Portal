@@ -17,7 +17,7 @@
         <div class="container">
             <h3 class="view_invoice_body_header">
                 Invoice
-                <span> <a href="@Url.Action("Searches", "Receivable")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+                <span> <a href="@Url.Action("Search", "Invoice")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
             </h3>
             <div id="Div_Print">
                 <section class="invoice" style="border:1px solid #ddd;">
@@ -70,8 +70,8 @@
                                         <th width="10%">Sr.No.</th>
                                         <th width="45%">Product Name</th>
                                         <th width="15%">Quantity</th>
-                                        <th width="15%">Unit Price</th>
-                                        <th width="15%" align="center">Price</th>
+                                        <th width="15%" style="text-align: right;">Unit Price</th>
+                                        <th width="15%" style="text-align: right;">Price</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,35 +86,35 @@
                                                     <td>@count</td>
                                                     <td>@item.Product.Product_Name</td>
                                                     <td>@item.Product_Quantity</td>
-                                                    <td>@item.Product.Product_Price</td>
-                                                    <td align="right">@item.Product_Price</td>
+                                                    <td style="text-align: right;">@item.Product.Product_Price</td>
+                                                    <td style="text-align: right;">@item.Product_Price</td>
 
                                                 </tr>
                                             }
                                         }
                                         <tr>
                                             <td colspan="4" style="text-align: right;">Total:</td>
-                                            <td> @Model.Order.Gross_Amount</td>
+                                            <td style="text-align: right;"> <i class="fa fa-inr"></i> @Model.Order.Gross_Amount</td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" style="text-align: right;"> VAT(%):</td>
-                                            <td>@Model.Order.Vat</td>
+                                            <td style="text-align: right;"> <i class="fa fa-inr"></i> @Model.Order.Vat</td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" style="text-align: right;"> Service Tax(%):</td>
-                                            <td>@Model.Order.Service_Tax</td>
+                                            <td style="text-align: right;"> <i class="fa fa-inr"></i> @Model.Order.Service_Tax</td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" style="text-align: right;"> Swatch Bharat Tax:</td>
-                                            <td>@Model.Order.Swatch_Bharat_Tax</td>
+                                            <td style="text-align: right;"> <i class="fa fa-inr"></i> @Model.Order.Swatch_Bharat_Tax</td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" style="text-align: right;"> Grand Total:</td>
-                                            <td>@Model.Order.Net_Amount</td>
+                                            <td style="text-align: right;"> <i class="fa fa-inr"></i> @Model.Order.Net_Amount</td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" style="text-align: right;"> Amount To be Paid:</td>
-                                            <td>@Model.Invoice.Amount</td>
+                                            <td style="text-align: right;"> <i class="fa fa-inr"></i> @Model.Invoice.Amount</td>
                                         </tr>
 
                                     }

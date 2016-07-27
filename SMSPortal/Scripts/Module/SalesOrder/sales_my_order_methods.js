@@ -55,7 +55,7 @@ function Bind_Sales_Order_Grid(data) {
 
             htmlText += "<td>";
 
-            htmlText += data.Sales_Orders[i].Gross_Amount;
+            htmlText += data.Sales_Orders[i].Net_Amount;
 
             htmlText += "</td>";
 

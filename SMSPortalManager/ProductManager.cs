@@ -19,19 +19,19 @@ namespace SMSPortalManager
             _productRepo = new ProductRepo();
         }
 
-        public void Insert_Product(ProductInfo product, int user_id)
+        public void Insert_Product(ProductInfo product, int user_id,int entity_Id)
         {
-            _productRepo.Insert_Product(product,user_id);
+            _productRepo.Insert_Product(product, user_id, entity_Id);
         }
 
-        public void Update_Product(ProductInfo product,int user_id)
+        public void Update_Product(ProductInfo product,int user_id,int entity_Id)
         {
-            _productRepo.Update_Product(product, user_id);
+            _productRepo.Update_Product(product, user_id,entity_Id);
         }
 
-        public List<ProductInfo> Get_Products(ref PaginationInfo Pager)
+        public List<ProductInfo> Get_Products(ref PaginationInfo Pager,int entity_Id)
         {
-            return _productRepo.Get_Products(ref Pager);
+            return _productRepo.Get_Products(ref Pager, entity_Id);
         }
 
         public List<ProductInfo> Get_Products_By_Dealer_Id(int Dealer_Id, int? Category_Id, int? Sub_Category_Id, string Product_Name)
@@ -98,9 +98,9 @@ namespace SMSPortalManager
             return _productRepo.Get_SubCategories_By_CategoryId(category_Id);
         }
 
-        public bool Bulk_Excel_Upload_Default(DataTable dt,int user_id)
+        public bool Bulk_Excel_Upload_Default(DataTable dt,int user_id,int entityId)
         {
-            return _productRepo.Bulk_Excel_Upload_Default(dt,user_id);
+            return _productRepo.Bulk_Excel_Upload_Default(dt, user_id, entityId);
         }
 
         public List<CategoryInfo> Get_Categories_With_Product_Count(int Dealer_Id)
@@ -111,6 +111,16 @@ namespace SMSPortalManager
         public List<SubCategoryInfo> Get_Sub_Categories_With_Product_Count(int Category_Id, int Dealer_Id)
         {
             return _productRepo.Get_Sub_Categories_With_Product_Count(Category_Id, Dealer_Id);
+        }
+
+        public List<VendorInfo> Get_Third_Party_Vendors()
+        {
+            return _productRepo.Get_Third_Party_Vendors();
+        }
+
+        public List<Product_Quantity> Get_Product_Quantyties(int product_Id)
+        {
+            return _productRepo.Get_Product_Quantyties(product_Id);
         }
 
     }

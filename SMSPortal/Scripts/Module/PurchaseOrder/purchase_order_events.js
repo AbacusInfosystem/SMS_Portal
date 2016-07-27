@@ -29,11 +29,11 @@
         $("#frmPurchaseOrderMaster").submit();
     });
 
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('input:not(.non-iCheck input:checkbox)').iCheck({
+    //    checkboxClass: 'icheckbox_square-green',
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     $("#btnSendEmail").click(function ()
     {

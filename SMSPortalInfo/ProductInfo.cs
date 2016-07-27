@@ -62,6 +62,12 @@ namespace SMSPortalInfo
         //public string Product_Prices { get; set; }
 
         public int Product_Quantity { get; set; }
+
+        public string Product_Specification { get; set; }
+
+        public string Product_Maintance { get; set; }
+
+        public List<Product_Quantity> ProductQuantities { get; set; }
         
     }
 
@@ -85,5 +91,12 @@ namespace SMSPortalInfo
 
         public HttpPostedFileBase File { get; set; }
 
+    }
+
+    public class Product_Quantity
+    {
+        public int Product_Id { get; set; }
+
+        public int Product_Quantity_Value { get; set; }
     }
 }

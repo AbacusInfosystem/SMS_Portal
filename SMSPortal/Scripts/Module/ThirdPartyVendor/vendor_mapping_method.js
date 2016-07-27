@@ -4,10 +4,9 @@
 
     var Vendor_Id = $("#hdnVendor_Id").val();
 
-
     $.ajax(
       {
-          url: '/Vendor/Get_Product_By_Brand',
+          url: '/ThirdPartyVendor/Get_Product_By_Brand',
 
           data: { CurrentPage: CurrentPage, Vendor_Id: Vendor_Id },
 
@@ -63,11 +62,11 @@ function Bind_Vendor_Product_Grid(data) {
 
             htmlText += "<div class='form-group'>";
 
-            htmlText += "<div class='box-header with-border'>";
+            //htmlText += "<div class='box-header with-border'>";
 
-            htmlText += "<label style='text-align:center'>" + data.Brands[i].Brand_Name + "</label>";
+            htmlText += "<label class='control-label label_mer'>" + data.Brands[i].Brand_Name + "</label>";
 
-            htmlText += "</div>";
+            //htmlText += "</div>";
 
             htmlText += "</div>";
 
@@ -80,11 +79,13 @@ function Bind_Vendor_Product_Grid(data) {
                 {
                     htmlText += "<div class='col-md-3'>";
 
+                    htmlText += "<div class='thumbnail panel'>";
+
                     htmlText += "<input type='hidden' id='hdn_MasterProductPrice' name='Products[" + j + "].MasterProductPrice' value='" + data.Products[j].MasterProductPrice + "' />";
 
-                    htmlText += "<img width='100' height='100' id='ProductImg1' src='/UploadedFiles/" + data.Products[j].Product_Image + "'/></br>";
+                    htmlText += "<img id='ProductImg1' style='height: 180px; margin-left: auto; margin-right: auto; display: block; max-width: 100%; max-height: 100%;' src='/UploadedFiles/" + data.Products[j].Product_Image + "'/></br>";
 
-                    htmlText += "<label style='text-align:center'>" + data.Products[j].Product_Name == null ? "" : data.Products[j].Product_Name + "</label></br>";
+                    htmlText += "<label class='control-label label_mer'>" + data.Products[j].Product_Name == null ? "" : data.Products[j].Product_Name + "</label></br>";
 
                     if (data.Products[j].Is_Mapped == true) {
                         htmlText += "<input type='checkbox' name='Products[" + j + "].Check' class='chkstatus checkresult' checked  id='CheckId'  value=''  /><br>";
@@ -93,13 +94,15 @@ function Bind_Vendor_Product_Grid(data) {
                         htmlText += "<input type='checkbox' name='Products[" + j + "].Check' class='chkstatus checkresult'  id='CheckId'  value=''  /><br>";
                     }
 
-                    htmlText += "<input type='text' class='form-control_new input-sm' name='Products[" + j + "].Product_Price' id='txtProduct_Price_" + j + "' placeholder='product price' value='" + (data.Products[j].Product_Price == 0 ? '' : data.Products[j].Product_Price) + "'></br>";
+                    htmlText += "<input type='text' class='form-control form_control_mer' name='Products[" + j + "].Product_Price' id='txtProduct_Price_" + j + "' placeholder='product price' value='" + (data.Products[j].Product_Price == 0 ? '' : data.Products[j].Product_Price) + "'></br>";
 
                     htmlText += "<input type='hidden' id='hd_Productid" + j + "' name='Products[" + j + "].Product_id' value='" + data.Products[j].Product_Id + "'>";
 
                     htmlText += "<input type='hidden' id='hd_Brand_Id" + j + "' name='Products[" + j + "].Brand_Id' value='" + data.Products[j].Brand_Id + "'>";
 
                     htmlText += "</br>";
+
+                    htmlText += "</div>";
 
                     htmlText += "</div>";
                 }

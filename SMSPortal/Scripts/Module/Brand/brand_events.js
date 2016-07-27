@@ -1,27 +1,18 @@
 ﻿$(function () {
 
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        increaseArea: '20%', // optional
-    });
+    //$('input').iCheck({
+    //    checkboxClass: 'icheckbox_square-green',
+    //    increaseArea: '20%', // optional
+    //});
 
-    $(".chkstatus").on("ifChanged", function () {
+    $(".chkstatus").on("change", function () {
 
-        if ($(this).parents().prop("class").indexOf("checked") != -1) {
+        if (!$(this).is(':checked')) {
             $("#hdnIs_Active").val(false);
         }
         else {
             $("#hdnIs_Active").val(true);
         }
-    });
-
-
-    $(".fa-chevron-left").click(function () {
-        $("#frmBrandMaster").validate().cancelSubmit = true;
-        $("#frmBrandMaster").attr("action", "/Brand/Search/");
-        $("#frmBrandMaster").attr("method", "POST");
-        $("#frmBrandMaster").submit();
-
     });
 
     $("#btnSave").click(function () {

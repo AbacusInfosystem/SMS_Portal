@@ -1,0 +1,99 @@
+﻿@model SMSPortal.Models.PostLogin.InvoiceViewModel
+@using SMSPortal.Common;
+
+<script src="~/Scripts/Module/Invoice/search_invoice_events.js"></script>
+<script src="~/Scripts/Module/Invoice/search_invoice_methods.js"></script>
+<form id="frmInvoice" enctype="multipart/form-data">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        @{Html.RenderPartial("_ServerMessage");}
+        <section class="content-header">
+            <h1>
+                Invoice Master
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">Invoice</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                         
+                        <div class="box-body">                             
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnInvoice_Id" name="Invoice.Invoice_Id" value="@Model.Invoice.Invoice_Id">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group auto-complete">
+                                        <label for="Invoice" class="lookup-title">Invoices</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Invoice_No" id="txtInvoice_Number" placeholder="Enter Invoice No" value="@Model.Filter.Invoice_No" data-param="hdnVendorId" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice">
+                                            <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Filter.Invoice_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnInvoiceNo" value="@Model.Filter.Invoice_No" name="Filter.Invoice_No" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefInvoice" role="button"><i class="fa fa-server"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="btn-group pull-left">
+                                            @*<a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Invoice")">Create </a>*@
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                        </div>
+
+                                        <div class="btn-group pull-right">
+                                            <button type="button" id="btnDetails" style="display:none;" class="btn btn-warning btn-sm">Details </button>                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-striped" id="tblInvoices">
+                                <tr id="subhead">
+                                    <th width="5%"></th>
+                                    <th width="10%">Invoice No</th>
+                                    <th width="10%">Order No</th>
+                                    <th>Invoice Date</th>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
+                            </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+</form>
+

@@ -288,6 +288,13 @@ namespace SMSPortal
           url: "product/set-default-image/",
           defaults: new { controller = "Product", action = "Set_Image_Default", id = UrlParameter.Optional },
           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+              name: "Product-10",
+              url: "product/get-third-party-vendor",
+              defaults: new { controller = "User", action = "Get_Entity_By_Roles", id = UrlParameter.Optional },
+              namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
 
             #region Autocomplete
@@ -310,72 +317,72 @@ namespace SMSPortal
 
             #endregion
 
-            #region Vendor
+            #region Third Party Vendor
 
             routes.MapRoute(
             name: "Vendor-1",
             url: "vendor/get-vendor-profile-details",
-            defaults: new { controller = "Vendor", action = "Get_Vendor_By_Id", id = UrlParameter.Optional },
+            defaults: new { controller = "ThirdPartyVendor", action = "Get_Vendor_By_Id", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Vendor-2",
             url: "vendor/add-vendor-bank-details",
-            defaults: new { controller = "Vendor", action = "Insert_Bank_Details", id = UrlParameter.Optional },
+            defaults: new { controller = "ThirdPartyVendor", action = "Insert_Bank_Details", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
            name: "Vendor-3",
            url: "vendor/edit-vendor-details",
-           defaults: new { controller = "Vendor", action = "Get_Vendor_By_Id", id = UrlParameter.Optional },
+           defaults: new { controller = "ThirdPartyVendor", action = "Get_Vendor_By_Id", id = UrlParameter.Optional },
            namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
            name: "Vendor-4",
            url: "vendor/get-product-list-omchange-brands",
-           defaults: new { controller = "Vendor", action = "Add_Product_Mapping", id = UrlParameter.Optional },
+           defaults: new { controller = "ThirdPartyVendor", action = "Add_Product_Mapping", id = UrlParameter.Optional },
            namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Vendor-5",
             url: "vendor/insert-vendors",
-            defaults: new { controller = "Vendor", action = "Insert_Vendor", id = UrlParameter.Optional },
+            defaults: new { controller = "ThirdPartyVendor", action = "Insert_Vendor", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
            name: "Vendor-6",
            url: "vendor/update-vendors",
-           defaults: new { controller = "Vendor", action = "Update_Vendor", id = UrlParameter.Optional },
+           defaults: new { controller = "ThirdPartyVendor", action = "Update_Vendor", id = UrlParameter.Optional },
            namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
            name: "Vendor-7",
            url: "vendor/insert-vendor-product-mapping-details",
-           defaults: new { controller = "Vendor", action = "Insert_Vendor_Product_Mapping_Details", id = UrlParameter.Optional },
+           defaults: new { controller = "ThirdPartyVendor", action = "Insert_Vendor_Product_Mapping_Details", id = UrlParameter.Optional },
            namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Vendor-8",
             url: "vendor/vendor-autocomplete/{vendor}",
-            defaults: new { controller = "Vendor", action = "Get_Vendor_Autocomplete", id = UrlParameter.Optional },
+            defaults: new { controller = "ThirdPartyVendor", action = "Get_Vendor_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Vendor-9",
             url: "vendor/add-vendor-user",
-            defaults: new { controller = "Vendor", action = "Add_Vendor_User", id = UrlParameter.Optional },
+            defaults: new { controller = "ThirdPartyVendor", action = "Add_Vendor_User", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Vendor-10",
             url: "vendor/edit-vendor-profile-details",
-            defaults: new { controller = "Vendor", action = "Edit_Vendor_Profile", id = UrlParameter.Optional },
+            defaults: new { controller = "ThirdPartyVendor", action = "Edit_Vendor_Profile", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
             routes.MapRoute(
             name: "Vendor-11",
             url: "vendor/update-vendor-profile-details",
-            defaults: new { controller = "Vendor", action = "Update_Vendor_Profile", id = UrlParameter.Optional },
+            defaults: new { controller = "ThirdPartyVendor", action = "Update_Vendor_Profile", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
 
 
@@ -408,6 +415,12 @@ namespace SMSPortal
             url: "user/user-autocomplete/{user}",
             defaults: new { controller = "User", action = "Get_User_Autocomplete", id = UrlParameter.Optional },
             namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+              name: "User-5",
+              url: "User/get-user-entity",
+              defaults: new { controller = "User", action = "Get_Entity_By_Roles", id = UrlParameter.Optional },
+              namespaces: new string[] { "SMSPortal.Controllers" });
 
             #endregion
 
@@ -650,6 +663,52 @@ namespace SMSPortal
 
             #endregion
 
+            #region Vendor         
+
+            routes.MapRoute(
+            name: "NewVendor-1",
+            url: "newvendor/insert-vendors",
+            defaults: new { controller = "Vendor", action = "Insert_Vendor", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+           name: "NewVendor-2",
+           url: "newvendor/update-vendors",
+           defaults: new { controller = "Vendor", action = "Update_Vendor", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+            name: "NewVendor-3",
+            url: "newvendor/vendor-autocomplete/{vendor}",
+            defaults: new { controller = "Vendor", action = "Get_Vendor_Autocomplete", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+          name: "NewVendor-4",
+          url: "newvendor/edit-vendor-details",
+          defaults: new { controller = "Vendor", action = "Get_Vendor_By_Id", id = UrlParameter.Optional },
+          namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+           name: "NewVendor-5",
+           url: "vendor/edit-new-vendor-profile-details",
+           defaults: new { controller = "Vendor", action = "Edit_Vendor_Profile", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+           name: "NewVendor-6",
+           url: "vendor/update-new-vendor-profile-details",
+           defaults: new { controller = "Vendor", action = "Update_Vendor_Profile", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+   name: "NewVendor-7",
+   url: "vendor/vendors-upload-logo",
+   defaults: new { controller = "Vendor", action = "Vendor_Logo_Upload", id = UrlParameter.Optional },
+   namespaces: new string[] { "SMSPortal.Controllers" });
+
+            #endregion
+
             #endregion
 
             #region PreLogin
@@ -660,23 +719,26 @@ namespace SMSPortal
               defaults: new { controller = "Home", action = "SystemError", id = UrlParameter.Optional },
               namespaces: new string[] { "SMSPortal.Controllers" });
 
-            routes.MapRoute(
-              name: "5.0",
-              url: "{controller}/{action}/{id}",
-              defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional },
-              namespaces: new string[] { "SMSPortal.Controllers" });
-
+         
             routes.MapRoute(
               name: "System-1",
               url: "system/unauthorize-access/{id}",
               defaults: new { controller = "System", action = "UnAuthorize", id = UrlParameter.Optional },
               namespaces: new string[] { "SMSPortal.Controllers" });
 
-            //routes.MapRoute(
-            //  name: "login-3",
-            //  url: "login/reset-password/{passtoken}",
-            //  defaults: new { controller = "Login", action = "Reset_Password", id = UrlParameter.Optional },
-            //  namespaces: new string[] { "SMSPortal.Controllers" });
+            routes.MapRoute(
+           name: "System-2",
+           url: "mercedes",
+           defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional },
+           namespaces: new string[] { "SMSPortal.Controllers" });
+
+
+            routes.MapRoute(
+            name: "5.0",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Login", action = "Home", id = UrlParameter.Optional },
+            namespaces: new string[] { "SMSPortal.Controllers" });
+
             #endregion
         }
     }

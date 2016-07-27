@@ -18,9 +18,9 @@ namespace SMSPortalManager
             _purchaseorderRepo = new PurchaseOrderRepo();
         }
 
-        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder,int user_id)
+        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder,int user_id,int entity_Id)
         {
-            return _purchaseorderRepo.Insert_Purchase_Order(purchaseorder,user_id);
+            return _purchaseorderRepo.Insert_Purchase_Order(purchaseorder, user_id, entity_Id);
         }
 
         public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id)
@@ -28,9 +28,9 @@ namespace SMSPortalManager
             _purchaseorderRepo.Update_Purchase_Order(purchaseorder,user_id);
         }
 
-        public List<PurchaseOrderInfo> Get_Purchase_Orders(ref PaginationInfo Pager)
+        public List<PurchaseOrderInfo> Get_Purchase_Orders(ref PaginationInfo Pager,int entity_Id)
         {
-            return _purchaseorderRepo.Get_Purchase_Orders(ref Pager);
+            return _purchaseorderRepo.Get_Purchase_Orders(ref Pager, entity_Id);
         }
 
         public List<PurchaseOrderInfo> Get_Purchase_Orders_By_Id(int Purchase_Order_Id,ref PaginationInfo Pager)
@@ -43,9 +43,9 @@ namespace SMSPortalManager
             return _purchaseorderRepo.Get_Purchase_Order_By_Id(Purchase_Order_Id);
         }
 
-        public List<AutocompleteInfo> Get_Purchase_Order_Autocomplete(string Purchase_Order_No)
+        public List<AutocompleteInfo> Get_Purchase_Order_Autocomplete(string Purchase_Order_No,int entity_Id)
         {
-            return _purchaseorderRepo.Get_Purchase_Order_Autocomplete(Purchase_Order_No);
+            return _purchaseorderRepo.Get_Purchase_Order_Autocomplete(Purchase_Order_No, entity_Id);
         }
 
         public List<PurchaseOrderItemInfo> Get_Purchase_Order_Items_By_Id(int Purchase_Order_Id)
@@ -78,6 +78,11 @@ namespace SMSPortalManager
             return _purchaseorderRepo.Generate_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName);
         }
 
+        public string Generate_Ven_Ref_No(string initialCharacter, string columnName, string substringStartIndex, string substringEndIndex, string tableName,int vendor_Id)
+        {
+            return _purchaseorderRepo.Generate_Ven_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName, vendor_Id);
+        }
+
         public void Update_Purchase_Order_Gross_Amount(int Purchaser_Order_Id, decimal Gross_Amount)
         {
             _purchaseorderRepo.Update_Purchase_Order_Gross_Amount(Purchaser_Order_Id, Gross_Amount);
@@ -93,9 +98,14 @@ namespace SMSPortalManager
              _purchaseorderRepo.Send_Purchase_Order_Email(Vendor_Email_Id, PurchaseOrder, purchaseOrderItems);
         }
 
-        public VendorInfo Get_Vendor_By_Id(int Vendor_Id)
+        public ThirdPartyVendorInfo Get_Vendor_By_Id(int Vendor_Id)
         {
             return _purchaseorderRepo.Get_Vendor_By_Id(Vendor_Id);
+        }
+
+        public List<PurchaseOrderInfo> Get_Purchase_Orders_By_Vendor_Id(int vendor_Id)
+        {
+            return _purchaseorderRepo.Get_Purchase_Orders_By_Vendor(vendor_Id);
         }
         
     }

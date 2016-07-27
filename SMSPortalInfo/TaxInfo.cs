@@ -16,6 +16,10 @@ namespace SMSPortalInfo
 
         public decimal Export_Tax { get; set; }
 
+        public decimal Local_Tax_Amount { get; set; }
+
+        public decimal Export_Tax_Amount { get; set; }
+
         public DateTime Created_On { get; set; }
 
         public int Created_By { get; set; }

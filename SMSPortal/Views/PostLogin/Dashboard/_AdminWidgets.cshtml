@@ -1,55 +1,58 @@
-﻿<form id="frmMy_Activity_Dashboard">
-    <div class="box box-primary">
+﻿@model SMSPortal.Models.PostLogin.DashboardViewModel
+@using SMSPortalInfo.Common
 
-        <div class="box-body no-padding">
+<form id="frmMy_Activity_Dashboard">
+    @{Html.RenderPartial("_ServerMessage");}
+    <h3 class="master_header">
+        Dashboard
+    </h3>
+    <label class="control-label label_mer_2">Orders</label>
+    <div class="table-responsive">
+        <table class="table no-margin" id="tblDealerMaster" style="margin:60px">
+            <thead>
+                <tr>
+                    <th>Order No</th>
+                    <th>Order Date</th>
+                    <th>Dealer Name</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Sales_Orders.Count() > 0)
+                {
+                    foreach (var item in Model.Sales_Orders)
+                    {
+                        <tr>
+                            <td>@item.Order_No</td>
 
-            <section class="content">
-                <div class="row">
-                    @* Sales Order *@
-                    <div class="col-lg-3 col-xs-6">
-                        <div class="small-box bg-aqua">
-                            <a class="small-box-footer">Sales Orders</a>
-                            <div class="inner" id="MktSegment">
-                                <h3>100</h3>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-edit"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> 
-                        </div>
-                    </div>
-                    @* Payable Amount *@
-                    <div class="col-lg-3 col-xs-6">
+                            <td>@item.Order_Date.ToShortDateString()</td>
 
-                        <div class="small-box bg-green">
-                            <a class="small-box-footer">Payables</a>
-                            <div class="inner" id="MktSegment">
-                                <h3>10</h3>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-edit"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
+                            <td>@item.Dealer_Name</td>
 
-                    </div>
-                    @* Receivable Amount *@
-                    <div class="col-lg-3 col-xs-6">
+                            <td>@item.Gross_Amount</td>
 
-                        <div class="small-box bg-yellow-gradient">
-                            <a class="small-box-footer">Receivables</a>
-                            <div class="inner" id="CustomerDetails">
-                                <h3>50</h3>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-edit"></i>
-                            </div>
-                            <a href="/crm/search-Customer-Pending" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                            <td>@item.Status</td>
 
-        </div>
+                        </tr>
+
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No Records Found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @*<div class="btn-group pull-right">
+        <br />
+            <a href="@Url.Action("Search","SalesOrder")" class="btn btn_mer ripple btn_mer_3 pull-right">View All Orders</a>
+        </div> /.box-footer*@ 
     </div>
+    <br />
+    <br />
+
 </form>

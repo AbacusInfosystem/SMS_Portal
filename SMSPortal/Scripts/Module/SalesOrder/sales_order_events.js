@@ -1,9 +1,9 @@
 ﻿$(function () {
 
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        increaseArea: '20%', // optional
-    });
+    //$('input').iCheck({
+    //    checkboxClass: 'icheckbox_square-green',
+    //    increaseArea: '20%', // optional
+    //});
 
     $(".fa-chevron-left").click(function () {
 

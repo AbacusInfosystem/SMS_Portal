@@ -51,6 +51,18 @@ function Bind_Receivable_Grid(data)
 
             htmlText += "<td>";
 
+            htmlText += data.Receivables[i].Order_No == null ? "" : data.Receivables[i].Order_No;
+
+            htmlText += "</td>";
+
+            htmlText += "<td>";
+
+            htmlText += data.Receivables[i].Vendor_Name == null ? "" : data.Receivables[i].Vendor_Name;
+
+            htmlText += "</td>";          
+
+            htmlText += "<td>";
+
             htmlText += data.Receivables[i].Invoice_Amount == 0 ? "" : data.Receivables[i].Invoice_Amount;
 
             htmlText += "</td>";
@@ -68,7 +80,7 @@ function Bind_Receivable_Grid(data)
     {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='4'> No Record found.";
+        htmlText += "<td colspan='6'> No Record found.";
 
         htmlText += "</td>";
 

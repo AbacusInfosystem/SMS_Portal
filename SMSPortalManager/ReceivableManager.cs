@@ -25,12 +25,17 @@ namespace SMSPortalManager
 
        public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int entity_Id, int role_Id)
        {
-           return _receivableRepo.Get_Receivables(ref pager, entity_Id, role_Id);
+           return _receivableRepo.Get_Vendor_Specific_Receivables(ref pager, entity_Id, role_Id);
        }
 
-       public int Insert_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status)
+       public List<ReceivableInfo> Get_Vendor_Receivables(ref PaginationInfo pager, int entity_Id, int role_Id)
        {
-           return _receivableRepo.Insert_Receivable(receivableInfo, user_Id,out Status);
+           return _receivableRepo.Get_Vendor_Receivables(ref pager, entity_Id, role_Id);
+       }
+
+       public int Insert_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status,int role_Id,int entity_Id)
+       {
+           return _receivableRepo.Insert_Receivable(receivableInfo, user_Id, out Status, role_Id, entity_Id);
        }
 
        public void Insert_ReceivableItems(ReceivableInfo receivableInfo, int user_Id)
@@ -43,9 +48,15 @@ namespace SMSPortalManager
            _receivableRepo.Insert_Receivable_Receipt_Data(receivableInfo, user_Id);
        }
 
-       public ReceivableInfo Get_Receivable_Data_By_Id(int invoice_Id)
+       public ReceivableInfo Get_Receivable_Data_By_Id(int invoice_Id,int role_Id,int entity_id)
        {
-           return _receivableRepo.Get_Receivable_Data_By_Id(invoice_Id);
+           return _receivableRepo.Get_Receivable_Data_By_Id(invoice_Id,role_Id,entity_id);
+       }
+
+
+       public ReceivableInfo Get_Dealer_Receivable_Data_By_Id(int invoice_Id, int role_Id, int entity_id)
+       {
+           return _receivableRepo.Get_Dealer_Receivable_Data_By_Id(invoice_Id, role_Id, entity_id);
        }
 
        public List<ReceivableInfo> Get_Receivable_Items(int receivable_Id)

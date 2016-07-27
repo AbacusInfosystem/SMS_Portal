@@ -32,6 +32,7 @@ namespace SMSPortal.Controllers.PostLogin
         public StateManager _stateManager;
         public OrdersManager _OrdersManager;
         public UserManager _userManager;
+        public BrandManager _brandManager;    
 
         public ProductController()
         {
@@ -42,6 +43,7 @@ namespace SMSPortal.Controllers.PostLogin
             _stateManager = new StateManager();
             _OrdersManager = new OrdersManager();
             _userManager = new UserManager();
+            _brandManager = new BrandManager();
         }
 
         public ActionResult Index(DashboardViewModel dViewModel)
@@ -50,6 +52,10 @@ namespace SMSPortal.Controllers.PostLogin
 
             try
             {
+                pViewModel.Brand = _brandManager.Get_Brand_By_Id(dViewModel.Cookies.Entity_Id);
+
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 if (dViewModel.Friendly_Message.Count() > 0)
                 {
                     pViewModel.Friendly_Message.Add(MessageStore.Get("PO006"));
@@ -93,6 +99,7 @@ namespace SMSPortal.Controllers.PostLogin
                 pViewModel.Brands = _productManager.Get_Brands();
                 //pViewModel.Categories = _subCategoryManager.Get_Categories();
                 pViewModel.Categories = _productManager.Get_Categorys();
+                //pViewModel.ThirdPartyVendors = _productManager.Get_Third_Party_Vendors();
             }
             catch (Exception ex)
             {
@@ -106,7 +113,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                _productManager.Insert_Product(pViewModel.Product, pViewModel.Cookies.User_Id);
+                _productManager.Insert_Product(pViewModel.Product, pViewModel.Cookies.User_Id,pViewModel.Cookies.Entity_Id);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO001"));
             }
             catch (Exception ex)
@@ -123,7 +130,7 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-                _productManager.Update_Product(pViewModel.Product, pViewModel.Cookies.User_Id);
+                _productManager.Update_Product(pViewModel.Product, pViewModel.Cookies.User_Id, pViewModel.Cookies.Entity_Id);
                 pViewModel.Friendly_Message.Add(MessageStore.Get("PO002"));
             }
             catch (Exception ex)
@@ -141,6 +148,7 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo pager = new PaginationInfo();
             try
             {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
                 pager = pViewModel.Pager;
                 if (pViewModel.Filter.Product_Id != 0)
                 {
@@ -149,7 +157,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    pViewModel.Products = _productManager.Get_Products(ref pager);
+                    pViewModel.Products = _productManager.Get_Products(ref pager, pViewModel.Cookies.Entity_Id);
                 }
                 pViewModel.Pager = pager;
                 pViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", pViewModel.Pager.TotalRecords, pViewModel.Pager.CurrentPage + 1, pViewModel.Pager.PageSize, 10, true);
@@ -167,6 +175,8 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 pViewModel.Product = _productManager.Get_Product_By_Id(pViewModel.Product.Product_Id);
+
+                pViewModel.Product.ProductQuantities = _productManager.Get_Product_Quantyties(pViewModel.Product.Product_Id);
             }
             catch (Exception ex)
             {
@@ -402,6 +412,9 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult SaveOrder(ProductViewModel pViewModel)
         {
+            string Order_Ids;
+
+            decimal Order_Amount = 0;
 
             _sqlCon = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
 
@@ -416,7 +429,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                         pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                        pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "5", "15", "Orders");
+                        pViewModel.order.Order_No = Utility.Generate_Ref_No("ORD-", "Order_No", "5", "15", "Orders");                      
                         pViewModel.order.Order_Date = DateTime.Now;
                         pViewModel.order.Status = Convert.ToString(Convert.ToInt32(OrderStatus.Order_Received));
                         pViewModel.order.Shipping_Date = DateTime.Now.AddDays(7);
@@ -424,7 +437,7 @@ namespace SMSPortal.Controllers.PostLogin
                         pViewModel.order.Created_On = DateTime.Now;
                         pViewModel.order.Updated_By = pViewModel.Cookies.User_Id;
                         pViewModel.order.Updated_On = DateTime.Now;
-                        pViewModel.order.Order_Id = _OrdersManager.Insert_Orders(pViewModel.order);
+                        pViewModel.order.Order_Id = _OrdersManager.Insert_Orders(pViewModel.order, out Order_Ids, out Order_Amount);
                         _OrdersManager.Send_Order_Status_Notification(pViewModel.Cookies.First_Name, pViewModel.Cookies.User_Email, pViewModel.order,false);
                         pViewModel.dealer = _dealerManager.Get_Dealer_By_Id(pViewModel.order.Dealer_Id);
 
@@ -440,7 +453,10 @@ namespace SMSPortal.Controllers.PostLogin
 
                         iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Invoice(iViewModel.Invoice, pViewModel.Cookies.User_Id);
 
-                        _invoiceManager.Send_Invoice_Email(pViewModel.dealer.Email, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
+                        if (pViewModel.dealer.Email != null)
+                        {
+                            _invoiceManager.Send_Invoice_Email(pViewModel.dealer.Email, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
+                        }
 
 
                         // Brand Invoice
@@ -455,8 +471,37 @@ namespace SMSPortal.Controllers.PostLogin
                         iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Invoice(iViewModel.Invoice, pViewModel.Cookies.User_Id);
 
                         UserInfo user = _userManager.Get_User_By_Entity_Id(pViewModel.dealer.Brand_Id, Convert.ToInt32(Roles.Brand));
+                        if (user.Email_Id != null)
+                        {
+                            _invoiceManager.Send_Invoice_Email(user.Email_Id, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
+                        }
 
-                        _invoiceManager.Send_Invoice_Email(user.Email_Id, iViewModel.Invoice, pViewModel.order, pViewModel.dealer);
+                        // Vendor Invoice
+
+                        List<string> orderIds = Order_Ids.TrimEnd(',').Split(',').ToList<string>();
+
+                        foreach (var item in orderIds)
+                        {
+                            SalesOrderViewModel sViewModel = new SalesOrderViewModel();
+                            sViewModel.Sales_Order = _OrdersManager.Get_Vendor_Order_Data_By_Id(Convert.ToInt32(item));
+                            iViewModel.Invoice.Order_Id = Convert.ToInt32(item);
+                            iViewModel.Invoice.Invoice_No = Utility.Generate_Ref_No("VINV-", "Invoice_No", "6", "15", "Vendor_Invoice");
+                            //iViewModel.Invoice.Invoice_No = Utility.Generate_Ven_Ref_No("VINV-", "Invoice_No", "5", "15", "Vendor_Invoice", sViewModel.Sales_Order.Vendor_Id);
+                            iViewModel.Invoice.Role_Id = Convert.ToInt32(Roles.Vendor);
+                            iViewModel.Invoice.Entity_Id = sViewModel.Sales_Order.Vendor_Id;
+
+                            iViewModel.Invoice.Amount = sViewModel.Sales_Order.Net_Amount;
+
+                            iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Vendor_Invoice(iViewModel.Invoice, pViewModel.Cookies.User_Id, pViewModel.Cookies.Entity_Id);
+
+                            user = _userManager.Get_User_By_Entity_Id(pViewModel.Cookies.Entity_Id, 4);
+
+                            if (user.Email_Id != null)
+                            {                              
+                                sViewModel.Sales_Order.OrderItems = _OrdersManager.Get_Vendor_Orders_Item_By_Id(Convert.ToInt32(item));
+                                _invoiceManager.Send_Invoice_Email(user.Email_Id, iViewModel.Invoice, sViewModel.Sales_Order, pViewModel.dealer);
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -521,7 +566,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                     DataSet ds = _excel.ExecuteDataSet(path);
 
-                    is_Error = _productManager.Bulk_Excel_Upload_Default(ds.Tables[0], pViewModel.Cookies.User_Id);
+                    is_Error = _productManager.Bulk_Excel_Upload_Default(ds.Tables[0], pViewModel.Cookies.User_Id,pViewModel.Cookies.Entity_Id);
 
                     if (is_Error == true)
                     {
@@ -556,6 +601,37 @@ namespace SMSPortal.Controllers.PostLogin
         public PartialViewResult Upload_Product_Excel()
         {
             return PartialView("_Product_Excel_Upload");
+        }
+
+        public ActionResult DisplayProductDetails(ProductViewModel pViewModel)
+        {
+            try
+            {
+                pViewModel.Product = _productManager.Get_Product_By_Id(pViewModel.Product.Product_Id);
+                pViewModel.Product.ProductImages = _productManager.Get_Product_Images(pViewModel.Product.Product_Id);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("ProductController DisplayProductDetails " + ex);
+            }
+
+            return View("Product_Details", pViewModel);
+        }
+
+        public JsonResult Get_Entity_By_Role()
+        {
+            ProductViewModel pViewModel = new ProductViewModel();
+
+            try
+            {
+                pViewModel.ThirdPartyVendors = _productManager.Get_Third_Party_Vendors();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error At User_Controller - Get_Entity_By_Role" + ex.ToString());
+            }
+
+            return Json(pViewModel.ThirdPartyVendors, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -21,6 +21,12 @@ namespace SMSPortal.Models.PostLogin
             Pager = new PaginationInfo();
 
             Receivables = new List<ReceivableInfo>();
+
+            Sales_Orders = new List<OrdersInfo>();
+
+            PurchaseOrders = new List<PurchaseOrderInfo>();
+
+            Sales_Order = new OrdersInfo();
         }
 
         public CookiesInfo Cookies { get; set; }
@@ -32,5 +38,11 @@ namespace SMSPortal.Models.PostLogin
         public PaginationInfo Pager { get; set; }
 
         public List<ReceivableInfo> Receivables { get; set; }
+
+        public List<OrdersInfo> Sales_Orders { get; set; }
+
+        public List<PurchaseOrderInfo> PurchaseOrders { get; set; }
+
+        public OrdersInfo Sales_Order { get; set; }
     }
 }

@@ -18,31 +18,29 @@
             $("#frmUserMaster").attr("action", "/Vendor/Search/");
         }
 
-            
-     
         $("#frmUserMaster").attr("method", "POST");
 
         $("#frmUserMaster").submit();
 
     });
 
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('input:not(.non-iCheck input:checkbox)').iCheck({
+    //    checkboxClass: 'icheckbox_square-green',
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
+    $(".chkstatus").on("change", function () {
 
-    $(".chkstatus").on("ifChanged", function () {
-
-        if ($(this).parents().prop("class").indexOf("checked") != -1) {
+        if (!$(this).is(':checked')) {
             $("#hdnIs_Active").val(false);
         }
         else {
             $("#hdnIs_Active").val(true);
         }
-
     });
+
+
     $("#btnSave").click(function () {
 
         if ($('#frmUserMaster').valid()) {
@@ -57,6 +55,29 @@
         }
 
     });
+
+    $("#drpRoles").change(function () {
+
+        $.ajax({
+            url: '/User/get-user-entity',
+            data: {
+                Role_Id: $("#drpRoles").val(),
+            },
+            method: 'GET',
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    Bind_Entity_Drpdwn(data);
+                }
+            }
+        });
+    });
+
+    if ($("#hdnEntity_Id").val() != "") {
+        $("#drpRoles").trigger("change");
+        $("#drpEntity").val($("#hdnEntity_Id").val());
+    }
+
 });
 
 

@@ -32,6 +32,12 @@ namespace SMSPortal.Common
             return _purchaseOrderManager.Generate_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName);
         }
 
+        public static string Generate_Ven_Ref_No(string initialCharacter, string columnName, string substringStartIndex, string substringEndIndex, string tableName,int vendor_Id)
+        {
+            PurchaseOrderManager _purchaseOrderManager = new PurchaseOrderManager();
+            return _purchaseOrderManager.Generate_Ven_Ref_No(initialCharacter, columnName, substringStartIndex, substringEndIndex, tableName, vendor_Id);
+        }
+
         public static string Generate_Token()
         {
             return Guid.NewGuid().ToString();

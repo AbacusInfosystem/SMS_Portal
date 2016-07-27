@@ -1,0 +1,95 @@
+﻿@model SMSPortal.Models.PostLogin.SubCategoryViewModel
+@using SMSPortalInfo.Common
+
+<script src="~/Scripts/Module/SubCategory/search_subcategory_events.js"></script>
+<script src="~/Scripts/Module/SubCategory/serach_subcategory_methods.js"></script>
+
+
+<input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage">
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        @{Html.RenderPartial("_ServerMessage");}
+        <section class="content-header">
+            <h1>
+                SubCategory
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">SubCategory</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <form id="frmSubCategory">
+            <input type="hidden" id="hdnSubcategory_Id" name="SubCategory.Subcategory_Id" value="@Model.SubCategory.Subcategory_Id">
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary">
+                            @*<div class="box-header with-border">
+                                <h3 class="box-title">SubCategory</h3>
+                            </div>*@
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group auto-complete">
+                                            <label for="Subcategory" class="lookup-title">SubCategory Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control input-sm autocomplete-text" name="Filter.SubCategory_Name" id="txtSubcategory" placeholder="Enter SubCategory Name" value="@Model.Filter.SubCategory_Name" data-table="Sub_Category" data-col="Sub_Category_Id,Sub_Category_Name" data-headernames="Subcategory">
+                                                <input type="hidden" id="hdnSubcategoryId" value="@Model.Filter.SubCategory_Id" name="Filter.SubCategory_Id" class="auto-complete-value" />
+                                                <input type="hidden" id="hdnSubcategoryName" value="@Model.Filter.SubCategory_Name" name="Filter.SubCategory_Name" class="auto-complete-label" />
+                                                <div class="input-group-addon">
+                                                    <a href="#" class="text-muted" id="hrefSubcategory" role="button"><i class="fa fa-server"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-group pull-left">
+                                                <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("Index", "SubCategory")">Create </a>
+                                                <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                            </div>
+                                            <div class="btn-group pull-right">
+                                                <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-striped" id="tblSubCategory">
+                                    <tr id="subhead">
+                                        <th width="5%"></th>
+                                        <th width="20%">SubCategory Name</th>
+                                        <th width="20%">Category</th>
+                                        <th>Status</th>
+                                    </tr>                                   
+                                </table>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <div class="pagination pagination-sm no-margin pull-right">
+                                    <ul></ul>
+                                </div>
+                                <div id="divSearchGridOverlay" class="overlay">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+<!-- /.content-wrapper -->

@@ -36,13 +36,13 @@ namespace SMSPortalRepo
            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
 
            {
-               Receivables.Add(Get_Receivable_Values(dr));
+               Receivables.Add(Get_Vendor_Receivable_Values(dr));
            }
 
            return Receivables;
        }
 
-       public ReceivableInfo Get_Receivable_Data_By_Id(int invoice_Id)
+       public ReceivableInfo Get_Receivable_Data_By_Id(int invoice_Id,int role_id,int entity_Id)
        {
            ReceivableInfo receivable = new ReceivableInfo();
 
@@ -50,7 +50,49 @@ namespace SMSPortalRepo
 
            sqlparam.Add(new SqlParameter("@Invoice_Id", invoice_Id));
 
+           sqlparam.Add(new SqlParameter("@Role_Id", role_id));
+
+           sqlparam.Add(new SqlParameter("@Entity_Id", entity_Id));
+
            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Receivable_Data_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+           if (dt != null && dt.Rows.Count > 0)
+           {
+               foreach (DataRow dr in dt.Rows)
+               {
+                   if (!dr.IsNull("Receivable_Id"))
+                       receivable.Receivable_Id = Convert.ToInt32(dr["Receivable_Id"]);
+                   if (!dr.IsNull("Status"))
+                       receivable.Status = Convert.ToString(dr["Status"]);
+                   if (!dr.IsNull("Amount"))
+                       receivable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
+                   if (!dr.IsNull("Invoice_No"))
+                       receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+                   if (!dr.IsNull("Invoice_Id"))
+                       receivable.Invoice_Id = Convert.ToInt32(dr["Invoice_Id"]);
+                   if (!dr.IsNull("Balance_Amount"))
+                       receivable.Balance_Amount = Convert.ToDecimal(dr["Balance_Amount"]);
+                   if (!dr.IsNull("Dealer_Name"))
+                       receivable.Dealer_Name = Convert.ToString(dr["Dealer_Name"]);
+                   if (!dr.IsNull("Order_No"))
+                       receivable.Order_No = Convert.ToString(dr["Order_No"]);
+                   if (!dr.IsNull("Order_Date"))
+                       receivable.Order_Date = Convert.ToDateTime(dr["Order_Date"]);
+               }
+           }
+           return receivable;
+       }
+
+       public ReceivableInfo Get_Dealer_Receivable_Data_By_Id(int invoice_Id, int role_id, int entity_Id)
+       {
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+           sqlparam.Add(new SqlParameter("@Invoice_Id", invoice_Id));
+
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Dealer_Receivable_Data_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
            if (dt != null && dt.Rows.Count > 0)
            {
@@ -178,6 +220,64 @@ namespace SMSPortalRepo
            return receivable;
        }
 
+       private ReceivableInfo Get_Vendor_Receivable_Values(DataRow dr)
+       {
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           if (!dr.IsNull("Status"))
+
+               receivable.Status = Convert.ToString(dr["Status"]);
+
+           if (!dr.IsNull("Amount"))
+
+               receivable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
+
+           if (!dr.IsNull("Invoice_No"))
+
+               receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+
+           if (!dr.IsNull("Vendor_Invoice_Id"))
+
+               receivable.Invoice_Id = Convert.ToInt32(dr["Vendor_Invoice_Id"]);
+
+           return receivable;
+       }
+
+       private ReceivableInfo Get_Vendor_Specific_Receivable_Values(DataRow dr)
+       {
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           if (!dr.IsNull("Status"))
+
+               receivable.Status = Convert.ToString(dr["Status"]);
+
+           if (!dr.IsNull("Invoice_No"))
+
+               receivable.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+
+           if (!dr.IsNull("Vendor_Invoice_Id"))
+
+               receivable.Invoice_Id = Convert.ToInt32(dr["Vendor_Invoice_Id"]);
+
+           string No = Get_Order_No_By_Id(receivable.Invoice_Id);
+           var no=No.Split('_');
+
+           receivable.Order_No = no[0];
+
+           receivable.Vendor_Name = no[1];
+
+           if (!dr.IsNull("Amount"))
+
+               receivable.Invoice_Amount = Convert.ToDecimal(dr["Amount"]);
+
+           if(receivable.Status==null)
+           {
+               receivable.Status = "Pending";
+           }
+
+           return receivable;
+       }
+
        public List<ReceivableInfo> Get_Receivables(ref PaginationInfo pager, int entity_Id, int role_Id)
 
        {
@@ -196,6 +296,48 @@ namespace SMSPortalRepo
 
            {
                Receivables.Add(Get_Receivable_Values(dr));
+           }
+
+           return Receivables;
+       }
+
+       public List<ReceivableInfo> Get_Vendor_Receivables(ref PaginationInfo pager, int entity_Id, int role_Id)
+       {
+           List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
+
+           List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+           sqlParamList.Add(new SqlParameter("@entity_Id", entity_Id));
+           sqlParamList.Add(new SqlParameter("@role_Id", role_Id));
+
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Receivable_Sp.ToString(), CommandType.StoredProcedure);
+
+           foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+           {
+               Receivables.Add(Get_Vendor_Receivable_Values(dr));
+           }
+
+           return Receivables;
+       }
+
+       public List<ReceivableInfo> Get_Vendor_Specific_Receivables(ref PaginationInfo pager, int entity_Id, int role_Id)
+       {
+           List<ReceivableInfo> Receivables = new List<ReceivableInfo>();
+
+           List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+           sqlParamList.Add(new SqlParameter("@entity_Id", entity_Id));
+           sqlParamList.Add(new SqlParameter("@role_Id", role_Id));
+
+           ReceivableInfo receivable = new ReceivableInfo();
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_Specific_Receivable_Sp.ToString(), CommandType.StoredProcedure);
+
+           foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+           {
+               Receivables.Add(Get_Vendor_Specific_Receivable_Values(dr));
            }
 
            return Receivables;
@@ -249,11 +391,11 @@ namespace SMSPortalRepo
            return Balance_Amount;
        }
 
-       public int Insert_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status)
+       public int Insert_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status,int role_Id,int entity_Id)
        {
            int Receivable_Id = 0;
 
-           Receivable_Id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id,out Status), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));
+           Receivable_Id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Receivable(receivableInfo, user_Id, out Status, role_Id, entity_Id), StoreProcedures.Insert_Receivable_Data_Sp.ToString(), CommandType.StoredProcedure));
 
            if (receivableInfo.Receivable_Item_Id != 0)
            {
@@ -325,7 +467,7 @@ namespace SMSPortalRepo
            return sqlParams;
        }
 
-       private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status)
+       private List<SqlParameter> Set_Values_In_Receivable(ReceivableInfo receivableInfo, int user_Id, out bool Status,int role_Id,int entity_id)
        {
            decimal Total_Balance_Amount = 0;
            decimal Status_Amount = 0;
@@ -374,6 +516,10 @@ namespace SMSPortalRepo
            {
                Status = true;
            }
+
+           sqlParams.Add(new SqlParameter("@Role_Id", role_Id));
+
+           sqlParams.Add(new SqlParameter("@Entity_Id", entity_id));
 
            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
 
@@ -578,6 +724,51 @@ namespace SMSPortalRepo
            sqlParams.Add(new SqlParameter("@Order_Id", Order_Id));
 
            _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Update_Sales_Order_Status_Sp.ToString(), CommandType.StoredProcedure);
+       }
+
+       public decimal Get_Amount_By_Vendor_Order_Id(int vendor_Order_Id)
+       {
+           decimal Amount = 0;
+
+           List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+           sqlParams.Add(new SqlParameter("@Vendor_Order_Id", vendor_Order_Id));
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Vendor_Order_Amount_Sp.ToString(), CommandType.StoredProcedure);
+
+           if (dt != null && dt.Rows.Count > 0)
+           {
+               foreach (DataRow dr in dt.Rows)
+               {
+                   if (!dr.IsNull("Amount"))
+
+                       Amount = Convert.ToDecimal(dr["Amount"]);
+               }
+           }
+
+           return Amount;
+       }
+
+       public string Get_Order_No_By_Id(int invoice_Id)
+       {
+           string Order_No = "";
+
+           List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+           sqlParams.Add(new SqlParameter("@Vendor_Invoice_Id", invoice_Id));
+
+           DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Get_Order_No_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+           if (dt != null && dt.Rows.Count > 0)
+           {
+               foreach (DataRow dr in dt.Rows)
+               {
+                   if (!dr.IsNull("Order_No"))
+                       Order_No = Convert.ToString(dr["Order_No"])+"_"+Convert.ToString(dr["Vendor_Name"]);
+               }
+           }
+
+           return Order_No;
        }
 
     }

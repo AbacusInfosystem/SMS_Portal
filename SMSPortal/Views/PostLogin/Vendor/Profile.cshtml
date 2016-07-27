@@ -1,166 +1,100 @@
-﻿@model SMSPortal.Models.PostLogin.VendorViewModel
+﻿@model SMSPortal.Models.PostLogin.NewVendorViewModel
 @using SMSPortalInfo.Common
 
 <script src="~/Scripts/Module/Vendor/vendor_profile_methods.js"></script>
 <script src="~/Scripts/Module/Vendor/vendor_profile_events.js"></script>
 
-<div class="content-wrapper">
-    @{Html.RenderPartial("_ServerMessage");}
-    <section class="content-header">
-        <h1>
-            Vendor Profile
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+<form id="frmVendorProfileMaster">
 
-            <li class="active">Profile</li>
+    <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id" />
 
-            <li class="active">Profile Details</li>
+    <div class="brand_profile">
+        
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="brand_profile_header">Third Party Vendor Profile</h3>
 
-        </ol>
-    </section>
-    <form id="frmVendorProfileMaster">
-        <input type="hidden" id="hdnVendor_Id" name="Vendor.Vendor_Id" value="@Model.Vendor.Vendor_Id" />
-        <section class="content">
-            <div class="box box-primary">
+            <div class="info">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="box-body">
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <label>Name :</label>
-                                                        <label style="font-size:12px">@Model.Vendor.Vendor_Name</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label>Address :</label>
-                                                    <label style="font-size:12px">@Model.Vendor.Address</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <div class="form-group">
-                                                    <label>Email :</label>
-                                                    <label style="font-size:12px">@Model.Vendor.Email</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label>state :</label>
-                                                    <label style="font-size:12px">@Model.Vendor.stateInfo.State_Name</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label>City :</label>
-                                                    <label style="font-size:12px">@Model.Vendor.City</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label>Pincode :</label>
-                                                    <label style="font-size:12px">@Model.Vendor.Pincode</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <div class="form-group">
-                                                    <label>Contact No1 :</label>
-                                                    <label style="font-size:12px">@Model.Vendor.Contact_No_1</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label>Contact No2 :</label>
-                                                    <label style="font-size:12px">@Model.Vendor.Contact_No_2</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @*<div class="col-md-8">
-                                        <div class="box-body">
-                                            <div class="box-header">
-                                                <h1 class="box-title">Bank Details</h1>
-                                            </div>
-                                            <table class="table table-striped" id="tblBankDetails">
-                                                <tr id="subhead">
-
-                                                    <th>Bank Name</th>
-                                                    <th>Account No.</th>
-                                                    <th>IFSC Code</th>
-                                                    <th>Active</th>
-                                                </tr>
-                                                @if (Model.Vendor.BankDetailsList != null && Model.Vendor.BankDetailsList.Count() > 0)
-                                                {
-                                                    int i = 1;
-                                                    foreach (var itm in Model.Vendor.BankDetailsList)
-                                                    {
-                                                        <tr id="tr@(i)">
-                                                            <td>
-                                                                <span id="trBankName@(i)"> @itm.Bank_Name</span>
-                                                                <input type="hidden" id="hdnbank_Name@(i)" name="Vendor.BankDetailsList[@(i-1)].Bank_Name" value="@itm.Bank_Name">
-                                                            </td>
-                                                            <td>
-                                                                <span id="trAccount_No@(i)"> @itm.Account_No</span>
-                                                                <input type="hidden" id="hdnaccount_No@(i)" name="Vendor.BankDetailsList[@(i-1)].Account_No" value="@itm.Account_No">
-                                                            </td>
-                                                            <td>
-                                                                <span id="trIfsc_Code@(i)"> @itm.Ifsc_Code</span>
-                                                                <input type="hidden" id="hdnifsc_Code@(i)" name="Vendor.BankDetailsList[@(i-1)].Ifsc_Code" value="@itm.Ifsc_Code">
-                                                            </td>
-                                                            <td>
-                                                                @if (itm.Status.ToString() == "True")
-                                                                {
-                                                                    <span id="trStatus@(i)"> Active</span>
-                                                                    <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="true">
-                                                                }
-                                                                else
-                                                                {
-                                                                    <span id="trStatus@(i)"> InActive</span>
-                                                                    <input type="hidden" id="hdnstatus@(i)" name="Vendor.BankDetailsList[@(i-1)].Status" value="false">
-                                                                }
-
-                                                            </td>
-                                                        </tr>
-                                                                i = i + 1;
-                                                    }
-                                                }
-                                            </table>
-                                        </div>
-                                    </div>*@
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Name :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Vendor_Name</label>
                                 </div>
-                                <div class="box-footer">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="btn-group pull-left">
-                                                <button type="button" id="btnEdit" class="btn btn-warning btn-sm">Edit</button>
-                                                <button type="button" id="btnAddBankDetails" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Bank Details </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Address :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Address</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Email :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Email</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">state :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.stateInfo.State_Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">City :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.City</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Pincode :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Pincode</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Contact No1 :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Contact_No_1</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label label_mer">Contact No2 :</label>
+                                    <label class="control-label label_mer">@Model.Vendor.Contact_No_2</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group pull-left">
+                            <button type="button" id="btnEdit" class="btn btn_mer ripple">Edit</button>
+                            @*<button type="button" id="btnAddBankDetails" class="btn btn_mer ripple" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Add Bank Details </button>*@
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-    </form>
-</div>
+
+
+        </div>
+    </div>
+</form>

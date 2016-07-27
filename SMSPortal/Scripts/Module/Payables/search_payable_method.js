@@ -27,7 +27,6 @@
 
 function Bind_Payable_Grid(data)
 {
-
     var htmlText = "";
 
     if (data.Payables.length > 0)
@@ -71,7 +70,7 @@ function Bind_Payable_Grid(data)
 
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='3'> No Record found.";
+        htmlText += "<td colspan='4'> No Record found.";
 
         htmlText += "</td>";
 
@@ -82,13 +81,13 @@ function Bind_Payable_Grid(data)
 
     $('#tblPayableMaster tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck(
-        {
-            radioClass: 'iradio_square-green',
+    //$('.iradio-list').iCheck(
+    //    {
+    //        radioClass: 'iradio_square-green',
 
 
-            increaseArea: '20%' // optional
-    });
+    //        increaseArea: '20%' // optional
+    //});
 
     if (data.Payables.length > 0)
     {
@@ -108,14 +107,8 @@ function Bind_Payable_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event)
-
-    {
-        if ($(this).prop('checked'))
-        {
-
-            //$("#hdnPurchaseOrder_Id").val(this.id.replace("r1_", ""));
-
+    $('[name="r1"]').on('change', function (event) {
+        if ($(this).prop('checked')) {
             var Id = this.id.replace("r1_", "");
 
             var String = Id.split("_");
@@ -129,7 +122,6 @@ function Bind_Payable_Grid(data)
             $("#btnAddProductMapping").show();
 
             $("#btnDelete").show();
-
         }
     });
 

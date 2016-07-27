@@ -61,9 +61,15 @@ function AddToCart(obj,Product_Id, bIsCalledByPopup) {
 
 function viewMore(productId) {
 
-    $("#div_Parent_Modal_Fade").find(".modal-dialog").addClass("modal-lg");
-    $('#div_Parent_Modal_Fade').find(".modal-body").load('/Product/GetProductDetails', { Product_Id: productId }, function () {
-        $('#div_Parent_Modal_Fade').find(".modal-title").html("Product Details");
-        $('#div_Parent_Modal_Fade').modal("show");
-    });
+    $("#hdnProductId").val(productId);
+
+    $("#frmProductIndex").attr("action", "/Product/DisplayProductDetails/");
+    $('#frmProductIndex').attr("method", "POST");
+    $('#frmProductIndex').submit();
+
+    //$("#div_Parent_Modal_Fade").find(".modal-dialog").addClass("modal-lg");
+    //$('#div_Parent_Modal_Fade').find(".modal-body").load('/Product/GetProductDetails', { Product_Id: productId }, function () {
+    //    $('#div_Parent_Modal_Fade').find(".modal-title").html("Product Details");
+    //    $('#div_Parent_Modal_Fade').modal("show");
+    //});
 }

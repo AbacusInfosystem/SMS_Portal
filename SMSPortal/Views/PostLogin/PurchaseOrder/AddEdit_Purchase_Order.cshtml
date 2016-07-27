@@ -10,219 +10,205 @@
 <script src="~/Scripts/Module/PurchaseOrder/purchase_order_events.js"></script>
 <script src="~/Scripts/Module/PurchaseOrder/purchase_order_methods.js"></script>
 <script src="~/Scripts/Module/PurchaseOrder/purchase_order_validation.js"></script>
-<div class="content-wrapper">
-    @{Html.RenderPartial("_ServerMessage");}
-    <section class="content-header">
-        <h1>
-            Purchase Order Master
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li class="active">Admin</li>
-            <li class="active">Purchase Order</li>
-        </ol>
-    </section>
 
-    <form id="frmPurchaseOrderMaster">
+<form id="frmPurchaseOrderMaster">
+    <div class="master">
+
         <input type="hidden" id="hdnPurchase_Order_Id" name="PurchaseOrder.Purchase_Order_Id" value="@Model.PurchaseOrder.Purchase_Order_Id" />
         <input type="hidden" id="hdnPurchase_Order_Item_Id" name="PurchaseOrderItem.Purchase_Order_Item_Id" value="@Model.PurchaseOrderItem.Purchase_Order_Item_Id" />
-        <section class="content">
-            <div class="box box-primary">
+        <input type="hidden" id="hdnUser_Id" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id" />
+
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="master_header">
+                Purchase Order Master
+                <span> <a href="@Url.Action("Search", "purchaseOrder")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label label_mer">Purchase Order No</label><br />
+                            <label class="control-label label_mer_2" id="OrdNo">@Model.PurchaseOrder.Purchase_Order_No</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="dvSubc">
+                        <div class="form-group auto-complete">
+                            <label for="Vendor" class="control-label label_mer">Vendor Name</label>
+                            <div class="input-group" id="vendor_look">
+                                <input type="text" class="form-control form_control_mer autocomplete-text lookup-text" name="PurchaseOrder.Vendor_Name" id="txtVendor" placeholder="Enter Vendor Name" value="@(Model.PurchaseOrder.Vendor_Id == 0 ? "" : Model.PurchaseOrder.Vendor_Id.ToString())" data-table="ThirdPartyVendor" data-param="hdnUser_Id" data-col="Third_Party_Vendor_Id,Third_Party_Vendor_Name" data-headernames="Vendor Name">
+                                <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                                <input type="hidden" id="hdnVendorId" value="@(Model.PurchaseOrder.Vendor_Id == 0 ? "" : Model.PurchaseOrder.Vendor_Id.ToString())" name="PurchaseOrder.Vendor_Id" class="auto-complete-value" />
+                                <input type="hidden" id="hdnVendorName" value="@Model.PurchaseOrder.Vendor_Name" name="PurchaseOrder.Vendor_Name" class="auto-complete-label" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container">
+                <h3 class="master_header">
+                    Add Order Items
+                </h3>
+
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="box-header with-border">
-                            <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                             
+                    <div class="col-md-3" id="divProduct">
+                        <div class="form-group auto-complete">
+                            <label for="Product" class="control-label label_mer">Product Name</label>
+                            <div class="input-group" id="product_look">
+
+                                <input type="text" class="form-control form_control_mer autocomplete-text lookup-text" name="Product.Product_Name" id="txtProductName" placeholder="Enter Product Name" value="@(Model.PurchaseOrderItem.Product_Id == 0 ? "" : Model.PurchaseOrderItem.Product_Id.ToString())" data-table="product" data-param="hdnVendorId" data-col="Product_Id,Product_Name" data-headernames="Product Name">
+                                <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefProduct" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                                <input type="hidden" id="hdnProductId" value="@(Model.Product.Product_Id == 0 ? "" : Model.Product.Product_Id.ToString())" name="Product.Product_Id" class="auto-complete-value" />
+                                <input type="hidden" id="hdnProductName" value="@Model.Product.Product_Name" name="Product.Product_Name" class="auto-complete-label" />
+
+                            </div>
                         </div>
 
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label style="color: #333">Purchase Order No</label><br />
-                                        <label style="color: #808080" id="OrdNo">@Model.PurchaseOrder.Purchase_Order_No</label>
-                                    </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label label_mer">Product Price</label>
+                            <input type="text" class="form-control form_control_mer" name="UnitPrice" id="txtUnitPrice" name="PurchaseOrderItem.Product_Unit_Price" value="@Model.PurchaseOrderItem.Product_Unit_Price" readonly="readonly">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label label_mer">Product Quantity</label>
+                            <input type="text" class="form-control form_control_mer" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" onchange="Calculate_Total(this);" placeholder="Enter product quantity" value="@(Model.PurchaseOrderItem.Product_Quantity == 0 ? "" : @Model.PurchaseOrderItem.Product_Quantity.ToString())" maxlength="10">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label label_mer">Total Price</label>
+                            <input type="text" class="form-control form_control_mer" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@(Model.PurchaseOrderItem.Product_Price == 0 ? "" : Model.PurchaseOrderItem.Product_Price.ToString())" maxlength="20" readonly="readonly">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label label_mer">Shipping Address</label>
+                            <textarea class="form-control form_control_mer" name="PurchaseOrderItem.Shipping_Address" id="txtShipping_Address" placeholder="Enter Shipping Address" maxlength="200">@Model.PurchaseOrderItem.Shipping_Address</textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="txtRecDate" class="control-label label_mer">Received Date</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
                                 </div>
-                                <div class="col-md-3" id="dvSubc">
-                                    <div class="form-group auto-complete">
-                                        <label for="Vendor" class="lookup-title">Vendor Name</label>
-                                        <div class="input-group" id="vendor_look">
-                                            <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="PurchaseOrder.Vendor_Name" id="txtVendor" placeholder="Enter Vendor Name" value="@(Model.PurchaseOrder.Vendor_Id == 0 ? "" : Model.PurchaseOrder.Vendor_Id.ToString())" data-table="Vendors" data-col="Vendor_Id,Vendor_Name" data-headernames="Vendor Name">
-                                            <input type="hidden" id="hdnVendorId" value="@(Model.PurchaseOrder.Vendor_Id == 0 ? "" : Model.PurchaseOrder.Vendor_Id.ToString())" name="PurchaseOrder.Vendor_Id" class="auto-complete-value" />
-                                            <input type="hidden" id="hdnVendorName" value="@Model.PurchaseOrder.Vendor_Name" name="PurchaseOrder.Vendor_Name" class="auto-complete-label" />
-                                            <div class="input-group-addon">
-                                                <a href="#" class="text-muted" id="hrefVendor" role="button"><i class="fa fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="box">
-                                <div class="box-header">
-                                    <h3 class="box-title">Add Order Items</h3>
-                                </div>
-                                <div class="box-body">
-                                    <div class="row">
-                                        <div class="col-md-3" id="divProduct">
-                                            <div class="form-group auto-complete">
-                                                <label for="Product" class="lookup-title">Product Name</label>
-                                                <div class="input-group" id="product_look">
-                                                    
-                                                    <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Product.Product_Name" id="txtProductName" placeholder="Enter Product Name" value="@(Model.PurchaseOrderItem.Product_Id == 0 ? "" : Model.PurchaseOrderItem.Product_Id.ToString())" data-table="product" data-param="hdnVendorId" data-col="Product_Id,Product_Name" data-headernames="Product Name">
-                                                    <input type="hidden" id="hdnProductId" value="@(Model.Product.Product_Id == 0 ? "" : Model.Product.Product_Id.ToString())" name="Product.Product_Id" class="auto-complete-value" />
-                                                    <input type="hidden" id="hdnProductName" value="@Model.Product.Product_Name" name="Product.Product_Name" class="auto-complete-label" />
-                                                    <a href="#" class="input-group-addon text-muted" id="hrefProduct" role="button"><i class="fa fa-search"></i></a>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label style="color: #333">Product Price</label>
-                                                <input type="text" class="form-control input-sm" name="UnitPrice" id="txtUnitPrice" name="PurchaseOrderItem.Product_Unit_Price" value="@Model.PurchaseOrderItem.Product_Unit_Price" readonly="readonly"> 
-                                                 
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label style="color: #333">Product Quantity</label>
-                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Quantity" id="txtProductQuantity" onchange="Calculate_Total(this);" placeholder="Enter product quantity" value="@(Model.PurchaseOrderItem.Product_Quantity == 0 ? "" : @Model.PurchaseOrderItem.Product_Quantity.ToString())" maxlength="10">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                  <label style="color: #333">Total Price</label>
-                                                
-                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Product_Price" id="txtProductPrice" placeholder="Enter product price" value="@(Model.PurchaseOrderItem.Product_Price == 0 ? "" : Model.PurchaseOrderItem.Product_Price.ToString())" maxlength="20" readonly="readonly">
-                                        </div>
-                                        </div>
-
-                                        <div class="col-md-2">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label style="color: #333">Shipping Address</label>
-                                                <textarea class="form-control input-sm" name="PurchaseOrderItem.Shipping_Address" id="txtShipping_Address" placeholder="Enter Shipping Address" maxlength="200">@Model.PurchaseOrderItem.Shipping_Address</textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="txtRecDate" style="color: #333">Received Date</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </div>
-                                                    <input type="text" class="form-control  input-sm" id="txtShippingDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="PurchaseOrderItem.Shipping_Date" placeholder="Enter Shipping Date" value="@(Model.PurchaseOrderItem.Shipping_Date == DateTime.MinValue ? "" : Model.PurchaseOrderItem.Shipping_Date.ToString("dd-MM-yyyy"))" />
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                    <label style="color: #333">Received Quantity</label>
-                                                <input type="text" class="form-control input-sm" name="PurchaseOrderItem.Received_Quantity" id="txtReceived_Quantity" placeholder="Enter received quantity" value="@Model.PurchaseOrderItem.Received_Quantity" maxlength="20" readonly="readonly">
-                                                  
-                                        </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                             
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <br />
-                                                <button type="button" id="btnAdd" class="btn btn-success btn-sm">Add</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-
-                                <div class="box table-responsive">
-                                    <div class="box-header">
-                                        <h3 class="box-title">Purchase Order Items</h3>
-                                    </div><!-- /.box-header -->
-                                    <div class="box-body">
-                                        <table class="table table-responsive" id="tblPurchaseOrderItems">
-                                            <tr id="subhead">
-                                                <th>Shipping Date</th>
-                                                <th>Address</th>
-                                                <th>Product</th>
-                                                <th>Quantity</th>
-                                                <th>Balance Qty</th>
-                                                <th>Price</th>
-                                                 <th>Status</th>
-                                                <th></th>
-
-                                            </tr>
-
-                                            @foreach (var item in Model.PurchaseOrderItems)
-                                            {
-                                                <tr id=@("PItem"+item.Purchase_Order_Item_Id.ToString())>
-
-                                                    <td> @( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date))</td>
-
-                                                    <td>@item.Shipping_Address</td>
-
-                                                    <td>@item.Product_Name</td>
-
-                                                    <td>@item.Product_Quantity.ToString()</td>
-
-                                                    <td>@item.Balance_Quantity.ToString()</td>
-
-                                                    <td>@item.Product_Price.ToString()</td>
-
-                                                    <td>@item.Status_Text</td>
-
-                                                    <td>
-                                                        <button id="btnEdit" type="button" class="btn btn-box-tool btn-tel-edit" onclick="Edit_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-pencil'></i></button>
-                                                        <button id="btnRemove" type="button" class="btn btn-box-tool btn-tel-delete" onclick="Delete_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-remove'></i></button>
-                                                    </td>                                                    
-
-                                                    <input type="hidden" class="ItmId" value="@item.Purchase_Order_Item_Id">
-                                                    <input type="hidden" class="ItmPOrderId" value="@item.Purchase_Order_Id">
-                                                    <input type="hidden" class="ItmProductId" value="@item.Product_Id">
-                                                    <input type="hidden" class="ItmProductPrice" value="@item.Product_Price">
-                                                    <input type="hidden" class="ItmProductQty" value="@item.Product_Quantity">
-                                                    <input type="hidden" class="ItmShipDate" value="@( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date) )">
-                                                    <input type="hidden" class="ItmShipAdd" value="@item.Shipping_Address">
-                                                    <input type="hidden" class="ItmRecQty" value="@item.Received_Quantity">
-
-                                                </tr>
-                                            }
-
-                                            <tr style="background-color:#eee">
-                                                <td colspan="5"><b>Total :</b> </td>
-                                                <td colspan="3"> <input type="text" style="width:150px;" class="form-control input-sm valid" name="PurchaseOrder.Gross_Amount" id="txtTotalAmount" value="@Model.PurchaseOrder.Gross_Amount" maxlength="20" readonly="readonly"></td>
-                                            </tr>
-                                             
-                                        </table>
-                                    </div><!-- /.box-body -->
-                                     
-                                    <div class="box-footer">
-                                        <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" id="btnSendEmail"> Send Email</a>
-                                            @*<button type="button" id="btnSendEmail" class="btn btn-primary btn-sm">Send Email</button>*@
-                                               @* <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>*@
-                                        </div>
-                                    </div>
-                                </div>
+                                <input type="text" class="form-control form_control_mer" id="txtShippingDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="PurchaseOrderItem.Shipping_Date" placeholder="Enter Shipping Date" value="@(Model.PurchaseOrderItem.Shipping_Date == DateTime.MinValue ? "" : Model.PurchaseOrderItem.Shipping_Date.ToString("dd-MM-yyyy"))" />
 
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label label_mer">Received Quantity</label>
+                            <input type="text" class="form-control form_control_mer" name="PurchaseOrderItem.Received_Quantity" id="txtReceived_Quantity" placeholder="Enter received quantity" value="@Model.PurchaseOrderItem.Received_Quantity" maxlength="20" readonly="readonly">
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <br />
+                            <button type="button" id="btnAdd" class="btn btn_mer ripple">Add</button>
+                        </div>
+                    </div>
+
                 </div>
-        </section>
-    </form>
-</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <h3 class="master_header">Purchase Order Items</h3>
+
+                                <table class="table table-bordered" id="tblPurchaseOrderItems">
+                                    <thead>
+                                        <tr id="subhead">
+                                            <th>Shipping Date</th>
+                                            <th>Address</th>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Balance Qty</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model.PurchaseOrderItems)
+                                    {
+                                        <tr id=@("PItem"+item.Purchase_Order_Item_Id.ToString())>
+
+                                            <td> @( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date))</td>
+
+                                            <td>@item.Shipping_Address</td>
+
+                                            <td>@item.Product_Name</td>
+
+                                            <td>@item.Product_Quantity.ToString()</td>
+
+                                            <td>@item.Balance_Quantity.ToString()</td>
+
+                                            <td>@item.Product_Price.ToString()</td>
+
+                                            <td>@item.Status_Text</td>
+
+                                            <td>
+                                                <button id="btnEdit" type="button" class="btn btn-box-tool btn-tel-edit" onclick="Edit_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-pencil'></i></button>
+                                                <button id="btnRemove" type="button" class="btn btn-box-tool btn-tel-delete" onclick="Delete_Purchase_Order_Item(@item.Purchase_Order_Item_Id)"><i class='fa fa-remove'></i></button>
+                                            </td>
+
+                                            <input type="hidden" class="ItmId" value="@item.Purchase_Order_Item_Id">
+                                            <input type="hidden" class="ItmPOrderId" value="@item.Purchase_Order_Id">
+                                            <input type="hidden" class="ItmProductId" value="@item.Product_Id">
+                                            <input type="hidden" class="ItmProductPrice" value="@item.Product_Price">
+                                            <input type="hidden" class="ItmProductQty" value="@item.Product_Quantity">
+                                            <input type="hidden" class="ItmShipDate" value="@( String.Format("{0:MM/dd/yyyy}", item.Shipping_Date) )">
+                                            <input type="hidden" class="ItmShipAdd" value="@item.Shipping_Address">
+                                            <input type="hidden" class="ItmRecQty" value="@item.Received_Quantity">
+
+                                        </tr>
+                                    }
+
+                                    <tr>
+                                        <td colspan="5" style="text-align: right;">Total :</td>
+                                        <td colspan="3"> <input type="text" style="width:150px;" class="form-control form_control_mer valid" name="PurchaseOrder.Gross_Amount" id="txtTotalAmount" value="@Model.PurchaseOrder.Gross_Amount" maxlength="20" readonly="readonly"></td>
+                                    </tr>
+
+                                </table>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <a class="btn btn_mer ripple" id="btnSendEmail"> Send Email</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

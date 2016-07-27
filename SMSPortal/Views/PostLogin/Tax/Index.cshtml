@@ -4,6 +4,7 @@
 <script src="~/Scripts/Module/Tax/Tax_events.js"></script>
 <script src="~/Scripts/Module/Tax/Tax_mthod.js"></script>
 <script src="~/Scripts/Module/Tax/tax_validation.js"></script>
+
 <div class="content-wrapper">
     @{Html.RenderPartial("_ServerMessage");}
     <section class="content-header">
@@ -69,3 +70,44 @@
         </section>
     </form>
 </div>
+
+<form id="frmTax">
+    <div class="master">
+
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="master_header">
+                Tax Master
+                <span> <a href="@Url.Action("Search","Brand")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
+            <input type="hidden" id="hdnTax_Id" name="Tax.Tax_Id" value="@Model.Tax.Tax_Id">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label class="control-label label_mer">Local Tax</label>
+                        <input type="text" class="form-control form_control_mer" name="Tax.Local_Tax" id="txtLocal_Tax" placeholder="Enter Local Tax" value="@Model.Tax.Local_Tax" maxlength="10">
+                        <input type="hidden" id="hdnLocal_Tax" value="@Model.Tax.Local_Tax">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label label_mer">Export Tax</label>
+                        <input type="text" class="form-control form_control_mer" name="Tax.Export_Tax" id="txtExport_Tax" placeholder="Enter Export Tax" value="@Model.Tax.Export_Tax" maxlength="10">
+                        <input type="hidden" id="hdnExport_Tax" value="@Model.Tax.Export_Tax">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" id="btnSave" class="btn btn_mer ripple">Save</button>
+                        <button type="reset" id="btnReset" class="btn btn_mer ripple">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

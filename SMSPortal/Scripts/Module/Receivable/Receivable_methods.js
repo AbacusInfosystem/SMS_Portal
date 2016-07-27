@@ -81,11 +81,7 @@ function Bind_Receivable_Grid_Items(data) {
 
         htmlText += "<th>Receivable Date</th>";
 
-        if (data.Receivable.Status != "Payment Done") {
-
-            htmlText += "<th>Action</th>";
-
-        }
+        htmlText += "<th>Action</th>";
 
         htmlText += "</tr>";
 
@@ -210,7 +206,7 @@ function Bind_Receivable_Grid_Items(data) {
     //    increaseArea: '20%' // optional
     //});
 
-    $("#divSearchGridOverlay").hide();
+    //$("#divSearchGridOverlay").hide();
     $("#hdnReceivable_Item_Amount").val("0")
     Friendly_Message(data);
 

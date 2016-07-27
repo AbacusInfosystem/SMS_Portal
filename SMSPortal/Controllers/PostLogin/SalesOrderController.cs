@@ -8,6 +8,7 @@ using SMSPortalManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -53,9 +54,24 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                sViewModel.Sales_Order = _orderManager.Get_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
+                sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (sViewModel.Cookies.Role_Id==Convert.ToInt32(RolesIds.Vendor))
+                {
+                    sViewModel.Sales_Order = _orderManager.Get_Vendor_Order_Data_By_Id(sViewModel.Sales_Order.Vendor_Order_Id);
+                    sViewModel.Sales_Order.OrderItems = _orderManager.Get_Vendor_Orders_Item_By_Id(sViewModel.Sales_Order.Vendor_Order_Id);
+                }
+                else
+                {
+                    sViewModel.Sales_Order = _orderManager.Get_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
+                    sViewModel.Sales_Order.OrderItems = _orderManager.Get_Orders_Item_By_Id(sViewModel.Sales_Order.Vendor_Order_Id);
+                }
+
+                //sViewModel.Sales_Order = _orderManager.Get_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
+               // sViewModel.Sales_Order = _orderManager.Get_Vendor_Order_Data_By_Id(sViewModel.Sales_Order.Vendor_Order_Id);
                 sViewModel.Dealer = _orderManager.Get_Dealer_Data_By_Id(sViewModel.Sales_Order.Dealer_Id);
-                sViewModel.Sales_Order.OrderItems = _orderManager.Get_Orders_Item_By_Id(sViewModel.Sales_Order.Order_Id);
+                //sViewModel.Sales_Order.OrderItems = _orderManager.Get_Orders_Item_By_Id(sViewModel.Sales_Order.Vendor_Order_Id);
+               // sViewModel.Sales_Order.OrderItems = _orderManager.Get_Vendor_Orders_Item_By_Id(sViewModel.Sales_Order.Vendor_Order_Id);
             }
             catch (Exception ex)
             {
@@ -74,6 +90,8 @@ namespace SMSPortal.Controllers.PostLogin
 
             try
             {
+                sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 pager = sViewModel.Pager;
 
                 if (sViewModel.Filter.Order_Id != 0)
@@ -82,7 +100,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else if (sViewModel.Filter.Status != 0)
                 {
-                    sViewModel.Sales_Orders = _orderManager.Get_Orders_Data_By_Status(sViewModel.Filter.Status, ref pager);
+                    sViewModel.Sales_Orders = _orderManager.Get_Orders_Data_By_Status(sViewModel.Filter.Status, ref pager, sViewModel.Cookies.Role_Id, sViewModel.Cookies.Entity_Id);
                 }
                 else if (!string.IsNullOrEmpty(sViewModel.Filter.OrderSlot))
                 {
@@ -108,7 +126,15 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    sViewModel.Sales_Orders = _orderManager.Get_Orders(ref pager, sViewModel.Cookies.Entity_Id);
+                    if (sViewModel.Cookies.Role_Id==Convert.ToInt32(RolesIds.Dealer))
+                    {
+                        sViewModel.Sales_Orders = _orderManager.Get_Orders(ref pager, sViewModel.Cookies.Entity_Id);
+                    }
+                    else
+                    {
+                        sViewModel.Sales_Orders = _orderManager.Get_Vendor_Orders(ref pager, sViewModel.Cookies.Entity_Id);
+                    }
+                    
                 }
 
                 sViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", sViewModel.Pager.TotalRecords, sViewModel.Pager.CurrentPage + 1, sViewModel.Pager.PageSize, 10, true);
@@ -130,11 +156,22 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
+                string x = sViewModel.Sales_Order.Shipping_Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
                 _orderManager.Update_Order_Status(sViewModel.Sales_Order);
+
+                _orderManager.Update_Vendor_Order_Status(sViewModel.Sales_Order);
+
+                //sViewModel.Sales_Order = _orderManager.Get_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
+
+                sViewModel.Sales_Order = _orderManager.Get_Vendor_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
 
                 sViewModel.User = _userManager.Get_User_By_Entity_Id(sViewModel.Sales_Order.Dealer_Id, 3);
 
-                _orderManager.Send_Order_Status_Notification(sViewModel.User.First_Name, sViewModel.User.Email_Id, sViewModel.Sales_Order, false);
+                if (sViewModel.User.Email_Id!=null)
+                {
+                    _orderManager.Send_Order_Status_Notification(sViewModel.User.First_Name, sViewModel.User.Email_Id, sViewModel.Sales_Order, false);
+                }           
             }
             catch (Exception ex)
             {
@@ -177,9 +214,21 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                sViewModel.Sales_Order = _orderManager.Get_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
-                sViewModel.Dealer = _orderManager.Get_Dealer_Data_By_Id(sViewModel.Sales_Order.Dealer_Id);
-                sViewModel.Sales_Order.OrderItems = _orderManager.Get_Orders_Item_By_Id(sViewModel.Sales_Order.Order_Id);
+                sViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                if (sViewModel.Cookies.Role_Id==Convert.ToInt32(RolesIds.Dealer))
+                {
+                    sViewModel.Sales_Order = _orderManager.Get_Dealer_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
+                    sViewModel.Dealer = _orderManager.Get_Dealer_Data_By_Id(sViewModel.Sales_Order.Dealer_Id);
+                    sViewModel.Sales_Order.OrderItems = _orderManager.Get_Orders_Item_By_Id(sViewModel.Sales_Order.Order_Id);
+                }
+                else
+                {
+                    sViewModel.Sales_Order = _orderManager.Get_Order_Data_By_Id(sViewModel.Sales_Order.Order_Id);
+                    sViewModel.Dealer = _orderManager.Get_Dealer_Data_By_Id(sViewModel.Sales_Order.Dealer_Id);
+                    sViewModel.Sales_Order.OrderItems = _orderManager.Get_Dealer_Order_Items_By_Order_Id(sViewModel.Sales_Order.Order_Id);
+                }
+ 
             }
             catch (Exception ex)
             {

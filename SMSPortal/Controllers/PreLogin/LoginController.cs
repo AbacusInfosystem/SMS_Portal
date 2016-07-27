@@ -32,17 +32,17 @@ namespace SMSPortal.Controllers.PreLogin
                 {
                     lViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                    if (lViewModel.Cookies==null)
+                    if (lViewModel.Cookies == null)
                     {
                         lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
-                    }                 
+                    }
                 }
                 else
                 {
                     if (TempData["FriendlyMessage"] != null)
                     {
                         lViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
-                    }                    
+                    }
                 }
             }
             catch (Exception ex)
@@ -53,6 +53,11 @@ namespace SMSPortal.Controllers.PreLogin
             }
 
             return View("Index", lViewModel);
+        }
+
+        public ActionResult Home(LoginViewModel lViewModel)      
+        {
+            return View("Home");
         }
 
         public ActionResult ForgotPassword(UserViewModel uViewModel)
@@ -245,6 +250,43 @@ namespace SMSPortal.Controllers.PreLogin
         public ActionResult Anauthorize_Token(LoginViewModel lViewModel)
         {
             lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+            return View("Index", lViewModel);
+        }
+
+        public ActionResult Anauthorize_Access(LoginViewModel lViewModel)
+        {
+            lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+            return View("Unauthorize_Access");
+        }
+
+        public ActionResult Marsedes(LoginViewModel lViewModel)
+        {
+            try
+            {
+                if (Request.Cookies["UserInfo"] != null)
+                {
+                    lViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                    if (lViewModel.Cookies == null)
+                    {
+                        lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+                    }
+                }
+                else
+                {
+                    if (TempData["FriendlyMessage"] != null)
+                    {
+                        lViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error at Index : " + ex.Message);
+                lViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                return View("Index", lViewModel);
+            }
+
             return View("Index", lViewModel);
         }
 

@@ -50,10 +50,12 @@
     <Compile Include="CategoryRepo.cs" />
     <Compile Include="CommonRepo.cs" />
     <Compile Include="Common\CommonMethods.cs" />
+    <Compile Include="ConsolidatedOrderRepo.cs" />
     <Compile Include="CookiesRepo.cs" />
     <Compile Include="DashboardRepo.cs" />
     <Compile Include="DealerRepo.cs" />
     <Compile Include="InvoiceRepo.cs" />
+    <Compile Include="VendorRepo.cs" />
     <Compile Include="OrdersRepo.cs" />
     <Compile Include="PayableRepo.cs" />
     <Compile Include="ProductRepo.cs" />
@@ -64,7 +66,7 @@
     <Compile Include="SubCategoryRepo.cs" />
     <Compile Include="TaxRepo.cs" />
     <Compile Include="UserRepo.cs" />
-    <Compile Include="VendorRepo.cs" />
+    <Compile Include="ThirdPartyVendorRepo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

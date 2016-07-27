@@ -5,149 +5,181 @@
 <script src="~/Scripts/Module/Product/Product_method.js"></script>
 <script src="~/Scripts/Module/Product/Product_validation.js"></script>
 
-<div class="content-wrapper">
+<form id="frmProductMaster">
+    <div class="master">
 
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <section class="content-header">
-                <h1>
-                    Product Master
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active">Admin</li>
-                    <li class="active">Product</li>
-                </ol>
-            </section>
-            <form id="frmProductMaster">
-                <section class="content">
-                    <div class="box box-primary">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                                    @*<h3 class="box-title">Product</h3>*@
-                                </div>
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="master_header">
+                Product Master
+                <span> <a href="@Url.Action("Search","Product")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
 
-                                <div class="box-body">
-                                    <input type="hidden" id="hdnCategory_Id" value="@Model.Product.Category_Id" />
-                                    <input type="hidden" id="hdnSubCategory_Id" value="@Model.Product.SubCategory_Id" />
-                                    <input type="hidden" class="form-control input-sm" name="Product.Product_Id" id="hdf_ProductId" value="@Model.Product.Product_Id">
-                                     
-                                        <div class="form-group">
-                                            <label style="color: #333">Product Name</label>
-                                            <input type="text" class="form-control input-sm" name="Product.Product_Name" id="txtProduct_Name" placeholder="Enter product name" value="@Model.Product.Product_Name" maxlength="40">
-                                            <input type="hidden" id="hdnProductName" value="@Model.Product.Product_Name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label style="color: #333">Brand</label>
-                                            <select id="drpBrand_Category" class="form-control" name="Product.Brand_Id">
-                                                <option value="">-Select Brand-</option>
-                                                @foreach (var item in Model.Brands)
-                                                {
-                                                    if (Model.Product.Brand_Id == item.Brand_Id)
-                                                    {
-                                                <option value="@item.Brand_Id" selected="selected">@item.Brand_Name</option>
-                                                    }
-                                                    else
-                                                    {
-                                                <option value="@item.Brand_Id">@item.Brand_Name</option>
-                                                    }
-                                                }
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label style="color: #333">Category</label>
-                                            <select id="drpProduct_Category" class="form-control" name="Product.Category_Id">
-                                                <option value="">-Select Category-</option>
-                                                @foreach (var item in Model.Categories)
-                                                    {
-                                                        if (Model.Product.Category_Id == item.Category_Id)
-                                                        {
-                                                <option value="@item.Category_Id" selected="selected">@item.Category_Name</option>
-                                                        }
-                                                        else
-                                                        {
-                                                <option value="@item.Category_Id">@item.Category_Name</option>
-                                                        }
-                                                    }
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label style="color: #333">SubCategory</label>
-                                            <select id="drpProduct_SubCategory" class="form-control" name="Product.SubCategory_Id"></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label style="color: #333">Product Price</label>
-                                            <input type="text" class="form-control input-sm" name="Product.Product_Price" id="txtProduct_Price" placeholder="Enter price of product" value="@(Model.Product.Product_Price == 0 ? "" : Model.Product.Product_Price.ToString())" maxlength="20">
-                                        </div>
-                                    <div class="form-group">
-                                        <label style="color: #333">Local Tax</label>
-                                        <input type="number" class="form-control input-sm" name="Product.Local_Tax" id="txtProduct_LocalTax" placeholder="Enter local tax " value="@(Model.Product.Local_Tax == 0 ? "" : Model.Product.Local_Tax.ToString())"  maxlength="20">
-                                    </div>
-                                    <div class="form-group">
-                                        <label style="color: #333">Export Tax</label>
-                                        <input type="number" class="form-control input-sm" name="Product.Export_Tax" id="txtProduct_ExportTax" placeholder="Enter export tax" value="@(Model.Product.Export_Tax == 0 ? "" : Model.Product.Export_Tax.ToString())"  maxlength="20">
-                                    </div>
-                                        <div class="form-group">
-                                            <label style="color: #333">Product Description</label>
-                                            <textarea class="form-control" id="txtarea_productdescription" name="Product.Product_Description" maxlength="100">@Model.Product.Product_Description</textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <br />
-                                            @if (Model.Product.Is_Active == false)
-                                            {
-                                                <label>
-                                                    <input type="checkbox" name="chkStatus" class="chkstatus" />
-                                                    &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                                </label>
-                                            }
-                                            else
-                                            {
-                                                <label>
-                                                    <input type="checkbox" name="chkStatus" checked="checked" class="chkstatus" />
-                                                    &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                                </label>
-                                            }
-                                            <input type="hidden" id="hdnIs_Active" name="Product.Is_Active" value="@Model.Product.Is_Active.ToString()">
-                                        </div>
-                                        <div class="form-group">
-                                            <br />
-                                            @if (Model.Product.Is_Biddable == false)
-                                            {
-                                            <label>
-                                                <input type="checkbox" name="chkBid" class="chkBiddable" />
-                                                &nbsp;&nbsp;&nbsp;&nbsp; Biddable
-                                            </label>
-                                            }
-                                            else
-                                            {
-                                            <label>
-                                                <input type="checkbox" name="chkBid" checked="checked" class="chkBiddable" />
-                                                &nbsp;&nbsp;&nbsp;&nbsp; Biddable
-                                            </label>
-                                            }
-                                            <input type="hidden" id="hdnIs_Biddable" name="Product.Is_Biddable" value="@Model.Product.Is_Biddable.ToString()">
-                                        </div>                                    
-                                </div>
+            <div class="row">
+                <div class="col-md-12">
 
-                                <div class="box-footer">
-                                    <center>
-                                        <div class="btn-group">
-                                            <button type="button" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                            <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                        </div>
-                                    </center>
-                                </div>
+                    <input type="hidden" id="hdnCategory_Id" value="@Model.Product.Category_Id" />
+                    <input type="hidden" id="hdnSubCategory_Id" value="@Model.Product.SubCategory_Id" />
+                    <input type="hidden" class="form-control form_control_mer" name="Product.Product_Id" id="hdf_ProductId" value="@Model.Product.Product_Id">
 
+                    <div class="form-group">
+                        <label class="control-label label_mer">Product Name</label>
+                        <input type="text" class="form-control form_control_mer" name="Product.Product_Name" id="txtProduct_Name" placeholder="Enter product name" value="@Model.Product.Product_Name" maxlength="40">
+                        <input type="hidden" id="hdnProductName" value="@Model.Product.Product_Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Brand</label>
+                        <select id="drpBrand_Category" class="form-control form_control_mer" name="Product.Brand_Id">
+                            <option value="">-Select Brand-</option>
+                            @foreach (var item in Model.Brands)
+                            {
+                                if (Model.Product.Brand_Id == item.Brand_Id)
+                                {
+                                    <option value="@item.Brand_Id" selected="selected">@item.Brand_Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Brand_Id">@item.Brand_Name</option>
+                                }
+                            }
+                        </select>
+                        <input type="hidden" id="hdnBrand_Id" value="@Model.Product.Brand_Id" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label label_mer">Category</label>
+                        <select id="drpProduct_Category" class="form-control form_control_mer" name="Product.Category_Id">
+                            <option value="">-Select Category-</option>
+                            @foreach (var item in Model.Categories)
+                            {
+                                if (Model.Product.Category_Id == item.Category_Id)
+                                {
+                                    <option value="@item.Category_Id" selected="selected">@item.Category_Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Category_Id">@item.Category_Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">SubCategory</label>
+                        <select id="drpProduct_SubCategory" class="form-control form_control_mer" name="Product.SubCategory_Id"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Product Price</label>
+                        <input type="text" class="form-control form_control_mer" name="Product.Product_Price" id="txtProduct_Price" placeholder="Enter price of product" value="@(Model.Product.Product_Price == 0 ? "" : Model.Product.Product_Price.ToString())" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Local Tax</label>
+                        <input type="number" class="form-control form_control_mer" name="Product.Local_Tax" id="txtProduct_LocalTax" placeholder="Enter local tax " value="@(Model.Product.Local_Tax == 0 ? "" : Model.Product.Local_Tax.ToString())" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Export Tax</label>
+                        <input type="number" class="form-control form_control_mer" name="Product.Export_Tax" id="txtProduct_ExportTax" placeholder="Enter export tax" value="@(Model.Product.Export_Tax == 0 ? "" : Model.Product.Export_Tax.ToString())" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label label_mer">Product Description</label>
+                        <textarea class="form-control form_control_mer" id="txtarea_productdescription" name="Product.Product_Description" maxlength="1000">@Model.Product.Product_Description</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label label_mer">Product Specification</label>
+                        <textarea class="form-control form_control_mer" id="txtarea_productspecification" name="Product.Product_Specification" maxlength="1000">@Model.Product.Product_Specification</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label label_mer">Product Maintance</label>
+                        <textarea class="form-control form_control_mer" id="txtarea_productmaintance" name="Product.Product_Maintance" maxlength="1000">@Model.Product.Product_Maintance</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <br />
+                        @if (Model.Product.Is_Active == false)
+                        {
+                            <label class="control-label label_mer">
+                                <input type="checkbox" name="chkStatus" class="chkstatus" />
+                                &nbsp;&nbsp;&nbsp;&nbsp; Active
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="control-label label_mer">
+                                <input type="checkbox" name="chkStatus" checked="checked" class="chkstatus" />
+                                &nbsp;&nbsp;&nbsp;&nbsp; Active
+                            </label>
+                        }
+                        <input type="hidden" id="hdnIs_Active" name="Product.Is_Active" value="@Model.Product.Is_Active.ToString()">
+                    </div>
+                    <div class="form-group">
+                        <br />
+                        @if (Model.Product.Is_Biddable == false)
+                        {
+                            <label class="control-label label_mer">
+                                <input type="checkbox" name="chkBid" class="chkBiddable" />
+                                &nbsp;&nbsp;&nbsp;&nbsp; Biddable
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="control-label label_mer">
+                                <input type="checkbox" name="chkBid" checked="checked" class="chkBiddable" />
+                                &nbsp;&nbsp;&nbsp;&nbsp; Biddable
+                            </label>
+                        }
+                        <input type="hidden" id="hdnIs_Biddable" name="Product.Is_Biddable" value="@Model.Product.Is_Biddable.ToString()">
+                    </div>
+
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button type="button" id="btnAdd" class="btn btn_mer ripple">Add Quantity</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="tblProductQty" style="width:50%">
+                                    <thead>
+                                        <tr id="subhead">
+                                            <th>Product Quantity</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    @if (Model.Product.ProductQuantities != null && Model.Product.ProductQuantities.Count() > 0)
+                                    {
+                                        int i = 0;
+                                        foreach (var itm in Model.Product.ProductQuantities)
+                                        {
+                                            <tr id="tr@(i)">
+                                                <td>
+                                                    <input type="text" class="form-control form_control_mer" id="product_Qty@(i)" name="Product.ProductQuantities[@i].Product_Quantity_Value" value="@itm.Product_Quantity_Value">
+                                                </td>
+                                                <td>
+                                                    <button type="button" id="delete" class="btn btn-box-tool btn-tel-delete" onclick="javascript:Delete(@i)"><i class='fa fa-times'></i></button>
+                                                </td>
+                                            </tr>
+                                            i = i + 1;
+                                        }
+                                    }
+                                </table>
                             </div>
                         </div>
-                    </div>
-                </section>
-            </form>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
 
-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" id="btnSave" class="btn btn_mer ripple">Save</button>
+                        <button type="reset" id="btnReset" class="btn btn_mer ripple">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

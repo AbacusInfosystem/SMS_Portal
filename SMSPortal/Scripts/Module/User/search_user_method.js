@@ -61,10 +61,10 @@ function Bind_User_Grid(data) {
     $("#tblUser").find("tr:gt(0)").remove();
     $('#tblUser tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     if (data.Users.length > 0) {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);
@@ -78,13 +78,11 @@ function Bind_User_Grid(data) {
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event) {
+    $('[name="r1"]').on('change', function (event) {
         if ($(this).prop('checked')) {
             $("#hdnUser_Id").val(this.id.replace("r1_", ""));
-
             $("#btnEdit").show();
             $("#btnDelete").show();
-
         }
     });
 }

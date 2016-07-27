@@ -143,7 +143,7 @@ function Bind_Dealers_Grid(data)
             else {
                 $("#btnEdit").show();
 
-                $("#btnAddUser").show();
+                //$("#btnAddUser").show();
             }
         }
     });

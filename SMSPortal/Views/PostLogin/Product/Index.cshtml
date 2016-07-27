@@ -8,6 +8,21 @@
 <script src="~/Scripts/Module/Product/index_methods.js"></script>
 <script src="~/Scripts/Module/Product/index_events.js"></script>
 
+<style>
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 100%;
+        margin: auto;
+    }
+
+    .item img {
+        max-height: 300px;
+    }
+
+    .carousel-control {
+        width: 50px;
+    }
+</style>
 
 <style>
     .carousel {
@@ -42,11 +57,194 @@
     }
 </style>
 
+
+<script src="~/Content/Slider/thumbnail-slider.js"></script>
+<link href="~/Content/Slider/thumbnail-slider.css" rel="stylesheet"/>
+
+<style>
+    header {
+        display: block;
+        font-size: 1.2em;
+        margin-bottom: 100px;
+    }
+
+        header a, header span {
+            display: inline-block;
+            padding: 4px 8px;
+            margin-right: 10px;
+            border: 2px solid #000;
+            background: #DDD;
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+            height: 20px;
+        }
+
+        header span {
+            background: white;
+        }
+
+    a {
+        color: #1155CC;
+    }
+</style>
+
 <form id="frmProductIndex" enctype="multipart/form-data">
-    <div class="products">
+    @if (Model.Brand.Brand_Name=="Mercedes")
+    {
+            <div>
+        <div id="thumbnail-slider">
+            <div class="inner" style="width: 1080px;">
+                <ul>
+                    <li>
+                        <a class=" thumb" href="~/Content/Static/images/slide-1.jpg">
+    </a>
+                    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-2.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-3.jpg"></a>
+    </li>
+    <li>
+        <a class=" thumb" href="~/Content/Static/images/slide-1.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-2.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-3.jpg"></a>
+    </li>
+    <li>
+        <a class=" thumb" href="~/Content/Static/images/slide-1.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-2.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-3.jpg"></a>
+    </li>
+                </ul>
+        </div>
+        </div>
+    </div>
+    }
+    else
+    {
+           <div>
+        <div id="thumbnail-slider">
+            <div class="inner" style="width: 1080px;">
+                <ul>
+                    <li>
+                        <a class=" thumb" href="~/Content/Static/images/slide-1.jpg">
+    </a>
+                    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-2.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-3.jpg"></a>
+    </li>
+    <li>
+        <a class=" thumb" href="~/Content/Static/images/slide-1.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-2.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-3.jpg"></a>
+    </li>
+    <li>
+        <a class=" thumb" href="~/Content/Static/images/slide-1.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-2.jpg"></a>
+    </li>
+    <li>
+        <a class="thumb" href="~/Content/Static/images/slide-3.jpg"></a>
+    </li>
+                </ul>
+        </div>
+        </div>
+    </div>
+        
+       @*<div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <!--<ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>-->
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/mercedes-profile.jpg" />
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/2014-mercedes-benz-s65-amg-la.jpg" />
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/2014-Mercedes-Benz-S-Klasse-Coupe-Genf-Autosalon-Live-Fotos-01-750x500.jpg" />
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/2015-mercedes-benz-c400-4matic-photo-627466-s-1280x782-626x393.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/2015-Mercedes-S-Class-Coupe-1.jpg" />
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/maxresdefault.jpg" />
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/Mercedes-AMG-GT-lead-xlarge.jpg" />
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/Mercedes-Benz-SLS_AMG_Black_Series.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/rgyhrtyut.jpg" />
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/mercedes-profile.jpg" />
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/wdjfiygsdgf.jpg" />
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                        <img src="~/Images/mercedes-profile.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>*@ 
+    }
+    <div class="master">
         @{Html.RenderPartial("_ServerMessage");}
         <div class="container">
-            
+
             <h3 class="products_header">Products</h3>
 
             <div class="row" style="margin: 20px 0;">
@@ -72,8 +270,8 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="form-group">                                
-                                <button type="button" id="btnSearchProductByName" class="btn btn_mer_2 ripple">Search</button> 
+                            <div class="form-group">
+                                <button type="button" id="btnSearchProductByName" class="btn btn_mer_2 ripple">Search</button>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -84,6 +282,8 @@
                                 </button>
                                 <input type="hidden" id="hdnProductIds" name="ProductIds" />
                                 <input type="hidden" id="hdnProductQuantities" name="ProductQuantities" />
+                                <input type="hidden" id="hdnProductId" name="Product.Product_Id" />
+                                <input type="hidden" id="hdnProductName" name="Product.Product_Name" />
                             </div>
                         </div>
                     </div>

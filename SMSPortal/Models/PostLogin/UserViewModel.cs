@@ -24,6 +24,8 @@ namespace SMSPortal.Models.PostLogin
             Roles = new List<RolesInfo>();
 
             Cookies = new CookiesInfo();
+
+            Entities = new List<Entity>();
             
         }
 
@@ -40,6 +42,8 @@ namespace SMSPortal.Models.PostLogin
         public List<RolesInfo> Roles { get; set; }
 
         public CookiesInfo Cookies { get; set; }
+
+        public List<Entity> Entities { get; set; }
        
     }
     public class UserFilter

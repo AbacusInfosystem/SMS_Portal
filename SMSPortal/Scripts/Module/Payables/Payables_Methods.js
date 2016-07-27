@@ -215,7 +215,7 @@ function Bind_Payable_Grid_Items(data) {
     //    increaseArea: '20%' // optional
     //});
 
-    $("#divSearchGridOverlay").hide();
+   // $("#divSearchGridOverlay").hide();
 
     Friendly_Message(data);
 

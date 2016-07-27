@@ -36,7 +36,7 @@ function Bind_Sales_Order_Grid(data)
 
         htmlText += "<td>";
 
-        htmlText += "<input type='radio' name='r1' id='r1_" + data.Sales_Orders[i].Order_Id + "' class='iradio-list'/>";
+        htmlText += "<input type='radio' name='r1' id='r1_" + data.Sales_Orders[i].Vendor_Order_Id + "' class='iradio-list'/>";
 
         htmlText += "</td>";
 
@@ -60,7 +60,7 @@ function Bind_Sales_Order_Grid(data)
 
         htmlText += "<td>";
 
-        htmlText += data.Sales_Orders[i].Gross_Amount;
+        htmlText += data.Sales_Orders[i].Net_Amount;
 
         htmlText += "</td>";
 
@@ -90,10 +90,10 @@ function Bind_Sales_Order_Grid(data)
 
     $('#tblSalesOrder tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
    
     if (data.Sales_Orders.length > 0) {
@@ -111,8 +111,7 @@ function Bind_Sales_Order_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    //$('[id^="r1_"]').on('ifChanged', function (event) {
-    $('[name="r1"]').on('ifChanged', function (event) {
+    $('[name="r1"]').on('change', function (event) {
         if ($(this).prop('checked')) {
             $("#hdnOrder_Id").val(this.id.replace("r1_", ""));
             $("#btnOrderDetails").show();

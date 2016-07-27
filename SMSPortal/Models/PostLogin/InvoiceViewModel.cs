@@ -22,6 +22,9 @@ namespace SMSPortal.Models.PostLogin
             Order = new OrdersInfo();
             Dealer = new DealerInfo();
             Cookies = new CookiesInfo();
+            Txes = new List<TaxInfo>();
+            Tax = new TaxInfo();
+            Vendor = new VendorInfo();
         }
 
         public InvoiceInfo Invoice { get; set; }
@@ -32,6 +35,9 @@ namespace SMSPortal.Models.PostLogin
         public OrdersInfo Order { get; set; }
         public DealerInfo Dealer { get; set; }
         public CookiesInfo Cookies { get; set; }
+        public List<TaxInfo> Txes { get; set; }
+        public TaxInfo Tax { get; set; }
+        public VendorInfo Vendor { get; set; }
     }
     public class Invoice_Filter
     {
@@ -39,4 +45,5 @@ namespace SMSPortal.Models.PostLogin
         public string Invoice_No { get; set; }
         public int Order_Id { get; set; }
     }
+
 }

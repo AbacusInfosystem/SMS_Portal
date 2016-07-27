@@ -48,10 +48,12 @@
     <Compile Include="BrandManager.cs" />
     <Compile Include="CategoryManager.cs" />
     <Compile Include="CommonManager.cs" />
+    <Compile Include="ConsolidatedOrderManager.cs" />
     <Compile Include="CookiesManager.cs" />
     <Compile Include="DashboardManager.cs" />
     <Compile Include="DealerManager.cs" />
     <Compile Include="InvoiceManager.cs" />
+    <Compile Include="VendorManager.cs" />
     <Compile Include="OrdersManager.cs" />
     <Compile Include="PayableManager.cs" />
     <Compile Include="ProductManager.cs" />
@@ -62,7 +64,7 @@
     <Compile Include="SubCategoryManager.cs" />
     <Compile Include="TaxManager.cs" />
     <Compile Include="UserManager.cs" />
-    <Compile Include="VendorManager.cs" />
+    <Compile Include="ThirdPartyVendorManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SMSPortalInfo\SMSPortalInfo.csproj">

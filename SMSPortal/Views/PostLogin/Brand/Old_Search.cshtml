@@ -1,0 +1,98 @@
+﻿@model SMSPortal.Models.PostLogin.BrandViewModel
+@*@model SMSPortal.Models.PostLogin.UserViewModel*@
+@using SMSPortal.Common;
+<script src="~/Scripts/Module/Brand/search_brand_events.js"></script>
+<script src="~/Scripts/Module/Brand/search_brand_methods.js"></script>
+<script src="~/Scripts/additional-methods.min.js"></script>
+
+<form id="frmBrand" enctype="multipart/form-data">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        @{Html.RenderPartial("_ServerMessage");}
+        <section class="content-header">
+            <h1>
+                Brand Master
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">Brand</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        @*<div class="box-header with-border">
+                            <h3 class="box-title">Brand</h3>
+                        </div>*@
+                        <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnBrand_Id" name="Brand.Brand_Id" value="@Model.Brand.Brand_Id">
+                            <input type="hidden" id="hdnBrand_Logo" name="Brand.Brand_Logo" value="@Model.Brand.Brand_Logo">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group auto-complete">
+                                        <label for="Brand" class="lookup-title">Brand Name</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Brand_Name" id="txtBrand_Name" placeholder="Enter Brand Name" value="@Model.Filter.Brand_Name" data-table="Brand" data-col="Brand_Id,Brand_Name" data-headernames="Brand">
+                                            <input type="hidden" id="hdnBrandId" value="@Model.Filter.Brand_Id" name="Filter.Brand_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnBrandName" value="@Model.Filter.Brand_Name" name="Filter.Brand_Name" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefBrand" role="button"><i class="fa fa-server"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="btn-group pull-left">
+                                            <a class="btn btn-primary btn-sm" role="button" id="btnCreate" href="@Url.Action("AddEdit_Brand", "Brand")">Create </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit </button>
+                                            <button type="button" id="btnUploadLogo" style="display:none;" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload Brand Logo</button>
+                                            <button type="button" id="btnAddUser" style="display:none;" class="btn btn-warning btn-sm">Add User</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-striped" id="tblBrandMaster">
+                                <tr id="subhead">
+                                    <th width="5%"></th>
+                                    <th width="15%">Brand Name</th>
+                                    <th width="15%">Brand Category</th>
+                                    <th>Status</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
+                            </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+</form>
+

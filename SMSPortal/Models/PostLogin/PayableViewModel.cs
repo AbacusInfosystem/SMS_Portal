@@ -30,7 +30,7 @@ namespace SMSPortal.Models.PostLogin
 
             Payables = new List<PayableInfo>();
 
-            Vendor = new VendorInfo();
+            Vendor = new ThirdPartyVendorInfo();
         }
 
         public List<FriendlyMessage> Friendly_Message { get; set; }
@@ -45,7 +45,7 @@ namespace SMSPortal.Models.PostLogin
 
         public CookiesInfo Cookies { get; set; }
 
-        public VendorInfo Vendor { get; set; }
+        public ThirdPartyVendorInfo Vendor { get; set; }
     }
 
     public class PayableFilter

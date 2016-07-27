@@ -75,7 +75,7 @@ function Bind_Brands_Grid(data)
     {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='3'> No Record found.";
+        htmlText += "<td colspan='4'> No Record found.";
 
         htmlText += "</td>";
 
@@ -105,15 +105,25 @@ function Bind_Brands_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function (event) {
-        if ($(this).prop('checked'))
-        {            
+    //$('[name="r1"]').on('ifChanged', function (event) {
+    //    if ($(this).prop('checked'))
+    //    {            
+    //        $("#hdnBrand_Id").val(this.id.replace("r1_", ""));
+    //        $("#btnEdit").show();
+    //        $("#btnUploadLogo").show();
+    //        $("#btnAddUser").show();            
+    //        $("#btnDelete").show();
+
+    //    }
+    //});
+
+    $('[name="r1"]').on('change', function (event) {
+        if ($(this).prop('checked')) {
             $("#hdnBrand_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnUploadLogo").show();
-            $("#btnAddUser").show();            
+            //$("#btnAddUser").show();
             $("#btnDelete").show();
-
         }
     });
 

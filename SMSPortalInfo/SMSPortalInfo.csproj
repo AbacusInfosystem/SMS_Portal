@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessFunctionInfo.cs" />
     <Compile Include="BrandInfo.cs" />
     <Compile Include="CategoryInfo.cs" />
     <Compile Include="Common\AttachmentsInfo.cs" />
@@ -52,8 +53,10 @@
     <Compile Include="Common\PaginationInfo.cs" />
     <Compile Include="Common\SessionInfo.cs" />
     <Compile Include="Common\StoreProcedures.cs" />
+    <Compile Include="ConsolidatedOrderInfo.cs" />
     <Compile Include="DealerInfo.cs" />
     <Compile Include="InvoiceInfo.cs" />
+    <Compile Include="VendorInfo.cs" />
     <Compile Include="OrdersInfo.cs" />
     <Compile Include="PayableInfo.cs" />
     <Compile Include="ProductInfo.cs" />
@@ -65,7 +68,7 @@
     <Compile Include="SubCategoryInfo.cs" />
     <Compile Include="TaxInfo.cs" />
     <Compile Include="UserInfo.cs" />
-    <Compile Include="VendorInfo.cs" />
+    <Compile Include="ThirdPartyVendorInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

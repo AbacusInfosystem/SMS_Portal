@@ -25,6 +25,7 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");   
                 if (TempData["pViewModel"] != null)
                 {
                     pViewModel = (PurchaseOrderViewModel)TempData["pViewModel"];
@@ -43,8 +44,9 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo Pager = new PaginationInfo();
             try
             {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");    
                 pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO-", "Purchase_Order_No", "4", "15", "Purchase_Order");
-                pViewModel.PurchaseOrders = _purchaseOrderManager.Get_Purchase_Orders(ref Pager);
+                pViewModel.PurchaseOrders = _purchaseOrderManager.Get_Purchase_Orders(ref Pager,pViewModel.Cookies.Entity_Id);
             }
             catch (Exception ex)
             {
@@ -118,7 +120,7 @@ namespace SMSPortal.Controllers.PostLogin
                 {
                     pViewModel.PurchaseOrder.Purchase_Order_No = Utility.Generate_Ref_No("PO-", "Purchase_Order_No", "4", "15", "Purchase_Order");
                     pViewModel.PurchaseOrder.Status = (int)PurchaseOrderStatus.Ordered;
-                    pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder,pViewModel.Cookies.User_Id);
+                    pViewModel.PurchaseOrder.Purchase_Order_Id = _purchaseOrderManager.Insert_Purchase_Order(pViewModel.PurchaseOrder,pViewModel.Cookies.User_Id,pViewModel.Cookies.Entity_Id);
                     pViewModel.Friendly_Message.Add(MessageStore.Get("POR001"));
                     if (pViewModel.PurchaseOrder.Purchase_Order_Id != 0)
                     {
@@ -204,6 +206,7 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo pager = new PaginationInfo();
             try
             {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token"); 
                 pager = pViewModel.Pager;
                 if (pViewModel.Filter.Purchase_Order_Id != 0)
                 {
@@ -211,7 +214,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    pViewModel.PurchaseOrders = _purchaseOrderManager.Get_Purchase_Orders(ref pager);
+                    pViewModel.PurchaseOrders = _purchaseOrderManager.Get_Purchase_Orders(ref pager, pViewModel.Cookies.Entity_Id);
                 }
                 pViewModel.Pager = pager;
                 pViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", pViewModel.Pager.TotalRecords, pViewModel.Pager.CurrentPage + 1, pViewModel.Pager.PageSize, 10, true);
@@ -226,10 +229,12 @@ namespace SMSPortal.Controllers.PostLogin
         
         public JsonResult Get_Purchase_Order_Autocomplete(string Purchase_Order_No)
         {
+            CookiesInfo Cookies = Utility.Get_Login_User("UserInfo", "Token"); 
+
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
             try
             {
-                autoList = _purchaseOrderManager.Get_Purchase_Order_Autocomplete(Purchase_Order_No);
+                autoList = _purchaseOrderManager.Get_Purchase_Order_Autocomplete(Purchase_Order_No, Cookies.Entity_Id);
             }
             catch (Exception ex)
             {

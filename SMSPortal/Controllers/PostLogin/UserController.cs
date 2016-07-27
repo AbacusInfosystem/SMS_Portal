@@ -86,24 +86,26 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
-                if (TempData["Entity_Id"] != null && TempData["Role_Id"] != null)
-                {
-                    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"], (int)TempData["Role_Id"]);
+                uViewModel.Roles = _userMan.Get_Roles();
 
-                    if (uViewModel.User.User_Id == 0)
-                    {
-                        uViewModel.User.Role_Id = (int)TempData["Role_Id"];
+                //if (TempData["Entity_Id"] != null && TempData["Role_Id"] != null)
+                //{
+                //    uViewModel.User = _userMan.Get_User_By_Entity_Id((int)TempData["Entity_Id"], (int)TempData["Role_Id"]);
 
-                        uViewModel.User.Entity_Id = (int)TempData["Entity_Id"];
-                    }
+                //    if (uViewModel.User.User_Id == 0)
+                //    {
+                //        uViewModel.User.Role_Id = (int)TempData["Role_Id"];
+
+                //        uViewModel.User.Entity_Id = (int)TempData["Entity_Id"];
+                //    }
                    
-                } 
-                else
-                  {
-                       uViewModel.User.Role_Id = 1;
+                //} 
+                //else
+                //  {
+                //       uViewModel.User.Role_Id = 1;
 
-                       uViewModel.User.Entity_Id = 0;
-                  }
+                //       uViewModel.User.Entity_Id = 0;
+                //  }
          
             }
             catch (Exception ex)
@@ -113,6 +115,22 @@ namespace SMSPortal.Controllers.PostLogin
             }
 
             return View("Index", uViewModel);
+        }
+
+        public JsonResult Get_Entity_By_Roles(int Role_Id)
+        {
+            UserViewModel uViewModel = new UserViewModel();
+            try
+            {
+                uViewModel.Entities = _userMan.Get_Entity_By_Role(Role_Id);
+            }
+            catch (Exception ex)
+            {
+                uViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                Logger.Error("Error At User_Controller - Get_Users " + ex);
+            }
+
+            return Json(uViewModel.Entities, JsonRequestBehavior.AllowGet);
         }
 
         [AuthorizeUserAttribute(AppFunction.Token)]
@@ -143,22 +161,24 @@ namespace SMSPortal.Controllers.PostLogin
 
             TempData["Friendly_Message"] = MessageStore.Get("UM001");
 
-            if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
-            {
-                return RedirectToAction("Search", "Vendor");
-            }
-            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Brand))
-            {
-                return RedirectToAction("Search", "Brand");
-            }
-            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Dealer))
-            {
-                return RedirectToAction("Search", "Dealer");
-            }
-            else 
-            {
-                return RedirectToAction("Search");
-            }
+            //if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+            //{
+            //    return RedirectToAction("Search", "Vendor");
+            //}
+            //else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Brand))
+            //{
+            //    return RedirectToAction("Search", "Brand");
+            //}
+            //else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+            //{
+            //    return RedirectToAction("Search", "Dealer");
+            //}
+            //else 
+            //{
+            //    return RedirectToAction("Search");
+            //}
+
+            return RedirectToAction("Search");
         }
 
         [AuthorizeUserAttribute(AppFunction.Token)]
@@ -182,22 +202,24 @@ namespace SMSPortal.Controllers.PostLogin
 
             TempData["Friendly_Message"] = MessageStore.Get("UM002");
            
-            if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
-            {
-                return RedirectToAction("Search", "Vendor");
-            }
-            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Brand))
-            {
-                return RedirectToAction("Search", "Brand");
-            }
-            else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Dealer))
-            {
-                return RedirectToAction("Search", "Dealer");
-            }
-            else
-            {
-                return RedirectToAction("Search");
-            }
+            //if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+            //{
+            //    return RedirectToAction("Search", "Vendor");
+            //}
+            //else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Brand))
+            //{
+            //    return RedirectToAction("Search", "Brand");
+            //}
+            //else if (uViewModel.User.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+            //{
+            //    return RedirectToAction("Search", "Dealer");
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Search");
+            //}
+
+            return RedirectToAction("Search");
         }
 
         public JsonResult Check_Existing_User(string user_Name)

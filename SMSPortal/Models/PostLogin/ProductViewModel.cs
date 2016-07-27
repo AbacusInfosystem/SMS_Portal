@@ -27,6 +27,9 @@ namespace SMSPortal.Models.PostLogin
             dealer = new DealerInfo();
             state = new StateInfo();
             order = new OrdersInfo();
+            Brand = new BrandInfo();
+            ThirdPartyVendors = new List<VendorInfo>();
+            User = new UserInfo();
         }
         public List<FriendlyMessage> Friendly_Message { get; set; }
         public PaginationInfo Pager { get; set; }
@@ -47,6 +50,9 @@ namespace SMSPortal.Models.PostLogin
         public StateInfo state { get; set; }
         public OrdersInfo order { get; set; }
         public string ProductQuantities { get; set; }
+        public BrandInfo Brand { get; set; }
+        public List<VendorInfo> ThirdPartyVendors { get; set; }
+        public UserInfo User { get; set; }
     }
     public class ProductFilter
     {

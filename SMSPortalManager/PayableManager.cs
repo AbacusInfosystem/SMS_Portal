@@ -19,9 +19,9 @@ namespace SMSPortalManager
             _payableRepo = new PayableRepo();
         }
 
-        public int Insert_Payable(PayableInfo payableInfo, int user_Id)
+        public int Insert_Payable(PayableInfo payableInfo, int user_Id,int role_Id,int entity_Id)
         {
-            return _payableRepo.Insert_Payable(payableInfo, user_Id);
+            return _payableRepo.Insert_Payable(payableInfo, user_Id,role_Id,entity_Id);
         }
 
         public List<PayableInfo> Get_Payable_By_Id(int Purchase_Order_Id, ref PaginationInfo pager)
@@ -29,9 +29,9 @@ namespace SMSPortalManager
             return _payableRepo.Get_Payable_By_Id(Purchase_Order_Id, ref pager);
         }
 
-        public List<PayableInfo> Get_Payables(ref PaginationInfo pager, int Vendor_Id)
+        public List<PayableInfo> Get_Payables(ref PaginationInfo pager, int Vendor_Id,int entity_Id)
         {
-            return _payableRepo.Get_Payables(ref pager, Vendor_Id);
+            return _payableRepo.Get_Payables(ref pager, Vendor_Id, entity_Id);
         }
 
         public void Insert_PayableItems(PayableInfo payableInfo, int user_Id)
@@ -39,9 +39,9 @@ namespace SMSPortalManager
             _payableRepo.Insert_PayableItems(payableInfo, user_Id);
         }
 
-        public PayableInfo Get_Payable_Data_By_Id(int purchase_order_id)
+        public PayableInfo Get_Payable_Data_By_Id(int purchase_order_id,int entity_Id)
         {
-            return _payableRepo.Get_Payable_Data_By_Id(purchase_order_id);
+            return _payableRepo.Get_Payable_Data_By_Id(purchase_order_id, entity_Id);
         }
 
         public List<PayableInfo> Get_Payable_Items_By_Id(int payable_Id)

@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("#frmVendorMaster").validate(
+    $("#frmNewVendorMaster").validate(
         {
              
         rules:

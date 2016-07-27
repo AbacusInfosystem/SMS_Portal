@@ -23,7 +23,7 @@ namespace SMSPortal.Models.PostLogin
             PurchaseOrderItem = new PurchaseOrderItemInfo();
             PurchaseOrderItems = new List<PurchaseOrderItemInfo>();
             Product = new ProductInfo();
-            Vendor = new VendorInfo();
+            Vendor = new ThirdPartyVendorInfo();
         }
         public PurchaseOrderInfo PurchaseOrder { get; set; }
         public List<PurchaseOrderInfo> PurchaseOrders { get; set; }
@@ -34,7 +34,7 @@ namespace SMSPortal.Models.PostLogin
         public PurchaseOrderItemInfo PurchaseOrderItem { get; set; }
         public List<PurchaseOrderItemInfo> PurchaseOrderItems { get; set; }
         public ProductInfo Product { get; set; }
-        public VendorInfo Vendor { get; set; }
+        public ThirdPartyVendorInfo Vendor { get; set; }
     }
 
     public class PurchaseOrder_Filter

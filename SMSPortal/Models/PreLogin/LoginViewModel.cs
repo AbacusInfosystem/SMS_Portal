@@ -17,5 +17,6 @@ namespace SMSPortal.Models.PreLogin
          
         public CookiesInfo Cookies { get; set; }
         public List<FriendlyMessage> Friendly_Message { get;set;}
+
     }
 }

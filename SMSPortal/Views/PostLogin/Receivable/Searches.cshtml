@@ -26,7 +26,7 @@
                     <div class="form-group auto-complete">
                         <label class="control-label label_mer">Invoice No.</label>
                         <div class="input-group">
-                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Invoice_No" id="txtDealerInvoice" placeholder="Enter Invoice No." value="@Model.Filter.Invoice_No" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
+                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Invoice_No" id="txtDealerInvoice" placeholder="Enter Invoice No." value="@Model.Filter.Invoice_No" data-param="hdnEntityId" data-field="Dealer_Id" data-table="Vendor_Invoice" data-col="Invoice_Id,Invoice_No" data-headernames="Invoice No">
                             <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefInvoice" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
                             <input type="hidden" id="hdnInvoiceId" value="@Model.Filter.Invoice_Id" name="Receivable.Invoice_Id" class="auto-complete-value" />
                             <input type="hidden" id="hdnInvoiceNo" value="@Model.Filter.Invoice_No" name="Receivable.Invoice_No" class="auto-complete-label" />
@@ -34,13 +34,17 @@
                     </div>
                 </div>
 
+                <div class="col-md-3">
+                    <div class="btn-group">
+                        <br />
+                        <a id="btnSearch" style="margin-top: 5px;" href="#" class="btn btn_mer ripple">Search</a>
+                    </div>
+                </div>
+
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="btn-group pull-left">
-                        <a id="btnSearch" href="#" class="btn btn_mer ripple">Search</a>
-                    </div>
                     <div class="btn-group pull-right">
                         <button type="button" id="btnView" style="display:none;" class="btn btn_mer ripple">View</button>
                         <button type="button" id="btnViewInvoice" style="display:none;" class="btn btn_mer ripple">View Invoice</button>
@@ -54,15 +58,17 @@
                         <tr>
                             <th></th>
                             <th>Invoice No</th>
+                            <th>Order No</th>
+                            <th>Vendor Name</th>                       
                             <th>Amount</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-                <div class="box-footer clearfix">
-                    <div class="pagination pagination-sm no-margin pull-right">
-                        <ul></ul>
+                <div class="clearfix">
+                    <div class="pagination no-margin pull-right">
+                        <ul class="pagination"></ul>
                     </div>
                     <div id="divSearchGridOverlay" class="overlay">
                         <i class="fa fa-refresh fa-spin"></i>

@@ -1,31 +1,29 @@
 ﻿$(function () {
 
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        increaseArea: '20%', // optional
-    });
+    //$('input').iCheck({
+    //    checkboxClass: 'icheckbox_square-green',
+    //    increaseArea: '20%', // optional
+    //});
 
-    $(".chkstatus").on("ifChanged", function () {
+    $(".chkstatus").on("change", function () {
 
-        if ($(this).parents().prop("class").indexOf("checked") != -1) {
-            $("#hdnIs_Active").val(false);             
+        if (!$(this).is(':checked')) {
+            $("#hdnIs_Active").val(false);
         }
         else {
-            $("#hdnIs_Active").val(true);            
+            $("#hdnIs_Active").val(true);
         }
     });
 
-    $(".chkBiddable").on("ifChanged", function () {
+    $(".chkBiddable").on("change", function () {
 
-        if ($(this).parents().prop("class").indexOf("checked") != -1)
-        {            
+        if (!$(this).is(':checked')) {
             $("#hdnIs_Biddable").val(false);
         }
-        else {             
+        else {
             $("#hdnIs_Biddable").val(true);
         }
-
-    });    
+    });
 
     $(".fa-chevron-left").click(function () {
         $("#frmProductMaster").validate().cancelSubmit = true;
@@ -72,6 +70,33 @@
         $("#drpProduct_Category").trigger("change");
         $("#drpProduct_SubCategory").val($("#hdnSubCategory_Id").val());
     }
+
+    //$("#drpBrand_Category").change(function () {
+
+    //    $.ajax({
+    //        url: '/product/get-third-party-vendor',
+    //        data: {
+    //            brand_Id: $("#drpBrand_Category").val(),
+    //        },
+    //        method: 'GET',
+    //        async: false,
+    //        success: function (data) {
+    //            if (data != null) {
+    //                Bind_Vendor_Drpdwn(data);
+    //            }
+    //        }
+    //    });
+    //});
+
+    //if ($("#hdnBrand_Id").val() != "") {
+    //    $("#drpBrand_Category").trigger("change");
+    //    $("#drpVendor").val($("#hdnBrand_Id").val());
+    //}
+
+    $("#btnAdd").bind("click", function () {
+        AddBankDetailsData();
+    });
+
 
 });
 

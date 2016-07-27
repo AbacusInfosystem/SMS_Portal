@@ -24,6 +24,7 @@
                                 <tr>
                                     <th style="width: 50%;">Item</th>
                                     <th style="width: 10%;">Quantity</th>
+                                    <th style="width: 10%;">Tax</th>
                                     <th style="width: 10%;">Price</th>
                                     <th style="width: 5%;">Action</th>
                                 </tr>
@@ -31,7 +32,7 @@
                             <tbody>
                                 @{
                                     int i = 0;
-                                    decimal totalProductPrice = 0, tax = 0, netAmount = 0;
+                                    decimal totalProductPrice = 0, tax = 0, totalTax = 0, netAmount = 0; decimal product_Gross_Price = 0; decimal product_Net_Price = 0;
 
                                     foreach (var item in Model.Products)
                                     {
@@ -45,44 +46,82 @@
                                                 <input type="text" name="order.OrderItems[@i].Product_Quantity" onchange="changeProductPrice(@i)" class="form-control" value="@item.Product_Quantity" />
                                             </td>
                                             <td align="right">
+                                                @if (Model.state.State_Name == "MAHARASHTRA")
+                                                {
+                                                    <span id="spanProduct_Price_@i">@Html.Raw(string.Format("{0:#,#.00}", item.Local_Tax))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span id="spanProduct_Price_@i">@Html.Raw(string.Format("{0:#,#.00}", item.Export_Tax))</span>
+                                                }
+
+                                            </td>
+                                            <td align="right">
                                                 <span id="spanProduct_Price_@i">@Html.Raw(string.Format("{0:#,#.00}", item.Product_Price))</span>
                                                 <input type="hidden" name="order.OrderItems[@i].Product_Price" value="@item.Product_Price" />
                                                 <input type="hidden" id="hdnSingle_Product_Price_@i" value="@item.Product_Price" />
+                                                <input type="hidden" name="order.OrderItems[@i].Vendor_Id" value="@item.Vendor_Id" />
+
+                                                <input type="hidden" name="order.OrderItems[@i].Product_GrossPrice" value="@item.Product_Price" />
+                                                @if (Model.state.State_Name == "MAHARASHTRA")
+                                                {
+                                                    <input type="hidden" name="order.OrderItems[@i].Product_NetPrice" value="@((item.Product_Price) + (tax = (item.Product_Price * item.Local_Tax) / 100))" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="hidden" name="order.OrderItems[@i].Product_NetPrice" value="@((item.Product_Price) + (tax = (item.Product_Price * item.Export_Tax) / 100))" />
+                                                }
                                             </td>
+
                                             <td align="center">
                                                 <button type="button" id="btnDelete_Cart_Item_@i" onclick="deleteCartItem(@i)" class="btn btn-box-tool btn-bd-delete">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </td>
                                         </tr>
-                                        totalProductPrice = totalProductPrice + item.Product_Price;
-                                        i = i + 1;
+                                                totalProductPrice = totalProductPrice + item.Product_Price;
+
+                                                if (item.Local_Tax != 0)
+                                                {
+                                                    if (Model.state.State_Name == "MAHARASHTRA")
+                                                    {
+                                                        tax = (item.Product_Price * item.Local_Tax) / 100;
+                                                    }
+                                                    else
+                                                    {
+                                                        tax = (item.Product_Price * item.Export_Tax) / 100;
+                                                    }
+                                                }
+
+                                                totalTax = totalTax + tax;
+
+                                                i = i + 1;
                                     }
 
-                                    if (Model.state.State_Name == "MAHARASHTRA")
-                                    {
-                                        tax = (totalProductPrice * Model.tax.Local_Tax) / 100;
-                                    }
+                                    //if (tax != 0)
+                                    //{
+                                    //    tax = tax / Model.Products.Count();
+                                    //}
 
-                                    netAmount = totalProductPrice + tax;
+                                    netAmount = totalProductPrice + totalTax;
                                 }
 
                                 <tr>
-                                    <td colspan="3" style="text-align: right;">
+                                    <td colspan="4" style="text-align: right;">
                                         Gross Payable Amount: <i class="fa fa-inr"></i> <span id="spanAmountPayable">@Html.Raw(string.Format("{0:#,#.00}", totalProductPrice))</span>
                                         <input type="hidden" id="hdnGrossPayableAmount" name="order.Gross_Amount" value="@totalProductPrice" />
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" style="text-align: right;">
-                                        Taxes: <i class="fa fa-inr"></i> <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", tax))</span>
-                                        <input type="hidden" id="hdnTaxes" name="order.Service_Tax" value="@tax" />
+                                    <td colspan="4" style="text-align: right;">
+                                        Taxes: <i class="fa fa-inr"></i> <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", totalTax))</span>
+                                        <input type="hidden" id="hdnTaxes" name="order.Service_Tax" value="@totalTax" />
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" style="text-align: right;">
+                                    <td colspan="4" style="text-align: right;">
                                         Net Payable Amount: <i class="fa fa-inr"></i> <span id="spanNetPayableAmount">@Html.Raw(string.Format("{0:#,#.00}", netAmount))</span>
                                         <input type="hidden" id="hdnNetPayableAmount" name="order.Net_Amount" value="@netAmount" />
                                     </td>

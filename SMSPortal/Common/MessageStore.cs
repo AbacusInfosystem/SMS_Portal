@@ -162,6 +162,9 @@ namespace SMSPortal.Common
 
             FriendlyMessage VO005 = new FriendlyMessage("VO005", MessageType.Success, "Vendor product mapped successfully");
             hash.Add("VO005", VO005);
+
+            FriendlyMessage VO006 = new FriendlyMessage("VO006", MessageType.Success, "Vendor logo uploded successfully");
+            hash.Add("VO006", VO006);
              
             #endregion
 			

@@ -19,9 +19,9 @@ namespace SMSPortal.Models.PostLogin
 
             Pager = new PaginationInfo();
 
-            Vendor = new VendorInfo();
+            Vendor = new ThirdPartyVendorInfo();
 
-            Vendors = new List<VendorInfo>();
+            Vendors = new List<ThirdPartyVendorInfo>();
 
             Filter = new VendorFilter();
 
@@ -40,9 +40,9 @@ namespace SMSPortal.Models.PostLogin
 
         public PaginationInfo Pager { get; set; }
 
-        public VendorInfo Vendor { get; set; }
+        public ThirdPartyVendorInfo Vendor { get; set; }
 
-        public List<VendorInfo> Vendors { get; set; }
+        public List<ThirdPartyVendorInfo> Vendors { get; set; }
 
         public VendorFilter Filter { get; set; }
 

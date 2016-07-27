@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SMSPortalInfo.Common
 {
-	public enum StoreProcedures
-	{
+    public enum StoreProcedures
+    {
         //Login
         Authenticate_User_sp,
 
@@ -44,7 +44,7 @@ namespace SMSPortalInfo.Common
         Update_Sub_Category_Sp,
         Get_Subcateory_Autocomplete_Sp,
         Check_Existing_Sub_Category,
-         Get_Sub_Category_By_Category_Sp,
+        Get_Sub_Category_By_Category_Sp,
         Get_Lookup_Sub_Category_By_Id_Sp,
         Get_SubCategory_Id_By_Name,
 
@@ -60,7 +60,7 @@ namespace SMSPortalInfo.Common
         Get_Brand_Autocomplete_Sp,
         Get_Brand_Id_By_Name,
         Update_Brand_Profile_Sp,
-        
+
 
         //Roles
         Get_Roles_Sp,
@@ -98,9 +98,13 @@ namespace SMSPortalInfo.Common
         Get_Categories_With_Product_Count_Sp,
         Get_Sub_Categories_With_Product_Count_Sp,
         Get_Products_By_Ids_sp,
-        Set_Default_Product_Image, 
+        Set_Default_Product_Image,
         Update_Product_By_Name_Sp,
-         
+        Get_Third_Party_Vendors_Sp,
+        Delete_Product_Quantity_Sp,
+        Insert_Product_Quantity_Sp,
+        Get_Product_Quantity_By_Id_Sp,
+
         //Vendor
         Insert_Vendor_Sp,
         Get_Vendor_Sp,
@@ -122,6 +126,43 @@ namespace SMSPortalInfo.Common
         Get_Vendors_Sales_Order_By_Id_Sp,
         Get_Vendor_Sales_Order_Items_By_Id_Sp,
         Get_Vendor_Sales_Order_Autocomplete_Sp,
+        Update_Vendor_Image,
+
+        // Vendor specific sales order
+
+        Insert_Vendor_Specific_Sales_Order_Sp,
+        Insert_Vendor_Specific_Sales_Order_Items_Sp,
+        Get_Vendor_Orders,
+        Get_Vendor_Order_Id_Sp,
+        Update_Vendor_Order_Amount_Sp,
+        Get_Vendor_Order_By_Id,
+        Get_Vendor_Order_Items_By_Order_Id,
+        Update_Vendor_Order_Status_Sp,
+        Get_Consolidated_Orders_By_Date_Range,
+        Insert_Vendor_Invoice_Sp,
+        Get_Vendor_Invoice_By_Id_Sp,
+        Get_Vendor_Invoice_Sp,
+        Get_Vendor_Receivable_Sp,
+        Set_Vendor_Order_Balanace_Amount_sp,
+        Set_Vendor_Order_Status_sp,
+        Get_Product_By_Consolidated_Id_Sp,
+        Get_Product_Status_By_Consolidated_Id_Sp,
+        Get_Consolidated_Order_By_Vendor_Sp,
+        Get_Consolidated_Order_Vendor_Item_By_Vendor_Sp,
+        Update_Order_Status_By_Product_Id_Sp,
+        Get_Vendor_Specific_Receivable_Sp,
+        Get_Vendor_Order_Amount_Sp,
+        Get_Tax_Product_By_Id_Sp,
+        Get_Dealer_Invoice_By_Id_Sp,
+        Get_Dealer_Receivable_Data_By_Id_Sp,
+        Get_New_Vendor_Profile_Data_Sp,
+        Update_Vendor_Profile_Data_Sp,
+        Get_Order_By_Id_Status,
+        Get_Expoert_Tax_Product_By_Id_Sp,
+        Get_Local_Tax_Product_By_Id_Sp,
+        Get_Dealer_Order_By_Id,
+        Get_Order_No_By_Id_Sp,
+        Get_Order_No_By_Daealer_Sp,
 
         //Cookies
         Insert_Token_In_User_Table_Sp,
@@ -133,7 +174,7 @@ namespace SMSPortalInfo.Common
         Get_InvoiceNo_AutoComplete_Sp,
         Insert_Receivable_Data_Sp,
         Get_InvoiceNo_Sp,
-         Insert_Receivable_Sp,
+        Insert_Receivable_Sp,
         Insert_Receivable_Item_Data_Sp,
         Get_Receivable_Data_Item_By_Id_Sp,
         Get_Receivable_Data_By_Id_Sp,
@@ -157,15 +198,15 @@ namespace SMSPortalInfo.Common
         Insert_Purchase_Order_Item_Sp,
         Update_Purchase_Order_Item_Sp,
         Delete_Purchase_Order_Item_By_Id_Sp,
-        Check_DuplicateProduct_PurchaseOrder,         
+        Check_DuplicateProduct_PurchaseOrder,
         Update_Purchase_Order_Gross_Amount,
         Get_Vendor_Product_Price_Id_Sp,
 
         //Payables
-       Insert_Payable_Item_Data_Sp,
-       Insert_Payable_Data_Sp,
-       Get_Payable_Data_Item_By_Id_Sp,
-       Get_Payable_Data_By_Id_Sp,
+        Insert_Payable_Item_Data_Sp,
+        Insert_Payable_Data_Sp,
+        Get_Payable_Data_Item_By_Id_Sp,
+        Get_Payable_Data_By_Id_Sp,
         Get_Payable_By_Name_Sp,
         Get_Payable_Sp,
         Delete_Payable_Data_Item_By_Id,
@@ -183,7 +224,7 @@ namespace SMSPortalInfo.Common
         Get_Invoice_Autocomplete_Sp,
         Get_Brand_Invoice_Autocomplete_Sp,
         Get_Brand_Invoices_Sp,
-        
+
         //Orders
         Insert_Orders_Sp,
         Insert_Order_Item_Sp,
@@ -198,6 +239,7 @@ namespace SMSPortalInfo.Common
         Get_Orders_By_Dates,
         Get_Orders_By_Status,
         Set_Order_Balanace_Amount_sp,
+        Get_All_Orders,
         Set_Order_Status_sp,
 
         //Tax
@@ -207,6 +249,16 @@ namespace SMSPortalInfo.Common
 
         //Common
         Is_Value_Already_Exist_sp,
-      
-	}
+        Get_Purchase_Order_By_Vendor_Id_Sp,
+        Get_Access_Function_Data_By_Token_sp,
+
+        //NewVendor
+        Insert_Data_New_Vendor_Sp,
+        Update_Data_New_Vendor_Sp,
+        Get_New_Vendor_By_Id_Sp,
+        Get_New_Vendor_Autocomplete_Sp,
+        Get_New_Vendor_Sp,
+        Get_New_Vendor_Data_By_Id_Sp,
+        Check_Existing_New_Vendor,
+    }
 }

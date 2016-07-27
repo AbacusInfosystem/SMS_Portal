@@ -103,9 +103,9 @@ function Bind_Purchase_Order_Items(data) {
 
 
         }
-        htmlText += "<tr style='background-color:#eee'>";
+        htmlText += "<tr>";
         htmlText += "<td colspan='5'><b>Total :</b></td> ";
-        htmlText += "<td colspan='3'><input type='text' class='form-control input-sm valid' name='PurchaseOrder.Gross_Amount' id='txtTotalAmount' value='" + data.PurchaseOrder.Gross_Amount + "' maxlength='20' readonly='readonly'>";
+        htmlText += "<td colspan='3'><input type='text' class='form-control form_control_mer valid' name='PurchaseOrder.Gross_Amount' id='txtTotalAmount' value='" + data.PurchaseOrder.Gross_Amount + "' maxlength='20' readonly='readonly'>";
         htmlText += "</td>";
         htmlText += "</tr>";
 
@@ -125,23 +125,22 @@ function Bind_Purchase_Order_Items(data) {
 
     $('#tblPurchaseOrderItems').html(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     $("#dvSubc").addClass('disabled-div ');
 
     Reset_Purchase_Order();
     Friendly_Message(data);
 
-    $('[name="r1"]').on('ifChanged', function () {
+    $('[name="r1"]').on('change', function (event) {
         if ($(this).prop('checked')) {
             $("#hdnProduct_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnUpload").show();
             $("#btnDelete").show();
-
         }
     });
 }

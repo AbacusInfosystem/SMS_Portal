@@ -3,26 +3,76 @@
     intialization();
 
     $("#btnPD_Proceed").click(function () {
-        $("#btnViewCart").trigger("click");
+
+        $.cookie.json = true;
+
+        var id = "";
+
+        var quantity = "";
+
+        var cart = $.cookie('cart');
+
+        if (cart != undefined) {
+
+            for (var i = 0; i <= cart.length - 1; i++) {
+                id = id + cart[i].Product_Id + ",";
+
+                quantity = quantity + cart[i].Quantity + ",";
+            }
+
+
+            $("#hdnProductIds").val(id);
+
+            $("#hdnProductQuantities").val(quantity);
+
+            $("#frmProductDetails").attr("action", "/Product/PlaceOrder");
+
+            $("#frmProductDetails").attr("method", "POST");
+
+            $("#frmProductDetails").submit();
+
+        }
     });
 
-    //$(".thumbimage").mouseover(function () {
+    $("#btnViewCart").click(function () {
 
-    //    $("#modalImage").attr('src', $(this).attr('id'));
+        $("#btnPD_Proceed").trigger("click");        
+    });
 
+
+    image = new Image();
+    image.onload = function () {
+    }
+
+    var name = $("#hdn_ProductImage").val();
+
+    image.src = '/UploadedFiles/' + name + '';
+    // creating canvas object
+    canvas = document.getElementById('panel');
+    ctx = canvas.getContext('2d');
+
+    $('#panel').mousemove(function (e) { // mouse move handler
+        var canvasOffset = $(canvas).offset();
+        iMouseX = Math.floor(e.pageX - canvasOffset.left);
+        iMouseY = Math.floor(e.pageY - canvasOffset.top);
+    });
+
+    //$('#panel').mousedown(function (e) { // binding mousedown event
+    //    bMouseDown = true;
     //});
 
-    //$(".fullsizeimage").mouseover(function () {
-    //    $(this).toggle(function () {
-    //        $(this).width('70%');
-    //    });
+    $('#panel').mouseover(function (e) { // binding mousedown event
+        bMouseDown = true;
+    });
+
+    $('#panel').mouseout(function (e) { // binding mousedown event
+        bMouseDown = false;
+    });
+
+    //$('#panel').mouseup(function (e) { // binding mouseup event
+    //    bMouseDown = false;
     //});
 
-    //$('.thumbimage').hover(function () {
-    //    $(this).addClass('transition');
-
-    //}, function () {
-    //    $(this).removeClass('transition');
-    //});
+    setInterval(drawScene, 30); // loop drawScene
 
 });

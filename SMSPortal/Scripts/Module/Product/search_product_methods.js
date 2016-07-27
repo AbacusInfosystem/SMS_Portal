@@ -119,10 +119,10 @@ function Bind_Products_Grid(data)
     $('#tblProductMaster').find("tr:gt(0)").remove();
     $('#tblProductMaster tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     if (data.Products.length > 0) {
         $('#hdfCurrentPage').val(data.Pager.CurrentPage);
@@ -136,15 +136,12 @@ function Bind_Products_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    $('[name="r1"]').on('ifChanged', function ()
-    {
-        if ($(this).prop('checked'))
-        {             
+    $('[name="r1"]').on('change', function (event) {
+        if ($(this).prop('checked')) {
             $("#hdnProduct_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();
             $("#btnUpload").show();
             $("#btnDelete").show();
-
         }
     });
 

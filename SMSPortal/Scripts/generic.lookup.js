@@ -24,20 +24,22 @@ $(document).ready(function () {
 
     $("#btnOK").click(function () {
 
-        $('.ui-sortable').each(function () {
-            $('#lookupUlAuto').remove()
-        });
-
-        $('.ui-sortable').each(function () {
-            $('#lookupUlLookup').remove()
-        });
-
         var hiddenTextValue = $("#hdnValue").val();
 
         var id = $("#hdnId").val();
 
         var Textboxname = "#" + $("#hdnLookupLabelId").val();
-        
+
+        if (Textboxname != "#txtProductName")
+        {
+            $('.ui-sortable').each(function () {
+                $('#lookupUlAuto').remove()
+            });
+
+            $('.ui-sortable').each(function () {
+                $('#lookupUlLookup').remove()
+            });
+        }
 
         // Get ProductInfo for Purchase order items
         var vendor_id = $('#hdnVendorId').val();
@@ -84,7 +86,11 @@ $(document).ready(function () {
 
         var htmlText = "<ul id='lookupUlLookup' class='todo-list ui-sortable'><li ><span class='text'>" + hiddenTextValue + "</span><div class='tools'><i class='fa fa-remove'></i></div></li></ul>";
 
-        $(Textboxname).parents('.form-group').append(htmlText);
+        if (hiddenTextValue!="")
+        {
+            $(Textboxname).parents('.form-group').append(htmlText);
+        }
+        
 
         $(Textboxname).parents('.form-group').find('.fa-remove').click(function (event) {
             event.preventDefault();

@@ -61,5 +61,7 @@ namespace SMSPortal.Models.PostLogin
         public string OrderSlot { get; set; }
 
         public string Date_Range { get; set; }
+
+        public int Vendor_Order_Id { get; set; }
     }
 }

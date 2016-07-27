@@ -165,6 +165,7 @@
 
     <div class="dealer_master">
         <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
             <h3 class="dealer_master_header">Dealer Master</h3>
 
             <div class="row" style="margin: 20px 0;">
@@ -182,22 +183,31 @@
 
                     </div>
                 </div>
+
+
+                <div class="col-md-3">
+                    <br />
+                    <div class="btn-group">                      
+                        <a class="btn btn_mer ripple" style="margin-top: 5px;" id="btnSearch" role="button">Search</a>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="btn-group pull-left">
 
-                        <a class="btn btn_mer ripple" style="display:none;" role="button" href="@Url.Action("AddEdit_Dealer", "Dealer")">Create </a>
+                        <a class="btn btn_mer ripple" style="margin-top: 5px;" role="button" href="@Url.Action("AddEdit_Dealer", "Dealer")">Create </a>
 
-                        <a class="btn btn_mer ripple" id="btnSearch" role="button">Search</a>
+                        "
+
 
                     </div>
                     <div class="btn-group pull-right">
 
                         <button type="button" id="btnEdit" style="display:none;" class="btn btn_mer ripple">Edit</button>
 
-                        <button type="button" id="btnAddUser" style="display:none;" class="btn btn_mer ripple">Add User</button>
+                        @*<button type="button" id="btnAddUser" style="display:none;" class="btn btn_mer ripple">Add User</button>*@
 
                         <button type="button" id="btnView" style="display:none;" class="btn btn_mer ripple">View</button>
 
@@ -219,9 +229,9 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-                <div class="box-footer clearfix">
-                    <div class="pagination pagination-sm no-margin pull-right">
-                        <ul></ul>
+                <div class="clearfix">
+                    <div class="pagination no-margin pull-right">
+                        <ul class="pagination"></ul>
                     </div>
                     <div id="divSearchGridOverlay" class="overlay">
                         <i class="fa fa-refresh fa-spin"></i>

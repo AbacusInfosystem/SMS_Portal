@@ -23,17 +23,53 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public void Insert_Product(ProductInfo product,int user_id)
+        public void Insert_Product(ProductInfo product,int user_id,int entity_Id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product(product,user_id), StoreProcedures.Insert_Product_Sp.ToString(), CommandType.StoredProcedure);
+            int productId = _sqlRepo.ExecuteNonQuery(Set_Values_In_Product(product, user_id, entity_Id), StoreProcedures.Insert_Product_Sp.ToString(), CommandType.StoredProcedure, "@Product_Id");           
+
+            foreach (var item in product.ProductQuantities)
+            {
+                List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+                sqlparam.Add(new SqlParameter("@Product_Id", productId));
+                sqlparam.Add(new SqlParameter("@Product_Quantity_Value", item.Product_Quantity_Value));
+
+                sqlparam.Add(new SqlParameter("@Created_On", DateTime.Now));
+                sqlparam.Add(new SqlParameter("@Created_By", user_id));
+                sqlparam.Add(new SqlParameter("@Updated_On", DateTime.Now));
+                sqlparam.Add(new SqlParameter("@Updated_By", user_id));
+
+                _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Insert_Product_Quantity_Sp.ToString(), CommandType.StoredProcedure);
+            }
         }
 
-        public void Update_Product(ProductInfo product,int user_id)
+        public void Update_Product(ProductInfo product, int user_id, int entity_Id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product(product,user_id), StoreProcedures.Update_Product_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Product(product, user_id, entity_Id), StoreProcedures.Update_Product_Sp.ToString(), CommandType.StoredProcedure);
+
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("@Product_Id", product.Product_Id));
+
+            _sqlRepo.ExecuteNonQuery(sqlparam, StoreProcedures.Delete_Product_Quantity_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (var item in product.ProductQuantities)
+            {
+                List<SqlParameter> _sqlparam = new List<SqlParameter>();
+
+                _sqlparam.Add(new SqlParameter("@Product_Id", product.Product_Id));
+                _sqlparam.Add(new SqlParameter("@Product_Quantity_Value", item.Product_Quantity_Value));
+
+                _sqlparam.Add(new SqlParameter("@Created_On", DateTime.Now));
+                _sqlparam.Add(new SqlParameter("@Created_By", user_id));
+                _sqlparam.Add(new SqlParameter("@Updated_On", DateTime.Now));
+                _sqlparam.Add(new SqlParameter("@Updated_By", user_id));
+
+                _sqlRepo.ExecuteNonQuery(_sqlparam, StoreProcedures.Insert_Product_Quantity_Sp.ToString(), CommandType.StoredProcedure);
+            }
         }
 
-        private List<SqlParameter> Set_Values_In_Product(ProductInfo product, int user_id)
+        private List<SqlParameter> Set_Values_In_Product(ProductInfo product, int user_id,int entity_Id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             if (product.Product_Id != 0)
@@ -46,10 +82,15 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Local_Tax", product.Local_Tax));
             sqlParams.Add(new SqlParameter("@Export_Tax", product.Export_Tax));
             sqlParams.Add(new SqlParameter("@Brand_Id", product.Brand_Id));
+            sqlParams.Add(new SqlParameter("@Vendor_Id", entity_Id));
             sqlParams.Add(new SqlParameter("@Category_Id", product.Category_Id));
             sqlParams.Add(new SqlParameter("@SubCategory_Id", product.SubCategory_Id));
             sqlParams.Add(new SqlParameter("@Is_Biddable", product.Is_Biddable));
             sqlParams.Add(new SqlParameter("@Is_Active", product.Is_Active));
+
+            sqlParams.Add(new SqlParameter("@Product_Specification", product.Product_Specification));
+            sqlParams.Add(new SqlParameter("@Product_Maintance", product.Product_Maintance));
+
             if (product.Product_Id == 0)
             {
                 sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
@@ -60,10 +101,12 @@ namespace SMSPortalRepo
             return sqlParams;
         }
 
-        public List<ProductInfo> Get_Products(ref PaginationInfo Pager)
+        public List<ProductInfo> Get_Products(ref PaginationInfo Pager,int entity_Id)
         {
             List<ProductInfo> products = new List<ProductInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Product_Sp.ToString(), CommandType.StoredProcedure);
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Entity_Id", entity_Id));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Product_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
                  products.Add(Get_Product_Values(dr));
@@ -106,10 +149,17 @@ namespace SMSPortalRepo
             product.SubCategory_Name = Convert.ToString(dr["SubCategory_Name"]);
             product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
             product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+
+            product.Product_Specification = Convert.ToString(dr["Product_Specification"]);
+            product.Product_Maintance = Convert.ToString(dr["Product_Maintance"]);
+
             product.Created_On = Convert.ToDateTime(dr["Created_On"]);
             product.Created_By = Convert.ToInt32(dr["Created_By"]);
             product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
             product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            product.ProductQuantities = Get_Product_Quantyties(product.Product_Id);
+
             return product;
         }
 
@@ -186,6 +236,13 @@ namespace SMSPortalRepo
             product.Category_Id = Convert.ToInt32(dr["Category_Id"]);
             product.SubCategory_Id = Convert.ToInt32(dr["SubCategory_Id"]);
             product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
+
+            product.Local_Tax = Convert.ToDecimal(dr["Local_Tax"]);
+            product.Export_Tax = Convert.ToDecimal(dr["Export_Tax"]);
+
+            if (!dr.IsNull("Vendor_Id"))
+            product.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+
             product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
             product.Created_On = Convert.ToDateTime(dr["Created_On"]);
             product.Created_By = Convert.ToInt32(dr["Created_By"]);
@@ -228,10 +285,15 @@ namespace SMSPortalRepo
             product.Product_Image = Convert.ToString(dr["Image_Code"]);
             product.Is_Biddable = Convert.ToBoolean(dr["Is_Biddable"]);
             product.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+            product.Product_Specification = Convert.ToString(dr["Product_Specification"]);
+            product.Product_Maintance = Convert.ToString(dr["Product_Maintance"]);
             product.Created_On = Convert.ToDateTime(dr["Created_On"]);
             product.Created_By = Convert.ToInt32(dr["Created_By"]);
             product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
             product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+            if (!dr.IsNull("Vendor_Id"))
+            product.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+
             return product;
         }
 
@@ -517,7 +579,7 @@ namespace SMSPortalRepo
             return subcategory;
         }
 
-        public bool Bulk_Excel_Upload_Default(DataTable dt,int user_id)
+        public bool Bulk_Excel_Upload_Default(DataTable dt,int user_id,int entity_Id)
         {
 
             bool Is_Error = false;
@@ -558,6 +620,10 @@ namespace SMSPortalRepo
 
                         _product.SubCategory_Id = Get_SubCategory_Id_By_Name(_product.Category_Id, dr["SubCategory"].ToString());
 
+                        _product.Product_Specification = Convert.ToString(dr["Product Specification"]);
+
+                        _product.Product_Maintance = Convert.ToString(dr["Product Maintance"]);
+
                         if (dr["Is Biddable"].ToString().ToLower() == "yes")
                         {
                             _product.Is_Biddable = true;
@@ -586,7 +652,7 @@ namespace SMSPortalRepo
                             }
                             else 
                             {
-                                    Insert_Product(_product,user_id);
+                                Insert_Product(_product, user_id, entity_Id);
                             }
                         }
                         else
@@ -696,10 +762,59 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@SubCategory_Id", product.SubCategory_Id));
             sqlParams.Add(new SqlParameter("@Is_Biddable", product.Is_Biddable));
             sqlParams.Add(new SqlParameter("@Is_Active", product.Is_Active));
-           
+
+            sqlParams.Add(new SqlParameter("@Product_Specification", product.Product_Specification));
+            sqlParams.Add(new SqlParameter("@Product_Maintance", product.Product_Maintance));
+          
             sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
             sqlParams.Add(new SqlParameter("@Updated_By", user_id));
             return sqlParams;
+        }
+
+        public List<VendorInfo> Get_Third_Party_Vendors()
+        {
+            List<VendorInfo> thirdpartyvendorlist = new List<VendorInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Third_Party_Vendors_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    VendorInfo list = new VendorInfo();
+
+                    if (!dr.IsNull("Id"))
+                        list.Vendor_Id = Convert.ToInt32(dr["Id"]);
+                    if (!dr.IsNull("Name"))
+                        list.Vendor_Name = Convert.ToString(dr["Name"]);
+
+                    thirdpartyvendorlist.Add(list);
+                }
+            }
+
+            return thirdpartyvendorlist;
+        }
+
+        public List<Product_Quantity> Get_Product_Quantyties(int productId)
+        {
+            List<Product_Quantity> qtyList = new List<Product_Quantity>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+
+            sqlparam.Add(new SqlParameter("@Product_Id", productId));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Product_Quantity_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Product_Quantity info = new Product_Quantity();
+                    info.Product_Id = Convert.ToInt32(dr["Product_Id"]);
+                    info.Product_Quantity_Value = Convert.ToInt32(dr["Product_Quantity_Value"]);
+                    qtyList.Add(info);
+                }
+            }
+            return qtyList;
         }
          
     }

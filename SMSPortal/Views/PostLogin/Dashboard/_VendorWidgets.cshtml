@@ -1,41 +1,72 @@
-﻿<form id="frmMy_Activity_Dashboard">
-    <div class="box box-primary">
+﻿@model SMSPortal.Models.PostLogin.DashboardViewModel
+@using SMSPortalInfo.Common
 
-        <div class="box-body no-padding">
+<script src="~/Scripts/Module/Dashboard/vendor_dashboard_methods.js"></script>
 
-            <section class="content">
-                <div class="row">
-                    @* Open Bids *@
-                    <div class="col-lg-3 col-xs-6">
-                        <div class="small-box bg-aqua">
-                            <a class="small-box-footer">Open Bids</a>
-                            <div class="inner" id="MktSegment">
-                                <h3>100</h3>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-edit"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    @* Active Orders *@
-                    <div class="col-lg-3 col-xs-6">
+<form id="frmMy_Activity_Dashboard">
+    @{Html.RenderPartial("_ServerMessage");}
+    <h3 class="master_header">
+        Dashboard
+    </h3>
 
-                        <div class="small-box bg-green">
-                            <a class="small-box-footer">Active Orders</a>
-                            <div class="inner" id="MktSegment">
-                                <h3>10</h3>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-edit"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
 
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-header with-border">
+                <h3 class="box-title">Sales Orders</h3>
+                <!--<div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>-->
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="table-responsive" style="margin: 50px 0;">
+                    <table class="table no-margin" id="tblDealerMaster" style="margin:60px">
+                        <thead>
+                            <tr>
+                                <th>Order No</th>
+                                <th>Order Date</th>
+                                <th>Dealer Name</th>
+                                <th>Shipping Address</th>
+                                @*<th>Action</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Sales_Orders.Count() > 0)
+                            {
+                                foreach (var item in Model.Sales_Orders)
+                                {
+                                    <tr>
+                                        <td>@item.Order_No</td>
+
+                                        <td>@item.Order_Date.ToShortDateString()</td>
+
+                                        <td>@item.Dealer_Name</td>
+
+                                        <td>@item.Shipping_Address</td>
+
+                                        @*<td>
+                                            <button type="button" id="btnOrderDetails" class="btn btn-box-tool btn-tel-edit" onclick="javascript:Sales_Details(@item.Vendor_Order_Id)">Deatils</button>
+                                        </td>*@
+
+                                    </tr>
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4">No Records Found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-            </section>
 
+                <div class="btn-group pull-right">
+                    <a href="@Url.Action("Search","SalesOrder")" class="btn btn_mer ripple btn_mer_3 pull-right">View All Sales Order</a>
+                </div> 
+            </div><!-- /.box-body -->
         </div>
-    </div>
+
 </form>

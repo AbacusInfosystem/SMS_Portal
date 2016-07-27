@@ -3,7 +3,7 @@ $(function () {
 
     $("#btnEdit").click(function () {
 
-        $("#frmVendorProfileMaster").attr("action", "/vendor/edit-vendor-profile-details/");
+        $("#frmVendorProfileMaster").attr("action", "/vendor/edit-new-vendor-profile-details/");
 
         $("#frmVendorProfileMaster").attr("method", "post");
 
@@ -12,7 +12,7 @@ $(function () {
 
     $("#btnAddBankDetails").click(function (event) {
 
-        $("#div_Parent_Modal_Fade").find(".modal-body").load("/vendor/Add_Bank_Details", { vendor_Id: $("#hdnVendor_Id").val() }, call_back);
+        $("#div_Parent_Modal_Fade").find(".modal-body").load("/ThirdPartyVendor/Add_Bank_Details", { vendor_Id: $("#hdnVendor_Id").val() }, call_back);
     });
 
 });

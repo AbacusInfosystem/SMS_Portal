@@ -1,20 +1,20 @@
 ﻿$(function () {
 
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        increaseArea: '20%', // optional
-    });
+    //$('input').iCheck({
+    //    checkboxClass: 'icheckbox_square-green',
+    //    increaseArea: '20%', // optional
+    //});
 
-    $(".chkstatus").on("ifChanged", function () {
+    $(".chkstatus").on("change", function () {
 
-        if ($(this).parents().prop("class").indexOf("checked") != -1) {
-            $("#hdnIsActive").val(false);
+        if (!$(this).is(':checked')) {
+            $("#hdnIs_Active").val(false);
         }
         else {
-            $("#hdnIsActive").val(true);
+            $("#hdnIs_Active").val(true);
         }
-
     });
+
 
     if ($("#hdnSubcategory_Id").val()!=0)
     {

@@ -13,7 +13,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.SqlClient;
-
+ 
 namespace SMSPortal.Controllers.PostLogin
 {
     public class ReceivableController : Controller
@@ -79,6 +79,8 @@ namespace SMSPortal.Controllers.PostLogin
 
             try
             {
+                rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 pager = rViewModel.Pager;
 
                 if (rViewModel.Filter.Invoice_Id != 0)
@@ -87,7 +89,15 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    rViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, rViewModel.Filter.Entity_Id, rViewModel.Filter.Role_Id);
+                    if (rViewModel.Cookies.Role_Id==Convert.ToInt32(RolesIds.Vendor))
+                    {
+                        rViewModel.Receivables = _receivableManager.Get_Vendor_Receivables(ref pager, rViewModel.Cookies.Entity_Id, rViewModel.Cookies.Role_Id);
+                    }
+                    else
+                    {
+                        rViewModel.Receivables = _receivableManager.Get_Receivables(ref pager, rViewModel.Filter.Entity_Id, rViewModel.Filter.Role_Id);
+                    }
+                    
                 }
 
                 rViewModel.Pager = pager;
@@ -109,17 +119,37 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
+                rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 int Id = rViewModel.Receivable.Invoice_Id;
 
-                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id);
+                if (rViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                {
+                    rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id, rViewModel.Cookies.Role_Id, rViewModel.Cookies.Entity_Id);
+                }
+                else
+                {
+                    rViewModel.Receivable = _receivableManager.Get_Dealer_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id, rViewModel.Cookies.Role_Id, rViewModel.Cookies.Entity_Id);
+                }
 
                 rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
 
                 rViewModel.Receivable.Invoice_Id = Id;
 
-                rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);
+                if (rViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                {
+                    rViewModel.Invoice = _invoiceManager.Get_Vendor_Invoice_By_Id(rViewModel.Receivable.Invoice_Id, rViewModel.Cookies.Entity_Id);
 
-                rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
+                    rViewModel.Order = _ordersManager.Get_Vendor_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
+                }
+                else
+                {
+                    rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);
+
+                    rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
+                }
+
+                
 
                 //rViewModel.Receivable.Invoice_Amount = _receivableManager.Get_Invoice_Amount(Id);
 
@@ -160,17 +190,35 @@ namespace SMSPortal.Controllers.PostLogin
                     {
                         rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                        rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);                        
+                        if (rViewModel.Cookies.Role_Id==Convert.ToInt32(RolesIds.Vendor))
+                        {
+                            rViewModel.Invoice = _invoiceManager.Get_Vendor_Invoice_By_Id(rViewModel.Receivable.Invoice_Id, rViewModel.Cookies.Entity_Id); 
+                        }
+                        else
+                        {
+                            rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);  
+                        }
 
-                        rViewModel.Receivable.Receivable_Id = _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id,out Status);
+                        rViewModel.Receivable.Receivable_Id = _receivableManager.Insert_Receivable(rViewModel.Receivable, rViewModel.Cookies.User_Id, out Status, rViewModel.Cookies.Role_Id, rViewModel.Cookies.Entity_Id);
 
                         _receivableManager.Insert_ReceivableItems(rViewModel.Receivable, rViewModel.Cookies.User_Id);
 
-                        _ordersManager.Set_Order_Balanace_Amount(rViewModel.Invoice.Order_Id, rViewModel.Receivable.Receivable_Item_Amount);
+                        if (rViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                        {
+                            _ordersManager.Set_Vendor_Order_Balanace_Amount(rViewModel.Invoice.Order_Id, rViewModel.Receivable.Receivable_Item_Amount);
 
-                        _ordersManager.Set_Order_Status(rViewModel.Invoice.Order_Id, Convert.ToInt32(OrderStatus.Order_Confirmed));
+                            _ordersManager.Set_Vendor_Order_Status(rViewModel.Invoice.Order_Id, Convert.ToInt32(OrderStatus.Order_Confirmed));
 
-                        rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id);
+                            _ordersManager.Set_Order_Status(rViewModel.Invoice.Order_Id, Convert.ToInt32(OrderStatus.Order_Confirmed));
+                        }
+                        else
+                        {
+                            _ordersManager.Set_Order_Balanace_Amount(rViewModel.Invoice.Order_Id, rViewModel.Receivable.Receivable_Item_Amount);
+
+                            _ordersManager.Set_Order_Status(rViewModel.Invoice.Order_Id, Convert.ToInt32(OrderStatus.Order_Confirmed));
+                        }
+
+                        rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(rViewModel.Receivable.Invoice_Id, rViewModel.Cookies.Role_Id, rViewModel.Cookies.Entity_Id);
 
                         rViewModel.Receivables = _receivableManager.Get_Receivable_Items(rViewModel.Receivable.Receivable_Id);
 
@@ -178,9 +226,16 @@ namespace SMSPortal.Controllers.PostLogin
 
                         UserInfo user = _userManager.Get_User_By_Entity_Id(rViewModel.Invoice.Entity_Id, rViewModel.Invoice.Role_Id);
 
-                        rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
-
-                        rViewModel.Order.OrderItems = _ordersManager.Get_Orders_Item_By_Id(rViewModel.Invoice.Order_Id);                        
+                        if (rViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                        {
+                            rViewModel.Order = _ordersManager.Get_Vendor_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
+                            rViewModel.Order.OrderItems = _ordersManager.Get_Vendor_Orders_Item_By_Id(rViewModel.Order.Vendor_Order_Id);
+                        }
+                        else
+                        {
+                            rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
+                            rViewModel.Order.OrderItems = _ordersManager.Get_Orders_Item_By_Id(rViewModel.Invoice.Order_Id); 
+                        }                      
 
                         if (rViewModel.Invoice.Role_Id==2)
                         {
@@ -200,7 +255,11 @@ namespace SMSPortal.Controllers.PostLogin
                         {
                             rViewModel.User = _userManager.Get_User_By_Entity_Id(rViewModel.Order.Dealer_Id, 3);
 
-                            _ordersManager.Send_Order_Status_Notification(rViewModel.User.First_Name,  rViewModel.User.Email_Id, rViewModel.Order, true);
+                            if (rViewModel.User.Email_Id!=null)
+                            {
+                                _ordersManager.Send_Order_Status_Notification(rViewModel.User.First_Name, rViewModel.User.Email_Id, rViewModel.Order, true);
+                            }
+                           
                         }
                     }
                     catch (Exception ex)
@@ -272,15 +331,29 @@ namespace SMSPortal.Controllers.PostLogin
             {
                 rViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id); 
+                if (rViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                {
+                    rViewModel.Invoice = _invoiceManager.Get_Vendor_Invoice_By_Id(rViewModel.Receivable.Invoice_Id, rViewModel.Cookies.Entity_Id);
+                }
+                else
+                {
+                    rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);
+                }
 
-                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(invoice_Id);
+                rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(invoice_Id, rViewModel.Cookies.Role_Id, rViewModel.Cookies.Entity_Id);
 
                 rViewModel.Receivables = _receivableManager.Get_Receivable_Items(receivable_Id);
 
-                rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
-
-                rViewModel.Order.OrderItems = _ordersManager.Get_Orders_Item_By_Id(rViewModel.Invoice.Order_Id);
+                if (rViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                {
+                    rViewModel.Order = _ordersManager.Get_Vendor_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
+                    rViewModel.Order.OrderItems = _ordersManager.Get_Vendor_Orders_Item_By_Id(rViewModel.Order.Vendor_Order_Id);
+                }
+                else
+                {
+                    rViewModel.Order = _ordersManager.Get_Order_Data_By_Id(rViewModel.Invoice.Order_Id);
+                    rViewModel.Order.OrderItems = _ordersManager.Get_Orders_Item_By_Id(rViewModel.Invoice.Order_Id);
+                } 
 
                 _receivableManager.Send_Payment_Receipt(rViewModel.Cookies.First_Name, rViewModel.Cookies.User_Email, rViewModel.Receivable, rViewModel.Receivables, rViewModel.Order);
 

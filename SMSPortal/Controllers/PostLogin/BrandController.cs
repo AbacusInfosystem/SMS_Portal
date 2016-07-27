@@ -100,6 +100,7 @@ namespace SMSPortal.Controllers.PostLogin
             return Json(bViewModel);
         }
 
+     
         public ActionResult Insert_Brand(BrandViewModel bViewModel)
         {
             try

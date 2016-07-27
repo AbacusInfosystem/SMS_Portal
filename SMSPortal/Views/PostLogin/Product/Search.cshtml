@@ -4,106 +4,87 @@
 <script src="~/Scripts/Module/Product/search_product_events.js"></script>
 <script src="~/Scripts/Module/Product/search_product_methods.js"></script>
 <script src="~/Scripts/additional-methods.min.js"></script>
-<form id="frmProduct" enctype="multipart/form-data">
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        @{Html.RenderPartial("_ServerMessage");}
-        <section class="content-header">
-            <h1>
-                Product master
-                <small></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Product</li>
-            </ol>
-        </section>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-primary">
-                        @*<div class="box-header with-border">
-                            <h3 class="box-title">Product</h3>
-                        </div>*@
-                        <div class="box-body">
-                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
-                            <input type="hidden" id="hdnProduct_Id" name="Product.Product_Id" value="@Model.Product.Product_Id">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group auto-complete">
-                                        <label for="Product" class="lookup-title">Product Name</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.Product_Name" id="txtProduct_Name" placeholder="Enter Product Name" value="@Model.Filter.Product_Name" data-table="Product" data-col="Product_Id,Product_Name" data-headernames="Product">
-                                            <input type="hidden" id="hdnProductId" value="@Model.Filter.Product_Id" name="Filter.Product_Id" class="auto-complete-value" />
-                                            <input type="hidden" id="hdnProductName" value="@Model.Filter.Product_Name" name="Filter.Product_Name" class="auto-complete-label" />
-                                            <div class="input-group-addon">
-                                                <a href="#" class="text-muted" id="hrefProduct" role="button"><i class="fa fa-server"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+<form id="frmProduct">
 
-                                </div>
-                            </div>
+    <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+    <input type="hidden" id="hdnProduct_Id" name="Product.Product_Id" value="@Model.Product.Product_Id">
 
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-md-12">
+    <div class="dealer_master">
 
-                                        <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddEdit_Product", "Product")">Create </a>
-                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
-                                            <button type="button" id="btnUploadProducts" class="btn btn-success btn-sm">Upload Products</button>
-                                        </div>
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="dealer_master_header">
+                Product Master
+            </h3>
 
-                                        <div class="btn-group pull-right">
-                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm" style="display:none;">Edit </button>
-                                            <button type="button" id="btnUpload" class="btn btn-warning btn-sm" style="display:none;" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload Product Images</button>
-                                            
-                                        </div>                                         
-                                </div>
-
-                            </div>
-
+            <div class="row" style="margin: 20px 0;">
+                <div class="col-md-6">
+                    <div class="form-group auto-complete">
+                        <label class="control-label label_mer">Product Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Product_Name" id="txtProduct_Name" placeholder="Enter Product Name" value="@Model.Filter.Product_Name" data-table="Product" data-col="Product_Id,Product_Name" data-headernames="Product">
+                            <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                            <input type="hidden" id="hdnProductId" value="@Model.Filter.Product_Id" name="Filter.Product_Id" class="auto-complete-value" />
+                            <input type="hidden" id="hdnProductName" value="@Model.Filter.Product_Name" name="Filter.Product_Name" class="auto-complete-label" />
                         </div>
                     </div>
-                </div><!-- /.col -->
                 </div>
-            </div><!-- /.row -->
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-solid">
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-striped" id="tblProductMaster">
-                                <tr id="subhead">
-                                    <th width="5%"></th>
-                                    <th width="20%">Product</th>
-                                    <th width="10%">Price</th>
-                                    <th width="15%">Brand</th>
-                                    <th width="20%">Category</th>
-                                    <th width="20%">Subcategory</th>
-                                    <th>Biddable</th>
-                                    @*<th>Status</th>*@
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="box-footer clearfix">
-                            <div class="pagination pagination-sm no-margin pull-right">
-                                <ul></ul>
-                            </div>
-                            <div id="divSearchGridOverlay" class="overlay">
-                                <i class="fa fa-refresh fa-spin"></i>
-                            </div>
-                        </div>
+                <div class="col-md-3">
+                    <br />
+                    <div class="btn-group">
+                        <a class="btn btn_mer ripple" style="margin-top: 5px;" id="btnSearch" role="button">Search </a>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group pull-left">
+
+                        <a class="btn btn_mer ripple" role="button" id="btnCreate" href="@Url.Action("AddEdit_Product", "Product")">Create </a>
+                        @*<a class="btn btn_mer ripple" id="btnSearch" role="button">Search </a>*@
+                        <button type="button" id="btnUploadProducts" class="btn btn_mer ripple">Upload Products</button>
+
+                    </div>
+                    <div class="btn-group pull-right">
+
+                        <button type="button" id="btnEdit" style="display:none;" class="btn btn_mer ripple">Edit </button>
+                        <button type="button" id="btnUpload" class="btn btn_mer ripple" style="display:none;" data-toggle="modal" data-target="#div_Parent_Modal_Fade">Upload Product Images</button>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="margin: 50px 0;">
+                <table class="table table-bordered" id="tblProductMaster">
+                    <thead>
+                        <tr id="subhead">
+                            <th width="5%"></th>
+                            <th width="20%">Product</th>
+                            <th width="10%">Price</th>
+                            <th width="15%">Brand</th>
+                            <th width="20%">Category</th>
+                            <th width="20%">Subcategory</th>
+                            <th>Biddable</th>
+                            @*<th>Status</th>*@
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="pagination no-margin pull-right">
+                        <ul class="pagination"></ul>
+                    </div>
+                    <div id="divSearchGridOverlay" class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-    <!-- /.content-wrapper -->
+
 </form>
 

@@ -1,22 +1,19 @@
 ﻿$(function ()
 {
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('input:not(.non-iCheck input:checkbox)').iCheck({
+    //    checkboxClass: 'icheckbox_square-green',
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
-    $(".chkstatus").on("ifChanged", function () {
+    $(".chkstatus").on("change", function () {
 
-        if ($(this).parents().prop("class").indexOf("checked") != -1)
-        {            
+        if (!$(this).is(':checked')) {
             $("#hdnIs_Active").val(false);
         }
-        else
-        {
+        else {
             $("#hdnIs_Active").val(true);
         }
-
     });
 
     $(".fa-chevron-left").click(function () {

@@ -5,7 +5,7 @@ $(function () {
 
         if ($('#frmUpdateVendorProfile').valid()) {
 
-            $("#frmUpdateVendorProfile").attr("action", "/vendor/update-vendor-profile-details/");
+            $("#frmUpdateVendorProfile").attr("action", "/vendor/update-new-vendor-profile-details/");
 
             $("#frmUpdateVendorProfile").attr("method", "post");
 

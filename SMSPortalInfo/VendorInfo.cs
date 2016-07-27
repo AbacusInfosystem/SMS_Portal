@@ -43,31 +43,15 @@ namespace SMSPortalInfo
 
         public int Updated_By { get; set; }
 
-        public List<Bank_Details> BankDetailsList { get; set; }
-
         public StateInfo stateInfo { get; set; }
+
+        public string State_Name { get; set; }
+
+        public string Vendor_Logo { get; set; }
 
         public VendorInfo()
         {
-            BankDetailsList = new List<Bank_Details>();
-
             stateInfo = new StateInfo();
         }
-
     }
-
-    public class Bank_Details
-    {
-        public int Vendor_Bank_Detail_Id { get; set; }
-
-        public string Bank_Name { get; set; }
-
-        public string Account_No { get; set; }
-
-        public string Ifsc_Code { get; set; }
-
-        public bool Status { get; set; }
-    }
-
-
 }

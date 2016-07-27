@@ -181,111 +181,94 @@
     <!-- /.content-wrapper -->
 
 <form id="frmDealerMaster">
-    <div class="view_dealers">
+    <div class="master">
         <div class="container">
-            <h3 class="view_dealers_header">
+            <h3 class="master_header">
                 Dealer Master
                 <span> <a href="@Url.Action("Search","Dealer")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
             </h3>
 
-            <div class="view_dealers_body">
+            <div class="info">
+
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>Dealer Name</h5>
+                            <label class="control-label label_mer">Dealer Name :</label>
+                            <label class="control-label label_mer">@Model.Dealer.Dealer_Name</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.Dealer_Name</h3>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>Brand</h5>
+                            <label class="control-label label_mer">Brand :</label>
+                            <label class="control-label label_mer">@Model.Dealer.Brand_Name</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.Brand_Name</h3>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>Address</h5>
+                            <label class="control-label label_mer">Address :</label>
+                            <label class="control-label label_mer">@Model.Dealer.Address</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.Address</h3>
-                    </div>
+                    </div>    
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>City</h5>
+                            <label class="control-label label_mer">City :</label>
+                            <label class="control-label label_mer">@Model.Dealer.City</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.City</h3>
-                    </div>
+                    </div> 
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>State</h5>
+                            <label class="control-label label_mer">State :</label>
+                            <label class="control-label label_mer">@Model.Dealer.State</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.State</h3>
-                    </div>
+                    </div> 
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>Pincode</h5>
+                            <label class="control-label label_mer">Pincode :</label>
+                            <label class="control-label label_mer">@Model.Dealer.Pincode</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.Pincode</h3>
-                    </div>
+                    </div> 
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>Contact No. 1</h5>
+                            <label class="control-label label_mer">Contact No. 1 :</label>
+                            <label class="control-label label_mer">@Model.Dealer.Contact_No_1</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.Contact_No_1</h3>
-                    </div>
+                    </div>             
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>Contact No. 2</h5>
+                            <label class="control-label label_mer">Contact No. 2 :</label>
+                            <label class="control-label label_mer">@Model.Dealer.Contact_No_2</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.Contact_No_2</h3>
-                    </div>
+                    </div>   
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <h5>Email Id</h5>
+                            <label class="control-label label_mer">Email Id :</label>
+                            <label class="control-label label_mer">@Model.Dealer.Email</label>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <h3>@Model.Dealer.Email</h3>
-                    </div>
+                    </div>   
                 </div>
 
             </div>

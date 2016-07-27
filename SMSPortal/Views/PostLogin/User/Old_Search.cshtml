@@ -1,0 +1,89 @@
+﻿@model SMSPortal.Models.PostLogin.UserViewModel
+@using SMSPortalInfo.Common;
+<script src="~/Scripts/Module/User/search_user_event.js"></script>
+<script src="~/Scripts/Module/User/search_user_method.js"></script>
+<form id="frmUser" enctype="multipart/form-data">
+    <div class="content-wrapper">
+        @{Html.RenderPartial("_ServerMessage");}
+        <section class="content-header">
+            <h1>
+                User Master
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
+                <li class="active">User</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        @*<div class="box-header with-border">
+                            <h3 class="box-title">User</h3>
+                        </div>*@
+                        <div class="box-body">
+                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
+                            <input type="hidden" id="hdnUser_Id" name="User.User_Id" value="@Model.User.User_Id">
+                            <div class="row">
+       
+                                <div class="col-md-4">
+                                    <div class="form-group auto-complete">
+                                        <label for="User" class="lookup-title">User Name</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm autocomplete-text" name="Filter.User_Name" id="txtUser_Name" placeholder="Enter User Name" value="@Model.Filter.User_Name" data-table="Users" data-col="User_Id,User_Name" data-headernames="User">
+                                            <input type="hidden" id="hdnUserId" value="@Model.Filter.User_Id" name="Filter.User_Id" class="auto-complete-value" />
+                                            <input type="hidden" id="hdnUserName" value="@Model.Filter.User_Name" name="Filter.User_Name" class="auto-complete-label" />
+                                            <div class="input-group-addon">
+                                                <a href="#" class="text-muted" id="hrefUser" role="button"><i class="fa fa-server"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="btn-group pull-left">
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "user")">Create </a>
+                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search </a>
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button type="button" id="btnEdit" class="btn btn-warning btn-sm" style="display:none;">Edit </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-striped" id="tblUser">
+                                <tr id="subhead">
+                                    <th width="5%"></th>
+                                    <th width="20%">User Name</th>
+                                    <th>Status</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="pagination pagination-sm no-margin pull-right">
+                                <ul></ul>
+                            </div>
+                            <div id="divSearchGridOverlay" class="overlay">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</form>
+

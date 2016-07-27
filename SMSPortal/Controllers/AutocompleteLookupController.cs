@@ -28,6 +28,8 @@ namespace SMSPortal.Controllers
 
             PaginationInfo pager = new PaginationInfo();
 
+            LookupVM.Cookies = Utility.Get_Login_User("UserInfo", "Token"); 
+
             string[] cols;
 
             string[] headerNamesArr;
@@ -44,7 +46,7 @@ namespace SMSPortal.Controllers
             try
             {
 
-                LookupVM.PartialDt = _autocompleteLookupManager.Get_Lookup_Data(table_Name, cols, ref pager, fieldValue, fieldName);
+                LookupVM.PartialDt = _autocompleteLookupManager.Get_Lookup_Data(table_Name, cols, ref pager, fieldValue, fieldName, LookupVM.Cookies.Entity_Id);
 
                 LookupVM.EditLookupValue = editValue;
 

@@ -23,19 +23,19 @@ namespace SMSPortalRepo
             _sqlRepo = new SQLHelper();
         }
 
-        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id)
+        public int Insert_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id, int entity_Id)
         {
             int purchase_order_item_id = 0;
-            purchase_order_item_id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Purchase_Order(purchaseorder, user_id), StoreProcedures.Insert_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure));
+            purchase_order_item_id = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Purchase_Order(purchaseorder, user_id, entity_Id), StoreProcedures.Insert_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure));
             return purchase_order_item_id;
         }
 
         public void Update_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order(purchaseorder, user_id), StoreProcedures.Update_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(Set_Values_In_Purchase_Order(purchaseorder, user_id, 0), StoreProcedures.Update_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        private List<SqlParameter> Set_Values_In_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id)
+        private List<SqlParameter> Set_Values_In_Purchase_Order(PurchaseOrderInfo purchaseorder, int user_id,int entity_Id)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
@@ -46,8 +46,10 @@ namespace SMSPortalRepo
             if (purchaseorder.Purchase_Order_Id == 0)
             {
                 sqlParams.Add(new SqlParameter("@Purchase_Order_No", purchaseorder.Purchase_Order_No));
+
+                sqlParams.Add(new SqlParameter("@Vendor_Id", entity_Id));
             }
-            sqlParams.Add(new SqlParameter("@Vendor_Id", purchaseorder.Vendor_Id));
+            sqlParams.Add(new SqlParameter("@Third_Party_Vendor_Id", purchaseorder.Vendor_Id));
             sqlParams.Add(new SqlParameter("@Gross_Amount", purchaseorder.Gross_Amount));
 
             sqlParams.Add(new SqlParameter("@Status", purchaseorder.Status));
@@ -62,10 +64,12 @@ namespace SMSPortalRepo
             return sqlParams;
         }
 
-        public List<PurchaseOrderInfo> Get_Purchase_Orders(ref PaginationInfo Pager)
+        public List<PurchaseOrderInfo> Get_Purchase_Orders(ref PaginationInfo Pager,int entity_Id)
         {
             List<PurchaseOrderInfo> purchaseorders = new List<PurchaseOrderInfo>();
-            DataTable dt = _sqlRepo.ExecuteDataTable(null, StoreProcedures.Get_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", entity_Id));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Purchase_Order_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
             {
                 purchaseorders.Add(Get_Purchase_Order_Values(dr));
@@ -117,7 +121,7 @@ namespace SMSPortalRepo
             if (!dr.IsNull("Gross_Amount"))
                 purchaseorder.Gross_Amount = Convert.ToDecimal(dr["Gross_Amount"]);
 
-            purchaseorder.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+            purchaseorder.Vendor_Name = Convert.ToString(dr["Third_Party_Vendor_Name"]);
 
             if (!dr.IsNull("Status"))
                 purchaseorder.Status = Convert.ToInt32(dr["Status"]);
@@ -142,11 +146,12 @@ namespace SMSPortalRepo
             return purchaseorder;
         }
 
-        public List<AutocompleteInfo> Get_Purchase_Order_Autocomplete(string Purchase_Order_No)
+        public List<AutocompleteInfo> Get_Purchase_Order_Autocomplete(string Purchase_Order_No, int entity_Id)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
             List<SqlParameter> sqlparam = new List<SqlParameter>();
             sqlparam.Add(new SqlParameter("@Description", Purchase_Order_No == null ? System.String.Empty : Purchase_Order_No.Trim()));
+            sqlparam.Add(new SqlParameter("@Vendor_Id", entity_Id));
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Purchase_Order_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -301,6 +306,26 @@ namespace SMSPortalRepo
             {
                 RefNo = Convert.ToString(dr[0]);
             }
+
+            if (RefNo =="0")
+            {
+                RefNo = "1";
+            }
+            return RefNo;
+        }
+
+        public string Generate_Ven_Ref_No(string initialCharacter, string columnName, string substringStartIndex, string substringEndIndex, string tableName,int vendor_Id)
+        {
+            string RefNo = "";
+            List<SqlParameter> sqp = new List<SqlParameter>();
+            string strQry = "Select '" + initialCharacter + "' + CAST(ISNULL(max(CAST(substring(" + columnName + "," + substringStartIndex + "," + substringEndIndex + ") AS int))+1, 1) as nvarchar) as " + columnName + " from " + tableName;
+            strQry += " where Entity_Id='" + vendor_Id + "' and " + columnName + " like '" + initialCharacter + "' + '%'";
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqp, strQry, CommandType.Text);
+            foreach (DataRow dr in dt.Rows)
+            {
+                RefNo = Convert.ToString(dr[0]);
+            }
             return RefNo;
         }
 
@@ -369,12 +394,12 @@ namespace SMSPortalRepo
             return product;
         }
 
-        public VendorInfo Get_Vendor_By_Id(int vendor_Id)
+        public ThirdPartyVendorInfo Get_Vendor_By_Id(int vendor_Id)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
             sqlParamList.Add(new SqlParameter("@Vendor_Id", vendor_Id));
 
-            VendorInfo Vendor = new VendorInfo();
+            ThirdPartyVendorInfo Vendor = new ThirdPartyVendorInfo();
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in dt.Rows)
             {
@@ -383,9 +408,9 @@ namespace SMSPortalRepo
             return Vendor;
         }
 
-        private VendorInfo Get_Vendor_Values(DataRow dr)
+        private ThirdPartyVendorInfo Get_Vendor_Values(DataRow dr)
         {
-            VendorInfo Vendor = new VendorInfo();
+            ThirdPartyVendorInfo Vendor = new ThirdPartyVendorInfo();
 
             Vendor.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
             Vendor.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
@@ -535,5 +560,26 @@ namespace SMSPortalRepo
             client.Send(message);
         }
 
+        public List<PurchaseOrderInfo> Get_Purchase_Orders_By_Vendor(int vendor_Id)
+        {
+            List<PurchaseOrderInfo> purchaseorders = new List<PurchaseOrderInfo>();
+            List<SqlParameter> sqlparam = new List<SqlParameter>();
+            sqlparam.Add(new SqlParameter("@Vendor_Id", vendor_Id));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Purchase_Order_By_Vendor_Id_Sp.ToString(), CommandType.StoredProcedure);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    PurchaseOrderInfo info = new PurchaseOrderInfo();
+                    info.Purchase_Order_No = Convert.ToString(dr["Purchase_Order_No"]);
+                    info.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+                    info.Created_On = Convert.ToDateTime(dr["Created_On"]);
+                    info.Gross_Amount = Convert.ToInt32(dr["Gross_Amount"]);
+                    info.Status = Convert.ToInt32(dr["Status"]);
+                    purchaseorders.Add(info);
+                }
+            }
+            return purchaseorders;
+        }
     }
 }

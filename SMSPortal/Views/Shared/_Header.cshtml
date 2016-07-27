@@ -1,6 +1,98 @@
 ﻿@using SMSPortalInfo.Common
 @using SMSPortal.Common
 
+<!-- script for menu -->
+<script>
+    $("span.menu").click(function () {
+        $(".top-menu").slideToggle("slow", function () {
+            // Animation complete.
+        });
+    });
+</script>
+<!-- script for menu -->
+@*<div class="header">
+        @{
+            CookiesInfo cookies = new CookiesInfo();
+            cookies = Utility.Get_Login_User("UserInfo", "Token");
+            if (cookies != null)
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <div class="logo">
+                                <a href="#"><img src="~/Images/star.png" class="img-responsive star" alt="" /></a>
+                                <a href="#"><img src="~/Images/mercedes.png" class="img-responsive mercedes_text" alt="" /></a>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-ms-8 col-xs-8">
+                            <div class="header-menu">
+                                <span class="menu"></span>
+                                <div class="top-menu">
+
+                                    @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Admin))
+                                    {
+
+                                    }
+
+                                    @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                                    {
+
+                                    }
+
+                                    @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
+                                    {
+                                        <ul>
+                                            <li><a href="@Url.Action("Index", "Dashboard")">Home</a></li>
+                                            <li><a href="@Url.Action("Search","Dealer")">Dealers</a></li>
+                                            <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>
+                                        </ul>
+                                    }
+
+                                    @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+                                    {
+                                        <ul>
+                                            <li><a href="@Url.Action("Index", "Dashboard")">Home</a></li>
+                                            <li><a href="@Url.Action("My_Orders", "Dealer")">My Orders</a></li>
+                                            <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>
+                                        </ul>
+                                    }
+                                </div>
+                                <!-- script for menu -->
+                                <script>
+                                    $("span.menu").click(function () {
+                                        $(".top-menu").slideToggle("slow", function () {
+                                            // Animation complete.
+                                        });
+                                    });
+                                </script>
+                                <!-- script for menu -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                    @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
+                    {
+                        <a href="@Url.Action("Profile", "Brand")" class=" profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
+                    }
+                    @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+                    {
+                        <a href="@Url.Action("Profile", "Dealer")" class=" profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
+                    }
+
+                    <a href="@Url.Action("Logout", "Login")" class="signout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;<span>Sign Out</span></a>
+
+                </div>
+            }
+            else
+            {
+                Html.Action("Anauthorize_Token", "Login");
+            }
+
+        }
+    </div>*@
+
+
 <div class="header">
     @{
         CookiesInfo cookies = new CookiesInfo();
@@ -11,56 +103,180 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4">
                         <div class="logo">
-                            <a href="#"><img src="~/Images/star.png" class="img-responsive star" alt="" /></a>
-                            <a href="#"><img src="~/Images/mercedes.png" class="img-responsive mercedes_text" alt="" /></a>
+                            <a href="ndex.html"><img src="~/Images/star.png" class=" img-responsive star" alt="" /></a>
+                            <a href="index.html"><img src="~/Images/mercedes.png" class="img-responsive mercedes_text" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-md-8 col-ms-8 col-xs-8">
                         <div class="header-menu">
-                            <span class="menu"></span>
-                            <div class="top-menu">
+                            @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Admin))
+                            {
+                                <nav class="navbar navbar-default">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="@Url.Action("Index", "Dashboard")"><i class=" fa fa-home" style="font-size: 18px;" aria-hidden="true"></i></a></li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registration</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="@Url.Action("Search","Brand")">Brand</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","Dealer")">Dealer</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search", "Vendor")">Vendor</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","User")">User</a></li>                                                   
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            }
+                            
+                            @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                            {
+                                <nav class="navbar navbar-default">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <ul class="nav navbar-nav">
 
-                                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Admin))
-                                {
+                                            <li><a href="@Url.Action("Index", "Dashboard")"><i class=" fa fa-home" style="font-size: 18px;" aria-hidden="true"></i></a></li>
+                                            <li><a href="@Url.Action("Index", "Consolidated")">Consolidated Order</a></li>
+                                            
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registration</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="@Url.Action("Search","ThirdPartyVendor")">Third Party Vendor</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Masters</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="@Url.Action("Search","Product")">Product</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","User")">User</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","Category")">Category</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","SubCategory")">Sub-Category</a></li>
+                                                    @*<li role="separator" class="divider"></li>
+                                <li><a href="@Url.Action("Index","Tax")">Add Tax</a></li>*@
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Vendor_Mapping", "ThirdPartyVendor")">Vendor Mapping</a></li>
+                                                </ul>
+                                            </li>
 
-                                }
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Order</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="@Url.Action("Search","SalesOrder")">Sales Order</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","Receivable")">Receivable</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","Invoice")">Invoice</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Purchase Order</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="@Url.Action("Search","purchaseOrder")">Purchase Order</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","Payables")">Payables</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            }
 
-                                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
-                                {
+                            @if (cookies.Role_Id == Convert.ToInt32(RolesIds.ThirdPartyVendor))
+                            {
+                                @*<nav class="navbar navbar-default">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="@Url.Action("Index", "Dashboard")"><i class=" fa fa-home" style="font-size: 18px;" aria-hidden="true"></i></a></li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Order</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="@Url.Action("Search","SalesOrder")">Sales Order</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","Receivable")">Receivable</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","Invoice")">Invoice</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Purchase Order</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="@Url.Action("Search","purchaseOrder")">Purchase Order</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="@Url.Action("Search","Payables")">Payables</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>*@
+                                
+                                 <div class="top-menu">
 
-                                }
+                                    <ul>
+                                        <li><a href="@Url.Action("Index", "Dashboard")">Home</a></li>
+                                        <li><a href="@Url.Action("Search","purchaseOrder")">Purchase Order</a></li>
+                                        <li><a href="@Url.Action("Search","Payables")">Payables</a></li>
+                                    </ul>
 
-                                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
-                                {
+                                </div>
+                            }
+
+                            @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
+                            {
+                                <div class="top-menu">
+
                                     <ul>
                                         <li><a href="@Url.Action("Index", "Dashboard")">Home</a></li>
                                         <li><a href="@Url.Action("Search","Dealer")">Dealers</a></li>
                                         <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>
                                     </ul>
-                                }
 
-                                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
-                                {
+                                </div>
+                            }
+
+                            @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
+                            {
+                                <div class="top-menu">
+
                                     <ul>
                                         <li><a href="@Url.Action("Index", "Dashboard")">Home</a></li>
                                         <li><a href="@Url.Action("My_Orders", "Dealer")">My Orders</a></li>
-                                        <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>                                       
+                                        <li><a href="@Url.Action("Searches", "Receivable")">Payables</a></li>
                                     </ul>
-                                }
-                            </div>
-                            <!-- script for menu -->
-                            <script>
-                                $("span.menu").click(function () {
-                                    $(".top-menu").slideToggle("slow", function () {
-                                        // Animation complete.
-                                    });
-                                });
-                            </script>
-                            <!-- script for menu -->
 
+                                </div>
+                            }
                         </div>
                     </div>
-
                 </div>
                 @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Brand))
                 {
@@ -68,17 +284,23 @@
                 }
                 @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Dealer))
                 {
-                    <a href="@Url.Action("Profile", "Dealer")" class=" profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
+                    <a href="@Url.Action("Profile", "Dealer")" class="profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
+                }
+                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
+                {
+                    <a href="@Url.Action("Profile", "Vendor")" class=" profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
+                }
+                @if (cookies.Role_Id == Convert.ToInt32(RolesIds.ThirdPartyVendor))
+                {
+                    <a href="@Url.Action("Profile", "ThirdPartyVendor")" class=" profile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<span>Profile</span></a>
                 }
 
                 <a href="@Url.Action("Logout", "Login")" class="signout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;<span>Sign Out</span></a>
-
             </div>
         }
         else
         {
             Html.Action("Anauthorize_Token", "Login");
         }
-
     }
 </div>

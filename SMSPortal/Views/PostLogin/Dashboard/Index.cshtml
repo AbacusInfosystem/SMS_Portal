@@ -48,18 +48,22 @@
 <!-- /.content-wrapper -->
 
 
-<div class="dashboard">
+<div class="master">
 
     <div class="container">
         @*<h3 class="dashboard_header">Dashboard</h3>*@
 
         @if (Model.Cookies.Role_Name == "Admin")
         {
-            //Html.RenderAction("Get_Admin_Widgets", "Dashboard");
+            Html.RenderAction("Get_Admin_Widgets", "Dashboard");
         }
         else if (Model.Cookies.Role_Name == "Vendor")
         {
-            //Html.RenderAction("Get_Vendor_Widgets", "Dashboard");
+            Html.RenderAction("Get_Vendor_Widgets", "Dashboard");
+        }
+        else if (Model.Cookies.Role_Id == 5)
+        {
+            Html.RenderAction("Get_Third_Party_Vendor_Widgets", "Dashboard");
         }
         else if (Model.Cookies.Role_Name == "Dealer")
         {
@@ -73,105 +77,104 @@
         else if (Model.Cookies.Role_Name == "Brand")
         {
             //Html.RenderAction("Index", "Product");
-            <h3 class="dashboard_header">Dashboard</h3>
+            <h3 class="master_header">Dashboard</h3>
             <div class="row">
                 <div class="col-md-7">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Dealers</h3>
-                            <!--<div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>-->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="table-responsive" style="margin: 70px 0;">
-                                <table class="table no-margin" id="tblDealerMaster" style="margin:60px">
-                                    <thead>
-                                        <tr>
-                                            <th>Dealer Name</th>
-                                            <th>Associated Brand</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model.Dealers.Count() > 0)
-                                        {
-                                            foreach (var item in Model.Dealers)
-                                            {
-                                                <tr>
-                                                    <td>@item.Dealer_Name</td>
-
-                                                    <td>@item.Brand_Name</td>
-                                                </tr>
-
-                                            }
-                                        }
-                                        else
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Dealers</h3>
+                        <!--<div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>-->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive" style="margin: 50px 0;">
+                            <table class="table no-margin" id="tblDealerMaster" style="margin:60px">
+                                <thead>
+                                    <tr>
+                                        <th>Dealer Name</th>
+                                        <th>Associated Brand</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Dealers.Count() > 0)
+                                    {
+                                        foreach (var item in Model.Dealers)
                                         {
                                             <tr>
-                                                <td colspan="3">No Records Found</td>
+                                                <td>@item.Dealer_Name</td>
+
+                                                <td>@item.Brand_Name</td>
                                             </tr>
+
                                         }
-                                    </tbody>
-                                </table>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3">No Records Found</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
 
 
-                            </div>
-                        </div><!-- /.box-body -->
-                        <div class="box-footer clearfix">
-                            <a href="@Url.Action("Search","Dealer")" class="btn btn-sm btn_mer_3 pull-right">View All Dealers</a>
+                        </div>
+
+                        <div class="btn-group pull-right">
+                            <a href="@Url.Action("Search","Dealer")" class="btn btn_mer ripple btn_mer_3 pull-right">View All Dealers</a>
                         </div><!-- /.box-footer -->
-                    </div>
+                    </div><!-- /.box-body -->
+                 
                 </div>
 
                 <div class="col-md-5">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Payables</h3>
-                            <!--<div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>-->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="table-responsive" style="margin: 50px 0;">
-                                <table class="table no-margin" id="tblDealerMaster">
-                                    <thead>
-                                        <tr>
-                                            <th>Invoice No</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model.Dealers.Count() > 0)
-                                        {
-                                            foreach (var item in Model.Receivables)
-                                            {
-                                                <tr>
-                                                    <td>@item.Invoice_No</td>
-
-                                                    <td>@item.Invoice_Amount</td>
-
-                                                    <td>@item.Status</td>
-                                                </tr>
-
-                                            }
-                                        }
-                                        else
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Payables</h3>
+                        <!--<div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>-->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive" style="margin: 50px 0;">
+                            <table class="table no-margin" id="tblDealerMaster">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice No</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Dealers.Count() > 0)
+                                    {
+                                        foreach (var item in Model.Receivables)
                                         {
                                             <tr>
-                                                <td colspan="3">No Records Found</td>
+                                                <td>@item.Invoice_No</td>
+
+                                                <td>@item.Invoice_Amount</td>
+
+                                                <td>@item.Status</td>
                                             </tr>
+
                                         }
-                                    </tbody>
-                                </table>
-                            </div><!-- /.table-responsive -->
-                        </div><!-- /.box-body -->
-                        <div class="box-footer clearfix">
-                            <a href="@Url.Action("Searches", "Receivable")" class="btn btn-sm btn_mer_3 pull-right">View All Payables</a>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3">No Records Found</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div><!-- /.table-responsive -->
+                        <div class="btn-group pull-right">
+                            <a href="@Url.Action("Searches", "Receivable")" class="btn btn_mer ripple btn_mer_3 pull-right">View All Payables</a>
                         </div><!-- /.box-footer -->
-                    </div>
+                    </div><!-- /.box-body -->
+                 
                 </div>
             </div>
 

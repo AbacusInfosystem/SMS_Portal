@@ -60,5 +60,7 @@ namespace SMSPortalInfo
         
         public DateTime Order_Date { get; set; }
 
+        public string Vendor_Name { get; set; }
+
     }
 }

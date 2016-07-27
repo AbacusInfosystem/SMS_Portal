@@ -3,7 +3,10 @@
         autoclose: true,
         enddate: null,
     });
-
+    $("#txtChequeDate").datepicker({
+        autoclose: true,
+        enddate: null,
+    });
     //$("#txtChequeDate").datepicker({
     //    autoclose: true,
     //    enddate: null,
@@ -58,20 +61,19 @@
         $("#dvMain").html('');
 
         if ($("#drpTransaction").val() == 1) {
-            var divHTML = $("#divCheque").html();
-            $("#dvMain").html(divHTML);
-            $("#txtChequeDate").datepicker({
-                autoclose: true,
-                enddate: null,
-            });
+            $("#divCheque").show();
+            $("#divNEFT").hide();
+            $("#divCredit_Debit").hide();
         }
         else if ($("#drpTransaction").val() == 2) {
-            var divHTML = $("#divNEFT").html();
-            $("#dvMain").html(divHTML);
+            $("#divCheque").hide();
+            $("#divNEFT").show();
+            $("#divCredit_Debit").hide();
         }
         else {
-            var divHTML = $("#divCredit_Debit").html();
-            $("#dvMain").html(divHTML);
+            $("#divCheque").hide();
+            $("#divNEFT").hide();
+            $("#divCredit_Debit").show();
         }
 
     });

@@ -1,7 +1,7 @@
 ﻿@model SMSPortal.Models.PostLogin.VendorViewModel
 @using SMSPortalInfo.Common
-<script src="~/Scripts/Module/Vendor/search_vendor_receivable_event.js"></script>
-<script src="~/Scripts/Module/Vendor/search_vendor_receivable_method.js"></script>
+<script src="~/Scripts/Module/ThirdPartyVendor/search_vendor_receivable_event.js"></script>
+<script src="~/Scripts/Module/ThirdPartyVendor/search_vendor_receivable_method.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -62,7 +62,7 @@
                                     <div class="col-md-12">
 
                                         <div class="btn-group pull-left">
-                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddVendorReceivables", "Vendor")">Create </a>
+                                            <a class="btn btn-primary btn-sm" role="button" href="@Url.Action("AddVendorReceivables", "ThirdPartyVendor")">Create </a>
                                             <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
                                         </div>
 

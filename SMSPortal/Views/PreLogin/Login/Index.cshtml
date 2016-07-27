@@ -26,21 +26,23 @@
         <div class="card"></div>
         <div class="card">
             <div class="logo">
+                <img src="~/Images/star.png" class="img-responsive star" alt="" />
+                <img src="~/Images/mercedes.png" class="img-responsive mercedes_text" alt="" />
                 <h2>Login</h2>
             </div>
             <form id="frmLogin" action="@Url.Action("Authenticate", "Login")" method="post">
                 <div class="input-container">
-                    <input type="text" name="Cookies.User_Name" id="txtUserName" class="form-control input-sm" placeholder="Username" />
+                    <input type="text" name="Cookies.User_Name" id="txtUserName" class="form-control input-sm" required="required" />
                     <label for="Username">Username</label>
                     <div class="bar"></div>
                 </div>
                 <div class="input-container">
-                    <input type="password" name="Cookies.Password" id="txtPassword" class="form-control input-sm" placeholder="Password" />
+                    <input type="password" name="Cookies.Password" id="txtPassword" class="form-control input-sm" required="required" />
                     <label for="Password">Password</label>
                     <div class="bar"></div>
                 </div>
 
-                <div class="sign"><button type="submit" id="btnLogin" class="btn btn-primary btn-block btn-flat">Sign In</button></div>
+                <div class="sign"><button type="submit" id="btnLogin" class="btn ripple">Sign In</button></div>
                 <div class="footer"><a href="@Url.Action("ForgotPassword", "Login")">Forgot Password</a></div>
             </form>
         </div>

@@ -68,7 +68,7 @@ function Bind_Invoices_Grid(data)
     {
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='4'> No Record found.";
+        htmlText += "<td colspan='5'> No Record found.";
 
         htmlText += "</td>";
 

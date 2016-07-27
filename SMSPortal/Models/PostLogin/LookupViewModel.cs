@@ -18,6 +18,8 @@ namespace SMSPortal.Models.PostLogin
             PartialDt = new DataTable();
 
             HeaderNames = new string[0];
+
+            Cookies = new CookiesInfo();
         }
 
         public PaginationInfo Pager { get; set; }
@@ -29,5 +31,7 @@ namespace SMSPortal.Models.PostLogin
         public string Value { get; set; }
 
         public string EditLookupValue { get; set; }
+
+        public CookiesInfo Cookies { get; set; }
     }
 }

@@ -1,189 +1,98 @@
 ﻿@model SMSPortal.Models.PostLogin.PayableViewModel
 @using SMSPortalInfo.Common
 
-<script type="text/javascript">
-
-    $(document).ready(function ()
-    {
-
-        $('.iradio-list').iCheck({
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-
-    });
-
-</script>
 
 <script src="~/Scripts/Module/Payables/search_payable_event.js"></script>
 
 <script src="~/Scripts/Module/Payables/search_payable_method.js"></script>
 
-<form id="frmPayable" enctype="multipart/form-data">
+<form id="frmPayable">
 
-    <!-- Content Wrapper. Contains page content -->
+    <input type="hidden" id="hdnPurchaseOrder_Id" value="@Model.Payable.Purchase_Order_Id" name="Payable.Purchase_Order_Id" />
 
-    <div class="content-wrapper">
+    <input type="hidden" id="hdnPurchase_Order_Amount" value="@Model.Payable.Purchase_Order_Amount" name="Payable.Purchase_Order_Amount" />
 
-        <!-- Content Header (Page header) -->
+    <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
 
-        @*@{Html.RenderPartial("_ServerMessage");}*@
+    <div class="dealer_master">
 
-        <section class="content-header">
-
-            <h1>
-
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="dealer_master_header">
                 Payables Master
+            </h3>
 
-                <small></small>
+            <div class="row" style="margin: 20px 0;">
+                <div class="col-md-6">
 
-            </h1>
+                    <div class="form-group auto-complete">
 
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-                <li><a href="#"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Payables</li>
-            </ol>
+                        <label for="Purchase_Order_No" class="control-label label_mer">Purchase Order No</label>
+                        <div class="input-group">
+                            @*<input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order no" value="@Model.Filter.Purchase_Order_No" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">*@
+                            <input type="text" class="form-control form_control_mer autocomplete-text lookup-text" name="Payable.Purchase_Order_No" id="txtPurchase_Order_Number" placeholder="Enter purchase order No" value="@(Model.Filter.Purchase_Order_Id == 0 ? "" : Model.Filter.Purchase_Order_Id.ToString())" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">
+                            @*<input type="hidden" id="hdnPurchase_Order_Number" value="@Model.Filter.Purchase_Order_Number" name="Filter.Purchase_Order_Number" class="auto-complete-value" />*@
+                            <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
+                            <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
 
-        </section>
-
-        <!-- Main content -->
-
-        <section class="content">
-
-            <div class="row">
-
-                <div class="col-md-12">
-
-                    <div class="box box-primary"> 
-                        <div class="box-body">
-
-                            @*<input type="hidden" id="hdnPayable_Id" value="@Model.Payable.Payable_Id" name="Payable.Payable_Id" />*@
-
-                            <input type="hidden" id="hdnPurchaseOrder_Id" value="@Model.Payable.Purchase_Order_Id" name="Payable.Purchase_Order_Id" />
-
-                            <input type="hidden" id="hdnPurchase_Order_Amount" value="@Model.Payable.Purchase_Order_Amount" name="Payable.Purchase_Order_Amount" />
-               
-                            <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
-
-                            <div class="row">
-
-                                <div class="col-md-3">
-
-                                    <div class="form-group auto-complete">
-                                     
-                                            <label for="Purchase_Order_No" class="lookup-title">Purchase Order No</label>
-                                        <div class="input-group">
-                                            @*<input type="text" class="form-control input-sm autocomplete-text" name="Filter.Purchase_Order_No" id="txtPurchase_Order_No" placeholder="Enter purchase order no" value="@Model.Filter.Purchase_Order_No" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">*@
-                                            <input type="text" class="form-control input-sm autocomplete-text lookup-text" name="Payable.Purchase_Order_No" id="txtPurchase_Order_Number" placeholder="Enter purchase order No" value="@(Model.Filter.Purchase_Order_Id == 0 ? "" : Model.Filter.Purchase_Order_Id.ToString())" data-table="Purchase_Order" data-col="Purchase_Order_Id,Purchase_Order_No" data-headernames="Purchase_Order_No ">
-                                            @*<input type="hidden" id="hdnPurchase_Order_Number" value="@Model.Filter.Purchase_Order_Number" name="Filter.Purchase_Order_Number" class="auto-complete-value" />*@
-
-                                            <input type="hidden" id="hdnPurchase_Order_Id" value="@Model.Filter.Purchase_Order_Id" name="Filter.Purchase_Order_Id" class="auto-complete-value" />
-
-                                            <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
-
-                                            <div class="input-group-addon">
-
-                                                <a href="#" class="text-muted lookup-btn" id="hrefPurchase_Order_No" role="button"><i class="fa fa-server"></i></a>
-
-                                            </div>
-
-                                        </div>
-
-                                </div>
-                                    </div>
-
-                            </div>
-
-                            <div class="box-footer">
-
-                                <div class="row">
-
-                                    <div class="col-md-12">
-
-                                        <div class="btn-group pull-left">
-
-                                            @*<a class="btn btn-primary btn-sm" role="button" href="@Url.Action("Index", "Payables")">Create </a>*@
-
-                                            <a class="btn btn-warning btn-sm" id="btnSearch" role="button">Search</a>
-
-                                        </div>
-
-                                        <div class="btn-group pull-right">
-
-                                            <button type="button" id="btnEdit" style="display:none;" class="btn btn-warning btn-sm">Edit</button>
-
-                                            <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            <input type="hidden" id="hdnPurchase_Order_No" value="@Model.Filter.Purchase_Order_No" name="Filter.Purchase_Order_No" class="auto-complete-label" />
 
                         </div>
 
                     </div>
-
-                </div><!-- /.col -->
-
-            </div><!-- /.row -->
-
-            <div class="row">
-
-                <div class="col-md-12">
-
-                    <div class="box box-solid">
-
-                        <div class="box-body table-responsive no-padding">
-
-                            <table class="table table-striped" id="tblPayableMaster">
-
-                                <tr id="subhead">
-
-                                    <th width="5%"></th>
-
-                                    <th width="20%">Purchase Order No</th>
-                                    <th width="10%">Amount</th>
-                                    <th>Status</th>
-
-                                </tr>
-                            </table>
-
-                        </div>
-
-                        <div class="box-footer clearfix">
-
-                            <div class="pagination pagination-sm no-margin pull-right">
-
-                                <ul></ul>
-
-                            </div>
-
-                            <div id="divSearchGridOverlay" class="overlay">
-
-                                <i class="fa fa-refresh fa-spin"></i>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
                 </div>
-
+                <div class="col-md-3">
+                    <div class="btn-group">
+                        <br />
+                        <a class="btn btn_mer ripple" style="margin-top: 5px;" id="btnSearch" role="button">Search </a>
+                    </div>
+                </div>
             </div>
 
-        </section>
+            <div class="row">
+                <div class="col-md-12">
+                    @*<div class="btn-group pull-left">
+
+                        <a class="btn btn_mer ripple" id="btnSearch" role="button">Search</a>
+
+                    </div>*@
+                    <div class="btn-group pull-right">
+
+                        <button type="button" id="btnEdit" style="display:none;" class="btn btn_mer ripple">Edit</button>
+                        <input type="hidden" id="hdnMode" value="@Model.Filter.Mode" name="Filter.Mode" />
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="margin: 50px 0;">
+                <table class="table table-bordered" id="tblPayableMaster">
+                    <thead>
+                        <tr id="subhead">
+                            <th width="5%"></th>
+                            <th width="20%">Purchase Order No</th>
+                            <th width="10%">Amount</th>
+                            <th>Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="pagination no-margin pull-right">
+                        <ul class="pagination"></ul>
+                    </div>
+                    <div id="divSearchGridOverlay" class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
-    <!-- /.content-wrapper -->
-
 </form>
-
 
 
 

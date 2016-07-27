@@ -58,14 +58,16 @@ namespace SMSPortalRepo
             return payable;
         }
 
-        public List<PayableInfo> Get_Payables(ref PaginationInfo pager, int Vendor_Id)
+        public List<PayableInfo> Get_Payables(ref PaginationInfo pager, int Vendor_Id,int entity_Id)
         {
 
             List<PayableInfo> payables = new List<PayableInfo>();
 
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
 
-            sqlParamList.Add(new SqlParameter("@Vendor_Id", Vendor_Id));
+            sqlParamList.Add(new SqlParameter("@Vendor_Id", entity_Id));
+
+            sqlParamList.Add(new SqlParameter("@Third_Party_Vendor_Id", Vendor_Id));
 
             PayableInfo payable = new PayableInfo();
 
@@ -105,12 +107,12 @@ namespace SMSPortalRepo
             return Balance_Amount;
         }
 
-        public int Insert_Payable(PayableInfo payableInfo, int user_Id)
+        public int Insert_Payable(PayableInfo payableInfo, int user_Id,int role_Id,int entity_Id)
         {
 
             int Payable_Id = 0;
 
-            Payable_Id = Convert.ToInt32(_sqlHelper.ExecuteScalerObj(Set_Values_In_Payable(payableInfo, user_Id), StoreProcedures.Insert_Payable_Data_Sp.ToString(), CommandType.StoredProcedure));
+            Payable_Id = Convert.ToInt32(_sqlHelper.ExecuteScalerObj(Set_Values_In_Payable(payableInfo, user_Id,role_Id,entity_Id), StoreProcedures.Insert_Payable_Data_Sp.ToString(), CommandType.StoredProcedure));
 
             if (payableInfo.Payable_Item_Id != 0)
             
@@ -126,7 +128,7 @@ namespace SMSPortalRepo
             _sqlHelper.ExecuteScalerObj(Set_Values_In_Payable_Items(payableInfo, user_Id), StoreProcedures.Insert_Payable_Item_Data_Sp.ToString(), CommandType.StoredProcedure);   
         }
 
-        private List<SqlParameter> Set_Values_In_Payable(PayableInfo payableInfo, int user_Id)
+        private List<SqlParameter> Set_Values_In_Payable(PayableInfo payableInfo, int user_Id, int role_Id, int entity_Id)
         {
 
             decimal Total_Balance_Amount = 0;
@@ -173,6 +175,10 @@ namespace SMSPortalRepo
             {
                 sqlParams.Add(new SqlParameter("@Status", "Payment Done"));
             }
+
+            sqlParams.Add(new SqlParameter("@Role_Id", role_Id));
+
+            sqlParams.Add(new SqlParameter("@Entity_Id", entity_Id));
 
             sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
 
@@ -272,8 +278,7 @@ namespace SMSPortalRepo
             return sqlParams;
         }
 
-        public PayableInfo Get_Payable_Data_By_Id(int purchase_order_id)
-
+        public PayableInfo Get_Payable_Data_By_Id(int purchase_order_id,int entity_Id)
         {
 
             PayableInfo payable = new PayableInfo();
@@ -281,6 +286,8 @@ namespace SMSPortalRepo
             List<SqlParameter> sqlparam = new List<SqlParameter>();
 
             sqlparam.Add(new SqlParameter("@Purchase_Order_Id", purchase_order_id));
+
+            //sqlparam.Add(new SqlParameter("@Entity_Id", entity_Id));
 
             DataTable dt = _sqlHelper.ExecuteDataTable(sqlparam, StoreProcedures.Get_Payable_Data_By_Id_Sp.ToString(), CommandType.StoredProcedure);
 
@@ -313,9 +320,9 @@ namespace SMSPortalRepo
 
                         payable.Balance_Amount = Convert.ToDecimal(dr["Balance_Amount"]);
 
-                    if (!dr.IsNull("Vendor_Name"))
+                    if (!dr.IsNull("Third_Party_Vendor_Name"))
 
-                        payable.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+                        payable.Vendor_Name = Convert.ToString(dr["Third_Party_Vendor_Name"]);
 
                     if (!dr.IsNull("Purchase_Order_Date"))
 
@@ -341,9 +348,9 @@ namespace SMSPortalRepo
 
                             payable.Purchase_Order_No = Convert.ToString(dr["Purchase_Order_No"]);
 
-                        if (!dr.IsNull("Vendor_Name"))
+                        if (!dr.IsNull("Third_Party_Vendor_Name"))
 
-                            payable.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+                            payable.Vendor_Name = Convert.ToString(dr["Third_Party_Vendor_Name"]);
 
                         if (!dr.IsNull("Purchase_Order_Date"))
 

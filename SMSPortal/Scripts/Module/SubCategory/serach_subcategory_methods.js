@@ -71,10 +71,10 @@ function Bind_Subcategory_Grid(data)
 
     $('#tblSubCategory tr:first').after(htmlText);
 
-    $('.iradio-list').iCheck({
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('.iradio-list').iCheck({
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
    
     if (data.SubCategories.length > 0) {
@@ -92,8 +92,7 @@ function Bind_Subcategory_Grid(data)
 
     $("#divSearchGridOverlay").hide();
 
-    //$('[id^="r1_"]').on('ifChanged', function (event) {
-    $('[name="r1"]').on('ifChanged', function (event) {
+    $('[name="r1"]').on('change', function (event) {
         if ($(this).prop('checked')) {
             $("#hdnSubcategory_Id").val(this.id.replace("r1_", ""));
             $("#btnEdit").show();

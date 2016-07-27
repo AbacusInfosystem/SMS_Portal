@@ -1,0 +1,103 @@
+﻿@model SMSPortal.Models.PostLogin.ProductViewModel
+@using SMSPortal.Common;
+
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/Module/Product/index_methods.js"></script>
+<script src="~/Scripts/Module/Product/index_events.js"></script>
+
+
+<style>
+    .carousel {
+        margin-top: 20px;
+    }
+
+    .item .thumb {
+        width: 25%;
+        cursor: pointer;
+        float: left;
+    }
+
+        .item .thumb img {
+            width: 100%;
+            margin: 2px;
+        }
+
+    .item img {
+        width: 100%;
+    }
+
+    .fa-angle-left {
+        top: 38px;
+        position: absolute;
+        left: 10px;
+    }
+
+    .fa-angle-right {
+        top: 38px;
+        position: absolute;
+        right: 10px;
+    }
+</style>
+
+<form id="frmProductIndex" enctype="multipart/form-data">
+    <div class="products">
+        @{Html.RenderPartial("_ServerMessage");}
+        <div class="container">
+            
+            <h3 class="products_header">Products</h3>
+
+            <div class="row" style="margin: 20px 0;">
+
+                <div class="col-md-3">
+                    <div class="" id="Categories">
+                    </div>
+
+                    <div class="" id="SubCategories">
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-search" aria-hidden="true" style="color: #fff;"></i>
+                                    </span>
+                                    <input id="txtProductName" class="form-control form_control_mer" type="text" placeholder="Search Product">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">                                
+                                <button type="button" id="btnSearchProductByName" class="btn btn_mer_2 ripple">Search</button> 
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type="button" class="btn btn_mer_2" id="btnViewCart">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Cart
+                                    <span id="CartItemCount" class="badge"></span>
+                                </button>
+                                <input type="hidden" id="hdnProductIds" name="ProductIds" />
+                                <input type="hidden" id="hdnProductQuantities" name="ProductQuantities" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="" id="ProductList">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</form>
+
+

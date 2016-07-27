@@ -139,11 +139,13 @@ namespace SMSPortalRepo
             return invoice;
         }
 
-        public List<AutocompleteInfo> Get_Invoice_Autocomplete(string InoviceNo)
+        public List<AutocompleteInfo> Get_Invoice_Autocomplete(string InoviceNo, int role_id, int entity_id)
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
             List<SqlParameter> sqlparam = new List<SqlParameter>();
             sqlparam.Add(new SqlParameter("@Description", InoviceNo == null ? System.String.Empty : InoviceNo.Trim()));
+            sqlparam.Add(new SqlParameter("@Role_Id", role_id));
+            sqlparam.Add(new SqlParameter("@Entity_Id", entity_id));
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlparam, StoreProcedures.Get_Invoice_Autocomplete_Sp.ToString(), CommandType.StoredProcedure);
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -212,6 +214,12 @@ namespace SMSPortalRepo
 
             if (!dr.IsNull("Contact_No_2"))
                 dealer.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
+
+            if (!dr.IsNull("Dealer_Percentage"))
+                dealer.Dealer_Percentage = Convert.ToDecimal(dr["Dealer_Percentage"]);
+
+            if (!dr.IsNull("Brand_Percentage"))
+                dealer.Brand_Percentage = Convert.ToDecimal(dr["Brand_Percentage"]);
 
             dealer.Email = Convert.ToString(dr["Email"]);
 
@@ -356,8 +364,102 @@ namespace SMSPortalRepo
             product.Created_By = Convert.ToInt32(dr["Created_By"]);
             product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
             product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            //if (!dr.IsNull("Local_Tax"))
+            //    product.Local_Tax = Convert.ToDecimal(dr["Local_Tax"]);
+            //if (!dr.IsNull("Export_Tax"))
+            //    product.Export_Tax = Convert.ToDecimal(dr["Export_Tax"]);
+            
+
             return product;
         }
+
+        public TaxInfo Get_Tax_Product_By_Id(int Product_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Product_Id", Product_Id));
+
+            TaxInfo tax = new TaxInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Tax_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                tax=(Get_Tax_Product_By_Id(dr));
+            }
+            return tax;
+        }
+
+        private TaxInfo Get_Tax_Product_By_Id(DataRow dr)
+        {
+            TaxInfo tax = new TaxInfo();
+
+            int Id = 0;
+            decimal price = 0;
+
+            Id = Convert.ToInt32(dr["Product_Id"]);
+
+            price = Convert.ToDecimal(dr["Product_Price"]);
+
+            if (!dr.IsNull("Local_Tax"))
+                tax.Local_Tax = Convert.ToDecimal(dr["Local_Tax"]);
+            if (!dr.IsNull("Export_Tax"))
+                tax.Export_Tax = Convert.ToDecimal(dr["Export_Tax"]);
+
+            //decimal ToatalPrice = Get_Local_Product_Total_Price_Id(Id);
+
+            ////decimal Export_Price = Get_Export_Product_Total_Price_Id(Id);
+
+            //tax.Local_Tax_Amount = ToatalPrice * tax.Local_Tax / 100;
+
+            //tax.Export_Tax_Amount = ToatalPrice * tax.Export_Tax / 100;
+            return tax;
+        }
+
+        public decimal Get_Local_Product_Total_Price_Id(int product_Id)
+        {
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            sqlParamList.Add(new SqlParameter("@Product_Id", product_Id));
+
+            decimal Total_Price = 0;
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Local_Tax_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    VendorInfo list = new VendorInfo();
+
+                    if (!dr.IsNull("Price"))
+                        Total_Price = Convert.ToInt32(dr["Price"]);
+                }
+            }
+
+            return Total_Price;
+        }
+
+        //public decimal Get_Export_Product_Total_Price_Id(int product_Id)
+        //{
+        //    List<SqlParameter> sqlParamList = new List<SqlParameter>();
+        //    sqlParamList.Add(new SqlParameter("@Product_Id", product_Id));
+
+        //    decimal Total_Price = 0;
+
+        //    DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Expoert_Tax_Product_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+
+        //    if (dt != null && dt.Rows.Count > 0)
+        //    {
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            VendorInfo list = new VendorInfo();
+
+        //            if (!dr.IsNull("Price"))
+        //                Total_Price = Convert.ToInt32(dr["Price"]);
+        //        }
+        //    }
+
+        //    return Total_Price;
+        //}
 
         public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order, DealerInfo Dealer)
         {           
@@ -405,11 +507,11 @@ namespace SMSPortalRepo
             #endregion
 
             #region To Address
-            html.Append("<td width='35%' style='border-bottom:1px solid #ccc;border-left:1px solid #ccc'>");
+            html.Append("<td width='35%' style='border-bottom:1px solid #ccc'>");
             html.Append("<table cellspacing='0' cellpadding='15'>");
             html.Append("<tbody>");
             html.Append("<tr>");
-            html.Append("<td width='100%' valign='top' rowspan='2'><span><b>To:</b><br><br></span><strong>" + Dealer.Dealer_Name + "</strong>");
+            html.Append("<td><span><b>To:</b><br><br></span><strong>" + Dealer.Dealer_Name + "</strong>");
 
             if (!string.IsNullOrEmpty(Dealer.Address))
             {
@@ -483,11 +585,11 @@ namespace SMSPortalRepo
             html.Append("<tbody>");
 
             html.Append("<tr>");
-            html.Append("<th style='width:20px;text-align:center;height:30px'>Sr.No</th>");
+            html.Append("<th style='width:25px;text-align:center;height:30px'>Sr.No</th>");
             html.Append("<th style='width:250px'>Product name</th>");
-            html.Append("<th style='width:100px;text-align:center'>Qty</th>");
-            html.Append("<th style='width:110px;text-align:center'>Unit Price</th>");
-            html.Append("<th style='text-align:center;width:45px'>Price</th>");
+            html.Append("<th style='width:50px;text-align:center'>Qty</th>");
+            html.Append("<th style='width:80px;text-align:right'>Unit Price</th>");
+            html.Append("<th style='text-align:right;width:100px'>Price</th>");
             html.Append("</tr>");
 
             int count = 0;
@@ -511,42 +613,42 @@ namespace SMSPortalRepo
             }
 
             html.Append("<tr>");
-            html.Append("<td colspan='4'>Total: </td>");
-            html.Append("<td>" + Order.Gross_Amount + "</td>");
+            html.Append("<td colspan='4' style='text-align:right'>Total: </td>");
+            html.Append("<td style='text-align:right'> &#8377. " + Order.Gross_Amount + "</td>");
             html.Append("</tr>");
 
             html.Append("<tr>");
-            html.Append("<td colspan='4'>VAT(%): </td>");
-            html.Append("<td>" + Order.Vat + "</td>");
+            html.Append("<td colspan='4' style='text-align:right'>VAT(%): </td>");
+            html.Append("<td style='text-align:right'> &#8377. " + Order.Vat + "</td>");
             html.Append("</tr>");
 
             html.Append("<tr>");
-            html.Append("<td colspan='4'>Service Tax(%):</td>");
-            html.Append("<td>" + Order.Service_Tax + "</td>");
+            html.Append("<td colspan='4' style='text-align:right'>Service Tax(%):</td>");
+            html.Append("<td style='text-align:right'> &#8377. " + Order.Service_Tax + "</td>");
             html.Append("</tr>");
 
             html.Append("<tr>");
-            html.Append("<td colspan='4'>Swatch Bharat Tax:</td>");
-            html.Append("<td>" + Order.Swatch_Bharat_Tax + "</td>");
+            html.Append("<td colspan='4' style='text-align:right'>Swatch Bharat Tax:</td>");
+            html.Append("<td style='text-align:right'> &#8377. " + Order.Swatch_Bharat_Tax + "</td>");
             html.Append("</tr>");
 
             html.Append("<tr>");
-            html.Append("<td colspan='4'>Grand Total:</td>");
-            html.Append("<td>" + Order.Net_Amount + "</td>");
+            html.Append("<td colspan='4' style='text-align:right'>Grand Total:</td>");
+            html.Append("<td style='text-align:right'> &#8377. " + Order.Net_Amount + "</td>");
             html.Append("</tr>");
 
             if (invoice.Role_Id==2)
             {
                 html.Append("<tr>");
-                html.Append("<td colspan='4'>Brand Payable Amount:</td>");
-                html.Append("<td>" + invoice.Amount + "</td>");
+                html.Append("<td colspan='4' style='text-align:right'>Brand Payable Amount:</td>");
+                html.Append("<td style='text-align:right'>&#8377. " + invoice.Amount + "</td>");
                 html.Append("</tr>");
             }
             if (invoice.Role_Id == 3)
             {
                 html.Append("<tr>");
-                html.Append("<td colspan='4'>Dealer Payable Amount:</td>");
-                html.Append("<td>" + invoice.Amount + "</td>");
+                html.Append("<td colspan='4' style='text-align:right'>Dealer Payable Amount:</td>");
+                html.Append("<td style='text-align:right'>&#8377. " + invoice.Amount + "</td>");
                 html.Append("</tr>");
             }
 
@@ -628,6 +730,178 @@ namespace SMSPortalRepo
             }
             return autoList;
         }
+        #endregion
+
+        #region Vendor Invoice
+
+        public int Insert_Vendor_Invoice(InvoiceInfo invoice, int user_id,int entity_Id)
+        {
+            int invoiceid = 0;
+            invoiceid = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(Set_Values_In_Vendor_Invoice(invoice, user_id, entity_Id), StoreProcedures.Insert_Vendor_Invoice_Sp.ToString(), CommandType.StoredProcedure));
+            return invoiceid;
+        }
+
+        private List<SqlParameter> Set_Values_In_Vendor_Invoice(InvoiceInfo invoice, int user_id, int entity_Id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@Vendor_Order_Id", invoice.Order_Id));
+            sqlParams.Add(new SqlParameter("@Invoice_No", invoice.Invoice_No));
+            sqlParams.Add(new SqlParameter("@Invoice_Date", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Role_Id", invoice.Role_Id));
+            sqlParams.Add(new SqlParameter("@Entity_Id", invoice.Entity_Id));
+            sqlParams.Add(new SqlParameter("@Amount", invoice.Amount));
+            sqlParams.Add(new SqlParameter("@Dealer_Id", entity_Id));
+            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Created_By", user_id));
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
+
+            return sqlParams;
+        }
+
+        public InvoiceInfo Get_Vendor_Invoice_By_Id(int Invoice_Id,int entity_id)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Invoice_Id", Invoice_Id));
+            sqlParam.Add(new SqlParameter("@Entity_id", entity_id));
+
+            InvoiceInfo invoice = new InvoiceInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Vendor_Invoice_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                invoice = Get_Vendor_Invoice_Values(dr);
+            }
+            return invoice;
+        }
+
+        public InvoiceInfo Get_Dealer_Invoice_By_Id(int Invoice_Id, int entity_id)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Invoice_Id", Invoice_Id));
+
+            InvoiceInfo invoice = new InvoiceInfo();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Dealer_Invoice_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in dt.Rows)
+            {
+                invoice = Get_Vendor_Invoice_Values(dr);
+            }
+            return invoice;
+        }
+
+        private InvoiceInfo Get_Vendor_Invoice_Values(DataRow dr)
+        {
+            InvoiceInfo invoice = new InvoiceInfo();
+
+            if (!dr.IsNull("Vendor_Invoice_Id"))
+                invoice.Invoice_Id = Convert.ToInt32(dr["Vendor_Invoice_Id"]);
+
+            if (!dr.IsNull("Vendor_Order_Id"))
+                invoice.Order_Id = Convert.ToInt32(dr["Vendor_Order_Id"]);
+
+            if (!dr.IsNull("Order_No"))
+                invoice.Order_No = Convert.ToString(dr["Order_No"]);
+
+            if (!dr.IsNull("Invoice_No"))
+                invoice.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+
+            if (!dr.IsNull("Invoice_Date"))
+                invoice.Invoice_Date = Convert.ToDateTime(dr["Invoice_Date"]);
+
+            if (!dr.IsNull("Amount"))
+                invoice.Amount = Convert.ToDecimal(dr["Amount"]);
+
+            if (!dr.IsNull("Role_Id"))
+                invoice.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+
+            if (!dr.IsNull("Entity_Id"))
+                invoice.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
+
+            if (!dr.IsNull("Created_On"))
+                invoice.Created_On = Convert.ToDateTime(dr["Created_On"]);
+
+            if (!dr.IsNull("Created_By"))
+                invoice.Created_By = Convert.ToInt32(dr["Created_By"]);
+
+            if (!dr.IsNull("Updated_On"))
+                invoice.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+
+            if (!dr.IsNull("Updated_By"))
+                invoice.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            return invoice;
+        }
+
+        public List<InvoiceInfo> Get_Vendor_Invoices_By_Id(int Invoice_Id,int entity_Id, ref PaginationInfo Pager)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Invoice_Id", Invoice_Id));
+            sqlParam.Add(new SqlParameter("@Entity_id", entity_Id));
+            List<InvoiceInfo> invoices = new List<InvoiceInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Vendor_Invoice_By_Id_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            {
+                invoices.Add(Get_Vendor_Invoices_Values(dr));
+            }
+            return invoices;
+        }
+
+        private InvoiceInfo Get_Vendor_Invoices_Values(DataRow dr)
+        {
+            InvoiceInfo invoice = new InvoiceInfo();
+
+            if (!dr.IsNull("Vendor_Invoice_Id"))
+                invoice.Invoice_Id = Convert.ToInt32(dr["Vendor_Invoice_Id"]);
+
+            if (!dr.IsNull("Vendor_Order_Id"))
+                invoice.Order_Id = Convert.ToInt32(dr["Vendor_Order_Id"]);
+
+            if (!dr.IsNull("Order_No"))
+                invoice.Order_No = Convert.ToString(dr["Order_No"]);
+
+            if (!dr.IsNull("Invoice_No"))
+                invoice.Invoice_No = Convert.ToString(dr["Invoice_No"]);
+
+            if (!dr.IsNull("Invoice_Date"))
+                invoice.Invoice_Date = Convert.ToDateTime(dr["Invoice_Date"]);
+
+            if (!dr.IsNull("Amount"))
+                invoice.Amount = Convert.ToDecimal(dr["Amount"]);
+
+            if (!dr.IsNull("Role_Id"))
+                invoice.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+
+            if (!dr.IsNull("Entity_Id"))
+                invoice.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
+
+            if (!dr.IsNull("Created_On"))
+                invoice.Created_On = Convert.ToDateTime(dr["Created_On"]);
+
+            if (!dr.IsNull("Created_By"))
+                invoice.Created_By = Convert.ToInt32(dr["Created_By"]);
+
+            if (!dr.IsNull("Updated_On"))
+                invoice.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+
+            if (!dr.IsNull("Updated_By"))
+                invoice.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            return invoice;
+        }
+
+        public List<InvoiceInfo> Get_Vendor_Invoices(ref PaginationInfo Pager, int entity_id)
+        {
+            List<InvoiceInfo> invoices = new List<InvoiceInfo>();
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Entity_id", entity_id));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Vendor_Invoice_Sp.ToString(), CommandType.StoredProcedure);
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref Pager))
+            {
+                invoices.Add(Get_Vendor_Invoice_Values(dr));
+            }
+            return invoices;
+        }
+
         #endregion
     }
 }

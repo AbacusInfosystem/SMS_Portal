@@ -37,6 +37,11 @@ namespace SMSPortalInfo.Common
     {
         // Dashboard
         Token,
+
+        //Brand
+        Brand_Create,
+        Brand_Search,
+        Brand_Edit
     }
 
     public enum TransactionType
@@ -73,6 +78,7 @@ namespace SMSPortalInfo.Common
         Admin = 1,
         Brand = 2,
         Dealer = 3,
-        Vendor = 4
+        Vendor = 4,
+        ThirdPartyVendor=5
     }
 }

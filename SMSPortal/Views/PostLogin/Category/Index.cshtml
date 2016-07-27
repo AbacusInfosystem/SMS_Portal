@@ -3,78 +3,55 @@
 <script src="~/Scripts/Module/Category/Category_events.js"></script>
 <script src="~/Scripts/Module/Category/category_validation.js"></script>
 
-<div class="content-wrapper">
-    @*@{Html.RenderPartial("_ServerMessage");}*@
+<form id="frmCategoryMaster">
+    <div class="master">
 
-    <div class="row">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-6">
-            <section class="content-header">
-                <h1>
-                    Category Master
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li class="active">Admin</li>
-                    <li class="active">Category</li>
-                </ol>
-            </section>
-            <form id="frmCategoryMaster">
-                <section class="content">
-                    <div class="box box-primary">
+        <div class="container">
+            @{Html.RenderPartial("_ServerMessage");}
+            <h3 class="master_header">
+                Category Master
+                <span> <a href="@Url.Action("Search","Category")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
+            </h3>
 
-                        <div class="box-header with-border">
-                            <i class="fa fa-chevron-left" style="margin-right: 5px; cursor: pointer;font-size:22px; "></i>
-                            @*<h3 class="box-title">Category</h3>*@
-                        </div>
-
-                        <div class="box-body">
-                            <input type="hidden" class="form-control input-sm" name="Category.Category_Id" id="hdf_CategoryId" placeholder="Country Name" value="@Model.Category.Category_Id">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label style="color: #333">Category Name</label>
-                                        <input type="text" class="form-control input-sm" id="txtCategory_Name" name="Category.Category_Name" placeholder="Enter category name" value="@Model.Category.Category_Name">
-                                        <input type="hidden" id="hdnCategoryName" value="@Model.Category.Category_Name">
-                                    </div>
-                                    <div class="form-group">
-                                        @if (Model.Category.IsActive == false)
-                                    {
-                                            <label>
-                                                <input type="checkbox" class="chkstatus" />
-                                                &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                            </label>
-                                    }
-                                    else
-                                    {
-                                            <label>
-                                                <input type="checkbox" checked="checked" class="chkstatus" />
-                                                &nbsp;&nbsp;&nbsp;&nbsp; Active
-                                            </label>
-                                    }
-                                        <input type="hidden" id="hdnIs_Active" name="Category.IsActive" value="@Model.Category.IsActive.ToString()">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box-footer">
-                            <center>
-                                <div class="btn-group">
-                                    <button type="submit" id="btnSave" class="btn btn-success btn-sm">Save</button>
-                                    <button type="reset" id="btnReset" class="btn btn-warning btn-sm">Reset</button>
-                                </div>
-                            </center>
-                        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" class="form-control input-sm" name="Category.Category_Id" id="hdf_CategoryId" placeholder="Country Name" value="@Model.Category.Category_Id">
+                    <div class="form-group">
+                        <label class="control-label label_mer">Category Name</label>
+                        <input type="text" class="form-control form_control_mer" id="txtCategory_Name" name="Category.Category_Name" placeholder="Enter category name" value="@Model.Category.Category_Name">
+                        <input type="hidden" id="hdnCategoryName" value="@Model.Category.Category_Name">
+                    </div>
+                    <div class="form-group">
+                        @if (Model.Category.IsActive == false)
+                        {
+                            <label class="control-label label_mer">
+                                <input type="checkbox" class="chkstatus" />
+                                &nbsp;&nbsp;&nbsp;&nbsp; Active
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="control-label label_mer">
+                                <input type="checkbox" checked="checked" class="chkstatus" />
+                                &nbsp;&nbsp;&nbsp;&nbsp; Active
+                            </label>
+                        }
+                        <input type="hidden" id="hdnIs_Active" name="Category.IsActive" value="@Model.Category.IsActive.ToString()">
 
                     </div>
-                </section>
-            </form>
-        </div>
-        <div class="col-md-3">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" id="btnSave" class="btn btn_mer ripple">Save</button>
+                        <button type="reset" id="btnReset" class="btn btn_mer ripple">Reset</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-
-</div>
+</form>

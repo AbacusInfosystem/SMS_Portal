@@ -89,7 +89,7 @@ jQuery.validator.addMethod("validate_Vendor_Exist", function (value, element) {
 
     if ($("#txtVendor_Name").val() != "" && $("#hdnVendorName").val() != $("#txtVendor_Name").val()) {
         $.ajax({
-            url: '/Vendor/Check_Existing_Vendor',
+            url: '/ThirdPartyVendor/Check_Existing_Vendor',
             data: { Vendor_Name: $("#txtVendor_Name").val() },
             method: 'GET',
             async: false,

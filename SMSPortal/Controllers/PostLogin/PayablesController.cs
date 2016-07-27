@@ -77,8 +77,9 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo pager = new PaginationInfo();
 
             try
-
             {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
                 pager = pViewModel.Pager;
 
                 if (pViewModel.Filter.Purchase_Order_Id != 0)
@@ -90,7 +91,7 @@ namespace SMSPortal.Controllers.PostLogin
                 else
 
                 {
-                    pViewModel.Payables = _payableManager.Get_Payables(ref pager, pViewModel.Filter.Vendor_Id);
+                    pViewModel.Payables = _payableManager.Get_Payables(ref pager, pViewModel.Filter.Vendor_Id, pViewModel.Cookies.Entity_Id);
                 }
 
                 pViewModel.Pager = pager;
@@ -116,10 +117,11 @@ namespace SMSPortal.Controllers.PostLogin
         {
             try
             {
+                pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
                 int Id = pViewModel.Payable.Purchase_Order_Id;
 
-                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(pViewModel.Payable.Purchase_Order_Id);
+                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(pViewModel.Payable.Purchase_Order_Id, pViewModel.Cookies.Entity_Id);
 
                 pViewModel.Payables = _payableManager.Get_Payable_Items_By_Id(pViewModel.Payable.Payable_Id);
 
@@ -157,11 +159,11 @@ namespace SMSPortal.Controllers.PostLogin
 
                 pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
 
-                pViewModel.Payable.Payable_Id = _payableManager.Insert_Payable(pViewModel.Payable, pViewModel.Cookies.User_Id);
+                pViewModel.Payable.Payable_Id = _payableManager.Insert_Payable(pViewModel.Payable, pViewModel.Cookies.User_Id, pViewModel.Cookies.Role_Id, pViewModel.Cookies.Entity_Id);
 
                 _payableManager.Insert_PayableItems(pViewModel.Payable, pViewModel.Cookies.User_Id);
 
-                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(pViewModel.Payable.Purchase_Order_Id);
+                pViewModel.Payable = _payableManager.Get_Payable_Data_By_Id(pViewModel.Payable.Purchase_Order_Id, pViewModel.Cookies.Entity_Id);
 
                 pViewModel.Payables = _payableManager.Get_Payable_Items_By_Id(pViewModel.Payable.Payable_Id);
 
@@ -202,15 +204,14 @@ namespace SMSPortal.Controllers.PostLogin
         //    return Json(pViewModel, JsonRequestBehavior.AllowGet);
         //}
 
-        public JsonResult Get_Payable_Purchase_Order_Autocomplete(string Purchaseorder,int Vendor_Id)
-       
+        public JsonResult Get_Payable_Purchase_Order_Autocomplete(string Purchaseorder)       
         {
             List<AutocompleteInfo> autoList = new List<AutocompleteInfo>();
-
+            CookiesInfo Cookies = Utility.Get_Login_User("UserInfo", "Token"); 
             try
            
             {
-                autoList = _payableManager.Get_Payable_Purchase_Order_Autocomplete(Purchaseorder, Vendor_Id);
+                autoList = _payableManager.Get_Payable_Purchase_Order_Autocomplete(Purchaseorder, Cookies.Entity_Id);
             }
 
             catch (Exception ex)

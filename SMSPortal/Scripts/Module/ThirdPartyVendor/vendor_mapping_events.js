@@ -21,7 +21,7 @@
     $(".fa-chevron-left").click(function () {
         $("#frmAddProductMapping").validate().cancelSubmit = true;
 
-        $("#frmAddProductMapping").attr("action", "/Vendor/Vendor_Mapping/");
+        $("#frmAddProductMapping").attr("action", "/ThirdPartyVendor/Vendor_Mapping/");
 
         $("#frmAddProductMapping").attr("method", "POST");
 

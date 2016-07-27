@@ -2565,7 +2565,7 @@ output {
 .form-control[readonly],
 fieldset[disabled] .form-control {
   cursor: not-allowed;
-  background-color: #eee;
+  background-color: #444;
   opacity: 1;
 }
 textarea.form-control {

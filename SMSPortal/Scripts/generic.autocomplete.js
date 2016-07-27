@@ -85,6 +85,10 @@ var InitializeAutoComplete = function (elementObject) {
             if ($(elementObject).attr("id") == 'txtBrandInvoice_Number') {
                 urlString = "/invoice/get-brand-invoice-autocomplete/" + $('#txtBrandInvoice_Number').val() + "/" + $('#hdnEntity_Id').val();
             }
+
+            if ($(elementObject).attr("id") == 'txtNewVendorName') {
+                urlString = "/newvendor/vendor-autocomplete/" + $('#txtNewVendorName').val();
+            }
             
 
             $.ajax({

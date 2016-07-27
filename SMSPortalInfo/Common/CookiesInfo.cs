@@ -8,6 +8,12 @@ namespace SMSPortalInfo.Common
 {
     public class CookiesInfo
     {
+        public CookiesInfo()
+        {
+            Access_Functions = new List<AccessFunctionInfo>();
+        }
+        public List<AccessFunctionInfo> Access_Functions { get; set; }
+
         public int User_Id { get; set; }
 
         public string User_Name { get; set; }
@@ -29,5 +35,7 @@ namespace SMSPortalInfo.Common
         public int Entity_Id { get; set; }
 
         public string Order_Status { get; set; }
+
+        public string Brand_Name { get; set; }
     }
 }

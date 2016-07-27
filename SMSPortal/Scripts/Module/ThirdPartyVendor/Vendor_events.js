@@ -1,15 +1,15 @@
 ﻿$(function () {
 
-    $('input:not(.non-iCheck input:checkbox)').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-        increaseArea: '20%' // optional
-    });
+    //$('input:not(.non-iCheck input:checkbox)').iCheck({
+    //    checkboxClass: 'icheckbox_square-green',
+    //    radioClass: 'iradio_square-green',
+    //    increaseArea: '20%' // optional
+    //});
 
     $(".fa-chevron-left").click(function () {
         $("#frmVendorMaster").validate().cancelSubmit = true;
 
-        $("#frmVendorMaster").attr("action", "/Vendor/Search/");
+        $("#frmVendorMaster").attr("action", "/ThirdPartyVendor/Search/");
 
         $("#frmVendorMaster").attr("method", "POST");
 
@@ -17,15 +17,15 @@
 
     });
 
-    $(".chkstatus").on("ifChanged", function () {
 
-        if ($(this).parents().prop("class").indexOf("checked") != -1) {
+    $(".chkstatus").on("change", function () {
+
+        if (!$(this).is(':checked')) {
             $("#hdnIs_Active").val(false);
         }
         else {
             $("#hdnIs_Active").val(true);
         }
-
     });
   
     $("#btnSave").click(function () {
