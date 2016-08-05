@@ -170,7 +170,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                 if (sViewModel.User.Email_Id!=null)
                 {
-                    _orderManager.Send_Order_Status_Notification(sViewModel.User.First_Name, sViewModel.User.Email_Id, sViewModel.Sales_Order, false);
+                    _orderManager.Send_Order_Status_Notification(sViewModel.User.First_Name, sViewModel.User.Email_Id, sViewModel.Sales_Order, false, sViewModel.Invoice.Invoice_Id, "Update Sales Order", sViewModel.Cookies.Entity_Id);
                 }           
             }
             catch (Exception ex)

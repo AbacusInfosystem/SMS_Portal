@@ -14,13 +14,11 @@
                 },
             "Dealer.Dealer_Percentage":
                 {
-                    required: true,
-                    number: true
+                    required: true
                 },
             "Dealer.Brand_Percentage":
                 {
-                    required: true,
-                    number: true
+                    required: true
                 },
             "Dealer.Address":
                 {
@@ -37,7 +35,7 @@
             "Dealer.Pincode":
                 {
                     required: true,
-                    digits: true
+                    pincode_maxlength:true
                 },
             "Dealer.Contact_No_1":
                 {
@@ -157,3 +155,43 @@ jQuery.validator.addMethod("is_value_already_exist", function (value, element) {
     return result;
 
 }, "This email-id already used by another dealer.");
+
+jQuery.validator.addMethod("dealer_percentage_maxlength", function (value, element) {
+    var result = true;
+
+    var myLength = $("#txtDealerPercentage").val().length;
+
+    if (myLength > 3) {
+        result = false;
+    }
+
+    return result;
+
+}, "Not allowed to enter more than three digits.");
+
+jQuery.validator.addMethod("brand_percentage_maxlength", function (value, element) {
+    var result = true;
+
+    var myLength = $("#txtBrandPercentage").val().length;
+
+    if (myLength > 3) {
+        result = false;
+    }
+
+    return result;
+
+}, "Not allowed to enter more than three digits.");
+
+jQuery.validator.addMethod("pincode_maxlength", function (value, element) {
+    var result = true;
+
+    var myLength = $("#txtPincode").val().length;
+
+    if (myLength > 6)
+    {
+        result = false;
+    }
+
+    return result;
+
+}, "Not allowed to enter more than six digits.");

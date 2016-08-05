@@ -276,7 +276,8 @@ namespace SMSPortal.Controllers.PostLogin
                     iViewModel.Order.OrderItems = _invoiceManager.Get_Order_Items_By_Order_Id(iViewModel.Order.Order_Id);
                 }
                 iViewModel.Dealer = _invoiceManager.Get_Dealer_By_Id(iViewModel.Order.Dealer_Id);
-               _invoiceManager.Send_Invoice_Email(iViewModel.Dealer.Email, iViewModel.Invoice, iViewModel.Order,iViewModel.Dealer);
+                iViewModel.Vendor = _vManager.Get_Vendor_By_Id(iViewModel.Order.Vendor_Id);
+                _invoiceManager.Send_Invoice_Email(iViewModel.Dealer.Email, iViewModel.Invoice, iViewModel.Order, iViewModel.Dealer, iViewModel.Invoice.Invoice_Id, "Send Invoice", iViewModel.Cookies.Entity_Id, iViewModel.Vendor);
                iViewModel.Friendly_Message.Add(MessageStore.Get("IO001"));
             }
             catch (Exception ex)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using SMSPortalHelper.Logging;
 
 namespace SMSEmailWorker
 {
@@ -25,11 +26,11 @@ namespace SMSEmailWorker
             {
                 SMSEmailWorker sv = new SMSEmailWorker();
 
-                //sv.Send_Mail();
+                sv.Send_Emails();
             }
             catch (Exception ex)
             {
-                
+                Logger.Error("--Exception: " + ex.InnerException.ToString());
             }
         }
     }

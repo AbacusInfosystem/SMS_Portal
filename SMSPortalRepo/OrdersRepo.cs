@@ -725,7 +725,7 @@ namespace SMSPortalRepo
             _sqlRepo.ExecuteDataTable(sqlParams, StoreProcedures.Update_Vendor_Order_Status_Sp.ToString(), CommandType.StoredProcedure);
         }
 
-        public void Send_Order_Status_Notification(string first_Name, string email_Id, OrdersInfo order, bool confirmed_Status)
+        public void Send_Order_Status_Notification(string first_Name, string email_Id, OrdersInfo order, bool confirmed_Status,int request_Id,string request_Type,int entity_Id)
         {
             if (order.Status_Id == 1)
             {
@@ -795,26 +795,50 @@ namespace SMSPortalRepo
                 html.Append("<p>Thank you for using the b2bproject.</p>");
             }
 
-            MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
+            if (request_Type == "Sales Order")
+            {
+                CommonMethods.Insert_Email_Data(request_Id, request_Type, email_Id, subject, html.ToString(), entity_Id);
+            }
+            else
+            {
+                MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
 
-            MailMessage message = new MailMessage();
+                MailMessage message = new MailMessage();
 
-            message.From = fromMail;
+                message.From = fromMail;
 
-            message.Subject = subject;
+                message.Subject = subject;
 
-            message.IsBodyHtml = true;
+                message.IsBodyHtml = true;
 
-            message.Body = html.ToString();
+                message.Body = html.ToString();
 
-            MailAddress To = new MailAddress(email_Id);
+                MailAddress To = new MailAddress(email_Id);
 
-            message.To.Add(To);
+                message.To.Add(To);
 
-            SmtpClient client = new SmtpClient();
+                SmtpClient client = new SmtpClient();
 
-            client.Send(message);
+                client.Send(message);
+            }
 
+        }
+
+        private List<SqlParameter> Set_Values_In_Email_Send(int request_Id,string request_Type,string to_Email_Id,string subject,string body,int user_Id)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            sqlParams.Add(new SqlParameter("@Request_Id", request_Id));
+            sqlParams.Add(new SqlParameter("@Request_Type", request_Type));
+            sqlParams.Add(new SqlParameter("@To_Email_Id", to_Email_Id));
+            sqlParams.Add(new SqlParameter("@Subject", subject));
+            sqlParams.Add(new SqlParameter("@Body", body));
+            sqlParams.Add(new SqlParameter("@Is_Email_Sent", false));
+            sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Created_By", DateTime.Now));
+            sqlParams.Add(new SqlParameter("@Email_Sent_On", user_Id));
+
+            return sqlParams;
         }
 
         public DealerInfo Get_Dealer_Data(int dealer_Id)

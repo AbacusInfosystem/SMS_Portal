@@ -11,6 +11,11 @@ namespace SMSPortalInfo.Common
         //Login
         Authenticate_User_sp,
 
+        // Send Email
+        Insert_Email_Data_Sp,
+        Get_Email_Data_Sp,
+        Update_Email_Status_sp,
+
         //Category
         Insert_Category_Sp,
         Update_Category_Sp,
@@ -77,6 +82,10 @@ namespace SMSPortalInfo.Common
         Update_Dealer_Profile_Sp,
         Get_Invoice_Autocomplete_Sp_By_DealerId,
         Get_Order_No_Autocomplete_By_Dealer_Id,
+        Insert_Dealer_New_Sp,
+        Insert_Brand_New_Sp,
+        Update_Dealer_New_Sp,
+        Update_Brand_New_Sp,
 
         //State
         Get_State_Sp,

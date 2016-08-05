@@ -257,7 +257,7 @@ namespace SMSPortal.Controllers.PostLogin
 
                             if (rViewModel.User.Email_Id!=null)
                             {
-                                _ordersManager.Send_Order_Status_Notification(rViewModel.User.First_Name, rViewModel.User.Email_Id, rViewModel.Order, true);
+                                _ordersManager.Send_Order_Status_Notification(rViewModel.User.First_Name, rViewModel.User.Email_Id, rViewModel.Order, true, rViewModel.Receivable.Receivable_Id, "Receivable Status", rViewModel.Cookies.Entity_Id);
                             }
                            
                         }

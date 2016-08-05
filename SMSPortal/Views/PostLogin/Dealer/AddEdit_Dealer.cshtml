@@ -11,7 +11,7 @@
     <div class="master">
 
         <div class="container">
-           @{Html.RenderPartial("_ServerMessage");}
+            @{Html.RenderPartial("_ServerMessage");}
             <h3 class="master_header">
                 Dealer Master
                 <span> <a href="@Url.Action("Search","Dealer")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
@@ -50,11 +50,11 @@
                         <label class="control-label label_mer">Dealer Percentage</label>
                         @if (Model.Dealer.Dealer_Percentage == 0 || Model.Dealer.Dealer_Percentage == null)
                         {
-                            <input type="number" class="form-control form_control_mer" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" maxlength="5" onchange="Calc_Percentage(this);">
+                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage.ToString().Substring(0, 3))" onchange="Calc_Percentage(this);">
                         }
                         else
                         {
-                            <input type="number" class="form-control form_control_mer" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" maxlength="5" onchange="Calc_Percentage(this);">
+                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage.ToString().Substring(0, 3))" onchange="Calc_Percentage(this);">
                         }
                         <span id="err_dealer" style="color: #a94442;"></span>
                     </div>
@@ -63,11 +63,11 @@
                         <label class="control-label label_mer">Brand Percentage</label>
                         @if (Model.Dealer.Brand_Percentage == 0 || Model.Dealer.Brand_Percentage == null)
                         {
-                            <input type="number" class="form-control form_control_mer" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" maxlength="5" onchange="Calc_Percentage(this);">
+                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage.ToString().Substring(0, 3))" onchange="Calc_Percentage(this);">
                         }
                         else
                         {
-                            <input type="number" class="form-control form_control_mer" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" maxlength="5" onchange="Calc_Percentage(this);">
+                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage.ToString().Substring(0, 3))" onchange="Calc_Percentage(this);">
                         }
                         <span id="err_brand" style="color: #a94442;"></span>
                     </div>
@@ -102,7 +102,7 @@
 
                     <div class="form-group">
                         <label class="control-label label_mer">Pincode</label>
-                        <input type="text" class="form-control form_control_mer" name="Dealer.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Dealer.Pincode == 0 ? "" : Model.Dealer.Pincode.ToString())" maxlength="6">
+                        <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)"  maxlength="6" pattern="[0-9]{6}" name="Dealer.Pincode" id="txtPincode" placeholder="Enter pincode" value="@(Model.Dealer.Pincode == 0 ? "" : Model.Dealer.Pincode.ToString())">
                     </div>
 
                     <div class="form-group">

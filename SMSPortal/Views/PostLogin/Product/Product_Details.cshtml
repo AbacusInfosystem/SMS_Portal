@@ -16,7 +16,6 @@
     #panel {
         cursor: crosshair;
     }
-
 </style>
 
 <script>
@@ -122,10 +121,10 @@
 
                     <div class="row">
                         @*<div class="col-md-6">
-                            <div class="thumbnail margin fullsizeimage" style="height: 500px;">
-                                <img id="imgCurrentProductImage" onmouseover="bigImg(this)" onmouseout="normalImg(this)" src="~/UploadedFiles/@Model.Product.Product_Image" style="max-height: 500px; max-width: 500px; margin-left: auto; margin-right: auto; display: block;">
-                            </div>
-                        </div>*@
+                                <div class="thumbnail margin fullsizeimage" style="height: 500px;">
+                                    <img id="imgCurrentProductImage" onmouseover="bigImg(this)" onmouseout="normalImg(this)" src="~/UploadedFiles/@Model.Product.Product_Image" style="max-height: 500px; max-width: 500px; margin-left: auto; margin-right: auto; display: block;">
+                                </div>
+                            </div>*@
                         <div class="col-md-6">
 
                             <canvas id="panel" width="500" height="350"></canvas>
@@ -176,19 +175,32 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
+                                    
                                     <div class="form-group">
                                         <label class="control-label label_mer"> <i class="fa fa-inr"></i> @Html.Raw(string.Format("{0:#,#.00}", Model.Product.Product_Price))</label>
                                     </div>
                                 </div>
                             </div>
-
+                           
 
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="input-group" style="padding-bottom: 5px;">
                                             <span class="input-group-addon input-sm qty" id="qty">Qty.:</span>
-                                            <input type="text" class="form-control form_control_mer valtxt qty_text_2" placeholder="0" style="width:62px" aria-describedby="qty" id="hdnQuantity" value="" />
+                                            <select id="hdnQuantity" class="form-control form_control_mer valtxt qty_text_2" style="width:70px" aria-describedby="qty">
+                                                <option value="">Qty</option>
+                                                @if (Model.Product.ProductQuantities != null && Model.Product.ProductQuantities.Count() > 0)
+                                                {
+                                                    foreach (var itm in Model.Product.ProductQuantities)
+                                                    {
+                                                        {
+                                                            <option value="@itm.Product_Quantity_Value">@itm.Product_Quantity_Value</option>
+                                                        }
+                                                    }
+                                                }
+
+                                            </select>
                                             &nbsp;
                                         </div>
                                     </div>
@@ -209,16 +221,20 @@
                     </div>
 
                     <div class="row">
-                        @foreach (var item in Model.Product.ProductImages)
+                        @if (Model.Product.ProductImages.Count() > 0)
                         {
-                            string imageFileName = item.Image_Code;
-                        <div class="col-md-1">
-                            <div class="thumbnail margin">
-                                <img src="~/UploadedFiles/@item.Image_Code" class="thumbimage" onclick="changeImage(this);" id="~/UploadedFiles/@item.Image_Code" style="height:30px; width:30px;">
-                            </div>
-                        </div>
-                        }   
-                        <input type="hidden" id="hdn_ProductImage" value="@Model.Product.ProductImages[0].Image_Code" />                     
+                            foreach (var item in Model.Product.ProductImages)
+                            {
+                                string imageFileName = item.Image_Code;
+                                <div class="col-md-1">
+                                    <div class="thumbnail margin">
+                                        <img src="~/UploadedFiles/@item.Image_Code" class="thumbimage" onclick="changeImage(this);" id="~/UploadedFiles/@item.Image_Code" style="height:30px; width:30px;">
+                                    </div>
+                                </div>
+                            }
+                             <input type="hidden" id="hdn_ProductImage" value="@Model.Product.ProductImages[0].Image_Code" />
+                        }
+                       
                     </div>
                     <br />
                     <br />
@@ -253,7 +269,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label label_mer_2 comment more">
-                                   @Model.Product.Product_Specification
+                                    @Model.Product.Product_Specification
                                 </label>
                             </div>
                         </div>
@@ -271,7 +287,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label label_mer_2 comment more">
-                                   @Model.Product.Product_Maintance
+                                    @Model.Product.Product_Maintance
                                 </label>
                             </div>
                         </div>
@@ -292,13 +308,3 @@
         </div>
     </div>
 </form>
-
-
-
-
-
-
-
-
-
-

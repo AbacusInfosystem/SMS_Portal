@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,12 +24,37 @@ namespace SMSPortalRepo
 
         public void Insert_Dealer(DealerInfo dealer,int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer(dealer,user_id), StoreProcedures.Insert_Dealer_Sp.ToString(), CommandType.StoredProcedure);
+
+            if (dealer.Dealer_Percentage == 100)
+            {
+                _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer_New(dealer, user_id), StoreProcedures.Insert_Dealer_New_Sp.ToString(), CommandType.StoredProcedure);
+            }
+            else if (dealer.Brand_Percentage == 100)
+            {
+                _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer_New(dealer, user_id), StoreProcedures.Insert_Brand_New_Sp.ToString(), CommandType.StoredProcedure);
+            }
+            else
+            {
+                _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer(dealer, user_id), StoreProcedures.Insert_Dealer_Sp.ToString(), CommandType.StoredProcedure);
+            }
+            
         }
 
         public void Update_Dealer(DealerInfo dealer, int user_id)
         {
-            _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer(dealer,user_id), StoreProcedures.Update_Dealer_Sp.ToString(), CommandType.StoredProcedure);
+            if (dealer.Dealer_Percentage == 100)
+            {
+                _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer_New(dealer, user_id), StoreProcedures.Update_Dealer_New_Sp.ToString(), CommandType.StoredProcedure);
+            }
+            else if (dealer.Brand_Percentage == 100)
+            {
+                _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer_New(dealer, user_id), StoreProcedures.Update_Brand_New_Sp.ToString(), CommandType.StoredProcedure);
+            }
+            else
+            {
+                _sqlRepo.ExecuteNonQuery(Set_Values_In_Dealer(dealer, user_id), StoreProcedures.Update_Dealer_Sp.ToString(), CommandType.StoredProcedure);
+            }
+            
         }
 
         private List<SqlParameter> Set_Values_In_Dealer(DealerInfo dealer,int user_id)
@@ -45,7 +71,7 @@ namespace SMSPortalRepo
 
             sqlParams.Add(new SqlParameter("@Brand_Id", dealer.Brand_Id));
 
-            sqlParams.Add(new SqlParameter("@Dealer_Percentage", dealer.Dealer_Percentage));
+            sqlParams.Add(new SqlParameter("@Dealer_Percentage", dealer.Dealer_Percentage));;
 
             sqlParams.Add(new SqlParameter("@Brand_Percentage", dealer.Brand_Percentage));
 
@@ -67,6 +93,50 @@ namespace SMSPortalRepo
 
             if (dealer.Dealer_Id == 0)
             
+            {
+                sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
+
+                sqlParams.Add(new SqlParameter("@Created_By", user_id));
+            }
+
+            sqlParams.Add(new SqlParameter("@Updated_On", DateTime.Now));
+
+            sqlParams.Add(new SqlParameter("@Updated_By", user_id));
+
+            return sqlParams;
+        }
+
+        private List<SqlParameter> Set_Values_In_Dealer_New(DealerInfo dealer, int user_id)
+        {
+
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            if (dealer.Dealer_Id != 0)
+            {
+                sqlParams.Add(new SqlParameter("@Dealer_Id", dealer.Dealer_Id));
+            }
+
+            sqlParams.Add(new SqlParameter("@Dealer_Name", dealer.Dealer_Name));
+
+            sqlParams.Add(new SqlParameter("@Brand_Id", dealer.Brand_Id));
+
+            sqlParams.Add(new SqlParameter("@Address", dealer.Address));
+
+            sqlParams.Add(new SqlParameter("@City", dealer.City));
+
+            sqlParams.Add(new SqlParameter("@State", dealer.State));
+
+            sqlParams.Add(new SqlParameter("@Pincode", dealer.Pincode));
+
+            sqlParams.Add(new SqlParameter("@Contact_No_1", dealer.Contact_No_1));
+
+            sqlParams.Add(new SqlParameter("@Contact_No_2", dealer.Contact_No_2));
+
+            sqlParams.Add(new SqlParameter("@Email", dealer.Email));
+
+            sqlParams.Add(new SqlParameter("@Is_Active", dealer.Is_Active));
+
+            if (dealer.Dealer_Id == 0)
             {
                 sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
 

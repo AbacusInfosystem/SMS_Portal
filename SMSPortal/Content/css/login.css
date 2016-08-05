@@ -22,12 +22,11 @@ body {
 }*/
 .logo h2{
 	color: #fff;
-	text-align: right;
+	text-align: center;
     font-size: 25px;
 	font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 7px;
-    padding: 0 24px 0 0;
 }
 
 .mercedes_text {

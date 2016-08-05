@@ -461,7 +461,7 @@ namespace SMSPortalRepo
         //    return Total_Price;
         //}
 
-        public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order, DealerInfo Dealer)
+        public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order, DealerInfo Dealer, int request_Id, string request_Type, int entity_Id,VendorInfo vendor)
         {           
 
             StringBuilder html = new StringBuilder();
@@ -469,50 +469,77 @@ namespace SMSPortalRepo
 
             #region Main Table
 
-            html.Append("<table cellspacing='0' cellpadding='0' style='width:700px;border:2px solid #ccc;' >");
+            html.Append("<html>");
+            html.Append("<head><link rel='stylesheet' type='text/css' href='http://webrupee.com/font'><script src='http://cdn.webrupee.com/js' type='text/javascript'></script>");
+            html.Append("<style type='text/css'></style>");
+            html.Append("</head>");
+            html.Append("<body>");
+          
+
+            html.Append("<table cellspacing='0' cellpadding='0' style='width:712px;border:2px solid #ccc;' >");
             html.Append("<tbody>");
 
-            #region header dates first tr
             html.Append("<tr>");
-            html.Append("<td style='width:60%;'>SMS </td>");
-            html.Append("<td style='width:40%;text-align:right;'><b>Invoice Date :</b> " + string.Format("{0:dd/MM/yyy}", DateTime.Now.ToShortDateString()) + "</td>");
+            html.Append("<td style='width: 233px; padding: 5px 5px 5px 5px;'><label style='font-weight: bold;'>SMS</label> </td>");
+            html.Append("<td style='width: 233px; padding: 5px 5px 5px 5px;'></td>");
+            html.Append("<td style='width: 233px; padding: 5px 5px 5px 5px;'><label style='font-weight: bold;'>Invoice Date :<label style='font-weight: bold;'> " + string.Format("{0:dd/MM/yyy}", DateTime.Now.ToString("dd/MM/yyyy")) + "</td>");
             html.Append("</tr>");
-            #endregion            
 
-            #region sencode tr           
-           
             html.Append("<tr>");
-            html.Append("<td colspan='2'>");
-
-            #region From-to address & Order Details
-            html.Append("<table cellspacing='0' cellpadding='0' style='width:700px'>");
-            html.Append("<tbody>");
-            html.Append("<tr>");
-
-            #region Sms Address
-            html.Append("<td width='35%' style='border-bottom:1px solid #ccc'>");
-            html.Append("<table cellpadding='5' width='99%' style='margin:10px 0'>");
-            html.Append("<tbody>");
-            html.Append("<tr>");
-            html.Append(" <td><b><span>From</span>: </b>");
-            html.Append("<br>" + ConfigurationManager.AppSettings["CompanyName"].ToString());
-            html.Append("<br>" + ConfigurationManager.AppSettings["CompanyAddress"].ToString());
-            html.Append("<br>" + ConfigurationManager.AppSettings["CompanyTelephone"].ToString());
-            html.Append("<br>" + ConfigurationManager.AppSettings["fromMailAddress"].ToString());
-            html.Append("</td>");
+            html.Append("<td style='width: 233px; padding: 5px 5px 0 5px;'></td>");
+            html.Append("<td style='width: 233px; padding: 5px 5px 0 5px;'></td>");
+            html.Append("<td style='width: 233px; padding: 5px 5px 5px 5px;'></td>");
             html.Append("</tr>");
-            html.Append("</tbody>");
-            html.Append("</table>");
-            html.Append("</td>");
-            #endregion
 
-            #region To Address
-            html.Append("<td width='35%' style='border-bottom:1px solid #ccc'>");
-            html.Append("<table cellspacing='0' cellpadding='15'>");
-            html.Append("<tbody>");
             html.Append("<tr>");
-            html.Append("<td><span><b>To:</b><br><br></span><strong>" + Dealer.Dealer_Name + "</strong>");
+            html.Append("<td style='width: 233px; vertical-align: top; padding: 0 5px 5px 5px;'>");
+            html.Append("<label style='font-weight: bold;'>From :</label>");
+            html.Append("<label>");
+            if (vendor.Vendor_Id != 0)
+            {
+                if (!string.IsNullOrEmpty(vendor.Address))
+                {
+                    html.Append("<br>" + vendor.Address + " ,");
+                }
+                if (!string.IsNullOrEmpty(vendor.City))
+                {
+                    html.Append("<br>" + vendor.City + " ,");
+                    if (!string.IsNullOrEmpty(Convert.ToString(vendor.Pincode)))
+                    {
+                        html.Append(" " + Convert.ToString(vendor.Pincode) + " ,");
+                    }
+                }
+                if (!string.IsNullOrEmpty(vendor.State_Name))
+                {
+                    html.Append("<br>" + vendor.State_Name + " ,");
+                }
 
+                if (!string.IsNullOrEmpty(vendor.Contact_No_1))
+                {
+                    html.Append("<br> Mobile :" + vendor.Contact_No_1 + " ,");
+                }
+                if (string.IsNullOrEmpty(vendor.Contact_No_1))
+                {
+                    html.Append("<br> Mobile :" + vendor.Contact_No_2 + " ,");
+                }
+                if (!string.IsNullOrEmpty(vendor.Contact_No_1))
+                {
+                    html.Append("<br> Email :" + vendor.Email + "");
+                }
+            }
+            else
+            {
+                html.Append("<br>" + ConfigurationManager.AppSettings["CompanyName"].ToString());
+                html.Append("<br>" + ConfigurationManager.AppSettings["CompanyAddress"].ToString());
+                html.Append("<br>" + ConfigurationManager.AppSettings["CompanyTelephone"].ToString());
+                html.Append("<br>" + ConfigurationManager.AppSettings["fromMailAddress"].ToString());
+            }
+            html.Append("</label>");
+            html.Append("</td>");            
+
+            html.Append("<td style='width: 233px; vertical-align: top; padding: 0 5px 5px 5px;'>");
+            html.Append("<label style='font-weight: bold;'>To :</label>");
+            html.Append("<label>");
             if (!string.IsNullOrEmpty(Dealer.Address))
             {
                 html.Append("<br>" + Dealer.Address + " ,");
@@ -542,48 +569,32 @@ namespace SMSPortalRepo
             {
                 html.Append("<br> Email :" + Dealer.Email + "");
             }
+            html.Append("</label>");
+            html.Append("</td>");
 
+            html.Append("<td style='width: 233px; vertical-align: top; padding: 0 5px 5px 5px;'>");
+            html.Append("<label style='font-weight: bold;'>Details :</label>");
+            html.Append("<label>");
+            html.Append("<br>Invoice No :" + invoice.Invoice_No);
+            html.Append("<br>Order No   :" + Order.Order_No);
+            html.Append("<br>Order Date :" + string.Format("{0:d}", Order.Order_Date.ToString("dd/MM/yyyy")));
+            html.Append("</label>");
             html.Append("</td>");
             html.Append("</tr>");
-            html.Append(" </tbody>");
+
+            html.Append("</tbody>");
             html.Append("</table>");
-            html.Append("</td>");
+    
             #endregion
 
-            #region Order Details
-            html.Append(" <td width='30%' style='border-bottom:1px solid #ccc;border-left:1px solid #ccc'>");
-            html.Append("<table cellspacing='0' cellpadding='15'>");
+            #region Detail Table
+
+            html.Append("<table cellspacing='1' cellpadding='6' style='width: 700px; border: 2px solid #ccc; background-color: #e2e2e2'>");
             html.Append("<tbody>");
             html.Append("<tr>");
-            html.Append("<td>");
-            html.Append("<br><b>Invoice No :</b> " + invoice.Invoice_No );
-            html.Append("<br><b>Order No :</b> " + Order.Order_No );
-            html.Append("<br><b>Order Date :</b> " + string.Format("{0:d}", Order.Order_Date) );
-
-            html.Append("<br>");
-            html.Append("</td>");
-            html.Append("</tr>");
-            html.Append("</tbody>");
-            html.Append("</table>");
-            html.Append(" </td>");
-            #endregion
-            
-            html.Append("</tr>");
-            html.Append("</tbody>");
-            html.Append("</table>");
-            #endregion           
-            
-            html.Append("</td>");
-            html.Append("</tr>");
-            #endregion
-
-            #region third tr
-            html.Append("<tr>");
-            html.Append("<td colspan='2'>");
-            
+            html.Append("<td colspan='2'>");            
             html.Append("<table cellspacing='1' cellpadding='6' width='700px' style='background-color:#e2e2e2'>");
             html.Append("<tbody>");
-
             html.Append("<tr>");
             html.Append("<th style='width:25px;text-align:center;height:30px'>Sr.No</th>");
             html.Append("<th style='width:250px'>Product name</th>");
@@ -593,12 +604,16 @@ namespace SMSPortalRepo
             html.Append("</tr>");
 
             int count = 0;
-            if (Order != null)
+            if (Order != null)  
             {
                 if (Order.OrderItems != null)
                 {
                     foreach (var item in Order.OrderItems)
                     {
+                        if(item.Product_Id==0)
+                        {
+                            item.Product_Id = item.Order_Item_Id;
+                        }
                         ProductInfo ProductInfo = Get_Product_By_Id(item.Product_Id);
                         count++;
                         html.Append("<tr style='background-color:#fff'>");
@@ -614,67 +629,45 @@ namespace SMSPortalRepo
 
             html.Append("<tr>");
             html.Append("<td colspan='4' style='text-align:right'>Total: </td>");
-            html.Append("<td style='text-align:right'> &#8377. " + Order.Gross_Amount + "</td>");
+            html.Append("<td style='text-align:right'> <i class='fa fa-inr' aria-hidden='true'></i>. " + Order.Gross_Amount.ToString("0.00") + "</td>");
             html.Append("</tr>");
-
-            html.Append("<tr>");
-            html.Append("<td colspan='4' style='text-align:right'>VAT(%): </td>");
-            html.Append("<td style='text-align:right'> &#8377. " + Order.Vat + "</td>");
-            html.Append("</tr>");
-
             html.Append("<tr>");
             html.Append("<td colspan='4' style='text-align:right'>Service Tax(%):</td>");
-            html.Append("<td style='text-align:right'> &#8377. " + Order.Service_Tax + "</td>");
+            html.Append("<td style='text-align:right'> <span class='WebRupee'>&#x20B9</span>. " + Order.Service_Tax.ToString("0.00") + "</td>");
             html.Append("</tr>");
-
-            html.Append("<tr>");
-            html.Append("<td colspan='4' style='text-align:right'>Swatch Bharat Tax:</td>");
-            html.Append("<td style='text-align:right'> &#8377. " + Order.Swatch_Bharat_Tax + "</td>");
-            html.Append("</tr>");
-
             html.Append("<tr>");
             html.Append("<td colspan='4' style='text-align:right'>Grand Total:</td>");
-            html.Append("<td style='text-align:right'> &#8377. " + Order.Net_Amount + "</td>");
+            html.Append("<td style='text-align:right'> <span class='WebRupee'>Rs.</span>" + Order.Net_Amount.ToString("0.00") + "</td>");
             html.Append("</tr>");
-
-            if (invoice.Role_Id==2)
-            {
-                html.Append("<tr>");
-                html.Append("<td colspan='4' style='text-align:right'>Brand Payable Amount:</td>");
-                html.Append("<td style='text-align:right'>&#8377. " + invoice.Amount + "</td>");
-                html.Append("</tr>");
-            }
-            if (invoice.Role_Id == 3)
-            {
-                html.Append("<tr>");
-                html.Append("<td colspan='4' style='text-align:right'>Dealer Payable Amount:</td>");
-                html.Append("<td style='text-align:right'>&#8377. " + invoice.Amount + "</td>");
-                html.Append("</tr>");
-            }
-
+            html.Append("<br />");
+            html.Append("<br />");
             html.Append("</tbody>");
             html.Append("</table>");
-                                          
+            html.Append("<br />");
+            html.Append("<br />");
 
-            html.Append("</td>");
-            html.Append("</tr>");
+            html.Append("</body>");
+            html.Append("</html>");
             #endregion
 
-            html.Append("</tbody>");
-            html.Append("</table>");
+            if (request_Type != "Send Invoice")
+            {
+                CommonMethods.Insert_Email_Data(request_Id, request_Type, Email_Id, subject, html.ToString(), entity_Id);
+            }
+            else
+            {
+                MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
+                MailMessage message = new MailMessage();
+                message.From = fromMail;
+                message.Subject = subject;
+                message.IsBodyHtml = true;
+                message.Body = html.ToString();
+                MailAddress To = new MailAddress(Email_Id);
+                message.To.Add(To);
+                SmtpClient client = new SmtpClient();
+                client.Send(message);
+            }
 
-            #endregion
-
-            MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
-            MailMessage message = new MailMessage();
-            message.From = fromMail;
-            message.Subject = subject;
-            message.IsBodyHtml = true;
-            message.Body = html.ToString();
-            MailAddress To = new MailAddress(Email_Id);
-            message.To.Add(To);
-            SmtpClient client = new SmtpClient();
-            client.Send(message);
         }
 
 

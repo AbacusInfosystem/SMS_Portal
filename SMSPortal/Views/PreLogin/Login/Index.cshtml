@@ -3,7 +3,18 @@
 @{
     Layout = null;
 }
+<style>
+    .header_luxe {
+        margin-top: 50px;
+    }
 
+        .header_luxe img {
+            width: 25%;
+            display: block;
+            margin: 0 auto;
+            padding: 22px 0;
+        }
+</style>
 <!DOCTYPE html>
 
 <html>
@@ -18,16 +29,14 @@
 </head>
 <body>
 
-    <div class="title">
-        <h1>B2B <span>Project</span></h1>
+    <div class="header_luxe">
+        <img src="~/Images/luxe.JPG" class="img-responsive" alt="" />
     </div>
 
     <div class="container">
         <div class="card"></div>
         <div class="card">
             <div class="logo">
-                <img src="~/Images/star.png" class="img-responsive star" alt="" />
-                <img src="~/Images/mercedes.png" class="img-responsive mercedes_text" alt="" />
                 <h2>Login</h2>
             </div>
             <form id="frmLogin" action="@Url.Action("Authenticate", "Login")" method="post">

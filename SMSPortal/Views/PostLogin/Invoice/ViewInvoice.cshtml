@@ -19,7 +19,7 @@
         <div class="container">
             <h3 class="view_invoice_body_header">
                 Invoice
-                @if(Model.Cookies.Role_Id==4)
+                @if (Model.Cookies.Role_Id == 4)
                 {
                     <span> <a href="@Url.Action("Search", "Invoice")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
                 }
@@ -27,7 +27,7 @@
                 {
                     <span> <a href="@Url.Action("Searches", "Receivable")"><i class="fa fa-angle-left" aria-hidden="true"></i>Back</a> </span>
                 }
-                
+
             </h3>
             <div id="Div_Print">
                 <section class="invoice" style="border:1px solid #ddd;">
@@ -43,7 +43,7 @@
                                     <img width="100" height="100" id="VendordImg" src="@strPath" style="border:2px solid #ddd;" class="brandimg" />
                                 }
                                 @*<i class="fa fa-globe"></i> SMS*@
-                                <small class="pull-right"><b>Date:</b> @(string.Format("{0:d}", Model.Invoice.Invoice_Date))</small>
+                                <small class="pull-right"><b>Date:</b> @(string.Format("{0:d}", Model.Invoice.Invoice_Date.ToString("dd/MM/yyyy")))</small>
                             </h2>
                         </div><!-- /.col -->
                     </div>
@@ -74,7 +74,7 @@
                         <div class="col-sm-4 invoice-col">
                             <p>Invoice No : @Model.Invoice.Invoice_No</p>
                             <p>Order No : @Model.Order.Order_No</p>
-                            <p>Order Date : @(string.Format("{0:d}", Model.Order.Order_Date))</p>
+                            <p>Order Date : @(string.Format("{0:d}", Model.Order.Order_Date.ToString("dd/MM/yyyy")))</p>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                     <h2 class="page-header div-border-bottom"></h2>
@@ -110,7 +110,7 @@
 
                                                 tax = ((item.Product_Price * item.Local_Tax) / 100);
                                                 totalAmount = (item.Product.Product_Price + tax);
-                                                totalProductPrice = totalProductPrice + totalAmount;                                                
+                                                totalProductPrice = totalProductPrice + totalAmount;
 
                                                 <tr>
                                                     <td>@count</td>
@@ -160,9 +160,9 @@
                                                                   select codeData;
                                                         decimal Total_Price = 0;
                                                         decimal Total_Price_Amount = 0;
-                                                        foreach(var price in foo)
+                                                        foreach (var price in foo)
                                                         {
-                                                            Total_Price = Total_Price+price.Product_Price;
+                                                            Total_Price = Total_Price + price.Product_Price;
                                                         }
                                                         Total_Price_Amount = ((item.Local_Tax * Total_Price) / 100);
                                                         <td style="text-align: right;"><i class="fa fa-inr"></i> @Html.Raw(string.Format("{0:#,#.0}", Total_Price_Amount))</td>
@@ -183,21 +183,27 @@
                                                     }
                                                     <td></td>
                                                 </tr>
-                                                i++;
+                                                    i++;
                                             }
                                         }
-                                         <tr>
+                                        <tr>
                                             <td colspan="6" style="text-align: right;">  Grand Total : </td>
                                             <td style="text-align: right;"><i class="fa fa-inr"></i> <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", totalProductPrice))</span> </td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="6" style="text-align: right;">  Dealer Payable Amount : </td>
-                                            <td style="text-align: right;"><i class="fa fa-inr"></i> <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", dealerAmount))</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="6" style="text-align: right;"> Brand Payable Amount : </td>
-                                            <td style="text-align: right;"><i class="fa fa-inr"></i> <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", brandAmount))</span> </td>
-                                        </tr>
+                                        if (dealerAmount > 0)
+                                        {
+                                            <tr>
+                                                <td colspan="6" style="text-align: right;">  Dealer Payable Amount : </td>
+                                                <td style="text-align: right;"><i class="fa fa-inr"></i> <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", dealerAmount))</span> </td>
+                                            </tr>
+                                        }
+                                        if (brandAmount > 0)
+                                        {
+                                            <tr>
+                                                <td colspan="6" style="text-align: right;"> Brand Payable Amount : </td>
+                                                <td style="text-align: right;"><i class="fa fa-inr"></i> <span id="spanTaxes">@Html.Raw(string.Format("{0:#,#.00}", brandAmount))</span> </td>
+                                            </tr>
+                                        }
 
 
 

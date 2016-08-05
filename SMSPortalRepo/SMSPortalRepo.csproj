@@ -55,6 +55,7 @@
     <Compile Include="DashboardRepo.cs" />
     <Compile Include="DealerRepo.cs" />
     <Compile Include="InvoiceRepo.cs" />
+    <Compile Include="SMSWorkerRepo.cs" />
     <Compile Include="VendorRepo.cs" />
     <Compile Include="OrdersRepo.cs" />
     <Compile Include="PayableRepo.cs" />

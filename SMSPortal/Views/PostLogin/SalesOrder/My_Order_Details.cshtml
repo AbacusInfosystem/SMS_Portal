@@ -187,7 +187,7 @@
                     <div class="col-xs-12">
                         <h2 class="page-header div-border-bottom">
                              <b>Order No : @Model.Sales_Order.Order_No</b>
-                            <small class="pull-right"><b>Date:</b> @(string.Format("{0:d}", Model.Sales_Order.Order_Date))</small>
+                            <small class="pull-right"><b>Date:</b> @(string.Format("{0:d}", Model.Sales_Order.Order_Date.ToString("dd/MM/yyyy")))</small>
                         </h2>
                     </div><!-- /.col -->
                 </div>

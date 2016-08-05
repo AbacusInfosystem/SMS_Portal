@@ -86,9 +86,9 @@ namespace SMSPortalManager
             return _invoiceRepo.Get_Tax_Product_By_Id(Product_Id);
         }
 
-        public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order,DealerInfo Dealer)
+        public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order, DealerInfo Dealer, int request_Id, string request_type, int entity_Id,VendorInfo vendor)
         {
-            _invoiceRepo.Send_Invoice_Email(Email_Id, invoice, Order, Dealer);
+            _invoiceRepo.Send_Invoice_Email(Email_Id, invoice, Order, Dealer, request_Id, request_type, entity_Id, vendor);
         }
 
         public OrdersInfo Get_Orders_By_Id(int Order_Id)

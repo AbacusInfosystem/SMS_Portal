@@ -61,7 +61,7 @@ function Calc_Percentage(obj) {
     if (txtName == 'txtDealerPercentage')
     {
         if (obj.value != "") {
-            if (parseFloat(obj.value) < 100) {
+            if (parseFloat(obj.value) < 101) {
                 $('#err_dealer').text("");
                 var dealer_percetage = parseFloat(obj.value);
                 var brand_val = 0;
@@ -75,14 +75,14 @@ function Calc_Percentage(obj) {
                 $('#txtBrandPercentage').val(brand_val);
             }
             else {
-                $('#err_dealer').text('Percentage must be less than 100');
+                $('#err_dealer').text('Please enter valid percentage');
             }
         }
     }
     if (txtName == 'txtBrandPercentage')
     {
         if (obj.value != "") {
-            if (parseFloat(obj.value) < 100) {
+            if (parseFloat(obj.value) < 101) {
                 $('#err_brand').text("");
                 var brand_percetage = parseFloat(obj.value);
                 var dealer_val = 0;
@@ -96,9 +96,17 @@ function Calc_Percentage(obj) {
                 $('#txtDealerPercentage').val(dealer_val);
             }
             else {
-                $('#err_brand').text('Percentage must be less than 100');
+                $('#err_brand').text('Please enter valid percentage');
             }
         }
     }
 
+}
+
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if ((charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
 }

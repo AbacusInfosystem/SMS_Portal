@@ -97,9 +97,9 @@ namespace SMSPortalManager
             _ordersRepo.Update_Vendor_Order_Status(order);
         }
 
-        public void Send_Order_Status_Notification(string first_Name, string email_Id, OrdersInfo order,bool confirmed_Status)
+        public void Send_Order_Status_Notification(string first_Name, string email_Id, OrdersInfo order,bool confirmed_Status,int request_Id,string request_type,int entity_Id)
         {
-            _ordersRepo.Send_Order_Status_Notification(first_Name, email_Id, order, confirmed_Status);
+            _ordersRepo.Send_Order_Status_Notification(first_Name, email_Id, order, confirmed_Status, request_Id, request_type, entity_Id);
         }
          
         public List<AutocompleteInfo> Get_Order_No_Autocomplete(string order_No)

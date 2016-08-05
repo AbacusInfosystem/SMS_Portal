@@ -55,6 +55,7 @@
     <Compile Include="Common\StoreProcedures.cs" />
     <Compile Include="ConsolidatedOrderInfo.cs" />
     <Compile Include="DealerInfo.cs" />
+    <Compile Include="Email_Data.cs" />
     <Compile Include="InvoiceInfo.cs" />
     <Compile Include="VendorInfo.cs" />
     <Compile Include="OrdersInfo.cs" />
@@ -69,6 +70,9 @@
     <Compile Include="TaxInfo.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="ThirdPartyVendorInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

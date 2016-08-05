@@ -294,6 +294,8 @@ namespace SMSPortalRepo
             if (!dr.IsNull("Vendor_Id"))
             product.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
 
+            product.ProductQuantities = Get_Product_Quantyties(product.Product_Id);
+
             return product;
         }
 
