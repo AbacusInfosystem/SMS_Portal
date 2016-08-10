@@ -5,73 +5,85 @@
 
 <div class="row">
     @if (Model.Products.Count > 0)
-    {
+      {
+        
         <input type="hidden" id="hdnProductListCount" value="@Model.Products.Count" />
+    
+        int i = 1;
         foreach (var item in Model.Products)
         {
-            <input type="hidden" id="hdnpName_@item.Product_Id" value="@item.Product_Name" />
-            <input type="hidden" id="hdnMRPPrice_@item.Product_Id" value="@item.Product_Price" />
-            <input type="hidden" id="hdnMedicineURL_@item.Product_Id" value="@item.Product_Image" />
+                <input type="hidden" id="hdnpName_@item.Product_Id" value="@item.Product_Name" />
+                <input type="hidden" id="hdnMRPPrice_@item.Product_Id" value="@item.Product_Price" />
+                <input type="hidden" id="hdnMedicineURL_@item.Product_Id" value="@item.Product_Image" />
+        @*<div class="row">*@
+                <div class="col-md-4">
+                    <div class="thumbnail panel">
+                        <img src="~/UploadedFiles/@item.Product_Image" style="height: 180px; cursor: pointer;" onclick="viewMore(@item.Product_Id)" onmouseover="">
+                        <div class="caption">
+                            @if (item.Product_Name.Length > 24)
+                            {
+                                string newName = item.Product_Name.Substring(0, 21);
+                                newName = newName + "...";
+                                <h4 style="text-align:center" title="@item.Product_Name">@newName</h4>
+                            }
+                            else
+                            {
+                                <h4 style="text-align:center" title="@item.Product_Name">@item.Product_Name</h4>
+                            }
+                            <h4>
+                                <i class="fa fa-inr"></i> @Html.Raw(string.Format("{0:#,#.00}", item.Product_Price))
+                            </h4>
 
-            <div class="col-md-4">
-                <div class="thumbnail panel">
-                    <img src="~/UploadedFiles/@item.Product_Image" style="height: 180px; cursor: pointer;" onclick="viewMore(@item.Product_Id)" onmouseover="">
-                    <div class="caption">
-                        @if (item.Product_Name.Length > 24)
-                        {
-                            string newName = item.Product_Name.Substring(0, 21);
-                            newName = newName + "...";
-                            <h4 style="text-align:center" title="@item.Product_Name">@newName</h4>
-                        }
-                        else
-                        {
-                            <h4 style="text-align:center" title="@item.Product_Name">@item.Product_Name</h4>
-                        }
-                        <h4>
-                            <i class="fa fa-inr"></i> @Html.Raw(string.Format("{0:#,#.00}", item.Product_Price))
-                        </h4>
-
-                        <div class="input-group" style="padding-bottom: 5px;">
-                            <span class="input-group-addon input-sm qty" id="qty">Qty.:</span>
-                            @*<input type="text" class="form-control input-sm valtxt qty_text" placeholder="0" style="width:62px" aria-describedby="qty" id="hdnQuantity_@item.Product_Id" value="" />*@
-                            <select id="hdnQuantity_@item.Product_Id" class="form-control input-sm valtxt qty_text" style="width:62px" aria-describedby="qty">
-                                <option value="">Qty</option>
-                                @if (item.ProductQuantities != null && item.ProductQuantities.Count() > 0)
-                                {
-                                    foreach (var itm in item.ProductQuantities)
+                            <div class="input-group" style="padding-bottom: 5px;">
+                                <span class="input-group-addon input-sm qty" id="qty">Qty.:</span>
+                                @*<input type="text" class="form-control input-sm valtxt qty_text" placeholder="0" style="width:62px" aria-describedby="qty" id="hdnQuantity_@item.Product_Id" value="" />*@
+                                <select id="hdnQuantity_@item.Product_Id" class="form-control input-sm valtxt qty_text" name="order.OrderItems[@i].Product_Quantity" style="width:62px" aria-describedby="qty">
+                                    <option value="">Qty</option>
+                                    @if (item.ProductQuantities != null && item.ProductQuantities.Count() > 0)
                                     {
-                                        @*if (Model.Product.Product_Quantity == itm.Product_Quantity_Value)
+                                        foreach (var itm in item.ProductQuantities)
                                         {
-                                            <option value="@itm.Product_Quantity_Value" selected="selected">@itm.Product_Quantity_Value</option>
-                                        }
-                                        else*@
-                                        {
-                                            <option value="@itm.Product_Quantity_Value">@itm.Product_Quantity_Value</option>
+                                            {
+                                                <option value="@itm.Product_Quantity_Value">@itm.Product_Quantity_Value</option>
+                                            }
                                         }
                                     }
-                                }
 
-                            </select>
+                                </select>
 
-                            &nbsp;
+                                <button type="button" id="btnAddToCart_@item.Product_Id" class="btn btn_mer_3 btn-sm" onclick="AddToCart(this, @item.Product_Id, false)">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;  Add To Cart
+                                </button>
+                            </div>
 
-
-
-                            <button type="button" id="btnAddToCart_@item.Product_Id" class="btn btn_mer_3 btn-sm" onclick="AddToCart(this, @item.Product_Id, false)">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;  Add To Cart
-                            </button>
-                        </div>
-
-                        <div class="view_more">
-                            <p>
-                                <a href="#" id="anchorViewMore_@item.Product_Id" class="btn btn-link dvClickable" onclick="viewMore(@item.Product_Id)">
-                                    View More...
-                                </a>
-                            </p>
+                            <div class="view_more">
+                                <p>
+                                    <a href="#" id="anchorViewMore_@item.Product_Id" class="btn btn-link dvClickable" onclick="viewMore(@item.Product_Id)">
+                                        View More...
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+                                   
+            @*if(i%3==0)
+            {
+            @:</div>
+            @:<div class="row">
+            }
+            if(i==(Model.Products.Count-1)){
+            @:</div>
+            }*@
+            if (i % 3 == 0)
+            {
+            @:<label style="min-height:25px"></label>
+            @:<br/>
+            }
+             i++;
+             
+        
+    }
+
     }
 </div>

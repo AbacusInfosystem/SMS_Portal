@@ -462,15 +462,16 @@ namespace SMSPortalRepo
         //}
 
         public void Send_Invoice_Email(string Email_Id, InvoiceInfo invoice, OrdersInfo Order, DealerInfo Dealer, int request_Id, string request_Type, int entity_Id,VendorInfo vendor)
-        {           
-
+        {
             StringBuilder html = new StringBuilder();
             string subject = "Invoice For Order No : " + Order.Order_No;
+
+            string Image_Path = System.Configuration.ConfigurationManager.AppSettings["BrandLogoPath"].ToString();
 
             #region Main Table
 
             html.Append("<html>");
-            html.Append("<head><link rel='stylesheet' type='text/css' href='http://webrupee.com/font'><script src='http://cdn.webrupee.com/js' type='text/javascript'></script>");
+            html.Append("<head><link rel='stylesheet' type='text/css' href='http://webrupee.com/font'>");
             html.Append("<style type='text/css'></style>");
             html.Append("</head>");
             html.Append("<body>");
@@ -573,11 +574,11 @@ namespace SMSPortalRepo
             html.Append("</td>");
 
             html.Append("<td style='width: 233px; vertical-align: top; padding: 0 5px 5px 5px;'>");
-            html.Append("<label style='font-weight: bold;'>Details :</label>");
+            html.Append("<label style='font-weight: bold;'>Details     :</label>");
             html.Append("<label>");
-            html.Append("<br>Invoice No :" + invoice.Invoice_No);
-            html.Append("<br>Order No   :" + Order.Order_No);
-            html.Append("<br>Order Date :" + string.Format("{0:d}", Order.Order_Date.ToString("dd/MM/yyyy")));
+            html.Append("<br>Invoice No &nbsp; : " + invoice.Invoice_No);
+            html.Append("<br>Order No &nbsp;&nbsp; : " + Order.Order_No);
+            html.Append("<br>Order Date : " + string.Format("{0:d}", Order.Order_Date.ToString("dd/MM/yyyy")));
             html.Append("</label>");
             html.Append("</td>");
             html.Append("</tr>");
@@ -627,18 +628,37 @@ namespace SMSPortalRepo
                 }
             }
 
-            html.Append("<tr>");
-            html.Append("<td colspan='4' style='text-align:right'>Total: </td>");
-            html.Append("<td style='text-align:right'> <i class='fa fa-inr' aria-hidden='true'></i>. " + Order.Gross_Amount.ToString("0.00") + "</td>");
-            html.Append("</tr>");
-            html.Append("<tr>");
-            html.Append("<td colspan='4' style='text-align:right'>Service Tax(%):</td>");
-            html.Append("<td style='text-align:right'> <span class='WebRupee'>&#x20B9</span>. " + Order.Service_Tax.ToString("0.00") + "</td>");
-            html.Append("</tr>");
-            html.Append("<tr>");
-            html.Append("<td colspan='4' style='text-align:right'>Grand Total:</td>");
-            html.Append("<td style='text-align:right'> <span class='WebRupee'>Rs.</span>" + Order.Net_Amount.ToString("0.00") + "</td>");
-            html.Append("</tr>");
+            if (Email_Id.Contains("yahoo"))
+            {
+                html.Append("<tr>");
+                html.Append("<td colspan='4' style='text-align:right'>Total: </td>");
+                html.Append("<td style='text-align:right'>&#8377. " + Order.Gross_Amount.ToString("0.00") + "</td>");
+                html.Append("</tr>");
+                html.Append("<tr>");
+                html.Append("<td colspan='4' style='text-align:right'>Service Tax(%):</td>");
+                html.Append("<td style='text-align:right'>&#8377. " + Order.Service_Tax.ToString("0.00") + "</td>");
+                html.Append("</tr>");
+                html.Append("<tr>");
+                html.Append("<td colspan='4' style='text-align:right'>Grand Total:</td>");
+                html.Append("<td style='text-align:right'>&#8377. " + Order.Net_Amount.ToString("0.00") + "</td>");
+                html.Append("</tr>");
+            }
+            else
+            {
+                html.Append("<tr>");
+                html.Append("<td colspan='4' style='text-align:right'>Total: </td>");
+                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + Order.Gross_Amount.ToString("0.00") + "</td>");
+                html.Append("</tr>");
+                html.Append("<tr>");
+                html.Append("<td colspan='4' style='text-align:right'>Service Tax(%):</td>");
+                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + Order.Service_Tax.ToString("0.00") + "</td>");
+                html.Append("</tr>");
+                html.Append("<tr>");
+                html.Append("<td colspan='4' style='text-align:right'>Grand Total:</td>");
+                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + Order.Net_Amount.ToString("0.00") + "</td>");
+                html.Append("</tr>");
+            }
+
             html.Append("<br />");
             html.Append("<br />");
             html.Append("</tbody>");

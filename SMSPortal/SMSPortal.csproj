@@ -928,6 +928,7 @@
     <Content Include="Images\4_s.gif" />
     <Content Include="Images\5.gif" />
     <Content Include="Images\5_s.gif" />
+    <Content Include="Images\Indian_Rupee.png" />
     <Content Include="Images\luxe.JPG" />
     <Content Include="Images\maxresdefault.jpg" />
     <Content Include="Images\Mercedes-AMG-GT-lead-xlarge.jpg" />
@@ -1105,6 +1106,7 @@
     <Content Include="Scripts\Module\Invoice\search_invoice_events.js" />
     <Content Include="Scripts\Module\Invoice\search_brand_invoice_methods.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_methods.js" />
+    <Content Include="Scripts\Module\Product\ProductDetails\product-details-validation.js" />
     <Content Include="Scripts\Module\Vendor\search_new_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_new_vendor_methods.js" />
     <Content Include="Scripts\Module\Vendor\update_vendor_profile_events.js" />

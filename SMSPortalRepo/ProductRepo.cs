@@ -79,8 +79,10 @@ namespace SMSPortalRepo
             sqlParams.Add(new SqlParameter("@Product_Name", product.Product_Name));
             sqlParams.Add(new SqlParameter("@Product_Description", product.Product_Description));
             sqlParams.Add(new SqlParameter("@Product_Price", product.Product_Price));
+
             sqlParams.Add(new SqlParameter("@Local_Tax", product.Local_Tax));
             sqlParams.Add(new SqlParameter("@Export_Tax", product.Export_Tax));
+
             sqlParams.Add(new SqlParameter("@Brand_Id", product.Brand_Id));
             sqlParams.Add(new SqlParameter("@Vendor_Id", entity_Id));
             sqlParams.Add(new SqlParameter("@Category_Id", product.Category_Id));
@@ -223,6 +225,8 @@ namespace SMSPortalRepo
 
             product.Product_Description = Convert.ToString(dr["Product_Description"]);
 
+            product.Single_Product_Price = Convert.ToDecimal(dr["Product_Price"]);
+
             if (product.Product_Quantity>0)
             {
                 product.Product_Price = product.Product_Quantity * Convert.ToDecimal(dr["Product_Price"]);
@@ -248,6 +252,9 @@ namespace SMSPortalRepo
             product.Created_By = Convert.ToInt32(dr["Created_By"]);
             product.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
             product.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+            product.ProductQuantities = Get_Product_Quantyties(product.Product_Id);
+
             return product;
         }
 

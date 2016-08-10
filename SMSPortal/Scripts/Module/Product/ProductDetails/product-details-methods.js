@@ -84,40 +84,49 @@ function normalImg(x) {
     //x.style.width = "400px";
 }
 
-function AddToCart(obj, Product_Id, bIsCalledByPopup) {
-    $.cookie.json = true;
-    var cart = $.cookie('cart');
+function AddToCart1(obj, Product_Id, bIsCalledByPopup) {
+    
+    if ($("#frmProductDetails").valid()) {
 
-    var produc_name = $("#hdnPD_ProductName").val();
+        $.cookie.json = true;
+        var cart = $.cookie('cart');
 
-    var produc_quantity = "";
+        var produc_name = $("#hdnPD_ProductName").val();
 
-    if (bIsCalledByPopup == false) {
-        produc_quantity = $("#hdnQuantity_" + Product_Id).val();
+        var produc_quantity = "";
+
+        if (bIsCalledByPopup == false) {
+            produc_quantity = $("#hdnQuantity_" + Product_Id).val();
+        }
+        else {
+            produc_quantity = $("#hdnQuantity").val();
+        }
+
+
+        if (cart == undefined) {
+            cart = [{ 'Quantity': produc_name.trim() + "_" + produc_quantity, 'Product_Id': Product_Id }, ];
+        }
+        else {
+            cart.push(
+                { 'Quantity': produc_name.trim() + "_" + produc_quantity, 'Product_Id': Product_Id }
+            );
+        }
+
+        $.cookie('cart', cart, { expires: 2 });
+
+        $("#btnAddToCart_" + Product_Id).attr("disabled", "disabled"); // Disabling product list "Add To Cart" button
+        $("#hdnQuantity_" + Product_Id).val(produc_quantity);
+        $("#hdnQuantity_" + Product_Id).attr("disabled", "disabled");
+
+        if (bIsCalledByPopup) {
+            $(obj).attr("disabled", "disabled");    // Disabling product details (Popup) "Add To Cart" button
+        }
+        $("#CartItemCount").html(cart.length);
+
+
     }
-    else {
-        produc_quantity = $("#hdnQuantity").val();
-    }
+    
 
-
-    if (cart == undefined) {
-        cart = [{ 'Quantity': produc_name.trim() + "_" + produc_quantity, 'Product_Id': Product_Id }, ];
-    }
-    else {
-        cart.push(
-            { 'Quantity': produc_name.trim() + "_" + produc_quantity, 'Product_Id': Product_Id }
-        );
-    }
-
-    $.cookie('cart', cart, { expires: 2 });
-
-    $("#btnAddToCart_" + Product_Id).attr("disabled", "disabled"); // Disabling product list "Add To Cart" button
-    $("#hdnQuantity_" + Product_Id).val(produc_quantity);
-    $("#hdnQuantity_" + Product_Id).attr("disabled", "disabled");
-
-    if (bIsCalledByPopup) {
-        $(obj).attr("disabled", "disabled");    // Disabling product details (Popup) "Add To Cart" button
-    }
-    $("#CartItemCount").html(cart.length);
+ 
 }
 

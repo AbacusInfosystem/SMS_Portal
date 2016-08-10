@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -297,7 +298,23 @@ namespace SMSPortal.Controllers.PostLogin
             return RedirectToAction("Profile");
         }
 
-        
+//        public ActionResult Sendmail(BrandViewModel bViewModel)
+//        {
+//            MailAddress fromMail = new MailAddress(ConfigurationManager.AppSettings["fromMailAddress"].ToString(), ConfigurationManager.AppSettings["fromMailName"].ToString());
+//            MailMessage message = new MailMessage();
+//            message.From = fromMail;
+//            message.Subject = "Email with external image";
+//            message.IsBodyHtml = true;
+//            message.Body = @"<body>
+//    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+//   Current Price: <i class='fa fa-inr'></i> 400.00  <img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'> </body>";
+//            MailAddress To = new MailAddress("sanket.mayekar@abacusinfosystem.com");
+//            message.To.Add(To);
+//            SmtpClient client = new SmtpClient();
+//            client.Send(message);
+
+//            return View("Search", bViewModel);
+//        }
 
     }
 }

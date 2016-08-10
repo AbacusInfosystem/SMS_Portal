@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    $("#frmProductIndex").validate();
+
     document.querySelector('form').onkeypress = checkEnter;
 
     $('#Categories').append().load("/Product/GetCategories");
@@ -23,7 +25,6 @@
 
                 quantity = quantity + cart[i].Quantity + ",";
             }
-           
 
             $("#hdnProductIds").val(id);
 

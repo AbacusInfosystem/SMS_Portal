@@ -1,5 +1,23 @@
 ﻿$(document).ready(function () {
 
+    $("#frmProductDetails").validate({
+
+        rules: {
+            "productQuantity":
+               {
+                   required: true
+               }
+
+        },
+        messages: {
+
+            "productQuantity":
+            {
+                required: "Product quantity is required."
+            }
+        }
+    });
+
     intialization();
 
     $("#btnPD_Proceed").click(function () {
@@ -36,9 +54,8 @@
 
     $("#btnViewCart").click(function () {
 
-        $("#btnPD_Proceed").trigger("click");        
+            $("#btnPD_Proceed").trigger("click");      
     });
-
 
     image = new Image();
     image.onload = function () {

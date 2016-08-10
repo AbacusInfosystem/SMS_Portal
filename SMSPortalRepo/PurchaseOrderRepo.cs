@@ -397,7 +397,7 @@ namespace SMSPortalRepo
         public ThirdPartyVendorInfo Get_Vendor_By_Id(int vendor_Id)
         {
             List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            sqlParamList.Add(new SqlParameter("@Vendor_Id", vendor_Id));
+            sqlParamList.Add(new SqlParameter("@Third_Party_Vendor_Id", vendor_Id));
 
             ThirdPartyVendorInfo Vendor = new ThirdPartyVendorInfo();
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
@@ -412,8 +412,8 @@ namespace SMSPortalRepo
         {
             ThirdPartyVendorInfo Vendor = new ThirdPartyVendorInfo();
 
-            Vendor.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
-            Vendor.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+            Vendor.Vendor_Id = Convert.ToInt32(dr["Third_Party_Vendor_Id"]);
+            Vendor.Vendor_Name = Convert.ToString(dr["Third_Party_Vendor_Name"]);
             Vendor.Address = Convert.ToString(dr["Address"]);
             Vendor.City = Convert.ToString(dr["City"]);
             Vendor.State = Convert.ToInt32(dr["State"]);

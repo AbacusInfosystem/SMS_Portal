@@ -2,7 +2,7 @@
 
 <script src="~/Scripts/Module/Product/ProductDetails/product-details-methods.js"></script>
 <script src="~/Scripts/Module/Product/ProductDetails/product-details-events.js"></script>
-
+<script src="~/Scripts/Module/Product/ProductDetails/product-details-validation.js"></script>
 <style>
     a.morelink {
         text-decoration: none;
@@ -188,7 +188,7 @@
                                     <div class="form-group">
                                         <div class="input-group" style="padding-bottom: 5px;">
                                             <span class="input-group-addon input-sm qty" id="qty">Qty.:</span>
-                                            <select id="hdnQuantity" class="form-control form_control_mer valtxt qty_text_2" style="width:70px" aria-describedby="qty">
+                                            <select id="hdnQuantity" class="form-control form_control_mer valtxt qty_text_2" name="productQuantity" style="width:70px" aria-describedby="qty">
                                                 <option value="">Qty</option>
                                                 @if (Model.Product.ProductQuantities != null && Model.Product.ProductQuantities.Count() > 0)
                                                 {
@@ -206,7 +206,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <button type="button" id="btnPD_AddToCart" class="btn btn_mer_2 btn-sm ripple" onclick="AddToCart(this, @Model.Product.Product_Id, true);">
+                                    <button type="button" id="btnPD_AddToCart" class="btn btn_mer_2 btn-sm ripple" onclick="AddToCart1(this, @Model.Product.Product_Id, true);">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Add to cart
                                     </button>
                                 </div>

@@ -3,12 +3,15 @@
     var newProductPrice = calculateProductPrice(rowIndex);
     $("#spanProduct_Price_" + rowIndex).html($.number(newProductPrice, 2));
     $("[name='order.OrderItems[" + rowIndex + "].Product_Price']").val(newProductPrice);
-    changeGrossTaxNetAmount();
+    changeGrossTaxNetAmount(rowIndex);
 }
 
 function calculateProductPrice(rowIndex) {
     var quantity = $("[name='order.OrderItems[" + rowIndex + "].Product_Quantity']").val();
     var singleProductPrice = $("#hdnSingle_Product_Price_" + rowIndex).val();
+
+   // singleProductPrice = singleProductPrice / quantity;
+
     var newProductPrice = 0;
 
     if (!isNaN(quantity)) {
@@ -20,7 +23,10 @@ function calculateProductPrice(rowIndex) {
     return newProductPrice;
 }
 
-function changeGrossTaxNetAmount() {
+function changeGrossTaxNetAmount(rowIndex) {
+
+    var quantity = $("[name='order.OrderItems[" + rowIndex + "].Product_Quantity']").val();
+
     var amountPayable = 0, tax = 0, netAmount = 0;
     var noOfProducts = $("[id^='trCartItemDetails_']").size();
     for (var i = 0; i < noOfProducts; i++) {
@@ -28,7 +34,11 @@ function changeGrossTaxNetAmount() {
     }
 
     if ($("#hdnStateName").val() == "MAHARASHTRA") {
-        tax = (amountPayable * $("#hdnLocalTax").val()) / 100;
+        tax = (amountPayable * $("#hdnTax_" + rowIndex).val()) / 100;
+    }
+    else
+    {
+        tax = (amountPayable * $("#hdnTax_" + rowIndex).val()) / 100;
     }
 
     netAmount = amountPayable + tax;
@@ -44,13 +54,20 @@ function changeGrossTaxNetAmount() {
 }
 
 function deleteCartItem(rowIndex) {
+
     removeFromCookie(rowIndex);
     $("#trCartItemDetails_" + rowIndex).remove();
     changeElementsId();
-    changeGrossTaxNetAmount();
+
+    var rowCount = $('#tblCart tr').length;
+    for (var i = 1; i <= rowCount-4; i++) {
+        changeGrossTaxNetAmount(i-1);
+    }
+
 }
 
 function removeFromCookie(rowIndex) {
+
     var productId = $("[name='order.OrderItems[" + rowIndex + "].Product_Id']").val();
 
     $.cookie.json = true;
@@ -65,8 +82,7 @@ function removeFromCookie(rowIndex) {
 
         if (current_objs[i].Product_Id == productid)
         {
-
-            current_objs.splice(current_objs[i], 1);
+            current_objs.splice(i, 1);
 
             $.cookie('cart', current_objs, { expires: 2 });
         }
@@ -83,6 +99,17 @@ function removeFromCookie(rowIndex) {
 
     $("#CartItemCount").html(current_objs.length);
 
+    if(current_objs.length==0)
+    {
+        $("#spanAmountPayable").html($.number(0, 2));
+        $("[name='order.Gross_Amount']").val(0);
+
+        $("#spanTaxes").html($.number(0, 2));
+        $("[name='order.Service_Tax']").val(0);
+
+        $("#spanNetPayableAmount").html($.number(0, 2));
+        $("[name='order.Net_Amount']").val(0);
+    }
     //if (cart != undefined) {
     //    var index = cart.indexOf(parseInt(productId));
     //    if (index > -1) {

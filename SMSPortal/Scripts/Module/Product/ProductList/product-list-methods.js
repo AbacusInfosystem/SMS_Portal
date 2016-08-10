@@ -20,7 +20,13 @@
     }
 }
 
-function AddToCart(obj,Product_Id, bIsCalledByPopup) {
+function AddToCart(obj, Product_Id, bIsCalledByPopup) {
+
+
+    $("[id^='hdnQuantity_" + Product_Id + "']").rules("add", "required");
+
+    if ($("#frmProductIndex").valid())
+    {
     $.cookie.json = true;
     var cart = $.cookie('cart');
 
@@ -57,6 +63,9 @@ function AddToCart(obj,Product_Id, bIsCalledByPopup) {
         $(obj).attr("disabled", "disabled");    // Disabling product details (Popup) "Add To Cart" button
     }    
     $("#CartItemCount").html(cart.length);
+    }
+
+
 }
 
 function viewMore(productId) {
