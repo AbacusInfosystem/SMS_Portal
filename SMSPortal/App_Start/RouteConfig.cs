@@ -729,8 +729,14 @@ namespace SMSPortal
             routes.MapRoute(
            name: "System-2",
            url: "mercedes",
-           defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional },
+           defaults: new { controller = "Login", action = "Marsedes", id = UrlParameter.Optional },
            namespaces: new string[] { "SMSPortal.Controllers" });
+
+            routes.MapRoute(
+          name: "System-3",
+          url: "renault",
+          defaults: new { controller = "Login", action = "Renault", id = UrlParameter.Optional },
+          namespaces: new string[] { "SMSPortal.Controllers" });
 
 
             routes.MapRoute(

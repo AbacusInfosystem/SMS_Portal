@@ -94,7 +94,15 @@
 
             <div class="info">
                 <div class="col-md-6 col-sm-6">
-                    <img src="~/Images/mercedes-profile.jpg" class="img-responsive" />
+                    @if (@Model.Brand.Brand_Name=="Mercedes")
+                    {
+                        <img src="~/Images/mercedes-profile.jpg" class="img-responsive" />
+                    }
+                    else
+                    {
+                        <img src="~/Images/renault11.jpg" class="img-responsive" />
+                    }
+                    
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <h5>Brand Name</h5>

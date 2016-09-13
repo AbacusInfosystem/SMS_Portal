@@ -54,6 +54,9 @@ namespace SMSPortal.Controllers.PostLogin
         public JsonResult Get_Users(UserViewModel uViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
+
+            uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
             try
             {
                 pager = uViewModel.Pager;
@@ -64,7 +67,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    uViewModel.Users = _userMan.Get_Users(ref pager);
+                    uViewModel.Users = _userMan.Get_Users(ref pager, uViewModel.Cookies.Brand_Id, uViewModel.Cookies.Role_Id);
                 }
 
                 uViewModel.Pager = pager;
@@ -140,7 +143,6 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
-
                 uViewModel.User.Pass_Token = Utility.Generate_Token();
                 uViewModel.User.Password = "ABCD";
                 uViewModel.User.Password = Utility.Encrypt(uViewModel.User.Password);
@@ -187,6 +189,8 @@ namespace SMSPortal.Controllers.PostLogin
             try
             {
                 uViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                uViewModel.User.Brand_Id = uViewModel.Cookies.Brand_Id;
 
                 _userMan.Update_User(uViewModel.User , uViewModel.Cookies.User_Id);
 

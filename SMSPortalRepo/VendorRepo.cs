@@ -50,6 +50,7 @@ namespace SMSPortalRepo
              sqlParams.Add(new SqlParameter("@Contact_No_2", vendor.Contact_No_2));
              sqlParams.Add(new SqlParameter("@Email", vendor.Email));
              sqlParams.Add(new SqlParameter("@Is_Active", vendor.Is_Active));
+             sqlParams.Add(new SqlParameter("@Brand_Id", vendor.Brand_Id));
              if (vendor.Vendor_Id == 0)
              {
                  sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
@@ -69,7 +70,7 @@ namespace SMSPortalRepo
              DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_New_Vendor_By_Id_Sp.ToString(), CommandType.StoredProcedure);
              foreach (DataRow dr in dt.Rows)
              {
-                 Vendor = Get_Vendor_Values(dr);
+                 Vendor = Get_Vendor_Values_By_Id(dr);
              }
              return Vendor;
          }
@@ -95,9 +96,13 @@ namespace SMSPortalRepo
              return autoList;
          }
 
-         public List<VendorInfo> Get_Vendors(ref PaginationInfo pager)
+         public List<VendorInfo> Get_Vendors(ref PaginationInfo pager,int brand_Id)
          {
              List<VendorInfo> Vendors = new List<VendorInfo>();
+
+             List<SqlParameter> sqlParamList = new List<SqlParameter>();
+             sqlParamList.Add(new SqlParameter("@Brand_Id", brand_Id));
+
              DataTable dt = _sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_New_Vendor_Sp.ToString(), CommandType.StoredProcedure);
              foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
              {
@@ -143,6 +148,32 @@ namespace SMSPortalRepo
 
              return Vendor;
          }
+
+         private VendorInfo Get_Vendor_Values_By_Id(DataRow dr)
+         {
+             VendorInfo Vendor = new VendorInfo();
+
+             Vendor.Vendor_Id = Convert.ToInt32(dr["Vendor_Id"]);
+             Vendor.Vendor_Name = Convert.ToString(dr["Vendor_Name"]);
+             Vendor.Address = Convert.ToString(dr["Address"]);
+             Vendor.City = Convert.ToString(dr["City"]);
+             Vendor.State = Convert.ToInt32(dr["State"]);
+             Vendor.State_Name = Convert.ToString(dr["State_Name"]);
+             Vendor.Pincode = Convert.ToInt32(dr["Pincode"]);
+             Vendor.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
+             Vendor.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
+             Vendor.Email = Convert.ToString(dr["Email"]);
+             Vendor.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+             Vendor.Vendor_Logo = Convert.ToString(dr["Vendor_Logo"]);
+             Vendor.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+             Vendor.Created_On = Convert.ToDateTime(dr["Created_On"]);
+             Vendor.Created_By = Convert.ToInt32(dr["Created_By"]);
+             Vendor.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+             Vendor.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+             return Vendor;
+         }
+
 
          public bool Check_Existing_Vendor(string vendor_Name)
          {
@@ -279,5 +310,32 @@ namespace SMSPortalRepo
              return Vendor;
          }
 
+         public List<BrandInfo> Get_BrandS()
+         {
+             List<BrandInfo> Brands = new List<BrandInfo>();
+
+             List<SqlParameter> sqlParamList = new List<SqlParameter>();
+
+             DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Brand_Sp.ToString(), CommandType.StoredProcedure);
+
+             foreach (DataRow dr in CommonMethods.GetRows(dt))
+             {
+                 Brands.Add(Get_Brand_Values(dr));
+             }
+             return Brands;
+         }
+
+         private BrandInfo Get_Brand_Values(DataRow dr)
+         {
+             BrandInfo brand = new BrandInfo();
+
+             if (!dr.IsNull("Brand_Id"))
+                 brand.Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+
+             if (!dr.IsNull("Brand_Name"))
+                 brand.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+
+             return brand;
+         }
     }
 }

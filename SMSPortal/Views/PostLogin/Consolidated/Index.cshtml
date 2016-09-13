@@ -15,64 +15,71 @@
             </h3>
 
             <div class="row" style="margin: 20px 0;">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label label_mer">Date range from  @Model.Order.From_Date.ToString("dd/MM/yyyy")  to  @Model.Order.To_Date.ToString("dd/MM/yyyy") for Order Nos : @Model.Order_Nos</label>
                     </div>
                 </div>
-                <div class="table-responsive" style="margin: 50px 0;">
-                    <table class="table table-bordered" id="tblConsolidatedOrders">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Product Name</th>
-                                <th>Total Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.ConsolidatedOrders.Count() > 0)
-                            {
-                                int count = 0;
-                                foreach (var item in Model.ConsolidatedOrders)
-                                {
+
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <div class="table-responsive" style="margin: 50px 0;">
+                            <table class="table table-bordered" id="tblConsolidatedOrders">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            @if (item.Is_Po_Generated == true)
-                                            {
-                                                <input type="checkbox" id="@count" checked="checked" class="chkstatus" />
-                                            }
-                                            else
-                                            {
-                                                <input type="checkbox" id="@count" class="chkstatus" />
-                                            }
-
-                                            <input type="hidden" id="Status@(count)" name="ConsolidatedOrders[@count].Is_Po_Generated" value="@item.Is_Po_Generated.ToString()">
-
-                                        </td>
-
-                                        <td>
-                                            @item.Product_Name
-                                            <input type="hidden" name="ConsolidatedOrders[@count].Product_Id" value="@item.Product_Id" />
-                                        </td>
-
-                                        <td>
-                                            @item.Product_Quantity
-                                            <input type="hidden" name="ConsolidatedOrders[@count].Product_Quantity" value="@item.Product_Quantity" />
-                                        </td>
+                                        <th></th>
+                                        <th>Product Name</th>
+                                        <th>Total Quantity</th>
                                     </tr>
-                                    count++;
-                                }
-                                
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td colspan="4">No Records Found</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    @if (Model.ConsolidatedOrders.Count() > 0)
+                                    {
+                                        int count = 0;
+                                        foreach (var item in Model.ConsolidatedOrders)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @if (item.Is_Po_Generated == true)
+                                                    {
+                                                        <input type="checkbox" id="@count" checked="checked" class="chkstatus" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="@count" class="chkstatus" />
+                                                    }
+
+                                                    <input type="hidden" id="Status@(count)" name="ConsolidatedOrders[@count].Is_Po_Generated" value="@item.Is_Po_Generated.ToString()">
+
+                                                </td>
+
+                                                <td>
+                                                    @item.Product_Name
+                                                    <input type="hidden" name="ConsolidatedOrders[@count].Product_Id" value="@item.Product_Id" />
+                                                </td>
+
+                                                <td>
+                                                    @item.Product_Quantity
+                                                    <input type="hidden" name="ConsolidatedOrders[@count].Product_Quantity" value="@item.Product_Quantity" />
+                                                </td>
+                                            </tr>
+                                                    count++;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="4">No Records Found</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+
             </div>
             @if (Model.ConsolidatedOrders.Count() > 0)
             {

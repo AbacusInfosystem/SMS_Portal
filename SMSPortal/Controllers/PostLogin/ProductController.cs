@@ -73,6 +73,7 @@ namespace SMSPortal.Controllers.PostLogin
 
         public ActionResult Search(ProductViewModel pViewModel)
         {
+            pViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
             try
             {
                 if (TempData["pViewModel"] != null)
@@ -522,13 +523,13 @@ namespace SMSPortal.Controllers.PostLogin
 
                             iViewModel.Invoice.Invoice_Id = _invoiceManager.Insert_Vendor_Invoice(iViewModel.Invoice, pViewModel.Cookies.User_Id, pViewModel.Cookies.Entity_Id);
 
-                            user = _userManager.Get_User_By_Entity_Id(pViewModel.Cookies.Entity_Id, 4);
+                            user = _userManager.Get_User_By_Entity_Id(pViewModel.Cookies.Entity_Id, Convert.ToInt32(Roles.Vendor));
 
-                            if (user.Email_Id != null)
+                            if (iViewModel.Invoice.Invoice_Id!=0)
                             {                              
                                 sViewModel.Sales_Order.OrderItems = _OrdersManager.Get_Vendor_Orders_Item_By_Id(Convert.ToInt32(item));
                                 iViewModel.Vendor = _vManager.Get_Vendor_By_Id(sViewModel.Sales_Order.Vendor_Id);
-                                _invoiceManager.Send_Invoice_Email(user.Email_Id, iViewModel.Invoice, sViewModel.Sales_Order, pViewModel.dealer, iViewModel.Invoice.Invoice_Id, "Vendor Invoice", pViewModel.Cookies.Entity_Id, iViewModel.Vendor);
+                                _invoiceManager.Send_Invoice_Email(iViewModel.Vendor.Email, iViewModel.Invoice, sViewModel.Sales_Order, pViewModel.dealer, iViewModel.Invoice.Invoice_Id, "Vendor Invoice", pViewModel.Cookies.Entity_Id, iViewModel.Vendor);
                             }
                         }
                     }

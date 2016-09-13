@@ -52,9 +52,10 @@ namespace SMSPortalRepo
                         cookie.User_Email = Convert.ToString(dr["Email_Id"]);
                         if(dr["Entity_Id"]!=DBNull.Value)
                             cookie.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
+                        if (dr["Brand_Name"] != DBNull.Value)
                         cookie.Brand_Name = Convert.ToString(dr["Brand_Name"]);
-                            
-
+                        if (dr["Id"] != DBNull.Value)
+                        cookie.Brand_Id = Convert.ToInt32(dr["Id"]);
                     }
                 }
 

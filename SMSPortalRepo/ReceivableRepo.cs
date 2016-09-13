@@ -601,29 +601,32 @@ namespace SMSPortalRepo
 
            html.Append("</tr>");
 
-           for (int i = orderInfo.OrderItems.Count() - 1; i < orderInfo.OrderItems.Count(); i++)
+           if (orderInfo.OrderItems.Count()>0)
            {
-               html.Append("<tr>");
+               for (int i = orderInfo.OrderItems.Count() - 1; i < orderInfo.OrderItems.Count(); i++)
+               {
+                   html.Append("<tr>");
 
-               html.Append("<td align='center'>");
+                   html.Append("<td align='center'>");
 
-               html.Append(orderInfo.OrderItems[i].Product_Name);
+                   html.Append(orderInfo.OrderItems[i].Product_Name);
 
-               html.Append("</td>");
+                   html.Append("</td>");
 
-               html.Append("<td align='center'>");
+                   html.Append("<td align='center'>");
 
-               html.Append(orderInfo.OrderItems[i].Product_Quantity);
+                   html.Append(orderInfo.OrderItems[i].Product_Quantity);
 
-               html.Append("</td>");
+                   html.Append("</td>");
 
-               html.Append("<td align='right'>");
+                   html.Append("<td align='right'>");
 
-               html.Append(orderInfo.OrderItems[i].Product_Price);
+                   html.Append(orderInfo.OrderItems[i].Product_Price);
 
-               html.Append("</td>");
+                   html.Append("</td>");
 
-               html.Append("</tr>");
+                   html.Append("</tr>");
+               }
            }
 
            html.Append("<tr>");

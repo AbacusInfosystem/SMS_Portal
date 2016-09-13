@@ -55,6 +55,10 @@ namespace SMSPortalInfo
         public int Updated_By { get; set; }
         public List<Entity> Entities { get; set; }
         public Entity Entity { get; set; }
+
+        public string Brand_Name { get; set; }
+
+        public int Brand_Id { get; set; }
     }
 
     public class Entity

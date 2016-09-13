@@ -33,9 +33,9 @@ namespace SMSPortalManager
             return _vendorRepo.Get_Vendor_By_Id(vendor_Id);
         }
 
-        public List<VendorInfo> Get_Vendors(ref PaginationInfo pager)
+        public List<VendorInfo> Get_Vendors(ref PaginationInfo pager,int brand_Id)
         {
-            return _vendorRepo.Get_Vendors(ref pager);
+            return _vendorRepo.Get_Vendors(ref pager, brand_Id);
         }
 
         public List<VendorInfo> Get_Vendor_By_Id_List(int vendor_Id, ref PaginationInfo pager)
@@ -78,6 +78,11 @@ namespace SMSPortalManager
         public VendorInfo Get_Vendor_Logo_By_Id(int vendor_Id)
         {
             return _vendorRepo.Get_Vendor_Logo_By_Id(vendor_Id);
+        }
+
+        public List<BrandInfo> Get_Brands()
+        {
+            return _vendorRepo.Get_BrandS();
         }
     }
 }

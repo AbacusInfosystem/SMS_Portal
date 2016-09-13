@@ -76,6 +76,7 @@ namespace SMSPortal.Controllers.PostLogin
             PaginationInfo Pager = new PaginationInfo();
             try
             {
+                vNewViewModel.Brands = _vendorManager.Get_Brands();
                 vNewViewModel.States = _stateManager.Get_States();
             }
             catch (Exception ex)
@@ -134,6 +135,9 @@ namespace SMSPortal.Controllers.PostLogin
         public JsonResult Get_Vendors(NewVendorViewModel vNewViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
+
+            vNewViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
             try
             {
                 pager = vNewViewModel.Pager;
@@ -144,7 +148,7 @@ namespace SMSPortal.Controllers.PostLogin
                 }
                 else
                 {
-                    vNewViewModel.Vendors = _vendorManager.Get_Vendors(ref pager);
+                    vNewViewModel.Vendors = _vendorManager.Get_Vendors(ref pager, vNewViewModel.Cookies.Entity_Id);
                 }
                 vNewViewModel.Pager = pager;
                 vNewViewModel.Pager.PageHtmlString = PageHelper.NumericPager("javascript:PageMore({0})", vNewViewModel.Pager.TotalRecords, vNewViewModel.Pager.CurrentPage + 1, vNewViewModel.Pager.PageSize, 10, true);

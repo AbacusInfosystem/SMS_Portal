@@ -27,6 +27,8 @@ namespace SMSPortal.Models.PostLogin
             States = new List<StateInfo>();
 
             Cookies = new CookiesInfo();
+
+            Brands = new List<BrandInfo>();
         }
 
         public List<FriendlyMessage> Friendly_Message { get; set; }
@@ -44,6 +46,8 @@ namespace SMSPortal.Models.PostLogin
         public CookiesInfo Cookies { get; set; }
 
         public HttpPostedFileBase Upload_Logo { get; set; }
+
+        public List<BrandInfo> Brands { get; set; }
     }
 
     public class NewVendorFilter
@@ -52,4 +56,5 @@ namespace SMSPortal.Models.PostLogin
 
         public string Vendor_Name { get; set; }
     }
+
 }

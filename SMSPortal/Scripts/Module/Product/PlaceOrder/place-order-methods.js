@@ -59,9 +59,14 @@ function deleteCartItem(rowIndex) {
     $("#trCartItemDetails_" + rowIndex).remove();
     changeElementsId();
 
-    var rowCount = $('#tblCart tr').length;
-    for (var i = 1; i <= rowCount-4; i++) {
-        changeGrossTaxNetAmount(i-1);
+    //var rowCount = $('#tblCart tr').length;
+    //for (var i = 1; i <= rowCount-4; i++) {
+    //    changeGrossTaxNetAmount(i-1);
+    //}
+
+    var noOfProducts = $("[id^='trCartItemDetails_']").size();
+    for (var i = 0; i < noOfProducts; i++) {
+        changeGrossTaxNetAmount(i);
     }
 
 }
@@ -136,6 +141,9 @@ function changeElementsId() {
 
         $("#btnDelete_Cart_Item_" + currentRowIndex).attr("onclick", "deleteCartItem(" + i + ")");
         $("#btnDelete_Cart_Item_" + currentRowIndex).attr("id", "btnDelete_Cart_Item_" + i);
+
+        $("#span_Tax_" + currentRowIndex).attr("id", "span_Tax_" + i);
+        $("#hdnTax_" + currentRowIndex).attr("id", "hdnTax_" + i);
 
         i++;
     });

@@ -295,6 +295,22 @@ namespace SMSPortalRepo
             return orders;
         }
 
+        public List<OrdersInfo> Get_Dealer_Orders_Data_By_Id(int order_Id, ref PaginationInfo pager)
+        {
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+            sqlParam.Add(new SqlParameter("@Order_Id", order_Id));
+
+            List<OrdersInfo> orders = new List<OrdersInfo>();
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Order_By_Id.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
+            {
+                orders.Add(Get_Orders_Values(dr));
+            }
+
+            return orders;
+        }
+
         public List<OrdersInfo> Get_Orders_Data_By_Dates(DateTime fromDate,DateTime toDate, ref PaginationInfo pager)
         {
             List<SqlParameter> sqlParam = new List<SqlParameter>();

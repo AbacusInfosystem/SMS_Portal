@@ -800,7 +800,20 @@
     <Content Include="Content\css\ionicons.min.css" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\Login\login.css" />
+    <Content Include="Content\css\Login\Renaultlogin.css" />
+    <Content Include="Content\css\Login\Renaultripple.css" />
     <Content Include="Content\css\Login\ripple.css" />
+    <Content Include="Content\css\ReaultAdminLTE.css" />
+    <Content Include="Content\css\Reaultstyle.css" />
+    <Content Include="Content\css\Renaultbootstrap.css" />
+    <Content Include="Content\css\Renaultlogin.css" />
+    <Content Include="Content\css\RenaultLogin\login.css" />
+    <Content Include="Content\css\RenaultLogin\ripple.css" />
+    <Content Include="Content\css\Renault\AdminLTE.css" />
+    <Content Include="Content\css\Renault\bootstrap.css" />
+    <Content Include="Content\css\Renault\login.css" />
+    <Content Include="Content\css\Renault\ripple.css" />
+    <Content Include="Content\css\Renault\style.css" />
     <Content Include="Content\css\ripple.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\CustomStyle.css" />
@@ -808,6 +821,15 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\Login.jpg" />
+    <Content Include="Content\landingpage\css\bootstrap.css" />
+    <Content Include="Content\landingpage\fonts\font-awesome-4.6.3\css\font-awesome.css" />
+    <Content Include="Content\landingpage\fonts\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\landingpage\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\landingpage\images\Jpg-1.jpg" />
+    <Content Include="Content\landingpage\images\Jpg-2.jpg" />
+    <Content Include="Content\landingpage\images\mercedes.png" />
+    <Content Include="Content\landingpage\images\renault.png" />
+    <Content Include="Content\landingpage\js\bootstrap.min.js" />
     <Content Include="Content\Slider\thumbnail-slider.css" />
     <Content Include="Content\Slider\thumbnail-slider.js" />
     <Content Include="Content\Static\css\ie.css" />
@@ -935,6 +957,8 @@
     <Content Include="Images\Mercedes-Benz-SLS_AMG_Black_Series.jpg" />
     <Content Include="Images\mercedes-profile.jpg" />
     <Content Include="Images\mercedes.png" />
+    <Content Include="Images\renault11.jpg" />
+    <Content Include="Images\renault_english_logo_desktop.png" />
     <Content Include="Images\rgyhrtyut.jpg" />
     <Content Include="Images\star.png" />
     <Content Include="Images\wdjfiygsdgf.jpg" />
@@ -1029,6 +1053,15 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\landingpage\fonts\font-awesome-4.6.3\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\landingpage\fonts\font-awesome-4.6.3\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\landingpage\fonts\font-awesome-4.6.3\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\landingpage\fonts\font-awesome-4.6.3\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\landingpage\fonts\font-awesome-4.6.3\fonts\FontAwesome.otf" />
+    <Content Include="Content\landingpage\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\landingpage\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\landingpage\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\landingpage\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\SMS.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\logo.png" />
@@ -1107,6 +1140,7 @@
     <Content Include="Scripts\Module\Invoice\search_brand_invoice_methods.js" />
     <Content Include="Scripts\Module\Invoice\search_invoice_methods.js" />
     <Content Include="Scripts\Module\Product\ProductDetails\product-details-validation.js" />
+    <Content Include="Scripts\Module\User\forgot_password_validation.js" />
     <Content Include="Scripts\Module\Vendor\search_new_vendor_events.js" />
     <Content Include="Scripts\Module\Vendor\search_new_vendor_methods.js" />
     <Content Include="Scripts\Module\Vendor\update_vendor_profile_events.js" />
@@ -1414,6 +1448,7 @@
     <Content Include="Views\PostLogin\Vendor\Update_Profile.cshtml" />
     <Content Include="Views\PostLogin\Dashboard\_ThirdPartyVendorWidgets.cshtml" />
     <Content Include="Views\PostLogin\Vendor\_Upload_Vendor_Logo.cshtml" />
+    <Content Include="Views\PreLogin\Login\RenaultIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

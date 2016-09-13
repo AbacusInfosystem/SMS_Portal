@@ -45,6 +45,9 @@ namespace SMSPortal.Common
             FriendlyMessage SYS010 = new FriendlyMessage("SYS010", MessageType.Information, "You have successfully logged out!");
             hash.Add("SYS010", SYS010);
 
+            FriendlyMessage SYS011 = new FriendlyMessage("SYS011", MessageType.Information, "You dont have permission to access this functionality.");
+            hash.Add("SYS011", SYS011);
+
 			#endregion
 
             #region Category 

@@ -83,7 +83,7 @@
                                     }
                                 <tr>
                                     <td colspan="3" style="text-align:right">Total:</td>
-                                    <td style="text-align:right"><i class="fa fa-inr"></i> @Model.Sales_Order.Gross_Amount</td>
+                                    <td style="text-align:right"><i class="fa fa-inr"></i> @(string.Format("{0:#,#.00}",Model.Sales_Order.Gross_Amount))</td>
                                 </tr>
                                 @*<tr>
                                     <td colspan="3" style="text-align:right">VAT(%):</td>
@@ -91,7 +91,7 @@
                                 </tr>*@
                                 <tr>
                                     <td colspan="3" style="text-align:right">Service Tax(%):</td>
-                                    <td style="text-align:right"><i class="fa fa-inr"></i> @Model.Sales_Order.Service_Tax</td>
+                                    <td style="text-align:right"><i class="fa fa-inr"></i> @(string.Format("{0:#,#.00}",Model.Sales_Order.Service_Tax))</td>
                                 </tr>
                                 @*<tr>
                                     <td colspan="3" style="text-align:right">Swatch Bharat Tax:</td>
@@ -99,7 +99,7 @@
                                 </tr>*@
                                 <tr>
                                     <td colspan="3" style="text-align:right">Grand Total:</td>
-                                    <td style="text-align:right"><i class="fa fa-inr"></i> @Model.Sales_Order.Net_Amount</td>
+                                    <td style="text-align:right"><i class="fa fa-inr"></i> @(string.Format("{0:#,#.00}",Model.Sales_Order.Net_Amount))</td>
                                 </tr>
                                 }
                             </tbody>
@@ -136,7 +136,7 @@
                         <div class="form-group">
                             <label class="control-label label_mer">Shipping Date</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form_control_mer" id="txtRecDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Sales_Order.Shipping_Date" value="@((Model.Sales_Order.Shipping_Date == DateTime.MinValue ? "" : Model.Sales_Order.Shipping_Date.ToString("dd-MM-yyy ")))" />
+                                <input type="text" class="form-control form_control_mer" id="txtRecDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask name="Sales_Order.Shipping_Date" value="@((Model.Sales_Order.Shipping_Date == DateTime.MinValue ? "" : Model.Sales_Order.Shipping_Date.ToString("MM-dd-yyyy")))" />
                             </div>
                         </div>
                     </div>

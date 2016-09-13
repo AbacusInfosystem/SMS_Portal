@@ -5,6 +5,10 @@
              
         rules:
             {
+                "Vendor.Brand_Id":
+               {
+                   required: true,
+               },
             "Vendor.Vendor_Name":
                {
                    required: true,
@@ -46,6 +50,10 @@
 
         },
         messages: {
+            "Vendor.Brand_Id":
+           {
+               required: "Brand Name is required."
+           },
 
             "Vendor.Vendor_Name":
             {

@@ -19,9 +19,9 @@ namespace SMSPortalManager
             _autocompleteLookupRepo = new AutocompleteLookupRepo();
         }
 
-        public DataTable Get_Lookup_Data(string table_Name, string[] cols, ref PaginationInfo Pager,string fieldValue,string fieldName,int entity_Id)
+        public DataTable Get_Lookup_Data(string table_Name, string[] cols, ref PaginationInfo Pager,string fieldValue,string fieldName,int entity_Id,int role_Id,int brand_Id)
         {
-            return _autocompleteLookupRepo.Get_Lookup_Data(table_Name, cols, ref Pager, fieldValue, fieldName, entity_Id);
+            return _autocompleteLookupRepo.Get_Lookup_Data(table_Name, cols, ref Pager, fieldValue, fieldName, entity_Id, role_Id, brand_Id);
         }
 
         public string Get_Lookup_Data_By_SubcategoryId(string field_Value, string table_Name, string[] columns)

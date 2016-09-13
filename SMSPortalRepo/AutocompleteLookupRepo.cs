@@ -21,7 +21,7 @@ namespace SMSPortalRepo
             _sqlHelper = new SQLHelper();
         }
 
-        public DataTable Get_Lookup_Data(string table_Name, string[] cols, ref PaginationInfo pager, string fieldValue, string fieldName,int entity_Id)
+        public DataTable Get_Lookup_Data(string table_Name, string[] cols, ref PaginationInfo pager, string fieldValue, string fieldName, int entity_Id, int role_Id, int brand_Id)
         {
             string strquery = "";
 
@@ -44,29 +44,32 @@ namespace SMSPortalRepo
             {
                 if (table_Name == "Purchase_Order")
                 {
-                    strquery += " Where Vendor_Id= @Vendor_Id";
-                    paramList.Add(new SqlParameter("@Vendor_Id", entity_Id));
-
-                }
-                if (table_Name == "Purchase_Order")
-                {
-                    if (fieldName == "Vendor_Id")
+                    if(fieldName!=null)
                     {
-                        strquery = " Select Purchase_Order.Purchase_Order_ID , Purchase_Order.Purchase_Order_No  ";
-                        strquery += "from Purchase_Order inner join Payables on Purchase_Order.Purchase_Order_Id=Payables.Purchase_Order_Id ";
-                        strquery += "where Vendor_Id= @Vendor_Id";
-                        paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));
+                        if (fieldName == "Vendor_Id")
+                        {
+                            strquery = " Select Purchase_Order.Purchase_Order_ID , Purchase_Order.Purchase_Order_No  ";
+                            strquery += "from Purchase_Order inner join Payables on Purchase_Order.Purchase_Order_Id=Payables.Purchase_Order_Id ";
+                            strquery += "where Vendor_Id= @Vendor_Id";
+                            paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));
+                        }
+                        if (fieldValue != null)
+                        {
+                            strquery = " Select Purchase_Order.Purchase_Order_ID , Purchase_Order.Purchase_Order_No from Purchase_Order ";
+                            strquery += "where Vendor_Id= @Vendor_Id";
+                            paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));
+                        }
                     }
-                    if (fieldValue!=null)
+                    else
                     {
-                        strquery = " Select Purchase_Order.Purchase_Order_ID , Purchase_Order.Purchase_Order_No from Purchase_Order ";
-                        strquery += "where Vendor_Id= @Vendor_Id";
-                        paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));
+                        strquery += " Where Vendor_Id= @Vendor_Id";
+                        paramList.Add(new SqlParameter("@Vendor_Id", entity_Id));
                     }
+                
                 }
-                if (table_Name == "product")
+                if (table_Name == "Product")
                 {
-                    strquery = " Select P.Product_Id,P.Product_Name from  Product_Vendor_Mapping Pv  inner join Product P on Pv.Product_Id=P.Product_Id  where Pv.Vendor_Id=@Vendor_Id ";
+                    strquery = " Select P.Product_Id,P.Product_Name from Product P where P.Vendor_Id=@Vendor_Id ";
                     paramList.Add(new SqlParameter("@Vendor_Id", fieldValue));
                 }
 
@@ -106,8 +109,17 @@ namespace SMSPortalRepo
                 }
                 if(table_Name=="Orders")
                 {
-                    strquery = "Select v.Vendor_Order_Id,a.Order_No from Vendor_Orders v left join Orders a on v.Order_Id=a.Order_Id Where v.Vendor_Id=@Entity_Id";
-                    paramList.Add(new SqlParameter("@Entity_Id", entity_Id));
+                    if(role_Id==3)
+                    {
+                        strquery = "Select v.Vendor_Order_Id,a.Order_No from Vendor_Orders v left join Orders a on v.Order_Id=a.Order_Id Where v.Dealer_Id=@Entity_Id";
+                        paramList.Add(new SqlParameter("@Entity_Id", entity_Id));
+                    }
+                    else
+                    {
+                        strquery = "Select v.Vendor_Order_Id,a.Order_No from Vendor_Orders v left join Orders a on v.Order_Id=a.Order_Id Where v.Vendor_Id=@Entity_Id";
+                        paramList.Add(new SqlParameter("@Entity_Id", entity_Id));
+                    }
+                    
                 }
                 if (table_Name == "Dealer")
                 {
@@ -128,6 +140,18 @@ namespace SMSPortalRepo
                         strquery = "select Third_Party_Vendor_Id,Third_Party_Vendor_Name from ThirdPartyVendor ";
                     }
                     
+                }
+                if(role_Id==4 & table_Name=="Users")
+                {
+                    strquery = "select u.User_Id,u.User_Name from users u left join brand b on u.Entity_Id=b.Brand_Id ";
+                    strquery += "  Where u.Brand_Id=@Brand_Id";
+                    paramList.Add(new SqlParameter("@Brand_Id", brand_Id));
+                }
+                if (role_Id == 4 & table_Name == "ThirdPartyVendor")
+                {
+                    strquery = "select u.Third_Party_Vendor_Id,u.Third_Party_Vendor_Name from ThirdPartyVendor u ";
+                    strquery += "  Where u.Vendor_Id=@Vendor_Id";
+                    paramList.Add(new SqlParameter("@Vendor_Id", entity_Id));
                 }
                 //if (!string.IsNullOrEmpty(fieldName))
                 //{

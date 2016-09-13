@@ -51,7 +51,7 @@ function Bind_User_Grid(data) {
 
         htmlText += "<tr>";
 
-        htmlText += "<td colspan='2'> No Record found.";
+        htmlText += "<td colspan='3'> No Record found.";
 
         htmlText += "</td>";
 

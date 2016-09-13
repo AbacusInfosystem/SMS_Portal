@@ -37,5 +37,7 @@ namespace SMSPortalInfo.Common
         public string Order_Status { get; set; }
 
         public string Brand_Name { get; set; }
+
+        public int Brand_Id { get; set; }
     }
 }

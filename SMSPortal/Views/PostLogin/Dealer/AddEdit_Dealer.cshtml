@@ -50,11 +50,19 @@
                         <label class="control-label label_mer">Dealer Percentage</label>
                         @if (Model.Dealer.Dealer_Percentage == 0 || Model.Dealer.Dealer_Percentage == null)
                         {
-                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage.ToString().Substring(0, 3))" onchange="Calc_Percentage(this);">
+                            if (Model.Dealer.Dealer_Id!=0)
+                            {
+                                <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="4" pattern="[0-9]{3}" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" onchange="Calc_Percentage(this);">
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage)" onchange="Calc_Percentage(this);">
+                            }
+                            
                         }
                         else
                         {
-                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage.ToString().Substring(0, 3))" onchange="Calc_Percentage(this);">
+                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="4" pattern="[0-9]{3}" name="Dealer.Dealer_Percentage" id="txtDealerPercentage" placeholder="Enter Dealer Percentage" value="@(Model.Dealer.Dealer_Percentage.ToString().Substring(0, 4))" onchange="Calc_Percentage(this);">
                         }
                         <span id="err_dealer" style="color: #a94442;"></span>
                     </div>
@@ -63,11 +71,19 @@
                         <label class="control-label label_mer">Brand Percentage</label>
                         @if (Model.Dealer.Brand_Percentage == 0 || Model.Dealer.Brand_Percentage == null)
                         {
-                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage.ToString().Substring(0, 3))" onchange="Calc_Percentage(this);">
+                            if (Model.Dealer.Dealer_Id!=0)
+                            {
+                                <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="4" pattern="[0-9]{3}" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" onchange="Calc_Percentage(this);">
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage)" onchange="Calc_Percentage(this);">
+                            }
+                            
                         }
                         else
                         {
-                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="3" pattern="[0-9]{3}" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage.ToString().Substring(0, 3))" onchange="Calc_Percentage(this);">
+                            <input type="text" class="form-control form_control_mer" onkeypress="return isNumberKey(event)" maxlength="4" pattern="[0-9]{3}" name="Dealer.Brand_Percentage" id="txtBrandPercentage" placeholder="Enter Brand Percentage" value="@(Model.Dealer.Brand_Percentage.ToString().Substring(0, 4))" onchange="Calc_Percentage(this);">
                         }
                         <span id="err_brand" style="color: #a94442;"></span>
                     </div>

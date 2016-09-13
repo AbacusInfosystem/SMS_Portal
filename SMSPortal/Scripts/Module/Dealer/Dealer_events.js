@@ -75,6 +75,7 @@ function Calc_Percentage(obj) {
                 $('#txtBrandPercentage').val(brand_val);
             }
             else {
+                $('#txtDealerPercentage').val('')
                 $('#err_dealer').text('Please enter valid percentage');
             }
         }
@@ -96,6 +97,7 @@ function Calc_Percentage(obj) {
                 $('#txtDealerPercentage').val(dealer_val);
             }
             else {
+                $('#txtBrandPercentage').val('')
                 $('#err_brand').text('Please enter valid percentage');
             }
         }

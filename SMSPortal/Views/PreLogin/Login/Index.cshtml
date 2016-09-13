@@ -34,12 +34,14 @@
     </div>
 
     <div class="container">
+        @*@{Html.RenderPartial("_ServerMessage");}*@
         <div class="card"></div>
         <div class="card">
             <div class="logo">
                 <h2>Login</h2>
             </div>
             <form id="frmLogin" action="@Url.Action("Authenticate", "Login")" method="post">
+                <input type="hidden" name="Cookies.Brand_Name" id="txtUserName" class="form-control input-sm" required="required" value="Mercedes" />
                 <div class="input-container">
                     <input type="text" name="Cookies.User_Name" id="txtUserName" class="form-control input-sm" required="required" />
                     <label for="Username">Username</label>

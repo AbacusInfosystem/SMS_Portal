@@ -9,6 +9,7 @@
 
     <input type="hidden" id="hdfCurrentPage" name="Pager.CurrentPage" value="@Model.Pager.CurrentPage" />
     <input type="hidden" id="hdnProduct_Id" name="Product.Product_Id" value="@Model.Product.Product_Id">
+    <input type="hidden" id="hdnEntity_Id" name="Cookies.Entity_Id" value="@Model.Cookies.Entity_Id">
 
     <div class="dealer_master">
 
@@ -23,7 +24,7 @@
                     <div class="form-group auto-complete">
                         <label class="control-label label_mer">Product Name</label>
                         <div class="input-group">
-                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Product_Name" id="txtProduct_Name" placeholder="Enter Product Name" value="@Model.Filter.Product_Name" data-table="Product" data-col="Product_Id,Product_Name" data-headernames="Product">
+                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Product_Name" id="txtProduct_Name" placeholder="Enter Product Name" value="@Model.Filter.Product_Name" data-table="Product" data-param="hdnEntity_Id" data-col="Product_Id,Product_Name" data-headernames="Product">
                             <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
                             <input type="hidden" id="hdnProductId" value="@Model.Filter.Product_Id" name="Filter.Product_Id" class="auto-complete-value" />
                             <input type="hidden" id="hdnProductName" value="@Model.Filter.Product_Name" name="Filter.Product_Name" class="auto-complete-label" />

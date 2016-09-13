@@ -622,7 +622,7 @@ namespace SMSPortalRepo
                         html.Append("<td style='text-align:center'>" + ProductInfo.Product_Name + "</td>");
                         html.Append("<td style='text-align:center'>" + item.Product_Quantity + "</td>");
                         html.Append("<td style='text-align:right'>" + ProductInfo.Product_Price + "</td>");
-                        html.Append("<td style='text-align:right'>" + item.Product_Price + "</td>");
+                        html.Append("<td style='text-align:right'>" + (string.Format("{0:#,#.00}",item.Product_Price * item.Product_Quantity)) + "</td>");
                         html.Append("</tr>");
                     }
                 }
@@ -632,30 +632,30 @@ namespace SMSPortalRepo
             {
                 html.Append("<tr>");
                 html.Append("<td colspan='4' style='text-align:right'>Total: </td>");
-                html.Append("<td style='text-align:right'>&#8377. " + Order.Gross_Amount.ToString("0.00") + "</td>");
+                html.Append("<td style='text-align:right'>&#8377. " + (string.Format("{0:#,#.00}",Order.Gross_Amount)) + "</td>");
                 html.Append("</tr>");
                 html.Append("<tr>");
                 html.Append("<td colspan='4' style='text-align:right'>Service Tax(%):</td>");
-                html.Append("<td style='text-align:right'>&#8377. " + Order.Service_Tax.ToString("0.00") + "</td>");
+                html.Append("<td style='text-align:right'>&#8377. " + (string.Format("{0:#,#.00}",Order.Service_Tax)) + "</td>");
                 html.Append("</tr>");
                 html.Append("<tr>");
                 html.Append("<td colspan='4' style='text-align:right'>Grand Total:</td>");
-                html.Append("<td style='text-align:right'>&#8377. " + Order.Net_Amount.ToString("0.00") + "</td>");
+                html.Append("<td style='text-align:right'>&#8377. " + (string.Format("{0:#,#.00}",Order.Net_Amount)) + "</td>");
                 html.Append("</tr>");
             }
             else
             {
                 html.Append("<tr>");
                 html.Append("<td colspan='4' style='text-align:right'>Total: </td>");
-                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + Order.Gross_Amount.ToString("0.00") + "</td>");
+                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + (string.Format("{0:#,#.00}",Order.Gross_Amount)) + "</td>");
                 html.Append("</tr>");
                 html.Append("<tr>");
                 html.Append("<td colspan='4' style='text-align:right'>Service Tax(%):</td>");
-                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + Order.Service_Tax.ToString("0.00") + "</td>");
+                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + (string.Format("{0:#,#.00}",Order.Service_Tax)) + "</td>");
                 html.Append("</tr>");
                 html.Append("<tr>");
                 html.Append("<td colspan='4' style='text-align:right'>Grand Total:</td>");
-                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + Order.Net_Amount.ToString("0.00") + "</td>");
+                html.Append("<td style='text-align:right'><img src='http://i.stack.imgur.com/nGbfO.png' width='8' height='10'>. " + (string.Format("{0:#,#.00}",Order.Net_Amount)) + "</td>");
                 html.Append("</tr>");
             }
 

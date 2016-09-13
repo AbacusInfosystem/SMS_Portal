@@ -40,8 +40,7 @@ namespace SMSPortal.Controllers.PostLogin
 
             _purchaseOrderManager = new PurchaseOrderManager();
         }
-
-        [AuthorizeUserAttribute(AppFunction.Token)]
+        
         public ActionResult Index(DashboardViewModel dViewModel)
         {
             try
@@ -82,7 +81,6 @@ namespace SMSPortal.Controllers.PostLogin
             return View("Index", dViewModel);
         }
 
-        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Admin_Widgets()
         {
             DashboardViewModel dViewModel = new DashboardViewModel();
@@ -103,7 +101,6 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_AdminWidgets",dViewModel);
         }
 
-        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Vendor_Widgets()
         {
             DashboardViewModel dViewModel = new DashboardViewModel();
@@ -148,7 +145,6 @@ namespace SMSPortal.Controllers.PostLogin
             return PartialView("_VendorWidgets", dViewModel);
         }
 
-        [AuthorizeUserAttribute(AppFunction.Token)]
         public ActionResult Get_Third_Party_Vendor_Widgets()
         {
             DashboardViewModel dViewModel = new DashboardViewModel();

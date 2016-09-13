@@ -14,16 +14,11 @@
             <h3 class="master_header">My Orders</h3>
 
             <div class="row" style="margin: 20px 0;">
-                <div class="col-md-1" style="text-align: right;">
-                    <div class="form-group">
-                        
-                    </div>
-                </div>
                 <div class="col-md-3">
                     <div class="form-group auto-complete">
                         <label class="control-label label_mer">Order No</label>
                         <div class="input-group">
-                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Order_No" id="txtDealerOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-param="hdnDealer_Id" data-field="Dealer_Id" data-table="orders" data-col="Order_Id,Order_No" data-headernames="Orders">
+                            <input type="text" class="form-control form_control_mer autocomplete-text" name="Filter.Order_No" id="txtDealerOrderNo" placeholder="Enter Order No" value="@Model.Filter.Order_No" data-param="hdnDealer_Id" data-field="Dealer_Id" data-table="Orders" data-col="Order_Id,Order_No" data-headernames="Orders">
                             <span class="input-group-addon"> <a href="#" class="text-muted" id="hrefDealer" role="button"> <i class="fa fa-server" style="color:#fff;" aria-hidden="true"></i></a></span>
                             <input type="hidden" id="hdnOrderId" value="@Model.Filter.Order_Id" name="Filter.Order_Id" class="auto-complete-value" />
                             <input type="hidden" id="hdnOrderNo" value="@Model.Filter.Order_No" name="Filter.Order_No" class="auto-complete-label" />

@@ -95,22 +95,30 @@
         cookies = Utility.Get_Login_User("UserInfo", "Token");
         if (cookies != null)
         {
-         if(cookies.Brand_Name=="Mercedes")
-         {
-            <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" media="all" />
-            <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
-            <link href="~/Content/css/style.css" rel="stylesheet" />
-            <link href="~/Content/css/ripple.css" rel="stylesheet" />
-            <link href="~/Content/css/AdminLTE.css" rel="stylesheet" />
-         }
-         else
-         {
-             <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" media="all" />
-            <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
-            <link href="~/Content/css/style.css" rel="stylesheet" />
-            <link href="~/Content/css/ripple.css" rel="stylesheet" />
-            <link href="~/Content/css/AdminLTE.css" rel="stylesheet" />
-         }
+            if (cookies.Brand_Name == "Mercedes")
+            {
+                <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" media="all" />
+                <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+                <link href="~/Content/css/style.css" rel="stylesheet" />
+                <link href="~/Content/css/ripple.css" rel="stylesheet" />
+                <link href="~/Content/css/AdminLTE.css" rel="stylesheet" />
+            }
+            else if (cookies.Brand_Name == "Renault")
+            {
+                <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" media="all" />
+                <link href="~/Content/css/Renault/bootstrap.css" rel="stylesheet" />
+                <link href="~/Content/css/Renault/style.css" rel="stylesheet" />
+                <link href="~/Content/css/Renault/ripple.css" rel="stylesheet" />
+                <link href="~/Content/css/Renault/AdminLTE.css" rel="stylesheet" />
+            }
+            else
+            {
+                <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" media="all" />
+                <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+                <link href="~/Content/css/style.css" rel="stylesheet" />
+                <link href="~/Content/css/ripple.css" rel="stylesheet" />
+                <link href="~/Content/css/AdminLTE.css" rel="stylesheet" />
+            }
         }
     }
 

@@ -102,15 +102,24 @@
                                         decimal totalProductPrice = 0;
                                         decimal dealerAmount = 0;
                                         decimal brandAmount = 0;
+                                        decimal grandTotalProductPrice = 0;
                                         if (Model.Order.OrderItems != null)
                                         {
                                             foreach (var item in Model.Order.OrderItems)
                                             {
                                                 count++;
 
-                                                tax = ((item.Product_Price * item.Local_Tax) / 100);
+                                                if (Model.Dealer.State_Name == "MAHARASHTRA")
+                                                {
+                                                    tax = ((item.Product_Price * item.Local_Tax) / 100);
+                                                }
+                                                else
+                                                {
+                                                    tax = ((item.Product_Price * item.Export_Tax) / 100);
+                                                }
                                                 totalAmount = (item.Product.Product_Price + tax);
-                                                totalProductPrice = totalProductPrice + totalAmount;
+                                                grandTotalProductPrice = totalAmount * item.Product_Quantity;
+                                                totalProductPrice = totalProductPrice + totalAmount * item.Product_Quantity;
 
                                                 <tr>
                                                     <td>@count</td>
@@ -128,8 +137,8 @@
 
 
 
-                                                    <td style="text-align: right;"> @(string.Format("{0:#,#.00}", tax))</td>
-                                                    <td style="text-align: right;"> @(string.Format("{0:#,#.00}", totalAmount))</td>
+                                                    <td style="text-align: right;"> @(string.Format("{0:#,#.0}", tax))</td>
+                                                    <td style="text-align: right;"> @(string.Format("{0:#,#.00}", grandTotalProductPrice))</td>
                                                 </tr>
                                             }
 
@@ -170,7 +179,7 @@
                                                     else
                                                     {
                                                         var foo = from codeData in Model.Order.OrderItems
-                                                                  where codeData.Local_Tax == item.Export_Tax
+                                                                  where codeData.Export_Tax == item.Export_Tax
                                                                   select codeData;
                                                         decimal Total_Price = 0;
                                                         decimal Total_Price_Amount = 0;

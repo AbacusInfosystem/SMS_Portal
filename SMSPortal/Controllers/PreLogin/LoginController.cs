@@ -52,7 +52,26 @@ namespace SMSPortal.Controllers.PreLogin
                 return View("Index", lViewModel);
             }
 
-            return View("Index", lViewModel);
+            if (TempData["BrandName"] != null)
+            {
+                lViewModel.Cookies.Brand_Name = TempData["BrandName"].ToString();
+            }
+
+            if (lViewModel.Cookies.Brand_Name == "Mercedes")
+            {
+                return View("Index", lViewModel);
+            }
+            else if (lViewModel.Cookies.Brand_Name == "Renault")
+            {
+                return RedirectToAction("Renault", "Login");
+            }
+            else
+            {
+                return RedirectToAction("Home", "Login");
+            }
+
+           
+            
         }
 
         public ActionResult Home(LoginViewModel lViewModel)      
@@ -88,30 +107,50 @@ namespace SMSPortal.Controllers.PreLogin
             }
 
             TempData["userViewMessage"] = uViewModel;
+            TempData["BrandName"] = uViewModel.User.Brand_Name;
+
             return RedirectToAction("Index");
         }
 
         public ActionResult Authenticate(LoginViewModel lViewModel)
         {
             try
-            {
-                
+            {                
                 CookiesInfo cookies = _userManager.AuthenticateUser(lViewModel.Cookies.User_Name,Utility.Encrypt(lViewModel.Cookies.Password));
 
                 if (cookies.User_Id != 0 && cookies.Is_Active == true)
                 {
-                    if (cookies.User_Name == lViewModel.Cookies.User_Name)
+                    if (cookies.Role_Name == "admin")
                     {
-                        SetUsersCookies(lViewModel.Cookies.User_Name, lViewModel.Cookies.Password);
+                        if (cookies.User_Name == lViewModel.Cookies.User_Name)
+                        {
+                            SetUsersCookies(lViewModel.Cookies.User_Name, lViewModel.Cookies.Password);
 
-                        return RedirectToAction("Index", "Dashboard");
-                    } 
+                            return RedirectToAction("Index", "Dashboard");
+                        }
+                        else
+                        {
+                            lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+
+                            return View("Index", lViewModel);
+                        }
+                    }
                     else
                     {
-                        lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+                        if (cookies.User_Name == lViewModel.Cookies.User_Name)
+                        {
+                            SetUsersCookies(lViewModel.Cookies.User_Name, lViewModel.Cookies.Password);
 
-                        return View("Index", lViewModel);
-                    }                   
+                            return RedirectToAction("Index", "Dashboard");
+                        }
+                        else
+                        {
+                            lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+
+                            return View("Index", lViewModel);
+                        }
+                       
+                    }                                             
                 }
                 else
                 {
@@ -175,11 +214,15 @@ namespace SMSPortal.Controllers.PreLogin
 
         public ActionResult Logout(string timeOut)
         {
+            CookiesInfo Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
             try
             {
                 LogoutUser();
 
-                TempData["FriendlyMessage"] = MessageStore.Get("SYS010");
+                //TempData["FriendlyMessage"] = MessageStore.Get("SYS010");
+
+                TempData["BrandName"] = "Logout";
             }
             catch (Exception ex)
             {
@@ -238,6 +281,7 @@ namespace SMSPortal.Controllers.PreLogin
 
                     _userManager.Reset_Password(Utility.Encrypt(uViewModel.User.New_Password), uViewModel.User.User_Id,Utility.Generate_Token());
                     TempData["FriendlyMessage"] = MessageStore.Get("SYS05");
+                    TempData["BrandName"] = uViewModel.User.Brand_Name;
                 }
             }
             catch (Exception ex)
@@ -260,6 +304,7 @@ namespace SMSPortal.Controllers.PreLogin
         }
 
         public ActionResult Marsedes(LoginViewModel lViewModel)
+        
         {
             try
             {
@@ -288,6 +333,37 @@ namespace SMSPortal.Controllers.PreLogin
             }
 
             return View("Index", lViewModel);
+        }
+
+        public ActionResult Renault(LoginViewModel lViewModel)
+        {
+            try
+            {
+                if (Request.Cookies["UserInfo"] != null)
+                {
+                    lViewModel.Cookies = Utility.Get_Login_User("UserInfo", "Token");
+
+                    if (lViewModel.Cookies == null)
+                    {
+                        lViewModel.Friendly_Message.Add(MessageStore.Get("SYS02"));
+                    }
+                }
+                else
+                {
+                    if (TempData["FriendlyMessage"] != null)
+                    {
+                        lViewModel.Friendly_Message.Add((FriendlyMessage)TempData["FriendlyMessage"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error at Index : " + ex.Message);
+                lViewModel.Friendly_Message.Add(MessageStore.Get("SYS01"));
+                return View("Index", lViewModel);
+            }
+
+            return View("RenaultIndex", lViewModel);
         }
 
     }

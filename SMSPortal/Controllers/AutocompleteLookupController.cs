@@ -46,7 +46,7 @@ namespace SMSPortal.Controllers
             try
             {
 
-                LookupVM.PartialDt = _autocompleteLookupManager.Get_Lookup_Data(table_Name, cols, ref pager, fieldValue, fieldName, LookupVM.Cookies.Entity_Id);
+                LookupVM.PartialDt = _autocompleteLookupManager.Get_Lookup_Data(table_Name, cols, ref pager, fieldValue, fieldName, LookupVM.Cookies.Entity_Id, LookupVM.Cookies.Role_Id,LookupVM.Cookies.Brand_Id);
 
                 LookupVM.EditLookupValue = editValue;
 

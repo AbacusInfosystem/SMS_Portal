@@ -10,6 +10,8 @@ namespace SMSPortalInfo.Common
     {
         //Login
         Authenticate_User_sp,
+        Get_Brand_Name_By_Entity_Id_sp,
+        Get_Brand_Id_By_Entity_Id_sp,
 
         // Send Email
         Insert_Email_Data_Sp,

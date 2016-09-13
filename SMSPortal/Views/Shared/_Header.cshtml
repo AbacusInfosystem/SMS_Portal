@@ -102,10 +102,20 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4">
-                        <div class="logo">
+                        @if (cookies.Brand_Name=="Mercedes")
+                        {
+                             <div class="logo">
                             <a href="@Url.Action("Index", "Dashboard")"><img src="~/Images/star.png" class=" img-responsive star" alt="" /></a>
                             <a href="@Url.Action("Index", "Dashboard")"><img src="~/Images/mercedes.png" class="img-responsive mercedes_text" alt="" /></a>
-                        </div>
+                            </div>
+                        }
+                        else if(cookies.Brand_Name=="Renault")
+                        {
+                             <div class="logo">
+                            <a href="@Url.Action("Index", "Dashboard")"><img src="~/Images/renault_english_logo_desktop.png" /></a>
+                            </div>
+                        }
+                       
                     </div>
                     <div class="col-md-8 col-ms-8 col-xs-8">
                         <div class="header-menu">

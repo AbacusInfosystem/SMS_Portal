@@ -35,13 +35,13 @@ namespace SMSPortalRepo
 
              foreach (DataRow dr in CommonMethods.GetRows(dt))
              {
-                 orders.Add(Get_Order_Values(dr));
+                 orders.Add(Get_Order_Values(dr, from_Date, to_Date));
              }
 
              return orders;
          }
 
-         private ConsolidatedOrderInfo Get_Order_Values(DataRow dr)
+         private ConsolidatedOrderInfo Get_Order_Values(DataRow dr,DateTime frm_Date,DateTime to_Date)
          {
              string status="";
 
@@ -54,7 +54,7 @@ namespace SMSPortalRepo
 
              order.Product_Name = Get_Product_Name_By_Id(order.Product_Id);
 
-             status = Get_Product_Status_By_Id(order.Product_Id);
+             status = Get_Product_Status_By_Id(order.Product_Id, frm_Date, to_Date);
 
              if(status=="Po Generated")
              {
@@ -94,7 +94,7 @@ namespace SMSPortalRepo
              return Product_Name;
          }
 
-         public string Get_Product_Status_By_Id(int product_Id)
+         public string Get_Product_Status_By_Id(int product_Id, DateTime frm_Date, DateTime to_Date)
          {
              string Status = "";
 
@@ -103,6 +103,10 @@ namespace SMSPortalRepo
              List<SqlParameter> sqlParam = new List<SqlParameter>();
 
              sqlParam.Add(new SqlParameter("@Product_Id", product_Id));
+
+             sqlParam.Add(new SqlParameter("@From_Date", frm_Date));
+
+             sqlParam.Add(new SqlParameter("@To_Date", to_Date));
 
              DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoreProcedures.Get_Product_Status_By_Consolidated_Id_Sp.ToString(), CommandType.StoredProcedure);
 

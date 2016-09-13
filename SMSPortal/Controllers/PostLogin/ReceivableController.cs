@@ -333,11 +333,11 @@ namespace SMSPortal.Controllers.PostLogin
 
                 if (rViewModel.Cookies.Role_Id == Convert.ToInt32(RolesIds.Vendor))
                 {
-                    rViewModel.Invoice = _invoiceManager.Get_Vendor_Invoice_By_Id(rViewModel.Receivable.Invoice_Id, rViewModel.Cookies.Entity_Id);
+                    rViewModel.Invoice = _invoiceManager.Get_Vendor_Invoice_By_Id(invoice_Id, rViewModel.Cookies.Entity_Id);
                 }
                 else
                 {
-                    rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(rViewModel.Receivable.Invoice_Id);
+                    rViewModel.Invoice = _invoiceManager.Get_Invoice_By_Id(receivable_Id);
                 }
 
                 rViewModel.Receivable = _receivableManager.Get_Receivable_Data_By_Id(invoice_Id, rViewModel.Cookies.Role_Id, rViewModel.Cookies.Entity_Id);

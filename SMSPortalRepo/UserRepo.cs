@@ -45,8 +45,9 @@ namespace SMSPortalRepo
                         user.User_Name = Convert.ToString(dr["User_Name"]);
                         user.First_Name = Convert.ToString(dr["First_Name"]);
                         user.Last_Name = Convert.ToString(dr["Last_Name"]);
-
-
+                        user.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+                        user.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
+                        user.Brand_Name = Get_Role_Name(user.Role_Id, user.Entity_Id);
                     }
                 }
             }
@@ -106,6 +107,15 @@ namespace SMSPortalRepo
              sqlParams.Add(new SqlParameter("@Role_Id", users.Role_Id));
              sqlParams.Add(new SqlParameter("@Pass_Token", users.Pass_Token));
              sqlParams.Add(new SqlParameter("@Is_Active", users.Is_Active));
+
+             if (users.Role_Id == 1 || users.Role_Id == 2)
+             {
+                 sqlParams.Add(new SqlParameter("@Brand_Id", users.Entity_Id));
+             }
+             else if (users.Role_Id == 3 || users.Role_Id == 4 || users.Role_Id == 5)
+             {
+                 sqlParams.Add(new SqlParameter("@Brand_Id", Get_Brand_Id_By_Entity_Id(users.Role_Id, users.Entity_Id)));
+             }
              if (users.User_Id == 0)
              {
                  sqlParams.Add(new SqlParameter("@Created_On", DateTime.Now));
@@ -117,10 +127,15 @@ namespace SMSPortalRepo
              return sqlParams;
          }
 
-         public List<UserInfo> Get_Users(ref PaginationInfo pager)
+         public List<UserInfo> Get_Users(ref PaginationInfo pager,int brand_Id,int role_Id)
          {
              List<UserInfo> users = new List<UserInfo>();
-             DataTable dt = _sqlHelper.ExecuteDataTable(null, StoreProcedures.Get_Users_Sp.ToString(), CommandType.StoredProcedure);
+
+             List<SqlParameter> sqlParamList = new List<SqlParameter>();
+             sqlParamList.Add(new SqlParameter("@Brand_Id", brand_Id));
+             sqlParamList.Add(new SqlParameter("@Role_Id", role_Id));
+
+             DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamList, StoreProcedures.Get_Users_Sp.ToString(), CommandType.StoredProcedure);
 
              foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
              {
@@ -187,6 +202,46 @@ namespace SMSPortalRepo
              user.Created_By = Convert.ToInt32(dr["Created_By"]);
              user.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
              user.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
+             user.Brand_Name = Convert.ToString(dr["Brand_Name"]);
+
+             return user;
+         }
+
+         private UserInfo Get_Users_Values_For_Order(DataRow dr)
+         {
+             UserInfo user = new UserInfo();
+
+             user.User_Id = Convert.ToInt32(dr["User_Id"]);
+
+             if (!dr.IsNull("User_Name"))
+                 user.First_Name = Convert.ToString(dr["First_Name"]);
+             user.Last_Name = Convert.ToString(dr["Last_Name"]);
+             user.Contact_No_1 = Convert.ToString(dr["Contact_No_1"]);
+             user.Contact_No_2 = Convert.ToString(dr["Contact_No_2"]);
+             if (!dr.IsNull("Email_Id"))
+                 user.Email_Id = Convert.ToString(dr["Email_Id"]);
+             user.Gender = Convert.ToInt32(dr["Gender"]);
+             user.User_Name = Convert.ToString(dr["User_Name"]);
+             if (!dr.IsNull("Password"))
+                 user.Password = Convert.ToString(dr["Password"]);
+             if (!dr.IsNull("Entity_Id"))
+                 user.Entity_Id = Convert.ToInt32(dr["Entity_Id"]);
+             user.Role_Id = Convert.ToInt32(dr["Role_Id"]);
+             user.Is_Active = Convert.ToBoolean(dr["Is_Active"]);
+             if (user.Is_Active == true)
+             {
+                 user.Status = "Active";
+             }
+             else
+             {
+                 user.Status = "InActive";
+             }
+             user.Created_On = Convert.ToDateTime(dr["Created_On"]);
+             user.Created_By = Convert.ToInt32(dr["Created_By"]);
+             user.Updated_On = Convert.ToDateTime(dr["Updated_On"]);
+             user.Updated_By = Convert.ToInt32(dr["Updated_By"]);
+
              return user;
          }
 
@@ -305,7 +360,7 @@ namespace SMSPortalRepo
              DataTable dt = _sqlHelper.ExecuteDataTable(parameters, StoreProcedures.Get_Users_By_Entity_Id_Sp.ToString(), CommandType.StoredProcedure);
              foreach (DataRow dr in dt.Rows)
              {
-                 user = Get_Users_Values(dr);
+                 user = Get_Users_Values_For_Order(dr);
              }
 
              return user;
@@ -393,10 +448,63 @@ namespace SMSPortalRepo
              user.User_Id = Convert.ToInt32(dr["User_Id"]);
              if (!dr.IsNull("Email_Id"))
                  user.Email_Id = Convert.ToString(dr["Email_Id"]);
+             if (!dr.IsNull("Brand_Name"))
+                 user.Brand_Name = Convert.ToString(dr["Brand_Name"]);
          
                  user.Pass_Token = Convert.ToString(dr["Pass_Token"]);
         
              return user;
+         }
+
+         public string Get_Role_Name(int role_Id, int entity_Id)
+         {
+             string BrandName = string.Empty;
+             try
+             {
+                 List<SqlParameter> sqlParamnew = new List<SqlParameter>();
+                 sqlParamnew.Add(new SqlParameter("@Role_Id", role_Id));
+                 sqlParamnew.Add(new SqlParameter("@Entity_Id", entity_Id));
+                 DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamnew, StoreProcedures.Get_Brand_Name_By_Entity_Id_sp.ToString(), CommandType.StoredProcedure);
+                 if (dt != null && dt.Rows.Count > 0)
+                 {
+                     DataRow dr = dt.AsEnumerable().FirstOrDefault();
+
+                     if (dr != null)
+                     {
+                         BrandName = Convert.ToString(dr["Brand_Name"]);
+                     }
+                 }
+             }
+             catch (Exception ex)
+             {
+                 Logger.Error("UserRepo - Set_User_Token_For_Cookies: " + ex.ToString());
+             }
+
+             return BrandName;
+         }
+
+         public int Get_Brand_Id_By_Entity_Id(int role_Id, int entity_Id)
+         {
+             int Brand_Id = 0;
+           
+               List<SqlParameter> sqlParamnew = new List<SqlParameter>();
+
+                 sqlParamnew.Add(new SqlParameter("@Role_Id", role_Id));
+                 sqlParamnew.Add(new SqlParameter("@Entity_Id", entity_Id));
+
+                 DataTable dt = _sqlHelper.ExecuteDataTable(sqlParamnew, StoreProcedures.Get_Brand_Id_By_Entity_Id_sp.ToString(), CommandType.StoredProcedure);
+                 if (dt != null && dt.Rows.Count > 0)
+                 {
+                     DataRow dr = dt.AsEnumerable().FirstOrDefault();
+
+                     if (dr != null)
+                     {
+                         Brand_Id = Convert.ToInt32(dr["Brand_Id"]);
+                     }
+                 }
+                 
+
+             return Brand_Id;
          }
 
 	}
